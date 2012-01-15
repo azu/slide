@@ -2,6 +2,16 @@
 
 ---
 
+# 自己紹介
+
+
+- Name : azu
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- <img src="simple320_320.png" />
+- Website: [Web scratch](http://efcl.info/ "Web scratch"), [JSer.info](http://jser.info/ "JSer.info"), [MemeTodo](http://meme.efcl.info/ "MemeTodo"), <a href="http://efcl.info/adiary/">prog*sig</a>
+
+---
+
 # テーマ
 
 ## 調べる方法を知る
