@@ -1,0 +1,98 @@
+/* Light Blue Skin */
+
+table#vsTable {
+    position: relative;
+    z-index: 2;
+    border: none;
+    border-bottom: 2px solid #C8D6E2;
+    border-collapse: collapse;
+    margin: 0 auto;
+    border-right: 1px solid #C8D6E2;
+    width: 100%;
+    font-size: 12px;
+}
+
+table#vsTable td {
+    padding: 10px 0;
+    border-bottom: 1px solid #C8D6E2;
+    border-right: 1px solid #C8D6E2;
+    vertical-align: middle;
+    text-align: center;
+    background: #F0F1F1;
+    color: #707070;
+}
+
+table#vsTable tr td div {
+    text-align: center;
+}
+
+table#vsTable tr td div.yes, table#vsTable tr td div.no, table#vsTable tr td div.partial {
+    height: 16px;
+}
+
+table#vsTable tr td.cat div, table#vsTable tr td.title div {
+    height: auto;
+}
+
+table#vsTable td.cat div {
+    text-align: left;
+    padding: 0 10px;
+}
+
+table#vsTable td.title {
+    background: #B8CEE2;
+    font-size: 16px;
+    color: #154064;
+    text-shadow: 1px 1px 0 #fff;
+    border: 1px solid #9FB6C8;
+    vertical-align: middle;
+    text-align: center;
+    box-shadow: 0px 0px 10px -4px #fff;
+}
+
+table#vsTable .cat {
+    text-align: left;
+    background: #F0F1F1;
+    color: #326693;
+    border-left: 1px solid #C8D6E2;
+}
+
+table#vsTable td.title.cat {
+    background: none !important;
+    border: none;
+    border-bottom: 1px solid #C8D6E2;
+    cursor: default !important;
+    box-shadow: none;
+}
+
+table#vsTable td.title.cat div {
+    display: none;
+}
+
+table#vsTable tr td.cat:hover {
+    background: #fff;
+}
+
+table#vsTable tr td.title:hover {
+    background: #C8D6E2;
+}
+
+table#vsTable tr td:hover {
+    background: #fff;
+}
+table#vsTable .title .editable input {
+    color: #154064;
+}
+
+table#vsTable .cat .editable input {
+    color: #326693;
+}
+
+table#vsTable .titleImage {
+    padding: 0;
+    margin: 0;
+    border: none;
+    width: 90%;
+    float: none;
+    height: auto;
+}
