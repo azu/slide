@@ -13,6 +13,12 @@
 
 ---
 
+# 出現ポイント
+
+- JavaScriptタグがついた場所
+
+---
+
 # WebStorm
 
 - Jetbrains製のIDE
@@ -70,4 +76,7 @@ e.g.) container.obj.publicMethod()の補完
 	};
 
 ---
+
+# おわり
+
 
