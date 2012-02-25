@@ -210,6 +210,38 @@ e.g.) container.obj.publicMethod()の補完
 	    };
 	    return manager;
 	})();
+---
+
+# ステートメント補完
+**Complete Current Statement**( Ctrl + Shift + Enter)
+
+現在いるステートメントを補完して終了する
+
+以下なら、セミコロンを補完
+
+	!javascript
+	var hoge = fuga || ''
+	// => After
+	var hoge = fuga || '';
+
+
+以下なら、{};を補完
+
+	!javascript
+	var fn = function () 
+	// => After
+	var fn = function () {
+		// |カーソル|
+	};
+
+以下なら、{}を補完
+
+	!javascript
+	if(typeof foo === "undefined")
+	// => After
+	if(typeof foo === "undefined"){
+		// |カーソル|
+	}
 
 ---
 
@@ -222,6 +254,8 @@ e.g.) container.obj.publicMethod()の補完
 	* JavaScriptのコードを書いて設定の“JavaScript Libraries”に追加するだけ		
 	* JSDocライクに属性を指定できる
 	* [WebStormのコード補完に新しく候補を追加する方法](http://efcl.info/2010/1203/res2152/ "WebStormのコード補完に新しく候補を追加する方法")
+* **Complete Current Statement**でステートメントを補完して完了できる
+	* ショートカットを叩くだけで、次のステートメントに入れるのでリズムができる
 
 ---
 

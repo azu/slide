@@ -1606,7 +1606,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              1/38
+              1/39
             </aside>
           </footer>
         </div>
@@ -1641,7 +1641,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              2/38
+              2/39
             </aside>
           </footer>
         </div>
@@ -1688,7 +1688,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              3/38
+              3/39
             </aside>
           </footer>
         </div>
@@ -1731,7 +1731,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              4/38
+              4/39
             </aside>
           </footer>
         </div>
@@ -1769,7 +1769,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              5/38
+              5/39
             </aside>
           </footer>
         </div>
@@ -1797,7 +1797,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              6/38
+              6/39
             </aside>
           </footer>
         </div>
@@ -1833,7 +1833,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              7/38
+              7/39
             </aside>
           </footer>
         </div>
@@ -1872,7 +1872,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              8/38
+              8/39
             </aside>
           </footer>
         </div>
@@ -1910,7 +1910,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              9/38
+              9/39
             </aside>
           </footer>
         </div>
@@ -1953,7 +1953,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              10/38
+              10/39
             </aside>
           </footer>
         </div>
@@ -1994,7 +1994,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              11/38
+              11/39
             </aside>
           </footer>
         </div>
@@ -2028,7 +2028,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              12/38
+              12/39
             </aside>
           </footer>
         </div>
@@ -2067,7 +2067,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              13/38
+              13/39
             </aside>
           </footer>
         </div>
@@ -2101,7 +2101,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              14/38
+              14/39
             </aside>
           </footer>
         </div>
@@ -2139,7 +2139,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              15/38
+              15/39
             </aside>
           </footer>
         </div>
@@ -2177,7 +2177,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              16/38
+              16/39
             </aside>
           </footer>
         </div>
@@ -2218,7 +2218,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              17/38
+              17/39
             </aside>
           </footer>
         </div>
@@ -2263,7 +2263,60 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              18/38
+              18/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: 00_webstorm.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>ステートメント補完</h1></header>
+            
+            
+            <section><p><strong>Complete Current Statement</strong>( Ctrl + Shift + Enter)</p>
+<p>現在いるステートメントを補完して終了する</p>
+<p>以下なら、セミコロンを補完</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">hoge</span> <span class="o">=</span> <span class="nx">fuga</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span>
+<span class="lineno">2</span> <span class="c1">// =&gt; After</span>
+<span class="lineno">3</span> <span class="kd">var</span> <span class="nx">hoge</span> <span class="o">=</span> <span class="nx">fuga</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p>以下なら、{};を補完</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> 
+<span class="lineno">2</span> <span class="c1">// =&gt; After</span>
+<span class="lineno">3</span> <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="lineno">4</span>     <span class="c1">// |カーソル|</span>
+<span class="lineno">5</span> <span class="p">};</span>
+</pre></div>
+
+<p>以下なら、{}を補完</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">foo</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span>
+<span class="lineno">2</span> <span class="c1">// =&gt; After</span>
+<span class="lineno">3</span> <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">foo</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">){</span>
+<span class="lineno">4</span>     <span class="c1">// |カーソル|</span>
+<span class="lineno">5</span> <span class="p">}</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="00_webstorm.md">00_webstorm.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/39
             </aside>
           </footer>
         </div>
@@ -2290,6 +2343,10 @@ $(window).load(function () {
 <li><a href="http://efcl.info/2010/1203/res2152/" title="WebStormのコード補完に新しく候補を追加する方法">WebStormのコード補完に新しく候補を追加する方法</a></li>
 </ul>
 </li>
+<li><strong>Complete Current Statement</strong>でステートメントを補完して完了できる<ul>
+<li>ショートカットを叩くだけで、次のステートメントに入れるのでリズムができる</li>
+</ul>
+</li>
 </ul></section>
             
           </div>
@@ -2306,7 +2363,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              19/38
+              20/39
             </aside>
           </footer>
         </div>
@@ -2341,7 +2398,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              20/38
+              21/39
             </aside>
           </footer>
         </div>
@@ -2379,7 +2436,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              21/38
+              22/39
             </aside>
           </footer>
         </div>
@@ -2418,7 +2475,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              22/38
+              23/39
             </aside>
           </footer>
         </div>
@@ -2594,7 +2651,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              23/38
+              24/39
             </aside>
           </footer>
         </div>
@@ -2629,7 +2686,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              24/38
+              25/39
             </aside>
           </footer>
         </div>
@@ -2662,7 +2719,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              25/38
+              26/39
             </aside>
           </footer>
         </div>
@@ -2700,7 +2757,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              26/38
+              27/39
             </aside>
           </footer>
         </div>
@@ -2788,7 +2845,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              27/38
+              28/39
             </aside>
           </footer>
         </div>
@@ -2833,7 +2890,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              28/38
+              29/39
             </aside>
           </footer>
         </div>
@@ -2866,7 +2923,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              29/38
+              30/39
             </aside>
           </footer>
         </div>
@@ -2905,7 +2962,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              30/38
+              31/39
             </aside>
           </footer>
         </div>
@@ -2945,7 +3002,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              31/38
+              32/39
             </aside>
           </footer>
         </div>
@@ -2979,7 +3036,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              32/38
+              33/39
             </aside>
           </footer>
         </div>
@@ -3007,7 +3064,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              33/38
+              34/39
             </aside>
           </footer>
         </div>
@@ -3047,7 +3104,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              34/38
+              35/39
             </aside>
           </footer>
         </div>
@@ -3091,7 +3148,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              35/38
+              36/39
             </aside>
           </footer>
         </div>
@@ -3132,7 +3189,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              36/38
+              37/39
             </aside>
           </footer>
         </div>
@@ -3174,7 +3231,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              37/38
+              38/39
             </aside>
           </footer>
         </div>
@@ -3202,7 +3259,7 @@ table.bigger {
             </aside>
             
             <aside class="page_number">
-              38/38
+              39/39
             </aside>
           </footer>
         </div>
@@ -3320,33 +3377,35 @@ table.bigger {
           <td><a href="#slide18">18</a></td>
         </tr>
         
-        <tr id="toc-row-19" class="sub">
-          <th><a href="#slide19">コード補完まとめ</a></th>
-          <td><a href="#slide19">19</a></td>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">ステートメント補完</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-20" class="sub">
+          <th><a href="#slide20">コード補完まとめ</a></th>
+          <td><a href="#slide20">20</a></td>
         </tr>
         
       
       
-      <tr id="toc-row-20">
-        <th><a href="#slide20"><strong>コード整形</strong>/コードスタイル</a></th>
-        <td><a href="#slide20">20</a></td>
-      </tr>
-      
-      
       <tr id="toc-row-21">
-        <th><a href="#slide21">コード整形/<strong>コードスタイル</strong></a></th>
+        <th><a href="#slide21"><strong>コード整形</strong>/コードスタイル</a></th>
         <td><a href="#slide21">21</a></td>
       </tr>
       
       
       <tr id="toc-row-22">
-        <th><a href="#slide22"><strong>Quick Fix</strong>/Refactor/Debugger</a></th>
+        <th><a href="#slide22">コード整形/<strong>コードスタイル</strong></a></th>
         <td><a href="#slide22">22</a></td>
       </tr>
       
       
       <tr id="toc-row-23">
-        <th><a href="#slide23">Quick Fix/<strong>Refactor</strong>/Debugger</a></th>
+        <th><a href="#slide23"><strong>Quick Fix</strong>/Refactor/Debugger</a></th>
         <td><a href="#slide23">23</a></td>
       </tr>
       
@@ -3358,34 +3417,35 @@ table.bigger {
       
       
       <tr id="toc-row-25">
-        <th><a href="#slide25">Quick Fix/Refactor/<strong>Debugger</strong></a></th>
+        <th><a href="#slide25">Quick Fix/<strong>Refactor</strong>/Debugger</a></th>
         <td><a href="#slide25">25</a></td>
       </tr>
       
       
       <tr id="toc-row-26">
-        <th><a href="#slide26">Code Inspections, JSLint, JSHint</a></th>
+        <th><a href="#slide26">Quick Fix/Refactor/<strong>Debugger</strong></a></th>
         <td><a href="#slide26">26</a></td>
       </tr>
       
-        
-        <tr id="toc-row-27" class="sub">
-          <th><a href="#slide27">Code Inspectionsの種類</a></th>
-          <td><a href="#slide27">27</a></td>
-        </tr>
-        
       
-      
-      <tr id="toc-row-28">
-        <th><a href="#slide28">バージョン管理連携</a></th>
-        <td><a href="#slide28">28</a></td>
+      <tr id="toc-row-27">
+        <th><a href="#slide27">Code Inspections, JSLint, JSHint</a></th>
+        <td><a href="#slide27">27</a></td>
       </tr>
       
         
-        <tr id="toc-row-29" class="sub">
-          <th><a href="#slide29">Git</a></th>
-          <td><a href="#slide29">29</a></td>
+        <tr id="toc-row-28" class="sub">
+          <th><a href="#slide28">Code Inspectionsの種類</a></th>
+          <td><a href="#slide28">28</a></td>
         </tr>
+        
+      
+      
+      <tr id="toc-row-29">
+        <th><a href="#slide29">バージョン管理連携</a></th>
+        <td><a href="#slide29">29</a></td>
+      </tr>
+      
         
         <tr id="toc-row-30" class="sub">
           <th><a href="#slide30">Git</a></th>
@@ -3393,50 +3453,55 @@ table.bigger {
         </tr>
         
         <tr id="toc-row-31" class="sub">
-          <th><a href="#slide31">Github連携</a></th>
+          <th><a href="#slide31">Git</a></th>
           <td><a href="#slide31">31</a></td>
         </tr>
         
         <tr id="toc-row-32" class="sub">
-          <th><a href="#slide32">Gist連携</a></th>
+          <th><a href="#slide32">Github連携</a></th>
           <td><a href="#slide32">32</a></td>
         </tr>
         
+        <tr id="toc-row-33" class="sub">
+          <th><a href="#slide33">Gist連携</a></th>
+          <td><a href="#slide33">33</a></td>
+        </tr>
+        
       
       
-      <tr id="toc-row-33">
-        <th><a href="#slide33">WebStorm 4 EAP</a></th>
-        <td><a href="#slide33">33</a></td>
+      <tr id="toc-row-34">
+        <th><a href="#slide34">WebStorm 4 EAP</a></th>
+        <td><a href="#slide34">34</a></td>
       </tr>
       
         
-        <tr id="toc-row-34" class="sub">
-          <th><a href="#slide34">ECMAScript 6 (Harmony)</a></th>
-          <td><a href="#slide34">34</a></td>
-        </tr>
-        
         <tr id="toc-row-35" class="sub">
-          <th><a href="#slide35">Project generation</a></th>
+          <th><a href="#slide35">ECMAScript 6 (Harmony)</a></th>
           <td><a href="#slide35">35</a></td>
         </tr>
         
-      
-      
-      <tr id="toc-row-36">
-        <th><a href="#slide36">最新のWebへの追従</a></th>
-        <td><a href="#slide36">36</a></td>
-      </tr>
+        <tr id="toc-row-36" class="sub">
+          <th><a href="#slide36">Project generation</a></th>
+          <td><a href="#slide36">36</a></td>
+        </tr>
+        
       
       
       <tr id="toc-row-37">
-        <th><a href="#slide37">WebStormの楽しさ</a></th>
+        <th><a href="#slide37">最新のWebへの追従</a></th>
         <td><a href="#slide37">37</a></td>
       </tr>
       
       
       <tr id="toc-row-38">
-        <th><a href="#slide38">Fin.</a></th>
+        <th><a href="#slide38">WebStormの楽しさ</a></th>
         <td><a href="#slide38">38</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-39">
+        <th><a href="#slide39">Fin.</a></th>
+        <td><a href="#slide39">39</a></td>
       </tr>
       
       
