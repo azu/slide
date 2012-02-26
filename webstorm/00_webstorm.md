@@ -34,15 +34,16 @@
 
 # アジェンダ
 
-> ここがすごいよ[WebStorm][]
+> ここがすごいよ [WebStorm][]
 
-* 最新のWebへの追従
 * 静的コード解析
 * 補完機能
 * コード整形/コードスタイル
 * Quick Fix/Refactor/Debugger
 	* Code Inspections, JSLint, JSHint
-* バージョン管理連携
+* バージョン管理システム連携
+	* Git,Github
+* 最新のWebへの追従
 
 ---
 
@@ -62,6 +63,8 @@
 ---
 
 ## 機能の検索
+
+**Find Action**(Ctrl+Shift+A)
 
 ![Find Action](https://img.skitch.com/20120225-xg6eaibi39qnfax7924jprqym9.png)
 
@@ -116,19 +119,24 @@ UIは英語だが、検索がよくできてるのでなんとかなることも
 
 ![preset](https://img.skitch.com/20120225-jt3ecew5dmppxxaqcs9diyj2b6.png)
 
-* デフォルトでプリセットがいくつか用意されいる
+* デフォルトでプリセットがいくつか用意されている
 	* マウスクリックなどに対しても動作を設定できる
 * Vim風の動作は[IdeaVIM](http://plugins.intellij.net/plugin/?id=164 "IdeaVIM")プラグインで
 	* 最近になって[JetBrains / ideavim](https://github.com/JetBrains/ideavim "JetBrains / ideavim")と公式プラグイン化
 * 設定(ショートカット以外も含めて)はExport/ImportでOSを超えた環境移行できる
 
 ---	
+
 # スライドの見方
 
 ![Screen Shot](https://img.skitch.com/20120225-xjt422pxfrrmeyu2c8guywwa8y.png)
 
 * スライドでは **コマンド名**(仮ショートカットキー) という表記をしてる
 * 環境(OSもある)によって違うので基本的にAction Nameベースで解説
+
+---
+
+# WebStorm Feature
 
 ---
 
@@ -158,8 +166,8 @@ UIは英語だが、検索がよくできてるのでなんとかなることも
 
 ![Jump to Source](https://img.skitch.com/20120225-qtgytxyhgq4b7mc8b4sq9dkq4.png)
 
-* 宣言した関数、変数へのジャンプ
-	* ファイル間を超える
+* カーソル位置にある関数や変数から、宣言してる場所までジャンプ
+	* ファイル間を超える宣言元へ移動できる
 * コード把握/コードリーディングに最適
 
 ---
@@ -170,8 +178,9 @@ UIは英語だが、検索がよくできてるのでなんとかなることも
 
 ![Find Usages](https://img.skitch.com/20120225-bxp7w9yjbrurpa277i54yiegya.png)
 
-* カーソル位置の変数や関数を利用している場所を一覧表示
+* 指定した変数や関数を利用している場所を一覧表示
 	* __Jump to Source__の逆の役割
+	* 静的コード解析の結果が利用されるので、単純な辞書検索ではない
 * 検索対象のスコープ(プロフジェクト/ファイル/ディレクトリ)を指定できる
 
 ---
