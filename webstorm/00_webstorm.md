@@ -625,6 +625,7 @@ WebStormが対応してるバージョン管理システム
 * 分割代入
 * let , const
 * for of
+* [Quasi-literals](http://www.2ality.com/2011/09/quasi-literals.html "Quasi-literals")
 
 > [ECMAScript 6 support in Mozilla - MDN](https://developer.mozilla.org/en/JavaScript/ECMAScript_6_support_in_Mozilla "ECMAScript 6 support in Mozilla - MDN")
 
@@ -642,6 +643,8 @@ WebStormが対応してるバージョン管理システム
 	* ファイル作成のテンプレート
 * Live Template
 	* コードに挿入するスニペット的なもの
+	* 応用でZen Cordingで実装されてる
+	* ![zen coding](https://img.skitch.com/20120226-rn4wt2cekaxu7wesygqyupchhx.png)
   
 ---
 
@@ -664,8 +667,9 @@ WebStormが対応してるバージョン管理システム
 	* Github連携
 	* Test,Code Coverageサポート
 		* 現在はJsTestDriverに対応している
-	* JSライブラリドキュメント表示
-* Webの流れは早いのでそれに対応していけるエディタ or IDEが必要
+	* JavaScriptライブラリのドキュメント表示
+* Webの流れは早いのでそれに対応していけるエディタ or IDEが求められる
+	* 
 
 ---
 
