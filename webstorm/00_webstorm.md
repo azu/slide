@@ -683,3 +683,15 @@ WebStormが対応してるバージョン管理システム
 ---
 
 # Fin.
+
+---
+
+# Slide Resources
+
+* [webstorm at gh-pages from azu/slide - GitHub](https://github.com/azu/slide/tree/gh-pages/webstorm "webstorm at gh-pages from azu/slide - GitHub")
+	* 本日のスライド
+	* mhtml風にリソースをhtmlにまとめてるので、オフラインでも見られる作り
+* [adamzap/landslide - GitHub](https://github.com/adamzap/landslide "adamzap/landslide - GitHub")
+	* [azu/landslide-theme - GitHub](https://github.com/azu/landslide-theme "azu/landslide-theme - GitHub")
+	* スライドジェネレーター
+* [Skitch](http://skitch.com/jp/ "Skitch")
