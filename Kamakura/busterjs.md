@@ -1,3 +1,7 @@
+# JavaScript Testing FrameworkのBusterJSを使う
+	
+---
+
 # 鎌倉BusterJS
 
 ---
@@ -54,6 +58,8 @@
 
 QUnitやJasmineのように静的なHTMLとしてテストを実行する`$ buster static`もあります
 
+* [Hands-on Unit Testing with Buster.JS](http://cjohansen.no/talks/2011/busterjs/#93 "Hands-on Unit Testing with Buster.JS")
+
 ---
 
 # BusterJS と JsTestDriver
@@ -89,6 +95,7 @@ BusterJSはドキュメントが多い
 	* これは色々参考にしたと言っていた
 * ✓ メソッドの命名規則(refuteとかで違う点はあるけど大体似てる)
 
+
 ---
 
 # 設定ファイル
@@ -113,6 +120,34 @@ BusterJSはドキュメントが多い
 
 ---
 
+
+# 基本的なテストの書き方
+
+* buster.testCaseで囲む
+* setUp,tearDown
+* `"テスト名" : function(){ /* test code */ }`
+
+strtime test
+
+
+ 	!javascript
+	buster.testCase("Date strftime test", {
+	    setUp: function () {
+	        this.date = new Date(2009, 2, 11);
+	    },
+	
+	    "%Y should be '2009'": function () {
+	        assert.equals(this.date.strftime("%Y"), "2009");
+	    },
+	
+	    "%y should be '09'": function () {
+	        assert.equals(this.date.strftime("%y"), "09");
+	    },
+	
+	    // ...
+	});
+
+---
 
 # assert vs refute
 

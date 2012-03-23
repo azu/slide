@@ -25,7 +25,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>鎌倉BusterJS</title>
+    <title>JavaScript Testing FrameworkのBusterJSを使う</title>
     <!-- Styles -->
     
     <style type="text/css" media="print">
@@ -944,7 +944,7 @@ div.slide div.presenter_notes {
     overflow-y: auto;
 }
 
-.slide p > code {
+.slide p > code,.slide li > code {
     background-color: #FEE9CC;
     color: rgba(0, 0, 0, 0.75);
     padding: 1px 3px;
@@ -1605,6 +1605,34 @@ $(window).load(function () {
         <div class="slide">
           <div class="inner">
             
+            <header><h1>JavaScript Testing FrameworkのBusterJSを使う</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="busterJS.md">busterJS.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/30
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: busterJS.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
             <header><h1>鎌倉BusterJS</h1></header>
             
             
@@ -1622,7 +1650,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              1/28
+              2/30
             </aside>
           </footer>
         </div>
@@ -1657,7 +1685,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              2/28
+              3/30
             </aside>
           </footer>
         </div>
@@ -1698,7 +1726,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              3/28
+              4/30
             </aside>
           </footer>
         </div>
@@ -1741,7 +1769,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              4/28
+              5/30
             </aside>
           </footer>
         </div>
@@ -1768,7 +1796,10 @@ $(window).load(function () {
 </li>
 <li><code>$ buster test</code> でconfigを元にファイルを読み込んでテストを実行 </li>
 </ol>
-<p>QUnitやJasmineのように静的なHTMLとしてテストを実行する<code>$ buster static</code>もあります</p></section>
+<p>QUnitやJasmineのように静的なHTMLとしてテストを実行する<code>$ buster static</code>もあります</p>
+<ul>
+<li><a href="http://cjohansen.no/talks/2011/busterjs/#93" title="Hands-on Unit Testing with Buster.JS">Hands-on Unit Testing with Buster.JS</a></li>
+</ul></section>
             
           </div>
           <div class="presenter_notes">
@@ -1784,7 +1815,7 @@ $(window).load(function () {
             </aside>
             
             <aside class="page_number">
-              5/28
+              6/30
             </aside>
           </footer>
         </div>
@@ -1833,7 +1864,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              6/28
+              7/30
             </aside>
           </footer>
         </div>
@@ -1869,7 +1900,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              7/28
+              8/30
             </aside>
           </footer>
         </div>
@@ -1916,7 +1947,59 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              8/28
+              9/30
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: busterJS.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>基本的なテストの書き方</h1></header>
+            
+            
+            <section><ul>
+<li>buster.testCaseで囲む</li>
+<li>setUp,tearDown</li>
+<li><code>"テスト名" : function(){ /* test code */ }</code></li>
+</ul>
+<p>strtime test</p>
+<div class="highlight"><pre><span class="nx">buster</span><span class="p">.</span><span class="nx">testCase</span><span class="p">(</span><span class="s2">&quot;Date strftime test&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">setUp</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="s2">&quot;%Y should be &#39;2009&#39;&quot;</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">equals</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">),</span> <span class="s2">&quot;2009&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="s2">&quot;%y should be &#39;09&#39;&quot;</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">equals</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">strftime</span><span class="p">(</span><span class="s2">&quot;%y&quot;</span><span class="p">),</span> <span class="s2">&quot;09&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="c1">// ...</span>
+<span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="busterJS.md">busterJS.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/30
             </aside>
           </footer>
         </div>
@@ -1960,7 +2043,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              9/28
+              11/30
             </aside>
           </footer>
         </div>
@@ -2002,7 +2085,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              10/28
+              12/30
             </aside>
           </footer>
         </div>
@@ -2064,7 +2147,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              11/28
+              13/30
             </aside>
           </footer>
         </div>
@@ -2108,7 +2191,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              12/28
+              14/30
             </aside>
           </footer>
         </div>
@@ -2155,7 +2238,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              13/28
+              15/30
             </aside>
           </footer>
         </div>
@@ -2199,7 +2282,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              14/28
+              16/30
             </aside>
           </footer>
         </div>
@@ -2250,7 +2333,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              15/28
+              17/30
             </aside>
           </footer>
         </div>
@@ -2304,7 +2387,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              16/28
+              18/30
             </aside>
           </footer>
         </div>
@@ -2361,7 +2444,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              17/28
+              19/30
             </aside>
           </footer>
         </div>
@@ -2408,7 +2491,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              18/28
+              20/30
             </aside>
           </footer>
         </div>
@@ -2454,7 +2537,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              19/28
+              21/30
             </aside>
           </footer>
         </div>
@@ -2492,7 +2575,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              20/28
+              22/30
             </aside>
           </footer>
         </div>
@@ -2553,7 +2636,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              21/28
+              23/30
             </aside>
           </footer>
         </div>
@@ -2597,7 +2680,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              22/28
+              24/30
             </aside>
           </footer>
         </div>
@@ -2642,7 +2725,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              23/28
+              25/30
             </aside>
           </footer>
         </div>
@@ -2687,7 +2770,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              24/28
+              26/30
             </aside>
           </footer>
         </div>
@@ -2738,7 +2821,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              25/28
+              27/30
             </aside>
           </footer>
         </div>
@@ -2772,7 +2855,7 @@ BusterJSは<code>refute</code>メソッドを使う</p>
             </aside>
             
             <aside class="page_number">
-              26/28
+              28/30
             </aside>
           </footer>
         </div>
@@ -2818,7 +2901,7 @@ Working Directory: $FileDir$
             </aside>
             
             <aside class="page_number">
-              27/28
+              29/30
             </aside>
           </footer>
         </div>
@@ -2857,7 +2940,7 @@ Working Directory: $FileDir$
             </aside>
             
             <aside class="page_number">
-              28/28
+              30/30
             </aside>
           </footer>
         </div>
@@ -2872,175 +2955,187 @@ Working Directory: $FileDir$
       <caption>Table of Contents</caption>
       
       <tr id="toc-row-1">
-        <th><a href="#slide1">鎌倉BusterJS</a></th>
+        <th><a href="#slide1">JavaScript Testing FrameworkのBusterJSを使う</a></th>
         <td><a href="#slide1">1</a></td>
       </tr>
       
       
       <tr id="toc-row-2">
-        <th><a href="#slide2">自己紹介</a></th>
+        <th><a href="#slide2">鎌倉BusterJS</a></th>
         <td><a href="#slide2">2</a></td>
       </tr>
       
       
       <tr id="toc-row-3">
-        <th><a href="#slide3"><a href="http://busterjs.org/" title="Buster.JS">BusterJS</a>とは</a></th>
+        <th><a href="#slide3">自己紹介</a></th>
         <td><a href="#slide3">3</a></td>
       </tr>
       
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4"><a href="http://busterjs.org/" title="Buster.JS">BusterJS</a>とは</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
         
-        <tr id="toc-row-4" class="sub">
-          <th><a href="#slide4">BusterJSの今</a></th>
-          <td><a href="#slide4">4</a></td>
+        <tr id="toc-row-5" class="sub">
+          <th><a href="#slide5">BusterJSの今</a></th>
+          <td><a href="#slide5">5</a></td>
         </tr>
         
-      
-      
-      <tr id="toc-row-5">
-        <th><a href="#slide5">BusterJSのテスト実行手順</a></th>
-        <td><a href="#slide5">5</a></td>
-      </tr>
       
       
       <tr id="toc-row-6">
-        <th><a href="#slide6">BusterJS と JsTestDriver</a></th>
+        <th><a href="#slide6">BusterJSのテスト実行手順</a></th>
         <td><a href="#slide6">6</a></td>
       </tr>
       
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">BusterJS と JsTestDriver</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
         
-        <tr id="toc-row-7" class="sub">
-          <th><a href="#slide7">類似点</a></th>
-          <td><a href="#slide7">7</a></td>
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">類似点</a></th>
+          <td><a href="#slide8">8</a></td>
         </tr>
         
       
       
-      <tr id="toc-row-8">
-        <th><a href="#slide8">設定ファイル</a></th>
-        <td><a href="#slide8">8</a></td>
-      </tr>
-      
-      
       <tr id="toc-row-9">
-        <th><a href="#slide9">assert vs refute</a></th>
+        <th><a href="#slide9">設定ファイル</a></th>
         <td><a href="#slide9">9</a></td>
       </tr>
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">BDD Syntax</a></th>
+        <th><a href="#slide10">基本的なテストの書き方</a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
       
       <tr id="toc-row-11">
-        <th><a href="#slide11">testCaseのネスト</a></th>
+        <th><a href="#slide11">assert vs refute</a></th>
         <td><a href="#slide11">11</a></td>
       </tr>
       
-        
-        <tr id="toc-row-12" class="sub">
-          <th><a href="#slide12">実行結果</a></th>
-          <td><a href="#slide12">12</a></td>
-        </tr>
-        
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">BDD Syntax</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13">コンソールAPI</a></th>
+        <th><a href="#slide13">testCaseのネスト</a></th>
         <td><a href="#slide13">13</a></td>
       </tr>
       
         
         <tr id="toc-row-14" class="sub">
-          <th><a href="#slide14">コンソール出力の整形</a></th>
+          <th><a href="#slide14">実行結果</a></th>
           <td><a href="#slide14">14</a></td>
         </tr>
         
       
       
       <tr id="toc-row-15">
-        <th><a href="#slide15">テスト結果の出力形式</a></th>
+        <th><a href="#slide15">コンソールAPI</a></th>
         <td><a href="#slide15">15</a></td>
       </tr>
       
-      
-      <tr id="toc-row-16">
-        <th><a href="#slide16">非同期テスト</a></th>
-        <td><a href="#slide16">16</a></td>
-      </tr>
-      
         
-        <tr id="toc-row-17" class="sub">
-          <th><a href="#slide17">非同期テスト - Promiss</a></th>
-          <td><a href="#slide17">17</a></td>
-        </tr>
-        
-        <tr id="toc-row-18" class="sub">
-          <th><a href="#slide18">When.js</a></th>
-          <td><a href="#slide18">18</a></td>
+        <tr id="toc-row-16" class="sub">
+          <th><a href="#slide16">コンソール出力の整形</a></th>
+          <td><a href="#slide16">16</a></td>
         </tr>
         
       
       
-      <tr id="toc-row-19">
-        <th><a href="#slide19">Sinon.js</a></th>
-        <td><a href="#slide19">19</a></td>
+      <tr id="toc-row-17">
+        <th><a href="#slide17">テスト結果の出力形式</a></th>
+        <td><a href="#slide17">17</a></td>
       </tr>
       
       
-      <tr id="toc-row-20">
-        <th><a href="#slide20">testbed</a></th>
-        <td><a href="#slide20">20</a></td>
+      <tr id="toc-row-18">
+        <th><a href="#slide18">非同期テスト</a></th>
+        <td><a href="#slide18">18</a></td>
       </tr>
       
         
-        <tr id="toc-row-21" class="sub">
-          <th><a href="#slide21">テストを実行する場所</a></th>
-          <td><a href="#slide21">21</a></td>
+        <tr id="toc-row-19" class="sub">
+          <th><a href="#slide19">非同期テスト - Promiss</a></th>
+          <td><a href="#slide19">19</a></td>
         </tr>
         
+        <tr id="toc-row-20" class="sub">
+          <th><a href="#slide20">When.js</a></th>
+          <td><a href="#slide20">20</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">Sinon.js</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
       
       
       <tr id="toc-row-22">
-        <th><a href="#slide22">BusterJSの拡張</a></th>
+        <th><a href="#slide22">testbed</a></th>
         <td><a href="#slide22">22</a></td>
       </tr>
       
-      
-      <tr id="toc-row-23">
-        <th><a href="#slide23">BusterJSの拡張紹介</a></th>
-        <td><a href="#slide23">23</a></td>
-      </tr>
+        
+        <tr id="toc-row-23" class="sub">
+          <th><a href="#slide23">テストを実行する場所</a></th>
+          <td><a href="#slide23">23</a></td>
+        </tr>
+        
       
       
       <tr id="toc-row-24">
-        <th><a href="#slide24">Editor Integrate</a></th>
+        <th><a href="#slide24">BusterJSの拡張</a></th>
         <td><a href="#slide24">24</a></td>
       </tr>
       
       
       <tr id="toc-row-25">
-        <th><a href="#slide25">WebStorm Integrate</a></th>
+        <th><a href="#slide25">BusterJSの拡張紹介</a></th>
         <td><a href="#slide25">25</a></td>
       </tr>
       
+      
+      <tr id="toc-row-26">
+        <th><a href="#slide26">Editor Integrate</a></th>
+        <td><a href="#slide26">26</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-27">
+        <th><a href="#slide27">WebStorm Integrate</a></th>
+        <td><a href="#slide27">27</a></td>
+      </tr>
+      
         
-        <tr id="toc-row-26" class="sub">
-          <th><a href="#slide26">External Tools</a></th>
-          <td><a href="#slide26">26</a></td>
+        <tr id="toc-row-28" class="sub">
+          <th><a href="#slide28">External Tools</a></th>
+          <td><a href="#slide28">28</a></td>
         </tr>
         
-        <tr id="toc-row-27" class="sub">
-          <th><a href="#slide27">External Tools for BusterJS</a></th>
-          <td><a href="#slide27">27</a></td>
+        <tr id="toc-row-29" class="sub">
+          <th><a href="#slide29">External Tools for BusterJS</a></th>
+          <td><a href="#slide29">29</a></td>
         </tr>
         
       
       
-      <tr id="toc-row-28">
-        <th><a href="#slide28">感想</a></th>
-        <td><a href="#slide28">28</a></td>
+      <tr id="toc-row-30">
+        <th><a href="#slide30">感想</a></th>
+        <td><a href="#slide30">30</a></td>
       </tr>
       
       
