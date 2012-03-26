@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>モジュール管理</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="file:///Users/azu/.pythonbrew/pythons/Python-2.7.2/lib/python2.7/site-packages/landslide/themes/default/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="file:///Users/azu/.pythonbrew/pythons/Python-2.7.2/lib/python2.7/site-packages/landslide/themes/default/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="file:///Users/azu/.pythonbrew/pythons/Python-2.7.2/lib/python2.7/site-packages/landslide/themes/default/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: ./01requirejs.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>モジュール管理</h1></header>
+            
+            
+            <section><p>モジュール管理はモジュールローダーライブラリを<a href="http://requirejs.org/" title="RequireJS">RequireJS</a>を利用</p>
+<ul>
+<li><a href="http://requirejs.org/" title="RequireJS">RequireJS</a><ul>
+<li>JavaScriptの依存性解決をしてくれるライブラリ</li>
+<li>AMDに則ったモジュールローダーライブラリ</li>
+<li><a href="http://www.slideshare.net/JulienZee/parisjs-10-requirejs-9111799" title="ParisJS #10 : RequireJS">ParisJS #10 : RequireJS</a>
+-<a href="http://d.hatena.ne.jp/monjudoh/20101109/1289288066" title="RequireJS moduleについて - 文殊堂">RequireJS moduleについて - 文殊堂</a></li>
+<li><a href="http://d.hatena.ne.jp/monjudoh/20110128/1296205331" title="BPStudy#41 RequireJSとeventとUIコンポーネント - 文殊堂">BPStudy#41 RequireJSとeventとUIコンポーネント - 文殊堂</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/jrburke/requirejs/wiki/Plugins" title="Plugins">Plugins</a><ul>
+<li>text,json,images,i18n ...</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./01requirejs.md">./01requirejs.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./01requirejs.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>AMD</h1></header>
+            
+            
+            <section><ul>
+<li>AMD(Asynchronous Module Definition)とは<ul>
+<li><a href="http://addyosmani.com/writing-modular-js/" title="Writing Modular JavaScript With AMD, CommonJS &amp;amp; ES Harmony">Writing Modular JavaScript With AMD, CommonJS &amp; ES Harmony</a></li>
+<li>モジュール(jsファイル)をScriptタグで追加して読み込む</li>
+<li>jQuery 1.7, Underscore.js 1.2.1などAMDモジュールとして読み込みに対応してるライブラリが増えている</li>
+</ul>
+</li>
+</ul>
+<p><strong>モジュールの定義方法</strong></p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nx">define</span><span class="p">(</span>
+<span class="lineno">2</span>     <span class="nx">module_id</span> <span class="cm">/*optional*/</span><span class="p">,</span>
+<span class="lineno">3</span>     <span class="p">[</span><span class="nx">dependencies</span><span class="p">]</span> <span class="cm">/*optional*/</span><span class="p">,</span>
+<span class="lineno">4</span>     <span class="nx">definition</span> <span class="kd">function</span> <span class="cm">/*関数 or オブジェクト*/</span>
+<span class="lineno">5</span> <span class="p">);</span>
+</pre></div>
+
+<p><strong>モジュールの利用方法</strong></p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nx">require</span><span class="p">([</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">bar</span> <span class="p">)</span> <span class="p">{</span>
+<span class="lineno">2</span>     <span class="c1">// rest of your code here</span>
+<span class="lineno">3</span>     <span class="nx">foo</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">();</span>
+<span class="lineno">4</span> <span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./01requirejs.md">./01requirejs.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./01requirejs.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>問題点</h1></header>
+            
+            
+            <section><ul>
+<li><a href="http://ss-o.net/event/js20110128/" title="マスタリング非同期読み込み BPStudy#41">マスタリング非同期読み込み BPStudy#41</a></li>
+</ul>
+<blockquote>
+<p>RequireJSは使えば使うほどファイルが細分化され、しかも非同期読み込みができなくなっていくという問題を抱えている</p>
+</blockquote>
+<p><strong>解決方法</strong></p>
+<ul>
+<li>RequireJS用のビルドツール<a href="https://github.com/jrburke/r.js" title="r.js">r.js</a>を使う<ul>
+<li>ファイルが一つにまとまる</li>
+<li>RequireJSの利用を決定した要因</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./01requirejs.md">./01requirejs.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./01requirejs.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="https://github.com/jrburke/r.js" title="r.js">r.js</a>での結合</h1></header>
+            
+            
+            <section><ul>
+<li>node.js or Javaでの実行環境がある<ul>
+<li>どのOSでも動かせるはず</li>
+</ul>
+</li>
+<li>コンフィグファイルを書いて、r.jsでビルド<ul>
+<li>依存関係を指定してファイルの結合(include/exclude)</li>
+<li>Closure Compiler or uglifyJSで最適化</li>
+</ul>
+</li>
+<li><a href="https://github.com/jrburke/r.js/blob/master/build/example.build.js" title="build/example.build.js - GitHub">build/example.build.js at master from jrburke/r.js - GitHub</a><blockquote>r.js -o path/to/app.config.js</blockquote>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./01requirejs.md">./01requirejs.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./01requirejs.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>MVC?</h1></header>
+            
+            
+            <section><ul>
+<li>Model-View-Controller</li>
+<li><a href="https://gist.github.com/1362110" title="サバクラ両方で動く JavaScript の大規模開発を行うために — Gist">サバクラ両方で動く JavakScript の大規模開発を行うために — Gist</a></li>
+<li><a href="http://verekia.com/requirejs/build-simple-client-side-mvc-app-require-js" title="Build a simple client-side MVC app with RequireJS | @verekia's blog">Build a simple client-side MVC app with RequireJS | @verekia's blog</a><ul>
+<li>1 controller = 1 view </li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./01requirejs.md">./01requirejs.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>テスト</h1></header>
+            
+            
+            <section><p>プログラミングミスを発見したら</p>
+<ul>
+<li>まずはその失敗するテストケースを書く</li>
+<li>コードを修正する</li>
+<li>テストがグリーン</li>
+</ul>
+<p>https://twitter.com/#!/dekokun/status/140428178211602434</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g)レガシーなモジュール</h1></header>
+            
+            
+            <section><ul>
+<li>最初はレガシーな感じのモジュール</li>
+<li>後でリファクタリングする予定だった</li>
+</ul>
+<p>sampleモジュール</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nx">define</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="lineno">2</span>     <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="lineno">3</span>     <span class="c1">// pos+2番目の文字列を取り出すメソッド</span>
+<span class="lineno">4</span>     <span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">pos</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">5</span>         <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">pos</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="c1">// 0,1,2...</span>
+<span class="lineno">6</span>     <span class="p">}</span>
+<span class="lineno">7</span>     <span class="k">return</span> <span class="nx">module</span><span class="p">;</span>
+<span class="lineno">8</span> <span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g)テストコード</h1></header>
+            
+            
+            <section><p>パスしていたsampleモジュールテストコード</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nx">define</span><span class="p">([</span><span class="s2">&quot;src/sample&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">2</span>     <span class="nx">test</span><span class="p">(</span><span class="s2">&quot;getCharacterAt&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="lineno">3</span>         <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;STRING&quot;</span><span class="p">;</span>
+<span class="lineno">4</span>         <span class="nx">equal</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;T&quot;</span><span class="p">);</span>
+<span class="lineno">5</span>         <span class="nx">equal</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;I&quot;</span><span class="p">);</span>
+<span class="lineno">6</span>         <span class="nx">equal</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;G&quot;</span><span class="p">);</span>
+<span class="lineno">7</span>     <span class="p">});</span>
+<span class="lineno">8</span> <span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g)実際に呼び出すときにのコード</h1></header>
+            
+            
+            <section><ul>
+<li>sampleモジュールを使用時のコード</li>
+<li>第二引数に<strong>文字列</strong>で数値を指定していた</li>
+</ul>
+<p>この時は偶然にも想定した動作になっていた</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nx">define</span><span class="p">([</span><span class="s2">&quot;src/sample&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">2</span>     <span class="kd">var</span> <span class="kr">char</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">);</span>
+<span class="lineno">3</span>     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kr">char</span><span class="p">);</span><span class="c1">// R</span>
+<span class="lineno">4</span> <span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g)リファクタリングしたモジュール</h1></header>
+            
+            
+            <section><ul>
+<li>charAtで書き換えた</li>
+<li>先ほどのテストコードはパスする</li>
+</ul>
+<p>書き換えたモジュール</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nx">define</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="lineno">2</span>     <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="lineno">3</span>     <span class="c1">// pos + 2番目</span>
+<span class="lineno">4</span>     <span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">pos</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">5</span>         <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="lineno">6</span>     <span class="p">}</span>
+<span class="lineno">7</span>     <span class="k">return</span> <span class="nx">module</span><span class="p">;</span>
+<span class="lineno">8</span> <span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g) 実際の実行結果は?</h1></header>
+            
+            
+            <section><ul>
+<li>おかしな返り値になっていた</li>
+<li>テストが網羅できてない範囲のバグあった</li>
+</ul>
+<p>getCharacterAtの第ニ引数に文字列で値をしてみると…</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">);</span>
+<span class="lineno">2</span> <span class="c1">// (an empty string) 空文字</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g)原因</h1></header>
+            
+            
+            <section><p>文字列 + 数値 =&gt; 結合された文字列</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="s2">&quot;STRING&quot;</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c1">// T</span>
+<span class="lineno">2</span> <span class="s2">&quot;STRING&quot;</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span><span class="c1">// empty string</span>
+<span class="lineno">3</span> <span class="c1">// &quot;1&quot;+1 =&gt; &quot;11&quot;</span>
+</pre></div>
+
+<p>対策</p>
+<ul>
+<li>引数を数値に変換してから加算する</li>
+<li>引数が数値な場合だけ受け入れる</li>
+</ul>
+<p>など</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g)コードの修正 の前に テストの修正</h1></header>
+            
+            
+            <section><ul>
+<li>コード修正の前に、失敗するテストケースを追加する</li>
+<li>テストを実行 -&gt; レッド になるのが正しい!</li>
+</ul>
+<p>テストモジュール</p>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="nx">define</span><span class="p">([</span><span class="s2">&quot;src/sample&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 2</span>     <span class="nx">test</span><span class="p">(</span><span class="s2">&quot;getCharacterAt&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="lineno"> 3</span>         <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;STRING&quot;</span><span class="p">;</span>
+<span class="lineno"> 4</span>         <span class="nx">equal</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;T&quot;</span><span class="p">);</span>
+<span class="lineno"> 5</span>         <span class="nx">equal</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;I&quot;</span><span class="p">);</span>
+<span class="lineno"> 6</span>         <span class="nx">equal</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;G&quot;</span><span class="p">);</span>
+<span class="lineno"> 7</span>         <span class="c1">// 第2引数が文字列の時は失敗 -&gt; 第2引数は数値のみ受け入れる</span>
+<span class="lineno"> 8</span>         <span class="nx">notEqual</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">),</span> <span class="s2">&quot;T&quot;</span><span class="p">);</span>
+<span class="lineno"> 9</span>     <span class="p">});</span>
+<span class="lineno">10</span> <span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>e.g)テストを追加-&gt;コードを修正</h1></header>
+            
+            
+            <section><p>追加したテストに合わせた実装に変更する</p>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="nx">define</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="lineno"> 2</span>     <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="lineno"> 3</span>     <span class="nx">module</span><span class="p">.</span><span class="nx">getCharacterAt</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">pos</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 4</span>         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">pos</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span> <span class="o">&amp;&amp;</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">pos</span><span class="p">)))</span> <span class="p">{</span>
+<span class="lineno"> 5</span>             <span class="k">return</span><span class="p">;</span><span class="c1">// 第ニ引数が数値でないなら中止</span>
+<span class="lineno"> 6</span>         <span class="p">}</span>
+<span class="lineno"> 7</span>         <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="lineno"> 8</span>     <span class="p">}</span>
+<span class="lineno"> 9</span>     <span class="k">return</span> <span class="nx">module</span><span class="p">;</span>
+<span class="lineno">10</span> <span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./02js_testing.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>まとめ</h1></header>
+            
+            
+            <section><ul>
+<li>TDDにおけるバグの修正<ul>
+<li>バグを再現するテスト</li>
+<li>テストがレッドになることを確認</li>
+<li>コードを修正</li>
+<li>テストがグリーンになることを確認</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./02js_testing.md">./02js_testing.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">モジュール管理</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">AMD</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">問題点</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4"><a href="https://github.com/jrburke/r.js" title="r.js">r.js</a>での結合</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">MVC?</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">テスト</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">e.g)レガシーなモジュール</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">e.g)テストコード</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">e.g)実際に呼び出すときにのコード</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">e.g)リファクタリングしたモジュール</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">e.g) 実際の実行結果は?</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">e.g)原因</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">e.g)コードの修正 の前に テストの修正</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">e.g)テストを追加-&gt;コードを修正</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">まとめ</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
