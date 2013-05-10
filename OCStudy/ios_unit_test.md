@@ -314,8 +314,7 @@ TDDのスクリーンキャスト
     - Categoryのoverwriteチェック
     - xctoolを使っての実行
       OBJC_PRINT_REPLACED_METHOD でのカテゴリ衝突
-
-      http://blog.clickablebliss.com/2010/01/19/finding-colliding-cate
+	- http://blog.clickablebliss.com/2010/01/19/finding-colliding-cate
       gory-methods/
 
 - アプリケーションテストで端末特有の動作を見る
@@ -338,6 +337,7 @@ TDDのスクリーンキャスト
 
 ---
 
+# おわり
 
 [Kiwi]: https://github.com/allending/Kiwi  "allending/Kiwi · GitHub"
 [GHUnit]: https://github.com/gabriel/gh-unit  "gabriel/gh-unit · GitHub"
