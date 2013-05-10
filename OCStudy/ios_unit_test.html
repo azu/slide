@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+
+    <title>iOS Unit Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Styles -->
+    
+    <style type="text/css" media="print">
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: landscape;
+}
+
+body {
+    font: 100% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+div.slide {
+    min-width: 800px;
+    min-height: 600px;
+    padding: 1em;
+    overflow: hidden;
+    page-break-after: always;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+div.slide div.inner {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    display: table-cell;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h3 {
+    margin: 1em 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+p, li, pre {
+    margin: 1em 0;
+}
+
+li {
+    margin-left: 2em;
+}
+
+a {
+    color: #000000;
+}
+
+pre, code {
+    max-width: 800px;
+    background: #eee;
+    font-family: Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    padding: .2em .5em;
+    overflow: hidden;
+}
+
+code {
+    padding: 0 .2em;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 600px;
+  width: 800px;
+  font-size: 48px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+#toc, #help, .slide aside, .slide footer, .slide .notes,
+.presenter_notes, #current_presenter_notes, #presenter_note {
+  display: none;
+}
+
+    </style>
+    <style type="text/css" media="screen, projection">
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  background: #778;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+div.presentation {
+  position: absolute;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  background: inherit;
+}
+
+div.presentation > h1 {
+  display: none;
+}
+
+div.slides, body.expose div.slides.nocontext {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: block;
+}
+
+div.slides.nocontext {
+  width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  left: auto;
+  top: auto;
+}
+
+div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  width: 900px;
+  height: 700px;
+  margin-top: -350px;
+  margin-left: -400px;
+  left: 50%;
+  top: 50%;
+/*
+  background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#fff));
+  background: -moz-linear-gradient(bottom, #eee, #fff);
+*/
+  background-color: white;
+  -webkit-transition: margin 0.25s ease-in-out;
+  -moz-transition: margin 0.25s ease-in-out;
+  -o-transition: margin 0.25s ease-in-out;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+}
+
+/* Expose */
+
+body.expose div.slides {
+  float: left;
+  position: relative;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+body.expose div.slide {
+  display: block;
+  float: left;
+  position: relative;
+  left: auto !important;
+  top: auto !important;
+  margin: 10px !important;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -moz-transform: scale(.33, .33);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.33, .33);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.33, .33);
+  -o-transform-origin: 0 0;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+  cursor: pointer;
+}
+
+body.expose div.slide:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #bdd, #fff);
+}
+
+body.expose .slide-wrapper {
+  float: left;
+  position: relative;
+  margin: .5%;
+  width: 300px;
+  height: 233px;
+}
+
+body.expose .slide footer {
+}
+
+body.expose .slide .inner {
+}
+
+body.expose .slide.far-past,
+body.expose .slide.past,
+body.expose .slide.future,
+body.expose .slide.far-future {
+  margin-left: 0;
+}
+
+body.expose .slide.current {
+  background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #ddb, #fff);
+  border: 16px solid #fff;
+  -moz-transform: scale(.315, .315);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.315, .315);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.315, .315);
+  -o-transform-origin: 0 0;
+  transform: scale(.315, .315);
+  transform-origin: 0 0;
+
+}
+
+/* Presenter Mode */
+
+body.presenter_view div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  -moz-transform: scale(.5, .5);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.5, .5);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.5, .5);
+  -o-transform-origin: 0 0;
+  transform: scale(.5, .5);
+  transform-origin: 0 0;
+    margin-top: -300px;
+}
+
+body.presenter_view .slide.far-past {
+  display: block;
+  margin-left: -1500px;
+}
+
+body.presenter_view .slide.past {
+  display: block;
+  margin-left: -975px;
+}
+
+body.presenter_view .slide.current {
+  display: block;
+  margin-left: -475px;
+  border: 8px solid maroon;
+  z-index: 2;
+}
+
+body.presenter_view .slide.future {
+  display: block;
+  margin-left: 25px;
+  z-index: 1;
+}
+
+body.presenter_view .slide.far-future {
+  display: block;
+  margin-left: 525px;
+}
+
+body.presenter_view div#current_presenter_notes {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    overflow: auto;
+    vertical-align: middle;
+    left: 50%;
+    top: 50%;
+    margin-left: -475px;
+    margin-top: 100px;
+    z-index: 2;
+    width: 950px;
+    border-style: solid;
+    height: 30%;
+    background-color: silver;
+}
+
+body.presenter_view div#current_presenter_notes section {
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  display: block;
+  overflow: visible;
+    position: relative;
+    background-color: #fffeff;
+    height: 120px;
+    margin-right: 30px;
+    margin-top: 60px;
+    margin-left: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+body.presenter_view div#current_presenter_notes section p {
+    margin: 0;
+}
+
+body.presenter_view div#current_presenter_notes h1 {
+    font-size: 50%;
+    display: block;
+}
+
+div#current_presenter_notes {
+  display: none;
+}
+
+div.slide div.presenter_notes, div.slides div.presenter_notes {
+  display: none;
+}
+
+/* Slide styles */
+
+div.slide p {
+  font-size: 20px;
+}
+
+.slide.far-past {
+  display: block;
+  margin-left: -2400px;
+}
+
+.slide.past {
+  display: block;
+  margin-left: -1400px;
+}
+
+.slide.current {
+  display: block;
+  margin-left: -450px;
+}
+
+.slide.future {
+  display: block;
+  margin-left: 500px;
+}
+
+.slide.far-future {
+  display: block;
+  margin-left: 1500px;
+}
+
+body.three-d div.slides {
+  -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  transform: translateX(50px) scale(0.8) rotateY(10deg);
+}
+
+
+/* Content */
+header:not(:only-child) {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 50px;
+  letter-spacing: -.05em;
+  color: #515151;
+  /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+  display: inline;
+  font-size: 100%;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+header h2:first-child {
+  margin-top: 0;
+}
+
+section, .slide header:only-child h1 {
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: #515151;
+  /* color: #3f3f3f; */
+  /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 100px;
+  display: block;
+  overflow: hidden;
+}
+
+img { display: block; margin: auto; }
+
+section img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section img.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+section img.align-left {
+  display: block;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+a {
+  text-decoration: none;
+  line-height: 110%;
+}
+
+pre {
+  font-size: 16px;
+  font-family: Monaco, Courier, monospace;
+}
+
+li {
+  list-style: none;
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+li:before {
+  content:'\2022';
+  display: block;
+  position: relative;
+  max-width: 0px;
+  max-height: 0px;
+  left: -20px;
+  top: -0px;
+  color: #515151;
+  font-size: 20px;
+}
+
+li li {
+  list-style: none;
+  padding: 5px 0;
+  font-size: 18px;
+}
+
+li li:before {
+  content: '-';
+  display: block;
+  position: relative;
+  max-width: 0px;
+  max-height: 0px;
+  left: -18px;
+  top: -0px;
+  color: #515151;
+  font-size: 18px;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 700px;
+  width: 900px;
+  font-size: 50px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+.sidebar {
+  clear: both;
+  background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fff));
+  -webkit-transition: margin 0.25s ease-in-out;
+  background-color: #eee;
+  background: -moz-linear-gradient(right, #dde, #fff);
+  border-right: 5px solid #ccd;
+  z-index: 9999999;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  position: absolute;
+  display: block;
+  margin: 0;
+  margin-left: -400px;
+  padding: 10px 16px;
+  overflow: auto;
+  -webkit-transition: margin 0.2s ease-in-out;
+  -moz-transition: margin 0.2s ease-in-out;
+  -o-transition: margin 0.2s ease-in-out;
+  transition: margin 0.2s ease-in-out;
+}
+
+.sidebar h2 {
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.sidebar table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.sidebar table caption {
+  display: none;
+}
+
+.sidebar tr {
+  margin: 2px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar th {
+  text-align: left;
+  font-weight: normal;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.sidebar tr.sub th {
+  text-indent: 20px;
+}
+
+.sidebar td {
+  text-align: right;
+  min-width: 20px;
+}
+
+.sidebar a {
+  display: block;
+  text-decoration: none;
+  border-bottom: none;
+  padding: 4px 0;
+}
+
+.sidebar tr.active {
+  background: #ff0;
+}
+
+aside {
+  display: none;
+}
+  aside.source {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    text-indent: 10px;
+  }
+  aside.page_number {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-indent: 10px;
+  }
+
+.notes {
+  display: none;
+  padding: 10px;
+  background: #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+  div.slide p.notes {
+    font-size: 90%;
+}
+
+/* Pygments default theme */
+.hll { background-color: #ffffcc }
+.c { color: #408080; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #008000; font-weight: bold } /* Keyword */
+.o { color: #666666 } /* Operator */
+.cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.cp { color: #BC7A00 } /* Comment.Preproc */
+.c1 { color: #408080; font-style: italic } /* Comment.Single */
+.cs { color: #408080; font-style: italic } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #808080 } /* Generic.Output */
+.gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0040D0 } /* Generic.Traceback */
+.kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008000 } /* Keyword.Pseudo */
+.kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #B00040 } /* Keyword.Type */
+.m { color: #666666 } /* Literal.Number */
+.s { color: #BA2121 } /* Literal.String */
+.na { color: #7D9029 } /* Name.Attribute */
+.nb { color: #008000 } /* Name.Builtin */
+.nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.no { color: #880000 } /* Name.Constant */
+.nd { color: #AA22FF } /* Name.Decorator */
+.ni { color: #999999; font-weight: bold } /* Name.Entity */
+.ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.nf { color: #0000FF } /* Name.Function */
+.nl { color: #A0A000 } /* Name.Label */
+.nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.nt { color: #008000; font-weight: bold } /* Name.Tag */
+.nv { color: #19177C } /* Name.Variable */
+.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #666666 } /* Literal.Number.Float */
+.mh { color: #666666 } /* Literal.Number.Hex */
+.mi { color: #666666 } /* Literal.Number.Integer */
+.mo { color: #666666 } /* Literal.Number.Oct */
+.sb { color: #BA2121 } /* Literal.String.Backtick */
+.sc { color: #BA2121 } /* Literal.String.Char */
+.sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #BA2121 } /* Literal.String.Double */
+.se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #BA2121 } /* Literal.String.Heredoc */
+.si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.sx { color: #008000 } /* Literal.String.Other */
+.sr { color: #BB6688 } /* Literal.String.Regex */
+.s1 { color: #BA2121 } /* Literal.String.Single */
+.ss { color: #19177C } /* Literal.String.Symbol */
+.bp { color: #008000 } /* Name.Builtin.Pseudo */
+.vc { color: #19177C } /* Name.Variable.Class */
+.vg { color: #19177C } /* Name.Variable.Global */
+.vi { color: #19177C } /* Name.Variable.Instance */
+.il { color: #666666 } /* Literal.Number.Integer.Long */
+
+#blank {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 64;
+  display: none;
+}
+
+    </style>
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script>
+      function main(){
+    // Since we don't have the fallback of attachEvent and
+    // other IE only stuff we won't try to run JS for IE.
+    // It will run though when using Google Chrome Frame
+    var currentSlideNo;
+    var notesOn = false;
+    var expanded = false;
+    var hiddenContext = false;
+    var blanked = false;
+    var slides = document.getElementsByClassName('slide');
+    var touchStartX = 0;
+    var spaces = /\s+/, a1 = [''];
+    var tocOpened = false;
+    var helpOpened = false;
+    var overviewActive = false;
+    var modifierKeyDown = false;
+    var scale = 1;
+    var showingPresenterView = false;
+    var presenterViewWin = null;
+    var isPresenterView = false;
+
+    var str2array = function (s){
+        if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+                a1[0] = s;
+                return a1;
+            } else {
+                return s.split(spaces);
+            }
+        }
+        return s;
+    };
+
+    var trim = function (str){
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    var addClass = function (node, classStr){
+        classStr = str2array(classStr);
+        var cls = ' ' + node.className + ' ';
+        for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+                cls += c + ' ';
+            }
+        }
+        node.className = trim(cls);
+    };
+
+    var removeClass = function (node, classStr){
+        var cls;
+        if (!node) {
+            throw 'no node provided';
+        }
+        if (classStr !== undefined) {
+            classStr = str2array(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+                cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+        } else {
+            cls = '';
+        }
+        if (node.className != cls) {
+            node.className = cls;
+        }
+    };
+
+    var getSlideEl = function (slideNo){
+        if (slideNo > 0) {
+            return slides[slideNo - 1];
+        } else {
+            return null;
+        }
+    };
+
+    var getSlideTitle = function (slideNo){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var headers = el.getElementsByTagName('header');
+            if (headers.length > 0) {
+                return el.getElementsByTagName('header')[0].innerText;
+            }
+        }
+        return null;
+    };
+
+    var getSlidePresenterNote = function (slideNo){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var n = el.getElementsByClassName('presenter_notes');
+            if (n.length > 0) {
+                return n[0];
+            }
+        }
+        return null;
+    };
+
+    var changeSlideElClass = function (slideNo, className){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            removeClass(el, 'far-past past current future far-future');
+            addClass(el, className);
+        }
+    };
+
+    var updateSlideClasses = function (updateOther){
+        window.location.hash = (isPresenterView ? "presenter" : "slide") + currentSlideNo;
+
+        for (var i = 1; i < currentSlideNo - 1; i++) {
+            changeSlideElClass(i, 'far-past');
+        }
+
+        changeSlideElClass(currentSlideNo - 1, 'past');
+        changeSlideElClass(currentSlideNo, 'current');
+        changeSlideElClass(currentSlideNo + 1, 'future');
+
+        for (i = currentSlideNo + 2; i < slides.length + 1; i++) {
+            changeSlideElClass(i, 'far-future');
+        }
+
+        highlightCurrentTocLink();
+
+        processContext();
+
+        document.getElementsByTagName('title')[0].innerText = getSlideTitle(currentSlideNo);
+
+        updatePresenterNotes();
+
+        if (updateOther) {
+            updateOtherPage();
+        }
+    };
+
+    var updatePresenterNotes = function (){
+        if (!isPresenterView) {
+            return;
+        }
+
+        var existingNote = document.getElementById('current_presenter_notes');
+        var currentNote = getSlidePresenterNote(currentSlideNo).cloneNode(true);
+        currentNote.setAttribute('id', 'presenter_note');
+
+        existingNote.replaceChild(currentNote, document.getElementById('presenter_note'));
+    };
+
+    var highlightCurrentTocLink = function (){
+        var toc = document.getElementById('toc');
+
+        if (toc) {
+            var tocRows = toc.getElementsByTagName('tr');
+            for (var i = 0; i < tocRows.length; i++) {
+                removeClass(tocRows.item(i), 'active');
+            }
+
+            var currentTocRow = document.getElementById('toc-row-' + currentSlideNo);
+            if (currentTocRow) {
+                addClass(currentTocRow, 'active');
+            }
+        }
+    };
+
+    var updateOtherPage = function (){
+        if (!showingPresenterView) {
+            return;
+        }
+
+        var w = isPresenterView ? window.opener : presenterViewWin;
+        w.postMessage('slide#' + currentSlideNo, '*');
+    };
+
+    var nextSlide = function (){
+        if (currentSlideNo < slides.length) {
+            currentSlideNo++;
+        }
+        updateSlideClasses(true);
+    };
+
+    var prevSlide = function (){
+        if (currentSlideNo > 1) {
+            currentSlideNo--;
+        }
+        updateSlideClasses(true);
+    };
+
+    var showNotes = function (){
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        for (var i = 0, len = notes.length; i < len; i++) {
+            notes.item(i).style.display = (notesOn) ? 'none' : 'block';
+        }
+        notesOn = !notesOn;
+    };
+
+    var showSlideNumbers = function (){
+        var asides = document.getElementsByClassName('page_number');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showSlideSources = function (){
+        var asides = document.getElementsByClassName('source');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showToc = function (){
+        if (helpOpened) {
+            showHelp();
+        }
+        var toc = document.getElementById('toc');
+        if (toc) {
+            toc.style.marginLeft = tocOpened ? '-' + (toc.clientWidth + 20) + 'px' : '0px';
+            tocOpened = !tocOpened;
+        }
+        updateOverview();
+    };
+
+    var showHelp = function (){
+        if (tocOpened) {
+            showToc();
+        }
+
+        var help = document.getElementById('help');
+
+        if (help) {
+            help.style.marginLeft = helpOpened ? '-' + (help.clientWidth + 20) + 'px' : '0px';
+            helpOpened = !helpOpened;
+        }
+    };
+
+    var showPresenterView = function (){
+        if (isPresenterView) {
+            return;
+        }
+
+        if (showingPresenterView) {
+            presenterViewWin.close();
+            presenterViewWin = null;
+            showingPresenterView = false;
+        } else {
+            presenterViewWin = open(window.location.pathname + "#presenter" + currentSlideNo, 'presenter_notes',
+                'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
+            showingPresenterView = true;
+        }
+    };
+
+    var switch3D = function (){
+        if (document.body.className.indexOf('three-d') == -1) {
+            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
+            document.body.className += ' three-d';
+        } else {
+            window.setTimeout("document.getElementsByClassName('presentation')[0].style.webkitPerspective = '0';", 2000);
+            document.body.className = document.body.className.replace(/three-d/, '');
+        }
+    };
+
+    var toggleOverview = function (){
+        if (!overviewActive) {
+            addClass(document.body, 'expose');
+            overviewActive = true;
+            setScale(1);
+        } else {
+            removeClass(document.body, 'expose');
+            overviewActive = false;
+            if (expanded) {
+                setScale(scale);    // restore scale
+            }
+        }
+        processContext();
+        updateOverview();
+    };
+
+    var updateOverview = function (){
+        try {
+            var presentation = document.getElementsByClassName('presentation')[0];
+        } catch (e) {
+            return;
+        }
+
+        if (isPresenterView) {
+            var action = overviewActive ? removeClass : addClass;
+            action(document.body, 'presenter_view');
+        }
+
+        var toc = document.getElementById('toc');
+
+        if (!toc) {
+            return;
+        }
+
+        if (!tocOpened || !overviewActive) {
+            presentation.style.marginLeft = '0px';
+            presentation.style.width = '100%';
+        } else {
+            presentation.style.marginLeft = toc.clientWidth + 'px';
+            presentation.style.width = (presentation.clientWidth - toc.clientWidth) + 'px';
+        }
+    };
+
+    var computeScale = function (){
+        var cSlide = document.getElementsByClassName('current')[0];
+        var sx = cSlide.clientWidth / window.innerWidth;
+        var sy = cSlide.clientHeight / window.innerHeight;
+        return 1 / Math.max(sx, sy);
+    };
+
+    var setScale = function (scale){
+        var presentation = document.getElementsByClassName('slides')[0];
+        var transform = 'scale(' + scale + ')';
+        presentation.style.MozTransform = transform;
+        presentation.style.WebkitTransform = transform;
+        presentation.style.OTransform = transform;
+        presentation.style.msTransform = transform;
+        presentation.style.transform = transform;
+    };
+
+    var expandSlides = function (){
+        if (overviewActive) {
+            return;
+        }
+        if (expanded) {
+            setScale(1);
+            expanded = false;
+        } else {
+            scale = computeScale();
+            setScale(scale);
+            expanded = true;
+        }
+    };
+
+    var showContext = function (){
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            removeClass(presentation, 'nocontext');
+        } catch (e) {
+        }
+    };
+
+    var hideContext = function (){
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            addClass(presentation, 'nocontext');
+        } catch (e) {
+        }
+    };
+
+    var processContext = function (){
+        if (hiddenContext) {
+            hideContext();
+        } else {
+            showContext();
+        }
+    };
+
+    var toggleContext = function (){
+        hiddenContext = !hiddenContext;
+        processContext();
+    };
+
+    var toggleBlank = function (){
+        blank_elem = document.getElementById('blank');
+
+        blank_elem.style.display = blanked ? 'none' : 'block';
+
+        blanked = !blanked;
+    };
+
+    var isModifierKey = function (keyCode){
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function (event){
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function (event){
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
+
+    var handleBodyKeyDown = function (event){
+        switch (event.keyCode) {
+            case 13: // Enter
+                if (overviewActive) {
+                    toggleOverview();
+                }
+                break;
+            case 27: // ESC
+                toggleOverview();
+                break;
+            case 37: // left arrow
+            case 33: // page up
+                event.preventDefault();
+                prevSlide();
+                break;
+            case 39: // right arrow
+            case 32: // space
+            case 34: // page down
+                event.preventDefault();
+                nextSlide();
+                break;
+            case 50: // 2
+                if (!modifierKeyDown) {
+                    showNotes();
+                }
+                break;
+            case 51: // 3
+                if (!modifierKeyDown && !overviewActive) {
+                    switch3D();
+                }
+                break;
+            case 190: // .
+            case 48: // 0
+            case 66: // b
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleBlank();
+                }
+                break;
+            case 67: // c
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleContext();
+                }
+                break;
+            case 69: // e
+                if (!modifierKeyDown && !overviewActive) {
+                    expandSlides();
+                }
+                break;
+            case 72: // h
+                showHelp();
+                break;
+            case 78: // n
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideNumbers();
+                }
+                break;
+            case 80: // p
+                if (!modifierKeyDown && !overviewActive) {
+                    showPresenterView();
+                }
+                break;
+            case 83: // s
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideSources();
+                }
+                break;
+            case 84: // t
+                showToc();
+                break;
+        }
+    };
+
+    var handleWheel = function (event){
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+
+        var delta = 0;
+
+        if (!event) {
+            event = window.event;
+        }
+
+        if (event.wheelDelta) {
+            delta = event.wheelDelta / 120;
+            if (window.opera) delta = -delta;
+        } else if (event.detail) {
+            delta = -event.detail / 3;
+        }
+
+        if (delta && delta < 0) {
+            nextSlide();
+        } else if (delta) {
+            prevSlide();
+        }
+    };
+
+    var addSlideClickListeners = function (){
+        for (var i = 0; i < slides.length; i++) {
+            var slide = slides.item(i);
+            slide.num = i + 1;
+            slide.addEventListener('click', function (e){
+                if (overviewActive) {
+                    currentSlideNo = this.num;
+                    toggleOverview();
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }
+                return false;
+            }, true);
+        }
+    };
+
+    var addRemoteWindowControls = function (){
+        window.addEventListener("message", function (e){
+            if (e.data.indexOf("slide#") != -1) {
+                currentSlideNo = Number(e.data.replace('slide#', ''));
+                updateSlideClasses(false);
+            }
+        }, false);
+    };
+
+    var addTouchListeners = function (){
+        document.addEventListener('touchstart', function (e){
+            touchStartX = e.touches[0].pageX;
+        }, false);
+        document.addEventListener('touchend', function (e){
+            var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (pixelsMoved > SWIPE_SIZE) {
+                nextSlide();
+            }
+            else if (pixelsMoved < -SWIPE_SIZE) {
+                prevSlide();
+            }
+        }, false);
+    };
+
+    var addTocLinksListeners = function (){
+        var toc = document.getElementById('toc');
+        if (toc) {
+            var tocLinks = toc.getElementsByTagName('a');
+            for (var i = 0; i < tocLinks.length; i++) {
+                tocLinks.item(i).addEventListener('click', function (e){
+                    currentSlideNo = Number(this.attributes['href'].value.replace('#slide', ''));
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }, true);
+            }
+        }
+    };
+
+    // initialize
+
+    (function (){
+        if (window.location.hash == "") {
+            currentSlideNo = 1;
+        } else if (window.location.hash.indexOf("#presenter") != -1) {
+            currentSlideNo = Number(window.location.hash.replace('#presenter', ''));
+            isPresenterView = true;
+            showingPresenterView = true;
+            presenterViewWin = window;
+            addClass(document.body, 'presenter_view');
+        } else {
+            currentSlideNo = Number(window.location.hash.replace('#slide', ''));
+        }
+
+        document.addEventListener('keyup', checkModifierKeyUp, false);
+        document.addEventListener('keydown', handleBodyKeyDown, false);
+        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('DOMMouseScroll', handleWheel, false);
+
+        window.onmousewheel = document.onmousewheel = handleWheel;
+        window.onresize = expandSlides;
+        for (var i = 0, el; el = slides[i]; i++) {
+            addClass(el, 'slide far-future');
+        }
+        updateSlideClasses(false);
+
+        // add support for finger events (filter it by property detection?)
+        addTouchListeners();
+
+        addTocLinksListeners();
+
+        addSlideClickListeners();
+
+        addRemoteWindowControls();
+    })();
+}
+/*global jQuery */
+/*!
+ * FitText.js 1.1
+ *
+ * Copyright 2011, Dave Rupert http://daverupert.com
+ * Released under the WTFPL license
+ * http://sam.zoy.org/wtfpl/
+ *
+ * Date: Thu May 05 14:23:00 2011 -0600
+ */
+
+(function ($){
+
+    $.fn.fitText = function (kompressor, options){
+
+        // Setup options
+        var compressor = kompressor || 1,
+            settings = $.extend({
+                'minFontSize': Number.NEGATIVE_INFINITY,
+                'maxFontSize': Number.POSITIVE_INFINITY
+            }, options);
+
+        return this.each(function (){
+
+            // Store the object
+            var $this = $(this);
+
+            // Resizer() resizes items based on the object width divided by the compressor * 10
+            var resizer = function (){
+                $this.css('font-size', Math.max(Math.min($this.width() / (compressor * 10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)));
+            };
+
+            // Call once to set.
+            resizer();
+
+            // Call on resize. Opera debounces their resize by default.
+            $(window).on('resize.fittext orientationchange.fittext', resizer);
+
+        });
+
+    };
+
+})(jQuery);
+
+$(function (){
+    jQuery("header > h1").fitText(1.0, { minFontSize: '20px', maxFontSize: '40px' })
+});
+    </script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>iOS Unit Test</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>自己紹介</h1></header>
+            
+            
+            <section><p><img alt="アイコン" src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" /></p>
+<ul>
+<li>Name : azu</li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a>, <a href="http://meme.efcl.info/" title="MemeTodo">MemeTodo</a>, <a href="http://efcl.info/adiary/" title="prog*sig">prog*sig</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>ロジックテスト / アプリケーションテスト</h1></header>
+            
+            
+            <section><h2>ロジックテスト</h2>
+<ul>
+<li>iOSシミュレータSDKベースだが、iPhoneシミュレータでは実行しない</li>
+<li>テスト対象のコードは対応するターゲットのビルドフェーズの間に実行</li>
+<li>実機では動かせない(そこまで挙動が違うケースがないのであまり困らないかもしれないけど)</li>
+<li>faaasssttttt!!</li>
+</ul>
+<blockquote>
+<p>例 ) OCUnit(SenTestingKit)、 <a href="https://github.com/allending/Kiwi" title="allending/Kiwi · GitHub">Kiwi</a></p>
+</blockquote></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>アプリケーションテスト</h2></header>
+            
+            
+            <section><ul>
+<li>iOSアプリとしてテストを実行する</li>
+<li>実機でも動く(アプリに関連付けて実行されるので)</li>
+</ul>
+<blockquote>
+<p>例 ) OCUnit、<a href="https://github.com/gabriel/gh-unit" title="gabriel/gh-unit · GitHub">GHUnit</a></p>
+</blockquote>
+<h3>sea also…</h3>
+<ul>
+<li><a href="https://developer.apple.com/jp/devcenter/ios/library/documentation/UnitTesting.pdf" title="Xcodeユニットテストガイド (TP40002143 3.1) - UnitTesting.pdf">Xcodeユニットテストガイド (TP40002143 3.1) - UnitTesting.pdf</a></li>
+<li><a href="https://developer.apple.com/jp/devcenter/ios/library/documentation/iPhone_Development.pdf" title="iPhone開発ガイド - iPhone_Development.pdf">iPhone開発ガイド - iPhone_Development.pdf</a>  Chapter : <code>アプリケーションの単体テスト</code> </li>
+<li><a href="http://akisute.com/2012/01/jenkins-ios-ghunit.html" title="A-Liaison BLOG: Jenkins を iOS アプリ開発に導入してみた (GHUnit編)">A-Liaison BLOG: Jenkins を iOS アプリ開発に導入してみた (GHUnit編)</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>OCUnitでもアプリケーションテスト</h1></header>
+            
+            
+            <section><ul>
+<li>Xcodeのプロジェクト作成で <code>Include Unit Test</code> にチェック</li>
+<li>この時のTest Bundleには自動でアプリケーションテストの設定がされている</li>
+</ul>
+<p><img alt="Xcode : Create Project" src="http://take.ms/nmwRQ5" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>ロジックテスト to アプリケーションテスト</h1></header>
+            
+            
+            <section><p>*　<code>Add Target</code> から Test Bundleを追加した場合、ロジックテストになってる</p>
+<p><img src="http://take.ms/MJ3Dlu" height="400" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>ロジックテスト to アプリケーションテスト</h1></header>
+            
+            
+            <section><ul>
+<li>
+<p>Test Bundleの設定を幾つか加えるだけでできる</p>
+</li>
+<li>
+<p><code>Bundle Loader</code> の設定</p>
+</li>
+<li><code>Test Host</code> の設定</li>
+<li>SchemeのTests の設定</li>
+</ul>
+<p>詳細 :</p>
+<ul>
+<li><a href="http://qiita.com/items/16f24d2f61a52b3acd62" title="Xcode Application Unit Testセットアップ #iOS #test #Xcode - Qiita [キータ]">Xcode Application Unit Testセットアップ #iOS #test #Xcode - Qiita [キータ]</a></li>
+<li><a href="https://developer.apple.com/jp/devcenter/ios/library/documentation/UnitTesting.pdf#page=15" title="アプリケーションユニットテストのセットアップ">アプリケーションユニットテストのセットアップ</a></li>
+<li><a href="http://iosunittesting.com/moving-ocunit-tests-between-logic-and-application-tests/" title="Moving OCUnit tests between Logic and Application tests | iOS Unit Testing">Moving OCUnit tests between Logic and Application tests | iOS Unit Testing</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>結局アプリケーションテストって?</h1></header>
+            
+            
+            <section><ul>
+<li><code>Bundle Loader</code> が設定されている</li>
+<li>ビルド時のテストじゃなくてアプリ上でテストが動く</li>
+<li>実機でも動作するテストが書ける</li>
+<li>このスライドでは <code>アプリケーションテスト</code> は Appleの用語の方を示す</li>
+</ul>
+<h2>一般的なイメージ</h2>
+<ul>
+<li><a href="https://github.com/gabriel/gh-unit" title="gabriel/gh-unit · GitHub">GHUnit</a> みたいなテストコンソールが見えるアプリ!!</li>
+<li>Viewをテスト方法</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>テスト可能なコードの記述</h2></header>
+            
+            
+            <section><p><a href="https://developer.apple.com/jp/devcenter/ios/library/documentation/iPhone_Development.pdf" title="iPhone開発ガイド - iPhone_Development.pdf">iPhone開発ガイド - iPhone_Development.pdf</a> より</p>
+<ul>
+<li>APIの要件を定義する</li>
+<li>コードを記述するときにテストケースを記述する</li>
+<li>境界条件をチェックする</li>
+<li>ネガティブテストを使用する</li>
+<li>網羅的なテストケースを記述する</li>
+<li>バグ修正をテストケースでカバーする<ul>
+<li>
+<blockquote>
+<p>バグを修正したら、修正結果を確認するテストケース を1つまたは複数記述します。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>テストライブラリ</h1></header>
+            
+            
+            <section><ul>
+<li><a href="http://iphone-dev.g.hatena.ne.jp/laiso/20120324/1332505862" title="iOS 向けTDD/BDDフレームワークやモックフレームワークの現状 - laiso - iPhoneアプリ開発グループ">iOS 向けTDD/BDDフレームワークやモックフレームワークの現状 - laiso - iPhoneアプリ開発グループ</a></li>
+</ul>
+<p>追加: </p>
+<ul>
+<li><a href="https://github.com/jacksonh/NSUnit" title="jacksonh/NSUnit · GitHub">jacksonh/NSUnit · GitHub</a></li>
+<li><a href="https://github.com/rdavies/Specify" title="rdavies/Specify · GitHub">rdavies/Specify · GitHub</a></li>
+<li><a href="https://github.com/robb/Stubbilino" title="robb/Stubbilino · GitHub">robb/Stubbilino · GitHub</a></li>
+<li><a href="https://github.com/lukeredpath/LRMocky" title="lukeredpath/LRMocky · GitHub">lukeredpath/LRMocky · GitHub</a></li>
+<li><a href="https://github.com/itsthejb/TestPilot" title="itsthejb/TestPilot · GitHub">itsthejb/TestPilot · GitHub</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Kiwi テスト</h1></header>
+            
+            
+            <section><ul>
+<li><a href="https://github.com/allending/Kiwi" title="allending/Kiwi · GitHub">Kiwi</a> はBDDなテストライブラリ</li>
+<li>Mock/Stub/Async 等ひと通り揃ってる</li>
+<li>テストの導入として無難で比較的安定している(OCUnit以外において)</li>
+<li>AppCodeもKiwiをサポートしている</li>
+</ul>
+<h3>see also</h3>
+<ul>
+<li><a href="https://itunes.apple.com/ca/book/test-driving-ios-development/id502345143?mt=11" title="Test Driving iOS Development with Kiwi">Test Driving iOS Development with Kiwi</a></li>
+<li><a href="http://yaakaito.org/blog/2012/10/22/kiwi-vs-specta/" title="KiwiとSpectaの比較 - yaakaito.org">KiwiとSpectaの比較 - yaakaito.org</a></li>
+<li><a href="http://www.youtube.com/watch?v=I2HSyf_yFYM" title="Introduction to Kiwi Testing - YouTube">Introduction to Kiwi Testing - YouTube</a> Kiwiの構文解説</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_notes">
+          <div class="inner">
+            
+            <header><h2>CocoaPodsでの導入</h2></header>
+            
+            
+            <section><ul>
+<li><a href="http://cocoapods.org/" title="CocoaPods">CocoaPods</a> はCocoaのライブラリ管理ツール</li>
+<li>Cocoaに則ったアプリなら利用しない理由はあんまりない</li>
+<li>(テスト)ライブラリの導入が手軽になる</li>
+</ul>
+<p class="notes"><a href="http://vendorkit.com/" title="VendorKit">VendorKit</a> なんてなかった</p>
+<h3>see also…</h3>
+<ul>
+<li><a href="http://www.iosjp.com/dev/archives/451" title="開発レシピ：Objective-Cのライブラリ管理ツール CocoaPods | iOS開発者@日本">開発レシピ：Objective-Cのライブラリ管理ツール CocoaPods | iOS開発者@日本</a></li>
+<li><a href="http://qiita.com/items/edf758a67bd4c2ba5b7a" title="CocoaPodsでPodの利用＆作成のメモ #Objective-C #CocoaPods - Qiita [キータ]">CocoaPodsでPodの利用＆作成のメモ #Objective-C #CocoaPods - Qiita [キータ]</a></li>
+<li><a href="http://www.raywenderlich.com/12139/introduction-to-cocoapods" title="Introduction to CocoaPods - Ray Wenderlich">Introduction to CocoaPods - Ray Wenderlich</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>CocoaPodsでKiwiを導入する例</h2></header>
+            
+            
+            <section><p><code>Tests</code> target に <code>Kiwi</code> をインストールする</p>
+<div class="highlight"><pre><span class="n">platform</span> <span class="ss">:ios</span>
+
+<span class="n">target</span> <span class="ss">:Tests</span><span class="p">,</span> <span class="ss">:exclusive</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="n">pod</span> <span class="s1">&#39;Kiwi&#39;</span>
+<span class="k">end</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>テストの実行</h1></header>
+            
+            
+            <section><h2>XCode</h2>
+<ul>
+<li>Product -&gt; Test</li>
+<li>Cmd + U </li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2><a href="http://www.jetbrains.com/objc/" title="JetBrains AppCode: Objective-C IDE done right">AppCode</a></h2></header>
+            
+            
+            <section><ul>
+<li>Test SchemeのRun</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>AppCode の 利点</h2></header>
+            
+            
+            <section><ul>
+<li>見やすい結果表示</li>
+<li>単独のテストケースの実行</li>
+<li>FileWatcher</li>
+<li>テストファイルと実行ファイルの切り替えショートカット</li>
+</ul>
+<h3>note</h3>
+<p>Xcodeも類似のテスト切り替えの機能を加えるPlugin</p>
+<ul>
+<li><a href="https://github.com/thoughtbot/spectacular" title="thoughtbot/spectacular · GitHub">thoughtbot/spectacular · GitHub</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>あるあるロジックテスト</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>main bundleが使えない</h2></header>
+            
+            
+            <section><p>テスト内で <code>[[NSBundle mainBundle] pathForResource:@"fname" ofType:@"plist"];</code>や　<code>[UIImage imageNamed:@"default.png"];</code> が <code>null</code> となってしまう</p>
+<ul>
+<li>ロジックテストは ``Bundle Loader``` 示す場所がアプリケーションテストと異なる</li>
+</ul>
+<p>コードで置き換えるなら</p>
+<pre><code>[NSBundle mainBundle];
+の代わりに
+[NSBundle bundleForClass:[self class]];
+を使う
+</code></pre>
+<h3>別の解法</h3>
+<ul>
+<li>Test Bundleをアプリケーションテストにする</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>データベースのテスト</h2></header>
+            
+            
+            <section><ul>
+<li>setup/teardownでデータベースが初期化されるようにする</li>
+</ul>
+<h2>CoreData</h2>
+<ul>
+<li><a href="http://yaakaito.hatenablog.com/entry/20111208/1323341753" title="CoreDataをUnitTestとかしたい - yaakaito's diary">CoreDataをUnitTestとかしたい - yaakaito's diary</a></li>
+<li><a href="http://qiita.com/items/bee07ca72597256840d0" title="CoreDataのテストをシンプルに書こう #AdventCalendar #iOS - Qiita [キータ]">CoreDataのテストをシンプルに書こう #AdventCalendar #iOS - Qiita [キータ]</a></li>
+</ul>
+<h2>MagicalRecord</h2>
+<ul>
+<li><a href="http://www.cimgf.com/2012/05/15/unit-testing-with-core-data/" title="Unit Testing with Core Data | Cocoa Is My GirlfriendCocoa Is My Girlfriend">Unit Testing with Core Data | Cocoa Is My GirlfriendCocoa Is My Girlfriend</a></li>
+</ul>
+<h2>FMDB</h2>
+<ul>
+<li><a href="http://tech-gym.com/2013/05/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/1230.html" title="FMDBを使ったテストのセットアップ | Technology-Gym">FMDBを使ったテストのセットアップ | Technology-Gym</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>CI と CLI</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Travis CI</h2></header>
+            
+            
+            <section><ul>
+<li><a href="https://travis-ci.org/" title="Travis CI - Free Hosted Continuous Integration Platform for the Open Source Community">Travis CI</a> はiOSのテストが実行できる</li>
+<li><code>language: objective-c</code> を指定するとOS Xを利用できる</li>
+<li>ライブラリとか公開するならTravis CIでテストを回しておくと安心<ul>
+<li>利用者的にも作成者的にも</li>
+</ul>
+</li>
+</ul>
+<h3>see also...</h3>
+<ul>
+<li><a href="http://blog.ishkawa.org/blog/2013/04/14/travis-ci-ios/" title="iOSのライブラリにTravis CIを導入する - blog.ishkawa.org">iOSのライブラリにTravis CIを導入する - blog.ishkawa.org</a></li>
+<li><a href="http://about.travis-ci.org/blog/introducing-mac-ios-rubymotion-testing/" title="Travis CI: Introducing Mac, iOS and RubyMotion Testing on Travis CI">Travis CI: Introducing Mac, iOS and RubyMotion Testing on Travis CI</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_notes">
+          <div class="inner">
+            
+            <header><h2><a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a></h2></header>
+            
+            
+            <section><ul>
+<li><a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a> Facebookが最近だした <code>xcodebuild</code> の代わりになるCLIツール</li>
+<li><code>xcodebuild</code> よりわかりやすいオプション</li>
+<li>アプリケーションテストのテストもちゃんと実行できる</li>
+<li>reporter がある(pretty,json,JUnit等)</li>
+<li><a href="https://github.com/facebook/xctool#configuration-xctool-args" title="Configuration (.xctool-args)">Configuration (.xctool-args)</a> という設定ファイル</li>
+</ul>
+<p class="notes">まだ CocoaPods との相性が不完全</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>どこからテスト始める問題</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>これからテストを始める場合</h2></header>
+            
+            
+            <section><ul>
+<li>テスト書いてる人から学ぶと早い(ペアプロとか)</li>
+<li>とりあえず書かないと始まらない</li>
+<li>楽しく書き始められる環境づくり大切j</li>
+</ul>
+<h1>テストで学ぶObjective-C</h1>
+<ul>
+<li>テストを習慣化するためにはとりあえずテストを書き始めることが大切</li>
+<li>テストを書きながらObjective-Cも学べれば一石二鳥</li>
+</ul>
+<p>そんなプロジェクト</p>
+<ul>
+<li><a href="https://github.com/azu/objc-assessment" title="azu/objc-assessment · GitHub">azu/objc-assessment · GitHub</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>何でテストを学ぶ?</h1></header>
+            
+            
+            <section><p>TDDのスクリーンキャスト</p>
+<ul>
+<li>
+<p><a href="http://qualitycoding.org/objective-c-tdd/" title="Intro to Objective-C TDD [Screencast] - Quality Coding">Intro to Objective-C TDD [Screencast] - Quality Coding</a></p>
+</li>
+<li>
+<p><a href="http://vimeo.com/34321087" title="Unit testing on iOS - Stewart Gleadow - Melbourne Cocoaheads November 2011 on Vimeo">Unit testing on iOS - Stewart Gleadow - Melbourne Cocoaheads November 2011 on Vimeo</a></p>
+</li>
+<li><a href="http://www.slideshare.net/sgleadow/ios-unit-testing" title="iOS Unit Testing">iOS Unit Testing</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>DEMO</h1></header>
+            
+            
+            <section><ul>
+<li>
+<p><a href="https://github.com/azu/AZDateBuilder" title="Contribute to AZDateBuilder development by creating an account on GitHub.">azu/AZDateBuilder · GitHub</a></p>
+</li>
+<li>
+<p>NSArrayのカテゴリテスト</p>
+<ul>
+<li>firstObject</li>
+<li>lastObjectに合わせて見る</li>
+<li>Categoryのoverwriteチェック</li>
+<li>xctoolを使っての実行
+  OBJC_PRINT_REPLACED_METHOD でのカテゴリ衝突</li>
+</ul>
+<p>http://blog.clickablebliss.com/2010/01/19/finding-colliding-cate
+  gory-methods/</p>
+</li>
+<li>
+<p>アプリケーションテストで端末特有の動作を見る</p>
+<ul>
+<li>NSDateFormatter</li>
+<li>iOSの設定に依存する <code>HH:mm</code> 等の挙動</li>
+<li><a href="http://aqubiblog.blogspot.jp/2012/11/ios.html" title="guess what?: iOSの日付処理まとめ">guess what?: iOSの日付処理まとめ</a></li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: ./ios_unit_test.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>ref.</h1></header>
+            
+            
+            <section><ul>
+<li><a href="http://iphone-dev.g.hatena.ne.jp/laiso/20120324/1332505862" title="iOS 向けTDD/BDDフレームワークやモックフレームワークの現状 - laiso - iPhoneアプリ開発グループ">iOS 向けTDD/BDDフレームワークやモックフレームワークの現状 - laiso - iPhoneアプリ開発グループ</a></li>
+<li><a href="http://iosunittesting.com/" title="iOS Unit Testing | It's about TDD, unit testing, and creating bug free iOS code on iOS.">iOS Unit Testing | It's about TDD, unit testing, and creating bug free iOS code on iOS.</a><ul>
+<li>iOSのユニットテストについて扱ってるブログ</li>
+</ul>
+</li>
+<li><a href="https://github.com/blazingcloud/sealant/tree/master/Testable" title="blazingcloud/sealant · GitHub">blazingcloud/sealant · GitHub</a><ul>
+<li>iOSのテスト環境について</li>
+<li><a href="https://github.com/blazingcloud/sealant/wiki" title="Home · blazingcloud/sealant Wiki">Home · blazingcloud/sealant Wiki</a></li>
+</ul>
+</li>
+<li><a href="http://www.stewgleadow.com/" title="Stewart Gleadow's Blog">Stewart Gleadow's Blog</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="./ios_unit_test.md">./ios_unit_test.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source:  -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="page_number">
+              /27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">iOS Unit Test</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">自己紹介</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">ロジックテスト / アプリケーションテスト</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">アプリケーションテスト</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">OCUnitでもアプリケーションテスト</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">ロジックテスト to アプリケーションテスト</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">ロジックテスト to アプリケーションテスト</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">結局アプリケーションテストって?</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">テスト可能なコードの記述</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">テストライブラリ</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Kiwi テスト</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-12" class="sub">
+          <th><a href="#slide12">CocoaPodsでの導入</a></th>
+          <td><a href="#slide12">12</a></td>
+        </tr>
+        
+        <tr id="toc-row-13" class="sub">
+          <th><a href="#slide13">CocoaPodsでKiwiを導入する例</a></th>
+          <td><a href="#slide13">13</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">テストの実行</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-15" class="sub">
+          <th><a href="#slide15"><a href="http://www.jetbrains.com/objc/" title="JetBrains AppCode: Objective-C IDE done right">AppCode</a></a></th>
+          <td><a href="#slide15">15</a></td>
+        </tr>
+        
+        <tr id="toc-row-16" class="sub">
+          <th><a href="#slide16">AppCode の 利点</a></th>
+          <td><a href="#slide16">16</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">あるあるロジックテスト</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-18" class="sub">
+          <th><a href="#slide18">main bundleが使えない</a></th>
+          <td><a href="#slide18">18</a></td>
+        </tr>
+        
+        <tr id="toc-row-19" class="sub">
+          <th><a href="#slide19">データベースのテスト</a></th>
+          <td><a href="#slide19">19</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">CI と CLI</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-21" class="sub">
+          <th><a href="#slide21">Travis CI</a></th>
+          <td><a href="#slide21">21</a></td>
+        </tr>
+        
+        <tr id="toc-row-22" class="sub">
+          <th><a href="#slide22"><a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a></a></th>
+          <td><a href="#slide22">22</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">どこからテスト始める問題</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-24" class="sub">
+          <th><a href="#slide24">これからテストを始める場合</a></th>
+          <td><a href="#slide24">24</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">何でテストを学ぶ?</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-26">
+        <th><a href="#slide26">DEMO</a></th>
+        <td><a href="#slide26">26</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-27">
+        <th><a href="#slide27">ref.</a></th>
+        <td><a href="#slide27">27</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
