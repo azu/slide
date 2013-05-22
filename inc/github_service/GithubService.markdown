@@ -65,7 +65,7 @@ see also..
 
 ----
 
-# [BuildHive][] [![Build Status](https://jepso-ci.com/azu/BusterJS_JepsoCI.svg)](https://jepso-ci.com/azu/BusterJS_JepsoCI)
+# [BuildHive][] [![BuildHive Build Status](https://buildhive.cloudbees.com/job/azu/job/Browser_CI_as_a_Service/badge/icon)](https://buildhive.cloudbees.com/job/azu/job/Browser_CI_as_a_Service/)
 
 ----
 
