@@ -14,4 +14,6 @@ http://azu.github.io/slide/
 
 ## License
 
+特別にライセンスについて記述がないもの以外は	
+
 MIT
