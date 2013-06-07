@@ -68,11 +68,20 @@
 <li>日付オブジェクト</li>
 <li>これをベースに考える</li>
 </ul>
-<h1>NSDateFormatter</h1>
-<ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>NSDateFormatter</h1>
+            
+            
+            <ul>
 <li>strftime</li>
-<li>基本的に表示に使うことを念頭に置いてつかう</li>
-<li>データを保存する<strong>変換</strong>のためには使わない<ul>
+<li>基本的に<strong>表示用</strong>に使うことを念頭に置いて使う</li>
+<li>データを保存するための<strong>変換</strong>には使わない<ul>
 <li>NSDateオブジェクト自体を保存すべき</li>
 </ul>
 </li>
@@ -399,6 +408,11 @@ NSString *result = [dateFormatter stringFromDate:stubDate];
             <h1>おわり</h1>
             
             
+            <p>参考</p>
+<ul>
+<li><a href="http://realmacsoftware.com/blog/working-with-date-and-time" title="Realmac Blog - Working with Date and Time">Realmac Blog - Working with Date and Time</a></li>
+</ul>
+            
             
         </section>
         
@@ -415,7 +429,7 @@ NSString *result = [dateFormatter stringFromDate:stubDate];
     // Full list of configuration options available here:
     // https://github.com/hakimel/reveal.js#configuration
     Reveal.initialize({
-        controls: false,
+        controls: true,
         progress: true,
         history: true,
         center: true,
