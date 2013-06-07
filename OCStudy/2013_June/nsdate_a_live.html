@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>NSDate A Live</title>
+
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="theme/reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="theme/reveal.js/css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="theme/reveal.js/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="theme/reveal.js/css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="theme/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>NSDate A Live</h1>
+            
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>自己紹介</h1>
+            
+            
+            <p><img alt="アイコン" src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" /></p>
+<ul>
+<li>Name : azu</li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a>, <a href="http://meme.efcl.info/" title="MemeTodo">MemeTodo</a>, <a href="http://efcl.info/adiary/" title="prog*sig">prog*sig</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>NSDate</h1>
+            
+            
+            <ul>
+<li>日付オブジェクト</li>
+<li>これをベースに考える</li>
+</ul>
+<h1>NSDateFormatter</h1>
+<ul>
+<li>strftime</li>
+<li>基本的に表示に使うことを念頭に置いてつかう</li>
+<li>データを保存する<strong>変換</strong>のためには使わない<ul>
+<li>NSDateオブジェクト自体を保存すべき</li>
+</ul>
+</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h2>dateFormatFromTemplate</h2>
+            
+            
+            <ul>
+<li>多言語対応に便利</li>
+<li><code>[NSLocale currentLocale]</code>で自動的に他言語対応のNSDateFormatter</li>
+<li><a href="https://github.com/azu/NSDateALive/blob/master/NSDateALiveTests/dateFormatFromTemplateSpec.m" title="NSDateALive/NSDateALiveTests/dateFormatFromTemplateSpec.m at master · azu/NSDateALive · GitHub">dateFormatFromTemplateSpec.m at master · azu/NSDateALive · GitHub</a></li>
+</ul>
+<p>サンプル</p>
+<div class="highlight"><pre><span class="n">NSString</span> <span class="o">*</span><span class="n">format</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDateFormatter</span> <span class="n">dateFormatFromTemplate</span><span class="o">:</span><span class="s">@&quot;EdMMM&quot;</span> <span class="n">options</span><span class="o">:</span><span class="mi">0</span> <span class="n">locale</span><span class="o">:</span><span class="p">[</span><span class="n">NSLocale</span> <span class="n">currentLocale</span><span class="p">]];</span>
+<span class="n">NSDateFormatter</span> <span class="o">*</span><span class="n">dateFormatter</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSDateFormatter</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">dateFormatter</span> <span class="n">setDateFormat</span><span class="o">:</span><span class="n">format</span><span class="p">];</span>
+<span class="p">[</span><span class="n">dateFormatter</span> <span class="n">stringFromDate</span><span class="o">:</span><span class="p">[</span><span class="n">NSDate</span> <span class="n">date</span><span class="p">]];</span>
+<span class="c1">// en_US =&gt; Thu, Jun 6</span>
+<span class="c1">// ja_JP =&gt; 6月6日(木)</span>
+</pre></div>
+
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h2>和暦カレンダー</h2>
+            
+            
+            <ul>
+<li>iOSの設定でカレンダーが和暦の場合の挙動</li>
+</ul>
+<p>和暦時に <code>yyyy</code> の値がおかしい</p>
+<pre><code>NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+[dateFormatter setDateFormat:@"yyyy-MM-dd"];
+NSString *result = [dateFormatter stringFromDate:stubDate];
+// 期待 : 2013-06-06
+// 現実 : 0025-06-06
+</code></pre>
+<ul>
+<li><a href="https://github.com/azu/NSDateALive/blob/master/NSDateALiveTests/JapaneseCalendarSpec.m" title="NSDateALive/NSDateALiveTests/JapaneseCalendarSpec.m at master · azu/NSDateALive · GitHub">JapaneseCalendarSpec.m at master · azu/NSDateALive · GitHub</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h2>24時間表示</h2>
+            
+            
+            <p><code>HH</code> の値がiOSの設定の影響を受ける</p>
+<ul>
+<li><a href="http://aqubiblog.blogspot.jp/2012/11/ios.html" title="guess what?: iOSの日付処理まとめ">guess what?: iOSの日付処理まとめ</a></li>
+<li><a href="http://tech-gym.com/2012/10/ios/893.html" title="iOS6とNSDateFormatterと和暦と24時間表示オフで発生しやすいバグについて | Technology-Gym">iOS6とNSDateFormatterと和暦と24時間表示オフで発生しやすいバグについて | Technology-Gym</a></li>
+</ul>
+<h3>解決方法</h3>
+<ul>
+<li>locale(とtimeZone)を設定する</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h2>Thread-Unsafe</h2>
+            
+            
+            <ul>
+<li><a href="http://www.alexcurylo.com/blog/2011/07/05/threadsafe-date-formatting/" title="Threadsafe Date Formatting « Under The Bridge">Threadsafe Date Formatting « Under The Bridge</a></li>
+<li><a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/Multithreading/ThreadSafetySummary/ThreadSafetySummary.html" title="Thread-Unsafe">Thread-Unsafe</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>NSDateComponents</h1>
+            
+            
+            <ul>
+<li>1年は365日とは限らない</li>
+<li>Calendarによって異なる</li>
+<li>NSDateを操作するときはNSDatecomponetsを経由した方がいい</li>
+<li><a href="http://nshipster.com/nsdatecomponents/" title="NSDateComponents : * NSHipster">NSDateComponents : NSHipster</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h2>NSDate同士の差分を取得</h2>
+            
+            
+            <ul>
+<li><code>components:fromDate:toDate:options:</code></li>
+<li>AとBのNSDateの<strong>差</strong>を持つNSDateComponentsを取得</li>
+</ul>
+<p>e.g) minuteの差分を得る</p>
+<div class="highlight"><pre><span class="n">NSCalendar</span> <span class="o">*</span><span class="n">calendar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSCalendar</span> <span class="n">currentCalendar</span><span class="p">];</span>
+<span class="n">NSDateComponents</span> <span class="o">*</span><span class="n">dateComponents</span> <span class="o">=</span> <span class="p">[</span><span class="n">calendar</span>
+    <span class="nl">components:</span><span class="n">NSMinuteCalendarUnit</span> <span class="n">fromDate</span><span class="o">:</span><span class="n">fromDate</span> <span class="n">toDate</span><span class="o">:</span><span class="n">toDate</span> <span class="n">options</span><span class="o">:</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">[</span><span class="n">dateComponents</span> <span class="n">minute</span><span class="p">];</span>
+<span class="c1">// toDate - fromDate の 分 を取得できる</span>
+</pre></div>
+
+<ul>
+<li><a href="https://github.com/azu/NSDateALive/blob/master/NSDateALiveTests/NSDateComponentsSpec.m" title="NSDateALive/NSDateALiveTests/NSDateComponentsSpec.m at master · azu/NSDateALive · GitHub">NSDateComponentsSpec.m at master · azu/NSDateALive · GitHub</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>NSCalendar</h1>
+            
+            
+            <ul>
+<li><code>currentCalendar</code> is slow</li>
+<li><code>NSDateFormatter</code> のインスタンス化も遅め</li>
+<li>Thread-Unsafe</li>
+</ul>
+<p><em><a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html" title="NSCalendar Class Reference">NSCalendar Class Reference</a>
+</em> <a href="http://program.station.ez-net.jp/special/handbook/objective-c/nsdate/components.asp" title="EZ-NET: NSDate から年月や日時を取り出す - Objective-C プログラミング">EZ-NET: NSDate から年月や日時を取り出す - Objective-C プログラミング</a></p>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h2>月初/月末を取得する</h2>
+            
+            
+            <ul>
+<li><code>rangeOfUnit:inUnit:forDate:</code></li>
+</ul>
+<p><img alt="rangeOfUnit:inUnit:forDate:" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bD0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIyNyAyNDkgNTEzIDI1OSIgd2lkdGg9IjUxM3B0IiBoZWlnaHQ9IjI1OXB0Ij48bWV0YWRhdGEgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIj48ZGM6ZGF0ZT4yMDEzLTA2LTA2IDE1OjAyWjwvZGM6ZGF0ZT48IS0tIFByb2R1Y2VkIGJ5IE9tbmlHcmFmZmxlIFByb2Zlc3Npb25hbCA1LjQuMiAtLT48L21ldGFkYXRhPjxkZWZzPjxmaWx0ZXIgaWQ9IlNoYWRvdyIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48ZmVHYXVzc2lhbkJsdXIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9ImJsdXIiIHN0ZERldmlhdGlvbj0iMy40ODgiLz48ZmVPZmZzZXQgaW49ImJsdXIiIHJlc3VsdD0ib2Zmc2V0IiBkeD0iMCIgZHk9IjQiLz48ZmVGbG9vZCBmbG9vZC1jb2xvcj0iYmxhY2siIGZsb29kLW9wYWNpdHk9Ii43NSIgcmVzdWx0PSJmbG9vZCIvPjxmZUNvbXBvc2l0ZSBpbj0iZmxvb2QiIGluMj0ib2Zmc2V0IiBvcGVyYXRvcj0iaW4iLz48L2ZpbHRlcj48Zm9udC1mYWNlIGZvbnQtZmFtaWx5PSJDb3VyaWVyIiBmb250LXNpemU9IjEyIiB1bml0cy1wZXItZW09IjEwMDAiIHVuZGVybGluZS1wb3NpdGlvbj0iLTE3OC4yMjI2NiIgdW5kZXJsaW5lLXRoaWNrbmVzcz0iNTcuNjE3MTg4IiBzbG9wZT0iMCIgeC1oZWlnaHQ9IjQ2Mi40MDIzNCIgY2FwLWhlaWdodD0iNTk0LjcyNjU2IiBhc2NlbnQ9Ijc1My45MDYyNSIgZGVzY2VudD0iLTI0Ni4wOTM3NSIgZm9udC13ZWlnaHQ9IjUwMCI+PGZvbnQtZmFjZS1zcmM+PGZvbnQtZmFjZS1uYW1lIG5hbWU9IkNvdXJpZXIiLz48L2ZvbnQtZmFjZS1zcmM+PC9mb250LWZhY2U+PGZvbnQtZmFjZSBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEyIiB1bml0cy1wZXItZW09IjEwMDAiIHVuZGVybGluZS1wb3NpdGlvbj0iLTc1LjY4MzU5NCIgdW5kZXJsaW5lLXRoaWNrbmVzcz0iNDkuMzE2NDA2IiBzbG9wZT0iMCIgeC1oZWlnaHQ9IjUyMi45NDkyMiIgY2FwLWhlaWdodD0iNzE3LjI4NTE2IiBhc2NlbnQ9Ijc3MC4wMTk1MyIgZGVzY2VudD0iLTIyOS45ODA0NyIgZm9udC13ZWlnaHQ9IjUwMCI+PGZvbnQtZmFjZS1zcmM+PGZvbnQtZmFjZS1uYW1lIG5hbWU9IkhlbHZldGljYSIvPjwvZm9udC1mYWNlLXNyYz48L2ZvbnQtZmFjZT48Zm9udC1mYWNlIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTIiIHVuaXRzLXBlci1lbT0iMTAwMCIgdW5kZXJsaW5lLXBvc2l0aW9uPSItNzUuNjgzNTk0IiB1bmRlcmxpbmUtdGhpY2tuZXNzPSI0OS4zMTY0MDYiIHNsb3BlPSIwIiB4LWhlaWdodD0iNTMyLjIyNjU2IiBjYXAtaGVpZ2h0PSI3MTkuNzI2NTYiIGFzY2VudD0iNzcwLjAxOTUzIiBkZXNjZW50PSItMjI5Ljk4MDQ3IiBmb250LXdlaWdodD0iYm9sZCI+PGZvbnQtZmFjZS1zcmM+PGZvbnQtZmFjZS1uYW1lIG5hbWU9IkhlbHZldGljYS1Cb2xkIi8+PC9mb250LWZhY2Utc3JjPjwvZm9udC1mYWNlPjxtYXJrZXIgb3JpZW50PSJhdXRvIiBvdmVyZmxvdz0idmlzaWJsZSIgbWFya2VyVW5pdHM9InN0cm9rZVdpZHRoIiBpZD0iRmlsbGVkQXJyb3dfTWFya2VyIiB2aWV3Qm94PSItMSAtNCAxMCA4IiBtYXJrZXJXaWR0aD0iMTAiIG1hcmtlckhlaWdodD0iOCIgY29sb3I9ImJsYWNrIj48Zz48cGF0aCBkPSJNIDggMCBMIDAgLTMgTCAwIDMgWiIgZmlsbD0iY3VycmVudENvbG9yIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9nPjwvbWFya2VyPjxmb250LWZhY2UgZm9udC1mYW1pbHk9IkhpcmFnaW5vIEtha3UgR290aGljIFByb04iIGZvbnQtc2l6ZT0iMTIiIHBhbm9zZS0xPSIyIDExIDMgMCAwIDAgMCAwIDAgMCIgdW5pdHMtcGVyLWVtPSIxMDAwIiB1bmRlcmxpbmUtcG9zaXRpb249Ii02MCIgdW5kZXJsaW5lLXRoaWNrbmVzcz0iNjMuMDAwMDA0IiBzbG9wZT0iMCIgeC1oZWlnaHQ9IjU0NSIgY2FwLWhlaWdodD0iNzY2IiBhc2NlbnQ9Ijg4MC4wMDE4MyIgZGVzY2VudD0iLTEyMC4wMDAyNDQiIGZvbnQtd2VpZ2h0PSI0MDAiPjxmb250LWZhY2Utc3JjPjxmb250LWZhY2UtbmFtZSBuYW1lPSJIaXJhS2FrdVByb04tVzMiLz48L2ZvbnQtZmFjZS1zcmM+PC9mb250LWZhY2U+PC9kZWZzPjxnIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1kYXNoYXJyYXk9Im5vbmUiIGZpbGw9Im5vbmUiIGZpbGwtb3BhY2l0eT0iMSI+PHRpdGxlPuOCreODo+ODs+ODkOOCuSAxPC90aXRsZT48Zz48dGl0bGU+44Os44Kk44Ok44O8IDE8L3RpdGxlPjxnPjx1c2UgeGw6aHJlZj0iI2lkNV9HcmFwaGljIiBmaWx0ZXI9InVybCgjU2hhZG93KSIvPjx1c2UgeGw6aHJlZj0iI2lkMTBfR3JhcGhpYyIgZmlsdGVyPSJ1cmwoI1NoYWRvdykiLz48dXNlIHhsOmhyZWY9IiNpZDExX0dyYXBoaWMiIGZpbHRlcj0idXJsKCNTaGFkb3cpIi8+PHVzZSB4bDpocmVmPSIjaWQxNF9HcmFwaGljIiBmaWx0ZXI9InVybCgjU2hhZG93KSIvPjx1c2UgeGw6aHJlZj0iI2lkMTVfR3JhcGhpYyIgZmlsdGVyPSJ1cmwoI1NoYWRvdykiLz48dXNlIHhsOmhyZWY9IiNpZDE2X0dyYXBoaWMiIGZpbHRlcj0idXJsKCNTaGFkb3cpIi8+PHVzZSB4bDpocmVmPSIjaWQxN19HcmFwaGljIiBmaWx0ZXI9InVybCgjU2hhZG93KSIvPjwvZz48ZyBpZD0iaWQ1X0dyYXBoaWMiPjxwYXRoIGQ9Ik0gNTYuMyAzMDEgTCAxNDEuNyAzMDEgQyAxNTEuODAxNiAzMDEgMTYwIDMwOS45NiAxNjAgMzIxIEMgMTYwIDMzMi4wNCAxNTEuODAxNiAzNDEgMTQxLjcgMzQxIEwgNTYuMyAzNDEgQyA0Ni4xOTg0IDM0MSAzOCAzMzIuMDQgMzggMzIxIEMgMzggMzA5Ljk2IDQ2LjE5ODQgMzAxIDU2LjMgMzAxIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik0gNTYuMyAzMDEgTCAxNDEuNyAzMDEgQyAxNTEuODAxNiAzMDEgMTYwIDMwOS45NiAxNjAgMzIxIEMgMTYwIDMzMi4wNCAxNTEuODAxNiAzNDEgMTQxLjcgMzQxIEwgNTYuMyAzNDEgQyA0Ni4xOTg0IDM0MSAzOCAzMzIuMDQgMzggMzIxIEMgMzggMzA5Ljk2IDQ2LjE5ODQgMzAxIDU2LjMgMzAxIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDU1LjIgMzE0KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iQ291cmllciIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNC4xOTM1NTQ3IiB5PSIxMSIgdGV4dExlbmd0aD0iNzkuMjEyODkiPnJhbmdlT2ZVbml0PC90c3Bhbj48L3RleHQ+PC9nPjxnIGlkPSJpZDEwX0dyYXBoaWMiPjxwYXRoIGQ9Ik0gNTYuMyAzNzEuNSBMIDE0MS43IDM3MS41IEMgMTUxLjgwMTYgMzcxLjUgMTYwIDM4MC40NiAxNjAgMzkxLjUgQyAxNjAgNDAyLjU0IDE1MS44MDE2IDQxMS41IDE0MS43IDQxMS41IEwgNTYuMyA0MTEuNSBDIDQ2LjE5ODQgNDExLjUgMzggNDAyLjU0IDM4IDM5MS41IEMgMzggMzgwLjQ2IDQ2LjE5ODQgMzcxLjUgNTYuMyAzNzEuNSIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNIDU2LjMgMzcxLjUgTCAxNDEuNyAzNzEuNSBDIDE1MS44MDE2IDM3MS41IDE2MCAzODAuNDYgMTYwIDM5MS41IEMgMTYwIDQwMi41NCAxNTEuODAxNiA0MTEuNSAxNDEuNyA0MTEuNSBMIDU2LjMgNDExLjUgQyA0Ni4xOTg0IDQxMS41IDM4IDQwMi41NCAzOCAzOTEuNSBDIDM4IDM4MC40NiA0Ni4xOTg0IDM3MS41IDU2LjMgMzcxLjUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTUuMiAzODQuNSkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkNvdXJpZXIiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjIyLjE5NjQ4NCIgeT0iMTEiIHRleHRMZW5ndGg9IjQzLjIwNzAzIj5pblVuaXQ8L3RzcGFuPjwvdGV4dD48L2c+PGcgaWQ9ImlkMTFfR3JhcGhpYyI+PHBhdGggZD0iTSA1OC4wNSA0NTEgTCAxMzkuOTUgNDUxIEMgMTQ5LjYzNzYgNDUxIDE1Ny41IDQ1OS45NiAxNTcuNSA0NzEgQyAxNTcuNSA0ODIuMDQgMTQ5LjYzNzYgNDkxIDEzOS45NSA0OTEgTCA1OC4wNSA0OTEgQyA0OC4zNjI0IDQ5MSA0MC41IDQ4Mi4wNCA0MC41IDQ3MSBDIDQwLjUgNDU5Ljk2IDQ4LjM2MjQgNDUxIDU4LjA1IDQ1MSIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNIDU4LjA1IDQ1MSBMIDEzOS45NSA0NTEgQyAxNDkuNjM3NiA0NTEgMTU3LjUgNDU5Ljk2IDE1Ny41IDQ3MSBDIDE1Ny41IDQ4Mi4wNCAxNDkuNjM3NiA0OTEgMTM5Ljk1IDQ5MSBMIDU4LjA1IDQ5MSBDIDQ4LjM2MjQgNDkxIDQwLjUgNDgyLjA0IDQwLjUgNDcxIEMgNDAuNSA0NTkuOTYgNDguMzYyNCA0NTEgNTguMDUgNDUxIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDU3LjIgNDY0KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iQ291cmllciIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTYuNTk1ODk4IiB5PSIxMSIgdGV4dExlbmd0aD0iNTAuNDA4MjAzIj5mb3JEYXRlPC90c3Bhbj48L3RleHQ+PC9nPjxyZWN0IHg9IjE5MSIgeT0iMzcxLjUiIHdpZHRoPSIxODEiIGhlaWdodD0iMzgiIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iMTkxIiB5PSIzNzEuNSIgd2lkdGg9IjE4MSIgaGVpZ2h0PSIzOCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxOTYgMzgzLjUpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJDb3VyaWVyIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNTAwIiB4PSIxNy4wODg4NjciIHk9IjExIiB0ZXh0TGVuZ3RoPSIxMzYuODIyMjY2Ij5OU01vbnRoQ2FsZW5kYXJVbml0PC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iMjA1LjAwMDAyIiB5PSIzMDIiIHdpZHRoPSIxNDkiIGhlaWdodD0iMzgiIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iMjA1LjAwMDAyIiB5PSIzMDIiIHdpZHRoPSIxNDkiIGhlaWdodD0iMzgiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjEwLjAwMDAyIDMxNCkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkNvdXJpZXIiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjguMjkwMDM5IiB5PSIxMSIgdGV4dExlbmd0aD0iMTIyLjQxOTkyIj5OU0RheUNhbGVuZGFyVW5pdDwvdHNwYW4+PC90ZXh0PjxnIGlkPSJpZDE0X0dyYXBoaWMiPjxyZWN0IHg9IjI0Ny41IiB5PSI0NTMiIHdpZHRoPSI2NCIgaGVpZ2h0PSIzOCIgZmlsbD0id2hpdGUiLz48cmVjdCB4PSIyNDcuNSIgeT0iNDUzIiB3aWR0aD0iNjQiIGhlaWdodD0iMzgiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUyLjUgNDY1KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iQ291cmllciIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTIuNTk3NjU2IiB5PSIxMSIgdGV4dExlbmd0aD0iMjguODA0Njg4Ij5kYXRlPC90c3Bhbj48L3RleHQ+PC9nPjxnIGlkPSJpZDE1X0dyYXBoaWMiPjxlbGxpcHNlIGN4PSI0ODAuOTMwMzQiIGN5PSIzMjIuODI2MTEiIHJ4PSIyOS41MDAwNDgiIHJ5PSIyMC4wMDAwMzIiIGZpbGw9IndoaXRlIi8+PGVsbGlwc2UgY3g9IjQ4MC45MzAzNCIgY3k9IjMyMi44MjYxMSIgcng9IjI5LjUwMDA0OCIgcnk9IjIwLjAwMDAzMiIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NjIuMzMwMzQgMzE1LjgyNjExKSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJibGFjayIgeD0iMi45MTQ0NTMxIiB5PSIxMSIgdGV4dExlbmd0aD0iMzEuMzcxMDk0Ij57MSwzMH08L3RzcGFuPjwvdGV4dD48L2c+PGcgaWQ9ImlkMTZfR3JhcGhpYyI+PGVsbGlwc2UgY3g9IjQ4MC45MzAzMyIgY3k9IjQ3MyIgcng9IjQ3Ljc1MDA3NiIgcnk9IjIwLjAwMDAzMiIgZmlsbD0id2hpdGUiLz48ZWxsaXBzZSBjeD0iNDgwLjkzMDMzIiBjeT0iNDczIiByeD0iNDcuNzUwMDc2IiByeT0iMjAuMDAwMDMyIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ0Ny43MzAzMyA0NjYpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9ImJsYWNrIiB4PSIyLjUwODU5MzgiIHk9IjExIiB0ZXh0TGVuZ3RoPSIzMC42OTE0MDYiPjIwMTMtPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9InJlZCIgeD0iMzMuMiIgeT0iMTEiIHRleHRMZW5ndGg9IjEzLjM0NzY1NiI+MDY8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJibGFjayIgeD0iNDYuNTQ3NjU2IiB5PSIxMSIgdGV4dExlbmd0aD0iMTcuMzQzNzUiPi0wMTwvdHNwYW4+PC90ZXh0PjwvZz48ZyBpZD0iaWQxN19HcmFwaGljIj48ZWxsaXBzZSBjeD0iNDgwLjkzMDMzIiBjeT0iMzkxLjUiIHJ4PSIyOS41MDAwNDgiIHJ5PSIyMC4wMDAwMzIiIGZpbGw9IndoaXRlIi8+PGVsbGlwc2UgY3g9IjQ4MC45MzAzMyIgY3k9IjM5MS41IiByeD0iMjkuNTAwMDQ4IiByeT0iMjAuMDAwMDMyIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ2Mi4zMzAzMyAzODQuNSkiIGZpbGw9IiNmZjA0MGMiPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjZmYwNDBjIiB4PSIxMS45MjYxNzIiIHk9IjExIiB0ZXh0TGVuZ3RoPSIxMy4zNDc2NTYiPjA2PC90c3Bhbj48L3RleHQ+PC9nPjxsaW5lIHgxPSIxNjAuNSIgeTE9IjMyMC45OTk5OSIgeDI9IjE5NC42MDAwMiIgeTI9IjMyMC45OTk5OSIgbWFya2VyLWVuZD0idXJsKCNGaWxsZWRBcnJvd19NYXJrZXIpIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNjAuNDk3NDgiIHkxPSIzOTEuMTYyOTciIHgyPSIxODAuNjAwMTYiIHkyPSIzOTEuMDUyOCIgbWFya2VyLWVuZD0idXJsKCNGaWxsZWRBcnJvd19NYXJrZXIpIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNTcuOTk3NjkiIHkxPSI0NzEuMzI5NDciIHgyPSIyMzcuMTAwMTYiIHkyPSI0NzEuNzcxMjIiIG1hcmtlci1lbmQ9InVybCgjRmlsbGVkQXJyb3dfTWFya2VyKSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzEyIiB5MT0iNDcyLjE2MTU0IiB4Mj0iNDIyLjc4Mzc0IiB5Mj0iNDcyLjcxMjE3IiBtYXJrZXItZW5kPSJ1cmwoI0ZpbGxlZEFycm93X01hcmtlcikiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM1NC41IiB5MT0iMzIxLjY3OTkzIiB4Mj0iNDQxLjAzMzM3IiB5Mj0iMzIyLjQ2NDQyIiBtYXJrZXItZW5kPSJ1cmwoI0ZpbGxlZEFycm93X01hcmtlcikiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHJlY3QgeD0iMzc4LjE1MzY3IiB5PSIzMDguMTExOTQiIHdpZHRoPSI0OCIgaGVpZ2h0PSIyOCIgZmlsbD0id2hpdGUiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzODMuMTUzNjcgMzEzLjExMTk0KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iSGlyYWdpbm8gS2FrdSBHb3RoaWMgUHJvTiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjQwMCIgZmlsbD0iYmxhY2siIHg9Ii4xMTIiIHk9IjExIiB0ZXh0TGVuZ3RoPSIzNy43NzYiPlJhbmdlPC90c3Bhbj48L3RleHQ+PGxpbmUgeDE9IjM3Mi41IiB5MT0iMzkwLjk1NjMiIHgyPSI0NDEuMDMxMjUiIHkyPSIzOTEuMjk5OTMiIG1hcmtlci1lbmQ9InVybCgjRmlsbGVkQXJyb3dfTWFya2VyKSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MC41IDI0OSkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iLjEzMzc4OTA2IiB5PSIxMSIgdGV4dExlbmd0aD0iMTQ0LjczMjQyIj5yYW5nZU9mVW5pdDppblVuaXQ6Zm9yRGF0ZTo8L3RzcGFuPjwvdGV4dD48L2c+PC9nPjwvc3ZnPgo=" /></p>
+<p>e.g) <code>targetDate</code> の月初めを取得</p>
+<div class="highlight"><pre><span class="n">NSCalendar</span> <span class="o">*</span><span class="n">cal</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSCalendar</span> <span class="n">currentCalendar</span><span class="p">];</span>
+<span class="c1">// inUnit:で指定した単位（月）の中で、rangeOfUnit:で指定した単位（日）が取り得る範囲</span>
+<span class="n">NSRange</span> <span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="n">cal</span> <span class="n">rangeOfUnit</span><span class="o">:</span><span class="n">NSDayCalendarUnit</span> <span class="n">inUnit</span><span class="o">:</span><span class="n">NSMonthCalendarUnit</span> <span class="n">forDate</span><span class="o">:</span><span class="n">targetDate</span><span class="p">];</span>
+<span class="n">NSInteger</span> <span class="n">firstDayValue</span> <span class="o">=</span> <span class="n">range</span><span class="p">.</span><span class="n">location</span><span class="p">;</span>
+</pre></div>
+
+<ul>
+<li><a href="https://github.com/azu/NSDateALive/blob/master/NSDateALiveTests/NSCalendarFirstLastSpec.m" title="NSDateALive/NSDateALiveTests/NSCalendarFirstLastSpec.m at master · azu/NSDateALive · GitHub">NSCalendarFirstLastSpec.m at master · azu/NSDateALive · GitHub</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>UIDatePicker</h1>
+            
+            
+            <ul>
+<li>表示はiOSの設定に依存</li>
+<li>Calanderとlocaleを設定する事で、表示をプログラマブルに変更できる<ul>
+<li>iOS5だと動作がちょっとおかしい</li>
+</ul>
+</li>
+</ul>
+<p>e.g.) 和暦の表示のUIDatePicker</p>
+<div class="highlight"><pre><span class="n">UIDatePicker</span> <span class="o">*</span><span class="n">datePicker</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIDatePicker</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+<span class="c1">// 言語は日本語(iOSの設定の書式に該当)</span>
+<span class="n">datePicker</span><span class="p">.</span><span class="n">locale</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSLocale</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithLocaleIdentifier</span><span class="o">:</span><span class="s">@&quot;ja_JP&quot;</span><span class="p">];</span>
+<span class="c1">// カレンダーは西暦(iOSの設定のカレンダーに該当)</span>
+<span class="n">NSCalendar</span> <span class="o">*</span><span class="n">gregorian</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSCalendar</span> <span class="n">alloc</span><span class="p">]</span><span class="n">initWithCalendarIdentifier</span><span class="o">:</span><span class="n">NSGregorianCalendar</span><span class="p">];</span>
+<span class="n">gregorian</span><span class="p">.</span><span class="n">locale</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSLocale</span> <span class="n">currentLocale</span><span class="p">];</span>
+<span class="n">datePicker</span><span class="p">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="n">gregorian</span><span class="p">;</span>
+<span class="n">datePicker</span><span class="p">.</span><span class="n">datePickerMode</span> <span class="o">=</span> <span class="n">UIDatePickerModeDateAndTime</span><span class="p">;</span>
+</pre></div>
+
+<ul>
+<li><a href="https://gist.github.com/azu/5044045/" title="和暦を利用時でもUIDatePickerでカレンダー:西暦の表示にする">和暦を利用時でもUIDatePickerでカレンダー:西暦の表示にする</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>ここまでのまとめ</h1>
+            
+            
+            <ul>
+<li>出来る限り直接扱うのは <code>NSDate</code> にする</li>
+<li><code>NSDateFormatter</code> に 頼りすぎるな</li>
+<li>日付を操作するには <code>NSDateComponents</code> が一番<ul>
+<li>ただし冗長になりが…</li>
+</ul>
+</li>
+<li><code>NSCalendar</code> は1種類じゃない<ul>
+<li>西暦/和暦/タイ歴…</li>
+</ul>
+</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>よりNSDateと仲良くなるには</h1>
+            
+            
+            <ul>
+<li><code>NSDateComponents</code> は直接扱うには冗長すぎる</li>
+<li><code>NSCalendar</code> や <code>NSDateFormatter</code> は安易に使うとパフォーマンスの問題を起こしやすい</li>
+</ul>
+<h2>We need Library!</h2>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>現在のライブラリ</h1>
+            
+            
+            <h3><a href="https://github.com/erica/NSDate-Extensions" title="erica/NSDate-Extensions · GitHub">erica/NSDate-Extensions · GitHub</a></h3>
+<ul>
+<li>安定、率直な実装</li>
+<li>パフォーマンスの問題</li>
+</ul>
+<h3><a href="https://github.com/mysterioustrousers/MTDates" title="mysterioustrousers/MTDates · GitHub">mysterioustrousers/MTDates · GitHub</a></h3>
+<ul>
+<li>多機能</li>
+<li>キャッシュ</li>
+<li>テストが書かれている</li>
+<li>APIが少し分かりにく</li>
+</ul>
+<h3><a href="https://github.com/mirego/MCDateExtensions" title="mirego/MCDateExtensions · GitHub">mirego/MCDateExtensions · GitHub</a></h3>
+<ul>
+<li>シンプル</li>
+<li>キャッシュ</li>
+<li>NSCurrentLocaleDidChangeNotification対応</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>もっともっと便利なのが欲しい</h1>
+            
+            
+            <h2><a href="https://github.com/azu/NSDate-escort" title="azu/NSDate-escort · GitHub">azu/NSDate-escort · GitHub</a></h2>
+<h2>Proposal(未着手…)</h2>
+<ul>
+<li><a href="https://github.com/erica/NSDate-Extensions" title="NSDate-Extensions">NSDate-Extensions</a> Compatible API</li>
+<li>Cache &amp; Fast implement</li>
+<li>Thread safe API</li>
+<li>Test Test Test!</li>
+<li>Test multiple languages</li>
+<li>100% Code Coverage</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>A primary purpose of <a href="https://github.com/azu/NSDate-escort" title="azu/NSDate-escort · GitHub">NSDate-escort</a></h1>
+            
+            
+            <h2>誰もが安心して使えるライブラリ</h2>
+<ul>
+<li>できるだけシンプルな実装</li>
+<li>複雑すぎる機能は入れない</li>
+<li>パフォーマンスの問題を発生しにくくする</li>
+<li>テストをできるだけ書く</li>
+<li><code>NSDate</code> を中心に考える(ユーザーが直接扱うのはNSDate)</li>
+<li><code>NSDateComponents</code> を考える必要を少なくする</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>課題</h1>
+            
+            
+            <ul>
+<li>どうやってThread safe???</li>
+<li>prefixは必要??</li>
+</ul>
+<p><a href="https://github.com/azu/NSDate-escort#contributing" title="Contributing">Contributing</a> や <a href="https://github.com/azu/NSDate-escort/issues" title="issue.">issue</a> 待ってます(日本語で大丈夫です)</p>
+            
+            
+        </section>
+        
+        <!-- slide source: nsdate_a_live.md -->
+        <section>
+            
+            <h1>おわり</h1>
+            
+            
+            
+        </section>
+        
+    </div>
+</div>
+
+
+<!-- JavaScript -->
+<script src="theme/reveal.js/lib/js/head.min.js"></script>
+<script src="theme/reveal.js/js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+        width: "80%",
+        minScale: 0.2,
+        maxScale: 1.0,
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'theme/reveal.js/lib/js/classList.js', condition: function (){
+                return !document.body.classList;
+            } },
+//            { src: 'theme/reveal.js/plugin/markdown/marked.js', condition: function (){
+//                return !!document.querySelector('[data-markdown]');
+//            } },
+//            { src: 'theme/reveal.js/plugin/markdown/markdown.js', condition: function (){
+//                return !!document.querySelector('[data-markdown]');
+//            } },
+//            { src: 'theme/reveal.js/plugin/highlight/highlight.js', async: true, callback: function (){
+//                hljs.initHighlightingOnLoad();
+//            } },
+            { src: 'theme/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function (){
+                return !!document.body.classList;
+            } }
+//            { src: 'theme/reveal.js/plugin/notes/notes.js', async: true, condition: function (){
+//                return !!document.body.classList;
+//            } },
+//            { src: 'theme/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
