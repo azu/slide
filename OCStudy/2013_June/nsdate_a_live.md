@@ -212,7 +212,7 @@ e.g.) 和暦の表示のUIDatePicker
 
 # もっともっと便利なのが欲しい
 
-## [azu/NSDate-escort · GitHub](https://github.com/azu/NSDate-escort "azu/NSDate-escort · GitHub")
+## [azu/NSDate-Escort · GitHub](https://github.com/azu/NSDate-Escort "azu/NSDate-Escort · GitHub")
 
 ## Proposal(未着手…)
 
@@ -225,7 +225,7 @@ e.g.) 和暦の表示のUIDatePicker
 
 ----
 
-# A primary purpose of [NSDate-escort](https://github.com/azu/NSDate-escort "azu/NSDate-escort · GitHub")
+# A primary purpose of [NSDate-Escort](https://github.com/azu/NSDate-Escort "azu/NSDate-Escort · GitHub")
 
 ## 誰もが安心して使えるライブラリ
 
@@ -244,7 +244,7 @@ e.g.) 和暦の表示のUIDatePicker
 * prefixは必要??
 
 
-[Contributing](https://github.com/azu/NSDate-escort#contributing "Contributing") や [issue](https://github.com/azu/NSDate-escort/issues "issue.") 待ってます(日本語で大丈夫です)
+[Contributing](https://github.com/azu/NSDate-Escort#contributing "Contributing") や [issue](https://github.com/azu/NSDate-Escort/issues "issue.") 待ってます(日本語で大丈夫です)
 
 ----
 
