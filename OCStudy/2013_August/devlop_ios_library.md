@@ -6,8 +6,22 @@
 
 [NSDate-Escort] という ``NSDate`` のカテゴリライブラリを作った話
 
-----
+-----
 
+# 自己紹介
+
+![アイコン](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
+
+- Name : **azu**
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- Website: [Web scratch], [JSer.info], [MemeTodo], [prog*sig]
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+[MemeTodo]: http://meme.efcl.info/ "MemeTodo"
+[prog*sig]: http://efcl.info/adiary/ "prog*sig"
+
+----
 ## 目次
 
 1. [NSDate-Escort]
