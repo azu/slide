@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Devlop iOS Library</title>
+
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="theme/reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="theme/reveal.js/css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="theme/reveal.js/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="theme/reveal.js/css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="theme/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1>Devlop iOS Library</h1>
+            
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>iOSのライブラリを作った話</h2>
+            
+            
+            <p><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort">NSDate-Escort</a> という <code>NSDate</code> のカテゴリライブラリを作った話</p>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>目次</h2>
+            
+            
+            <ol>
+<li><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort">NSDate-Escort</a></li>
+<li>テスト</li>
+<li>カバレッジ</li>
+<li>モチベーション</li>
+<li>ライセンス</li>
+<li>CocoaPodsでの公開方法</li>
+</ol>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort">NSDate-Escort</a></h1>
+            
+            
+            <ul>
+<li>NSDateのカテゴリライブラリ</li>
+<li>面倒なところをやってくれるAPIを持ったもの<ul>
+<li>直で書くにはNSDateComponentを経由するようなもの</li>
+</ul>
+</li>
+<li><a href="https://github.com/erica/NSDate-Extensions" title="NSDate-Extensions">NSDate-Extensions</a> というライブラリと互換性のあるAPIを持つ</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort">NSDate-Escort</a> の例</h2>
+            
+            
+            <div class="highlight"><pre><span class="cp">#import &lt;NSDate+Escort.h&gt;</span>
+
+<span class="c1">// today から 7日後 のNSDateを取得する</span>
+<span class="n">NSDate</span> <span class="o">*</span><span class="n">today</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="n">date</span><span class="p">];</span>
+<span class="n">NSDate</span> <span class="o">*</span><span class="n">nextWeekDate</span> <span class="o">=</span> <span class="p">[</span><span class="n">today</span> <span class="n">dateByAddingDays</span><span class="o">:</span><span class="mi">7</span><span class="p">];</span>
+
+<span class="c1">// 2つの NSDateを比較した真偽値を取得する</span>
+<span class="n">NSDate</span> <span class="o">*</span><span class="n">yesterday</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="n">dateYesterday</span><span class="p">];</span>
+<span class="kt">BOOL</span> <span class="n">isEarlier</span> <span class="o">=</span> <span class="p">[</span><span class="n">yesterday</span> <span class="n">isEarlierThanDate</span><span class="o">:</span><span class="n">today</span><span class="p">];</span><span class="c1">// =&gt; YES</span>
+</pre></div>
+
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort">NSDate-Escort</a> まとめ</h2>
+            
+            
+            <ul>
+<li><a href="https://github.com/erica/NSDate-Extensions" title="NSDate-Extensions">NSDate-Extensions</a> と互換性のあるAPIを持ってる</li>
+<li>中身はスクラッチで実装</li>
+<li>いくつか追加したメソッドを持ってる</li>
+<li>全てのメソッドを通るテストが書かれてる<ul>
+<li>=&gt; コードカバレッジ 100%</li>
+</ul>
+</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>もっとくわしく</h2>
+            
+            
+            <ul>
+<li><a href="http://efcl.info/2013/0801/res3366/" title="NSDateをもっと便利に使うためのライブラリ NSDate-Escortを書いた | Web scratch">NSDateをもっと便利に使うためのライブラリ NSDate-Escortを書いた | Web scratch</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1>ライブラリのテスト</h1>
+            
+            
+            <ul>
+<li><a href="https://www.cocoacontrols.com/">UIならともかく</a> ロジックを提供するライブラリでないのは辛い</li>
+<li><a href="https://github.com/erica/NSDate-Extensions" title="NSDate-Extensions">NSDate-Extensions</a> にはテストがひとつもない…</li>
+<li>テストを書きましょう</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort">NSDate-Escort</a> でのテスト</h1>
+            
+            
+            <ul>
+<li>テストフレームワークに <a href="https://github.com/allending/Kiwi" title="allending/Kiwi">Kiwi</a> を使用</li>
+<li>慣れてるから選択</li>
+<li>テストの中身というよりも、何をテストしたいかを書きたかった</li>
+<li>テストは境界値を意識して書いた</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1>QuickCheck</h1>
+            
+            
+            <ul>
+<li>テストしたい値は色々ある<ul>
+<li>日にち、週、月、年 をまたいだ時...</li>
+<li>0を渡した時、マイナスの値を渡した時...</li>
+<li>全部考えるのは大変</li>
+</ul>
+</li>
+<li>一定の規則に合った適当な値でテストをして網羅性を高めたい</li>
+<li>QuickCheckの出番</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2><a href="https://github.com/yaakaito/NLTQuickCheck" title="yaakaito/NLTQuickCheck">NLTQuickCheck</a></h2>
+            
+            
+            <blockquote cite="http://yaakaito.hatenablog.com/entry/2012/06/17/000510"
+ title="ランダムテストライブラリ、NLTQuickCheck作った - yaakaito's diary">
+<p>QuickCheckは、一定の規則に従った値をランダムに生成して、それを使って複数回(だいたい100回くらいっぽいです)のテストケースを実行する、という仕組みです。 ユースケースとしては何らかの不変なロジックに対して、自分で生成する分では補いきれないケースをランダムで生成し、テストしてくれる、</p>
+<cite>
+ <a href="http://yaakaito.hatenablog.com/entry/2012/06/17/000510">ランダムテストライブラリ、NLTQuickCheck作った - yaakaito's diary</a>
+</cite>
+</blockquote>
+
+<p>QuickCheckライブラリは <a href="https://github.com/yaakaito/NLTQuickCheck" title="yaakaito/NLTQuickCheck">NLTQuickCheck</a> を使った</p>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>QuickCheckするメソッド</h2>
+            
+            
+            <ul>
+<li>QuickCheckで補うようにテストする</li>
+<li>そのメソッドの性質は決まってる</li>
+</ul>
+<p>例)</p>
+<pre><code>引数に-1 を渡したら -1 される
+引数に 0 を渡したら +0 される
+引数に 1 を渡したら +1 される  
+…
+=&gt; メソッドのロジックは不変、これを網羅するパターンを毎回書くのは大変
+</code></pre>
+<ul>
+<li><a href="http://voqn.blogspot.jp/2012/01/bdd-on-haskell-2-quickcheck.html" title="BDD on Haskell チュートリアル その2 : QuickCheck でランダムテスト">BDD on Haskell チュートリアル その2 : QuickCheck でランダムテスト</a></li>
+<li>QuickCheckでありがちな値をランダムで渡してチェックする<ul>
+<li>0、大きい値、マイナスの値…    </li>
+</ul>
+</li>
+<li>重要な境界値やQuickCheckしにくいロジックについては、手動でテストケースを書いてテストする</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>なぜテストがあるといいの?</h2>
+            
+            
+            <ul>
+<li>メンテナンスされてる感じがでる</li>
+<li>サンプルコードの代わりにもなる<ul>
+<li>ドキュメントは別にあったほうがベスト</li>
+</ul>
+</li>
+<li><a href="https://travis-ci.org/" title="Travis CI - Free Hosted Continuous Integration Platform for the Open Source Community">Travis CI</a>のバッチが貼れる! <a href="https://travis-ci.org/azu/NSDate-Escort"><img alt="Build Status" src="https://travis-ci.org/azu/NSDate-Escort.png?branch=master" /></a><ul>
+<li>Pull Request受け入れるときに役に立つ</li>
+</ul>
+</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2><a href="https://travis-ci.org/" title="Travis CI - Free Hosted Continuous Integration Platform for the Open Source Community">Travis CI</a></h2>
+            
+            
+            <ul>
+<li><a href="http://about.travis-ci.org/docs/user/languages/objective-c/" title="Objective-C Project">Objective-C Project</a> も無料でテストを動かせる</li>
+<li>Pull Requestされた時に壊れてないかチェックできる</li>
+<li>自分以外の環境で実行しておく価値(ビルドテスト)<ul>
+<li>Githubにコードを上げたつもりでも環境依存が起きてる場合がある</li>
+<li>第三者(Travis CI)でビルドできる事で依存性がないかを確認できる</li>
+</ul>
+</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1>コードカバレッジ</h1>
+            
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>コードカバレッジを取る理由</h2>
+            
+            
+            <ol>
+<li>テストを書きたいね</li>
+<li>-&gt; どうせならコードカバレッジも取りたいね</li>
+<li>-&gt; <a href="https://coveralls.io/" title="Your Repositories | Coveralls - Code Coverage History and Statistics">Coveralls</a> というサービス使いたいね</li>
+<li>=&gt; <a href="https://coveralls.io/" title="Your Repositories | Coveralls - Code Coverage History and Statistics">Coveralls</a> のバッチが貼れる!! <a href="https://coveralls.io/r/azu/NSDate-Escort?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/azu/NSDate-Escort/badge.png?branch=master" /></a></li>
+</ol>
+<p><a href="https://coveralls.io/" title="Your Repositories | Coveralls - Code Coverage History and Statistics">Coveralls</a> を使いためにコードカバレッジを取る!!</p>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>コードカバレッジを取る方法</h2>
+            
+            
+            <ul>
+<li><a href="http://efcl.info/2013/0613/res3301/" title="iOSアプリのテストをTravis CIで走らせて、コードカバレッジをCoverallsで取る方法 | Web scratch">iOSアプリのテストをTravis CIで走らせて、コードカバレッジをCoverallsで取る方法 | Web scratch</a></li>
+<li><a href="http://www.tokoro.me/2013/07/09/objc-travis-coveralls/" title="iOSのライブラリだってTravis CIとかCoverallsとか使うべき - TOKOROM BLOG">iOSのライブラリだってTravis CIとかCoverallsとか使うべき - TOKOROM BLOG</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>コードカバレッジを取る意味</h2>
+            
+            
+            <ul>
+<li><a href="https://github.com/erica/NSDate-Extensions" title="NSDate-Extensions">NSDate-Extensions</a> の再実装との孤独な戦い…<ul>
+<li>何か指標が合ったほうがいい</li>
+</ul>
+</li>
+<li>APIを実装する -&gt; カバレッジ率が上昇する<ul>
+<li>目に見える変化があることでモチベーションを保てる</li>
+</ul>
+</li>
+<li><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort">NSDate-Escort</a> の場合は 0%から100% にすることを目標にした</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            
+            <blockquote cite="http://blog.ishkawa.org/blog/2013/07/08/code-coverage/"
+ title="コードカバレッジを計測してみた感想">
+<p>コードカバレッジを計測してみる前は”目安に過ぎないから計測してもしなくても大差ない”というような気がしていたのですが、 計測してその結果を活用して開発をしてみると”無意味な変更でパーセンテージが変化する場合があるから目安”なのかなと思いました。 で、結局目安と言いながらも明らかにカバーできていない箇所を発見できたりして開発にとても役立つ</p>
+<cite>
+ <a href="http://blog.ishkawa.org/blog/2013/07/08/code-coverage/">コードカバレッジを計測してみた感想</a>
+</cite>
+</blockquote>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>Coveralls</h2>
+            
+            
+            <p>Botと戯れる</p>
+<p><img alt="image" src="http://f.cl.ly/items/3F1r0D0Q1m0b2i2S020l/Image%202013.08.01%2018%3A03%3A23.png" /></p>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1>ライセンス</h1>
+            
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>LICENSEファイルを作る</h2>
+            
+            
+            <ul>
+<li>ライセンスは必ず書きましょう<ul>
+<li>readme か <code>LICENSE</code> ファイルを作る</li>
+</ul>
+</li>
+<li>Githubではリポジトリ作成時にライセンスが選べるようになった<ul>
+<li><a href="https://github.com/blog/1530-choosing-an-open-source-license" title="Choosing an Open Source License">Choosing an Open Source License</a></li>
+</ul>
+</li>
+<li>コマンドラインから <code>LICENSE</code> ファイルを生成する<ul>
+<li><a href="https://github.com/blaix/license-generator" title="blaix/license-generator">blaix/license-generator</a> が便利!</li>
+</ul>
+</li>
+<li>CocoaPodsで公開する場合もライセンスは必須</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1>CocoaPods</h1>
+            
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>What's Podspec?</h2>
+            
+            
+            <ul>
+<li>CococPods経由でインストールするために必要な設定ファイル</li>
+<li>ビルドのオプション、ビルドするファイル、ARCの有無、依存するライブラリ/フレームワーク、ライセンスなどを記述</li>
+<li><code>pod spec create</code> でテンプレートを作成できる</li>
+<li><a href="http://theonlylars.com/blog/2013/01/20/cocoapods-creating-a-pod-spec/" title="Cocoapods: Creating a Pod Spec - theonlylars">Cocoapods: Creating a Pod Spec - theonlylars</a></li>
+<li><a href="http://qiita.com/makoto_kw/items/edf758a67bd4c2ba5b7a" title="Objective-C - CocoaPodsでPodの利用＆作成のメモ - Qiita [キータ]">Objective-C - CocoaPodsでPodの利用＆作成のメモ - Qiita [キータ]</a></li>
+<li><a href="http://qiita.com/makoto_kw/items/447448d8fcabc4a9e8e0" title="Objective-C - CocoaPods podspec作成の逆引きいろいろ - Qiita [キータ]">Objective-C - CocoaPods podspec作成の逆引きいろいろ - Qiita [キータ]</a></li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>Podspecの作り方</h2>
+            
+            
+            <ul>
+<li><code>pod spec create &lt;Name&gt;</code></li>
+<li>リポジトリにtagを付ける(CocoaPods/Specする場合は合ったほうがいい)</li>
+<li>項目を穴埋めする</li>
+<li><code>pod spec lint</code> でWarningがなくなるまで繰り返す</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h2>CocoaPods/SpecにPull Request</h2>
+            
+            
+            <ul>
+<li>CocoaPodsで公開するには <a href="https://github.com/CocoaPods/Specs" title="CocoaPods/Specs">CocoaPods/Specs</a> へPullRequestする</li>
+<li><a href="http://docs.cocoapods.org/guides/contributing_to_the_master_repo.html" title="Contributing to the master repo">Contributing to the master repo</a> に説明がある</li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h3>実際の流れ</h3>
+            
+            
+            <p><code>pod spec lint</code> でエラーがでないpodspecを作る</p>
+<pre><code>$ cd ~/.cocoapods/master
+$ hub fork
+$ cp ~/HOGEHOGE.podspec ~/.cocoapods/master/HOGEHOGE/VERSION/
+$ git push &amp;&amp; Pull Request
+</code></pre>
+<ul>
+<li>ブランチ切って書いてあるけど、masterでやってる人が殆ど</li>
+<li><code>pod spec lint</code> でエラーが出てる場合ははじかれる </li>
+</ul>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h3>Pull Requestしない場合</h3>
+            
+            
+            <ul>
+<li><a href="https://github.com/CocoaPods/Specs" title="CocoaPods/Specs">CocoaPods/Specs</a> に公開しないでもpodspecは公開できる</li>
+<li><code>:git =&gt; 'リポジトリURL'</code> を指定すれば、リポジトリにあるpodspecからインストールできる</li>
+</ul>
+<p>Podfile に以下のように書く</p>
+<pre><code>pod 'NSDate-Escort', :git =&gt; 'https://github.com/azu/NSDate-Escort.git'
+</code></pre>
+            
+            
+        </section>
+        
+        <!-- slide source: devlop_ios_library.md -->
+        <section>
+            
+            <h1>おわり</h1>
+            
+            
+            
+        </section>
+        
+    </div>
+</div>
+
+
+<!-- JavaScript -->
+<script src="theme/reveal.js/lib/js/head.min.js"></script>
+<script src="theme/reveal.js/js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+        width: "80%",
+        minScale: 0.2,
+        maxScale: 1.0,
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'theme/reveal.js/lib/js/classList.js', condition: function (){
+                return !document.body.classList;
+            } },
+//            { src: 'theme/reveal.js/plugin/markdown/marked.js', condition: function (){
+//                return !!document.querySelector('[data-markdown]');
+//            } },
+//            { src: 'theme/reveal.js/plugin/markdown/markdown.js', condition: function (){
+//                return !!document.querySelector('[data-markdown]');
+//            } },
+//            { src: 'theme/reveal.js/plugin/highlight/highlight.js', async: true, callback: function (){
+//                hljs.initHighlightingOnLoad();
+//            } },
+            { src: 'theme/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function (){
+                return !!document.body.classList;
+            } }
+//            { src: 'theme/reveal.js/plugin/notes/notes.js', async: true, condition: function (){
+//                return !!document.body.classList;
+//            } },
+//            { src: 'theme/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
