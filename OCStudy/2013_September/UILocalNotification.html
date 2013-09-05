@@ -1,0 +1,2905 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>UILocalNotificationのパターンとテスト</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Styles -->
+    
+    <style type="text/css" media="print">
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: landscape;
+}
+
+body {
+    font: 100% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+div.slide {
+    min-width: 800px;
+    min-height: 600px;
+    padding: 1em;
+    overflow: hidden;
+    page-break-after: always;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+div.slide div.inner {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    display: table-cell;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h3 {
+    margin: 1em 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+p, li, pre {
+    margin: 1em 0;
+}
+
+li {
+    margin-left: 2em;
+}
+
+a {
+    color: #000000;
+}
+
+pre, code {
+    max-width: 800px;
+    background: #eee;
+    font-family: Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    padding: .2em .5em;
+    overflow: hidden;
+}
+
+code {
+    padding: 0 .2em;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 600px;
+  width: 800px;
+  font-size: 48px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+#toc, #help, .slide aside, .slide footer, .slide .notes,
+.presenter_notes, #current_presenter_notes, #presenter_note {
+  display: none;
+}
+
+    </style>
+    <style type="text/css" media="screen, projection">
+      
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: #778;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+div.presentation {
+    position: absolute;
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    background: inherit;
+}
+
+div.presentation > h1 {
+    display: none;
+}
+
+div.slides, body.expose div.slides.nocontext {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    display: block;
+}
+
+div.slides.nocontext {
+    width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    left: auto;
+    top: auto;
+}
+
+div.slide {
+    display: inline;
+    position: absolute;
+    overflow: hidden;
+    width: 900px;
+    height: 700px;
+    margin-top: -350px;
+    margin-left: -400px;
+    left: 50%;
+    top: 50%;
+    /*
+      background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#fff));
+      background: -moz-linear-gradient(bottom, #eee, #fff);
+    */
+    background-color: white;
+    -webkit-transition: margin 0.25s ease-in-out;
+    -moz-transition: margin 0.25s ease-in-out;
+    -o-transition: margin 0.25s ease-in-out;
+    border-top-left-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    -webkit-border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    -moz-border-radius-topright: 6px;
+    -webkit-border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    -moz-border-radius-bottomright: 6px;
+    -webkit-border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    -webkit-border-bottom-left-radius: 6px;
+}
+
+/* Expose */
+
+body.expose div.slides {
+    float: left;
+    position: relative;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+body.expose div.slide {
+    display: block;
+    float: left;
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    margin: 10px !important;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -moz-transform: scale(.33, .33);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(.33, .33);
+    -webkit-transform-origin: 0 0;
+    -o-transform: scale(.33, .33);
+    -o-transform-origin: 0 0;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+    cursor: pointer;
+}
+
+body.expose div.slide:hover {
+    background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fff));
+    background-color: #eee;
+    background: -moz-linear-gradient(bottom, #bdd, #fff);
+}
+
+body.expose .slide-wrapper {
+    float: left;
+    position: relative;
+    margin: .5%;
+    width: 300px;
+    height: 233px;
+}
+
+body.expose .slide footer {
+}
+
+body.expose .slide .inner {
+}
+
+body.expose .slide.far-past,
+body.expose .slide.past,
+body.expose .slide.future,
+body.expose .slide.far-future {
+    margin-left: 0;
+}
+
+body.expose .slide.current {
+    background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fff));
+    background-color: #eee;
+    background: -moz-linear-gradient(bottom, #ddb, #fff);
+    border: 16px solid #fff;
+    -moz-transform: scale(.315, .315);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(.315, .315);
+    -webkit-transform-origin: 0 0;
+    -o-transform: scale(.315, .315);
+    -o-transform-origin: 0 0;
+    transform: scale(.315, .315);
+    transform-origin: 0 0;
+
+}
+
+/* Presenter Mode */
+
+body.presenter_view div.slide {
+    display: inline;
+    position: absolute;
+    overflow: hidden;
+    -moz-transform: scale(.5, .5);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(.5, .5);
+    -webkit-transform-origin: 0 0;
+    -o-transform: scale(.5, .5);
+    -o-transform-origin: 0 0;
+    transform: scale(.5, .5);
+    transform-origin: 0 0;
+    margin-top: -300px;
+}
+
+body.presenter_view .slide.far-past {
+    display: block;
+    margin-left: -1500px;
+}
+
+body.presenter_view .slide.past {
+    display: block;
+    margin-left: -975px;
+}
+
+body.presenter_view .slide.current {
+    display: block;
+    margin-left: -475px;
+    border: 8px solid maroon;
+    z-index: 2;
+}
+
+body.presenter_view .slide.future {
+    display: block;
+    margin-left: 25px;
+    z-index: 1;
+}
+
+body.presenter_view .slide.far-future {
+    display: block;
+    margin-left: 525px;
+}
+
+body.presenter_view div#current_presenter_notes {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    overflow: auto;
+    vertical-align: middle;
+    left: 50%;
+    top: 50%;
+    margin-left: -475px;
+    margin-top: 100px;
+    z-index: 2;
+    width: 950px;
+    border-style: solid;
+    height: 30%;
+    background-color: silver;
+}
+
+body.presenter_view div#current_presenter_notes section {
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: black;
+    text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+    display: block;
+    overflow: visible;
+    position: relative;
+    background-color: #fffeff;
+    height: 120px;
+    margin-right: 30px;
+    margin-top: 60px;
+    margin-left: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+body.presenter_view div#current_presenter_notes section p {
+    margin: 0;
+}
+
+body.presenter_view div#current_presenter_notes h1 {
+    font-size: 50%;
+    display: block;
+}
+
+div#current_presenter_notes {
+    display: none;
+}
+
+div.slide div.presenter_notes, div.slides div.presenter_notes {
+    display: none;
+}
+
+/* Slide styles */
+
+div.slide p {
+    font-size: 130%;
+}
+
+.slide.far-past {
+    display: block;
+    margin-left: -2400px;
+}
+
+.slide.past {
+    display: block;
+    margin-left: -1400px;
+}
+
+.slide.current {
+    display: block;
+    margin-left: -450px;
+}
+
+.slide.future {
+    display: block;
+    margin-left: 500px;
+}
+
+.slide.far-future {
+    display: block;
+    margin-left: 1500px;
+}
+
+body.three-d div.slides {
+    -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+    -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+    -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+    transform: translateX(50px) scale(0.8) rotateY(10deg);
+}
+
+/* Content */
+header:not(:only-child) {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: normal;
+    font-size: 250%;
+    letter-spacing: -.05em;
+    color: #515151;
+    /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+    left: 30px;
+    top : 0;
+    margin: 0 16px;
+    padding: 0;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+    display: inline;
+    font-size: 150%;
+    font-weight: normal;
+    padding: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+header h2:first-child {
+    margin-top: 0;
+}
+
+section, .slide header:only-child h1 {
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: #515151;
+    /* color: #3f3f3f; */
+    /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+    margin-left: 30px;
+    margin-right: 30px;
+    display: block;
+    overflow: hidden;
+    white-space: normal;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+section img.align-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section img.align-right {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+section img.align-left {
+    display: block;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+a {
+    text-decoration: none;
+    line-height: 110%;
+}
+
+pre {
+    font-size: 100%;
+    font-family: Monaco, Courier, monospace;
+}
+
+li {
+    padding: 10px 0;
+    font-size: 150%;
+}
+
+li li {
+    list-style: none;
+    padding: 5px 0;
+    font-size: 90%;
+}
+
+li li:before {
+    content: '-';
+    display: block;
+    position: relative;
+    max-width: 0px;
+    max-height: 0px;
+    left: -18px;
+    top: -0px;
+    color: #515151;
+    font-size: 90%;
+}
+
+.slide header:only-child h1 {
+    line-height: 180%;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    height: 700px;
+    width: 900px;
+    font-size: 350%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.sidebar {
+    clear: both;
+    background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fff));
+    -webkit-transition: margin 0.25s ease-in-out;
+    background-color: #eee;
+    background: -moz-linear-gradient(right, #dde, #fff);
+    border-right: 5px solid #ccd;
+    z-index: 9999999;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    position: absolute;
+    display: block;
+    margin: 0;
+    margin-left: -400px;
+    padding: 10px 16px;
+    overflow: auto;
+    -webkit-transition: margin 0.2s ease-in-out;
+    -moz-transition: margin 0.2s ease-in-out;
+    -o-transition: margin 0.2s ease-in-out;
+    transition: margin 0.2s ease-in-out;
+}
+
+.sidebar h2 {
+    text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+    margin: 0 0 16px;
+    padding: 0;
+}
+
+.sidebar table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+}
+
+.sidebar table caption {
+    display: none;
+}
+
+.sidebar tr {
+    margin: 2px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebar th {
+    text-align: left;
+    font-weight: normal;
+    max-width: 300px;
+    overflow: hidden;
+}
+
+.sidebar tr.sub th {
+    text-indent: 20px;
+}
+
+.sidebar td {
+    text-align: right;
+    min-width: 20px;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    border-bottom: none;
+    padding: 4px 0;
+}
+
+.sidebar tr.active {
+    background: #ff0;
+}
+
+aside {
+    display: none;
+}
+
+aside.source {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    text-indent: 10px;
+}
+
+aside.page_number {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-indent: 10px;
+}
+
+.notes {
+    display: none;
+    padding: 10px;
+    background: #ccc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+div.slide p.notes {
+    font-size: 100%;
+}
+
+/* Pygments default theme */
+.hll {
+    background-color: #ffffcc
+}
+
+.c {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment */
+.err {
+    border: 1px solid #FF0000
+}
+
+/* Error */
+.k {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword */
+.o {
+    color: #666666
+}
+
+/* Operator */
+.cm {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment.Multiline */
+.cp {
+    color: #BC7A00
+}
+
+/* Comment.Preproc */
+.c1 {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment.Single */
+.cs {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment.Special */
+.gd {
+    color: #A00000
+}
+
+/* Generic.Deleted */
+.ge {
+    font-style: italic
+}
+
+/* Generic.Emph */
+.gr {
+    color: #FF0000
+}
+
+/* Generic.Error */
+.gh {
+    color: #000080;
+    font-weight: bold
+}
+
+/* Generic.Heading */
+.gi {
+    color: #00A000
+}
+
+/* Generic.Inserted */
+.go {
+    color: #808080
+}
+
+/* Generic.Output */
+.gp {
+    color: #000080;
+    font-weight: bold
+}
+
+/* Generic.Prompt */
+.gs {
+    font-weight: bold
+}
+
+/* Generic.Strong */
+.gu {
+    color: #800080;
+    font-weight: bold
+}
+
+/* Generic.Subheading */
+.gt {
+    color: #0040D0
+}
+
+/* Generic.Traceback */
+.kc {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Constant */
+.kd {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Declaration */
+.kn {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Namespace */
+.kp {
+    color: #008000
+}
+
+/* Keyword.Pseudo */
+.kr {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Reserved */
+.kt {
+    color: #B00040
+}
+
+/* Keyword.Type */
+.m {
+    color: #666666
+}
+
+/* Literal.Number */
+.s {
+    color: #BA2121
+}
+
+/* Literal.String */
+.na {
+    color: #7D9029
+}
+
+/* Name.Attribute */
+.nb {
+    color: #008000
+}
+
+/* Name.Builtin */
+.nc {
+    color: #0000FF;
+    font-weight: bold
+}
+
+/* Name.Class */
+.no {
+    color: #880000
+}
+
+/* Name.Constant */
+.nd {
+    color: #AA22FF
+}
+
+/* Name.Decorator */
+.ni {
+    color: #999999;
+    font-weight: bold
+}
+
+/* Name.Entity */
+.ne {
+    color: #D2413A;
+    font-weight: bold
+}
+
+/* Name.Exception */
+.nf {
+    color: #0000FF
+}
+
+/* Name.Function */
+.nl {
+    color: #A0A000
+}
+
+/* Name.Label */
+.nn {
+    color: #0000FF;
+    font-weight: bold
+}
+
+/* Name.Namespace */
+.nt {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Name.Tag */
+.nv {
+    color: #19177C
+}
+
+/* Name.Variable */
+.ow {
+    color: #AA22FF;
+    font-weight: bold
+}
+
+/* Operator.Word */
+.w {
+    color: #bbbbbb
+}
+
+/* Text.Whitespace */
+.mf {
+    color: #666666
+}
+
+/* Literal.Number.Float */
+.mh {
+    color: #666666
+}
+
+/* Literal.Number.Hex */
+.mi {
+    color: #666666
+}
+
+/* Literal.Number.Integer */
+.mo {
+    color: #666666
+}
+
+/* Literal.Number.Oct */
+.sb {
+    color: #BA2121
+}
+
+/* Literal.String.Backtick */
+.sc {
+    color: #BA2121
+}
+
+/* Literal.String.Char */
+.sd {
+    color: #BA2121;
+    font-style: italic
+}
+
+/* Literal.String.Doc */
+.s2 {
+    color: #BA2121
+}
+
+/* Literal.String.Double */
+.se {
+    color: #BB6622;
+    font-weight: bold
+}
+
+/* Literal.String.Escape */
+.sh {
+    color: #BA2121
+}
+
+/* Literal.String.Heredoc */
+.si {
+    color: #BB6688;
+    font-weight: bold
+}
+
+/* Literal.String.Interpol */
+.sx {
+    color: #008000
+}
+
+/* Literal.String.Other */
+.sr {
+    color: #BB6688
+}
+
+/* Literal.String.Regex */
+.s1 {
+    color: #BA2121
+}
+
+/* Literal.String.Single */
+.ss {
+    color: #19177C
+}
+
+/* Literal.String.Symbol */
+.bp {
+    color: #008000
+}
+
+/* Name.Builtin.Pseudo */
+.vc {
+    color: #19177C
+}
+
+/* Name.Variable.Class */
+.vg {
+    color: #19177C
+}
+
+/* Name.Variable.Global */
+.vi {
+    color: #19177C
+}
+
+/* Name.Variable.Instance */
+.il {
+    color: #666666
+}
+
+/* Literal.Number.Integer.Long */
+
+#blank {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    z-index: 64;
+    display: none;
+}
+
+
+.highlight pre {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    clear: both;
+    color: inherit;
+    font: 100%/1.25 "Monaco", "Andale Mono", monospace;
+    margin: 10px 0px;
+    padding: 15px 20px;
+    position: relative;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.highlight pre:before, .highlight pre:after {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 16px;
+}
+.highlight pre:before, .highlight pre:after {
+    width: 15px;
+}
+.highlight pre:before {
+    right: 100%;
+    top: -1px;
+    border-radius:5px 0 0 5px;
+}
+.highlight pre:after {
+    left: 100%;
+    top: -1px;
+    border-radius:0 5px 5px 0;
+}
+    </style>
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script>
+      function main(){
+    // Since we don't have the fallback of attachEvent and
+    // other IE only stuff we won't try to run JS for IE.
+    // It will run though when using Google Chrome Frame
+    var currentSlideNo;
+    var notesOn = false;
+    var expanded = false;
+    var hiddenContext = false;
+    var blanked = false;
+    var slides = document.getElementsByClassName('slide');
+    var touchStartX = 0;
+    var spaces = /\s+/, a1 = [''];
+    var tocOpened = false;
+    var helpOpened = false;
+    var overviewActive = false;
+    var modifierKeyDown = false;
+    var scale = 1;
+    var showingPresenterView = false;
+    var presenterViewWin = null;
+    var isPresenterView = false;
+
+    var str2array = function (s){
+        if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+                a1[0] = s;
+                return a1;
+            } else {
+                return s.split(spaces);
+            }
+        }
+        return s;
+    };
+
+    var trim = function (str){
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    var addClass = function (node, classStr){
+        classStr = str2array(classStr);
+        var cls = ' ' + node.className + ' ';
+        for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+                cls += c + ' ';
+            }
+        }
+        node.className = trim(cls);
+    };
+
+    var removeClass = function (node, classStr){
+        var cls;
+        if (!node) {
+            throw 'no node provided';
+        }
+        if (classStr !== undefined) {
+            classStr = str2array(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+                cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+        } else {
+            cls = '';
+        }
+        if (node.className != cls) {
+            node.className = cls;
+        }
+    };
+
+    var getSlideEl = function (slideNo){
+        if (slideNo > 0) {
+            return slides[slideNo - 1];
+        } else {
+            return null;
+        }
+    };
+
+    var getSlideTitle = function (slideNo){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var headers = el.getElementsByTagName('header');
+            if (headers.length > 0) {
+                return el.getElementsByTagName('header')[0].innerText;
+            }
+        }
+        return null;
+    };
+
+    var getSlidePresenterNote = function (slideNo){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var n = el.getElementsByClassName('presenter_notes');
+            if (n.length > 0) {
+                return n[0];
+            }
+        }
+        return null;
+    };
+
+    var changeSlideElClass = function (slideNo, className){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            removeClass(el, 'far-past past current future far-future');
+            addClass(el, className);
+        }
+    };
+
+    var updateSlideClasses = function (updateOther){
+        window.location.hash = (isPresenterView ? "presenter" : "slide") + currentSlideNo;
+
+        for (var i = 1; i < currentSlideNo - 1; i++) {
+            changeSlideElClass(i, 'far-past');
+        }
+
+        changeSlideElClass(currentSlideNo - 1, 'past');
+        changeSlideElClass(currentSlideNo, 'current');
+        changeSlideElClass(currentSlideNo + 1, 'future');
+
+        for (i = currentSlideNo + 2; i < slides.length + 1; i++) {
+            changeSlideElClass(i, 'far-future');
+        }
+
+        highlightCurrentTocLink();
+
+        processContext();
+
+        document.getElementsByTagName('title')[0].innerText = getSlideTitle(currentSlideNo);
+
+        updatePresenterNotes();
+
+        if (updateOther) {
+            updateOtherPage();
+        }
+    };
+
+    var updatePresenterNotes = function (){
+        if (!isPresenterView) {
+            return;
+        }
+
+        var existingNote = document.getElementById('current_presenter_notes');
+        var currentNote = getSlidePresenterNote(currentSlideNo).cloneNode(true);
+        currentNote.setAttribute('id', 'presenter_note');
+
+        existingNote.replaceChild(currentNote, document.getElementById('presenter_note'));
+    };
+
+    var highlightCurrentTocLink = function (){
+        var toc = document.getElementById('toc');
+
+        if (toc) {
+            var tocRows = toc.getElementsByTagName('tr');
+            for (var i = 0; i < tocRows.length; i++) {
+                removeClass(tocRows.item(i), 'active');
+            }
+
+            var currentTocRow = document.getElementById('toc-row-' + currentSlideNo);
+            if (currentTocRow) {
+                addClass(currentTocRow, 'active');
+            }
+        }
+    };
+
+    var updateOtherPage = function (){
+        if (!showingPresenterView) {
+            return;
+        }
+
+        var w = isPresenterView ? window.opener : presenterViewWin;
+        w.postMessage('slide#' + currentSlideNo, '*');
+    };
+
+    var nextSlide = function (){
+        if (currentSlideNo < slides.length) {
+            currentSlideNo++;
+        }
+        updateSlideClasses(true);
+    };
+
+    var prevSlide = function (){
+        if (currentSlideNo > 1) {
+            currentSlideNo--;
+        }
+        updateSlideClasses(true);
+    };
+
+    var showNotes = function (){
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        for (var i = 0, len = notes.length; i < len; i++) {
+            notes.item(i).style.display = (notesOn) ? 'none' : 'block';
+        }
+        notesOn = !notesOn;
+    };
+
+    var showSlideNumbers = function (){
+        var asides = document.getElementsByClassName('page_number');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showSlideSources = function (){
+        var asides = document.getElementsByClassName('source');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showToc = function (){
+        if (helpOpened) {
+            showHelp();
+        }
+        var toc = document.getElementById('toc');
+        if (toc) {
+            toc.style.marginLeft = tocOpened ? '-' + (toc.clientWidth + 20) + 'px' : '0px';
+            tocOpened = !tocOpened;
+        }
+        updateOverview();
+    };
+
+    var showHelp = function (){
+        if (tocOpened) {
+            showToc();
+        }
+
+        var help = document.getElementById('help');
+
+        if (help) {
+            help.style.marginLeft = helpOpened ? '-' + (help.clientWidth + 20) + 'px' : '0px';
+            helpOpened = !helpOpened;
+        }
+    };
+
+    var showPresenterView = function (){
+        if (isPresenterView) {
+            return;
+        }
+
+        if (showingPresenterView) {
+            presenterViewWin.close();
+            presenterViewWin = null;
+            showingPresenterView = false;
+        } else {
+            presenterViewWin = open(window.location.pathname + "#presenter" + currentSlideNo, 'presenter_notes',
+                'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
+            showingPresenterView = true;
+        }
+    };
+
+    var switch3D = function (){
+        if (document.body.className.indexOf('three-d') == -1) {
+            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
+            document.body.className += ' three-d';
+        } else {
+            window.setTimeout("document.getElementsByClassName('presentation')[0].style.webkitPerspective = '0';", 2000);
+            document.body.className = document.body.className.replace(/three-d/, '');
+        }
+    };
+
+    var toggleOverview = function (){
+        if (!overviewActive) {
+            addClass(document.body, 'expose');
+            overviewActive = true;
+            setScale(1);
+        } else {
+            removeClass(document.body, 'expose');
+            overviewActive = false;
+            if (expanded) {
+                setScale(scale);    // restore scale
+            }
+        }
+        processContext();
+        updateOverview();
+    };
+
+    var updateOverview = function (){
+        try {
+            var presentation = document.getElementsByClassName('presentation')[0];
+        } catch (e) {
+            return;
+        }
+
+        if (isPresenterView) {
+            var action = overviewActive ? removeClass : addClass;
+            action(document.body, 'presenter_view');
+        }
+
+        var toc = document.getElementById('toc');
+
+        if (!toc) {
+            return;
+        }
+
+        if (!tocOpened || !overviewActive) {
+            presentation.style.marginLeft = '0px';
+            presentation.style.width = '100%';
+        } else {
+            presentation.style.marginLeft = toc.clientWidth + 'px';
+            presentation.style.width = (presentation.clientWidth - toc.clientWidth) + 'px';
+        }
+    };
+
+    var computeScale = function (){
+        var cSlide = document.getElementsByClassName('current')[0];
+        var sx = cSlide.clientWidth / window.innerWidth;
+        var sy = cSlide.clientHeight / window.innerHeight;
+        return 1 / Math.max(sx, sy);
+    };
+
+    var setScale = function (scale){
+        var presentation = document.getElementsByClassName('slides')[0];
+        var transform = 'scale(' + scale + ')';
+        presentation.style.MozTransform = transform;
+        presentation.style.WebkitTransform = transform;
+        presentation.style.OTransform = transform;
+        presentation.style.msTransform = transform;
+        presentation.style.transform = transform;
+    };
+
+    var expandSlides = function (){
+        if (overviewActive) {
+            return;
+        }
+        if (expanded) {
+            setScale(1);
+            expanded = false;
+        } else {
+            scale = computeScale();
+            setScale(scale);
+            expanded = true;
+        }
+    };
+
+    var showContext = function (){
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            removeClass(presentation, 'nocontext');
+        } catch (e) {
+        }
+    };
+
+    var hideContext = function (){
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            addClass(presentation, 'nocontext');
+        } catch (e) {
+        }
+    };
+
+    var processContext = function (){
+        if (hiddenContext) {
+            hideContext();
+        } else {
+            showContext();
+        }
+    };
+
+    var toggleContext = function (){
+        hiddenContext = !hiddenContext;
+        processContext();
+    };
+
+    var toggleBlank = function (){
+        blank_elem = document.getElementById('blank');
+
+        blank_elem.style.display = blanked ? 'none' : 'block';
+
+        blanked = !blanked;
+    };
+
+    var isModifierKey = function (keyCode){
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function (event){
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function (event){
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
+
+    var handleBodyKeyDown = function (event){
+        switch (event.keyCode) {
+            case 13: // Enter
+                if (overviewActive) {
+                    toggleOverview();
+                }
+                break;
+            case 27: // ESC
+                toggleOverview();
+                break;
+            case 37: // left arrow
+            case 33: // page up
+                event.preventDefault();
+                prevSlide();
+                break;
+            case 39: // right arrow
+            case 32: // space
+            case 34: // page down
+                event.preventDefault();
+                nextSlide();
+                break;
+            case 50: // 2
+                if (!modifierKeyDown) {
+                    showNotes();
+                }
+                break;
+            case 51: // 3
+                if (!modifierKeyDown && !overviewActive) {
+                    switch3D();
+                }
+                break;
+            case 190: // .
+            case 48: // 0
+            case 66: // b
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleBlank();
+                }
+                break;
+            case 67: // c
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleContext();
+                }
+                break;
+            case 69: // e
+                if (!modifierKeyDown && !overviewActive) {
+                    expandSlides();
+                }
+                break;
+            case 72: // h
+                showHelp();
+                break;
+            case 78: // n
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideNumbers();
+                }
+                break;
+            case 80: // p
+                if (!modifierKeyDown && !overviewActive) {
+                    showPresenterView();
+                }
+                break;
+            case 83: // s
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideSources();
+                }
+                break;
+            case 84: // t
+                showToc();
+                break;
+        }
+    };
+
+    var handleWheel = function (event){
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+
+        var delta = 0;
+
+        if (!event) {
+            event = window.event;
+        }
+
+        if (event.wheelDelta) {
+            delta = event.wheelDelta / 120;
+            if (window.opera) delta = -delta;
+        } else if (event.detail) {
+            delta = -event.detail / 3;
+        }
+
+        if (delta && delta < 0) {
+            nextSlide();
+        } else if (delta) {
+            prevSlide();
+        }
+    };
+
+    var addSlideClickListeners = function (){
+        for (var i = 0; i < slides.length; i++) {
+            var slide = slides.item(i);
+            slide.num = i + 1;
+            slide.addEventListener('click', function (e){
+                if (overviewActive) {
+                    currentSlideNo = this.num;
+                    toggleOverview();
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }
+                return false;
+            }, true);
+        }
+    };
+
+    var addRemoteWindowControls = function (){
+        window.addEventListener("message", function (e){
+            if (e.data.indexOf("slide#") != -1) {
+                currentSlideNo = Number(e.data.replace('slide#', ''));
+                updateSlideClasses(false);
+            }
+        }, false);
+    };
+
+    var addTouchListeners = function (){
+        document.addEventListener('touchstart', function (e){
+            touchStartX = e.touches[0].pageX;
+        }, false);
+        document.addEventListener('touchend', function (e){
+            var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (pixelsMoved > SWIPE_SIZE) {
+                nextSlide();
+            }
+            else if (pixelsMoved < -SWIPE_SIZE) {
+                prevSlide();
+            }
+        }, false);
+    };
+
+    var addTocLinksListeners = function (){
+        var toc = document.getElementById('toc');
+        if (toc) {
+            var tocLinks = toc.getElementsByTagName('a');
+            for (var i = 0; i < tocLinks.length; i++) {
+                tocLinks.item(i).addEventListener('click', function (e){
+                    currentSlideNo = Number(this.attributes['href'].value.replace('#slide', ''));
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }, true);
+            }
+        }
+    };
+
+    // initialize
+
+    (function (){
+        if (window.location.hash == "") {
+            currentSlideNo = 1;
+        } else if (window.location.hash.indexOf("#presenter") != -1) {
+            currentSlideNo = Number(window.location.hash.replace('#presenter', ''));
+            isPresenterView = true;
+            showingPresenterView = true;
+            presenterViewWin = window;
+            addClass(document.body, 'presenter_view');
+        } else {
+            currentSlideNo = Number(window.location.hash.replace('#slide', ''));
+        }
+
+        document.addEventListener('keyup', checkModifierKeyUp, false);
+        document.addEventListener('keydown', handleBodyKeyDown, false);
+        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('DOMMouseScroll', handleWheel, false);
+
+        window.onmousewheel = document.onmousewheel = handleWheel;
+        window.onresize = expandSlides;
+        for (var i = 0, el; el = slides[i]; i++) {
+            addClass(el, 'slide far-future');
+        }
+        updateSlideClasses(false);
+
+        // add support for finger events (filter it by property detection?)
+        addTouchListeners();
+
+        addTocLinksListeners();
+
+        addSlideClickListeners();
+
+        addRemoteWindowControls();
+    })();
+}
+
+    </script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>UILocalNotificationのパターンとテスト</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="http://ocstudy.doorkeeper.jp/events/5336" title="Objective-C勉強会@東京 ９月 - Objective-C勉強会＠東京 | Doorkeeper">Objective-C勉強会@東京 ９月 - Objective-C勉強会＠東京 | Doorkeeper</a></h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>自己紹介</h1></header>
+            
+            
+            <section><p><img alt="アイコン" src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" /></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>アウトライン</h1></header>
+            
+            
+            <section><p>通知 = ローカル通知（UILocalNotification）</p>
+<ul>
+<li>通知登録の前にキャンセル</li>
+<li>通知時間のチェック</li>
+<li>通知の繰り返しの方法</li>
+<li>いつ通知を登録するか?</li>
+<li>通知登録とマルチスレッド</li>
+<li>通知の管理クラス</li>
+<li>通知のロジックテスト</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>通知登録の前にキャンセル</h1></header>
+            
+            
+            <section><ul>
+<li>キャンセル方法</li>
+</ul>
+<div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">cancelLocalNotification:</span><span class="p">(</span><span class="n">UILocalNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">notification</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">cancelAllLocalNotifications</span><span class="p">;</span>
+</pre></div>
+
+<h2>なぜ?</h2>
+<ul>
+<li>追加分だけローカル通知を登録するのは管理が難しい</li>
+<li>キャンセルしてから登録し直すほうが単純化できる</li>
+<li>アプリを再インストールした時に、前回の通知が残ってしまうため<ul>
+<li><a href="http://stackoverflow.com/questions/4923028/uilocalnotification-fires-after-reinstalling-the-app" title="iphone - UILocalNotification fires after reinstalling the app - Stack Overflow">iphone - UILocalNotification fires after reinstalling the app - Stack Overflow</a></li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>通知時間のチェック</h1></header>
+            
+            
+            <section><ul>
+<li>過去の時間をfireDateに設定すると登録した瞬間に通知が発生する</li>
+<li>nilを設定した場合も同様</li>
+</ul>
+<div class="highlight"><pre><span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">localNotification</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILocalNotification</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+<span class="n">localNotification</span><span class="p">.</span><span class="n">fireDate</span> <span class="o">=</span> <span class="n">PAST_DATE</span><span class="p">;</span>
+<span class="n">localNotification</span><span class="p">.</span><span class="n">alertBody</span> <span class="o">=</span> <span class="s">@&quot;Fire!&quot;</span><span class="p">;</span>
+<span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">scheduleLocalNotification</span><span class="o">:</span><span class="n">localNotification</span><span class="p">];</span>
+</pre></div>
+
+<h2>対処法</h2>
+<ul>
+<li>登録する前に <code>fireDate</code> が現在より後なのかをチェックする</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>fireDate のチェック</h2></header>
+            
+            
+            <section><ul>
+<li>fireDateを設定する前に、<code>NSDate</code> をチェックする</li>
+</ul>
+<div class="highlight"><pre>    <span class="k">if</span> <span class="p">(</span><span class="n">fireDate</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="p">[</span><span class="n">fireDate</span> <span class="n">timeIntervalSinceNow</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;// 現在より前なのでreturnする</span>
+    <span class="p">}</span>
+</pre></div>
+
+<h2>毎回チェック?</h2>
+<ul>
+<li>毎回nilチェックは大変</li>
+<li>直接通知登録する代わりにラッパーを経由して登録する</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>登録用のhelperを作る</h2></header>
+            
+            
+            <section><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">makeNotification:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span> <span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span> <span class="n">userInfo</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fireDate</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="p">[</span><span class="n">fireDate</span> <span class="n">timeIntervalSinceNow</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">schedule</span><span class="o">:</span><span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="n">userInfo</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">schedule</span><span class="o">:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span> <span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span> <span class="n">userInfo</span> <span class="p">{</span>
+    <span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">notification</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILocalNotification</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setFireDate</span><span class="o">:</span><span class="n">fireDate</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setTimeZone</span><span class="o">:</span><span class="p">[</span><span class="n">NSTimeZone</span> <span class="n">systemTimeZone</span><span class="p">]];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setAlertBody</span><span class="o">:</span><span class="n">alertBody</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setUserInfo</span><span class="o">:</span><span class="n">userInfo</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setSoundName</span><span class="o">:</span><span class="n">UILocalNotificationDefaultSoundName</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setAlertAction</span><span class="o">:</span><span class="s">@&quot;Open&quot;</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">scheduleLocalNotification</span><span class="o">:</span><span class="n">notification</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Example</h2></header>
+            
+            
+            <section><div class="highlight"><pre>    <span class="n">NSDate</span> <span class="o">*</span><span class="n">tomorrow</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="n">dateTomorrow</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">makeNotification</span><span class="o">:</span><span class="n">tomorrow</span> <span class="n">alertBody</span><span class="o">:</span><span class="s">@&quot;Fire!!&quot;</span> <span class="n">userInfo</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+</pre></div>
+
+<h3>メリット</h3>
+<ul>
+<li>通知を登録する毎回条件分岐を入れる必要がなくて済む</li>
+</ul>
+<h3>デメリット</h3>
+<ul>
+<li>明らかに未来の日付でも、<code>NSDate</code> をチェックするコストがある(多くても数ms程度…)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>登録された通知の一覧取得</h1></header>
+            
+            
+            <section><ul>
+<li><code>NSArray *scheduledLocalNotifications</code> に登録済みの通知が入っている</li>
+<li><code>NSDate</code> をコンソールに表示するときはNSDateFormatterを使うと表示される時間がずれない</li>
+</ul>
+<div class="highlight"><pre><span class="cp">#if DEBUG</span>
+    <span class="n">NSDateFormatter</span> <span class="o">*</span><span class="n">dateFormatter</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSDateFormatter</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">dateFormatter</span> <span class="n">setCalendar</span><span class="o">:</span><span class="p">[[</span><span class="n">NSCalendar</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithCalendarIdentifier</span><span class="o">:</span><span class="n">NSGregorianCalendar</span><span class="p">]];</span>
+    <span class="p">[</span><span class="n">dateFormatter</span> <span class="n">setDateFormat</span><span class="o">:</span><span class="s">@&quot;yyyy/MM/dd HH:mm:ss&quot;</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">notification</span> <span class="k">in</span> <span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">scheduledLocalNotifications</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Notifications : %@ &#39;%@&#39;&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="n">dateFormatter</span> <span class="n">stringFromDate</span><span class="o">:</span><span class="n">notification</span><span class="p">.</span><span class="n">fireDate</span><span class="p">],</span>
+            <span class="n">notification</span><span class="p">.</span><span class="n">alertBody</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="cp">#endif</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>通知の繰り返し</h1></header>
+            
+            
+            <section><ul>
+<li><code>repeatInterval</code> プロパティに <code>NSCalendarUnit</code> を設定</li>
+<li><strong>単純な繰り返し</strong> のみしかサポートされていない</li>
+<li>通知のダイアログから繰り返しを止める手段が用意されてない<ul>
+<li>通知自体をキャンセルする必要がある</li>
+</ul>
+</li>
+</ul>
+<p>設定した <code>fireData</code> から</p>
+<pre><code>NSMinuteCalendarUnit : 1分毎
+NSHourCalendarUnit   : 1時間毎
+NSWeekCalendarUnit   : 1日毎
+NSDayCalendarUnit    : 1週間毎
+</code></pre>
+<ul>
+<li><a href="http://useyourloaf.com/blog/2010/09/13/repeating-an-ios-local-notification.html" title="Repeating an iOS local notification - Use Your Loaf">Repeating an iOS local notification - Use Your Loaf</a></li>
+<li><a href="http://akiiisuke.com:83/?p=32" title="UILocalNotification | Akiの日々">UILocalNotification | Akiの日々</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>n分/n日ごとに通知を繰り返す</h2></header>
+            
+            
+            <section><ul>
+<li><code>repeatInterval</code> ではサポートされてない</li>
+<li>プログラム的に、 n分ごとにずらした通知を設定していく</li>
+</ul>
+<p>15 * 6 回 通知をつける例</p>
+<div class="highlight"><pre>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSDate</span> <span class="o">*</span><span class="n">fireDate</span> <span class="o">=</span> <span class="p">[</span><span class="n">basedFireDate</span> <span class="n">dateByAddingMinutes</span><span class="o">:</span><span class="n">i</span> <span class="o">*</span> <span class="mi">15</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span> <span class="n">makeNotification</span><span class="o">:</span><span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="p">}</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>無限に繰り返す通知</h2></header>
+            
+            
+            <section><ul>
+<li>そんなものはない</li>
+<li>アプリを起動する度に、余分に通知を設定<ul>
+<li>擬似的な無限の期間を繰り返す</li>
+<li>アプリが余分につけた期間を超えると通知はでなくなる</li>
+</ul>
+</li>
+<li>通知をキャンセルしてから付けるような仕組みじゃないとこのサイクルを保つのは難しい</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>ずっと鳴り続ける通知</h2></header>
+            
+            
+            <section><ul>
+<li>通知の音声ファイル(caf)指定する <code>soundName</code></li>
+</ul>
+<div class="highlight"><pre><span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">copy</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">soundName</span><span class="p">;</span>
+</pre></div>
+
+<ul>
+<li>音声が鳴り続けている間、通知バーで表示され続ける(<a href="https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/soundName">最大30秒</a>)</li>
+</ul>
+<p><img alt="NotificationBar" src="http://cl.ly/image/2f1n1I0C3R3z/26454_Screen-Shot-2011-10-02-at-7.10.59-PM.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>擬似的に鳴り続ける通知</h2></header>
+            
+            
+            <section><ul>
+<li>最大の30秒の音声を指定する(無音でもOK)</li>
+<li><code>repeatInterval</code> で 1分ごとに繰り返す</li>
+</ul>
+<div class="highlight"><pre>    <span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">notification</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILocalNotification</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setRepeatInterval</span><span class="o">:</span><span class="n">NSMinuteCalendarUnit</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setSoundName</span><span class="o">:</span><span class="s">@&quot;sound.caf&quot;</span><span class="p">];</span><span class="c1">// 30sec</span>
+</pre></div>
+
+<h3>結論</h3>
+<ul>
+<li>電池をモリモリ食べる通知が完成!</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>いつ通知を登録するか?</h1></header>
+            
+            
+            <section><ul>
+<li>データを保存するたび?<ul>
+<li>保存処理に、通知登録をし直す処理を毎回追加する必要がある</li>
+<li>一番厳密なやり方</li>
+</ul>
+</li>
+<li>アプリを起動/フォアグランドするたび?<ul>
+<li>登録する量が多いと他の処理と影響がでる</li>
+<li>別スレッドでの通知登録は後述</li>
+</ul>
+</li>
+<li>アプリを終了/バックグランドするたび?<ul>
+<li>他の処理と混ざりにくい</li>
+<li>同期処理で登録してもあまり問題がない</li>
+</ul>
+</li>
+</ul>
+<h2>おすすめ</h2>
+<ul>
+<li>バックグランド移行時に登録 するのがシンプル</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>バックグランド移行時に登録</h2></header>
+            
+            
+            <section><ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIApplicationDelegate_Protocol/Reference/Reference.html#//apple_ref/occ/intfm/UIApplicationDelegate/applicationDidEnterBackground:" title="applicationDidEnterBackground:">applicationDidEnterBackground:</a> で通知の登録処理を呼び出す</li>
+</ul>
+<div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">applicationDidEnterBackground:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="p">{</span>
+    <span class="c1">// schedule UILocalNotification</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>メリット</h3>
+<ul>
+<li>シンプル</li>
+</ul>
+<h3>デメリット</h3>
+<ul>
+<li>アプリ表示中にローカル通知を受け取って表示する処理がある等、条件によっては使えない</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>非同期の通知設定</h1></header>
+            
+            
+            <section><ul>
+<li><code>dispatch_async</code> など別スレッドで通知の設定は可能</li>
+</ul>
+<div class="highlight"><pre><span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="n">DISPATCH_QUEUE_PRIORITY_DEFAULT</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">^</span><span class="p">{</span>
+    <span class="c1">// 非同期で通知を設定する処理</span>
+    <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">{</span>
+        <span class="cm">/* メインスレッドでのみ実行可能な処理 */</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>メリット</h2>
+<ul>
+<li>UIスレッドが固まらずに済む</li>
+</ul>
+<h2>デメリット</h2>
+<ul>
+<li>マルチスレッドとCoreData等が絡むと面倒</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>通知の管理クラス</h1></header>
+            
+            
+            <section><ul>
+<li><code>LocalNotificationManager</code> という通知管理するクラスを考える</li>
+<li>ローカル通知関係はこのクラスにまとめる</li>
+<li><code>scheduleLocalNotifications</code> を呼べば、一度全てキャンセルして登録し直す</li>
+<li>バックグランドに移行時に、 <code>scheduleLocalNotifications</code> を呼ぶ</li>
+</ul>
+<div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">applicationDidEnterBackground:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span> <span class="n">application</span> <span class="p">{</span>
+    <span class="c1">// バックグラウンドに移行際に通知を設定する</span>
+    <span class="n">LocalNotificationManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LocalNotificationManager</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">manager</span> <span class="n">scheduleLocalNotifications</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>LocalNotificationManager</h2></header>
+            
+            
+            <section><div class="highlight" style="overflow:auto;max-height:30em;"><pre><span class="k">@interface</span> <span class="nc">LocalNotificationManager</span> : <span class="nc">NSObject</span>
+<span class="c1">// ローカル通知を登録する</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scheduleLocalNotifications</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">LocalNotificationManager</span>
+<span class="cp">#pragma mark - Scheduler</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scheduleLocalNotifications</span> <span class="p">{</span>
+    <span class="c1">// 一度通知を全てキャンセルする</span>
+    <span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">cancelAllLocalNotifications</span><span class="p">];</span>
+    <span class="c1">// 通知を設定していく...</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">scheduleWeeklyWork</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">// 例: weeklyWorkSchedule の時間を通知登録する</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scheduleWeeklyWork</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="c1">// makeNotification: を呼び出して通知を登録する</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - helper</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">makeNotification:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span> <span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span> <span class="n">userInfo</span> <span class="p">{</span>
+    <span class="c1">// 現在より前の通知は設定しない</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fireDate</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="p">[</span><span class="n">fireDate</span> <span class="n">timeIntervalSinceNow</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">schedule</span><span class="o">:</span><span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="n">userInfo</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">schedule</span><span class="o">:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span> <span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span> <span class="n">userInfo</span> <span class="p">{</span>
+    <span class="c1">// ローカル通知を作成する</span>
+    <span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">notification</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILocalNotification</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setFireDate</span><span class="o">:</span><span class="n">fireDate</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setTimeZone</span><span class="o">:</span><span class="p">[</span><span class="n">NSTimeZone</span> <span class="n">systemTimeZone</span><span class="p">]];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setAlertBody</span><span class="o">:</span><span class="n">alertBody</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setUserInfo</span><span class="o">:</span><span class="n">userInfo</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setSoundName</span><span class="o">:</span><span class="n">UILocalNotificationDefaultSoundName</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">notification</span> <span class="n">setAlertAction</span><span class="o">:</span><span class="s">@&quot;Open&quot;</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">scheduleLocalNotification</span><span class="o">:</span><span class="n">notification</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>LocalNotificationManager</h2></header>
+            
+            
+            <section><ul>
+<li><code>- (void)scheduleLocalNotifications</code><ul>
+<li>一度全ての通知をキャンセル</li>
+<li>通知の種類分、登録するメソッドを呼ぶ</li>
+</ul>
+</li>
+<li>通知の種類をわけて登録するメソッドを定義する<ul>
+<li>分けた方がテストしやすい</li>
+<li>通知の登録はごちゃごちゃしがち</li>
+<li>個別に呼ぶことはないのでプライベートメソッド</li>
+<li><a href="http://www.tokoro.me/2012/09/12/objc-private-test/" title="Objective-Cのテストクラスからプライベートメソッド/プロパティを参照したい - TOKOROM BLOG">Objective-Cのテストクラスからプライベートメソッド/プロパティを参照したい - TOKOROM BLOG</a></li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>UILocalNotificationのテスト</h1></header>
+            
+            
+            <section><ul>
+<li><strong>UI</strong>LocalNotification / UIApplication<ul>
+<li>=&gt; ロジックテストから触れない - ref. <a href="http://azu.github.io/slide/OCStudy/ios_unit_test.html#slide1" title="iOS Unit Test">iOS Unit Test</a></li>
+<li>モックを作る必要がある</li>
+</ul>
+</li>
+<li><code>LocalNotificationManager</code> のサブクラスを作る<ul>
+<li><strong>UI-</strong> は <code>-[LocalNotificationManager schedule:alertBody:userInfo:]</code> のhelperに閉じ込めてある</li>
+<li>helperメソッドをテスト用に上書きしたサブクラスを用意すればいい!</li>
+</ul>
+</li>
+<li>LocalNotificationManagerを継承した <code>LocationNotificationManagerSpy</code> を作る<ul>
+<li><code>schedule:alertBody:userInfo:</code> を overwrite</li>
+<li>通知を登録する代わりに、登録された分の <code>UILocalNotification</code> をプロパティに貯める</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>ManagerSpyクラス</h1></header>
+            
+            
+            <section><div class="highlight" style="font-size:90%; overflow:auto;max-height:35em;"><pre><span class="c1">// テスト用にLocalNotificationManagerを継承したモッククラスを作る</span>
+<span class="k">@interface</span> <span class="nc">LocationNotificationManagerSpy</span> : <span class="nc">LocalNotificationManager</span>
+<span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">schedules</span><span class="p">;</span>
+<span class="c1">// helper</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">UILocalNotification</span> <span class="o">*</span><span class="p">)</span><span class="nf">notificationAtIndex:</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span> <span class="n">index</span><span class="p">;</span>
+<span class="c1">// overwrite</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">schedule:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span> <span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span> <span class="n">userInfo</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">LocationNotificationManagerSpy</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">NSMutableArray</span> <span class="o">*</span><span class="p">)</span><span class="nf">schedules</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">_schedules</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_schedules</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">_schedules</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">UILocalNotification</span> <span class="o">*</span><span class="p">)</span><span class="nf">notificationAtIndex:</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span> <span class="n">index</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">schedules</span> <span class="n">count</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">schedules</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 通知を登録するメソッドを乗っ取り、呼ばれたことを記録する(いわゆるspy)</span>
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">schedule</span><span class="o">:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span> <span class="n">fireDate</span> <span class="n">alertBody</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">alertBody</span> <span class="n">userInfo</span><span class="o">:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span> <span class="n">userInfo</span> <span class="p">{</span>
+    <span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">notification</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILocalNotification</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="n">notification</span><span class="p">.</span><span class="n">fireDate</span> <span class="o">=</span> <span class="n">fireDate</span><span class="p">;</span>
+    <span class="n">notification</span><span class="p">.</span><span class="n">alertBody</span> <span class="o">=</span> <span class="n">alertBody</span><span class="p">;</span>
+    <span class="n">notification</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">=</span> <span class="n">userInfo</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">schedules</span> <span class="n">addObject</span><span class="o">:</span><span class="n">notification</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>ManagerSpyクラスの中身</h1></header>
+            
+            
+            <section><ul>
+<li>通知登録 <code>scheduleLocalNotification:</code> は実際には呼ばれない</li>
+<li>通知登録の代わりに <code>self.schedules</code> に <code>UILocalNotification</code> が積まれていく</li>
+</ul>
+<h2>テストの流れ</h2>
+<ul>
+<li>通常通り <code>scheduleLocalNotifications</code> を呼ぶ</li>
+<li><code>self.schedules</code> に入った通知情報が意図通りかをテストする<ul>
+<li><code>UILocalNotification</code> のfireDate や userInfo が一致するかなど</li>
+</ul>
+</li>
+<li><code>- (UILocalNotification *)notificationAtIndex:</code> はhelper</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: UILocalNotification.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>サンプル</h1></header>
+            
+            
+            <section><ul>
+<li><a href="https://github.com/azu/LocalNotificationPattern" title="azu/LocalNotificationPattern">azu/LocalNotificationPattern</a><ul>
+<li>今回のパターン、テストがひと通り入った内容</li>
+</ul>
+</li>
+</ul>
+<h1>参考</h1>
+<ul>
+<li><a href="http://ios-practice.readthedocs.org/en/latest/docs/notification/" title="UILocalNotificationを使った通知の設定について — ios-practice 0.1 documentation">UILocalNotificationを使った通知の設定について — ios-practice 0.1 documentation</a><ul>
+<li>このスライドの内容を文章的にしたもの</li>
+<li><a href="http://ios-practice.readthedocs.org/en/latest/" title="iOS Practice — ios-practice 0.1 documentation">iOS Practice</a></li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="UILocalNotification.md">UILocalNotification.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/25
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">UILocalNotificationのパターンとテスト</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2"><a href="http://ocstudy.doorkeeper.jp/events/5336" title="Objective-C勉強会@東京 ９月 - Objective-C勉強会＠東京 | Doorkeeper">Objective-C勉強会@東京 ９月 - Objective-C勉強会＠東京 | Doorkeeper</a></a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">自己紹介</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">アウトライン</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">通知登録の前にキャンセル</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">通知時間のチェック</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">fireDate のチェック</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">登録用のhelperを作る</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">Example</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">登録された通知の一覧取得</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">通知の繰り返し</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-12" class="sub">
+          <th><a href="#slide12">n分/n日ごとに通知を繰り返す</a></th>
+          <td><a href="#slide12">12</a></td>
+        </tr>
+        
+        <tr id="toc-row-13" class="sub">
+          <th><a href="#slide13">無限に繰り返す通知</a></th>
+          <td><a href="#slide13">13</a></td>
+        </tr>
+        
+        <tr id="toc-row-14" class="sub">
+          <th><a href="#slide14">ずっと鳴り続ける通知</a></th>
+          <td><a href="#slide14">14</a></td>
+        </tr>
+        
+        <tr id="toc-row-15" class="sub">
+          <th><a href="#slide15">擬似的に鳴り続ける通知</a></th>
+          <td><a href="#slide15">15</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">いつ通知を登録するか?</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-17" class="sub">
+          <th><a href="#slide17">バックグランド移行時に登録</a></th>
+          <td><a href="#slide17">17</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">非同期の通知設定</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">通知の管理クラス</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-20" class="sub">
+          <th><a href="#slide20">LocalNotificationManager</a></th>
+          <td><a href="#slide20">20</a></td>
+        </tr>
+        
+        <tr id="toc-row-21" class="sub">
+          <th><a href="#slide21">LocalNotificationManager</a></th>
+          <td><a href="#slide21">21</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">UILocalNotificationのテスト</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">ManagerSpyクラス</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-24">
+        <th><a href="#slide24">ManagerSpyクラスの中身</a></th>
+        <td><a href="#slide24">24</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">サンプル</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
