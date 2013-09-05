@@ -128,8 +128,7 @@ code {
 
     </style>
     <style type="text/css" media="screen, projection">
-      
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 body {
     font-family: 'Open Sans', Arial, sans-serif;
@@ -421,7 +420,7 @@ header:not(:only-child) {
     color: #515151;
     /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
     left: 30px;
-    top : 0;
+    top: 0;
     margin: 0 16px;
     padding: 0;
 }
@@ -960,7 +959,6 @@ div.slide p.notes {
     display: none;
 }
 
-
 .highlight pre {
     background-color: rgba(0, 0, 0, 0.02);
     border-bottom: 1px solid #ccc;
@@ -974,6 +972,7 @@ div.slide p.notes {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
 .highlight pre:before, .highlight pre:after {
     background-color: rgba(0, 0, 0, 0.02);
     border-bottom: 1px solid #ccc;
@@ -984,18 +983,32 @@ div.slide p.notes {
     position: absolute;
     width: 16px;
 }
+
 .highlight pre:before, .highlight pre:after {
     width: 15px;
 }
+
 .highlight pre:before {
     right: 100%;
     top: -1px;
-    border-radius:5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
 }
+
 .highlight pre:after {
     left: 100%;
     top: -1px;
-    border-radius:0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+}
+
+.slide p > code, .slide li > code {
+    background-color: #FEE9CC;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
 }
     </style>
     
