@@ -425,6 +425,8 @@
 
 * [azu/LocalNotificationPattern](https://github.com/azu/LocalNotificationPattern "azu/LocalNotificationPattern")
 	* 今回のパターン、テストがひと通り入った内容
+* [azu/MondayWork](https://github.com/azu/MondayWork "azu/MondayWork")	* デモで使ったサンプル
+
 
 # 参考
 
