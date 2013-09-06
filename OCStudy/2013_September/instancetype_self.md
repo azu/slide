@@ -1,4 +1,4 @@
-# instacetype と self
+# instacetype と typeof(self)
 
 -----
 
@@ -9,7 +9,6 @@
 * メソッドの返り値以外の場所では使用できない
 
 * [Clang Language Extensions — Clang 3.4 documentation](http://clang.llvm.org/docs/LanguageExtensions.html "Clang Language Extensions — Clang 3.4 documentation")
-
 
 ----
 
@@ -86,7 +85,6 @@ Good :
 Example code from [JSON Accelerator](http://www.nerdery.com/json-accelerator "JSON Accelerator")
 
 ----
-
 
 # typeof(self)
 
