@@ -97,6 +97,34 @@
 
 -----
 
+# [OperationPromise](https://github.com/azu/OperationPromise "azu/OperationPromise")
+
+* NSOperation同士の依存関係を簡単に示すためのライブラリ
+* Promiseっぽい `then` や `when` を使う
+
+
+<div class="highlight"><pre><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">race</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
+<span class="n">NSBlockOperation</span> <span class="o">*</span><span class="n">blockOperation1</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBlockOperation</span> <span class="n">blockOperationWithBlock</span><span class="o">:^</span><span class="p">{</span>
+    <span class="p">[</span><span class="n">race</span> <span class="n">addObject</span><span class="o">:</span><span class="mi">@1</span><span class="p">];</span>
+<span class="p">}];</span>
+<span class="n">NSBlockOperation</span> <span class="o">*</span><span class="n">blockOperation2</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBlockOperation</span> <span class="n">blockOperationWithBlock</span><span class="o">:^</span><span class="p">{</span>
+    <span class="p">[</span><span class="n">race</span> <span class="n">addObject</span><span class="o">:</span><span class="mi">@2</span><span class="p">];</span>
+<span class="p">}];</span>
+<span class="n">NSBlockOperation</span> <span class="o">*</span><span class="n">blockOperation3</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBlockOperation</span> <span class="n">blockOperationWithBlock</span><span class="o">:^</span><span class="p">{</span>
+    <span class="p">[</span><span class="n">race</span> <span class="n">addObject</span><span class="o">:</span><span class="mi">@3</span><span class="p">];</span>
+<span class="p">}];</span>
+<span class="n">NSOperationQueue</span> <span class="o">*</span><span class="n">queue</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSOperationQueue</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+
+<span class="p">[</span><span class="n">OperationPromise</span> <span class="n">promise</span><span class="o">:</span><span class="n">queue</span><span class="p">]</span>
+    <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">blockOperation1</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">blockOperation2</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">blockOperation3</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">start</span><span class="p">();</span>
+<span class="c1">// @1 -&gt; @2 -&gt; @3 という順番で実行される</span>
+</pre></div>
+
+-----
+
 # [UITextSubClass](https://github.com/azu/UITextSubClass "azu/UITextSubClass · GitHub")
 
 * UITextField / UITextView のサブクラスライブラリ郡
