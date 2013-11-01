@@ -27,7 +27,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title>NSAttributedString</title>
+    <title>最近作ったライブラリ</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Styles -->
     
@@ -1618,12 +1618,12 @@ div.slide p.notes {
     </div>
     <div class="slides">
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h1>NSAttributedString</h1></header>
+            <header><h1>最近作ったライブラリ</h1></header>
             
             
           </div>
@@ -1636,57 +1636,29 @@ div.slide p.notes {
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              1/28
+              1/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h1><a href="http://ocstudy.doorkeeper.jp/events/6543" title="Objective-C勉強会@東京 １１月 - Objective-C勉強会＠東京 | Doorkeeper">Objective-C勉強会@東京 １１月 - Objective-C勉強会＠東京 | Doorkeeper</a></h1></header>
+            <header><h1><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort · GitHub">NSDate-Escort</a></h1></header>
             
             
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              2/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h1>自己紹介</h1></header>
-            
-            
-            <section><p><img alt="アイコン" src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" /></p>
-<ul>
-<li>Name : <strong>azu</strong></li>
-<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
-<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+            <section><ul>
+<li>NSDateカテゴリ</li>
+<li>何日後の日付を取得した、月末の日付を取得したり…</li>
+<li>大体のNSDateからの日付操作が出来るライブラリ</li>
+<li><a href="http://efcl.info/2013/0801/res3366/" title="NSDateをもっと便利に使うためのライブラリ NSDate-Escortを書いた | Web scratch">NSDateをもっと便利に使うためのライブラリ NSDate-Escortを書いた | Web scratch</a></li>
 </ul></section>
             
           </div>
@@ -1699,29 +1671,70 @@ div.slide p.notes {
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              3/28
+              2/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h2>What is NSAttributedString?</h2></header>
+            <header><h1><a href="https://github.com/azu/AZDateBuilder" title="azu/AZDateBuilder · GitHub">AZDateBuilder</a></h1></header>
             
             
-            <section><p><img alt="Session_222_-_Introduction_to_Attributed_Strings_for_iOS" src="https://www.monosnap.com/image/oE3XN2PnbMqOoxahsyZuvY8rk.png" /></p>
-<p>via Session 222 Introduction to Attributed Strings for iOS</p>
-<ul>
-<li>文字列をNSRangeで切って装飾できるクラス</li>
-<li>Cocoaには結構前からある</li>
+            <section><ul>
+<li>指定した日付のNSDateを簡単につくれるライブラリ</li>
+</ul>
+<div class="highlight"><pre><span class="c1">// 2010-1-1 11:10:05</span>
+<span class="n">NSDate</span> <span class="o">*</span><span class="n">date</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="n">AZ_dateByUnit</span><span class="o">:</span><span class="err">@</span><span class="p">{</span>
+    <span class="n">AZ_DateUnit</span><span class="p">.</span><span class="n">year</span> <span class="o">:</span> <span class="mi">@2010</span><span class="p">,</span>
+    <span class="n">AZ_DateUnit</span><span class="p">.</span><span class="n">month</span> <span class="o">:</span> <span class="mi">@1</span><span class="p">,</span>
+    <span class="n">AZ_DateUnit</span><span class="p">.</span><span class="n">day</span> <span class="o">:</span> <span class="mi">@1</span><span class="p">,</span>
+    <span class="n">AZ_DateUnit</span><span class="p">.</span><span class="n">hour</span> <span class="o">:</span> <span class="mi">@11</span><span class="p">,</span>
+    <span class="n">AZ_DateUnit</span><span class="p">.</span><span class="n">minute</span> <span class="o">:</span> <span class="mi">@10</span><span class="p">,</span>
+    <span class="n">AZ_DateUnit</span><span class="p">.</span><span class="n">second</span> <span class="o">:</span> <span class="mi">@5</span>
+<span class="p">}];</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="https://github.com/azu/SimpleUserDefaults" title="azu/SimpleUserDefaults · GitHub">SimpleUserDefaults</a></h1></header>
+            
+            
+            <section><ul>
+<li>NSUserDefaultsの読み書きを楽にするライブラリ</li>
+<li>プロパティがそのままNSUserDefaultsの読み書きに変わる</li>
+<li><code>objc/runtime.h</code> は使わないで KVO で実装</li>
 </ul></section>
             
           </div>
@@ -1734,74 +1747,40 @@ div.slide p.notes {
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              4/28
+              4/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h2>Style</h2></header>
             
-            
-            <section><p><img alt="Style" src="https://www.monosnap.com/image/dLEfziSoYjBVeKOC6jngfpOLb.png" /></p>
-<p>via <a href="http://qiita.com/yusuga_/items/30ee7a851aea0447db06" title="Objective-C - NSAttributedString 属性付きのUIButtonや文字列の描画 - Qiita [キータ]">Objective-C - NSAttributedString 属性付きのUIButtonや文字列の描画 - Qiita [キータ]</a></p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              5/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h3>Style Attribute</h3></header>
-            
-            
-            <section><pre>
-* NSBackgroundColorAttributeName 背景色
-* NSFontAttributeName フォント名
-* NSForegroundColorAttributeName 文字色
-* NSKernAttributeName カーニング
-* NSLigatureAttributeName リガチャ（合字）
-* NSParagraphStyleAttributeName - NSParagraphStyle
-* NSShadowAttributeName 影 NSShadowを使う
-* NSStrikethroughStyleAttributeName 打ち消し線
-* NSStrokeColorAttributeName 袋文字（中抜き文字）
-    * NSStrokeWidthAttributeName 
-* NSUnderlineStyleAttributeName アンダーライン"
-</pre>
+            <section><div class="highlight"><pre><span class="k">@interface</span> <span class="nc">ExampleConfig</span> : <span class="nc">SimpleUserDefaults</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="c1">// &lt;- getter/setter access NSUserDefaults</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">hasBoolValue</span><span class="p">;</span>
+<span class="k">@end</span>
 
-<p>ref.</p>
-<ul>
-<li><a href="https://sites.google.com/site/rubycocoamemo/Home/tekisuto-guan-lian/wen-zi-lieni-shu-xingwo-fu-jiasuru" title="文字列に属性を付加する - RubyCocoa メモ">文字列に属性を付加する - RubyCocoa メモ</a></li>
-<li><a href="http://tea-leaves.co.jp/home/ja/article/1374929836" title="NSAttributedStringを使ってみる | Tea Leaves">NSAttributedStringを使ってみる | Tea Leaves</a></li>
-</ul></section>
+<span class="k">@implementation</span> <span class="nc">ExampleConfig</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">init</span> <span class="p">{</span>
+    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// initialize NSUserDefaults target</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">addObserverSelector</span><span class="o">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">name</span><span class="p">)];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">addObserverSelector</span><span class="o">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">hasBoolValue</span><span class="p">)];</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</pre></div></section>
             
           </div>
           <div class="presenter_notes">
@@ -1813,512 +1792,17 @@ div.slide p.notes {
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              6/28
+              5/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>NSParagraphStyle</h2></header>
-            
-            
-            <section><ul>
-<li><code>lineSpacing</code></li>
-<li><code>paragraphSpacing</code></li>
-<li><code>paragraphSpacingBefore</code></li>
-<li><code>alignment</code></li>
-<li><code>lineBreakMode</code></li>
-</ul>
-<p><del><code>lineHeght</code></del></p>
-<ul>
-<li><a href="http://qiita.com/Jacminik/items/21f87aadc3a4363b9802" title="Xcode - UILabelを使って行間や文字間を簡易的に調整する。 - Qiita [キータ]">Xcode - UILabelを使って行間や文字間を簡易的に調整する。 - Qiita [キータ]</a></li>
-<li><a href="https://speakerdeck.com/umekun123/ios6falsensattributedstring" title="iOS6のNSAttributedString // Speaker Deck">iOS6のNSAttributedString // Speaker Deck</a></li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              7/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>Layout</h2></header>
-            
-            
-            <section><ul>
-<li>Indent</li>
-<li>TextDirection</li>
-<li>Paragraph間のspace</li>
-<li><a href="http://www.toyship.org/archives/1437" title="表示されるテキストによって高さを調整する">表示されるテキストによって高さを調整する</a></li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              8/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h1>Interface Builder</h1></header>
-            
-            
-            <section><p><img src="https://www.monosnap.com/image/W1wzUagRY8uD8GrKScjeDo69O.png" width="90%" alt="layout" /></p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              9/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            
-            <section><p><img src="https://www.monosnap.com/image/JoduEg5VlqwNBWH4Qgzeu0IgO.png" width="80%" alt="layout" /></p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              10/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>HTML Rendering?</h2></header>
-            
-            
-            <section><ul>
-<li>HTMLをレンダリングしたい<ul>
-<li>=&gt; CoreTextを使いましょう</li>
-<li>=&gt; Webkitを使いましょう</li>
-</ul>
-</li>
-<li><a href="https://github.com/mkino/Sayori" title="mkino/Sayori">mkino/Sayori</a></li>
-<li><a href="https://github.com/Cocoanetics/DTCoreText" title="Cocoanetics/DTCoreText">Cocoanetics/DTCoreText</a></li>
-<li><a href="https://github.com/appfarms/CoreTextLabel" title="appfarms/CoreTextLabel">appfarms/CoreTextLabel</a></li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              11/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>DEMO</h2></header>
-            
-            
-            <section><table>
-    <tr>
-        <td><img src="http://gyazo.com/b5619abe667f0061997ef2a715d3e713.gif" /></td>
-        <td>Markdown Syntax highlighting<br /><a href="https://github.com/azu/MarkdownSyntaxEditor">azu/MarkdownSyntaxEditor</a></td>
-    </tr>
-</table></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              12/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h1>そしてTextKitへ</h1></header>
-            
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              13/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>TextKit</h2></header>
-            
-            
-            <section><h3>iOS6 Architecture</h3>
-<p><img alt="iOS6 Architecture" src="http://cdn4.raywenderlich.com/wp-content/uploads/2013/09/TextRenderingArchitecture-iOS6.png" /></p>
-<p>via <a href="http://www.raywenderlich.com/50151/text-kit-tutorial" title="Text Kit Tutorial | Ray Wenderlich">Text Kit Tutorial | Ray Wenderlich</a></p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              14/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h3>iOS7 Architecture</h3></header>
-            
-            
-            <section><p><img alt="iOS7 Architecture" src="http://cdn3.raywenderlich.com/wp-content/uploads/2013/09/TextRenderingArchitecture-iOS7.png" /></p>
-<ul>
-<li>UI テキスト系の描画に使われてる仕組みが変わった</li>
-<li>Mac から Port</li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              15/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>レンダリングの仕組み変更</h2></header>
-            
-            
-            <section><ul>
-<li>iOS7 から UILabl/UITextField/UITextViewは <code>TextKit</code></li>
-<li>UIWebViewのみが <code>Webkit</code></li>
-</ul>
-<h3>iOS6</h3>
-<ul>
-<li>NSParagraphStyle まわりにバグある<ul>
-<li><a href="http://quesera2.hatenablog.jp/entry/2013/09/23/193407" title="NSParagraphStyleはiOS6だとlineHeightを解釈できない。 - なるようになるといいね">NSParagraphStyleはiOS6だとlineHeightを解釈できない。 - なるようになるといいね</a></li>
-</ul>
-</li>
-</ul>
-<h3>iOS7</h3>
-<ul>
-<li>UITextViewまわりにバグが多い<ul>
-<li><a href="http://manabuueno.tumblr.com/post/64781595021/ios-7-uitextview" title="untitled - iOS 7 のテキスト入力欄（UITextView）の問題について">untitled - iOS 7 のテキスト入力欄（UITextView）の問題について</a></li>
-</ul>
-</li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              16/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/NSTextStorage_Class_TextKit/Reference/Reference.html" title="NSTextStorage Class Reference">NSTextStorage</a></h2></header>
-            
-            
-            <section><ul>
-<li><code>@interface NSTextStorage : NSMutableAttributedString</code><ul>
-<li>Available iOS7~</li>
-</ul>
-</li>
-<li>NSTextStorageは文字とAttributesをASTとして保持してる<ul>
-<li>MVCでいうならModel</li>
-</ul>
-</li>
-<li>NSAttributedStringのサブクラス</li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              17/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>Text Kit Objects</h2></header>
-            
-            
-            <section><ul>
-<li>NSTextStorage - テキストを保持。変更をNSLayoutManagerに通知</li>
-<li>NSLayoutManager - 中央で通知の管理など、glyphsを生成しContainerに描画できるか聞く<ul>
-<li>NSTextStrorage &lt;- <strong>NSLayoutManager</strong> -&gt; NSTextContainer</li>
-</ul>
-</li>
-<li>NSTextContainer - テキストが書かれる領域を管理するクラス(円形にするとかも出来る)</li>
-<li>UITextView - よくみる子</li>
-</ul>
-<p><img src="https://www.monosnap.com/image/OVDNtsOeDyzLs7LFKe63sdma2.png" alt="NSTextStrorage Architecture" width="100%" /></p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              18/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>Mac Cocoaとの違い?</h2></header>
-            
-            
-            <section><ul>
-<li>UITextView &lt;-&gt; NSTextView</li>
-<li>NSTypesetter , NSGlyphGenerator はiOSにない<ul>
-<li><code>NSLayoutManager</code> にマージされてる</li>
-</ul>
-</li>
-<li>細かな違いはあるが基本的に同じ</li>
-<li>なぜ今さら <code>TextKit</code> がiOSにきたのか </li>
-</ul>
-<p>=&gt; 理由はシンプル</p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              19/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h1><a href="http://www.objc.io/issue-5/getting-to-know-textkit.html" title="performance, performance, performance">performance, performance, performance</a></h1></header>
-            
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              20/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -2326,15 +1810,56 @@ div.slide p.notes {
             <header><h2>パフォーマンス</h2></header>
             
             
+            <section><pre>
+:Name                                              :Total(s)  :Avg.(s)
+-[Bench test_benchSimpleUserDefaults_init]         0.01163    0.00001    (1/1000)
+-[Bench test_benchSimpleUserDefaults_read]         0.00019    0.00000    (1/1000)
+-[Bench test_benchSimpleUserDefaults_write]        0.00020    0.00000    (1/1000)
+// 素の実装
+-[Bench test_benchStandardUserDefaults_init]       0.00129    0.00000    (1/1000)
+-[Bench test_benchStandardUserDefaults_read]       0.00087    0.00000    (1/1000)
+-[Bench test_benchStandardUserDefaults_write]      0.00021    0.00000    (1/1000)
+// runtimeの実装
+-[Bench test_benchGVUserDefaults_init]             0.02315    0.00002    (1/1000)
+-[Bench test_benchGVUserDefaults_read]             0.00021    0.00000    (1/1000)
+-[Bench test_benchGVUserDefaults_write]            0.01373    0.00001    (1/1000)
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="https://github.com/azu/BenchmarkTestCase" title="azu/BenchmarkTestCase · GitHub">BenchmarkTestCase</a></h1></header>
+            
+            
             <section><ul>
-<li>NSTextContainer で領域を可変に出来るということ<ul>
-<li>=&gt; reflowが大量に発生するということ</li>
+<li>テストと同じようにベンチマークが書けるライラぶらり<ul>
+<li>go test インスパイア</li>
 </ul>
 </li>
-<li>自由度が増える<ul>
-<li>使用するメモリや計算量が増える</li>
-</ul>
-</li>
+<li><code>XCTestCase</code> のサブクラスとして実装</li>
+<li>動的にテストケースを生成して、ベンチマークをテストとして実装できる</li>
 </ul></section>
             
           </div>
@@ -2347,37 +1872,64 @@ div.slide p.notes {
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              21/28
+              7/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h2>より詳細な管理</h2></header>
             
-            
-            <section><ul>
-<li>begin/endで明示的な変更を通知できるのでより効率的に処理できる</li>
-</ul>
-<pre>
-- (void)beginEditing;
-- (void)endEditing;
-</pre>
+            <section><div class="highlight"><pre><span class="k">@interface</span> <span class="nc">YourBenchmarkTestCase</span> : <span class="nc">AZBenchmarkTestCase</span>
 
-<ul>
-<li><a href="https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/CustomTextProcessing/CustomTextProcessing.html" title="Text Programming Guide for iOS: Using Text Kit to Draw and Manage Text">Text Programming Guide for iOS: Using Text Kit to Draw and Manage Text</a></li>
-<li><a href="http://hmdt.jp/cocoaProg/AppKit/NSTextView/NSTextView.html" title="NSTextView">NSTextView</a></li>
-<li><a href="http://www.mosa.gr.jp/wp-content/uploads/2007/01/textsystemstoragelayeroverview.pdf" title="T
-ext System Storage Layer Overview">Text System Storage Layer Overview</a></li>
+<span class="k">@end</span>
+<span class="k">@implementation</span> <span class="nc">YourBenchmarkTestCase</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">benchYourTest</span><span class="p">{</span>
+    <span class="c1">// ベンチを取りたい処理を書く</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="https://github.com/azu/UITextSubClass" title="azu/UITextSubClass · GitHub">UITextSubClass</a></h1></header>
+            
+            
+            <section><ul>
+<li>UITextField / UITextView のサブクラスライブラリ郡</li>
+<li>Toolbarを自動でつけたり、数値入力専用、UIDatePickerをキーボード部分に表示する</li>
+<li>サブクラスなのでInterface Builderのサブクラスを指定するだけ使える</li>
 </ul></section>
             
           </div>
@@ -2390,60 +1942,29 @@ ext System Storage Layer Overview">Text System Storage Layer Overview</a></li>
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              22/28
+              9/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Example</h1></header>
+            <header><h1><a href="https://github.com/azu/XUIRoundedRectButton" title="azu/XUIRoundedRectButton · GitHub">XUIRoundedRectButton</a></h1></header>
             
             
             <section><ul>
-<li><a href="http://www.objc.io/issue-5/getting-to-know-textkit.html" title="Getting to Know TextKit – #5 – iOS 7">Getting to Know TextKit – #5 – iOS 7</a></li>
-<li><a href="https://github.com/objcio/issue-5-textkit" title="objcio/issue-5-textkit">objcio/issue-5-textkit</a></li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              23/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            
-            <section><ul>
-<li>上にベースとなるUITextView(NSTextStorageもViewから)</li>
-<li>下に2枚のUITextViewと対となるNSTextContainerが2つ</li>
+<li>iOS7でもiOS6の <code>UIButtonTypeRoundedRect</code> 風のボタンを使える</li>
+<li>UIButtonのサブクラスとして実装</li>
 </ul>
-<p><img alt="gif" src="http://gyazo.com/d463249736bdd3524d8536372d99c21c.gif" /></p></section>
+<p><img alt="ScreenShot" src="https://www.monosnap.com/image/zirPSLa1ZhROY41l0PvqzL96H.png" /></p></section>
             
           </div>
           <div class="presenter_notes">
@@ -2455,63 +1976,31 @@ ext System Storage Layer Overview">Text System Storage Layer Overview</a></li>
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              24/28
+              10/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            
-            <section><p><img alt="NSTextContainer multi" src="https://www.monosnap.com/image/lNBULtE0fyjhWBlJCH0h6xQ9E.png" /></p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              25/28
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: nsattributedstring.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>一つのデータで複数の描画</h2></header>
+            <header><h1><a href="https://github.com/azu/AAMFeedback" title="azu/AAMFeedback · GitHub">AAMFeedback</a></h1></header>
             
             
             <section><ul>
-<li>NSLayoutManager は 上下1枚づつで2枚ある<ul>
-<li>それぞれが参照する NSTextStorage は同じもの</li>
-<li>つまり、NSTextStorageを変更すれば、上下のViewに入るテキストも同時に変わる</li>
+<li>お問い合わせ画面を表示するライブラリ<ul>
+<li><a href="https://github.com/fladdict/AAMFeedback" title="fladdict/AAMFeedback · GitHub">fladdict/AAMFeedback</a> のfork</li>
 </ul>
 </li>
-<li>1つのテキストデータを使って、複数のUITextViewに対して描画を行える<ul>
-<li>描画するの領域は NSTextContainer で決定出来る</li>
-</ul>
-</li>
-<li>CSS <a href="http://html.adobe.com/jp/webplatform/layout/regions/" title="領域 | レイアウト | Adobe &amp;amp; HTML">Regions</a>と似た感じ</li>
+<li>ちゃんとメンテ続けてて、この間KIFのテストを追加した</li>
+<li>CocoaPods対応、ローカライズのカスタマイズの対応などの機能追加</li>
 </ul></section>
             
           </div>
@@ -2524,25 +2013,23 @@ ext System Storage Layer Overview">Text System Storage Layer Overview</a></li>
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              26/28
+              11/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h2>NSTextContainerの<code>exclusionPaths</code></h2></header>
             
-            
-            <section><p><img alt="NSTextContainer" src="http://gyazo.com/71e0478d2f1f0db9b32b3979c23b3a57.gif" /></p></section>
+            <section><p><img alt="screenshot" src="http://f.cl.ly/items/291A0A2u0R2B3u3V0b3H/screenshot.png" /></p></section>
             
           </div>
           <div class="presenter_notes">
@@ -2554,29 +2041,32 @@ ext System Storage Layer Overview">Text System Storage Layer Overview</a></li>
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              27/28
+              12/17
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: nsattributedstring.md -->
+      <!-- slide source: mylibrary.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h1>参考</h1></header>
+            <header><h1><a href="https://github.com/azu/ManagedMappingObject" title="azu/ManagedMappingObject · GitHub">ManagedMappingObject</a></h1></header>
             
             
             <section><ul>
-<li><a href="http://www.objc.io/issue-5/getting-to-know-textkit.html" title="Getting to Know TextKit – #5 – iOS 7">Getting to Know TextKit – #5 – iOS 7</a></li>
-<li><a href="http://www.raywenderlich.com/store/ios-6-by-tutorials" title="iOS 6 By Tutorials | Ray Wenderlich">iOS 6 By Tutorials | Ray Wenderlich</a></li>
-<li><a href="https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/CustomTextProcessing/CustomTextProcessing.html" title="Text Programming Guide for iOS: Using Text Kit to Draw and Manage Text">Text Programming Guide for iOS: Using Text Kit to Draw and Manage Text</a></li>
-<li><a href="http://www.slideshare.net/hiromitsuuuuu/html5jbigginercss3newspec" title="新しいCSSの仕様を色々調べてみた">新しいCSSの仕様を色々調べてみた</a></li>
+<li><code>NSManagedObject</code> &lt;-&gt; <code>NSDictionary</code><ul>
+<li>CoreDataとNSDictionaryのオブジェクトを相互変換補助</li>
+<li><code>Mantle</code> とか</li>
+</ul>
+</li>
+<li>ライブラリ自体は100行以下でとてもシンプル</li>
+<li><a href="https://github.com/rentzsch/mogenerator" title="rentzsch/mogenerator · GitHub">rentzsch/mogenerator · GitHub</a> 、<a href="http://www.nerdery.com/json-accelerator" title="JSON Accelerator ">JSON Accelerator </a> と一緒に使うと効率的</li>
 </ul></section>
             
           </div>
@@ -2589,11 +2079,167 @@ ext System Storage Layer Overview">Text System Storage Layer Overview</a></li>
           <footer>
             
             <aside class="source">
-              Source: <a href="nsattributedstring.md">nsattributedstring.md</a>
+              Source: <a href="mylibrary.md">mylibrary.md</a>
             </aside>
             
             <aside class="page_number">
-              28/28
+              13/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="https://github.com/azu/CounterAgent" title="azu/CounterAgent · GitHub">CounterAgent</a></h1></header>
+            
+            
+            <section><ul>
+<li>起動回数を数えて、指定回数だったらメソッドを呼ぶだけのライブラリ</li>
+</ul>
+<div class="highlight"><pre><span class="k">@interface</span> <span class="nc">CounterAgent</span> : <span class="nc">NSObject</span>
+<span class="cp">#pragma mark - count</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nf">countOfCurrentVersion</span><span class="p">;</span>
+<span class="cp">#pragma mark - count up</span>
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">countUp</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">countUp</span><span class="p">;</span>
+<span class="cp">#pragma mark - fire event</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">runObserver:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span> <span class="n">observer</span> <span class="n">selector</span><span class="o">:</span><span class="p">(</span><span class="kt">SEL</span><span class="p">)</span> <span class="n">selector</span> <span class="n">whenCount</span><span class="o">:</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span> <span class="n">count</span><span class="p">;</span>
+<span class="cp">#pragma mark - reset</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">resetCount</span><span class="p">;</span>
+<span class="k">@end</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="https://github.com/azu/NavTintTester7" title="azu/NavTintTester7 · GitHub">azu/NavTintTester7 · GitHub</a></h1></header>
+            
+            
+            <section><ul>
+<li>ライブラリじゃない</li>
+<li>iOS7のナビゲーションバーの色変更等を確認するためのアプリ</li>
+<li>UIAppearanceとかをいじって色を確認出来る</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            
+            <section><p><img alt="ss" src="https://www.monosnap.com/image/BGEdRmcU4x89Ncrrv7DcCQdB1.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            
+            <section><p><img alt="ss" src="https://www.monosnap.com/image/H27c4LAnZYXhApy3twPbF2IW5.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source:  -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="page_number">
+              /17
             </aside>
           </footer>
         </div>
@@ -2608,169 +2254,105 @@ ext System Storage Layer Overview">Text System Storage Layer Overview</a></li>
       <caption>Table of Contents</caption>
       
       <tr id="toc-row-1">
-        <th><a href="#slide1">NSAttributedString</a></th>
+        <th><a href="#slide1">最近作ったライブラリ</a></th>
         <td><a href="#slide1">1</a></td>
       </tr>
       
       
       <tr id="toc-row-2">
-        <th><a href="#slide2"><a href="http://ocstudy.doorkeeper.jp/events/6543" title="Objective-C勉強会@東京 １１月 - Objective-C勉強会＠東京 | Doorkeeper">Objective-C勉強会@東京 １１月 - Objective-C勉強会＠東京 | Doorkeeper</a></a></th>
+        <th><a href="#slide2"><a href="https://github.com/azu/NSDate-Escort" title="azu/NSDate-Escort · GitHub">NSDate-Escort</a></a></th>
         <td><a href="#slide2">2</a></td>
       </tr>
       
       
       <tr id="toc-row-3">
-        <th><a href="#slide3">自己紹介</a></th>
+        <th><a href="#slide3"><a href="https://github.com/azu/AZDateBuilder" title="azu/AZDateBuilder · GitHub">AZDateBuilder</a></a></th>
         <td><a href="#slide3">3</a></td>
       </tr>
       
-        
-        <tr id="toc-row-4" class="sub">
-          <th><a href="#slide4">What is NSAttributedString?</a></th>
-          <td><a href="#slide4">4</a></td>
-        </tr>
-        
-        <tr id="toc-row-5" class="sub">
-          <th><a href="#slide5">Style</a></th>
-          <td><a href="#slide5">5</a></td>
-        </tr>
-        
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4"><a href="https://github.com/azu/SimpleUserDefaults" title="azu/SimpleUserDefaults · GitHub">SimpleUserDefaults</a></a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
       
       
-      <tr id="toc-row-6">
-        <th><a href="#slide6">-</a></th>
-        <td><a href="#slide6">6</a></td>
+      <tr id="toc-row-5">
+        <th><a href="#slide5">-</a></th>
+        <td><a href="#slide5">5</a></td>
       </tr>
       
         
-        <tr id="toc-row-7" class="sub">
-          <th><a href="#slide7">NSParagraphStyle</a></th>
-          <td><a href="#slide7">7</a></td>
+        <tr id="toc-row-6" class="sub">
+          <th><a href="#slide6">パフォーマンス</a></th>
+          <td><a href="#slide6">6</a></td>
         </tr>
         
-        <tr id="toc-row-8" class="sub">
-          <th><a href="#slide8">Layout</a></th>
-          <td><a href="#slide8">8</a></td>
-        </tr>
-        
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7"><a href="https://github.com/azu/BenchmarkTestCase" title="azu/BenchmarkTestCase · GitHub">BenchmarkTestCase</a></a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">-</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
       
       
       <tr id="toc-row-9">
-        <th><a href="#slide9">Interface Builder</a></th>
+        <th><a href="#slide9"><a href="https://github.com/azu/UITextSubClass" title="azu/UITextSubClass · GitHub">UITextSubClass</a></a></th>
         <td><a href="#slide9">9</a></td>
       </tr>
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">-</a></th>
+        <th><a href="#slide10"><a href="https://github.com/azu/XUIRoundedRectButton" title="azu/XUIRoundedRectButton · GitHub">XUIRoundedRectButton</a></a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
-        
-        <tr id="toc-row-11" class="sub">
-          <th><a href="#slide11">HTML Rendering?</a></th>
-          <td><a href="#slide11">11</a></td>
-        </tr>
-        
-        <tr id="toc-row-12" class="sub">
-          <th><a href="#slide12">DEMO</a></th>
-          <td><a href="#slide12">12</a></td>
-        </tr>
-        
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11"><a href="https://github.com/azu/AAMFeedback" title="azu/AAMFeedback · GitHub">AAMFeedback</a></a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">-</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13">そしてTextKitへ</a></th>
+        <th><a href="#slide13"><a href="https://github.com/azu/ManagedMappingObject" title="azu/ManagedMappingObject · GitHub">ManagedMappingObject</a></a></th>
         <td><a href="#slide13">13</a></td>
       </tr>
       
-        
-        <tr id="toc-row-14" class="sub">
-          <th><a href="#slide14">TextKit</a></th>
-          <td><a href="#slide14">14</a></td>
-        </tr>
-        
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14"><a href="https://github.com/azu/CounterAgent" title="azu/CounterAgent · GitHub">CounterAgent</a></a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
       
       
       <tr id="toc-row-15">
-        <th><a href="#slide15">-</a></th>
+        <th><a href="#slide15"><a href="https://github.com/azu/NavTintTester7" title="azu/NavTintTester7 · GitHub">azu/NavTintTester7 · GitHub</a></a></th>
         <td><a href="#slide15">15</a></td>
       </tr>
       
-        
-        <tr id="toc-row-16" class="sub">
-          <th><a href="#slide16">レンダリングの仕組み変更</a></th>
-          <td><a href="#slide16">16</a></td>
-        </tr>
-        
-        <tr id="toc-row-17" class="sub">
-          <th><a href="#slide17"><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/NSTextStorage_Class_TextKit/Reference/Reference.html" title="NSTextStorage Class Reference">NSTextStorage</a></a></th>
-          <td><a href="#slide17">17</a></td>
-        </tr>
-        
-        <tr id="toc-row-18" class="sub">
-          <th><a href="#slide18">Text Kit Objects</a></th>
-          <td><a href="#slide18">18</a></td>
-        </tr>
-        
-        <tr id="toc-row-19" class="sub">
-          <th><a href="#slide19">Mac Cocoaとの違い?</a></th>
-          <td><a href="#slide19">19</a></td>
-        </tr>
-        
       
-      
-      <tr id="toc-row-20">
-        <th><a href="#slide20"><a href="http://www.objc.io/issue-5/getting-to-know-textkit.html" title="performance, performance, performance">performance, performance, performance</a></a></th>
-        <td><a href="#slide20">20</a></td>
-      </tr>
-      
-        
-        <tr id="toc-row-21" class="sub">
-          <th><a href="#slide21">パフォーマンス</a></th>
-          <td><a href="#slide21">21</a></td>
-        </tr>
-        
-        <tr id="toc-row-22" class="sub">
-          <th><a href="#slide22">より詳細な管理</a></th>
-          <td><a href="#slide22">22</a></td>
-        </tr>
-        
-      
-      
-      <tr id="toc-row-23">
-        <th><a href="#slide23">Example</a></th>
-        <td><a href="#slide23">23</a></td>
+      <tr id="toc-row-16">
+        <th><a href="#slide16">-</a></th>
+        <td><a href="#slide16">16</a></td>
       </tr>
       
       
-      <tr id="toc-row-24">
-        <th><a href="#slide24">-</a></th>
-        <td><a href="#slide24">24</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-25">
-        <th><a href="#slide25">-</a></th>
-        <td><a href="#slide25">25</a></td>
-      </tr>
-      
-        
-        <tr id="toc-row-26" class="sub">
-          <th><a href="#slide26">一つのデータで複数の描画</a></th>
-          <td><a href="#slide26">26</a></td>
-        </tr>
-        
-        <tr id="toc-row-27" class="sub">
-          <th><a href="#slide27">NSTextContainerの<code>exclusionPaths</code></a></th>
-          <td><a href="#slide27">27</a></td>
-        </tr>
-        
-      
-      
-      <tr id="toc-row-28">
-        <th><a href="#slide28">参考</a></th>
-        <td><a href="#slide28">28</a></td>
+      <tr id="toc-row-17">
+        <th><a href="#slide17">-</a></th>
+        <td><a href="#slide17">17</a></td>
       </tr>
       
       

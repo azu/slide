@@ -2,6 +2,23 @@
 
 -----
 
+# [Objective-C勉強会@東京 １１月 - Objective-C勉強会＠東京 | Doorkeeper](http://ocstudy.doorkeeper.jp/events/6543 "Objective-C勉強会@東京 １１月 - Objective-C勉強会＠東京 | Doorkeeper")
+
+-----
+
+# 自己紹介
+
+![アイコン](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
+
+- Name : **azu**
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- Website: [Web scratch], [JSer.info]
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+-----
+
 ## What is NSAttributedString?
 
 ![Session_222_-_Introduction_to_Attributed_Strings_for_iOS](https://www.monosnap.com/image/oE3XN2PnbMqOoxahsyZuvY8rk.png)
