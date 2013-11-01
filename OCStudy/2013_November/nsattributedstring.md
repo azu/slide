@@ -1,4 +1,4 @@
-# NSAttributedString
+# NSAttributedString と TextKit
 
 -----
 
