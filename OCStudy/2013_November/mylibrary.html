@@ -1640,7 +1640,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              1/17
+              1/18
             </aside>
           </footer>
         </div>
@@ -1675,7 +1675,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              2/17
+              2/18
             </aside>
           </footer>
         </div>
@@ -1717,7 +1717,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              3/17
+              3/18
             </aside>
           </footer>
         </div>
@@ -1751,7 +1751,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              4/17
+              4/18
             </aside>
           </footer>
         </div>
@@ -1796,7 +1796,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              5/17
+              5/18
             </aside>
           </footer>
         </div>
@@ -1839,7 +1839,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              6/17
+              6/18
             </aside>
           </footer>
         </div>
@@ -1876,7 +1876,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              7/17
+              7/18
             </aside>
           </footer>
         </div>
@@ -1912,7 +1912,59 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              8/17
+              8/18
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: mylibrary.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1><a href="https://github.com/azu/OperationPromise" title="azu/OperationPromise">OperationPromise</a></h1></header>
+            
+            
+            <section><ul>
+<li>NSOperation同士の依存関係を簡単に示すためのライブラリ</li>
+<li>Promiseっぽい <code>then</code> や <code>when</code> を使う</li>
+</ul>
+<div class="highlight"><pre><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">race</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
+<span class="n">NSBlockOperation</span> <span class="o">*</span><span class="n">blockOperation1</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBlockOperation</span> <span class="n">blockOperationWithBlock</span><span class="o">:^</span><span class="p">{</span>
+    <span class="p">[</span><span class="n">race</span> <span class="n">addObject</span><span class="o">:</span><span class="mi">@1</span><span class="p">];</span>
+<span class="p">}];</span>
+<span class="n">NSBlockOperation</span> <span class="o">*</span><span class="n">blockOperation2</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBlockOperation</span> <span class="n">blockOperationWithBlock</span><span class="o">:^</span><span class="p">{</span>
+    <span class="p">[</span><span class="n">race</span> <span class="n">addObject</span><span class="o">:</span><span class="mi">@2</span><span class="p">];</span>
+<span class="p">}];</span>
+<span class="n">NSBlockOperation</span> <span class="o">*</span><span class="n">blockOperation3</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBlockOperation</span> <span class="n">blockOperationWithBlock</span><span class="o">:^</span><span class="p">{</span>
+    <span class="p">[</span><span class="n">race</span> <span class="n">addObject</span><span class="o">:</span><span class="mi">@3</span><span class="p">];</span>
+<span class="p">}];</span>
+<span class="n">NSOperationQueue</span> <span class="o">*</span><span class="n">queue</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSOperationQueue</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+
+<span class="p">[</span><span class="n">OperationPromise</span> <span class="n">promise</span><span class="o">:</span><span class="n">queue</span><span class="p">]</span>
+    <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">blockOperation1</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">blockOperation2</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">blockOperation3</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">start</span><span class="p">();</span>
+<span class="c1">// @1 -&gt; @2 -&gt; @3 という順番で実行される</span>
+</pre></div></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="mylibrary.md">mylibrary.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/18
             </aside>
           </footer>
         </div>
@@ -1946,7 +1998,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              9/17
+              10/18
             </aside>
           </footer>
         </div>
@@ -1980,7 +2032,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              10/17
+              11/18
             </aside>
           </footer>
         </div>
@@ -2017,7 +2069,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              11/17
+              12/18
             </aside>
           </footer>
         </div>
@@ -2045,7 +2097,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              12/17
+              13/18
             </aside>
           </footer>
         </div>
@@ -2083,7 +2135,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              13/17
+              14/18
             </aside>
           </footer>
         </div>
@@ -2127,7 +2179,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              14/17
+              15/18
             </aside>
           </footer>
         </div>
@@ -2161,7 +2213,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              15/17
+              16/18
             </aside>
           </footer>
         </div>
@@ -2189,7 +2241,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              16/17
+              17/18
             </aside>
           </footer>
         </div>
@@ -2217,7 +2269,7 @@ div.slide p.notes {
             </aside>
             
             <aside class="page_number">
-              17/17
+              18/18
             </aside>
           </footer>
         </div>
@@ -2239,7 +2291,7 @@ div.slide p.notes {
           <footer>
             
             <aside class="page_number">
-              /17
+              /18
             </aside>
           </footer>
         </div>
@@ -2303,49 +2355,49 @@ div.slide p.notes {
       
       
       <tr id="toc-row-9">
-        <th><a href="#slide9"><a href="https://github.com/azu/UITextSubClass" title="azu/UITextSubClass · GitHub">UITextSubClass</a></a></th>
+        <th><a href="#slide9"><a href="https://github.com/azu/OperationPromise" title="azu/OperationPromise">OperationPromise</a></a></th>
         <td><a href="#slide9">9</a></td>
       </tr>
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10"><a href="https://github.com/azu/XUIRoundedRectButton" title="azu/XUIRoundedRectButton · GitHub">XUIRoundedRectButton</a></a></th>
+        <th><a href="#slide10"><a href="https://github.com/azu/UITextSubClass" title="azu/UITextSubClass · GitHub">UITextSubClass</a></a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
       
       <tr id="toc-row-11">
-        <th><a href="#slide11"><a href="https://github.com/azu/AAMFeedback" title="azu/AAMFeedback · GitHub">AAMFeedback</a></a></th>
+        <th><a href="#slide11"><a href="https://github.com/azu/XUIRoundedRectButton" title="azu/XUIRoundedRectButton · GitHub">XUIRoundedRectButton</a></a></th>
         <td><a href="#slide11">11</a></td>
       </tr>
       
       
       <tr id="toc-row-12">
-        <th><a href="#slide12">-</a></th>
+        <th><a href="#slide12"><a href="https://github.com/azu/AAMFeedback" title="azu/AAMFeedback · GitHub">AAMFeedback</a></a></th>
         <td><a href="#slide12">12</a></td>
       </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13"><a href="https://github.com/azu/ManagedMappingObject" title="azu/ManagedMappingObject · GitHub">ManagedMappingObject</a></a></th>
+        <th><a href="#slide13">-</a></th>
         <td><a href="#slide13">13</a></td>
       </tr>
       
       
       <tr id="toc-row-14">
-        <th><a href="#slide14"><a href="https://github.com/azu/CounterAgent" title="azu/CounterAgent · GitHub">CounterAgent</a></a></th>
+        <th><a href="#slide14"><a href="https://github.com/azu/ManagedMappingObject" title="azu/ManagedMappingObject · GitHub">ManagedMappingObject</a></a></th>
         <td><a href="#slide14">14</a></td>
       </tr>
       
       
       <tr id="toc-row-15">
-        <th><a href="#slide15"><a href="https://github.com/azu/NavTintTester7" title="azu/NavTintTester7 · GitHub">azu/NavTintTester7 · GitHub</a></a></th>
+        <th><a href="#slide15"><a href="https://github.com/azu/CounterAgent" title="azu/CounterAgent · GitHub">CounterAgent</a></a></th>
         <td><a href="#slide15">15</a></td>
       </tr>
       
       
       <tr id="toc-row-16">
-        <th><a href="#slide16">-</a></th>
+        <th><a href="#slide16"><a href="https://github.com/azu/NavTintTester7" title="azu/NavTintTester7 · GitHub">azu/NavTintTester7 · GitHub</a></a></th>
         <td><a href="#slide16">16</a></td>
       </tr>
       
@@ -2353,6 +2405,12 @@ div.slide p.notes {
       <tr id="toc-row-17">
         <th><a href="#slide17">-</a></th>
         <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">-</a></th>
+        <td><a href="#slide18">18</a></td>
       </tr>
       
       
