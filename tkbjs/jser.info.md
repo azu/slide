@@ -1,4 +1,4 @@
-title: JavaScript AST Walker
+title: JSer.info 2013
 author:
   name: azu
   twitter: azu_re
@@ -60,15 +60,15 @@ table, td{
 ### その他
 
 * 世界のJavaScriptイベントを探してる
-	* JSModeにひたすら投げてる
-* JavaScriptコミュニティについて考えてる
+	* [JSMode](http://mode.tumblr.com/ "JSMode")にひたすら投げてる
+* JavaScriptコミュニティについて考えてる - [CommunityJS](http://communityjs.org/ "CommunityJS")
 * オモシロJavaScript求人情報が少ないのがどうやったら増えるか考えてる
 
 --
 
 ### 気にしてること
 
-* Web platformみたいなスタイルが運営できるのか
+* [Open Web Platform Daily Digest](http://webplatformdaily.org/ "Open Web Platform Daily Digest")みたいなスタイルが運営できるのか
 * いかにものの探し方を共有できるか
 * 日本の残念な電子書籍事情
 	* 電子書籍が出せないのはどのくらいの需要があるのかわからないから
