@@ -1,0 +1,854 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>JavaScript AST Walker</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  background-color: #f7f7f7;
+  font-size: 100%;
+}
+
+#wrapper {
+  width: 850px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+}
+
+.slide {
+  width: auto;
+  height: 540px;
+  padding: 30px;
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.controls .arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.controls .prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.controls .next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.controls .prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.controls .next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+.slide h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+.slide h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+.slide h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.slide ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.slide .author h1.name {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.slide .author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.1s ease-out;
+  -moz-transition: width 0.1s ease-out;
+  -o-transition: width 0.1s ease-out;
+  transition: width 0.1s ease-out;
+}
+
+@media (max-width: 850px) {
+  #wrapper {
+    width: auto;
+  }
+
+  body {
+    font-size: 70%;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .slide h1 {
+    margin-top: 120px;
+  }
+
+  .controls .prev, .controls .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .controls .next, .controls .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  #wrapper {
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  .slide {
+    padding: 10px;
+    height: 340px;
+  }
+
+  .slide h1 {
+    margin-top: 50px;
+  }
+
+  .slide ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  #wrapper {
+    overflow: visible;
+    height: 100%;
+    margin-top: 0;
+  }
+
+  .slide {
+    border: 1px solid #222;
+    margin-bottom: 40px;
+    height: 3.5in;
+  }
+
+  .slide:nth-child(odd) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+
+code, pre {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: auto;
+  padding: 6px 10px;
+}
+
+code {
+  padding: 0 5px;
+}
+
+pre>code {
+  margin: 0; padding: 0;
+  border: none;
+  background: transparent;
+}
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic
+}
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold
+}
+
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099;
+}
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14
+}
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold
+}
+
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal
+}
+
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: #008080
+}
+
+pre .regexp {
+  color: #009926
+}
+
+pre .class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073
+}
+
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3
+}
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .deletion {
+  background: #fdd
+}
+
+pre .addition {
+  background: #dfd
+}
+
+pre .diff .change {
+  background: #0086b3
+}
+
+pre .chunk {
+  color: #aaa
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+<div id="wrapper">
+    <section class="slide"><h1 id="javascript-ast-walker">JavaScript AST Walker</h1>
+<h2 id="javascript-ast-">JavaScript ASTを見て回る</h2>
+</section>
+    <section class="slide"><h3>Agenda</h3>
+<ul>
+    <li>JavaScript ASTとは</li>
+    <li>JS AST Structure</li>
+    <li>JS AST as JSON</li>
+    <li>Try JavaScript AST</li>
+    <li>パーサ</li>
+    <li>ジェネレーター</li>
+    <li>ここまでのまとめ</li>
+    <li>More detail</li>
+    <li>コードカバレッジツール</li>
+    <li>istanbul-html</li>
+    <li>istanbul-karma</li>
+    <li>blanket</li>
+    <li>[ESLint](https:&#x2F;&#x2F;github.com&#x2F;nzakas&#x2F;eslint &quot;ESLint&quot;)</li>
+    <li>[reQUnit](https:&#x2F;&#x2F;github.com&#x2F;azu&#x2F;reQUnit &quot;reQUnit&quot;)</li>
+    <li>reQunit : before</li>
+    <li>reQunit : after</li>
+    <li>[regenerator](https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;regenerator &quot;regenerator&quot;)</li>
+    <li>[grasp](http:&#x2F;&#x2F;graspjs.com&#x2F; &quot;grasp&quot;)</li>
+    <li>[esgraph + graphviz](https:&#x2F;&#x2F;github.com&#x2F;azu&#x2F;esgraph-graphviz-online)</li>
+    <li>detail</li>
+    <li>TreeWalker</li>
+    <li>JavaScript AST Traversal lib</li>
+    <li>ASTセレクタ</li>
+    <li>AST変換</li>
+    <li>[Rephrase](https:&#x2F;&#x2F;github.com&#x2F;puffnfresh&#x2F;rephrase &quot;Rephrase&quot;) example</li>
+    <li>Other</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="javascript-ast-">JavaScript ASTとは</h3>
+<ul>
+<li>AST(Abstract Syntax Tree) は コードをパースした構文木</li>
+<li>Mozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>) がデファクト</li>
+<li>JS ASTはJSONで表現される</li>
+</ul>
+<blockquote>
+<p><a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a> を参照</p>
+</blockquote>
+</section>
+    <section class="slide"><h3 id="js-ast-structure">JS AST Structure</h3>
+<p><img src="http://efcl.info/wp-content/uploads/2013/11/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations1.jpg" alt="AST Image"></p>
+</section>
+    <section class="slide"><h3 id="js-ast-as-json">JS AST as JSON</h3>
+<p><img src="http://efcl.info/wp-content/uploads/2013/11/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations_7.jpg" alt="AST Image"></p>
+</section>
+    <section class="slide"><h3 id="try-javascript-ast">Try JavaScript AST</h3>
+<ul>
+<li><a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima: Parser</a><ul>
+<li>パーサーをオンラインで試せる</li>
+</ul>
+</li>
+<li><a href="http://int3.github.io/metajs/" title="metajs: visualize javascript AST execution">metajs: visualize javascript AST execution</a><ul>
+<li>ASTレベルでJavaScriptをステップ実行できる</li>
+</ul>
+</li>
+<li><a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a></li>
+<li><a href="http://graspjs.com/docs/syntax-js/" title="JavaScript Syntax | grasp - JavaScript structural search and replace">JavaScript Syntax | grasp - JavaScript structural search and replace</a><ul>
+<li>ASTのidentifierとJS Codeの対応が分かりやすい</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="-">パーサ</h3>
+<p>JavaScriptのコードから JS ASTを生成する</p>
+<ul>
+<li><a href="http://esprima.org/" title="Esprima">Esprima</a></li>
+<li><a href="http://marijnhaverbeke.nl/acorn/" title="Acorn">Acorn</a><ul>
+<li><a href="http://marijnhaverbeke.nl/blog/acorn.html" title="Acorn: yet another JavaScript parser">Acorn: yet another JavaScript parser</a></li>
+</ul>
+</li>
+<li>スピード競争<ul>
+<li><a href="http://esprima.org/test/compare.html" title="Esprima: Speed Comparisons">Esprima: Speed Comparisons</a></li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=924466" title="924466 – integrate acorn with the devtools">924466 – integrate acorn with the devtools</a></li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="-">ジェネレーター</h3>
+<ul>
+<li><a href="https://github.com/Constellation/escodegen" title="escodegen">escodegen</a><ul>
+<li>JS AST から JavaScriptのコードを生成する</li>
+</ul>
+</li>
+</ul>
+<p><em>JS Code</em> -&gt; esprima -&gt; AST -&gt; <strong>escodegen</strong> -&gt; <em>JS Code</em></p>
+<pre><code class="lang-javascript">    parse(generate(parse(code))) === parse(code)</code></pre>
+</section>
+    <section class="slide"><h3 id="-">ここまでのまとめ</h3>
+<ul>
+<li>パーサ<ul>
+<li>esprima - コードからASTを生成する</li>
+</ul>
+</li>
+<li>ASTを扱うツール(このスライドの主題)<ul>
+<li>JS ASTを別の形に変換/チェック/最適化等</li>
+</ul>
+</li>
+<li>ジェネレータ<ul>
+<li>escodegen - ASTからコードを生成する</li>
+</ul>
+</li>
+</ul>
+<p><img src="img/ast-flow.png" width="100%" /></p>
+</section>
+    <section class="slide"><h3 id="more-detail">More detail</h3>
+<ul>
+<li><a href="http://constellation.github.io/slides/contents/20121118/modules.html#1" title="ECMAScript tools - composable modules and transpiler infrastructure">ECMAScript tools - composable modules and transpiler infrastructure</a></li>
+<li><a href="https://gist.github.com/Constellation/3664429" title="gist:3664429">gist:3664429</a><ul>
+<li>esprima系統のツールについて</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h1 id="-">どんなもので使われてるの?</h1>
+</section>
+    <section class="slide"><h3 id="-">コードカバレッジツール</h3>
+<ul>
+<li><a href="https://github.com/gotwarlost/istanbul" title=" istanbul">istanbul</a><ul>
+<li>WebStormとも連携できる - <a href="http://karma-runner.github.io/0.8/config/coverage.html" title="Karma - Coverage">Karma - Coverage</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/alex-seville/blanket" title="blanket.js">blanket.js</a></li>
+</ul>
+<p>JS ASTを変換して、コード上にカバレッジ検出コードを埋め込んでいく</p>
+</section>
+    <section class="slide"><h3 id="istanbul-html">istanbul-html</h3>
+<p><img src="img/code_coverage_report.jpg" width="100%" /></p>
+</section>
+    <section class="slide"><h3 id="istanbul-karma">istanbul-karma</h3>
+<p><img src="img/coverage-qunit-istanbul-karma.jpg" width="100%" /></p>
+</section>
+    <section class="slide"><h3 id="blanket">blanket</h3>
+<p><img src="img/jasmine_blacket.jpg" width="100%" /></p>
+</section>
+    <section class="slide"><h3 id="-eslint-https-github-com-nzakas-eslint-eslint-"><a href="https://github.com/nzakas/eslint" title="ESLint">ESLint</a></h3>
+<ul>
+<li>JS ASTをチェックすることでLintを行えるツール</li>
+<li>プラグインを書くことで、Lintを追加できる<ul>
+<li>初めてJS ASTを触るのにもいいかもしれない</li>
+</ul>
+</li>
+<li><a href="http://efcl.info/2013/1104/res3465/" title="ESLint 0.1.0がリリースされたので、JSHintとの違いやプラグインの書き方について | Web scratch">ESLint 0.1.0がリリースされたので、JSHintとの違いやプラグインの書き方について | Web scratch</a></li>
+</ul>
+</section>
+    <section class="slide"><h3 id="-requnit-https-github-com-azu-requnit-requnit-"><a href="https://github.com/azu/reQUnit" title="reQUnit">reQUnit</a></h3>
+<ul>
+<li>QUnitで書かれたテストをJasmineなどに変換<ul>
+<li>構造的な違いはJS ASTのnodeを移動させる</li>
+<li>assertion等のメソッドは<a href="https://github.com/puffnfresh/rephrase" title="Rephrase">Rephrase</a>で変換</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="requnit-before">reQunit : before</h3>
+<h4 id="qunit">Qunit</h4>
+<iframe width="100%" height="300" src="http://jsfiddle.net/efcl/bA7Yg/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></section>
+    <section class="slide"><h3 id="requnit-after">reQunit : after</h3>
+<h4 id="jasmine">Jasmine</h4>
+<iframe width="100%" height="300" src="http://jsfiddle.net/efcl/53byk/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></section>
+    <section class="slide"><h3 id="-regenerator-https-github-com-facebook-regenerator-regenerator-"><a href="https://github.com/facebook/regenerator" title="regenerator">regenerator</a></h3>
+<ul>
+<li>ES6のGeneratorをES5で動くように変換する<ul>
+<li>ASTを組み上げるのに<a href="https://github.com/benjamn/ast-types" title="ast-types">ast-types</a>を利用</li>
+<li>変換したASTを整形して出力するのに<a href="https://github.com/benjamn/recast" title=" recast">recast</a>を利用</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="-grasp-http-graspjs-com-grasp-"><a href="http://graspjs.com/" title="grasp">grasp</a></h3>
+<ul>
+<li>grep + sed + JS AST</li>
+<li><a href="http://graspjs.com/docs/equery/" title="Example Query">Example Query</a> を元にASTと一致している箇所を検索/編集するCLI</li>
+</ul>
+<pre><code class="lang-bash">$ grasp -e <span class="string">"return __.length &gt; __"</span> lib/reQUnit.js
+58:        <span class="keyword">return</span> node.expression[<span class="string">"arguments"</span>].length &gt; 1;</code></pre>
+</section>
+    <section class="slide"><h3 id="-esgraph-graphviz-https-github-com-azu-esgraph-graphviz-online-"><a href="https://github.com/azu/esgraph-graphviz-online">esgraph + graphviz</a></h3>
+ <iframe width="100%" height="500" src="http://azu.github.io/esgraph-graphviz-online/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></section>
+    <section class="slide"><h3 id="detail">detail</h3>
+<ul>
+<li><a href="https://github.com/Swatinem/esgraph" title="Swatinem/esgraph">Swatinem/esgraph</a> がASTからgraphvizのdot形式に変換<ul>
+<li>Node専用になってたので<a href="http://browserify.org/" title="browserify">browserify</a>でブラウザで動くように変換</li>
+</ul>
+</li>
+<li>Emscriptenでgraphvizをコンパイルした<a href="https://github.com/mdaines/viz.js" title="mdaines/viz.js">viz.js</a>でSVGとしてレンダリング</li>
+</ul>
+</section>
+    <section class="slide"><h1 id="-">どうやってツールを書くの</h1>
+</section>
+    <section class="slide"><h3 id="treewalker">TreeWalker</h3>
+<ul>
+<li>木構造といえばTraversal</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker" title="TreeWalker">TreeWalker</a><ul>
+<li>DOM を traverse するDOM API</li>
+</ul>
+</li>
+<li><a href="http://uhyohyohyo.sakura.ne.jp/javascript/7_3.html" title="JavaScript初級者から中級者になろう：七章第三回　条件を満たすノードをまとめて処理する: TreeWalker">JavaScript初級者から中級者になろう：七章第三回　条件を満たすノードをまとめて処理する: TreeWalker</a></li>
+</ul>
+</section>
+    <section class="slide"><h3 id="javascript-ast-traversal-lib">JavaScript AST Traversal lib</h3>
+<ul>
+<li>ASTを走査するライブラリ.<ul>
+<li>低レイヤーに近いので、他のライブラリがこれの上に成り立ってる事が多い</li>
+</ul>
+</li>
+<li><a href="https://github.com/Constellation/estraverse" title="estraverse">estraverse</a><ul>
+<li>JS AST traversalのデファクト</li>
+<li><code>enter</code> , <code>leave</code> , <code>replace</code></li>
+</ul>
+</li>
+<li><a href="https://github.com/olov/ast-traverse" title="ast-traverse">ast-traverse</a><ul>
+<li><code>pre</code> , <code>post</code> , <code>skipProperty</code></li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="ast-">ASTセレクタ</h3>
+<ul>
+<li><a href="https://github.com/chrisdickinson/cssauron" title="cssauron">cssauron</a><ul>
+<li>CSSセレクタみたいなものを以下に対して行える</li>
+<li>HTML,JSON,GLSL AST, JavaScript AST</li>
+</ul>
+</li>
+<li><a href="https://github.com/jrfeenst/esquery" title="jrfeenst/esquery">esquery</a><ul>
+<li>CSSセレクタみたいな感じ実装</li>
+<li><a href="https://github.com/Constellation/estraverse" title="estraverse">estraverse</a> ベース</li>
+</ul>
+</li>
+<li><a href="https://github.com/phadej/jsstana" title="phadej/jsstana">phadej/jsstana</a><ul>
+<li>S式のパターンマッチ</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="ast-">AST変換</h3>
+<ul>
+<li><a href="https://github.com/substack/node-falafel" title=" node-falafel">node-falafel</a><ul>
+<li>AST traversal + update</li>
+</ul>
+</li>
+<li><a href="https://github.com/SBoudrias/AST-query#object-literal-token" title="AST Query">AST Query</a><ul>
+<li><code>rename</code> , <code>delete</code> , <code>insertAfter</code> などnodeを操作するライブラリ</li>
+</ul>
+</li>
+<li><a href="https://github.com/puffnfresh/rephrase" title="Rephrase">Rephrase</a><ul>
+<li>GHCのRewrite Rulesライクな感じでJavaScriptを書き換える</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h3 id="-rephrase-https-github-com-puffnfresh-rephrase-rephrase-example"><a href="https://github.com/puffnfresh/rephrase" title="Rephrase">Rephrase</a> example</h3>
+<ul>
+<li>コメントで書き換えルールを定義する</li>
+</ul>
+<pre><code class="lang-javascript"><span class="comment">/* forall a f g. */</span>
+<span class="comment">/* a.map(f).map(g) */</span>
+<span class="comment">/* a.map(compose(f, g)) */</span>
+
+[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(add(<span class="number">1</span>)).map(add(<span class="number">2</span>));
+<span class="comment">// =&gt;</span>
+[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].compose(add(<span class="number">1</span>), add(<span class="number">2</span>));</code></pre>
+</section>
+    <section class="slide"><h3 id="other">Other</h3>
+<ul>
+<li><a href="http://blog.jetbrains.com/jp/2013/11/13/263" title="Nitraの紹介 | JetBrains ブログ">Nitraの紹介 | JetBrains ブログ</a></li>
+</ul>
+<blockquote>
+<p>Nitraにより皆様はパーサーや言語実装のエキスパートでなくても独自のDSLを開発することが出来るようになり、同時にエラーチェックやシンタックスハイライトといったIDEの機能を活用することができます</p>
+</blockquote>
+</section>
+    <section class="slide"><p><a href="https://github.com/azu"><img src="img/azu (azu) 2013-11-17 01-01-35.jpg" width="100%" /></a></p>
+</section>
+    <section class="slide"><div class="author">
+  <h1 class="name">azu</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@azu_re">@azu_re</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://efcl.info/">http://efcl.info/</a>
+    </h3>
+</div>
+</section>
+</div>
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Takes the last slide and places it at the front.
+ */
+function goBack() {
+  var wrapper = document.querySelector('#wrapper');
+  var lastSlide = wrapper.lastChild;
+  while (lastSlide != null && lastSlide.nodeType !== 1) {
+    lastSlide = lastSlide.previousSibling;
+  }
+
+  wrapper.removeChild(lastSlide);
+  wrapper.insertBefore(lastSlide, wrapper.firstChild);
+
+  setCurrentProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+/**
+ * Takes the first slide and places it at the end.
+ */
+function goForward() {
+  var wrapper = document.querySelector('#wrapper');
+  var firstSlide = wrapper.firstChild;
+  while (firstSlide != null && firstSlide.nodeType !== 1) {
+    firstSlide = firstSlide.nextSibling;
+  }
+
+  wrapper.removeChild(firstSlide);
+  wrapper.appendChild(firstSlide);
+
+  setCurrentProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  window.history.replaceState({} , null, '#' + currentPage());
+}
+
+/**
+ * Returns the current page number of the presentation.
+ */
+function currentPage() {
+  return document.querySelector('#wrapper .slide').dataset.page;
+}
+
+/**
+ * Returns a NodeList of each .slide element.
+ */
+function allSlides() {
+  return document.querySelectorAll('#wrapper .slide');
+}
+
+/**
+ * Give each slide a "page" data attribute.
+ */
+function setPageNumbers() {
+  var wrapper = document.querySelector('#wrapper');
+  var pages   = wrapper.querySelectorAll('section');
+  var page;
+
+  for (var i = 0; i < pages.length; ++i) {
+    page = pages[i];
+    page.dataset.page = i;
+  }
+}
+
+/**
+ * Set the current progress indicator.
+ */
+function setCurrentProgress() {
+  var wrapper = document.querySelector('#wrapper');
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var pagesNumber    = wrapper.querySelectorAll('section').length;
+    var currentNumber  = parseInt(currentPage());
+    var currentPercent = pagesNumber === 1 ? 100 : 100 * currentNumber / (pagesNumber - 1);
+    progressBar.style.width = currentPercent.toString() + '%';
+  }
+}
+
+/**
+ * Go to the specified page of content.
+ */
+function goToPage(page) {
+  // Try to find the target slide.
+  var targetSlide = document.querySelector('#wrapper .slide[data-page="' + page + '"]');
+
+  // If it actually exists, go forward until we find it.
+  if (targetSlide) {
+    var numSlides = allSlides().length;
+
+    for (var i = 0; currentPage() != page && i < numSlides; i++) {
+      goForward();
+    }
+  }
+}
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var currentPageLinks = document.querySelector('.slide').querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    allLinks[i].removeAttribute('tabindex');
+  }
+}
+
+window.onload = function () {
+
+  // Give each slide a "page" data attribute.
+  setPageNumbers();
+
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) goToPage(page);
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, enter, PgDn - FORWARD
+    if (kc == 37 || kc == 40 || kc == 8 || kc == 72 || kc == 74 || kc == 33) {
+      goBack();
+    } else if (kc == 38 || kc == 39 || kc == 13 || kc == 32 || kc == 75 || kc == 76 || kc == 34) {
+      goForward();
+    }
+  }
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      goForward();
+    }
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      goBack();
+    }
+  }
+
+}
+
+
+  </script>
+</body>
+</html>
