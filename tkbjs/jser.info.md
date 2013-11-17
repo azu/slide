@@ -7,6 +7,19 @@ output: jser_info_2013.html
 
 --
 
+### 自己紹介
+
+![アイコン](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
+
+- Name : **azu**
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- Website: [Web scratch], [JSer.info]
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+--
+
 [<img src="img/azu (azu) 2013-11-17 01-01-35.jpg" width="100%" />](https://github.com/azu)
 
 --
