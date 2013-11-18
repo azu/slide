@@ -578,6 +578,7 @@ pre .chunk {
  <iframe width="100%" height="500" src="http://azu.github.io/esgraph-graphviz-online/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></section>
     <section class="slide"><h3 id="detail">detail</h3>
 <ul>
+<li>ソースコード : <a href="https://github.com/azu/esgraph-graphviz-online">esgraph + graphviz</a></li>
 <li><a href="https://github.com/Swatinem/esgraph" title="Swatinem/esgraph">Swatinem/esgraph</a> がASTからgraphvizのdot形式に変換<ul>
 <li>Node専用になってたので<a href="http://browserify.org/" title="browserify">browserify</a>でブラウザで動くように変換</li>
 </ul>
@@ -658,7 +659,7 @@ pre .chunk {
 
 [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(add(<span class="number">1</span>)).map(add(<span class="number">2</span>));
 <span class="comment">// =&gt;</span>
-[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].compose(add(<span class="number">1</span>), add(<span class="number">2</span>));</code></pre>
+[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(compose(add(<span class="number">1</span>), add(<span class="number">2</span>)));</code></pre>
 </section>
     <section class="slide"><h3 id="other">Other</h3>
 <ul>

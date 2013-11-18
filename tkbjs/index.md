@@ -189,6 +189,7 @@ $ grasp -e "return __.length > __" lib/reQUnit.js
 
 ### detail
 
+* ソースコード : [esgraph + graphviz](https://github.com/azu/esgraph-graphviz-online)
 * [Swatinem/esgraph](https://github.com/Swatinem/esgraph "Swatinem/esgraph") がASTからgraphvizのdot形式に変換
 	* Node専用になってたので[browserify](http://browserify.org/ "browserify")でブラウザで動くように変換
 * Emscriptenでgraphvizをコンパイルした[viz.js](https://github.com/mdaines/viz.js "mdaines/viz.js")でSVGとしてレンダリング
@@ -255,7 +256,7 @@ $ grasp -e "return __.length > __" lib/reQUnit.js
 
 [1, 2, 3].map(add(1)).map(add(2));
 // =>
-[1, 2, 3].compose(add(1), add(2));
+[1, 2, 3].map(compose(add(1), add(2)));
 ```
 --
 
