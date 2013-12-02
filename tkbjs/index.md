@@ -182,8 +182,9 @@ $ grasp -e "return __.length > __" lib/reQUnit.js
 
 ### [esgraph + graphviz](https://github.com/azu/esgraph-graphviz-online)
 
- <iframe width="100%" height="500" src="http://azu.github.io/esgraph-graphviz-online/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+DEMO 
 
+[esgraph + graphviz](http://azu.github.io/esgraph-graphviz-online/)
 
 --
 
@@ -220,6 +221,16 @@ $ grasp -e "return __.length > __" lib/reQUnit.js
 	* ``pre`` , ``post`` , ``skipProperty``
 
 --
+
+### Traversal
+
+* [millermedeiros/rocambole](https://github.com/millermedeiros/rocambole "millermedeiros/rocambole")
+	* 通常はコードとコメントのTreeは別れているがlinked listで辿れるようになってる
+	* ``next`` や ``prev`` でコードのイメージそのままたどっていける
+	* これのために ``token`` という、nodeより小さい概念が導入されてる(独自っぽい?)
+	* traversalのメソッドも持ってるので便利
+
+---
 
 ### ASTセレクタ
 
