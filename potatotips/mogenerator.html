@@ -1,0 +1,779 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>mogenerator - potate tips</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  background-color: #f7f7f7;
+  font-size: 100%;
+}
+
+#wrapper {
+  width: 850px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+}
+
+.slide {
+  width: auto;
+  height: 540px;
+  padding: 30px;
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.controls .arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.controls .prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.controls .next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.controls .prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.controls .next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+.slide h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+.slide h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+.slide h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.slide ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.slide .author h1.name {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.slide .author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.1s ease-out;
+  -moz-transition: width 0.1s ease-out;
+  -o-transition: width 0.1s ease-out;
+  transition: width 0.1s ease-out;
+}
+
+@media (max-width: 850px) {
+  #wrapper {
+    width: auto;
+  }
+
+  body {
+    font-size: 70%;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .slide h1 {
+    margin-top: 120px;
+  }
+
+  .controls .prev, .controls .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .controls .next, .controls .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  #wrapper {
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  .slide {
+    padding: 10px;
+    height: 340px;
+  }
+
+  .slide h1 {
+    margin-top: 50px;
+  }
+
+  .slide ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  #wrapper {
+    overflow: visible;
+    height: 100%;
+    margin-top: 0;
+  }
+
+  .slide {
+    border: 1px solid #222;
+    margin-bottom: 40px;
+    height: 3.5in;
+  }
+
+  .slide:nth-child(odd) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+
+code, pre {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: auto;
+  padding: 6px 10px;
+}
+
+code {
+  padding: 0 5px;
+}
+
+pre>code {
+  margin: 0; padding: 0;
+  border: none;
+  background: transparent;
+}
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic
+}
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold
+}
+
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099;
+}
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14
+}
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold
+}
+
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal
+}
+
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: #008080
+}
+
+pre .regexp {
+  color: #009926
+}
+
+pre .class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073
+}
+
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3
+}
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .deletion {
+  background: #fdd
+}
+
+pre .addition {
+  background: #dfd
+}
+
+pre .diff .change {
+  background: #0086b3
+}
+
+pre .chunk {
+  color: #aaa
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+<div id="wrapper">
+    <section class="slide"><style>
+section[data-page="0"]{
+    background-image: url("./mogeneratorteam.jpg");
+    background-repeat: no-repeat;
+}
+section[data-page="0"] h1{
+    padding-left: 177px;
+    margin : 0;
+}
+</style>
+
+<h1 id="mogenerator-">mogeneratorでモデルクラス作成</h1>
+</section>
+    <section class="slide"><p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="アイコン"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+</section>
+    <section class="slide"><h1 id="-mogenerator-http-rentzsch-github-io-mogenerator-mogenerator-xmo-d-"><a href="http://rentzsch.github.io/mogenerator/" title="mogenerator + Xmo’d">mogenerator</a></h1>
+</section>
+    <section class="slide"><h2 id="-mogenerator-"><a href="http://rentzsch.github.io/mogenerator/" title="mogenerator + Xmo’">mogenerator</a></h2>
+<ul>
+<li>CoreDataのカスタムモデルクラスを生成するコマンドラインツール</li>
+<li><code>.xcdatamodel</code> ファイルを元に自動生成</li>
+<li>役割はXcodeの <code>Create NSManagedObject Subclass...</code> と同じ<ul>
+<li>xcdatamodelを更新しても安全 + 柔軟性がある</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h2 id="mogenerator-">mogeneratorの基本</h2>
+<ul>
+<li>一つのEntityに対して <code>human</code> と <code>machine</code> の2種類のクラスを生成<ul>
+<li><code>human</code> は <code>machine</code> のサブクラスとして実装されている</li>
+</ul>
+</li>
+<li>モデル再作成時(mogenerator再実行時)<ul>
+<li><code>human</code> は上書きされないのでユーザーがモデルに対して追加の実装を書ける</li>
+<li><code>machine</code> は実行する度に上書きされるのでユーザーは触らないクラス</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><p><strong>例)</strong> CoreData.xcdatamodel に<code>Person</code>  というEntityがあるの場合</p>
+<ul>
+<li><code>_Person.{h,m}</code>(machine)</li>
+<li><code>Person.{h,m}</code> (human) </li>
+<li>合計4つのクラスが作成される</li>
+</ul>
+</section>
+    <section class="slide"><h2 id="mogenerator-">mogeneratorのインストール</h2>
+<p>インストーラーでインストール</p>
+<ul>
+<li><a href="http://rentzsch.github.io/mogenerator/" title="mogenerator + Xmo’d">mogenerator + Xmo’d</a> からpkgでインストール</li>
+</ul>
+<p>Homebrewでインストール</p>
+<pre><code>brew install mogenerator</code></pre>
+</section>
+    <section class="slide"><h2 id="mogenerator-">mogeneratorの使い方</h2>
+<pre><code class="lang-bash">$ mogenerator \
+  --template-var arc=<span class="literal">true</span> \ <span class="comment"># ARC有効のテンプレを使う</span>
+  -m /path/to/Model.xcdatamodeld \
+  -O /path/to/output/</code></pre>
+<ul>
+<li><code>-m</code> で <code>.xcdatamodeld</code> を指定</li>
+<li><code>-O</code> で  生成したモデルクラスの出力先を指定</li>
+<li><code>--template-var arc=true</code> は テンプレートに <code>arc=true</code> という値を渡すという意味<ul>
+<li>ARCに対応したテンプレートが使われるために必要</li>
+<li>テンプレートは自分で作ることも出来る</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h1 id="-">生成されたクラスを眺める</h1>
+<ul>
+<li><a href="https://github.com/azu/mogenerator-example" title="azu/mogenerator-example">azu/mogenerator-example</a></li>
+<li><a href="https://github.com/azu/mogenerator-example/tree/master/mogenerator-example/models" title="mogenerator-example/mogenerator-example/models at master · azu/mogenerator-example">mogenerator-example/mogenerator-example/models</a></li>
+</ul>
+</section>
+    <section class="slide"><h2 id="xcode-_create-subclass-_-">Xcodeの<em>Create ... Subclass...</em> との違い</h2>
+<ul>
+<li>基本的に便利なものが増えるだけ</li>
+<li>拡張しやすいように人間が触るクラスと機械が更新するファイルに分かれる(human/machine)</li>
+<li>各Attributesを取得する scalar と object 両方のメソッドがある<ul>
+<li>Xcodeは生成時に <strong>片方</strong> を選択する</li>
+</ul>
+</li>
+<li>各Attributes/relationshipの名前を文字列で取得出来る構造体が定義されている</li>
+</ul>
+</section>
+    <section class="slide"><ul>
+<li>Entityの名前を取得出来るメソッドが増える</li>
+<li><code>initializer</code> が増える<ul>
+<li>insertNewする際に文字列を指定することがなくなる</li>
+</ul>
+</li>
+<li>mutableにNSOrderedSetを扱うメソッドが最初からある<ul>
+<li><a href="http://smartphone-ad.info/%E3%83%90%E3%82%B0%EF%BC%9Fcoredata%E3%81%AB%E6%BD%9C%E3%82%80%E5%95%8F%E9%A1%8C%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95/" title="バグ？CoreData+OrderedSetに潜む問題の対処法DESIGN U&amp;ME Cocoa, PHP, WEB SERVICE | DESIGN U&amp;ME Cocoa, PHP, WEB SERVICE">バグ？CoreData+OrderedSetに潜む問題の対処法</a></li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h2 id="attributes-struct-">Attributes structの利用例</h2>
+<pre><code class="lang-objectivec"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">struct</span> EventAttributes {
+    __unsafe_unretained <span class="built_in">NSString</span> *sortIndex;
+    __unsafe_unretained <span class="built_in">NSString</span> *timeStamp;
+} EventAttributes;</code></pre>
+<ul>
+<li>自動生成される構造体の定義を利用する</li>
+<li>補完が効く、typoが減る、定義が更新されれば自動的にエラーにできる</li>
+</ul>
+<pre><code class="lang-objectivec">    <span class="built_in">NSDate</span> *beginDate = ...;
+    <span class="built_in">NSDate</span> *endDate = ...;
+    [NSPredicate predicateWithFormat:@<span class="string">"(%@ &lt;= %K) AND (%K &lt;= %@)"</span>,
+                              beginDate,
+                              EventAttributes<span class="variable">.timeStamp</span>,
+                              EventAttributes<span class="variable">.timeStamp</span>,
+                              endDate];</code></pre>
+</section>
+    <section class="slide"><h2 id="-">簡単にまとめると</h2>
+<ul>
+<li>色々メソッドが増える</li>
+<li>CoreDataやNSPredicate等に使う文字列が定数的に使える<ul>
+<li>定数を使えば xcdatamodeld 側の変更に追従してないところはコンパイルエラーにできる</li>
+</ul>
+</li>
+<li>人間用と機械用にわけられているので、モデルクラスを安全に更新できる<ul>
+<li>人間用は上書きされない</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h1 id="-">発展編</h1>
+</section>
+    <section class="slide"><h2 id="-">モデルの親クラスを指定する</h2>
+<ul>
+<li>デフォルトは <code>NSManagedObject</code> がモデルの親クラス</li>
+<li><code>--base-class 親クラス名</code> を指定すると、親クラスを指定出来る<ul>
+<li>インスタンス化するときに自動でUUIDを入れるとかそういう事したい時</li>
+<li><a href="http://tech-gym.com/2012/10/ios/890.html" title="mogeneratorと識別子を使ったCoreDataのModelクラス作成パターン | Technology-Gym">mogeneratorと識別子を使ったCoreDataのModelクラス作成パターン | Technology-Gym</a></li>
+</ul>
+</li>
+</ul>
+<p><code>human -&gt; machine -&gt; --base-class</code></p>
+</section>
+    <section class="slide"><h2 id="template-var">template-var</h2>
+<ul>
+<li>公式のデフォルトテンプレート</li>
+<li><a href="https://github.com/rentzsch/mogenerator/tree/master/templates" title="mogenerator/templates at master · rentzsch/mogenerator">mogenerator/templates at master · rentzsch/mogenerator</a></li>
+<li><code>arc=true</code> で吐くものが変わるように分岐がある</li>
+</ul>
+<pre><code>&lt;$if TemplateVar.arc$&gt;
+@property (nonatomic, strong) &lt;$Relationship.immutableCollectionClassName$&gt; *&lt;$Relationship.name$&gt;;
+&lt;$else$&gt;
+@property (nonatomic, retain) &lt;$Relationship.immutableCollectionClassName$&gt; *&lt;$Relationship.name$&gt;;
+&lt;$endif$&gt;</code></pre>
+</section>
+    <section class="slide"><h2 id="-">自作のテンプレートを使う</h2>
+<ul>
+<li>公式のデフォルトテンプレートを参考にする</li>
+<li><a href="https://github.com/rentzsch/mogenerator/tree/master/templates" title="mogenerator/templates at master · rentzsch/mogenerator">mogenerator/templates at master · rentzsch/mogenerator</a></li>
+</ul>
+<p>テンプレートをいじれば</p>
+<ul>
+<li>NSObjectでNSManagedObjectと同じプロパティを持つモデルクラスを作る等</li>
+<li><a href="https://github.com/azu/mogenerator-template" title="azu/mogenerator-template">azu/mogenerator-template</a></li>
+<li>Entityが持つAttributesの一覧を配列として取得するメソッドを付ける等</li>
+</ul>
+</section>
+    <section class="slide"><h1 id="-">おまけ</h1>
+</section>
+    <section class="slide"><h2 id="json-">JSONからモデルクラスを生成する</h2>
+<div class="kwout" style="text-align: center;"><img src="http://kwout.com/cutout/u/hw/b6/t94.jpg" alt="http://nerdery.com/json-accelerator" title="JSON Accelerator | The Nerdery" width="600" height="211" style="border: none;" usemap="#map_uhwb6t94" /><map id="map_uhwb6t94" name="map_uhwb6t94"><area coords="314,168,416,192" href="http://itunes.apple.com/us/app/json-accelerator/id511324989?ls=1&mt=12" alt="" shape="rect" /><area coords="431,168,533,192" href="http://nerdery.com/json-accelerator-support" alt="" shape="rect" /></map><p style="margin-top: 10px; text-align: center;"><a href="http://nerdery.com/json-accelerator">JSON Accelerator | The Nerdery</a></p></div>
+
+<ul>
+<li>JSONからObjC/Java/Python等のモデルに変換</li>
+<li><a href="https://github.com/thenerdery/JSONAccelerator" title="thenerdery/JSONAccelerator">thenerdery/JSONAccelerator</a><ul>
+<li>オープンソースで公開されてる</li>
+<li>幾つかバグ修正を送った</li>
+</ul>
+</li>
+</ul>
+</section>
+    <section class="slide"><h2 id="-">デコンパイルして勝手にモデルを作る</h2>
+<ul>
+<li><code>.momd</code> 、 <code>.mom</code> から <code>.xcdatamodel</code> などはデコンパイル出来る</li>
+<li><a href="https://github.com/atomicbird/momdec" title="atomicbird/momdec">atomicbird/momdec</a></li>
+<li>当然、デコンパイルした<code>.xcdatamodel</code>からはmogeneratorでモデルクラスを生成できる</li>
+</ul>
+</section>
+    <section class="slide"><h2 id="-">参考</h2>
+<ul>
+<li><a href="http://rentzsch.github.io/mogenerator/" title="mogenerator + Xmo’d">mogenerator + Xmo’d</a></li>
+<li><a href="http://stackoverflow.com/questions/3589247/how-do-the-mogenerator-parameters-work-which-can-i-send-via-xcode" title="documentation - How do the Mogenerator parameters work, which can I send via Xcode? - Stack Overflow">documentation - How do the Mogenerator parameters work, which can I send via Xcode? - Stack Overflow</a></li>
+<li><a href="http://qiita.com/key/items/35569f334528e225531e" title="Mogenerator + MagicalRecordでCoreData入門 - Qiita [キータ]">Mogenerator + MagicalRecordでCoreData入門 - Qiita [キータ]</a></li>
+</ul>
+</section>
+    <section class="slide"><div class="author">
+  <h1 class="name">azu</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@azu_re">@azu_re</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://efcl.info/">http://efcl.info/</a>
+    </h3>
+</div>
+</section>
+</div>
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Takes the last slide and places it at the front.
+ */
+function goBack() {
+  var wrapper = document.querySelector('#wrapper');
+  var lastSlide = wrapper.lastChild;
+  while (lastSlide !== null && lastSlide.nodeType !== 1) {
+    lastSlide = lastSlide.previousSibling;
+  }
+
+  wrapper.removeChild(lastSlide);
+  wrapper.insertBefore(lastSlide, wrapper.firstChild);
+
+  setCurrentProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+/**
+ * Takes the first slide and places it at the end.
+ */
+function goForward() {
+  var wrapper = document.querySelector('#wrapper');
+  var firstSlide = wrapper.firstChild;
+  while (firstSlide !== null && firstSlide.nodeType !== 1) {
+    firstSlide = firstSlide.nextSibling;
+  }
+
+  wrapper.removeChild(firstSlide);
+  wrapper.appendChild(firstSlide);
+
+  setCurrentProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  window.history.replaceState({} , null, '#' + currentPage());
+}
+
+/**
+ * Returns the current page number of the presentation.
+ */
+function currentPage() {
+  return document.querySelector('#wrapper .slide').dataset.page;
+}
+
+/**
+ * Returns a NodeList of each .slide element.
+ */
+function allSlides() {
+  return document.querySelectorAll('#wrapper .slide');
+}
+
+/**
+ * Give each slide a "page" data attribute.
+ */
+function setPageNumbers() {
+  var wrapper = document.querySelector('#wrapper');
+  var pages   = wrapper.querySelectorAll('section');
+  var page;
+
+  for (var i = 0; i < pages.length; ++i) {
+    page = pages[i];
+    page.dataset.page = i;
+  }
+}
+
+/**
+ * Set the current progress indicator.
+ */
+function setCurrentProgress() {
+  var wrapper = document.querySelector('#wrapper');
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var pagesNumber    = wrapper.querySelectorAll('section').length;
+    var currentNumber  = parseInt(currentPage(), 10);
+    var currentPercent = pagesNumber === 1 ? 100 : 100 * currentNumber / (pagesNumber - 1);
+    progressBar.style.width = currentPercent.toString() + '%';
+  }
+}
+
+/**
+ * Go to the specified page of content.
+ */
+function goToPage(page) {
+  // Try to find the target slide.
+  var targetSlide = document.querySelector('#wrapper .slide[data-page="' + page + '"]');
+
+  // If it actually exists, go forward until we find it.
+  if (targetSlide) {
+    var numSlides = allSlides().length;
+
+    for (var i = 0; currentPage() !== page && i < numSlides; i++) {
+      goForward();
+    }
+  }
+}
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var currentPageLinks = document.querySelector('.slide').querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    allLinks[i].removeAttribute('tabindex');
+  }
+}
+
+window.onload = function () {
+
+  // Give each slide a "page" data attribute.
+  setPageNumbers();
+
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    goToPage(page);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, enter, PgDn - FORWARD
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      goBack();
+    } else if (kc === 38 || kc === 39 || kc === 13 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      goForward();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      goForward();
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      goBack();
+    };
+  }
+
+};
+
+
+  </script>
+</body>
+</html>
