@@ -553,7 +553,7 @@ section[data-page="0"] h1{
 @property (nonatomic, retain) &lt;$Relationship.immutableCollectionClassName$&gt; *&lt;$Relationship.name$&gt;;
 &lt;$endif$&gt;</code></pre>
 </section>
-    <section class="slide"><h2 id="-">自作のテンプレートを使う</h2>
+    <section class="slide"><h2 id="-">自作のテンプレートの作成</h2>
 <ul>
 <li>公式のデフォルトテンプレートを参考にする</li>
 <li><a href="https://github.com/rentzsch/mogenerator/tree/master/templates" title="mogenerator/templates at master · rentzsch/mogenerator">mogenerator/templates at master · rentzsch/mogenerator</a></li>
@@ -564,6 +564,17 @@ section[data-page="0"] h1{
 <li><a href="https://github.com/azu/mogenerator-template" title="azu/mogenerator-template">azu/mogenerator-template</a></li>
 <li>Entityが持つAttributesの一覧を配列として取得するメソッドを付ける等</li>
 </ul>
+</section>
+    <section class="slide"><h2 id="-">自作のテンプレートの使用</h2>
+<ol>
+<li>自作テンプレートの入れるディレクトリを作る(mogenerator-templatesとする)</li>
+<li><code>mogenerator-templates</code> 内に<ul>
+<li><code>machine.{h,m}.motemplate</code> と <code>human.{h,m}.motemplate</code> を作成する</li>
+<li>合計4つのテンプレートファイルを作る</li>
+</ul>
+</li>
+<li><code>--template-path /path/to/mogenerator-templates/</code> でテンプレートディレクトリのパスを指定する</li>
+</ol>
 </section>
     <section class="slide"><h1 id="-">おまけ</h1>
 </section>
@@ -591,6 +602,7 @@ section[data-page="0"] h1{
 <li><a href="http://rentzsch.github.io/mogenerator/" title="mogenerator + Xmo’d">mogenerator + Xmo’d</a></li>
 <li><a href="http://stackoverflow.com/questions/3589247/how-do-the-mogenerator-parameters-work-which-can-i-send-via-xcode" title="documentation - How do the Mogenerator parameters work, which can I send via Xcode? - Stack Overflow">documentation - How do the Mogenerator parameters work, which can I send via Xcode? - Stack Overflow</a></li>
 <li><a href="http://qiita.com/key/items/35569f334528e225531e" title="Mogenerator + MagicalRecordでCoreData入門 - Qiita [キータ]">Mogenerator + MagicalRecordでCoreData入門 - Qiita [キータ]</a></li>
+<li><a href="http://raptureinvenice.com/getting-started-with-mogenerator/" title="Getting Started with Mogenerator | Rapture In Venice: iOS, Android Mobile Development Shop">Getting Started with Mogenerator | Rapture In Venice: iOS, Android Mobile Development Shop</a></li>
 </ul>
 </section>
     <section class="slide"><div class="author">

@@ -186,7 +186,7 @@ extern const struct EventAttributes {
 
 --
 
-## 自作のテンプレートを使う
+## 自作のテンプレートの作成
 
 - 公式のデフォルトテンプレートを参考にする
 - [mogenerator/templates at master · rentzsch/mogenerator](https://github.com/rentzsch/mogenerator/tree/master/templates "mogenerator/templates at master · rentzsch/mogenerator")
@@ -196,6 +196,16 @@ extern const struct EventAttributes {
 - NSObjectでNSManagedObjectと同じプロパティを持つモデルクラスを作る等
 - [azu/mogenerator-template](https://github.com/azu/mogenerator-template "azu/mogenerator-template")
 - Entityが持つAttributesの一覧を配列として取得するメソッドを付ける等
+
+--
+
+## 自作のテンプレートの使用
+
+1. 自作テンプレートの入れるディレクトリを作る(mogenerator-templatesとする)
+2. `mogenerator-templates` 内に
+	-  `machine.{h,m}.motemplate` と `human.{h,m}.motemplate` を作成する
+	-  合計4つのテンプレートファイルを作る
+3. `--template-path /path/to/mogenerator-templates/` でテンプレートディレクトリのパスを指定する
 
 --
 
@@ -228,15 +238,4 @@ extern const struct EventAttributes {
 * [mogenerator + Xmo’d](http://rentzsch.github.io/mogenerator/ "mogenerator + Xmo’d")
 * [documentation - How do the Mogenerator parameters work, which can I send via Xcode? - Stack Overflow](http://stackoverflow.com/questions/3589247/how-do-the-mogenerator-parameters-work-which-can-i-send-via-xcode "documentation - How do the Mogenerator parameters work, which can I send via Xcode? - Stack Overflow")
 * [Mogenerator + MagicalRecordでCoreData入門 - Qiita [キータ]](http://qiita.com/key/items/35569f334528e225531e "Mogenerator + MagicalRecordでCoreData入門 - Qiita [キータ]")
-
-
-
-
-
-
-
-
-
-
-
-
+* [Getting Started with Mogenerator | Rapture In Venice: iOS, Android Mobile Development Shop](http://raptureinvenice.com/getting-started-with-mogenerator/ "Getting Started with Mogenerator | Rapture In Venice: iOS, Android Mobile Development Shop")
