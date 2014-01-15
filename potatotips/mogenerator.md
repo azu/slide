@@ -9,7 +9,7 @@ output: mogenerator.html
 
 <style>
 section[data-page="0"]{
-    background-image: url("./mogeneratorteam.jpg");
+    background-image: url("./mogeneratorteam.png");
     background-repeat: no-repeat;
 }
 section[data-page="0"] h1{
