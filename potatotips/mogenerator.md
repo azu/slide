@@ -209,6 +209,21 @@ extern const struct EventAttributes {
 
 --
 
+## まとめ
+
+* Xcodeのより多機能で柔軟
+* コマンドラインツールなので自動化しやすい
+	* 自動でxcodeプロジェクトに追加されないが他のスクリプトで追加できる
+	* [CocoaPods/Xcodeproj](https://github.com/CocoaPods/Xcodeproj "CocoaPods/Xcodeproj")
+	* [rayh/xcoder](https://github.com/rayh/xcoder "rayh/xcoder")
+* デフォルトのテンプレートが気に入らない場合はテンプレートは自作できる
+
+--
+
+# おわり
+
+--
+
 # おまけ
 
 --
