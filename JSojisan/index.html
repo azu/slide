@@ -1,0 +1,757 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>カジュアルJS AST</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  background-color: #f7f7f7;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+
+code, pre {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: auto;
+  padding: 6px 10px;
+}
+
+code {
+  padding: 0 5px;
+}
+
+pre>code {
+  margin: 0; padding: 0;
+  border: none;
+  background: transparent;
+}
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic
+}
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold
+}
+
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099;
+}
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14
+}
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold
+}
+
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal
+}
+
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: #008080
+}
+
+pre .regexp {
+  color: #009926
+}
+
+pre .class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073
+}
+
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3
+}
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .deletion {
+  background: #fdd
+}
+
+pre .addition {
+  background: #dfd
+}
+
+pre .diff .change {
+  background: #0086b3
+}
+
+pre .chunk {
+  color: #aaa
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="-javascript-ast">実は使われてるJavaScript AST</h1>
+<ul>
+<li>既に日常的にJavaScriptのツールやエディタなどで使ってるよ</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h1 id="-browserify-https-github-com-substack-node-browserify-browserify-"><a href="https://github.com/substack/node-browserify" title="browserify">browserify</a></h1>
+<ul>
+<li>Node.jsで書かれたものをブラウザ向けに変換するツール</li>
+<li>本体の色々な部分、transform pluginなど</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h1 id="-jsdoc-3-https-github-com-jsdoc3-jsdoc-jsdoc-3-"><a href="https://github.com/jsdoc3/jsdoc" title="JSDoc 3">JSDoc 3</a></h1>
+<ul>
+<li>JSDocのアノテーションからHTMLリファレンスを作成する標準ツール</li>
+<li>Node版の実装にesprimaが使われてる</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h1 id="-tern-http-ternjs-net-tern-"><a href="http://ternjs.net/" title="Tern">Tern</a></h1>
+<ul>
+<li><a href="https://github.com/marijnh/tern_for_vim" title="Tern for Vim">Tern for Vim</a>や<a href="https://github.com/marijnh/tern_for_sublime" title=" Tern for Sublime Text">Tern for Sublime Text</a>の他エンジン</li>
+<li>パーサーには<a href="http://marijnhaverbeke.nl/acorn/" title=" acorn.js "> acorn.js </a>が使われてる</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h1 id="-uglifyjs-2-https-github-com-mishoo-uglifyjs2-uglifyjs-2-"><a href="https://github.com/mishoo/UglifyJS2" title="UglifyJS 2">UglifyJS 2</a></h1>
+<ul>
+<li>JavaScriptコード圧縮ツール(minifier)</li>
+<li>1までは独自のASTのみ</li>
+<li>2からは一般的な<a href="https://github.com/mishoo/UglifyJS2#support-for-the-spidermonkey-ast" title="SpiderMonkey AST">SpiderMonkey AST</a>をサポート</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h1 id="-plato-https-github-com-es-analysis-plato-plato-"><a href="https://github.com/es-analysis/plato" title="plato">plato</a></h1>
+<ul>
+<li>コードのメトリクス計測のビジュアライズ</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h1 id="what-is-javascript-ast-">What is JavaScript AST?</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h2 id="javascript-ast-">JavaScript ASTって何?</h2>
+<ul>
+<li>AST(Abstract Syntax Tree) は コードをパースした構文木</li>
+<li>Mozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>) がデファクト</li>
+<li>要はJS ASTは木構造のJSON/JavaScriptオブジェクトの事!!</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h2 id="javascript-ast">JavaScript AST</h2>
+<pre><code>new C(1 + a);</code></pre>
+<p>次のようなnodeが存在する</p>
+<ul>
+<li><code>NewExpression</code></li>
+<li><code>BinaryExpression</code> の <code>+</code></li>
+<li><code>C</code> と <code>a</code> という変数は <code>Identifier</code></li>
+<li><code>1</code> というvalueをもつ <code>Literal</code></li>
+</ul>
+<p>これをツリー上で表現する</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h2 id="javascript-ast">JavaScript AST</h2>
+<h2 id="js-ast-as-json">JS AST as JSON</h2>
+<blockquote>
+<p><a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a> からの引用</p>
+</blockquote>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h2 id="js-ast-as-html">JS AST as HTML</h2>
+<style>
+pre {
+    font-size: 32px;
+}
+Keyword {
+    color: #445588;
+    font-weight: bold;
+}
+Identifier {
+    color: #009999;
+}
+Literal {
+    color: #E67A00;
+}
+VariableDeclaration {
+    color: purple;
+}
+ThrowStatement {
+    color: red;
+}
+</style>
+
+<pre><code>
+<Program><ExpressionStatement><NewExpression>new <Identifier>C</Identifier>(<BinaryExpression><Literal>1</Literal> + <Identifier>a</Identifier></BinaryExpression>)</NewExpression>;</ExpressionStatement>
+</Program>
+</code></pre>
+
+<ul>
+<li>↑ Inspect here ↑</li>
+<li><a href="https://github.com/azu/syntax-highlighted-js-ast" title="azu/syntax-highlighted-js-ast">azu/syntax-highlighted-js-ast</a></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h2 id="-coffeescriptredux-https-github-com-michaelficarra-coffeescriptredux-coffeescriptredux-"><a href="https://github.com/michaelficarra/CoffeeScriptRedux" title="CoffeeScriptRedux">CoffeeScriptRedux</a></h2>
+<ul>
+<li><a href="https://www.kickstarter.com/projects/michaelficarra/make-a-better-coffeescript-compiler" title="Rewrite the CoffeeScript compiler">Rewrite the CoffeeScript compiler</a></li>
+<li>CoffeeScriptコンパイラをCoffeeScript AST -&gt; JS ASTという形で実装</li>
+<li><em>AST is IR(中間表現)</em></li>
+<li>LLVM みたいな雰囲気の使い方</li>
+<li>More Info<ul>
+<li><a href="http://aosd.net/2013/escodegen.html" title="Escodegen and Esmangle: Using Mozilla JavaScript AST as an IR">Escodegen and Esmangle: Using Mozilla JavaScript AST as an IR</a></li>
+<li><a href="https://speakerdeck.com/michaelficarra/redesigning-the-coffeescript-compiler" title="Redesigning the CoffeeScript Compiler // Speaker Deck">Redesigning the CoffeeScript Compiler // Speaker Deck</a></li>
+</ul>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h1 id="-power-assert-https-github-com-twada-power-assert-power-assert-"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a></h1>
+<ul>
+<li><code>assert()</code> を実行前にASTを変換して、失敗した時に有利な情報を埋め込む</li>
+<li>assertionはシンプル、だけど失敗しても分かりやすくなる</li>
+<li><a href="http://take.ms/KeYEC">http://take.ms/KeYEC</a></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h1 id="-jscs-https-github-com-mdevils-node-jscs-jscs-"><a href="https://github.com/mdevils/node-jscs" title="JSCS">JSCS</a></h1>
+<ul>
+<li>JavaScript Code Style</li>
+<li>JSHintと併用してコーディングのスタイルをチェックするツール</li>
+<li>tokensまでもみて <strong>スタイル</strong> をチェックする</li>
+<li>プログラム的に正しければホワイトスペースや<code>;</code>などはASTでは扱わなくてもいいことが多い</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h1 id="-jsx-http-jsx-github-io-jsx-minifier"><a href="http://jsx.github.io/" title="JSX">JSX</a>言語のminifier</h1>
+<ul>
+<li>minify処理の一部で<a href="https://github.com/Constellation/esmangle" title="esmangle">esmangle</a>を利用</li>
+<li>ASTレベルでminifyをして、安全にコードを圧縮できるように設計されてる</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h1 id="-grasp-http-graspjs-com-grasp-"><a href="http://graspjs.com/" title="Grasp">Grasp</a></h1>
+<ul>
+<li>ASTを元にGrep/Sedのような検索/置換するツール</li>
+<li>コードベースやAST Query Selectorでの検索方法が用意されている</li>
+<li><a href="http://jser.info/post/73202282881/grasp-javascript" title="Graspを使ったJavaScriptのリファクタリング | JSer.info">Graspを使ったJavaScriptのリファクタリング | JSer.info</a></li>
+<li><a href="http://efcl.info/2014/0209/res3658/" title="JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch">JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch</a></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h1 id="-eslint-">[ESLint]</h1>
+<ul>
+<li>ASTを元にコードのLintをするツール</li>
+<li>JSHintと役割は被る部分が多い。</li>
+<li>プラグインで独自のルールを追加しやすいのが特徴</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h1 id="-eslint-lint">[ESLint]で局所的Lint</h1>
+<ul>
+<li>プラグインでルールを追加すれば、プロジェクト固有のLintが簡単に実現できる</li>
+<li><a href="https://github.com/Constellation/escodegen/commit/48bfe1947f6cd09cf539de350859dba14431b255" title="Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen">Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen</a></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h1 id="-lint-">局所的Lintの例</h1>
+<ul>
+<li>ブログサイトのJSコメントで特定のコメントをチェックする</li>
+<li><a href="https://github.com/azu/hatena-blog-js-lint" title="hatena-blog-js-lint">hatena-blog-js-lint</a></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h1 id="-mocha-">書いてみよう - Mochaのテストをパース</h1>
+<ul>
+<li><a href="https://github.com/azu/MechaMocha" title="MechaMocha">MechaMocha</a></li>
+<li>Mochaのテスト構造をテキストとして吐き出す</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h2 id="mechamocha">MechaMocha</h2>
+<ul>
+<li>enter<ul>
+<li><code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> のいずれかならindentレベルを+1</li>
+<li><code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> なら print</li>
+<li><code>assert</code> ならprint</li>
+</ul>
+</li>
+<li>leave
+  *<code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> のいずからならindentレベルを-1</li>
+</ul>
+<hr>
+<p>時間があったらー</p>
+<ul>
+<li><a href="https://github.com/azu/gulp-inlining-node-require" title="azu/gulp-inlining-node-require">azu/gulp-inlining-node-require</a></li>
+<li><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a></li>
+<li>Promises Bookの話</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">azu</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@azu_re">@azu_re</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://efcl.info/">http://efcl.info/</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  window.history.replaceState({} , null, '#' + currentPosition());
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, enter, PgDn - FORWARD
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 13 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
