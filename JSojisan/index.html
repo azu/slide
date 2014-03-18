@@ -404,6 +404,7 @@ pre .chunk {
     <section class="slide-content"><h1 id="-javascript-ast">実は使われてるJavaScript AST</h1>
 <ul>
 <li>既に日常的にJavaScriptのツールやエディタなどで使ってるよ</li>
+<li>恐れずに使うだけじゃなくて書いてみよう</li>
 </ul>
 </section>
   </div>
@@ -454,15 +455,15 @@ pre .chunk {
   <div class="slide hidden" id="slide-8">
     <section class="slide-content"><h2 id="javascript-ast-">JavaScript ASTって何?</h2>
 <ul>
-<li>AST(Abstract Syntax Tree) は コードをパースした構文木</li>
+<li>AST(Abstract Syntax Tree)はコードをパースした構文木</li>
 <li>Mozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>) がデファクト</li>
-<li>要はJS ASTは木構造のJSON/JavaScriptオブジェクトの事!!</li>
+<li>要は木構造のJSON/JavaScriptオブジェクトの事!!</li>
 </ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-9">
     <section class="slide-content"><h2 id="javascript-ast">JavaScript AST</h2>
-<pre><code>new C(1 + a);</code></pre>
+<pre><code class="lang-javascript"><span class="keyword">new</span> C(<span class="number">1</span> + a);</code></pre>
 <p>次のようなnodeが存在する</p>
 <ul>
 <li><code>NewExpression</code></li>
@@ -602,27 +603,61 @@ ThrowStatement {
 </section>
   </div>
   <div class="slide hidden" id="slide-21">
-    <section class="slide-content"><h2 id="mechamocha">MechaMocha</h2>
+    <section class="slide-content"><h2 id="example">Example</h2>
+<pre><code class="lang-javascript"><span class="keyword">var</span> assert = require(<span class="string">"power-assert"</span>);
+describe(<span class="string">'Array'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+    describe(<span class="string">'#indexOf()'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        it(<span class="string">'should return -1 when the value is not present'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">5</span>), -<span class="number">1</span>);
+            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">0</span>), -<span class="number">1</span>);
+        });
+        it(<span class="string">'should return -1 when the value is not present'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">5</span>), -<span class="number">1</span>);
+            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">0</span>), -<span class="number">1</span>);
+        })
+    });
+});
+describe(<span class="string">'IsNaN'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+    context(<span class="string">"when value is NaN"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        it(<span class="string">'should return true'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+            assert(isNaN(<span class="literal">NaN</span>));
+        });
+    });
+});</code></pre>
+<h2 id="mechamocha">MechaMocha</h2>
 <ul>
-<li>enter<ul>
-<li><code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> のいずれかならindentレベルを+1</li>
-<li><code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> なら print</li>
+<li><a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使ったシンプルな走査</li>
+</ul>
+<p><strong>enter</strong></p>
+<ul>
+<li><code>&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;</code> の <code>CallExpression</code> ならindentレベルを+1<ul>
+<li><code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> なら print<ul>
 <li><code>assert</code> ならprint</li>
 </ul>
 </li>
-<li>leave
-  *<code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> のいずからならindentレベルを-1</li>
 </ul>
-<hr>
-<p>時間があったらー</p>
+</li>
+</ul>
+<p><strong>leave</strong></p>
 <ul>
-<li><a href="https://github.com/azu/gulp-inlining-node-require" title="azu/gulp-inlining-node-require">azu/gulp-inlining-node-require</a></li>
-<li><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a></li>
-<li>Promises Bookの話</li>
+<li><code>&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;</code> の <code>CallExpression</code> ならindentレベルを-1</li>
 </ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h2 id="-azu-inlining-node-require-"><a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a></h2>
+<ul>
+<li>node.jsの<code>require</code>をインライン化してつなげる</li>
+<li><a href="https://github.com/substack/node-falafel" title="falafel">falafel</a>を使いASTを編集</li>
+</ul>
+<h2 id="-azu-remove-use-strict-"><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a></h2>
+<ul>
+<li>無意味な<code>&quot;use strict&quot;</code>を取り除く</li>
+<li>関数スコープを意識した作り</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
     <section class="slide-content"><div class="author">
   <h1 class="name">azu</h1>
     <h3 class="twitter">

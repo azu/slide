@@ -9,6 +9,7 @@ output: index.html
 # 実は使われてるJavaScript AST
 
 - 既に日常的にJavaScriptのツールやエディタなどで使ってるよ
+- 恐れずに使うだけじゃなくて書いてみよう
 
 --
 
@@ -55,16 +56,16 @@ output: index.html
 
 ## JavaScript ASTって何?
 
-* AST(Abstract Syntax Tree) は コードをパースした構文木
+* AST(Abstract Syntax Tree)はコードをパースした構文木
 * Mozilla JavaScript AST([Parser API](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API "Parser API")) がデファクト
-* 要はJS ASTは木構造のJSON/JavaScriptオブジェクトの事!!
+* 要は木構造のJSON/JavaScriptオブジェクトの事!!
 
 
 --
 
 ## JavaScript AST
 
-```
+``` javascript
 new C(1 + a);
 ```
 
@@ -197,23 +198,61 @@ ThrowStatement {
 
 --
 
+## Example
+
+``` javascript
+var assert = require("power-assert");
+describe('Array', function () {
+    describe('#indexOf()', function () {
+        it('should return -1 when the value is not present', function () {
+            assert.equal([1, 2, 3].indexOf(5), -1);
+            assert.equal([1, 2, 3].indexOf(0), -1);
+        });
+        it('should return -1 when the value is not present', function () {
+            assert.equal([1, 2, 3].indexOf(5), -1);
+            assert.equal([1, 2, 3].indexOf(0), -1);
+        })
+    });
+});
+describe('IsNaN', function () {
+    context("when value is NaN", function () {
+        it('should return true', function () {
+            assert(isNaN(NaN));
+        });
+    });
+});
+```
+
 ## MechaMocha
 
-* enter
-	* `["describe", "context", "it"]` のいずれかならindentレベルを+1
+* [Estraverse](https://github.com/Constellation/estraverse "Estraverse")を使ったシンプルな走査
+
+**enter**
+
+* `"describe", "context", "it"` の `CallExpression` ならindentレベルを+1
 	* `["describe", "context", "it"]` なら print
-	* `assert` ならprint
-* leave
-	*`["describe", "context", "it"]` のいずからならindentレベルを-1
+		* `assert` ならprint
 
-----
+**leave**
 
-時間があったらー
+* `"describe", "context", "it"` の `CallExpression` ならindentレベルを-1
 
-- [azu/gulp-inlining-node-require](https://github.com/azu/gulp-inlining-node-require "azu/gulp-inlining-node-require")
-- [azu/remove-use-strict](https://github.com/azu/remove-use-strict "azu/remove-use-strict")
-- Promises Bookの話
 
+--
+
+## [azu/inlining-node-require][] 
+
+* node.jsの`require`をインライン化してつなげる
+* [falafel](https://github.com/substack/node-falafel "falafel")を使いASTを編集
+
+## [azu/remove-use-strict]
+
+* 無意味な`"use strict"`を取り除く
+* 関数スコープを意識した作り
+
+
+[azu/inlining-node-require]: https://github.com/azu/inlining-node-require  "azu/inlining-node-require"
+[azu/remove-use-strict]: https://github.com/azu/remove-use-strict  "azu/remove-use-strict"
 [Grasp]: http://graspjs.com/  "Grasp - JavaScript structural search, replace, and refactor"
 [ESLint]: http://eslint.org/  "ESLint"
 
