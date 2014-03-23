@@ -3,11 +3,20 @@ author:
   name: azu
   twitter: azu_re
   url: http://efcl.info/
+theme: azu/cleaver-ribbon
 output: index.html
+--
+
+
+# カジュアルJavaScript AST
+
+![ast-token](resources/ast-is.png)
+
 --
 
 # 実は使われてるJavaScript AST
 
+- JavaScript AST(Abstract Syntax Tree)とは?
 - 既に日常的にJavaScriptのツールやエディタなどで使ってるよ
 - 恐れずに使うだけじゃなくて書いてみよう
 
@@ -18,6 +27,7 @@ output: index.html
 
 - Node.jsで書かれたものをブラウザ向けに変換するツール
 - 本体の色々な部分、transform pluginなど
+
 
 --
 
@@ -56,9 +66,12 @@ output: index.html
 
 ## JavaScript ASTって何?
 
+![ast-token](resources/ast-token.png)
+
 * AST(Abstract Syntax Tree)はコードをパースした構文木
 * Mozilla JavaScript AST([Parser API](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API "Parser API")) がデファクト
-* 要は木構造のJSON/JavaScriptオブジェクトの事!!
+* Code -> Token(図) -> AST(tokenの関係を構造化したもの)
+* 端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの
 
 
 --
@@ -69,20 +82,24 @@ output: index.html
 new C(1 + a);
 ```
 
-次のようなnodeが存在する
+このコードには、以下のような要素(node)が存在する
 
-* `NewExpression`
+* `NewExpression` - `new`演算子
 * `BinaryExpression` の `+`
-* `C` と `a` という変数は `Identifier`
 * `1` というvalueをもつ `Literal`
-
-これをツリー上で表現する
+* `C` と `a` という変数は `Identifier`
 
 --
 
-## JavaScript AST
+### JS AST Structure
 
-## JS AST as JSON
+![AST Image](resources/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations1.jpg)
+
+--
+
+### JS AST as JSON
+
+![AST Image](resources/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations_7.jpg)
 
 
 > [SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck](https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations "SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck") からの引用
@@ -92,9 +109,6 @@ new C(1 + a);
 ## JS AST as HTML
 
 <style>
-pre {
-    font-size: 32px;
-}
 Keyword {
     color: #445588;
     font-weight: bold;
@@ -118,8 +132,18 @@ ThrowStatement {
 </Program>
 </code></pre>
 
-- ↑ Inspect here ↑
+- **↑ Inspect Here ↑**
+- JavaScript ASTからHTMLタグを生成したもの
 - [azu/syntax-highlighted-js-ast](https://github.com/azu/syntax-highlighted-js-ast "azu/syntax-highlighted-js-ast")
+
+--
+
+## 習うより慣れろ
+
+* [Esprima: Parser](http://esprima.org/demo/parse.html "Esprima: Parser")
+* コードを入力してどういうASTが出力されるかをみて理解する
+* JavaScript ASTはECMAScriptの仕様を尊重してる
+* JavaScriptの基本的な文法がわかってれば問題ない
 
 --
 
@@ -169,7 +193,7 @@ ThrowStatement {
 
 --
 
-# [ESLint]
+# [ESLint](http://eslint.org/ "ESLint")
 
 * ASTを元にコードのLintをするツール
 * JSHintと役割は被る部分が多い。
@@ -177,7 +201,7 @@ ThrowStatement {
 
 --
 
-# [ESLint]で局所的Lint
+# [ESLint](http://eslint.org/ "ESLint")で局所的Lint
 
 - プラグインでルールを追加すれば、プロジェクト固有のLintが簡単に実現できる
 - [Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen](https://github.com/Constellation/escodegen/commit/48bfe1947f6cd09cf539de350859dba14431b255 "Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen")
@@ -199,6 +223,7 @@ ThrowStatement {
 --
 
 ## Example
+
 
 ``` javascript
 var assert = require("power-assert");
@@ -223,19 +248,39 @@ describe('IsNaN', function () {
 });
 ```
 
+--
+
+## Output
+
+テストコードから以下のようなテキストを出力
+
+```
+Array
+   #indexOf()
+     should return -1 when the value is not present
+       [1, 2, 3].indexOf(5) equal -1
+       [1, 2, 3].indexOf(0) equal -1
+IsNaN
+   when value is NaN
+     should return true
+       assert isNaN(NaN)
+```
+
+--
+
 ## MechaMocha
 
 * [Estraverse](https://github.com/Constellation/estraverse "Estraverse")を使ったシンプルな走査
+* ASTは木構造だがプロパティの種類が多いので、traverseライブラリを使うのが一般的
 
-**enter**
+--
 
-* `"describe", "context", "it"` の `CallExpression` ならindentレベルを+1
-	* `["describe", "context", "it"]` なら print
-		* `assert` ならprint
-
-**leave**
-
-* `"describe", "context", "it"` の `CallExpression` ならindentレベルを-1
+* **enter**
+	* `"describe", "context", "it"` の `CallExpression` ならindentレベルを+1
+		* `["describe", "context", "it"]` なら print
+			* `assert` ならprint
+* **leave**
+	* `"describe", "context", "it"` の `CallExpression` ならindentレベルを-1
 
 
 --
@@ -249,6 +294,12 @@ describe('IsNaN', function () {
 
 * 無意味な`"use strict"`を取り除く
 * 関数スコープを意識した作り
+
+## 参考
+
+* [JavaScript AST Walker](http://azu.github.io/slide/tkbjs/js-ast-walker.html "JavaScript AST Walker")
+* [JavaScript Parser Infrastructure for Code Quality Analysis](http://www.slideshare.net/ariyahidayat/javascript-parser-infrastructure-for-code-quality-analysis# "JavaScript Parser Infrastructure for Code Quality Analysis")
+* [SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck](https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations "SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck")
 
 
 [azu/inlining-node-require]: https://github.com/azu/inlining-node-require  "azu/inlining-node-require"
