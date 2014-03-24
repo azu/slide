@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-    <title>カジュアルJS AST</title>
+    <title>カジュアルJavaScript AST</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=792, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -702,7 +702,7 @@ a {
 <body class="list">
 
     <header class="caption">
-        <h1>カジュアルJS AST</h1>
+        <h1>カジュアルJavaScript AST</h1>
         <p><a href="http:&#x2F;&#x2F;efcl.info&#x2F;">azu</a>, </p>
     </header>
 
@@ -716,11 +716,25 @@ a {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-javascript-ast">実は使われてるJavaScript AST</h1>
+      <h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" width="196" /></p>
 <ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h1 id="-">今日の概要</h1>
+<ul>
+<li>実は使われてるJavaScript AST</li>
 <li>JavaScript AST(Abstract Syntax Tree)とは?</li>
 <li>既に日常的にJavaScriptのツールやエディタなどで使ってるよ</li>
-<li>恐れずに使うだけじゃなくて書いてみよう</li>
+<li>使うだけじゃなくて恐れずに書いてみよう</li>
+<li>JavaScriptでJavaScriptの構文を扱えるよさ</li>
 </ul>
 
     </div>
@@ -730,7 +744,12 @@ a {
       <h1 id="-browserify-https-github-com-substack-node-browserify-browserify-"><a href="https://github.com/substack/node-browserify" title="browserify">browserify</a></h1>
 <ul>
 <li>Node.jsで書かれたものをブラウザ向けに変換するツール</li>
-<li>本体の色々な部分、transform pluginなど</li>
+<li>Node環境で開発 -&gt; browserifyでビルド -&gt; ブラウザで動く</li>
+<li>JavaScriptのコードを <strong>変換</strong> する<ul>
+<li>≒ JavaScript ASTを見て<strong>変換</strong> する</li>
+<li>本体の色々な部分、transform pluginなどでASTを使ってる</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -741,16 +760,7 @@ a {
 <ul>
 <li>JSDocのアノテーションからHTMLリファレンスを作成する標準ツール</li>
 <li>Node版の実装にesprimaが使われてる</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-tern-http-ternjs-net-tern-"><a href="http://ternjs.net/" title="Tern">Tern</a></h1>
-<ul>
-<li><a href="https://github.com/marijnh/tern_for_vim" title="Tern for Vim">Tern for Vim</a>や<a href="https://github.com/marijnh/tern_for_sublime" title=" Tern for Sublime Text">Tern for Sublime Text</a>の他エンジン</li>
-<li>パーサーには<a href="http://marijnhaverbeke.nl/acorn/" title=" acorn.js "> acorn.js </a>が使われてる</li>
+<li>JSDocを解析したい場合は<a href="https://github.com/Constellation/doctrine" title="doctrine">doctrine</a>を使うのが楽</li>
 </ul>
 
     </div>
@@ -770,8 +780,10 @@ a {
     <div class="slide-wrapper">
       <h1 id="-plato-https-github-com-es-analysis-plato-plato-"><a href="https://github.com/es-analysis/plato" title="plato">plato</a></h1>
 <ul>
+<li>JavaScript Introspection&quot;)</li>
 <li>コードのメトリクス計測のビジュアライズ</li>
 </ul>
+<p><img src="resources/plato.jpg" alt="ぷらとん"></p>
 
     </div>
   </section>
@@ -786,7 +798,7 @@ a {
       <h2 id="javascript-ast-">JavaScript ASTって何?</h2>
 <p><img src="resources/ast-token.png" alt="ast-token"></p>
 <ul>
-<li>AST(Abstract Syntax Tree)はコードをパースした構文木</li>
+<li>AST(Abstract Syntax Tree)はコードをパースした抽象構文木</li>
 <li>Mozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>) がデファクト</li>
 <li>Code -&gt; Token(図) -&gt; AST(tokenの関係を構造化したもの)</li>
 <li>端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの</li>
@@ -874,6 +886,21 @@ ThrowStatement {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
+      
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h1 id="-tern-http-ternjs-net-tern-"><a href="http://ternjs.net/" title="Tern">Tern</a></h1>
+<ul>
+<li><a href="https://github.com/marijnh/tern_for_vim" title="Tern for Vim">Tern for Vim</a>や<a href="https://github.com/marijnh/tern_for_sublime" title=" Tern for Sublime Text">Tern for Sublime Text</a>の他エンジン</li>
+<li>パーサーには<a href="http://marijnhaverbeke.nl/acorn/" title=" acorn.js "> acorn.js </a>が使われてる</li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
       <h2 id="-coffeescriptredux-https-github-com-michaelficarra-coffeescriptredux-coffeescriptredux-"><a href="https://github.com/michaelficarra/CoffeeScriptRedux" title="CoffeeScriptRedux">CoffeeScriptRedux</a></h2>
 <ul>
 <li><a href="https://www.kickstarter.com/projects/michaelficarra/make-a-better-coffeescript-compiler" title="Rewrite the CoffeeScript compiler">Rewrite the CoffeeScript compiler</a></li>
@@ -892,10 +919,10 @@ ThrowStatement {
   <section class="slide">
     <div class="slide-wrapper">
       <h1 id="-power-assert-https-github-com-twada-power-assert-power-assert-"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a></h1>
+<p><img src="resources/power-assert.png" alt="power-assert"></p>
 <ul>
-<li><code>assert()</code> を実行前にASTを変換して、失敗した時に有利な情報を埋め込む</li>
+<li>テストコード中に出てくる <code>assert()</code> をASTを変換して、失敗した時に有利な情報を埋め込む</li>
 <li>assertionはシンプル、だけど失敗しても分かりやすくなる</li>
-<li><a href="http://take.ms/KeYEC">http://take.ms/KeYEC</a></li>
 </ul>
 
     </div>
@@ -927,7 +954,11 @@ ThrowStatement {
       <h1 id="-grasp-http-graspjs-com-grasp-"><a href="http://graspjs.com/" title="Grasp">Grasp</a></h1>
 <ul>
 <li>ASTを元にGrep/Sedのような検索/置換するツール</li>
+<li>ASTを元に検索するので、誤爆しない置換が行える</li>
+<li><ul>
 <li>コードベースやAST Query Selectorでの検索方法が用意されている</li>
+</ul>
+</li>
 <li><a href="http://jser.info/post/73202282881/grasp-javascript" title="Graspを使ったJavaScriptのリファクタリング | JSer.info">Graspを使ったJavaScriptのリファクタリング | JSer.info</a></li>
 <li><a href="http://efcl.info/2014/0209/res3658/" title="JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch">JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch</a></li>
 </ul>
@@ -958,8 +989,20 @@ ThrowStatement {
   <section class="slide">
     <div class="slide-wrapper">
       <h1 id="-lint-">局所的Lintの例</h1>
+<p><img src="resources/hatena-blog-js-lint.png" alt="はてなブログのLint"></p>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h1 id="-lint">局所的Lint</h1>
 <ul>
-<li>ブログサイトのJSコメントで特定のコメントをチェックする</li>
+<li>あるブログサイトのJSで特定のコメントが出てきてないかチェックする<ul>
+<li>✘ &quot;なぜやってるのか不明&quot;</li>
+<li>✘ &quot;コピペ&quot;</li>
+</ul>
+</li>
+<li>といったコメントを検出できる！</li>
 <li><a href="https://github.com/azu/hatena-blog-js-lint" title="hatena-blog-js-lint">hatena-blog-js-lint</a></li>
 </ul>
 
@@ -967,7 +1010,8 @@ ThrowStatement {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-mocha-">書いてみよう - Mochaのテストをパース</h1>
+      <h1 id="-">書いてみよう</h1>
+<h2 id="mocha-">Mochaのテストをパース</h2>
 <ul>
 <li><a href="https://github.com/azu/MechaMocha" title="MechaMocha">MechaMocha</a></li>
 <li>Mochaのテスト構造をテキストとして吐き出す</li>
@@ -1050,21 +1094,73 @@ IsNaN
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="-azu-inlining-node-require-"><a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a></h2>
+      <iframe src="http://azu.github.io/visualize_estraverse/#describe%28%27Array%27%2C%20function%20%28%29%20{%0A%20%20%20%20describe%28%27%23indexOf%28%29%27%2C%20function%20%28%29%20{%0A%20%20%20%20%20%20%20%20it%28%27should%20return%20-1%20when%20the%20value%20is%20not%20present%27%2C%20function%20%28%29%20{%0A%20%20%20%20%20%20%20%20%20%20%20%20assert%281%29%3B%0A%20%20%20%20%20%20%20%20}%29%3B%0A%20%20%20%20}%29%3B%0A}%29%3B" width="100%" height="450" style="border: 1px black solid;"></iframe>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="-azu-inlining-node-require-https-github-com-azu-inlining-node-require-azu-inlining-node-require-"><a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a></h2>
 <ul>
 <li>node.jsの<code>require</code>をインライン化してつなげる</li>
 <li><a href="https://github.com/substack/node-falafel" title="falafel">falafel</a>を使いASTを編集</li>
 </ul>
-<h2 id="-azu-remove-use-strict-"><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a></h2>
+<h2 id="-azu-remove-use-strict-https-github-com-azu-remove-use-strict-azu-remove-use-strict-"><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a></h2>
 <ul>
 <li>無意味な<code>&quot;use strict&quot;</code>を取り除く</li>
 <li>関数スコープを意識した作り</li>
+<li><a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使うと楽に関数スコープをみていける</li>
 </ul>
-<h2 id="-">参考</h2>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="-">まとめ</h2>
+<ul>
+<li>JavaScript ASTは既に色々なツールで使われてる</li>
+<li>言語仕様に近いのでより正確にJavaScriptコードを扱える</li>
+<li>JS AST自体はただのJavaScriptオブジェクト/JSON<ul>
+<li>実際にコードをASTを見る、トライアンドエラーして慣れるのが近道 - <a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima:Parser</a></li>
+<li>JavaScriptの構文が分かってるならだれでも扱える</li>
+</ul>
+</li>
+<li><a href="http://eslint.org/" title="ESLint">ESLint</a>のプラグインやちょっとしたツールにASTを使えると楽しくなる</li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="-">参考</h2>
 <ul>
 <li><a href="http://azu.github.io/slide/tkbjs/js-ast-walker.html" title="JavaScript AST Walker">JavaScript AST Walker</a></li>
 <li><a href="http://www.slideshare.net/ariyahidayat/javascript-parser-infrastructure-for-code-quality-analysis#" title="JavaScript Parser Infrastructure for Code Quality Analysis">JavaScript Parser Infrastructure for Code Quality Analysis</a></li>
 <li><a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a></li>
+<li><a href="http://gregfranko.com/building-javascript-tools-talk/" title="Building JavaScript Tools">Building JavaScript Tools</a></li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h1 id="-">質問</h1>
+<h2 id="-">正規表現でいいんじゃない?</h2>
+<blockquote>
+<p>❝ある人々は問題に直面すると、「そうか、正規表現を使うんだ」と考える。こうして彼らは２つの問題を抱えることになる。❞
+— Jamie Zawinski </p>
+</blockquote>
+<p>最新の正規表現でやってぶっ壊れた事例(fixed)</p>
+<ul>
+<li><a href="https://github.com/substack/node-browserify/issues/639" title="Error in Browser for newer version · Issue #639 · substack/node-browserify">Error in Browser for newer version · Issue #639 · substack/node-* browserify</a></li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="ast-">ASTからコードは?</h2>
+<ul>
+<li><a href="https://github.com/Constellation/escodegen" title="Escodegen">Escodegen</a>を使う</li>
 </ul>
 
     </div>

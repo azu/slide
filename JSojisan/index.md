@@ -1,4 +1,4 @@
-title: カジュアルJS AST
+title: カジュアルJavaScript AST
 author:
   name: azu
   twitter: azu_re
@@ -14,11 +14,26 @@ output: index.html
 
 --
 
-# 実は使われてるJavaScript AST
+# 自己紹介
 
+<img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" width="196" />
+
+- Name : **azu**
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- Website: [Web scratch], [JSer.info]
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+--
+
+# 今日の概要
+
+- 実は使われてるJavaScript AST
 - JavaScript AST(Abstract Syntax Tree)とは?
 - 既に日常的にJavaScriptのツールやエディタなどで使ってるよ
-- 恐れずに使うだけじゃなくて書いてみよう
+- 使うだけじゃなくて恐れずに書いてみよう
+- JavaScriptでJavaScriptの構文を扱えるよさ
 
 --
 
@@ -26,7 +41,10 @@ output: index.html
 # [browserify](https://github.com/substack/node-browserify "browserify")
 
 - Node.jsで書かれたものをブラウザ向けに変換するツール
-- 本体の色々な部分、transform pluginなど
+- Node環境で開発 -> browserifyでビルド -> ブラウザで動く
+- JavaScriptのコードを **変換** する
+	- ≒ JavaScript ASTを見て**変換** する
+	- 本体の色々な部分、transform pluginなどでASTを使ってる
 
 
 --
@@ -35,13 +53,7 @@ output: index.html
 
 - JSDocのアノテーションからHTMLリファレンスを作成する標準ツール
 - Node版の実装にesprimaが使われてる
-
---
-
-# [Tern](http://ternjs.net/ "Tern")
-
-- [Tern for Vim](https://github.com/marijnh/tern_for_vim "Tern for Vim")や[Tern for Sublime Text](https://github.com/marijnh/tern_for_sublime " Tern for Sublime Text")の他エンジン
-- パーサーには[ acorn.js ](http://marijnhaverbeke.nl/acorn/ " acorn.js ")が使われてる
+- JSDocを解析したい場合は[doctrine](https://github.com/Constellation/doctrine "doctrine")を使うのが楽
 
 --
 
@@ -56,7 +68,10 @@ output: index.html
 
 # [plato](https://github.com/es-analysis/plato "plato")
 
+- JavaScript Introspection")
 - コードのメトリクス計測のビジュアライズ
+
+![ぷらとん](resources/plato.jpg)
 
 --
 
@@ -68,7 +83,7 @@ output: index.html
 
 ![ast-token](resources/ast-token.png)
 
-* AST(Abstract Syntax Tree)はコードをパースした構文木
+* AST(Abstract Syntax Tree)はコードをパースした抽象構文木
 * Mozilla JavaScript AST([Parser API](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API "Parser API")) がデファクト
 * Code -> Token(図) -> AST(tokenの関係を構造化したもの)
 * 端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの
@@ -147,6 +162,17 @@ ThrowStatement {
 
 --
 
+
+
+--
+
+# [Tern](http://ternjs.net/ "Tern")
+
+- [Tern for Vim](https://github.com/marijnh/tern_for_vim "Tern for Vim")や[Tern for Sublime Text](https://github.com/marijnh/tern_for_sublime " Tern for Sublime Text")の他エンジン
+- パーサーには[ acorn.js ](http://marijnhaverbeke.nl/acorn/ " acorn.js ")が使われてる
+
+--
+
 ## [CoffeeScriptRedux](https://github.com/michaelficarra/CoffeeScriptRedux "CoffeeScriptRedux")
 
 - [Rewrite the CoffeeScript compiler](https://www.kickstarter.com/projects/michaelficarra/make-a-better-coffeescript-compiler "Rewrite the CoffeeScript compiler")
@@ -161,9 +187,10 @@ ThrowStatement {
 
 # [power-assert](https://github.com/twada/power-assert "power-assert")
 
-- `assert()` を実行前にASTを変換して、失敗した時に有利な情報を埋め込む
+![power-assert](resources/power-assert.png)
+
+- テストコード中に出てくる `assert()` をASTを変換して、失敗した時に有利な情報を埋め込む
 - assertionはシンプル、だけど失敗しても分かりやすくなる
-- http://take.ms/KeYEC
 
 --
 
@@ -187,7 +214,8 @@ ThrowStatement {
 # [Grasp](http://graspjs.com/ "Grasp")
 
 - ASTを元にGrep/Sedのような検索/置換するツール
-- コードベースやAST Query Selectorでの検索方法が用意されている
+- ASTを元に検索するので、誤爆しない置換が行える
+- - コードベースやAST Query Selectorでの検索方法が用意されている
 - [Graspを使ったJavaScriptのリファクタリング | JSer.info](http://jser.info/post/73202282881/grasp-javascript "Graspを使ったJavaScriptのリファクタリング | JSer.info")
 - [JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch](http://efcl.info/2014/0209/res3658/ "JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch")
 
@@ -210,12 +238,23 @@ ThrowStatement {
 
 # 局所的Lintの例
 
-- ブログサイトのJSコメントで特定のコメントをチェックする
+![はてなブログのLint](resources/hatena-blog-js-lint.png)
+
+--
+
+# 局所的Lint
+
+- あるブログサイトのJSで特定のコメントが出てきてないかチェックする
+	- ✘ "なぜやってるのか不明"
+	- ✘ "コピペ"
+- といったコメントを検出できる！
 - [hatena-blog-js-lint](https://github.com/azu/hatena-blog-js-lint "hatena-blog-js-lint")
 
 --
 
-# 書いてみよう - Mochaのテストをパース
+# 書いてみよう
+
+## Mochaのテストをパース
 
 - [MechaMocha](https://github.com/azu/MechaMocha "MechaMocha")
 - Mochaのテスト構造をテキストとして吐き出す
@@ -285,25 +324,56 @@ IsNaN
 
 --
 
-## [azu/inlining-node-require][] 
+<iframe src="http://azu.github.io/visualize_estraverse/#describe%28%27Array%27%2C%20function%20%28%29%20{%0A%20%20%20%20describe%28%27%23indexOf%28%29%27%2C%20function%20%28%29%20{%0A%20%20%20%20%20%20%20%20it%28%27should%20return%20-1%20when%20the%20value%20is%20not%20present%27%2C%20function%20%28%29%20{%0A%20%20%20%20%20%20%20%20%20%20%20%20assert%281%29%3B%0A%20%20%20%20%20%20%20%20}%29%3B%0A%20%20%20%20}%29%3B%0A}%29%3B" width="100%" height="450" style="border: 1px black solid;"></iframe>
+
+--
+
+## [azu/inlining-node-require](https://github.com/azu/inlining-node-require "azu/inlining-node-require")
 
 * node.jsの`require`をインライン化してつなげる
 * [falafel](https://github.com/substack/node-falafel "falafel")を使いASTを編集
 
-## [azu/remove-use-strict]
+## [azu/remove-use-strict](https://github.com/azu/remove-use-strict "azu/remove-use-strict")
 
 * 無意味な`"use strict"`を取り除く
 * 関数スコープを意識した作り
+* [Estraverse](https://github.com/Constellation/estraverse "Estraverse")を使うと楽に関数スコープをみていける
+
+--
+
+## まとめ
+
+* JavaScript ASTは既に色々なツールで使われてる
+* 言語仕様に近いのでより正確にJavaScriptコードを扱える
+* JS AST自体はただのJavaScriptオブジェクト/JSON
+	* 実際にコードをASTを見る、トライアンドエラーして慣れるのが近道 - [Esprima:Parser](http://esprima.org/demo/parse.html "Esprima: Parser")
+	* JavaScriptの構文が分かってるならだれでも扱える
+* [ESLint](http://eslint.org/ "ESLint")のプラグインやちょっとしたツールにASTを使えると楽しくなる
+
+--
 
 ## 参考
 
 * [JavaScript AST Walker](http://azu.github.io/slide/tkbjs/js-ast-walker.html "JavaScript AST Walker")
 * [JavaScript Parser Infrastructure for Code Quality Analysis](http://www.slideshare.net/ariyahidayat/javascript-parser-infrastructure-for-code-quality-analysis# "JavaScript Parser Infrastructure for Code Quality Analysis")
 * [SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck](https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations "SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck")
+* [Building JavaScript Tools](http://gregfranko.com/building-javascript-tools-talk/ "Building JavaScript Tools")
 
+--
 
-[azu/inlining-node-require]: https://github.com/azu/inlining-node-require  "azu/inlining-node-require"
-[azu/remove-use-strict]: https://github.com/azu/remove-use-strict  "azu/remove-use-strict"
-[Grasp]: http://graspjs.com/  "Grasp - JavaScript structural search, replace, and refactor"
-[ESLint]: http://eslint.org/  "ESLint"
+# 質問
 
+## 正規表現でいいんじゃない?
+
+> ❝ある人々は問題に直面すると、「そうか、正規表現を使うんだ」と考える。こうして彼らは２つの問題を抱えることになる。❞
+> — Jamie Zawinski 
+
+最新の正規表現でやってぶっ壊れた事例(fixed)
+
+* [Error in Browser for newer version · Issue #639 · substack/node-* browserify](https://github.com/substack/node-browserify/issues/639 "Error in Browser for newer version · Issue #639 · substack/node-browserify")
+
+--
+
+## ASTからコードは?
+
+* [Escodegen](https://github.com/Constellation/escodegen "Escodegen")を使う
