@@ -371,7 +371,7 @@ IsNaN
 * JavaScript ASTは既に色々なツールで使われてる
 * 言語仕様に近いので、より正確にJavaScriptコードを扱える
 * JS AST自体はただのJavaScriptオブジェクト/JSON
-	* 実際にコードをASTを見る、トライアンドエラーして慣れるのが近道 - [Esprima:Parser](http://esprima.org/demo/parse.html "Esprima: Parser")
+	* 実際にコードのASTを見る、トライアンドエラーして慣れるのが近道 - [Esprima:Parser](http://esprima.org/demo/parse.html "Esprima: Parser")
 	* JavaScriptの構文が分かってるならだれでも扱える
 * [ESLint](http://eslint.org/ "ESLint")のプラグインやちょっとしたツールにASTを使えると楽しくなる
 
