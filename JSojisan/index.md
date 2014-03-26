@@ -1,7 +1,7 @@
 title: カジュアルJavaScript AST
 author:
   name: azu
-  twitter: azu_re
+  twitter: azu_re  
   url: http://efcl.info/
 theme: azu/cleaver-ribbon
 output: index.html
@@ -31,9 +31,8 @@ output: index.html
 
 - 実は使われてるJavaScript AST
 - JavaScript AST(Abstract Syntax Tree)とは?
-- 既に日常的にJavaScriptのツールやエディタなどで使ってるよ
-- 使うだけじゃなくて恐れずに書いてみよう
-- JavaScriptでJavaScriptの構文を扱えるよさ
+- JavaScript ASTを使ったツール紹介
+- 使うだけじゃなくて書いてみよう
 
 --
 
@@ -61,15 +60,16 @@ output: index.html
 # [UglifyJS 2](https://github.com/mishoo/UglifyJS2 "UglifyJS 2")
 
 - JavaScriptコード圧縮ツール(minifier)
-- 1までは独自のASTのみ
-- 2からは一般的な[SpiderMonkey AST](https://github.com/mishoo/UglifyJS2#support-for-the-spidermonkey-ast "SpiderMonkey AST")をサポート
+- コードを圧縮するためにコードをパースしてAST(構文木)を作る
+    - 1までは独自のASTのみ
+    - 2からは一般的な[SpiderMonkey AST](https://github.com/mishoo/UglifyJS2#support-for-the-spidermonkey-ast "SpiderMonkey AST")もサポート
 
 --
 
 # [plato](https://github.com/es-analysis/plato "plato")
 
-- JavaScript Introspection")
 - コードのメトリクス計測のビジュアライズ
+- コード解析的な事はJavaScript ASTを使うのに最もマッチした内容
 
 ![ぷらとん](resources/plato.jpg)
 
@@ -77,14 +77,15 @@ output: index.html
 
 # What is JavaScript AST?
 
+![ast-token](resources/ast-is-true.png)
+
 --
 
 ## JavaScript ASTって何?
 
-![ast-token](resources/ast-token.png)
-
 * AST(Abstract Syntax Tree)はコードをパースした抽象構文木
 * Mozilla JavaScript AST([Parser API](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API "Parser API")) がデファクト
+* JavaScript AST扱う際にはただのJavaScriptオブジェクト
 * Code -> Token(図) -> AST(tokenの関係を構造化したもの)
 * 端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの
 
@@ -159,16 +160,17 @@ ThrowStatement {
 * コードを入力してどういうASTが出力されるかをみて理解する
 * JavaScript ASTはECMAScriptの仕様を尊重してる
 * JavaScriptの基本的な文法がわかってれば問題ない
+* 既に公開されてるツールを見ていく
 
 --
 
-
+# JavaScript ASTを使ったツール
 
 --
 
 # [Tern](http://ternjs.net/ "Tern")
 
-- [Tern for Vim](https://github.com/marijnh/tern_for_vim "Tern for Vim")や[Tern for Sublime Text](https://github.com/marijnh/tern_for_sublime " Tern for Sublime Text")の他エンジン
+- [Tern for Vim](https://github.com/marijnh/tern_for_vim "Tern for Vim")や[Tern for Sublime Text](https://github.com/marijnh/tern_for_sublime " Tern for Sublime Text")の補完エンジン
 - パーサーには[ acorn.js ](http://marijnhaverbeke.nl/acorn/ " acorn.js ")が使われてる
 
 --
@@ -185,12 +187,23 @@ ThrowStatement {
 
 --
 
-# [power-assert](https://github.com/twada/power-assert "power-assert")
+# [power-assert](https://github.com/twada/power-assert "power-assert") [![t_wada](http://www.gravatar.com/avatar/9f3a83db74bee75a64b5e6ed106a775c.jpg?s=32)](https://github.com/twada)
 
-![power-assert](resources/power-assert.png)
+<img src="resources/power-assert.gif" />
 
-- テストコード中に出てくる `assert()` をASTを変換して、失敗した時に有利な情報を埋め込む
-- assertionはシンプル、だけど失敗しても分かりやすくなる
+--
+
+## power-assertのテスト失敗例
+
+<img src="resources/power-assert.png" width="100%"/>
+
+--
+
+## power-assert
+
+- テストコード中に出てくる `assert()` 等のASTを変換
+- 失敗した場合に欲しい情報を埋め込めるように介入
+- assertionの書き方はシンプル、だけど失敗しても分かりやすくなる
 
 --
 
@@ -199,8 +212,10 @@ ThrowStatement {
 
 - JavaScript Code Style
 - JSHintと併用してコーディングのスタイルをチェックするツール
-- tokensまでもみて **スタイル** をチェックする
-- プログラム的に正しければホワイトスペースや`;`などはASTでは扱わなくてもいいことが多い
+	- JSHint 3.0でスタイル関係のルールは外される
+- tokensをみて **スタイル** をチェックする
+	- AST自体は抽象表現なのでスタイルをチェックするには不向きなのでtokensを見てる
+
 
 --
 
@@ -215,7 +230,7 @@ ThrowStatement {
 
 - ASTを元にGrep/Sedのような検索/置換するツール
 - ASTを元に検索するので、誤爆しない置換が行える
-- - コードベースやAST Query Selectorでの検索方法が用意されている
+- コードベースやAST Query Selectorでの検索方法が用意されている
 - [Graspを使ったJavaScriptのリファクタリング | JSer.info](http://jser.info/post/73202282881/grasp-javascript "Graspを使ったJavaScriptのリファクタリング | JSer.info")
 - [JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch](http://efcl.info/2014/0209/res3658/ "JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch")
 
@@ -254,10 +269,13 @@ ThrowStatement {
 
 # 書いてみよう
 
-## Mochaのテストをパース
+## Mochaのテストをパースする例
 
 - [MechaMocha](https://github.com/azu/MechaMocha "MechaMocha")
-- Mochaのテスト構造をテキストとして吐き出す
+- BDD的なテスト構造をテキストとして吐きだしたい!
+- => JavaScript ASTを見てテストの構造を取ってみる
+- describe - context - it ...
+
 
 --
 
@@ -310,7 +328,8 @@ IsNaN
 ## MechaMocha
 
 * [Estraverse](https://github.com/Constellation/estraverse "Estraverse")を使ったシンプルな走査
-* ASTは木構造だがプロパティの種類が多いので、traverseライブラリを使うのが一般的
+* ASTは木構造だがプロパティの種類が多くて大変
+* traverseライブラリを使うのが一般的
 
 --
 
@@ -341,12 +360,14 @@ IsNaN
 * 関数スコープを意識した作り
 * [Estraverse](https://github.com/Constellation/estraverse "Estraverse")を使うと楽に関数スコープをみていける
 
+[Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web scratch](http://efcl.info/2014/0316/res3719/ "Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web scratch")
+
 --
 
 ## まとめ
 
 * JavaScript ASTは既に色々なツールで使われてる
-* 言語仕様に近いのでより正確にJavaScriptコードを扱える
+* 言語仕様に近いので、より正確にJavaScriptコードを扱える
 * JS AST自体はただのJavaScriptオブジェクト/JSON
 	* 実際にコードをASTを見る、トライアンドエラーして慣れるのが近道 - [Esprima:Parser](http://esprima.org/demo/parse.html "Esprima: Parser")
 	* JavaScriptの構文が分かってるならだれでも扱える

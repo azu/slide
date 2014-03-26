@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=792, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
     <style>
-        /*
+            /*
 github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 */
 code {
@@ -694,19 +694,29 @@ a {
 
   .list .slide:target:before {
     box-shadow: 0 0 0 1px #376da3, 0 0 0 10px #4b86c2, 0 20px 50px rgba(42, 43, 45, 0.6); } }
+.shower-description {
+  color: ghostwhite; }
 
-        
+            
     </style>
 
 </head>
 <body class="list">
 
-    <header class="caption">
-        <h1>カジュアルJavaScript AST</h1>
-        <p><a href="http:&#x2F;&#x2F;efcl.info&#x2F;">azu</a>, </p>
-    </header>
+<header class="caption">
+    <h1>カジュアルJavaScript AST</h1>
+    <ul>
+        <li>
+            Name : <a href="http:&#x2F;&#x2F;efcl.info&#x2F;">azu</a>
+        </li>
+        <li>
+            Twitter : <a href="https://twitter.com/@azu_re">@azu_re</a>
+        </li>
+    </ul>
+    <p class="shower-description">スライドをクリックでスタート、矢印キーでスライド移動、Escで一覧モードへ戻る</p>
+</header>
 
-    <div class="slideshow-wrapper">
+<div class="slideshow-wrapper">
       <section class="slide">
     <div class="slide-wrapper">
       <h1 id="-javascript-ast">カジュアルJavaScript AST</h1>
@@ -732,9 +742,8 @@ a {
 <ul>
 <li>実は使われてるJavaScript AST</li>
 <li>JavaScript AST(Abstract Syntax Tree)とは?</li>
-<li>既に日常的にJavaScriptのツールやエディタなどで使ってるよ</li>
-<li>使うだけじゃなくて恐れずに書いてみよう</li>
-<li>JavaScriptでJavaScriptの構文を扱えるよさ</li>
+<li>JavaScript ASTを使ったツール紹介</li>
+<li>使うだけじゃなくて書いてみよう</li>
 </ul>
 
     </div>
@@ -770,8 +779,11 @@ a {
       <h1 id="-uglifyjs-2-https-github-com-mishoo-uglifyjs2-uglifyjs-2-"><a href="https://github.com/mishoo/UglifyJS2" title="UglifyJS 2">UglifyJS 2</a></h1>
 <ul>
 <li>JavaScriptコード圧縮ツール(minifier)</li>
+<li>コードを圧縮するためにコードをパースしてAST(構文木)を作る<ul>
 <li>1までは独自のASTのみ</li>
-<li>2からは一般的な<a href="https://github.com/mishoo/UglifyJS2#support-for-the-spidermonkey-ast" title="SpiderMonkey AST">SpiderMonkey AST</a>をサポート</li>
+<li>2からは一般的な<a href="https://github.com/mishoo/UglifyJS2#support-for-the-spidermonkey-ast" title="SpiderMonkey AST">SpiderMonkey AST</a>もサポート</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -780,8 +792,8 @@ a {
     <div class="slide-wrapper">
       <h1 id="-plato-https-github-com-es-analysis-plato-plato-"><a href="https://github.com/es-analysis/plato" title="plato">plato</a></h1>
 <ul>
-<li>JavaScript Introspection&quot;)</li>
 <li>コードのメトリクス計測のビジュアライズ</li>
+<li>コード解析的な事はJavaScript ASTを使うのに最もマッチした内容</li>
 </ul>
 <p><img src="resources/plato.jpg" alt="ぷらとん"></p>
 
@@ -790,16 +802,17 @@ a {
   <section class="slide">
     <div class="slide-wrapper">
       <h1 id="what-is-javascript-ast-">What is JavaScript AST?</h1>
+<p><img src="resources/ast-is-true.png" alt="ast-token"></p>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
       <h2 id="javascript-ast-">JavaScript ASTって何?</h2>
-<p><img src="resources/ast-token.png" alt="ast-token"></p>
 <ul>
 <li>AST(Abstract Syntax Tree)はコードをパースした抽象構文木</li>
 <li>Mozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>) がデファクト</li>
+<li>JavaScript AST扱う際にはただのJavaScriptオブジェクト</li>
 <li>Code -&gt; Token(図) -&gt; AST(tokenの関係を構造化したもの)</li>
 <li>端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの</li>
 </ul>
@@ -880,20 +893,22 @@ ThrowStatement {
 <li>コードを入力してどういうASTが出力されるかをみて理解する</li>
 <li>JavaScript ASTはECMAScriptの仕様を尊重してる</li>
 <li>JavaScriptの基本的な文法がわかってれば問題ない</li>
+<li>既に公開されてるツールを見ていく</li>
 </ul>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      
+      <h1 id="javascript-ast-">JavaScript ASTを使ったツール</h1>
+
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
       <h1 id="-tern-http-ternjs-net-tern-"><a href="http://ternjs.net/" title="Tern">Tern</a></h1>
 <ul>
-<li><a href="https://github.com/marijnh/tern_for_vim" title="Tern for Vim">Tern for Vim</a>や<a href="https://github.com/marijnh/tern_for_sublime" title=" Tern for Sublime Text">Tern for Sublime Text</a>の他エンジン</li>
+<li><a href="https://github.com/marijnh/tern_for_vim" title="Tern for Vim">Tern for Vim</a>や<a href="https://github.com/marijnh/tern_for_sublime" title=" Tern for Sublime Text">Tern for Sublime Text</a>の補完エンジン</li>
 <li>パーサーには<a href="http://marijnhaverbeke.nl/acorn/" title=" acorn.js "> acorn.js </a>が使われてる</li>
 </ul>
 
@@ -918,11 +933,25 @@ ThrowStatement {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-power-assert-https-github-com-twada-power-assert-power-assert-"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a></h1>
-<p><img src="resources/power-assert.png" alt="power-assert"></p>
+      <h1 id="-power-assert-https-github-com-twada-power-assert-power-assert-t_wada-http-www-gravatar-com-avatar-9f3a83db74bee75a64b5e6ed106a775c-jpg-s-32-https-github-com-twada-"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a> <a href="https://github.com/twada"><img src="http://www.gravatar.com/avatar/9f3a83db74bee75a64b5e6ed106a775c.jpg?s=32" alt="t_wada"></a></h1>
+<p><img src="resources/power-assert.gif" /></p>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="power-assert-">power-assertのテスト失敗例</h2>
+<p><img src="resources/power-assert.png" width="100%"/></p>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="power-assert">power-assert</h2>
 <ul>
-<li>テストコード中に出てくる <code>assert()</code> をASTを変換して、失敗した時に有利な情報を埋め込む</li>
-<li>assertionはシンプル、だけど失敗しても分かりやすくなる</li>
+<li>テストコード中に出てくる <code>assert()</code> 等のASTを変換</li>
+<li>失敗した場合に欲しい情報を埋め込めるように介入</li>
+<li>assertionの書き方はシンプル、だけど失敗しても分かりやすくなる</li>
 </ul>
 
     </div>
@@ -932,9 +961,14 @@ ThrowStatement {
       <h1 id="-jscs-https-github-com-mdevils-node-jscs-jscs-"><a href="https://github.com/mdevils/node-jscs" title="JSCS">JSCS</a></h1>
 <ul>
 <li>JavaScript Code Style</li>
-<li>JSHintと併用してコーディングのスタイルをチェックするツール</li>
-<li>tokensまでもみて <strong>スタイル</strong> をチェックする</li>
-<li>プログラム的に正しければホワイトスペースや<code>;</code>などはASTでは扱わなくてもいいことが多い</li>
+<li>JSHintと併用してコーディングのスタイルをチェックするツール<ul>
+<li>JSHint 3.0でスタイル関係のルールは外される</li>
+</ul>
+</li>
+<li>tokensをみて <strong>スタイル</strong> をチェックする<ul>
+<li>AST自体は抽象表現なのでスタイルをチェックするには不向きなのでtokensを見てる</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -955,10 +989,7 @@ ThrowStatement {
 <ul>
 <li>ASTを元にGrep/Sedのような検索/置換するツール</li>
 <li>ASTを元に検索するので、誤爆しない置換が行える</li>
-<li><ul>
 <li>コードベースやAST Query Selectorでの検索方法が用意されている</li>
-</ul>
-</li>
 <li><a href="http://jser.info/post/73202282881/grasp-javascript" title="Graspを使ったJavaScriptのリファクタリング | JSer.info">Graspを使ったJavaScriptのリファクタリング | JSer.info</a></li>
 <li><a href="http://efcl.info/2014/0209/res3658/" title="JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch">JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch</a></li>
 </ul>
@@ -1011,10 +1042,12 @@ ThrowStatement {
   <section class="slide">
     <div class="slide-wrapper">
       <h1 id="-">書いてみよう</h1>
-<h2 id="mocha-">Mochaのテストをパース</h2>
+<h2 id="mocha-">Mochaのテストをパースする例</h2>
 <ul>
 <li><a href="https://github.com/azu/MechaMocha" title="MechaMocha">MechaMocha</a></li>
-<li>Mochaのテスト構造をテキストとして吐き出す</li>
+<li>BDD的なテスト構造をテキストとして吐きだしたい!</li>
+<li>=&gt; JavaScript ASTを見てテストの構造を取ってみる</li>
+<li>describe - context - it ...</li>
 </ul>
 
     </div>
@@ -1066,7 +1099,8 @@ IsNaN
       <h2 id="mechamocha">MechaMocha</h2>
 <ul>
 <li><a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使ったシンプルな走査</li>
-<li>ASTは木構造だがプロパティの種類が多いので、traverseライブラリを使うのが一般的</li>
+<li>ASTは木構造だがプロパティの種類が多くて大変</li>
+<li>traverseライブラリを使うのが一般的</li>
 </ul>
 
     </div>
@@ -1111,6 +1145,7 @@ IsNaN
 <li>関数スコープを意識した作り</li>
 <li><a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使うと楽に関数スコープをみていける</li>
 </ul>
+<p><a href="http://efcl.info/2014/0316/res3719/" title="Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web scratch">Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web scratch</a></p>
 
     </div>
   </section>
@@ -1119,7 +1154,7 @@ IsNaN
       <h2 id="-">まとめ</h2>
 <ul>
 <li>JavaScript ASTは既に色々なツールで使われてる</li>
-<li>言語仕様に近いのでより正確にJavaScriptコードを扱える</li>
+<li>言語仕様に近いので、より正確にJavaScriptコードを扱える</li>
 <li>JS AST自体はただのJavaScriptオブジェクト/JSON<ul>
 <li>実際にコードをASTを見る、トライアンドエラーして慣れるのが近道 - <a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima:Parser</a></li>
 <li>JavaScriptの構文が分かってるならだれでも扱える</li>
@@ -1181,34 +1216,36 @@ IsNaN
     </div>
   </section>
 
-    </div>
-    <div class="progress"><div></div></div>
-    
-    <script type="text/javascript">
+</div>
+<div class="progress">
+    <div></div>
+</div>
+
+<script type="text/javascript">
         /**
  * Shower HTML presentation engine: github.com/shower/shower
  * @copyright 2010–2013 Vadim Makeev, pepelsbey.net
  * @license MIT license: github.com/shower/shower/wiki/MIT-License
  */
-window.shower = window.shower || (function(window, document, undefined) {
+window.shower = window.shower || (function (window, document, undefined) {
     var shower = {},
         url = window.location,
         body = document.body,
         slides = [],
         progress = [],
         timer,
-        isHistoryApiSupported = !!(window.history && window.history.pushState);
+        isHistoryApiSupported = false;
 
     /**
      * Slide constructor
      *
      * @param {Object} opts
-     *	  @param {String} opts.id html id attribute or automaticaly assigned order number
-     *	  @param {Number} opts.number slide number
-     *	  @param {Boolean} opts.hasInnerNavigation
-     *	  @param {Number} [opts.timing]
-     *	  @param {Number} [opts.innerLength]
-     *	  @param {Number} [opts.innerComplete = 0]
+     *      @param {String} opts.id html id attribute or automaticaly assigned order number
+     *      @param {Number} opts.number slide number
+     *      @param {Boolean} opts.hasInnerNavigation
+     *      @param {Number} [opts.timing]
+     *      @param {Number} [opts.innerLength]
+     *      @param {Number} [opts.innerComplete = 0]
      * @constructor
      */
     function Slide(opts) {
@@ -1224,11 +1261,11 @@ window.shower = window.shower || (function(window, document, undefined) {
          * Get slide number.
          * @returns {Number}
          */
-        getSlideNumber : function() {
+        getSlideNumber: function () {
             return this.number;
         },
 
-        isLast : function() {
+        isLast: function () {
             return shower.slideList.length === this.number + 1;
         },
 
@@ -1236,7 +1273,7 @@ window.shower = window.shower || (function(window, document, undefined) {
          * Check if inner navigation is finished
          * @returns {boolean}
          */
-        isFinished : function() {
+        isFinished: function () {
             return this.innerComplete >= this.innerLength;
         },
 
@@ -1245,7 +1282,7 @@ window.shower = window.shower || (function(window, document, undefined) {
          * time sets in HTML: .slide[data-timing=MM:SS]
          * @returns {Object} Current slide
          */
-        process : function(shower) {
+        process: function (shower) {
             if (this.timing) {
                 this.initTimer(shower);
                 return this;
@@ -1260,23 +1297,23 @@ window.shower = window.shower || (function(window, document, undefined) {
          * @param shower
          * @returns {Object|Boolean} Current slide
          */
-        initTimer : function(shower) {
+        initTimer: function (shower) {
             var slide = this;
 
-            if ( ! slide.timing) {
+            if (!slide.timing) {
                 return false;
             }
 
             slide.stopTimer();
 
             if (slide.isFinished()) {
-                timer = setInterval(function() {
+                timer = setInterval(function () {
                         slide.stopTimer();
                         shower.next();
                     },
                         slide.timing * (slide.innerLength || 1));
             } else {
-                timer = setInterval(function() {
+                timer = setInterval(function () {
                         if (slide.isFinished()) {
                             slide.stopTimer();
                             shower.next();
@@ -1293,7 +1330,7 @@ window.shower = window.shower || (function(window, document, undefined) {
         /**
          * Stop timer
          */
-        stopTimer : function() {
+        stopTimer: function () {
             if (timer) {
                 clearInterval(timer);
                 timer = false;
@@ -1306,18 +1343,18 @@ window.shower = window.shower || (function(window, document, undefined) {
          * Previous step of inner navigation or if current step is step 0 then go to previous slide.
          * @returns {Object|Boolean} Current slide
          */
-        prev : function(shower) {
+        prev: function (shower) {
             var prevSteps,
                 slide = this;
 
-            if ( ! slide.hasInnerNavigation || slide.isFinished() || slide.innerComplete === 0) {
+            if (!slide.hasInnerNavigation || slide.isFinished() || slide.innerComplete === 0) {
                 shower.prev();
                 return false;
             }
 
             prevSteps = document.getElementById(slide.id).querySelectorAll('.next.active');
 
-            if ( ! prevSteps || prevSteps.length < 1) {
+            if (!prevSteps || prevSteps.length < 1) {
                 return false;
             }
 
@@ -1335,16 +1372,16 @@ window.shower = window.shower || (function(window, document, undefined) {
          * Next step of inner navigation or if current step is last then go to next slide.
          * @returns {Object|Boolean} Current slide
          */
-        next : function(shower) {
+        next: function (shower) {
             var nextSteps,
                 slide = this;
 
-            if ( ! slide.hasInnerNavigation || slide.isFinished()) {
+            if (!slide.hasInnerNavigation || slide.isFinished()) {
                 shower.next();
                 return false;
             }
 
-            if ( ! slide.isFinished()) {
+            if (!slide.isFinished()) {
                 nextSteps = document.getElementById(slide.id).querySelectorAll('.next:not(.active)');
                 nextSteps[0].classList.add('active');
 
@@ -1362,7 +1399,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {String} name
      * @returns {String}
      */
-    shower._getData = function(element, name) {
+    shower._getData = function (element, name) {
         return element.dataset ? element.dataset[name] : element.getAttribute('data-' + name);
     };
 
@@ -1374,7 +1411,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {String} [progressSelector]
      * @returns {Object} shower
      */
-    shower.init = function(slideSelector, progressSelector) {
+    shower.init = function (slideSelector, progressSelector) {
         var timing;
 
         slideSelector = slideSelector || '.slide';
@@ -1386,7 +1423,7 @@ window.shower = window.shower || (function(window, document, undefined) {
         for (var i = 0; i < slides.length; i++) {
             // Slide IDs are optional.
             // In case of missing ID we set it to the slide number
-            if ( ! slides[i].id) {
+            if (!slides[i].id) {
                 slides[i].id = i + 1;
             }
 
@@ -1409,12 +1446,12 @@ window.shower = window.shower || (function(window, document, undefined) {
             }
 
             shower.slideList.push(new Slide({
-                id : slides[i].id,
-                number : i,
-                hasInnerNavigation : null !== slides[i].querySelector('.next'),
-                timing : timing,
-                innerLength : slides[i].querySelectorAll('.next').length,
-                innerComplete : 0
+                id: slides[i].id,
+                number: i,
+                hasInnerNavigation: null !== slides[i].querySelector('.next'),
+                timing: timing,
+                innerLength: slides[i].querySelectorAll('.next').length,
+                innerComplete: 0
             }));
         }
 
@@ -1426,7 +1463,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @private
      * @returns {String}
      */
-    shower._getTransform = function() {
+    shower._getTransform = function () {
         var denominator = Math.max(
                 body.clientWidth / window.innerWidth,
                 body.clientHeight / window.innerHeight
@@ -1440,14 +1477,14 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @private
      * @returns {Boolean}
      */
-    shower._applyTransform = function(transform) {
+    shower._applyTransform = function (transform) {
         [
             'WebkitTransform',
             'MozTransform',
             'msTransform',
             'OTransform',
             'transform'
-        ].forEach(function(prop) {
+        ].forEach(function (prop) {
                 body.style[prop] = transform;
             });
 
@@ -1460,8 +1497,8 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {String|Number} arg
      * @returns {Boolean}
      */
-    shower._isNumber = function(arg) {
-        return ! isNaN(parseFloat(arg)) && isFinite(arg);
+    shower._isNumber = function (arg) {
+        return !isNaN(parseFloat(arg)) && isFinite(arg);
     };
 
     /**
@@ -1470,8 +1507,8 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Number} slideNumber slide number (sic!)
      * @returns {Number}
      */
-    shower._normalizeSlideNumber = function(slideNumber) {
-        if ( ! shower._isNumber(slideNumber)) {
+    shower._normalizeSlideNumber = function (slideNumber) {
+        if (!shower._isNumber(slideNumber)) {
             throw new Error('Gimme slide number as Number, baby!');
         }
 
@@ -1492,7 +1529,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Node} el
      * @returns {String}
      */
-    shower._getSlideIdByEl = function(el) {
+    shower._getSlideIdByEl = function (el) {
         while ('BODY' !== el.nodeName && 'HTML' !== el.nodeName) {
             if (el.classList.contains('slide')) {
                 return el.id;
@@ -1513,7 +1550,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {HTMLElement} e
      * @returns {Boolean}
      */
-    shower._checkInteractiveElement = function(e) {
+    shower._checkInteractiveElement = function (e) {
         return 'A' === e.target.nodeName;
     };
 
@@ -1522,7 +1559,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {String} slideId
      * @returns {Number}
      */
-    shower.getSlideNumber = function(slideId) {
+    shower.getSlideNumber = function (slideId) {
         var i = shower.slideList.length - 1,
             slideNumber;
 
@@ -1548,14 +1585,14 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Function} [callback] runs only if you not in List mode.
      * @returns {Number|Boolean}
      */
-    shower.go = function(slideNumber, callback) {
+    shower.go = function (slideNumber, callback) {
         var slide;
 
-        if ( ! shower._isNumber(slideNumber)) {
+        if (!shower._isNumber(slideNumber)) {
             throw new Error('Gimme slide number as Number, baby!');
         }
 
-        if ( ! shower.slideList[slideNumber]) {
+        if (!shower.slideList[slideNumber]) {
             return false;
         }
 
@@ -1586,12 +1623,12 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Function} [callback] runs only if shower.next() is successfully completed.
      * @returns {Boolean}
      */
-    shower.next = function(callback) {
+    shower.next = function (callback) {
         var currentSlideNumber = shower.getCurrentSlideNumber(),
             nextSlide = shower.slideList[currentSlideNumber + 1];
 
         // If don't exist next slide
-        if (! nextSlide) {
+        if (!nextSlide) {
             return false;
         }
 
@@ -1608,7 +1645,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      *
      * @param {Function} [callback]
      */
-    shower._turnNextSlide = function(callback) {
+    shower._turnNextSlide = function (callback) {
         var currentSlideNumber = shower.getCurrentSlideNumber(),
             slide = shower.slideList[currentSlideNumber];
 
@@ -1632,7 +1669,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Function} [callback] runs only if shower.previous() is successfully completed.
      * @returns {Boolean}
      */
-    shower.prev = shower.previous = function(callback) {
+    shower.prev = shower.previous = function (callback) {
         var currentSlideNumber = shower.getCurrentSlideNumber();
 
         // Slides starts from 0
@@ -1654,7 +1691,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Function} [callback] runs only if shower.previous() is successfully completed.
      * @returns {Boolean}
      */
-    shower._turnPreviousSlide = function(callback) {
+    shower._turnPreviousSlide = function (callback) {
         var currentSlideNumber = shower.getCurrentSlideNumber(),
             slide = shower.slideList[currentSlideNumber];
 
@@ -1677,7 +1714,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * Show first slide.
      * @param {Function} [callback]
      */
-    shower.first = function(callback) {
+    shower.first = function (callback) {
         var slide = shower.slideList[shower.getCurrentSlideNumber()];
 
         slide && slide.timing && slide.stopTimer();
@@ -1692,7 +1729,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * Show last slide.
      * @param {Function} [callback]
      */
-    shower.last = function(callback) {
+    shower.last = function (callback) {
         var slide = shower.slideList[shower.getCurrentSlideNumber()];
 
         slide && slide.timing && slide.stopTimer();
@@ -1708,7 +1745,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Function} [callback] runs only if shower.enterSlideMode() is successfully completed.
      * @returns {Boolean}
      */
-    shower.enterSlideMode = function(callback) {
+    shower.enterSlideMode = function (callback) {
         var currentSlideNumber = shower.getCurrentSlideNumber();
 
         // Anyway: change body class (@TODO: refactoring)
@@ -1734,7 +1771,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Function} [callback] runs only if shower.enterListMode() is successfully completed.
      * @returns {Boolean}
      */
-    shower.enterListMode = function(callback) {
+    shower.enterListMode = function (callback) {
         var currentSlideNumber;
 
         // Anyway: change body class (@TODO: refactoring)
@@ -1769,7 +1806,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * Toggle Mode: Slide and List.
      * @param {Function} [callback]
      */
-    shower.toggleMode = function(callback) {
+    shower.toggleMode = function (callback) {
         if (shower.isListMode()) {
             shower.enterSlideMode();
         } else {
@@ -1790,7 +1827,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * If there is a slide number in url, but the slide does not exist, return 0.
      * @returns {Number}
      */
-    shower.getCurrentSlideNumber = function() {
+    shower.getCurrentSlideNumber = function () {
         var i = shower.slideList.length - 1,
             currentSlideId = url.hash.substr(1);
 
@@ -1814,11 +1851,11 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Number} slideNumber slide number (sic!)
      * @returns {Boolean}
      */
-    shower.scrollToSlide = function(slideNumber) {
+    shower.scrollToSlide = function (slideNumber) {
         var currentSlide,
             ret = false;
 
-        if ( ! shower._isNumber(slideNumber)) {
+        if (!shower._isNumber(slideNumber)) {
             throw new Error('Gimme slide number as Number, baby!');
         }
 
@@ -1846,15 +1883,15 @@ window.shower = window.shower || (function(window, document, undefined) {
      * Check if it's List mode.
      * @returns {Boolean}
      */
-    shower.isListMode = function() {
-        return isHistoryApiSupported ? ! /^full.*/.test(url.search.substr(1)) : body.classList.contains('list');
+    shower.isListMode = function () {
+        return isHistoryApiSupported ? !/^full.*/.test(url.search.substr(1)) : body.classList.contains('list');
     };
 
     /**
      * Check if it's Slide mode.
      * @returns {Boolean}
      */
-    shower.isSlideMode = function() {
+    shower.isSlideMode = function () {
         return isHistoryApiSupported ? /^full.*/.test(url.search.substr(1)) : body.classList.contains('full');
     };
 
@@ -1863,13 +1900,13 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Number} slideNumber slide number (sic!)
      * @returns {Boolean}
      */
-    shower.updateProgress = function(slideNumber) {
+    shower.updateProgress = function (slideNumber) {
         // if progress bar doesn't exist
         if (null === progress) {
             return false;
         }
 
-        if ( ! shower._isNumber(slideNumber)) {
+        if (!shower._isNumber(slideNumber)) {
             throw new Error('Gimme slide number as Number, baby!');
         }
 
@@ -1883,14 +1920,14 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Number} slideNumber slide number (sic!)
      * @returns {Boolean}
      */
-    shower.updateActiveAndVisitedSlides = function(slideNumber) {
+    shower.updateActiveAndVisitedSlides = function (slideNumber) {
         var i,
             slide,
             l = shower.slideList.length;
 
         slideNumber = shower._normalizeSlideNumber(slideNumber);
 
-        if ( ! shower._isNumber(slideNumber)) {
+        if (!shower._isNumber(slideNumber)) {
             throw new Error('Gimme slide number as Number, baby!');
         }
 
@@ -1915,7 +1952,7 @@ window.shower = window.shower || (function(window, document, undefined) {
     /**
      * Clear presenter notes in console (only for Slide Mode).
      */
-    shower.clearPresenterNotes = function() {
+    shower.clearPresenterNotes = function () {
         if (shower.isSlideMode() && window.console && window.console.clear) {
             console.clear();
         }
@@ -1925,7 +1962,7 @@ window.shower = window.shower || (function(window, document, undefined) {
      * Show presenter notes in console.
      * @param {Number} slideNumber slide number (sic!). Attention: starts from zero.
      */
-    shower.showPresenterNotes = function(slideNumber) {
+    shower.showPresenterNotes = function (slideNumber) {
         shower.clearPresenterNotes();
 
         if (window.console) {
@@ -1936,7 +1973,7 @@ window.shower = window.shower || (function(window, document, undefined) {
                 notes = document.getElementById(slideId).querySelector('footer');
 
             if (notes && notes.innerHTML) {
-                console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+                console.info(notes.innerHTML.replace(/\n\s+/g, '\n'));
             }
 
             if (nextSlideId) {
@@ -1944,7 +1981,7 @@ window.shower = window.shower || (function(window, document, undefined) {
                 var next = document.getElementById(nextSlideId).querySelector('h2');
 
                 if (next) {
-                    next = next.innerHTML.replace(/^\s+|<[^>]+>/g,'');
+                    next = next.innerHTML.replace(/^\s+|<[^>]+>/g, '');
                     console.info('NEXT: ' + next);
                 }
             }
@@ -1956,8 +1993,8 @@ window.shower = window.shower || (function(window, document, undefined) {
      * @param {Number} slideNumber slide number (sic!). Attention: starts from zero.
      * @returns {String}
      */
-    shower.getSlideHash = function(slideNumber) {
-        if ( ! shower._isNumber(slideNumber)) {
+    shower.getSlideHash = function (slideNumber) {
+        if (!shower._isNumber(slideNumber)) {
             throw new Error('Gimme slide number as Number, baby!');
         }
 
@@ -2000,13 +2037,13 @@ window.shower = window.shower || (function(window, document, undefined) {
 
     // Event handlers
 
-    window.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('DOMContentLoaded', function () {
         var currentSlideNumber = shower.getCurrentSlideNumber(),
             isSlideMode = body.classList.contains('full') || shower.isSlideMode();
 
         if (currentSlideNumber === -1 && isSlideMode) {
             shower.go(0);
-        } else if (currentSlideNumber ===  0 || isSlideMode) {
+        } else if (currentSlideNumber === 0 || isSlideMode) {
             shower.go(currentSlideNumber);
         }
 
@@ -2015,7 +2052,7 @@ window.shower = window.shower || (function(window, document, undefined) {
         }
     }, false);
 
-    window.addEventListener('popstate', function() {
+    window.addEventListener('popstate', function () {
         var currentSlideNumber = shower.getCurrentSlideNumber();
 
         if (currentSlideNumber !== -1) {
@@ -2029,13 +2066,18 @@ window.shower = window.shower || (function(window, document, undefined) {
         }
     }, false);
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         if (shower.isSlideMode()) {
             shower._applyTransform(shower._getTransform());
         }
     }, false);
-
-    document.addEventListener('keydown', function(e) {
+    window.addEventListener("hashchange", function (event) {
+        var currentSlideNumber = shower.getCurrentSlideNumber();
+        if (currentSlideNumber == -1) {
+            shower.enterListMode();
+        }
+    }, false);
+    document.addEventListener('keydown', function (e) {
         var currentSlideNumber = shower.getCurrentSlideNumber(),
             slide = shower.slideList[ currentSlideNumber !== -1 ? currentSlideNumber : 0 ],
             slideNumber;
@@ -2093,7 +2135,9 @@ window.shower = window.shower || (function(window, document, undefined) {
             case 37: // Left
             case 72: // H
             case 75: // K
-                if (e.altKey || e.ctrlKey || e.metaKey) { return; }
+                if (e.altKey || e.ctrlKey || e.metaKey) {
+                    return;
+                }
                 e.preventDefault();
                 shower._turnPreviousSlide();
                 break;
@@ -2103,7 +2147,9 @@ window.shower = window.shower || (function(window, document, undefined) {
             case 39: // Right
             case 76: // L
             case 74: // J
-                if (e.altKey || e.ctrlKey || e.metaKey) { return; }
+                if (e.altKey || e.ctrlKey || e.metaKey) {
+                    return;
+                }
                 e.preventDefault();
                 shower._turnNextSlide();
                 break;
@@ -2131,7 +2177,7 @@ window.shower = window.shower || (function(window, document, undefined) {
 
     shower.init();
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         var slideId = shower._getSlideIdByEl(e.target),
             slideNumber,
             slide;
@@ -2152,14 +2198,14 @@ window.shower = window.shower || (function(window, document, undefined) {
         }
     }, false);
 
-    document.addEventListener('touchstart', function(e) {
+    document.addEventListener('touchstart', function (e) {
         var slideId = shower._getSlideIdByEl(e.target),
             slideNumber,
             slide,
             x;
 
         if (slideId) {
-            if (shower.isSlideMode() && ! shower._checkInteractiveElement(e)) {
+            if (shower.isSlideMode() && !shower._checkInteractiveElement(e)) {
                 x = e.touches[0].pageX;
 
                 if (x > window.innerWidth / 2) {
@@ -2186,19 +2232,19 @@ window.shower = window.shower || (function(window, document, undefined) {
 
     }, false);
 
-    document.addEventListener('touchmove', function(e) {
+    document.addEventListener('touchmove', function (e) {
         if (shower.isSlideMode()) {
             e.preventDefault();
         }
     }, false);
 
-//    document.addEventListener('wheel', shower.wheel, false);
-//    document.addEventListener('mousewheel', shower.wheel, false);
+    //    document.addEventListener('wheel', shower.wheel, false);
+    //    document.addEventListener('mousewheel', shower.wheel, false);
 
     return shower;
 
 })(this, this.document);
 
-    </script>
+</script>
 </body>
 </html>
