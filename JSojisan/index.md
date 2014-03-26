@@ -210,7 +210,7 @@ ThrowStatement {
 # [JSCS](https://github.com/mdevils/node-jscs "JSCS")
  
 
-- JavaScript Code Style
+- JavaScript Code Style Checker
 - JSHintと併用してコーディングのスタイルをチェックするツール
 	- JSHint 3.0でスタイル関係のルールは外される
 - tokensをみて **スタイル** をチェックする
