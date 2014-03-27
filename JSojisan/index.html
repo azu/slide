@@ -968,7 +968,7 @@ ThrowStatement {
 <li>tokensをみて <strong>スタイル</strong> をチェックする<ul>
 <li>AST自体は抽象表現なのでスタイルをチェックするには不向き</li>
 <li>ホワイトスペースとか<code>;</code>があるとかそういう情報はASTには(そのままだと)ない</li>
-<li>コードの最小単位であるtokensを見ることでスタイルをチェックする</li>
+<li>コードの最小単位であるtokensを見ることでスタイルをチェック</li>
 </ul>
 </li>
 </ul>
@@ -1014,7 +1014,7 @@ ThrowStatement {
     <div class="slide-wrapper">
       <h1 id="-eslint-http-eslint-org-eslint-lint"><a href="http://eslint.org/" title="ESLint">ESLint</a>で局所的Lint</h1>
 <ul>
-<li>プラグインで<em>プロジェクト固有のLint*</em>が簡単に実現できる</li>
+<li>プラグインで<strong>プロジェクト固有のLint</strong>が簡単に実現できる</li>
 <li><a href="https://github.com/Constellation/escodegen/commit/48bfe1947f6cd09cf539de350859dba14431b255" title="Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen">Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen</a></li>
 </ul>
 
@@ -1044,7 +1044,8 @@ ThrowStatement {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-">書いてみよう</h1>
+      <h1 id="-">ツールを書いてみよう</h1>
+<p>JavaScript ASTを使ったツールを書いてみよう</p>
 
     </div>
   </section>
@@ -1052,7 +1053,6 @@ ThrowStatement {
     <div class="slide-wrapper">
       <h2 id="mocha-">Mochaのテストをパースする例</h2>
 <ul>
-<li><a href="https://github.com/azu/MechaMocha" title="MechaMocha">MechaMocha</a></li>
 <li>BDD的なテスト構造をテキストとして吐きだしたい!</li>
 <li>=&gt; JavaScript ASTを見てテストの構造を取ってみる</li>
 <li>describe - context - it ...</li>
@@ -1104,7 +1104,7 @@ IsNaN
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="mechamocha">MechaMocha</h2>
+      <h2 id="-mechamocha-https-github-com-azu-mechamocha-mechamocha-"><a href="https://github.com/azu/MechaMocha" title="MechaMocha">MechaMocha</a></h2>
 <ul>
 <li><a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使ったシンプルな走査</li>
 <li>ASTは木構造だがプロパティの種類が多くて大変</li>
@@ -1204,7 +1204,7 @@ IsNaN
     <div class="slide-wrapper">
       <h2 id="ast-">ASTからコードは?</h2>
 <ul>
-<li><a href="https://github.com/Constellation/escodegen" title="Escodegen">Escodegen</a>を使う</li>
+<li><a href="https://github.com/Constellation/escodegen" title="Escodegen">Escodegen</a>を使うといい</li>
 </ul>
 
     </div>

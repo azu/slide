@@ -216,7 +216,7 @@ ThrowStatement {
 - tokensをみて **スタイル** をチェックする
 	- AST自体は抽象表現なのでスタイルをチェックするには不向き
 	- ホワイトスペースとか`;`があるとかそういう情報はASTには(そのままだと)ない
-	- コードの最小単位であるtokensを見ることでスタイルをチェックする
+	- コードの最小単位であるtokensを見ることでスタイルをチェック
 
 
 --
@@ -249,7 +249,7 @@ ThrowStatement {
 
 # [ESLint](http://eslint.org/ "ESLint")で局所的Lint
 
-- プラグインで*プロジェクト固有のLint**が簡単に実現できる
+- プラグインで**プロジェクト固有のLint**が簡単に実現できる
 - [Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen](https://github.com/Constellation/escodegen/commit/48bfe1947f6cd09cf539de350859dba14431b255 "Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen")
 
 --
@@ -270,13 +270,14 @@ ThrowStatement {
 
 --
 
-# 書いてみよう
+# ツールを書いてみよう
+
+JavaScript ASTを使ったツールを書いてみよう
 
 --
 
 ## Mochaのテストをパースする例
 
-- [MechaMocha](https://github.com/azu/MechaMocha "MechaMocha")
 - BDD的なテスト構造をテキストとして吐きだしたい!
 - => JavaScript ASTを見てテストの構造を取ってみる
 - describe - context - it ...
@@ -330,7 +331,7 @@ IsNaN
 
 --
 
-## MechaMocha
+## [MechaMocha](https://github.com/azu/MechaMocha "MechaMocha")
 
 * [Estraverse](https://github.com/Constellation/estraverse "Estraverse")を使ったシンプルな走査
 * ASTは木構造だがプロパティの種類が多くて大変
@@ -404,4 +405,4 @@ IsNaN
 
 ## ASTからコードは?
 
-* [Escodegen](https://github.com/Constellation/escodegen "Escodegen")を使う
+* [Escodegen](https://github.com/Constellation/escodegen "Escodegen")を使うといい
