@@ -257,10 +257,11 @@ ThrowStatement {
 
 # 局所的Lintの例
 
-- あるブログサイトのJSで特定のコメントが出てきてないかチェックしたい!
+- あるブログサイトのJSで**特定のコメント**が出てきてないかチェックしたい!
 	- ✘ "なぜやってるのか不明"
 	- ✘ "コピペ"
 - といったコメントを検出したい！
+- JavaScript ASTベースなら文字列リテラルとコメントの区別が簡単
 - [hatena-blog-js-lint](https://github.com/azu/hatena-blog-js-lint "hatena-blog-js-lint")
 
 --
