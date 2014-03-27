@@ -86,7 +86,7 @@ output: index.html
 * AST(Abstract Syntax Tree)はコードをパースした抽象構文木
 * Mozilla JavaScript AST([Parser API](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API "Parser API")) がデファクト
 * JavaScript AST扱う際にはただのJavaScriptオブジェクト
-* Code -> Token(図) -> AST(tokenの関係を構造化したもの)
+* Code -> Token -> AST(tokenの関係を構造化したもの)
 * 端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの
 
 
@@ -214,7 +214,9 @@ ThrowStatement {
 - JSHintと併用してコーディングのスタイルをチェックするツール
 	- JSHint 3.0でスタイル関係のルールは外される
 - tokensをみて **スタイル** をチェックする
-	- AST自体は抽象表現なのでスタイルをチェックするには不向きなのでtokensを見てる
+	- AST自体は抽象表現なのでスタイルをチェックするには不向き
+	- ホワイトスペースとか`;`があるとかそういう情報はASTには(そのままだと)ない
+	- コードの最小単位であるtokensを見ることでスタイルをチェックする
 
 
 --
@@ -222,7 +224,8 @@ ThrowStatement {
 # [JSX](http://jsx.github.io/ "JSX")言語のminifier
 
 - minify処理の一部で[esmangle](https://github.com/Constellation/esmangle "esmangle")を利用
-- ASTレベルでminifyをして、安全にコードを圧縮できるように設計されてる
+- ASTレベルでminifyをする
+- 安全にコードを圧縮できるように設計されてる
 
 --
 
@@ -246,24 +249,24 @@ ThrowStatement {
 
 # [ESLint](http://eslint.org/ "ESLint")で局所的Lint
 
-- プラグインでルールを追加すれば、プロジェクト固有のLintが簡単に実現できる
+- プラグインで*プロジェクト固有のLint**が簡単に実現できる
 - [Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen](https://github.com/Constellation/escodegen/commit/48bfe1947f6cd09cf539de350859dba14431b255 "Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen")
 
 --
 
 # 局所的Lintの例
 
-![はてなブログのLint](resources/hatena-blog-js-lint.png)
+- あるブログサイトのJSで特定のコメントが出てきてないかチェックしたい!
+	- ✘ "なぜやってるのか不明"
+	- ✘ "コピペ"
+- といったコメントを検出したい！
+- [hatena-blog-js-lint](https://github.com/azu/hatena-blog-js-lint "hatena-blog-js-lint")
 
 --
 
-# 局所的Lint
+# あるブログサイトをLintした例
 
-- あるブログサイトのJSで特定のコメントが出てきてないかチェックする
-	- ✘ "なぜやってるのか不明"
-	- ✘ "コピペ"
-- といったコメントを検出できる！
-- [hatena-blog-js-lint](https://github.com/azu/hatena-blog-js-lint "hatena-blog-js-lint")
+![はてなブログのLint](resources/hatena-blog-js-lint.png)
 
 --
 
