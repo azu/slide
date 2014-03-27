@@ -813,7 +813,7 @@ a {
 <li>AST(Abstract Syntax Tree)はコードをパースした抽象構文木</li>
 <li>Mozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>) がデファクト</li>
 <li>JavaScript AST扱う際にはただのJavaScriptオブジェクト</li>
-<li>Code -&gt; Token(図) -&gt; AST(tokenの関係を構造化したもの)</li>
+<li>Code -&gt; Token -&gt; AST(tokenの関係を構造化したもの)</li>
 <li>端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの</li>
 </ul>
 
@@ -966,7 +966,9 @@ ThrowStatement {
 </ul>
 </li>
 <li>tokensをみて <strong>スタイル</strong> をチェックする<ul>
-<li>AST自体は抽象表現なのでスタイルをチェックするには不向きなのでtokensを見てる</li>
+<li>AST自体は抽象表現なのでスタイルをチェックするには不向き</li>
+<li>ホワイトスペースとか<code>;</code>があるとかそういう情報はASTには(そのままだと)ない</li>
+<li>コードの最小単位であるtokensを見ることでスタイルをチェックする</li>
 </ul>
 </li>
 </ul>
@@ -978,7 +980,8 @@ ThrowStatement {
       <h1 id="-jsx-http-jsx-github-io-jsx-minifier"><a href="http://jsx.github.io/" title="JSX">JSX</a>言語のminifier</h1>
 <ul>
 <li>minify処理の一部で<a href="https://github.com/Constellation/esmangle" title="esmangle">esmangle</a>を利用</li>
-<li>ASTレベルでminifyをして、安全にコードを圧縮できるように設計されてる</li>
+<li>ASTレベルでminifyをする</li>
+<li>安全にコードを圧縮できるように設計されてる</li>
 </ul>
 
     </div>
@@ -1011,7 +1014,7 @@ ThrowStatement {
     <div class="slide-wrapper">
       <h1 id="-eslint-http-eslint-org-eslint-lint"><a href="http://eslint.org/" title="ESLint">ESLint</a>で局所的Lint</h1>
 <ul>
-<li>プラグインでルールを追加すれば、プロジェクト固有のLintが簡単に実現できる</li>
+<li>プラグインで<em>プロジェクト固有のLint*</em>が簡単に実現できる</li>
 <li><a href="https://github.com/Constellation/escodegen/commit/48bfe1947f6cd09cf539de350859dba14431b255" title="Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen">Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen</a></li>
 </ul>
 
@@ -1020,22 +1023,22 @@ ThrowStatement {
   <section class="slide">
     <div class="slide-wrapper">
       <h1 id="-lint-">局所的Lintの例</h1>
-<p><img src="resources/hatena-blog-js-lint.png" alt="はてなブログのLint"></p>
+<ul>
+<li>あるブログサイトのJSで特定のコメントが出てきてないかチェックしたい!<ul>
+<li>✘ &quot;なぜやってるのか不明&quot;</li>
+<li>✘ &quot;コピペ&quot;</li>
+</ul>
+</li>
+<li>といったコメントを検出したい！</li>
+<li><a href="https://github.com/azu/hatena-blog-js-lint" title="hatena-blog-js-lint">hatena-blog-js-lint</a></li>
+</ul>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-lint">局所的Lint</h1>
-<ul>
-<li>あるブログサイトのJSで特定のコメントが出てきてないかチェックする<ul>
-<li>✘ &quot;なぜやってるのか不明&quot;</li>
-<li>✘ &quot;コピペ&quot;</li>
-</ul>
-</li>
-<li>といったコメントを検出できる！</li>
-<li><a href="https://github.com/azu/hatena-blog-js-lint" title="hatena-blog-js-lint">hatena-blog-js-lint</a></li>
-</ul>
+      <h1 id="-lint-">あるブログサイトをLintした例</h1>
+<p><img src="resources/hatena-blog-js-lint.png" alt="はてなブログのLint"></p>
 
     </div>
   </section>
@@ -1161,7 +1164,7 @@ IsNaN
 <li>JavaScript ASTは既に色々なツールで使われてる</li>
 <li>言語仕様に近いので、より正確にJavaScriptコードを扱える</li>
 <li>JS AST自体はただのJavaScriptオブジェクト/JSON<ul>
-<li>実際にコードをASTを見る、トライアンドエラーして慣れるのが近道 - <a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima:Parser</a></li>
+<li>実際にコードのASTを見る、トライアンドエラーして慣れるのが近道 - <a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima:Parser</a></li>
 <li>JavaScriptの構文が分かってるならだれでも扱える</li>
 </ul>
 </li>
