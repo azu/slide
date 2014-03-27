@@ -85,7 +85,7 @@ output: index.html
 
 * AST(Abstract Syntax Tree)はコードをパースした抽象構文木
 * Mozilla JavaScript AST([Parser API](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API "Parser API")) がデファクト
-* JavaScript AST扱う際にはただのJavaScriptオブジェクト
+* 実際に扱う際にはただのJavaScriptオブジェクト
 * Code -> Token -> AST(tokenの関係を構造化したもの)
 * 端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの
 
@@ -114,7 +114,7 @@ new C(1 + a);
 --
 
 ### JS AST as JSON
-
+ 
 ![AST Image](resources/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations_7.jpg)
 
 
@@ -149,7 +149,8 @@ ThrowStatement {
 </code></pre>
 
 - **↑ Inspect Here ↑**
-- JavaScript ASTからHTMLタグを生成したもの
+- JavaScript AST は HTMLの構造ににてる??(同じく木構造)
+- JavaScript ASTから同じような構造の**HTML**にしてみた
 - [azu/syntax-highlighted-js-ast](https://github.com/azu/syntax-highlighted-js-ast "azu/syntax-highlighted-js-ast")
 
 --
