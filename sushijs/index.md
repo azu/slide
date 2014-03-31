@@ -90,11 +90,22 @@ asyncFunction().then(function (value) {
 
 ## Promise不向き
 
-* 状態が何度も変化する `readyState` 、 `PromgressEvent`
+* 状態が何度も変化する `readyState` 
 	* => Event 使え
-* 定期的にイベントが発生するのをキャッチしたい
+* 定期的にデータが飛んでくるのをキャッチしたい `PromgressEvent`
 	* => Event 使え
-* 
+* Stream…
+	* Stream 使え
+	* [Node.jsにPromiseが再びやって来た！ - ぼちぼち日記](http://d.hatena.ne.jp/jovi0608/20140319/1395199285 "Node.jsにPromiseが再びやって来た！ - ぼちぼち日記")
+
+--
+
+## Promiseいいところ
+
+* エラーハンドリングが自然と入ってる
+	* ただ[アンチパターン](http://p-baleine.hatenablog.com/entry/2014/03/14/085536 "アンチパターン")もある
+* 複数の非同期処理をまとめて扱うのが得意
+	* [コールバックでも何とかできるけど](http://azu.github.io/promises-book/#_chapter_2_promises "[WIP] Promises Book")、`Promise.all`がつよい
 
 --
 
