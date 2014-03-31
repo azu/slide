@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-    <title>カジュアルJavaScript AST</title>
+    <title>Promises Starter</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=792, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -704,7 +704,7 @@ a {
 <body class="list">
 
 <header class="caption">
-    <h1>カジュアルJavaScript AST</h1>
+    <h1>Promises Starter</h1>
     <ul>
         <li>
             Name : <a href="http:&#x2F;&#x2F;efcl.info&#x2F;">azu</a>
@@ -719,417 +719,68 @@ a {
 <div class="slideshow-wrapper">
       <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-javascript-ast">カジュアルJavaScript AST</h1>
-<p><img src="resources/ast-is.png" alt="ast-token"></p>
+      <h1 id="promises-starter">Promises Starter</h1>
+<p>Promisesのキホン</p>
+<p>約束の🍣🍣🍣</p>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-">自己紹介</h1>
-<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" width="196" /></p>
+      <h1 id="-">目次</h1>
 <ul>
-<li>Name : <strong>azu</strong></li>
-<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
-<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-">今日の概要</h1>
-<ul>
-<li>実は使われてるJavaScript AST</li>
-<li>JavaScript AST(Abstract Syntax Tree)とは?</li>
-<li>JavaScript ASTを使ったツール紹介</li>
-<li>使うだけじゃなくて書いてみよう</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-browserify-https-github-com-substack-node-browserify-browserify-"><a href="https://github.com/substack/node-browserify" title="browserify">browserify</a></h1>
-<ul>
-<li>Node.jsで書かれたものをブラウザ向けに変換するツール</li>
-<li>Node環境で開発 -&gt; browserifyでビルド -&gt; ブラウザで動く</li>
-<li>JavaScriptのコードを <strong>変換</strong> する<ul>
-<li>≒ JavaScript ASTを見て<strong>変換</strong> する</li>
-<li>本体の色々な部分、transform pluginなどでASTを使ってる</li>
+<li>Promiseは値の器</li>
+<li>Promise API Overview</li>
+<li>Promise State</li>
+<li>Resolve/Reject<ul>
+<li>XHRの例</li>
 </ul>
 </li>
+<li>エラーハンドリング</li>
 </ul>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-jsdoc-3-https-github-com-jsdoc3-jsdoc-jsdoc-3-"><a href="https://github.com/jsdoc3/jsdoc" title="JSDoc 3">JSDoc 3</a></h1>
-<ul>
-<li>JSDocのアノテーションからHTMLリファレンスを作成する標準ツール</li>
-<li>Node版の実装にesprimaが使われてる</li>
-<li>JSDocを解析したい場合は<a href="https://github.com/Constellation/doctrine" title="doctrine">doctrine</a>を使うのが楽</li>
-</ul>
+      <h1 id="promise-api-overview">Promise API Overview</h1>
+<h3 id="constructor">Constructor</h3>
+<pre><code class="lang-javascript"><span class="keyword">var</span> promise = <span class="keyword">new</span> Promise(<span class="keyword">function</span>(resolve, reject) { <span class="comment">/* (非同期)処理 */</span> });</code></pre>
+<h3 id="instance-method">Instance Method</h3>
+<pre><code class="lang-javascript">promise.then(onFulfilled, onRejected);
+promise.<span class="keyword">catch</span>(onRejected);</code></pre>
+<h3 id="static-method">Static Method</h3>
+<p><code>Promise.all()</code> 、 <code>Promise.resolve()</code> などの便利メソッド系</p>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-uglifyjs-2-https-github-com-mishoo-uglifyjs2-uglifyjs-2-"><a href="https://github.com/mishoo/UglifyJS2" title="UglifyJS 2">UglifyJS 2</a></h1>
-<ul>
-<li>JavaScriptコード圧縮ツール(minifier)</li>
-<li>コードを圧縮するためにコードをパースしてAST(構文木)を作る<ul>
-<li>1までは独自のASTのみ</li>
-<li>2からは一般的な<a href="https://github.com/mishoo/UglifyJS2#support-for-the-spidermonkey-ast" title="SpiderMonkey AST">SpiderMonkey AST</a>もサポート</li>
-</ul>
-</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-plato-https-github-com-es-analysis-plato-plato-"><a href="https://github.com/es-analysis/plato" title="plato">plato</a></h1>
-<ul>
-<li>コードのメトリクス計測のビジュアライズ</li>
-<li>コード解析的な事はJavaScript ASTを使うのに最もマッチした内容</li>
-</ul>
-<p><img src="resources/plato.jpg" alt="ぷらとん"></p>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="what-is-javascript-ast-">What is JavaScript AST?</h1>
-<p><img src="resources/ast-is-true.png" alt="ast-token"></p>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="javascript-ast-">JavaScript ASTって何?</h2>
-<ul>
-<li>AST(Abstract Syntax Tree)はコードをパースした抽象構文木</li>
-<li>Mozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>) がデファクト</li>
-<li>実際に扱う際にはただのJavaScriptオブジェクト</li>
-<li>Code -&gt; Token -&gt; AST(tokenの関係を構造化したもの)</li>
-<li>端的に言えばコードをJSON/JavaScriptオブジェクトで表現したもの</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="javascript-ast">JavaScript AST</h2>
-<pre><code class="lang-javascript"><span class="keyword">new</span> C(<span class="number">1</span> + a);</code></pre>
-<p>このコードには、以下のような要素(node)が存在する</p>
-<ul>
-<li><code>NewExpression</code> - <code>new</code>演算子</li>
-<li><code>BinaryExpression</code> の <code>+</code></li>
-<li><code>1</code> というvalueをもつ <code>Literal</code></li>
-<li><code>C</code> と <code>a</code> という変数は <code>Identifier</code></li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h3 id="js-ast-structure">JS AST Structure</h3>
-<p><img src="resources/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations1.jpg" alt="AST Image"></p>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h3 id="js-ast-as-json">JS AST as JSON</h3>
-<p><img src="resources/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations_7.jpg" alt="AST Image"></p>
-<blockquote>
-<p><a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a> からの引用</p>
-</blockquote>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="js-ast-as-html">JS AST as HTML</h2>
-<style>
-Keyword {
-    color: #445588;
-    font-weight: bold;
-}
-Identifier {
-    color: #009999;
-}
-Literal {
-    color: #E67A00;
-}
-VariableDeclaration {
-    color: purple;
-}
-ThrowStatement {
-    color: red;
-}
-</style>
-
-<pre><code>
-<Program><ExpressionStatement><NewExpression>new <Identifier>C</Identifier>(<BinaryExpression><Literal>1</Literal> + <Identifier>a</Identifier></BinaryExpression>)</NewExpression>;</ExpressionStatement>
-</Program>
-</code></pre>
-
-<ul>
-<li><strong>↑ Inspect Here ↑</strong></li>
-<li>JavaScript AST は HTMLの構造ににてる??(同じく木構造)</li>
-<li>JavaScript ASTから同じような構造の<strong>HTML</strong>にしてみた</li>
-<li><a href="https://github.com/azu/syntax-highlighted-js-ast" title="azu/syntax-highlighted-js-ast">azu/syntax-highlighted-js-ast</a></li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="-">習うより慣れろ</h2>
-<ul>
-<li><a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima: Parser</a></li>
-<li>コードを入力してどういうASTが出力されるかをみて理解する</li>
-<li>JavaScript ASTはECMAScriptの仕様を尊重してる</li>
-<li>JavaScriptの基本的な文法がわかってれば問題ない</li>
-<li>既に公開されてるツールを見ていく</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="javascript-ast-">JavaScript ASTを使ったツール</h1>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-tern-http-ternjs-net-tern-"><a href="http://ternjs.net/" title="Tern">Tern</a></h1>
-<ul>
-<li><a href="https://github.com/marijnh/tern_for_vim" title="Tern for Vim">Tern for Vim</a>や<a href="https://github.com/marijnh/tern_for_sublime" title=" Tern for Sublime Text">Tern for Sublime Text</a>の補完エンジン</li>
-<li>パーサーには<a href="http://marijnhaverbeke.nl/acorn/" title=" acorn.js "> acorn.js </a>が使われてる</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="-coffeescriptredux-https-github-com-michaelficarra-coffeescriptredux-coffeescriptredux-"><a href="https://github.com/michaelficarra/CoffeeScriptRedux" title="CoffeeScriptRedux">CoffeeScriptRedux</a></h2>
-<ul>
-<li><a href="https://www.kickstarter.com/projects/michaelficarra/make-a-better-coffeescript-compiler" title="Rewrite the CoffeeScript compiler">Rewrite the CoffeeScript compiler</a></li>
-<li>CoffeeScriptコンパイラをCoffeeScript AST -&gt; JS ASTという形で実装</li>
-<li><em>AST is IR(中間表現)</em></li>
-<li>LLVM みたいな雰囲気の使い方</li>
-<li>More Info<ul>
-<li><a href="http://aosd.net/2013/escodegen.html" title="Escodegen and Esmangle: Using Mozilla JavaScript AST as an IR">Escodegen and Esmangle: Using Mozilla JavaScript AST as an IR</a></li>
-<li><a href="https://speakerdeck.com/michaelficarra/redesigning-the-coffeescript-compiler" title="Redesigning the CoffeeScript Compiler // Speaker Deck">Redesigning the CoffeeScript Compiler // Speaker Deck</a></li>
-</ul>
-</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-power-assert-https-github-com-twada-power-assert-power-assert-t_wada-http-www-gravatar-com-avatar-9f3a83db74bee75a64b5e6ed106a775c-jpg-s-32-https-github-com-twada-"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a> <a href="https://github.com/twada"><img src="http://www.gravatar.com/avatar/9f3a83db74bee75a64b5e6ed106a775c.jpg?s=32" alt="t_wada"></a></h1>
-<p><img src="resources/power-assert.gif" /></p>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="power-assert-">power-assertのテスト失敗例</h2>
-<p><img src="resources/power-assert.png" width="100%"/></p>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="power-assert">power-assert</h2>
-<ul>
-<li>テストコード中に出てくる <code>assert()</code> 等のASTを変換</li>
-<li>失敗した場合に欲しい情報を埋め込めるように介入</li>
-<li>assertionの書き方はシンプル、だけど失敗しても分かりやすくなる</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-jscs-https-github-com-mdevils-node-jscs-jscs-"><a href="https://github.com/mdevils/node-jscs" title="JSCS">JSCS</a></h1>
-<ul>
-<li>JavaScript Code Style Checker</li>
-<li>JSHintと併用してコーディングのスタイルをチェックするツール<ul>
-<li>JSHint 3.0でスタイル関係のルールは外される</li>
-</ul>
-</li>
-<li>tokensをみて <strong>スタイル</strong> をチェックする<ul>
-<li>AST自体は抽象表現なのでスタイルをチェックするには不向き</li>
-<li>ホワイトスペースとか<code>;</code>があるとかそういう情報はASTには(そのままだと)ない</li>
-<li>コードの最小単位であるtokensを見ることでスタイルをチェック</li>
-</ul>
-</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-jsx-http-jsx-github-io-jsx-minifier"><a href="http://jsx.github.io/" title="JSX">JSX</a>言語のminifier</h1>
-<ul>
-<li>minify処理の一部で<a href="https://github.com/Constellation/esmangle" title="esmangle">esmangle</a>を利用</li>
-<li>ASTレベルでminifyをする</li>
-<li>安全にコードを圧縮できるように設計されてる</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-grasp-http-graspjs-com-grasp-"><a href="http://graspjs.com/" title="Grasp">Grasp</a></h1>
-<ul>
-<li>ASTを元にGrep/Sedのような検索/置換するツール</li>
-<li>ASTを元に検索するので、誤爆しない置換が行える</li>
-<li>コードベースやAST Query Selectorでの検索方法が用意されている</li>
-<li><a href="http://jser.info/post/73202282881/grasp-javascript" title="Graspを使ったJavaScriptのリファクタリング | JSer.info">Graspを使ったJavaScriptのリファクタリング | JSer.info</a></li>
-<li><a href="http://efcl.info/2014/0209/res3658/" title="JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch">JavaScriptライブラリの気になる実装をどうやって見ていくか | Web scratch</a></li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-eslint-http-eslint-org-eslint-"><a href="http://eslint.org/" title="ESLint">ESLint</a></h1>
-<ul>
-<li>ASTを元にコードのLintをするツール</li>
-<li>JSHintと役割は被る部分が多い。</li>
-<li>プラグインで独自のルールを追加しやすいのが特徴</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-eslint-http-eslint-org-eslint-lint"><a href="http://eslint.org/" title="ESLint">ESLint</a>で局所的Lint</h1>
-<ul>
-<li>プラグインで<strong>プロジェクト固有のLint</strong>が簡単に実現できる</li>
-<li><a href="https://github.com/Constellation/escodegen/commit/48bfe1947f6cd09cf539de350859dba14431b255" title="Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen">Avoid &#34;push&#34; with multiple arguments due to performance issue. · 48bfe19 · Constellation/escodegen</a></li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-lint-">局所的Lintの例</h1>
-<ul>
-<li>あるブログサイトのJSで<strong>特定のコメント</strong>が出てきてないかチェックしたい!<ul>
-<li>✘ &quot;なぜやってるのか不明&quot;</li>
-<li>✘ &quot;コピペ&quot;</li>
-</ul>
-</li>
-<li>といったコメントを検出したい！</li>
-<li>JavaScript ASTベースなら文字列リテラルとコメントの区別が簡単</li>
-<li><a href="https://github.com/azu/hatena-blog-js-lint" title="hatena-blog-js-lint">hatena-blog-js-lint</a></li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-lint-">あるブログサイトをLintした例</h1>
-<p><img src="resources/hatena-blog-js-lint.png" alt="はてなブログのLint"></p>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h1 id="-">ツールを書いてみよう</h1>
-<p>JavaScript ASTを使ったツールを書いてみよう</p>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="mocha-">Mochaのテストをパースする例</h2>
-<ul>
-<li>BDD的なテスト構造をテキストとして吐きだしたい!</li>
-<li>=&gt; JavaScript ASTを見てテストの構造を取ってみる</li>
-<li>describe - context - it ...</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="example">Example</h2>
-<pre><code class="lang-javascript"><span class="keyword">var</span> assert = require(<span class="string">"power-assert"</span>);
-describe(<span class="string">'Array'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-    describe(<span class="string">'#indexOf()'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        it(<span class="string">'should return -1 when the value is not present'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">5</span>), -<span class="number">1</span>);
-            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">0</span>), -<span class="number">1</span>);
-        });
-        it(<span class="string">'should return -1 when the value is not present'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">5</span>), -<span class="number">1</span>);
-            assert.equal([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">0</span>), -<span class="number">1</span>);
-        })
+      <h2 id="promise-">Promiseのキホン的な流れ</h2>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunction</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> <span class="keyword">new</span> Promise(<span class="function"><span class="keyword">function</span> <span class="params">(resolve, reject)</span> {</span>
+        setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+            resolve(<span class="string">'Async Hello world'</span>);
+        }, <span class="number">16</span>);
     });
-});
-describe(<span class="string">'IsNaN'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-    context(<span class="string">"when value is NaN"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        it(<span class="string">'should return true'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            assert(isNaN(<span class="literal">NaN</span>));
-        });
-    });
+}
+asyncFunction().then(<span class="function"><span class="keyword">function</span> <span class="params">(value)</span> {</span>
+    console.log(value);<span class="comment">// =&gt; 'Async Hello world'</span>
+}).<span class="keyword">catch</span>(<span class="function"><span class="keyword">function</span> <span class="params">(error)</span> {</span>
+    console.log(error);<span class="comment">// =&gt; エラーが合った時はこちら</span>
 });</code></pre>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="output">Output</h2>
-<p>テストコードから以下のようなテキストを出力</p>
-<pre><code>Array
-   #indexOf()
-     should return -1 when the value is not present
-       [1, 2, 3].indexOf(5) equal -1
-       [1, 2, 3].indexOf(0) equal -1
-IsNaN
-   when value is NaN
-     should return true
-       assert isNaN(NaN)</code></pre>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="-mechamocha-https-github-com-azu-mechamocha-mechamocha-"><a href="https://github.com/azu/MechaMocha" title="MechaMocha">MechaMocha</a></h2>
+      <h2 id="promise-then">promise.then</h2>
+<p><img src="promise-onFulfilled_onRejected.png" alt="promise-onFulfilled_onRejected"></p>
 <ul>
-<li><a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使ったシンプルな走査</li>
-<li>ASTは木構造だがプロパティの種類が多くて大変</li>
-<li>traverseライブラリを使うのが一般的</li>
-</ul>
-
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <ul>
-<li><strong>enter</strong><ul>
-<li><code>&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;</code> の <code>CallExpression</code> ならindentレベルを+1<ul>
-<li><code>[&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;]</code> なら print<ul>
-<li><code>assert</code> ならprint</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>leave</strong><ul>
-<li><code>&quot;describe&quot;, &quot;context&quot;, &quot;it&quot;</code> の <code>CallExpression</code> ならindentレベルを-1</li>
+<li>状態が変化する == <code>then</code>で登録しておいた関数が呼ばれる</li>
+<li><code>resolve</code> には 結果の値 を渡す(解決)</li>
+<li><code>reject</code> には Errorオブジェクト を渡す(棄却)<ul>
+<li><code>throw</code> しないでErrorオブジェクトを渡すマナー</li>
 </ul>
 </li>
 </ul>
@@ -1138,75 +789,223 @@ IsNaN
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="-visualize-estraverse-step-http-azu-github-io-visualize_estraverse-visualize-estraverse-step-"><a href="http://azu.github.io/visualize_estraverse/" title="visualize estraverse step">visualize estraverse step</a></h2>
-<iframe src="http://azu.github.io/visualize_estraverse/#describe%28%27Array%27%2C%20function%20%28%29%20{%0A%20%20%20%20describe%28%27%23indexOf%28%29%27%2C%20function%20%28%29%20{%0A%20%20%20%20%20%20%20%20it%28%27should%20return%20-1%20when%20the%20value%20is%20not%20present%27%2C%20function%20%28%29%20{%0A%20%20%20%20%20%20%20%20%20%20%20%20assert%281%29%3B%0A%20%20%20%20%20%20%20%20}%29%3B%0A%20%20%20%20}%29%3B%0A}%29%3B" width="100%" height="450" style="border: 1px black solid;"></iframe>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="slide-wrapper">
-      <h2 id="-azu-inlining-node-require-https-github-com-azu-inlining-node-require-azu-inlining-node-require-"><a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a></h2>
+      <h2 id="promise-state">Promise State</h2>
+<p><img src="promise-states.png" alt="promise-state"></p>
 <ul>
-<li>node.jsの<code>require</code>をインライン化してつなげる</li>
-<li><a href="https://github.com/substack/node-falafel" title="falafel">falafel</a>を使いASTを編集</li>
+<li>Promiseの状態は3種類 - <code>Pending</code>、<code>Fulfilled</code>、<code>Rejected</code></li>
+<li><code>Pending</code> -&gt; Settled(<code>Fulfilled</code> or <code>Rejected</code>)時に関数を呼ぶ</li>
+<li>Promiseの状態は一度変化したら変化しなくなる</li>
+<li>つまり、登録した関数が呼ばれるのは一度切り</li>
 </ul>
-<h2 id="-azu-remove-use-strict-https-github-com-azu-remove-use-strict-azu-remove-use-strict-"><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a></h2>
-<ul>
-<li>無意味な<code>&quot;use strict&quot;</code>を取り除く</li>
-<li>関数スコープを意識した作り</li>
-<li><a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使うと楽に関数スコープをみていける</li>
-</ul>
-<p><a href="http://efcl.info/2014/0316/res3719/" title="Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web scratch">Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web scratch</a></p>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="-">まとめ</h2>
+      <h2 id="promise-">Promise不向き</h2>
 <ul>
-<li>JavaScript ASTは既に色々なツールで使われてる</li>
-<li>言語仕様に近いので、より正確にJavaScriptコードを扱える</li>
-<li>JS AST自体はただのJavaScriptオブジェクト/JSON<ul>
-<li>実際にコードのASTを見る、トライアンドエラーして慣れるのが近道 - <a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima:Parser</a></li>
-<li>JavaScriptの構文が分かってるならだれでも扱える</li>
+<li>状態が何度も変化する <code>readyState</code> 、 <code>PromgressEvent</code><ul>
+<li>=&gt; Event 使え</li>
 </ul>
 </li>
-<li><a href="http://eslint.org/" title="ESLint">ESLint</a>のプラグインやちょっとしたツールにASTを使えると楽しくなる</li>
+<li>定期的にイベントが発生するのをキャッチしたい<ul>
+<li>=&gt; Event 使え
+*</li>
+</ul>
+</li>
 </ul>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="-">参考</h2>
+      <h2 id="xhr">XHR</h2>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">getURL</span><span class="params">(URL)</span> {</span>
+    <span class="keyword">return</span> <span class="keyword">new</span> Promise(<span class="function"><span class="keyword">function</span> <span class="params">(resolve, reject)</span> {</span>
+        <span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest();
+        req.open(<span class="string">'GET'</span>, URL, <span class="literal">false</span>);
+        req.onload = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+              resolve(req.response);
+        };
+        req.onerror = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+            reject(<span class="keyword">new</span> Error(req.statusText));
+        };
+        req.send();
+    });
+}</code></pre>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="use-promised-xhr">Use promised XHR</h2>
 <ul>
-<li><a href="http://azu.github.io/slide/tkbjs/js-ast-walker.html" title="JavaScript AST Walker">JavaScript AST Walker</a></li>
-<li><a href="http://www.slideshare.net/ariyahidayat/javascript-parser-infrastructure-for-code-quality-analysis#" title="JavaScript Parser Infrastructure for Code Quality Analysis">JavaScript Parser Infrastructure for Code Quality Analysis</a></li>
-<li><a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a></li>
-<li><a href="http://gregfranko.com/building-javascript-tools-talk/" title="Building JavaScript Tools">Building JavaScript Tools</a></li>
+<li><code>resolve</code> なら <code>onFulfilled</code> が呼ばれる</li>
+<li><code>reject</code> なら <code>onRejected</code> が呼ばれる</li>
+</ul>
+<pre><code class="lang-javascript"><span class="keyword">var</span> URL = <span class="string">"http://example.com/json"</span>;
+getURL(URL).then(<span class="function"><span class="keyword">function</span> <span class="title">onFulfilled</span><span class="params">(value)</span>{</span>
+    console.log(value);
+}).<span class="keyword">catch</span>(<span class="function"><span class="keyword">function</span> <span class="title">onRejected</span><span class="params">(error)</span>{</span> 
+    console.log(error);
+});</code></pre>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h1 id="-">エラーハンドリング</h1>
+<p>先ほどのXHRで取得したJSONデータを処理したい</p>
+<ul>
+<li>コールバックスタイル</li>
+<li>Promiseでのスタイル</li>
+</ul>
+<p>それぞれの違いを見てみる</p>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="callback-xhr">Callback - XHR</h2>
+<ul>
+<li>XHRで取得 -&gt; コールバックで次へ渡す</li>
+</ul>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">getURLCallback</span><span class="params">(URL, callback)</span> {</span>
+    <span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest();
+    req.open(<span class="string">'GET'</span>, URL, <span class="literal">false</span>);
+    req.onload = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        callback(<span class="literal">null</span>, req.response);
+    };
+    req.onerror = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        callback(<span class="keyword">new</span> Error(req.statusText));
+    };
+    req.send();
+}</code></pre>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="callback-json-parse">Callback - JSON.parse</h2>
+<ul>
+<li>JSON.parseを安全にする</li>
+</ul>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">jsonParse</span><span class="params">(callback, error, value)</span> {</span>
+    <span class="keyword">if</span> (error) {
+        callback(error, value);
+    } <span class="keyword">else</span> {
+        <span class="keyword">try</span> {
+            <span class="keyword">var</span> result = JSON.parse(value);
+            callback(<span class="literal">null</span>, result);
+        } <span class="keyword">catch</span> (e) {
+            callback(e, value);
+        }
+    }
+}</code></pre>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="callback-main">Callback - Main</h2>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">(callback)</span>{</span>
+    <span class="keyword">var</span> URL = <span class="string">'http://example.com/json'</span>;
+    getURLCallback(URL, jsonParse.bind(<span class="literal">null</span>, callback));  
+}
+main(<span class="keyword">function</span>(error, value){
+    <span class="keyword">if</span>(error){
+        <span class="comment">// =&gt; エラーが起きた場合</span>
+    }
+    console.log(value);<span class="comment">// =&gt; 取得したデータのオブジェクト </span>
+});</code></pre>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="callback-">Callback - まとめ</h2>
+<ul>
+<li><code>JSON.parse</code> は例外となるケースがあるためラップした<code>jsonParse</code>関数を使う<ul>
+<li>明示的な例外のハンドリングが必要</li>
+</ul>
+</li>
+<li>コールバック関数には <code>callback(error,value)</code> というルールを適応</li>
+<li><code>main</code> にエラーを集約するには意識して書く必要がある</li>
 </ul>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-">質問</h1>
-<h2 id="-">正規表現でいいんじゃない?</h2>
-<blockquote>
-<p>❝ある人々は問題に直面すると、「そうか、正規表現を使うんだ」と考える。こうして彼らは２つの問題を抱えることになる。❞
-— Jamie Zawinski </p>
-</blockquote>
-<p>最新の正規表現でやってぶっ壊れた事例(fixed)</p>
+      <h1 id="promise-main">Promise - Main</h1>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">(callback)</span>{</span>
+    <span class="keyword">var</span> URL = <span class="string">'http://example.com/json'</span>;
+    <span class="keyword">return</span> getURL(URL).then(JSON.parse);
+}
+main.then(<span class="keyword">function</span>(value){
+    console.log(value);<span class="comment">// =&gt; 取得したデータのオブジェクト </span>
+}).<span class="keyword">catch</span>(<span class="keyword">function</span>(error){
+    console.error(error);<span class="comment">// =&gt; エラーが起きた場合</span>
+);</code></pre>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="promise-">Promise - まとめ</h2>
 <ul>
-<li><a href="https://github.com/substack/node-browserify/issues/639" title="Error in Browser for newer version · Issue #639 · substack/node-browserify">Error in Browser for newer version · Issue #639 · substack/node-* browserify</a></li>
+<li><code>JSON.parse</code> をそのまま使っている<ul>
+<li>エラーがおきてもPromiseにより<code>catch</code>できる</li>
+</ul>
+</li>
+<li><code>main()</code> はpromiseオブジェクトを返している</li>
+<li>エラーハンドリングは返ってきたpromiseオブジェクトに対して書く</li>
 </ul>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="ast-">ASTからコードは?</h2>
+      <h1 id="-">まとめ</h1>
 <ul>
-<li><a href="https://github.com/Constellation/escodegen" title="Escodegen">Escodegen</a>を使うといい</li>
+<li>Promiseオブジェクトは器</li>
+<li>Promiseの状態は<code>Pending</code>、<code>Fulfilled</code>、<code>Rejected</code>のみ</li>
+<li>Promiseオブジェクトは一度きりの使い捨て</li>
+<li>デフォルトでエラーハンドリングをしてくれる</li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="-web-">続きはWebで</h2>
+<p><a href="https://github.com/azu/Promises-book" title="azu/promisses-book"><img src="promises-book.png" alt="promise-book"></a></p>
+<ul>
+<li><a href="https://github.com/azu/Promises-book" title="azu/promises-book">azu/promises-book</a></li>
+<li><a href="https://gitter.im/azu/promises-book"><img src="https://badges.gitter.im/azu/promises-book.png" alt="Gitter chat"></a></li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h1 id="-">おまけ</h1>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="promise-chain">Promise Chain</h2>
+<pre><code class="lang-javascript">aPromise.then(…).then(…).<span class="keyword">catch</span>(…);</code></pre>
+<ul>
+<li>状態の変化は一度きりなのに、何でメソッドチェーンができるの?<ul>
+<li><code>aPromise</code> の状態の変化は1回しかおきない</li>
+</ul>
+</li>
+</ul>
+<p>=&gt; <code>aPromise !== aPromise.then(…)</code>;// true =&gt; 新しいPromise Object</p>
+<ul>
+<li><code>.then</code> は新しくPromiseオブジェクトを作って返してる</li>
 </ul>
 
     </div>
