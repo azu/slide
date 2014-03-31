@@ -92,7 +92,7 @@ asyncFunction().then(function (value) {
 
 * 状態が何度も変化する `readyState` 
 	* => Event 使え
-* 定期的にデータが飛んでくるのをキャッチしたい `PromgressEvent`
+* 定期的にデータが飛んでくるのをキャッチしたい `ProgressEvents`
 	* => Event 使え
 * Stream…
 	* Stream 使え
