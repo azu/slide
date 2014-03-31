@@ -721,7 +721,7 @@ a {
     <div class="slide-wrapper">
       <h1 id="promises-starter">Promises Starter</h1>
 <p>Promisesのキホン</p>
-<p>約束の🍣🍣🍣</p>
+<p>約束の🍣🍣🍣🍣🍣🍣</p>
 
     </div>
   </section>
@@ -804,13 +804,33 @@ asyncFunction().then(<span class="function"><span class="keyword">function</span
     <div class="slide-wrapper">
       <h2 id="promise-">Promise不向き</h2>
 <ul>
-<li>状態が何度も変化する <code>readyState</code> 、 <code>PromgressEvent</code><ul>
+<li>状態が何度も変化する <code>readyState</code> <ul>
 <li>=&gt; Event 使え</li>
 </ul>
 </li>
-<li>定期的にイベントが発生するのをキャッチしたい<ul>
-<li>=&gt; Event 使え
-*</li>
+<li>定期的にデータが飛んでくるのをキャッチしたい <code>PromgressEvent</code><ul>
+<li>=&gt; Event 使え</li>
+</ul>
+</li>
+<li>Stream…<ul>
+<li>Stream 使え</li>
+<li><a href="http://d.hatena.ne.jp/jovi0608/20140319/1395199285" title="Node.jsにPromiseが再びやって来た！ - ぼちぼち日記">Node.jsにPromiseが再びやって来た！ - ぼちぼち日記</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h2 id="promise-">Promiseいいところ</h2>
+<ul>
+<li>エラーハンドリングが自然と入ってる<ul>
+<li>ただ<a href="http://p-baleine.hatenablog.com/entry/2014/03/14/085536" title="アンチパターン">アンチパターン</a>もある</li>
+</ul>
+</li>
+<li>複数の非同期処理をまとめて扱うのが得意<ul>
+<li><a href="http://azu.github.io/promises-book/#_chapter_2_promises" title="[WIP] Promises Book">コールバックでも何とかできるけど</a>、<code>Promise.all</code>がつよい</li>
 </ul>
 </li>
 </ul>
