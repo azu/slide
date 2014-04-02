@@ -111,9 +111,6 @@ node.jsをブラウザ向けのコードに変換するツール
 
 --
 
-## [power-assert-karma-seed](https://github.com/azu/power-assert-karma-seed "azu/power-assert-karma-seed")
-
-
 ![gif](http://i.gyazo.com/4daa1c15931e4de407a382c8fd895339.gif)
 
 --
