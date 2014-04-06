@@ -3,7 +3,6 @@ author:
   name: azu
   twitter: azu_re  
   url: http://efcl.info/
-theme: sudodoki/reveal-cleaver-theme
 output: power-assert.html
 --
 
@@ -42,6 +41,8 @@ output: power-assert.html
 
 * power assert !== アサーションライブラリ
 * コードを変換したりするのでツールに近いテストツール
+
+--
 
 Work flow
 
