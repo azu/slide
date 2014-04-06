@@ -3,6 +3,7 @@ author:
   name: azu
   twitter: azu_re  
   url: http://efcl.info/
+theme: sudodoki/reveal-cleaver-theme
 output: power-assert.html
 --
 
