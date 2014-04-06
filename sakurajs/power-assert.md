@@ -87,7 +87,7 @@ Work flow
 * Testem 経由でブラウザテスト
 * ファイル監視はgulp
 
--- 
+--
 
 # Browserify
 
