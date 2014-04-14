@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>power-asssertの記事が出来るまで</title>
+    <expansionState>0,4,7,10,12,19,20,25,29,34,35,39,43,44,46,48,50,52,54,56,59,60</expansionState>
+  </head>
+  <body>
+    <outline text="powert-assert情報量不足">
+      <outline text="power-assertの記事だれかが書くと思ってた"/>
+      <outline text="誰も書いてくれない"/>
+      <outline text="=&gt; 自分で書くことにした"/>
+    </outline>
+    <outline text="脳内情報">
+      <outline text="node.jsでしか利用した事ない"/>
+      <outline text="ブラウザでちゃんと利用した事ない"/>
+    </outline>
+    <outline text="ピースを出す">
+      <outline text="タグクラウド"/>
+      <outline text="多分なんとかできるはず…"/>
+    </outline>
+    <outline text="ピースはどこから">
+      <outline text="記憶から"/>
+      <outline text="キーワードベースの記憶">
+        <outline text="誰かが書いてた"/>
+        <outline text="リリースノートで見た"/>
+        <outline text="そういうライブラリがある"/>
+        <outline text="そういうツールがある"/>
+      </outline>
+      <outline text="全てを自分の経験から得るのは難しい"/>
+      <outline text="他人の経験から得る"/>
+    </outline>
+    <outline text="ピースを仮で組み立てる">
+      <outline text="とりあえず脳内情報で記事を書く">
+        <outline text="https://gist.github.com/azu/c837cb79a848d3d73c04"/>
+      </outline>
+      <outline text="Node.js =&gt; できた"/>
+      <outline text="ブラウザ =&gt; 一応動いた"/>
+      <outline text="browserify =&gt; 一応動いた"/>
+    </outline>
+    <outline text="ピースが足りない(ブラウザ)">
+      <outline text="ブラウザ =&gt; デバッガーが使えない"/>
+      <outline text="browserify -&gt; 誤算 : [soucemap自動でやってくれなかった](https://twitter.com/azu_re/status/451176979245461504 &quot;Twitter / azu_re: @t_wada すいません、やっぱりやる必要があるみたいです ...&quot;)"/>
+      <outline text="SourceMapが足りない！！"/>
+    </outline>
+    <outline text="足りないピースを作ろう">
+      <outline text="まずはbrowserifyにsourcemapサポートをいれる"/>
+      <outline text="テストないコード -&gt; t-wada -&gt; テストあるコード"/>
+      <outline text="人類にデバッガーがやってきた"/>
+      <outline text="![karma+browserify](http://gyazo.com/4daa1c15931e4de407a382c8fd895339.gif)"/>
+    </outline>
+    <outline text="ブラウザもできる可能性が確定">
+      <outline text="Node.jsは既にできてる">
+        <outline text="=&gt; 分割して先に記事にする"/>
+        <outline text="[power-assertの使い方 Node.js編 | Web scratch](http://efcl.info/2014/0406/res3809/ &quot;power-assertの使い方 Node.js編 | Web scratch&quot;)"/>
+      </outline>
+      <outline text="ブラウザを引き続き検証"/>
+    </outline>
+    <outline text="ピースが揃った">
+      <outline text="ブラウザ, browserifyでsourcemap対応"/>
+      <outline text="[espower-source](https://github.com/twada/espower-source &quot;espower-source&quot;)"/>
+      <outline text="どの環境でもデバッグ実行ができるようになる"/>
+    </outline>
+    <outline text="ピースを再構築する">
+      <outline text="testem">
+        <outline text="[azu/power-assert-testem-seed](https://github.com/azu/power-assert-testem-seed &quot;azu/power-assert-testem-seed&quot;)"/>
+      </outline>
+      <outline text="karma">
+        <outline text="[azu/power-assert-karma-seed](https://github.com/azu/power-assert-karma-seed &quot;azu/power-assert-karma-seed&quot;)"/>
+      </outline>
+    </outline>
+    <outline text="Karmaの問題がでてくる">
+      <outline text="[karma-browserifast](https://github.com/cjohansen/karma-browserifast &quot;karma-browserifast&quot;)"/>
+      <outline text="[fix for windows paths](https://github.com/cjohansen/karma-browserifast/pull/13#commitcomment-5952504 &quot;fix for windows paths&quot;)">
+        <outline text="=&gt; Macで壊れる"/>
+      </outline>
+      <outline text="[fix for unix paths](https://github.com/cjohansen/karma-browserifast/pull/14 &quot;fix for unix paths&quot;)">
+        <outline text="=&gt; 直した"/>
+      </outline>
+    </outline>
+    <outline text="ブラウザ編の記事を書く">
+      <outline text="書いてる途中でpower-assert [0.6.0](https://github.com/twada/power-assert/releases/tag/v0.6.0 &quot;0.6.0&quot;) がでる"/>
+      <outline text="browserifyのsourcemapが壊れた">
+        <outline text="=&gt; [1時間で直った](https://github.com/twada/espowerify/pull/3 &quot;source-map in browserify transform chain. by twada · Pull Request #3 · twada/espowerify&quot;)"/>
+      </outline>
+      <outline text="[power-assertでJavaScriptのテストをする ブラウザ編](http://efcl.info/2014/0411/res3820/ &quot;power-assertでJavaScriptのテストをする ブラウザ編 | Web scratch&quot;) リリース"/>
+    </outline>
+    <outline text="その他">
+      <outline text="karma-browserifastにスタックトレースのsourcemapサポートをPR">
+        <outline text="[Add source map support for Karma&amp;#39;s reporter by azu · Pull Request #15 · cjohansen/karma-browserifast](https://github.com/cjohansen/karma-browserifast/pull/15 &quot;Add source map support for Karma&amp;#39;s reporter by azu · Pull Request #15 · cjohansen/karma-browserifast&quot;)"/>
+      </outline>
+    </outline>
+  </body>
+</opml>

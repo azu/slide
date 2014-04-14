@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    .tag-header {
+        font-size: 24px;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+<script src="lib/d3/d3.js"></script>
+<script src="d3.layout.cloud.js"></script>
+<script>
+    var fill = d3.scale.category20();
+    var actual = [
+        "power-assert", "node.js", "testing", "browserify",
+        "mocha"
+    ];
+    var expect = [
+        "espowerify", "testem", "Karma", "Preprocessors",
+        "sourcemap"
+    ];
+
+    d3.layout.cloud().size([300, 300])
+            .words(actual.map(function (d) {
+                return {text: d, size: 35 + Math.random() * 5};
+            }))
+            .padding(5)
+            .rotate(function () {
+                return ~~(Math.random() * 2) * 10;
+            })
+            .font("Impact")
+            .fontSize(function (d) {
+                return d.size;
+            })
+            .on("end", function (d) {
+                draw(d, "既知");
+            })
+            .start();
+    d3.layout.cloud().size([300, 300])
+            .words(expect.map(function (d) {
+                return {text: d, size: 30 + Math.random() * 5};
+            }))
+            .padding(5)
+            .rotate(function () {
+                return ~~(Math.random() * 2) * 10;
+            })
+            .font("Impact")
+            .fontSize(function (d) {
+                return d.size;
+            })
+            .on("end", function (d) {
+                draw(d, "未知");
+            })
+            .start();
+
+    function draw(words, header, options) {
+        var width = (window.innerWidth / 2) - 10,
+                height = window.innerHeight;
+        var selection = d3.select("body").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+        selection.append("g")
+                .append("rect")
+                .style("fill", function (d, i) {
+                    return fill(Math.random() * 10);
+                })
+                .attr("width", width)
+                .attr("height", height);
+        selection.append("g").append("rect")
+                .attr("width", width)
+                .attr("height", 30)
+                .style("fill", "#54B9D7");
+        selection.append("text")
+                .attr("class", "tag-header")
+                .style("fill", "white")
+                .attr("x", function (d) {
+                    return width / 2;
+                })
+                .attr("y", function (d) {
+                    return 24;
+                })
+                .attr("text-anchor", "middle")
+                .text(function () {
+                    return header
+                });
+        selection.append("g")
+                .attr("transform", "translate(150,180)")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function (d) {
+                    return d.size + "px";
+                })
+                .style("font-family", "Impact")
+                .style("fill", function (d, i) {
+                    return fill(i);
+                })
+                .attr("text-anchor", "middle")
+                .attr("transform", function (d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function (d) {
+                    return d.text;
+                }).on("mouseover", function (d) {
+                    d3.select(this)
+                    .transition().duration(200)
+                    .style("font-size", function (d) {
+                        return 20 + d.size + "px";
+                    })
+                    .each(function(){
+                        this.parentNode.appendChild(this);
+                    });
+                }).on("mouseout", function mouseout (d) {
+                    d3.select(this)
+                    .transition().duration(200)
+                    .style("font-size", function (d) {
+                        return d.size + "px";
+                    })               
+                });
+    }
+</script>
