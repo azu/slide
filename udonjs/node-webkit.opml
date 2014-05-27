@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>node-webkit</title>
+    <expansionState>1,3,5,7,9,12,15,17,22,28,30,32,36,41,46</expansionState>
+  </head>
+  <body>
+    <outline text="node-webkitとは"/>
+    <outline text="node-webkit">
+      <outline text="中国の人が開発"/>
+      <outline text="Intelが出資">
+        <outline text="メンテナー"/>
+      </outline>
+    </outline>
+    <outline text="何が作れるのか">
+      <outline text="HTMLとNode.jsを使ったデスクトップアプリ"/>
+      <outline text="Chromium">
+        <outline text="Webアプリの技術でそのままローカルに持ってこれる"/>
+      </outline>
+      <outline text="Node.js">
+        <outline text="nodeのプロセスがそのまま動く"/>
+      </outline>
+      <outline text="何でも入り感"/>
+    </outline>
+    <outline text="ChromiumとNodeのContext">
+      <outline text="ChromiumとNode.js 2つのContextが存在"/>
+      <outline text="Chromium &lt;-&gt; Node.js の行き来は簡単"/>
+      <outline text="ブラウザ拡張の世界に似てる">
+        <outline text="Chrome(特権) &lt;-&gt; Content(通常)"/>
+      </outline>
+    </outline>
+    <outline text="ブラウザ拡張の世界">
+      <outline text="Contextの境界は厳密"/>
+      <outline text="Messagingを使った非同期的なやり取りに限定される"/>
+      <outline text="セキュリティのため、Content -&gt; Chromeは触ったりできない"/>
+      <outline text="逆も普通は制限されてる"/>
+    </outline>
+    <outline text="node-webkitのContextは緩い">
+      <outline text="ChromiumとNode.jsのContextは実行時に決まる"/>
+      <outline text="ChromiumのContextから呼ばれたコードはChromium Context"/>
+      <outline text="Node.jsのContextから呼ばれたコードはNode.js Context"/>
+      <outline text="=&gt; `this` に似てる?"/>
+    </outline>
+    <outline text="node-webkitのcontextの例"/>
+    <outline text="Contextによる違い">
+      <outline text="`require` による解決パスの違い"/>
+      <outline text="触れるグローバルオブジェクトの違い">
+        <outline text="`document`、`__dirname`"/>
+      </outline>
+    </outline>
+    <outline text="Contextの違いを意識する">
+      <outline text="簡単にContextが混ざってしまいがち"/>
+      <outline text="index.js のパターンを使う"/>
+      <outline text="`node-main` で最初からnode.jsのContextで実行する"/>
+    </outline>
+    <outline text="Contextの違いを利用する">
+      <outline text="ブラウザ向けライブラリはChromium Contextに読み込む"/>
+      <outline text="Node.js向けライブラリはNode.js Contextで読み込む"/>
+      <outline text="特別な変換になしにあらゆるJavaScriptライブラリが使える"/>
+      <outline text="グローバルに足りないものはワークアラウンドでごまかせる豪快さ"/>
+    </outline>
+    <outline text="さっと書いてさっと動く">
+      <outline text="htmlとpackage.jsonがあればとりあえずGUIが出来る"/>
+      <outline text="ロジカルな処理はnode.jsで書く"/>
+      <outline text="見た目は普通のウェブサイト同じ作り方"/>
+      <outline text="デバッグはChrome DevToolsがそのまま使える"/>
+    </outline>
+    <outline text="node-webkitからウェブへ">
+      <outline text="Contextを分けて書く"/>
+      <outline text="Chromium(ブラウザ) + Node.jsにコード別れる"/>
+      <outline text="Node.jsのコードをbrowserifyで変換する"/>
+    </outline>
+  </body>
+</opml>
