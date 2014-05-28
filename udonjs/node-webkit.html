@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-    <title>node-webkit</title>
+    <title>node-webkitとは何か</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=792, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -707,7 +707,7 @@ a {
 <body class="list">
 
 <header class="caption">
-    <h1>node-webkit</h1>
+    <h1>node-webkitとは何か</h1>
     <ul>
         <li>
             Name : <a href="http:&#x2F;&#x2F;efcl.info&#x2F;">azu</a>
@@ -722,7 +722,7 @@ a {
 <div class="slideshow-wrapper">
       <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="node-webkit-">node-webkitとは</h1>
+      <h1 id="node-webkit-">node-webkitとは何か</h1>
 <p><img src="node-webkit.png" alt="node-webkit"></p>
 
     </div>
@@ -733,7 +733,7 @@ a {
 <ul>
 <li><a href="https://github.com/zcbenz" title="zcbenz">zcbenz</a> (Github)<ul>
 <li>元々の開発者</li>
-<li>今はatom-shellのメンテナー</li>
+<li>今は<a href="https://github.com/atom/atom-shell" title="atom-shell">atom-shell</a>bのメンテナー</li>
 </ul>
 </li>
 <li><a href="https://github.com/rogerwang" title="rogerwang">rogerwang</a> (Intel)<ul>
@@ -809,8 +809,16 @@ a {
 <ul>
 <li>ChromiumとNode.js 2つのContextが存在</li>
 <li>Chromium &lt;-&gt; Node.js の行き来は簡単</li>
-<li>ブラウザ拡張の世界に似てる<ul>
+<li>ブラウザ拡張の世界に似てる?<ul>
 <li>Chrome(特権) &lt;-&gt; Content(通常)</li>
+</ul>
+</li>
+<li><a href="https://docs.google.com/presentation/d/1XvZdAF29Fgn19GCjDhHhlsECJAfOR49tpUFWrbtQAwU/edit#slide=id.g3840fe06e_00" title="Blink in JavaScript - Google スライド">Blink in JavaScript</a>も似てる?<ul>
+<li>DOM APIのJS Contextでの実装</li>
+</ul>
+</li>
+<li>(多分)node-webkitはセキュリティな要因から分けてる訳ではない<ul>
+<li>実装上の都合で出来てしまったもの?</li>
 </ul>
 </li>
 </ul>
@@ -825,6 +833,7 @@ a {
 <li>Messagingを使った非同期的なやり取りに限定される</li>
 <li>セキュリティのため、Content -&gt; Chromeは触ったりできない</li>
 <li>逆も普通は制限されてる</li>
+<li>要するにやり取りが結構大変</li>
 </ul>
 
     </div>
@@ -836,7 +845,10 @@ a {
 <li>ChromiumとNode.jsのContextは実行時に決まる</li>
 <li>ChromiumのContextから呼ばれたコードはChromium Context</li>
 <li>Node.jsのContextから呼ばれたコードはNode.js Context</li>
-<li>Context同士に値の受け渡しが出来る(両方共ある意味特権)</li>
+<li>Context同士に値の受け渡しが出来る(両方共ある意味特権)<ul>
+<li>一種のグローバル変数みたいなもの</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -872,6 +884,7 @@ a {
 </li>
 <li>触れるグローバルオブジェクトの違い<ul>
 <li><code>document</code>、<code>__dirname</code> の有無</li>
+<li>グローバルに勝手に生やしてしまえばどっちのContextでも使えるけど</li>
 </ul>
 </li>
 </ul>
@@ -907,7 +920,21 @@ a {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="node-webkit-">node-webkitからウェブへ</h1>
+      <h1 id="-wiki-">詳しくはWikiで</h1>
+<blockquote>
+<p>I know most of you just don&#39;t read documentations</p>
+</blockquote>
+<ul>
+<li>今できること、出来ないことは大体Wikiに書いてある</li>
+<li><a href="https://github.com/rogerwang/node-webkit/wiki" title="Home · rogerwang/node-webkit Wiki">Home · rogerwang/node-webkit Wiki</a></li>
+<li><a href="https://github.com/linyows/github-wiki-search" title="linyows/github-wiki-search">linyows/github-wiki-search</a> を使うと検索しやすい</li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
+      <h1 id="-node-webkit-">(おまけ)node-webkitからウェブへ</h1>
 <ul>
 <li>Contextを分けて書く</li>
 <li>Chromium + Node.jsにコード分ける</li>
@@ -925,12 +952,12 @@ a {
 <li>ホビー用途にはものすごく向いてる<ul>
 <li>フロントエンドの知識がそのまま持ってこれる</li>
 <li>npmがそのまま使える</li>
-<li>クロスプラットフォーム対応が簡単</li>
+<li>クロスプラットフォーム対応が簡単(ランタイムまるごとzip)</li>
 </ul>
 </li>
 <li>Contextの違いを理解するのが大切</li>
-<li>大きいアプリを作る場合は<a href="https://github.com/atom/atom-shell" title="atom-shell">atom-shell</a>など別のアプローチも考える<ul>
-<li>atom-shellはContextはNodeだけ</li>
+<li>本格的なアプリを作る場合は<a href="https://github.com/atom/atom-shell" title="atom-shell">atom-shell</a>など別のアプローチも考える<ul>
+<li>atom-shellはContextも別のやり方</li>
 <li><a href="https://github.com/atom/atom-shell/blob/master/docs/development/atom-shell-vs-node-webkit.md" title="Technical differences to Node-Webkit">Technical differences to Node-Webkit</a></li>
 </ul>
 </li>

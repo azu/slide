@@ -1,4 +1,4 @@
-title: node-webkit
+title: node-webkitとは何か
 author:
   name: azu
   twitter: azu_re
@@ -8,7 +8,7 @@ output: node-webkit.html
 
 --
 
-# node-webkitとは
+# node-webkitとは何か
 
 ![node-webkit](node-webkit.png)
 
@@ -18,7 +18,7 @@ output: node-webkit.html
 
 - [zcbenz](https://github.com/zcbenz "zcbenz") (Github)
 	- 元々の開発者
-	- 今はatom-shellのメンテナー
+	- 今は[atom-shell](https://github.com/atom/atom-shell "atom-shell")bのメンテナー
 - [rogerwang](https://github.com/rogerwang "rogerwang") (Intel)
 	- 現在[node-webkit](https://github.com/rogerwang/node-webkit "node-webkit")のメンテナー
 
@@ -68,8 +68,13 @@ output: node-webkit.html
 
 - ChromiumとNode.js 2つのContextが存在
 - Chromium <-> Node.js の行き来は簡単
-- ブラウザ拡張の世界に似てる
+- ブラウザ拡張の世界に似てる?
     - Chrome(特権) <-> Content(通常)
+- [Blink in JavaScript](https://docs.google.com/presentation/d/1XvZdAF29Fgn19GCjDhHhlsECJAfOR49tpUFWrbtQAwU/edit#slide=id.g3840fe06e_00 "Blink in JavaScript - Google スライド")も似てる?
+	- DOM APIのJS Contextでの実装
+- (多分)node-webkitはセキュリティな要因から分けてる訳ではない
+	- 実装上の都合で出来てしまったもの?
+
 
 --
 
@@ -79,6 +84,7 @@ output: node-webkit.html
 - Messagingを使った非同期的なやり取りに限定される
 - セキュリティのため、Content -> Chromeは触ったりできない
 - 逆も普通は制限されてる
+- 要するにやり取りが結構大変
 
 --
 
@@ -88,6 +94,7 @@ output: node-webkit.html
 - ChromiumのContextから呼ばれたコードはChromium Context
 - Node.jsのContextから呼ばれたコードはNode.js Context
 - Context同士に値の受け渡しが出来る(両方共ある意味特権)
+	- 一種のグローバル変数みたいなもの
 
 --
 
@@ -112,7 +119,8 @@ output: node-webkit.html
 	- htmlからか、js(node style)からなのかが変わる…
 - 触れるグローバルオブジェクトの違い
     - `document`、`__dirname` の有無
-
+	- グローバルに勝手に生やしてしまえばどっちのContextでも使えるけど
+    
 --
 
 # Contextの違いを意識する
@@ -134,7 +142,17 @@ output: node-webkit.html
 
 --
 
-# node-webkitからウェブへ
+# 詳しくはWikiで
+
+> I know most of you just don't read documentations
+
+* 今できること、出来ないことは大体Wikiに書いてある
+* [Home · rogerwang/node-webkit Wiki](https://github.com/rogerwang/node-webkit/wiki "Home · rogerwang/node-webkit Wiki")
+* [linyows/github-wiki-search](https://github.com/linyows/github-wiki-search "linyows/github-wiki-search") を使うと検索しやすい
+
+--
+
+# (おまけ)node-webkitからウェブへ
 
 - Contextを分けて書く
 - Chromium + Node.jsにコード分ける
@@ -142,15 +160,15 @@ output: node-webkit.html
 - Node.jsのコードをBrowserifyで変換する
 - コードが再利用できそう
 
--- 
+--
 
 # まとめ
 
 * ホビー用途にはものすごく向いてる
 	* フロントエンドの知識がそのまま持ってこれる
 	* npmがそのまま使える
-	* クロスプラットフォーム対応が簡単
+	* クロスプラットフォーム対応が簡単(ランタイムまるごとzip)
 * Contextの違いを理解するのが大切
-* 大きいアプリを作る場合は[atom-shell](https://github.com/atom/atom-shell "atom-shell")など別のアプローチも考える
-	* atom-shellはContextはNodeだけ
+* 本格的なアプリを作る場合は[atom-shell](https://github.com/atom/atom-shell "atom-shell")など別のアプローチも考える
+	* atom-shellはContextも別のやり方
 	* [Technical differences to Node-Webkit](https://github.com/atom/atom-shell/blob/master/docs/development/atom-shell-vs-node-webkit.md "Technical differences to Node-Webkit")
