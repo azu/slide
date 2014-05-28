@@ -1,4 +1,4 @@
-title: 独りでつかうGithub Issue
+title: 一人で使えるGithub Issue
 author:
   name: azu
   twitter: azu_re
@@ -8,7 +8,7 @@ output: github-issue.html
 
 --
 
-# 孤独に使うGithub Issue
+# 一人で使えるGithub Issue
 
 * 一人で使うGithub Issueについて
 
