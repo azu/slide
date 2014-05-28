@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>github-issue</title>
+    <expansionState>2,9,14,19</expansionState>
+  </head>
+  <body>
+    <outline text="Github Issueの使い道"/>
+    <outline text="Promise本での利用"/>
+    <outline text="ワークフロー">
+      <outline text="Issueを立てる"/>
+      <outline text="git-issue + git-flow + percolでissueのブランチを切る"/>
+      <outline text="[WIP] pull-requestsを立てる ref #id"/>
+      <outline text="push -&gt; preview"/>
+      <outline text="merge + close #id でissueも閉じる"/>
+      <outline text="git flow finish でローカルとリモートブランチを削除"/>
+    </outline>
+    <outline text="pull-requestsのメリット">
+      <outline text="`- [ ]` でissueのTodo管理"/>
+      <outline text="pushする毎にCIによるテストが走る"/>
+      <outline text="マージをするまでによくしようという心理影響"/>
+      <outline text="実装中の疑問をコメントとして残して整理出来る"/>
+    </outline>
+    <outline text="メモとしてのIssue">
+      <outline text="自分用Todo"/>
+      <outline text="気になったことはIssueへ"/>
+      <outline text="Todoアプリと違うのはMarkdownでメモも書ける"/>
+      <outline text="複数のIssueをまたぐような内容をGitterを使う"/>
+    </outline>
+    <outline text="Issueを見る">
+      <outline text="issuesync"/>
+      <outline text="BugHub"/>
+      <outline text="CodeHub(iOS)"/>
+      <outline text="iOctocat"/>
+    </outline>
+  </body>
+</opml>
