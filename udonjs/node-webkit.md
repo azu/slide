@@ -19,7 +19,7 @@ output: node-webkit.html
 - [rogerwang](https://github.com/rogerwang "rogerwang") (Intel)
   - 作者、[node-webkit](https://github.com/rogerwang/node-webkit "node-webkit")のメンテナー
 - [zcbenz](https://github.com/zcbenz "zcbenz") (Github)
-  - <del>元々の開発者</del>インターンで一時期関わってた
+  - <del>元々の開発者</del>Intelのインターンで一時期関わってた
   - 今は[atom-shell](https://github.com/atom/atom-shell "atom-shell")のメンテナー
 
 --
