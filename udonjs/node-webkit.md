@@ -16,11 +16,11 @@ output: node-webkit.html
 
 # [node-webkit](https://github.com/rogerwang/node-webkit "node-webkit")
 
-- [zcbenz](https://github.com/zcbenz "zcbenz") (Github)
-	- 元々の開発者
-	- 今は[atom-shell](https://github.com/atom/atom-shell "atom-shell")bのメンテナー
 - [rogerwang](https://github.com/rogerwang "rogerwang") (Intel)
-	- 現在[node-webkit](https://github.com/rogerwang/node-webkit "node-webkit")のメンテナー
+  - 作者、[node-webkit](https://github.com/rogerwang/node-webkit "node-webkit")のメンテナー
+- [zcbenz](https://github.com/zcbenz "zcbenz") (Github)
+  - <del>元々の開発者</del>インターンで一時期関わってた
+  - 今は[atom-shell](https://github.com/atom/atom-shell "atom-shell")のメンテナー
 
 --
 
@@ -43,7 +43,7 @@ output: node-webkit.html
 - 見た目は普通のウェブサイト同じ作り方
 - デバッグはChrome DevToolsがそのまま使える
 
--- 
+--
 
 # OSネイティブの機能
 
@@ -120,7 +120,7 @@ output: node-webkit.html
 - 触れるグローバルオブジェクトの違い
     - `document`、`__dirname` の有無
 	- グローバルに勝手に生やしてしまえばどっちのContextでも使えるけど
-    
+
 --
 
 # Contextの違いを意識する
