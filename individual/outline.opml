@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>outline</title>
+    <expansionState>1,4,6,9,15,19,23,27,31,35,39,42</expansionState>
+  </head>
+  <body>
+    <outline text="JavaScript Promiseの本を支える技術"/>
+    <outline text="電子書籍を書く">
+      <outline text="Markdown"/>
+      <outline text="今ならLeanpub/gitbookがある"/>
+    </outline>
+    <outline text="Markdownの機能">
+      <outline text="includeが足りない"/>
+      <outline text="pandoc ASTで拡張書いた">
+        <outline text="http://efcl.info/2014/0301/res3692/"/>
+      </outline>
+      <outline text="いまいち"/>
+    </outline>
+    <outline text="Asciidocの存在">
+      <outline text="Oreilly Mediaが使ってるという実績"/>
+      <outline text="記法は多いが基本はMarkdownと似てる"/>
+      <outline text="無駄に多機能"/>
+      <outline text="Sphinx(reStructuredText)ほど構文が前面にでてこない"/>
+      <outline text="https://github.com/Farata/EnterpriseWebBook"/>
+    </outline>
+    <outline text="Asciidoctor">
+      <outline text="AsciidocのRuby実装"/>
+      <outline text="モダンな感じ"/>
+      <outline text="Icon fontとかいい感じの機能がある"/>
+    </outline>
+    <outline text="Github Issue">
+      <outline text="自分自身にPull Request駆動"/>
+      <outline text="細かい修正はTiDD"/>
+      <outline text="http://azu.github.io/slide/udonjs/github-issue.html"/>
+    </outline>
+    <outline text="Travis CI">
+      <outline text="ビルド"/>
+      <outline text="テスト"/>
+      <outline text="デプロイ(masterへのコミットのみ)"/>
+    </outline>
+    <outline text="テスト">
+      <outline text="サンプルコードをテスト"/>
+      <outline text="出力したHTMLの内部リンクのテスト"/>
+      <outline text="Asciidocのインラインコードをパーステスト"/>
+    </outline>
+    <outline text="デプロイ">
+      <outline text="Travis CIでビルドして自動でgithub-pagesにデプロイ"/>
+      <outline text="pull-requestに対してもHTMLを生成してプレビュー用URLの発行"/>
+      <outline text="どのコミットに対してもプレビュー出来るURLを作れる"/>
+    </outline>
+    <outline text="文章のリファクタリング">
+      <outline text="文章表現の統一ルールはCONTRIBUTEに追加していく"/>
+      <outline text="一文が長くならないように気をつけて区切る"/>
+      <outline text="typoは見つけたらその場でissueを立てる。(忘れる)"/>
+    </outline>
+    <outline text="依存関係の可視化">
+      <outline text="何か色々な方向から見て確認したかった"/>
+      <outline text="客観的に見る必要がある"/>
+    </outline>
+    <outline text="Pull Requestしやすい空気">
+      <outline text="Markdownの方がいいかなとか思ってる"/>
+      <outline text="Asciidocでも意外とpullrequestしてくれる"/>
+      <outline text="CONTRIBUTE.mdをちゃんと作る"/>
+      <outline text="HTMLとAsciidocを両方は置かない"/>
+      <outline text="1文字pullrequest取り込む作業楽しい!"/>
+    </outline>
+  </body>
+</opml>

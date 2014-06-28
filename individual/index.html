@@ -1,0 +1,870 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Githubで書く電子書籍を支える技術</title>
+  <style type="text/css">
+    /*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+code, pre {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: auto;
+  padding: 6px 10px; }
+
+code {
+  padding: 0 5px; }
+
+pre > code {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent; }
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic; }
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold; }
+
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099; }
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #dd1144; }
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold; }
+
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal; }
+
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold; }
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal; }
+
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: teal; }
+
+pre .regexp {
+  color: #009926; }
+
+pre .class {
+  color: #458;
+  font-weight: bold; }
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073; }
+
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3; }
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold; }
+
+pre .deletion {
+  background: #ffdddd; }
+
+pre .addition {
+  background: #ddffdd; }
+
+pre .diff .change {
+  background: #0086b3; }
+
+pre .chunk {
+  color: #aaaaaa; }
+
+@font-face {
+  font-style: italic;
+  font-weight: 700;
+  font-family: 'PT Mono'; }
+body {
+  font: 100% "PT Sans", sans-serif;
+  color: #222;
+  background-color: #f7f7f7; }
+
+.slide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+
+.slide-content {
+  width: 70%;
+  height: 90%;
+  margin: auto;
+  padding: 30px;
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375; }
+  .slide-content > h1 {
+    text-align: center;
+    margin-left: calc(50% - 49vw);
+    margin-right: calc(50% - 49vw); }
+  .slide-content img {
+    max-width: 100%; }
+
+.controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 1%;
+  width: 99%; }
+
+.arrow {
+  width: 0;
+  height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-left-width: 0;
+  border-right-width: 50px; }
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  border-left-width: 50px;
+  border-right-width: 0; }
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer; }
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer; }
+
+.permanent-link {
+  float: right;
+  right: 0; }
+  .permanent-link:hover {
+    cursor: pointer; }
+  .permanent-link svg {
+    width: 60px;
+    height: 60px; }
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 1em 0 0; }
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200; }
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px; }
+
+.slide ol, .slide ul {
+  margin: 50px 0;
+  counter-reset: list;
+  font-weight: 200;
+  line-height: 1.5;
+  font-size: 110%; }
+
+.slide ol ol, .slide ol ul, .slide ul ol, .slide ul ul {
+  margin: 0px 0px 0px 2em; }
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px; }
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none; }
+
+a {
+  text-decoration: none;
+  color: #44a4dd; }
+
+a:hover {
+  color: #66b5ff; }
+
+pre {
+  font-size: 80%;
+  line-height: 1.3; }
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px; }
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #44a4dd;
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out; }
+
+.hidden {
+  display: none; }
+
+@media (max-width: 850px) {
+  body {
+    font-size: 70%; }
+
+  .slide-content {
+    width: auto; }
+
+  img {
+    width: 100%; }
+
+  h1 {
+    margin-top: 0.8em; }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5); }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5); } }
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden; }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 80%; }
+
+  h1 {
+    margin-top: 0.5em; }
+
+  ul {
+    padding-left: 25px; } }
+@media print {
+  * {
+    -webkit-print-color-adjust: exact; }
+
+  @page {
+    size: letter; }
+  .hidden {
+    display: inline; }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible; }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%; }
+
+  .progress, .controls {
+    display: none; }
+
+  .slide {
+    position: static; }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible; }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always; } }
+.background-image-container, .full, .fit {
+  background: no-repeat center top;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+  z-index: -1; }
+  .background-image-container *:not(section), .full *:not(section), .fit *:not(section) {
+    background-color: rgba(255, 255, 255, 0.2); }
+
+/* user extension */
+.full {
+  background-size: cover; }
+
+.fit {
+  background-size: contain; }
+
+  </style>
+</head>
+<body>
+      <div class="progress">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="slide" id="slide-1">
+        <section class="slide-content"><h1 id="github-">Githubで書く電子書籍を支える技術</h1>
+<h2 id="javascript-promise-">JavaScript Promiseの本でのワークフロー</h2>
+</section>
+    </div>
+    <div class="slide hidden  azu fit" id="slide-2">
+        <section class="slide-content"><h1 id="-">自己紹介</h1>
+<style>
+.azu {
+    background-image: url("img/azu.png");
+}
+</style></section>
+    </div>
+    <div class="slide hidden  promises-book fit" id="slide-3">
+        <section class="slide-content"><h1 id="javascript-promise-">JavaScript Promiseの本を書いた</h1>
+<style>
+.promises-book {
+    background-image: url("img/promises-book.png");
+}
+</style></section>
+    </div>
+    <div class="slide hidden  " id="slide-4">
+        <section class="slide-content"><h1 id="-">アジェンダ</h1>
+<ul>
+<li><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a> がどう書かれたのか</li>
+<li>電子書籍のフォーマット</li>
+<li>Githubワークフロー</li>
+<li>Travis CI<ul>
+<li>ビルド</li>
+<li>テスト</li>
+<li>デプロイ</li>
+</ul>
+</li>
+<li>CONTRIBUTION</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-5">
+        <section class="slide-content"><h1 id="-">電子書籍のフォーマット</h1>
+<ul>
+<li>Markdown</li>
+<li><a href="http://www.methods.co.nz/asciidoc/" title="AsciiDoc">AsciiDoc</a></li>
+<li><a href="http://sphinx-users.jp/" title="Sphinx">Sphinx</a>(reStructuredText)</li>
+<li><a href="https://github.com/kmuto/review" title="Re:VIEW">Re:VIEW</a></li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden  " id="slide-6">
+        <section class="slide-content"><h1 id="markdown">Markdown</h1>
+<ul>
+<li>外部ファイル読み込み機能が足りない<ul>
+<li>サンプルコードはjsファイルとして分離したい</li>
+</ul>
+</li>
+<li>pandoc ASTでMarkdown拡張書いた<ul>
+<li><a href="http://efcl.info/2014/0301/res3692/">http://efcl.info/2014/0301/res3692/</a></li>
+</ul>
+</li>
+<li>PDFとかキレイに作るのが面倒</li>
+<li>お手軽だが細かい事はいまいち</li>
+<li>=&gt; 今なら <a href="https://leanpub.com/" title="Leanpub: Publish Early, Publish Often">Leanpub</a> や <a href="https://www.gitbook.io/" title="GitBook">GitBook</a> や <a href="https://arturo.io/" title="Arturo.io - A smarter way to publish">Arturo.io</a> がある</li>
+<li>適当に始めるならMarkdownを選ぶのが間違いない</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-7">
+        <section class="slide-content"><h1 id="sphinx-rest-">Sphinx(reST)</h1>
+<ul>
+<li>構文が重い</li>
+<li>色々揃ってる</li>
+<li><a href="https://readthedocs.org/" title="Read the Docs">Read the Docs</a> が Good</li>
+<li><a href="http://the-little-book-of-busterjs.readthedocs.org/en/latest/" title="The little book of Buster.JS — The little book of Buster.JS 0.7 documentation">前回やった</a>ので別の方法にしたい</li>
+</ul>
+<p><img src="img/The little book of Buster.JS.png" alt="The little book of Buster.JS.png"></p>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-8">
+        <section class="slide-content"><h1 id="asciidoc">Asciidoc</h1>
+<ul>
+<li>Oreilly Mediaが使ってるという実績<ul>
+<li>安定したPDFの出力等がある</li>
+</ul>
+</li>
+<li>基本はMarkdownと似てる<ul>
+<li><a href="http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#markdown-compatibility" title="Markdown Compatibility">Markdown Compatibility</a> を設定するさらにそっくり</li>
+</ul>
+</li>
+<li>無駄に多機能(構文ではなく属性が多い)</li>
+<li>構文自体はそこまでSphinxよりは複雑じゃない</li>
+<li><a href="https://github.com/Farata/EnterpriseWebBook" title="Farata/EnterpriseWebBook">Farata/EnterpriseWebBook</a>という前例</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-9">
+        <section class="slide-content"><h1 id="-asciidoctor-http-asciidoctor-org-asciidoctor-"><a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a></h1>
+<ul>
+<li>AsciidocのRuby実装</li>
+<li>モダンな感じ - アイコンフォントがビルドインで使える</li>
+<li>デフォルトの出力でも十分キレイ</li>
+<li>=&gt; <strong>採用</strong></li>
+</ul>
+<p><a href="http://asciidoctor.org/" title="Asciidoctor"><img src="img/asciidoctor.png" alt="asciidoctor"></a></p>
+</section>
+    </div>
+    <div class="slide hidden  github-flow fit" id="slide-10">
+        <section class="slide-content"><h1 id="github-">Githubワークフロー</h1>
+<style>
+.github-flow {
+    background-image: url("img/github-flow.png");
+}
+</style></section>
+    </div>
+    <div class="slide hidden" id="slide-11">
+        <section class="slide-content"><h1 id="pull-request-">Pull Request駆動</h1>
+<p><img src="img/github-flow_2.png" alt="github-flow"></p>
+<ul>
+<li><code>Master</code> から <code>Branch</code> を切る</li>
+<li><code>Branch</code> を <code>Pull Request</code> する</li>
+<li><code>Pull Request</code>を<code>Master</code>にマージする</li>
+<li><code>Master</code> から <code>gh-pages</code> に自動的にデプロイする</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-12">
+        <section class="slide-content"><h1 id="github-issue-">Github Issueの活用</h1>
+<ul>
+<li>Github Issueをメモ代わりにする<ul>
+<li>Issue References便利 <code>ref. #1</code></li>
+</ul>
+</li>
+<li>自分自身にPull Request駆動 <code>feature/id/1</code><ul>
+<li>セクションを書く時等大きいコミットはPR駆動</li>
+</ul>
+</li>
+<li>小さいチケットはPRしないで、コミットメッセージでIssueを閉じる <code>#fixes 1</code></li>
+<li>詳しくは <a href="http://azu.github.io/slide/udonjs/github-issue.html" title="一人で使えるGithub Issue">一人で使えるGithub Issue</a></li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-13">
+        <section class="slide-content"><h1 id="-">コミットメッセージ</h1>
+<ul>
+<li>日本人しか読まないので日本語で書いた</li>
+<li>AngularJSの<a href="https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#" title="Git Commit Message Conventions - Google ドキュメント">コミットメッセージルール</a>を採用<ul>
+<li><strong>自分以外には強要しない</strong></li>
+</ul>
+</li>
+<li><a href="https://github.com/ajoslin/conventional-changelog/" title="ajoslin/conventional-changelog">ajoslin/conventional-changelog</a>を使ってCHANGELOGの自動生成できる<ul>
+<li><a href="https://github.com/azu/release-changelog" title="azu/release-changelog">azu/release-changelog</a> でgit tagも自動化</li>
+</ul>
+</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden  " id="slide-14">
+        <section class="slide-content"><h1 id="-git-commit-message-conventions-https-docs-google-com-document-d-1qrdfciipjsldn3el15ijygnpihorgu1_ooaqwjidu5y-edit-git-commit-message-conventions-google-"><a href="https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#" title="Git Commit Message Conventions - Google ドキュメント">Git Commit Message Conventions</a></h1>
+<ul>
+<li><strong>feat</strong>: A new feature</li>
+<li><strong>fix</strong>: A bug fix</li>
+<li><strong>docs</strong>: Documentation only changes</li>
+<li><strong>style</strong>: Changes that do not affect the meaning of the code (white-space, formatting, missing
+semi-colons, etc)</li>
+<li><strong>refactor</strong>: A code change that neither fixes a bug or adds a feature</li>
+<li><strong>test</strong>: Adding missing tests</li>
+<li><strong>chore</strong>: Changes to the build process or auxiliary tools and libraries such as documentation
+generation</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden  github-issue fit" id="slide-15">
+        <section class="slide-content"><h1 id="issue-171">issue 171</h1>
+<p>pull-requestを含む</p>
+<style>
+.github-issue {
+    background-image: url("img/promises-book-issue.png");
+}
+</style></section>
+    </div>
+    <div class="slide hidden  pull-request fit" id="slide-16">
+        <section class="slide-content"><h1 id="pull-request-80">pull-request 80</h1>
+<style>
+.pull-request {
+    background-image: url("img/pull-request.png");
+}
+</style></section>
+    </div>
+    <div class="slide hidden  core-time fit" id="slide-17">
+        <section class="slide-content"><style>
+.core-time {
+    background-image: url("img/core-time.png");
+}
+</style></section>
+    </div>
+    <div class="slide hidden" id="slide-18">
+        <section class="slide-content"><h1 id="travis-ci-">Travis CIの活用</h1>
+<ul>
+<li>ビルド</li>
+<li>テスト - Pull Request駆動でやる意味の一つ</li>
+<li>デプロイ(masterへのコミットが対象)</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-19">
+        <section class="slide-content"><h1 id="-">ビルド</h1>
+<ul>
+<li>AsciidoctorでHTMLを生成</li>
+<li>Asciidoc -&gt; docbook -&gt; pdfの生成</li>
+<li>ビルド時にWARNINGがでたらTravis CIはFAIL<ul>
+<li>ビルドテストも兼ねてる</li>
+</ul>
+</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-20">
+        <section class="slide-content"><h1 id="-">テスト</h1>
+<ul>
+<li>サンプルコードをテスト</li>
+<li>出力したHTMLの内部リンクのテスト<ul>
+<li><code>&lt;a href=&quot;#id&quot;&gt;</code> がある時 <code>&lt;a name=&quot;id&quot;&gt;</code> が存在するかをチェックする</li>
+</ul>
+</li>
+<li>Asciidocのインラインコードをパーステスト<ul>
+<li>asciidoc中に書かれたコードを抽出</li>
+<li>EsprimaでJavaScriptとしてパースできるかをテストする</li>
+</ul>
+</li>
+<li>詳細 =&gt; <a href="https://gumroad.com/l/javascript-promise" title="JavaScript Promiseの本 付録">JavaScript Promiseの本 付録</a></li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-21">
+        <section class="slide-content"><h1 id="-">デプロイ</h1>
+<ul>
+<li>テスト済みのコミットのみが対象</li>
+<li>ビルドしたものをTravis CIからgithub-pagesにデプロイ<ul>
+<li>ref. <a href="http://tricknotes.hateblo.jp/entry/2013/06/17/020229" title="Middleman で作った web サイトを Travis + GitHub pages でお手軽に運用する - tricknotesのぼうけんのしょ">Middleman で作った web サイトを Travis + GitHub pages でお手軽に運用する</a></li>
+</ul>
+</li>
+<li>Pull Requestに対してもHTMLを生成してプレビュー用URLの発行<ul>
+<li>Gitterに通知して確認できるように</li>
+</ul>
+</li>
+<li>どのコミットに対してもプレビュー出来るURLを作れる<ul>
+<li>見るだけならどこからでも見られるようにしたかった</li>
+</ul>
+</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-22">
+        <section class="slide-content"><h1 id="-">文章のリファクタリング</h1>
+<h2 id="-">リファクタリングからが本番</h2>
+<ul>
+<li>文章表現の統一ルールは<code>CONTRIBUTE</code>ファイルに追加していく</li>
+<li>一文が長くならないように気をつけて区切る<ul>
+<li>60*2文字より多い場合はアウト</li>
+</ul>
+</li>
+<li>typoは見つけたらその場でissueを立てる<ul>
+<li>HTML版があるのでモバイルからも見られる + Issueを作れる</li>
+<li>移動中にレビュー出来るようにする</li>
+</ul>
+</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden  ios-issue fit" id="slide-23">
+        <section class="slide-content"><h1 id="issue-">Issueをモバイル環境でも作る</h1>
+<style>
+.ios-issue {
+   color :white;
+    background-image: url("img/ios_issue.png");
+}
+.ios-issue *:not(section) {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+</style>
+
+<ul>
+<li>移動中にtypoを発見して修正のIssueを立てやすくする</li>
+<li>後でまとめてIssueを処理する</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden  visual-gif fit" id="slide-24">
+        <section class="slide-content"><h1 id="-">依存関係の可視化</h1>
+<style>
+.visual-gif {
+    background-image: url("img/visual.gif");
+}
+</style>
+
+
+<ul>
+<li><a href="https://github.com/azu/visualize-promises-book" title="azu/visualize-promises-book">azu/visualize-promises-book</a></li>
+<li>文章を文字だけだけで確認するのは疲れる</li>
+<li>視覚的に全体像をざっと把握したい</li>
+<li>何か色々な方向から見て確認したかった</li>
+<li>客観的に見る必要がある</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-25">
+        <section class="slide-content"><h1 id="pull-request-">Pull Requestしやすい空気</h1>
+<ul>
+<li>皆が慣れてるフォーマットで書く<ul>
+<li>Markdownがベスト</li>
+</ul>
+</li>
+<li>Asciidocで書いたけど、意外とPull Requestしてもらえた</li>
+<li><a href="https://github.com/azu/promises-book/blob/master/CONTRIBUTE.md" title="CONTRIBUTE.md">CONTRIBUTE.md</a>をちゃんと作る<ul>
+<li>Issueを作る画面にリンクが表示される</li>
+<li><a href="https://github.com/blog/1184-contributing-guidelines" title="Contributing Guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li>成果物(HTML)をmasterに混ぜない</li>
+<li>1文字Pull Request取り込む作業楽しい!</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden  " id="slide-26">
+        <section class="slide-content"><h1 id="-">まとめ</h1>
+<ul>
+<li><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a> ではAsciidocを使った<ul>
+<li><a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>が良くできてた</li>
+</ul>
+</li>
+<li>人間はやることスグ忘れるのでGithub Issueにメモろう<ul>
+<li>公開情報になるので周りが口出しやすい</li>
+</ul>
+</li>
+<li>自動化できるところは自動化してTravis CI等で回す</li>
+<li>文章のリファクタリングは大変なので、周りが協力しやすい形にしよう<ul>
+<li>ATOK買った方がいいと思いました</li>
+<li>typoのIssueが半分以上です</li>
+</ul>
+</li>
+</ul>
+</section>
+    </div>
+    <div class="slide hidden" id="slide-27">
+        <section class="slide-content"><div class="author">
+  <h1 class="name">azu</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@azu_re">@azu_re</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://efcl.info/">http://efcl.info/</a>
+    </h3>
+</div>
+</section>
+    </div>
+
+    <div class="controls">
+        <div class="arrow prev"></div>
+        <div class="arrow next"></div>
+        <div class="permanent-link">
+            <a href="" id="js-permanent-link">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     version="1.1"
+                     width="512"
+                     height="512"
+                     viewBox="0 0 512 512">
+                    <path
+                            d="M 346.5 85.5625 C 326.00159 85.562511 305.50905 93.334703 289.9375 108.90625 L 287.6875 111.1875 L 233.375 165.5 L 256 188.125 L 312.5625 131.53125 C 331.56141 112.53234 361.46872 112.53198 380.46875 131.53125 C 399.46766 150.53016 399.46802 180.43747 380.46875 199.4375 L 312.5625 267.3125 C 293.56359 286.31141 263.68753 286.31177 244.6875 267.3125 C 240.03887 262.66387 236.59335 257.40619 234.25 251.78125 L 204.71875 264.0625 C 208.6394 273.47356 214.44213 282.31713 222.0625 289.9375 C 253.20647 321.08023 304.04441 321.08059 335.1875 289.9375 L 403.09375 222.0625 C 434.23648 190.91853 434.23684 140.04934 403.09375 108.90625 C 387.52176 93.334884 366.99841 85.562489 346.5 85.5625 z M 233.375 198.71875 C 212.87659 198.71876 192.38405 206.49095 176.8125 222.0625 L 108.90625 289.9375 C 77.763518 321.08147 77.763155 371.95066 108.90625 403.09375 C 140.05022 434.23648 190.91941 434.23684 222.0625 403.09375 L 278.625 346.5 L 256 323.875 L 199.4375 380.46875 C 180.43859 399.46766 150.53128 399.46802 131.53125 380.46875 C 112.53234 361.46984 112.53198 331.56253 131.53125 312.5625 L 188.125 256 L 199.4375 244.6875 C 218.43641 225.68859 248.31247 225.68823 267.3125 244.6875 C 271.96113 249.33613 275.40665 254.59381 277.75 260.21875 L 307.28125 247.9375 C 303.3606 238.52644 297.55787 229.68287 289.9375 222.0625 C 274.36551 206.49113 253.87341 198.71874 233.375 198.71875 z"
+                            style="fill:#ddd"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+
+  <script type="text/javascript">
+    /**
+ * is debug mode
+ * @returns {Number}
+ */
+function isDebugMode(){
+    return /^localhost$/.test(location.hostname);
+}
+
+/**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+    return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+    var position = currentPosition();
+    var numSlides = document.getElementsByClassName('slide').length;
+
+    /* Positions are 1-indexed, so we need to add and subtract 1 */
+    var nextPosition = (position - 1 + n) % numSlides + 1;
+
+    /* Normalize nextPosition in-case of a negative modulo result */
+    nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+    document.getElementById('slide-' + position).classList.add('hidden');
+    document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+    if(isDebugMode()) {
+        updateURL();
+    }
+    updateProgress();
+    updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+    window.history.replaceState({}, null, '#' + currentPosition());
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+    var progressBar = document.querySelector('.progress-bar');
+
+    if (progressBar !== null) {
+        var numSlides = document.getElementsByClassName('slide').length;
+        var position = currentPosition() - 1;
+        var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+        progressBar.style.width = percent.toString() + '%';
+    }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+    var allLinks = document.querySelectorAll('.slide a');
+    var position = currentPosition();
+    var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+    var i;
+
+    for (i = 0; i < allLinks.length; i++) {
+        allLinks[i].setAttribute('tabindex', -1);
+    }
+
+    for (i = 0; i < currentPageLinks.length; i++) {
+        currentPageLinks[i].removeAttribute('tabindex');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Update the tabindex to prevent weird slide transitioning
+    updateTabIndex();
+
+    // If the location hash specifies a page number, go to it.
+    var page = window.location.hash.slice(1);
+    if (page) {
+        navigate(parseInt(page) - 1);
+    }
+
+    document.onkeydown = function (e) {
+        var kc = e.keyCode;
+
+        // left, down, H, J, backspace, PgUp - BACK
+        // up, right, K, L, space, PgDn - FORWARD
+        // enter - FULLSCREEN
+        if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+            navigate(-1);
+        } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+            navigate(1);
+        }
+    };
+
+    document.querySelector(".permanent-link").addEventListener("click", function (evt) {
+        evt.preventDefault();
+        updateURL();
+    });
+    if (document.querySelector('.next') && document.querySelector('.prev')) {
+        document.querySelector('.next').onclick = function (e) {
+            e.preventDefault();
+            navigate(1);
+        };
+
+        document.querySelector('.prev').onclick = function (e) {
+            e.preventDefault();
+            navigate(-1);
+        };
+    }
+});
+
+  </script>
+</body>
+</html>
