@@ -1,4 +1,4 @@
-title: Githubで書く電子書籍を支える技術
+title: Githubで書く電子書籍
 author:
   name: azu
   twitter: azu_re  
@@ -7,20 +7,18 @@ theme: /Users/azu/Dropbox/workspace/slide/cleaver-clear-theme
 output: index.html
 --
 
-# Githubで書く電子書籍を支える技術
+# Githubで書く電子書籍
 ## JavaScript Promiseの本でのワークフロー
 
 -- azu fit
 
 # 自己紹介
 
-
 <style>
 .azu {
 	background-image: url("img/azu.png");
 }
 </style>
-
 
 -- promises-book fit
 
