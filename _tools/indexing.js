@@ -23,7 +23,7 @@ var concatPromise = FS.listTree(rootDir, function isIndexHTML(filePath, stat) {
     }
 
     // ignore rule
-    var ignoreRule = /(reveal\.js|landslide-theme|node_modules)/;
+    var ignoreRule = /(\/theme\/|reveal\.js|landslide-theme|node_modules)/;
     if (ignoreRule.test(filePath)) {
         return false;
     }
