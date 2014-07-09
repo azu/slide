@@ -16,12 +16,15 @@ function pLoadFileList(fileList) {
         });
     }));
 }
-var rootDir = "../";
+var rootDir = pather.resolve(process.cwd(), "../");
 var concatPromise = FS.listTree(rootDir, function isIndexHTML(filePath, stat) {
     if (stat.isDirectory()) {
         return false;
     }
-
+    // root 直下は除外
+    if (pather.dirname(pather.resolve(process.cwd(), filePath)) === rootDir) {
+        return false;
+    }
     // ignore rule
     var ignoreRule = /(\/theme\/|reveal\.js|landslide-theme|node_modules)/;
     if (ignoreRule.test(filePath)) {
