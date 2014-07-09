@@ -8,7 +8,7 @@
     "main": "index.js",
     "scripts": {
         "test": "mocha test/*.js",
-        "precommit": "./_tools/indexing.js"
+        "precommit": "node ./_tools/indexing.js"
     },
     "directories": {
         "test": "test/"
