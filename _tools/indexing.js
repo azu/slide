@@ -48,12 +48,16 @@ function groupingFileList(fileList) {
         if (listObject[keyName] == null) {
             listObject[keyName] = [];
         }
-        listObject[keyName].push({
-            filePath: pather.relative(rootDir, filePath),
-            title: getTitleFromHTMLPath(filePath)
-        });
+        var title = getTitleFromHTMLPath(filePath);
+        if (title != null) {
+            listObject[keyName].push({
+                filePath: pather.relative(rootDir, filePath),
+                title: title
+            });
+        }
     });
-    return listObject;
+
+    return listObject
 }
 Handlebars.registerHelper('link_to', function () {
     return new Handlebars.SafeString("<a href='" + Handlebars.Utils.escapeExpression(this.filePath) + "'>" + Handlebars.Utils.escapeExpression(this.title) + "</a>");
