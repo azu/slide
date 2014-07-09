@@ -1,0 +1,24 @@
+{
+  "name": "slide",
+  "description": "azu's slide repogitory",
+  "version": "0.0.1",
+  "repository": {
+    "url": "git://github.com/azu/slide.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "directories": {
+    "test": "test/"
+  },
+  "author": "azu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azu/slide/issues"
+  },
+  "devDependencies": {
+    "q": "^1.0.1",
+    "q-io": "^1.11.2"
+  }
+}

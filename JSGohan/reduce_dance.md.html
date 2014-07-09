@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Array.prototype.reduce Dance</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Styles -->
+    
+    <style type="text/css" media="print">
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: landscape;
+}
+
+body {
+    font: 100% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+div.slide {
+    min-width: 800px;
+    min-height: 600px;
+    padding: 1em;
+    overflow: hidden;
+    page-break-after: always;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+div.slide div.inner {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    display: table-cell;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h3 {
+    margin: 1em 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+p, li, pre {
+    margin: 1em 0;
+}
+
+li {
+    margin-left: 2em;
+}
+
+a {
+    color: #000000;
+}
+
+pre, code {
+    max-width: 800px;
+    background: #eee;
+    font-family: Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    padding: .2em .5em;
+    overflow: hidden;
+}
+
+code {
+    padding: 0 .2em;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 600px;
+  width: 800px;
+  font-size: 48px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+#toc, #help, .slide aside, .slide footer, .slide .notes,
+.presenter_notes, #current_presenter_notes, #presenter_note {
+  display: none;
+}
+
+    </style>
+    <style type="text/css" media="screen, projection">
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: #778;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+div.presentation {
+    position: absolute;
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    background: inherit;
+}
+
+div.presentation > h1 {
+    display: none;
+}
+
+div.slides, body.expose div.slides.nocontext {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    display: block;
+}
+
+div.slides.nocontext {
+    width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    left: auto;
+    top: auto;
+}
+
+div.slide {
+    display: inline;
+    position: absolute;
+    overflow: hidden;
+    width: 900px;
+    height: 700px;
+    margin-top: -350px;
+    margin-left: -400px;
+    left: 50%;
+    top: 50%;
+    /*
+      background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#fff));
+      background: -moz-linear-gradient(bottom, #eee, #fff);
+    */
+    background-color: white;
+    -webkit-transition: margin 0.25s ease-in-out;
+    -moz-transition: margin 0.25s ease-in-out;
+    -o-transition: margin 0.25s ease-in-out;
+    border-top-left-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    -webkit-border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    -moz-border-radius-topright: 6px;
+    -webkit-border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    -moz-border-radius-bottomright: 6px;
+    -webkit-border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    -webkit-border-bottom-left-radius: 6px;
+}
+
+/* Expose */
+
+body.expose div.slides {
+    float: left;
+    position: relative;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+body.expose div.slide {
+    display: block;
+    float: left;
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    margin: 10px !important;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -moz-transform: scale(.33, .33);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(.33, .33);
+    -webkit-transform-origin: 0 0;
+    -o-transform: scale(.33, .33);
+    -o-transform-origin: 0 0;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+    cursor: pointer;
+}
+
+body.expose div.slide:hover {
+    background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fff));
+    background-color: #eee;
+    background: -moz-linear-gradient(bottom, #bdd, #fff);
+}
+
+body.expose .slide-wrapper {
+    float: left;
+    position: relative;
+    margin: .5%;
+    width: 300px;
+    height: 233px;
+}
+
+body.expose .slide footer {
+}
+
+body.expose .slide .inner {
+}
+
+body.expose .slide.far-past,
+body.expose .slide.past,
+body.expose .slide.future,
+body.expose .slide.far-future {
+    margin-left: 0;
+}
+
+body.expose .slide.current {
+    background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fff));
+    background-color: #eee;
+    background: -moz-linear-gradient(bottom, #ddb, #fff);
+    border: 16px solid #fff;
+    -moz-transform: scale(.315, .315);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(.315, .315);
+    -webkit-transform-origin: 0 0;
+    -o-transform: scale(.315, .315);
+    -o-transform-origin: 0 0;
+    transform: scale(.315, .315);
+    transform-origin: 0 0;
+
+}
+
+/* Presenter Mode */
+
+body.presenter_view div.slide {
+    display: inline;
+    position: absolute;
+    overflow: hidden;
+    -moz-transform: scale(.5, .5);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(.5, .5);
+    -webkit-transform-origin: 0 0;
+    -o-transform: scale(.5, .5);
+    -o-transform-origin: 0 0;
+    transform: scale(.5, .5);
+    transform-origin: 0 0;
+    margin-top: -300px;
+}
+
+body.presenter_view .slide.far-past {
+    display: block;
+    margin-left: -1500px;
+}
+
+body.presenter_view .slide.past {
+    display: block;
+    margin-left: -975px;
+}
+
+body.presenter_view .slide.current {
+    display: block;
+    margin-left: -475px;
+    border: 8px solid maroon;
+    z-index: 2;
+}
+
+body.presenter_view .slide.future {
+    display: block;
+    margin-left: 25px;
+    z-index: 1;
+}
+
+body.presenter_view .slide.far-future {
+    display: block;
+    margin-left: 525px;
+}
+
+body.presenter_view div#current_presenter_notes {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    overflow: auto;
+    vertical-align: middle;
+    left: 50%;
+    top: 50%;
+    margin-left: -475px;
+    margin-top: 100px;
+    z-index: 2;
+    width: 950px;
+    border-style: solid;
+    height: 30%;
+    background-color: silver;
+}
+
+body.presenter_view div#current_presenter_notes section {
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: black;
+    text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+    display: block;
+    overflow: visible;
+    position: relative;
+    background-color: #fffeff;
+    height: 120px;
+    margin-right: 30px;
+    margin-top: 60px;
+    margin-left: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+body.presenter_view div#current_presenter_notes section p {
+    margin: 0;
+}
+
+body.presenter_view div#current_presenter_notes h1 {
+    font-size: 50%;
+    display: block;
+}
+
+div#current_presenter_notes {
+    display: none;
+}
+
+div.slide div.presenter_notes, div.slides div.presenter_notes {
+    display: none;
+}
+
+/* Slide styles */
+
+div.slide p {
+    font-size: 130%;
+}
+
+.slide.far-past {
+    display: block;
+    margin-left: -2400px;
+}
+
+.slide.past {
+    display: block;
+    margin-left: -1400px;
+}
+
+.slide.current {
+    display: block;
+    margin-left: -450px;
+}
+
+.slide.future {
+    display: block;
+    margin-left: 500px;
+}
+
+.slide.far-future {
+    display: block;
+    margin-left: 1500px;
+}
+
+body.three-d div.slides {
+    -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+    -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+    -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+    transform: translateX(50px) scale(0.8) rotateY(10deg);
+}
+
+/* Content */
+header:not(:only-child) {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: normal;
+    font-size: 250%;
+    letter-spacing: -.05em;
+    color: #515151;
+    /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+    left: 30px;
+    top: 0;
+    margin: 0 16px;
+    padding: 0;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+    display: inline;
+    font-size: 150%;
+    font-weight: normal;
+    padding: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+header h2:first-child {
+    margin-top: 0;
+}
+
+section, .slide header:only-child h1 {
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: #515151;
+    /* color: #3f3f3f; */
+    /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+    margin-left: 30px;
+    margin-right: 30px;
+    display: block;
+    overflow: hidden;
+    white-space: normal;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+section img.align-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section img.align-right {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+section img.align-left {
+    display: block;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+a {
+    text-decoration: none;
+    line-height: 110%;
+}
+
+pre {
+    font-size: 100%;
+    font-family: Monaco, Courier, monospace;
+}
+
+li {
+    padding: 10px 0;
+    font-size: 150%;
+}
+
+li li {
+    list-style: none;
+    padding: 5px 0;
+    font-size: 90%;
+}
+
+li li:before {
+    content: '-';
+    display: block;
+    position: relative;
+    max-width: 0px;
+    max-height: 0px;
+    left: -18px;
+    top: -0px;
+    color: #515151;
+    font-size: 90%;
+}
+
+.slide header:only-child h1 {
+    line-height: 180%;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    height: 700px;
+    width: 900px;
+    font-size: 350%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.sidebar {
+    clear: both;
+    background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fff));
+    -webkit-transition: margin 0.25s ease-in-out;
+    background-color: #eee;
+    background: -moz-linear-gradient(right, #dde, #fff);
+    border-right: 5px solid #ccd;
+    z-index: 9999999;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    position: absolute;
+    display: block;
+    margin: 0;
+    margin-left: -400px;
+    padding: 10px 16px;
+    overflow: auto;
+    -webkit-transition: margin 0.2s ease-in-out;
+    -moz-transition: margin 0.2s ease-in-out;
+    -o-transition: margin 0.2s ease-in-out;
+    transition: margin 0.2s ease-in-out;
+}
+
+.sidebar h2 {
+    text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+    margin: 0 0 16px;
+    padding: 0;
+}
+
+.sidebar table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+}
+
+.sidebar table caption {
+    display: none;
+}
+
+.sidebar tr {
+    margin: 2px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebar th {
+    text-align: left;
+    font-weight: normal;
+    max-width: 300px;
+    overflow: hidden;
+}
+
+.sidebar tr.sub th {
+    text-indent: 20px;
+}
+
+.sidebar td {
+    text-align: right;
+    min-width: 20px;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    border-bottom: none;
+    padding: 4px 0;
+}
+
+.sidebar tr.active {
+    background: #ff0;
+}
+
+aside {
+    display: none;
+}
+
+aside.source {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    text-indent: 10px;
+}
+
+aside.page_number {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-indent: 10px;
+}
+
+.notes {
+    display: none;
+    padding: 10px;
+    background: #ccc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+div.slide p.notes {
+    font-size: 100%;
+}
+
+/* Pygments default theme */
+.hll {
+    background-color: #ffffcc
+}
+
+.c {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment */
+.err {
+    border: 1px solid #FF0000
+}
+
+/* Error */
+.k {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword */
+.o {
+    color: #666666
+}
+
+/* Operator */
+.cm {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment.Multiline */
+.cp {
+    color: #BC7A00
+}
+
+/* Comment.Preproc */
+.c1 {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment.Single */
+.cs {
+    color: #408080;
+    font-style: italic
+}
+
+/* Comment.Special */
+.gd {
+    color: #A00000
+}
+
+/* Generic.Deleted */
+.ge {
+    font-style: italic
+}
+
+/* Generic.Emph */
+.gr {
+    color: #FF0000
+}
+
+/* Generic.Error */
+.gh {
+    color: #000080;
+    font-weight: bold
+}
+
+/* Generic.Heading */
+.gi {
+    color: #00A000
+}
+
+/* Generic.Inserted */
+.go {
+    color: #808080
+}
+
+/* Generic.Output */
+.gp {
+    color: #000080;
+    font-weight: bold
+}
+
+/* Generic.Prompt */
+.gs {
+    font-weight: bold
+}
+
+/* Generic.Strong */
+.gu {
+    color: #800080;
+    font-weight: bold
+}
+
+/* Generic.Subheading */
+.gt {
+    color: #0040D0
+}
+
+/* Generic.Traceback */
+.kc {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Constant */
+.kd {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Declaration */
+.kn {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Namespace */
+.kp {
+    color: #008000
+}
+
+/* Keyword.Pseudo */
+.kr {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Keyword.Reserved */
+.kt {
+    color: #B00040
+}
+
+/* Keyword.Type */
+.m {
+    color: #666666
+}
+
+/* Literal.Number */
+.s {
+    color: #BA2121
+}
+
+/* Literal.String */
+.na {
+    color: #7D9029
+}
+
+/* Name.Attribute */
+.nb {
+    color: #008000
+}
+
+/* Name.Builtin */
+.nc {
+    color: #0000FF;
+    font-weight: bold
+}
+
+/* Name.Class */
+.no {
+    color: #880000
+}
+
+/* Name.Constant */
+.nd {
+    color: #AA22FF
+}
+
+/* Name.Decorator */
+.ni {
+    color: #999999;
+    font-weight: bold
+}
+
+/* Name.Entity */
+.ne {
+    color: #D2413A;
+    font-weight: bold
+}
+
+/* Name.Exception */
+.nf {
+    color: #0000FF
+}
+
+/* Name.Function */
+.nl {
+    color: #A0A000
+}
+
+/* Name.Label */
+.nn {
+    color: #0000FF;
+    font-weight: bold
+}
+
+/* Name.Namespace */
+.nt {
+    color: #008000;
+    font-weight: bold
+}
+
+/* Name.Tag */
+.nv {
+    color: #19177C
+}
+
+/* Name.Variable */
+.ow {
+    color: #AA22FF;
+    font-weight: bold
+}
+
+/* Operator.Word */
+.w {
+    color: #bbbbbb
+}
+
+/* Text.Whitespace */
+.mf {
+    color: #666666
+}
+
+/* Literal.Number.Float */
+.mh {
+    color: #666666
+}
+
+/* Literal.Number.Hex */
+.mi {
+    color: #666666
+}
+
+/* Literal.Number.Integer */
+.mo {
+    color: #666666
+}
+
+/* Literal.Number.Oct */
+.sb {
+    color: #BA2121
+}
+
+/* Literal.String.Backtick */
+.sc {
+    color: #BA2121
+}
+
+/* Literal.String.Char */
+.sd {
+    color: #BA2121;
+    font-style: italic
+}
+
+/* Literal.String.Doc */
+.s2 {
+    color: #BA2121
+}
+
+/* Literal.String.Double */
+.se {
+    color: #BB6622;
+    font-weight: bold
+}
+
+/* Literal.String.Escape */
+.sh {
+    color: #BA2121
+}
+
+/* Literal.String.Heredoc */
+.si {
+    color: #BB6688;
+    font-weight: bold
+}
+
+/* Literal.String.Interpol */
+.sx {
+    color: #008000
+}
+
+/* Literal.String.Other */
+.sr {
+    color: #BB6688
+}
+
+/* Literal.String.Regex */
+.s1 {
+    color: #BA2121
+}
+
+/* Literal.String.Single */
+.ss {
+    color: #19177C
+}
+
+/* Literal.String.Symbol */
+.bp {
+    color: #008000
+}
+
+/* Name.Builtin.Pseudo */
+.vc {
+    color: #19177C
+}
+
+/* Name.Variable.Class */
+.vg {
+    color: #19177C
+}
+
+/* Name.Variable.Global */
+.vi {
+    color: #19177C
+}
+
+/* Name.Variable.Instance */
+.il {
+    color: #666666
+}
+
+/* Literal.Number.Integer.Long */
+
+#blank {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    z-index: 64;
+    display: none;
+}
+
+.highlight pre {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    clear: both;
+    color: inherit;
+    font: 100%/1.25 "Monaco", "Andale Mono", monospace;
+    margin: 10px 0px;
+    padding: 15px 20px;
+    position: relative;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.highlight pre:before, .highlight pre:after {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 16px;
+}
+
+.highlight pre:before, .highlight pre:after {
+    width: 15px;
+}
+
+.highlight pre:before {
+    right: 100%;
+    top: -1px;
+    border-radius: 5px 0 0 5px;
+}
+
+.highlight pre:after {
+    left: 100%;
+    top: -1px;
+    border-radius: 0 5px 5px 0;
+}
+
+.slide p > code, .slide li > code {
+    background-color: #FEE9CC;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+}
+    </style>
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script>
+      function main(){
+    // Since we don't have the fallback of attachEvent and
+    // other IE only stuff we won't try to run JS for IE.
+    // It will run though when using Google Chrome Frame
+    var currentSlideNo;
+    var notesOn = false;
+    var expanded = false;
+    var hiddenContext = false;
+    var blanked = false;
+    var slides = document.getElementsByClassName('slide');
+    var touchStartX = 0;
+    var spaces = /\s+/, a1 = [''];
+    var tocOpened = false;
+    var helpOpened = false;
+    var overviewActive = false;
+    var modifierKeyDown = false;
+    var scale = 1;
+    var showingPresenterView = false;
+    var presenterViewWin = null;
+    var isPresenterView = false;
+
+    var str2array = function (s){
+        if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+                a1[0] = s;
+                return a1;
+            } else {
+                return s.split(spaces);
+            }
+        }
+        return s;
+    };
+
+    var trim = function (str){
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    var addClass = function (node, classStr){
+        classStr = str2array(classStr);
+        var cls = ' ' + node.className + ' ';
+        for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+                cls += c + ' ';
+            }
+        }
+        node.className = trim(cls);
+    };
+
+    var removeClass = function (node, classStr){
+        var cls;
+        if (!node) {
+            throw 'no node provided';
+        }
+        if (classStr !== undefined) {
+            classStr = str2array(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+                cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+        } else {
+            cls = '';
+        }
+        if (node.className != cls) {
+            node.className = cls;
+        }
+    };
+
+    var getSlideEl = function (slideNo){
+        if (slideNo > 0) {
+            return slides[slideNo - 1];
+        } else {
+            return null;
+        }
+    };
+
+    var getSlideTitle = function (slideNo){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var headers = el.getElementsByTagName('header');
+            if (headers.length > 0) {
+                return el.getElementsByTagName('header')[0].innerText;
+            }
+        }
+        return null;
+    };
+
+    var getSlidePresenterNote = function (slideNo){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var n = el.getElementsByClassName('presenter_notes');
+            if (n.length > 0) {
+                return n[0];
+            }
+        }
+        return null;
+    };
+
+    var changeSlideElClass = function (slideNo, className){
+        var el = getSlideEl(slideNo);
+        if (el) {
+            removeClass(el, 'far-past past current future far-future');
+            addClass(el, className);
+        }
+    };
+
+    var updateSlideClasses = function (updateOther){
+        window.location.hash = (isPresenterView ? "presenter" : "slide") + currentSlideNo;
+
+        for (var i = 1; i < currentSlideNo - 1; i++) {
+            changeSlideElClass(i, 'far-past');
+        }
+
+        changeSlideElClass(currentSlideNo - 1, 'past');
+        changeSlideElClass(currentSlideNo, 'current');
+        changeSlideElClass(currentSlideNo + 1, 'future');
+
+        for (i = currentSlideNo + 2; i < slides.length + 1; i++) {
+            changeSlideElClass(i, 'far-future');
+        }
+
+        highlightCurrentTocLink();
+
+        processContext();
+
+        document.getElementsByTagName('title')[0].innerText = getSlideTitle(currentSlideNo);
+
+        updatePresenterNotes();
+
+        if (updateOther) {
+            updateOtherPage();
+        }
+    };
+
+    var updatePresenterNotes = function (){
+        if (!isPresenterView) {
+            return;
+        }
+
+        var existingNote = document.getElementById('current_presenter_notes');
+        var currentNote = getSlidePresenterNote(currentSlideNo).cloneNode(true);
+        currentNote.setAttribute('id', 'presenter_note');
+
+        existingNote.replaceChild(currentNote, document.getElementById('presenter_note'));
+    };
+
+    var highlightCurrentTocLink = function (){
+        var toc = document.getElementById('toc');
+
+        if (toc) {
+            var tocRows = toc.getElementsByTagName('tr');
+            for (var i = 0; i < tocRows.length; i++) {
+                removeClass(tocRows.item(i), 'active');
+            }
+
+            var currentTocRow = document.getElementById('toc-row-' + currentSlideNo);
+            if (currentTocRow) {
+                addClass(currentTocRow, 'active');
+            }
+        }
+    };
+
+    var updateOtherPage = function (){
+        if (!showingPresenterView) {
+            return;
+        }
+
+        var w = isPresenterView ? window.opener : presenterViewWin;
+        w.postMessage('slide#' + currentSlideNo, '*');
+    };
+
+    var nextSlide = function (){
+        if (currentSlideNo < slides.length) {
+            currentSlideNo++;
+        }
+        updateSlideClasses(true);
+    };
+
+    var prevSlide = function (){
+        if (currentSlideNo > 1) {
+            currentSlideNo--;
+        }
+        updateSlideClasses(true);
+    };
+
+    var showNotes = function (){
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        for (var i = 0, len = notes.length; i < len; i++) {
+            notes.item(i).style.display = (notesOn) ? 'none' : 'block';
+        }
+        notesOn = !notesOn;
+    };
+
+    var showSlideNumbers = function (){
+        var asides = document.getElementsByClassName('page_number');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showSlideSources = function (){
+        var asides = document.getElementsByClassName('source');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showToc = function (){
+        if (helpOpened) {
+            showHelp();
+        }
+        var toc = document.getElementById('toc');
+        if (toc) {
+            toc.style.marginLeft = tocOpened ? '-' + (toc.clientWidth + 20) + 'px' : '0px';
+            tocOpened = !tocOpened;
+        }
+        updateOverview();
+    };
+
+    var showHelp = function (){
+        if (tocOpened) {
+            showToc();
+        }
+
+        var help = document.getElementById('help');
+
+        if (help) {
+            help.style.marginLeft = helpOpened ? '-' + (help.clientWidth + 20) + 'px' : '0px';
+            helpOpened = !helpOpened;
+        }
+    };
+
+    var showPresenterView = function (){
+        if (isPresenterView) {
+            return;
+        }
+
+        if (showingPresenterView) {
+            presenterViewWin.close();
+            presenterViewWin = null;
+            showingPresenterView = false;
+        } else {
+            presenterViewWin = open(window.location.pathname + "#presenter" + currentSlideNo, 'presenter_notes',
+                'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
+            showingPresenterView = true;
+        }
+    };
+
+    var switch3D = function (){
+        if (document.body.className.indexOf('three-d') == -1) {
+            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
+            document.body.className += ' three-d';
+        } else {
+            window.setTimeout("document.getElementsByClassName('presentation')[0].style.webkitPerspective = '0';", 2000);
+            document.body.className = document.body.className.replace(/three-d/, '');
+        }
+    };
+
+    var toggleOverview = function (){
+        if (!overviewActive) {
+            addClass(document.body, 'expose');
+            overviewActive = true;
+            setScale(1);
+        } else {
+            removeClass(document.body, 'expose');
+            overviewActive = false;
+            if (expanded) {
+                setScale(scale);    // restore scale
+            }
+        }
+        processContext();
+        updateOverview();
+    };
+
+    var updateOverview = function (){
+        try {
+            var presentation = document.getElementsByClassName('presentation')[0];
+        } catch (e) {
+            return;
+        }
+
+        if (isPresenterView) {
+            var action = overviewActive ? removeClass : addClass;
+            action(document.body, 'presenter_view');
+        }
+
+        var toc = document.getElementById('toc');
+
+        if (!toc) {
+            return;
+        }
+
+        if (!tocOpened || !overviewActive) {
+            presentation.style.marginLeft = '0px';
+            presentation.style.width = '100%';
+        } else {
+            presentation.style.marginLeft = toc.clientWidth + 'px';
+            presentation.style.width = (presentation.clientWidth - toc.clientWidth) + 'px';
+        }
+    };
+
+    var computeScale = function (){
+        var cSlide = document.getElementsByClassName('current')[0];
+        var sx = cSlide.clientWidth / window.innerWidth;
+        var sy = cSlide.clientHeight / window.innerHeight;
+        return 1 / Math.max(sx, sy);
+    };
+
+    var setScale = function (scale){
+        var presentation = document.getElementsByClassName('slides')[0];
+        var transform = 'scale(' + scale + ')';
+        presentation.style.MozTransform = transform;
+        presentation.style.WebkitTransform = transform;
+        presentation.style.OTransform = transform;
+        presentation.style.msTransform = transform;
+        presentation.style.transform = transform;
+    };
+
+    var expandSlides = function (){
+        if (overviewActive) {
+            return;
+        }
+        if (expanded) {
+            setScale(1);
+            expanded = false;
+        } else {
+            scale = computeScale();
+            setScale(scale);
+            expanded = true;
+        }
+    };
+
+    var showContext = function (){
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            removeClass(presentation, 'nocontext');
+        } catch (e) {
+        }
+    };
+
+    var hideContext = function (){
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            addClass(presentation, 'nocontext');
+        } catch (e) {
+        }
+    };
+
+    var processContext = function (){
+        if (hiddenContext) {
+            hideContext();
+        } else {
+            showContext();
+        }
+    };
+
+    var toggleContext = function (){
+        hiddenContext = !hiddenContext;
+        processContext();
+    };
+
+    var toggleBlank = function (){
+        blank_elem = document.getElementById('blank');
+
+        blank_elem.style.display = blanked ? 'none' : 'block';
+
+        blanked = !blanked;
+    };
+
+    var isModifierKey = function (keyCode){
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function (event){
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function (event){
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
+
+    var handleBodyKeyDown = function (event){
+        switch (event.keyCode) {
+            case 13: // Enter
+                if (overviewActive) {
+                    toggleOverview();
+                }
+                break;
+            case 27: // ESC
+                toggleOverview();
+                break;
+            case 37: // left arrow
+            case 33: // page up
+                event.preventDefault();
+                prevSlide();
+                break;
+            case 39: // right arrow
+            case 32: // space
+            case 34: // page down
+                event.preventDefault();
+                nextSlide();
+                break;
+            case 50: // 2
+                if (!modifierKeyDown) {
+                    showNotes();
+                }
+                break;
+            case 51: // 3
+                if (!modifierKeyDown && !overviewActive) {
+                    switch3D();
+                }
+                break;
+            case 190: // .
+            case 48: // 0
+            case 66: // b
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleBlank();
+                }
+                break;
+            case 67: // c
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleContext();
+                }
+                break;
+            case 69: // e
+                if (!modifierKeyDown && !overviewActive) {
+                    expandSlides();
+                }
+                break;
+            case 72: // h
+                showHelp();
+                break;
+            case 78: // n
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideNumbers();
+                }
+                break;
+            case 80: // p
+                if (!modifierKeyDown && !overviewActive) {
+                    showPresenterView();
+                }
+                break;
+            case 83: // s
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideSources();
+                }
+                break;
+            case 84: // t
+                showToc();
+                break;
+        }
+    };
+
+    var handleWheel = function (event){
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+
+        var delta = 0;
+
+        if (!event) {
+            event = window.event;
+        }
+
+        if (event.wheelDelta) {
+            delta = event.wheelDelta / 120;
+            if (window.opera) delta = -delta;
+        } else if (event.detail) {
+            delta = -event.detail / 3;
+        }
+
+        if (delta && delta < 0) {
+            nextSlide();
+        } else if (delta) {
+            prevSlide();
+        }
+    };
+
+    var addSlideClickListeners = function (){
+        for (var i = 0; i < slides.length; i++) {
+            var slide = slides.item(i);
+            slide.num = i + 1;
+            slide.addEventListener('click', function (e){
+                if (overviewActive) {
+                    currentSlideNo = this.num;
+                    toggleOverview();
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }
+                return false;
+            }, true);
+        }
+    };
+
+    var addRemoteWindowControls = function (){
+        window.addEventListener("message", function (e){
+            if (e.data.indexOf("slide#") != -1) {
+                currentSlideNo = Number(e.data.replace('slide#', ''));
+                updateSlideClasses(false);
+            }
+        }, false);
+    };
+
+    var addTouchListeners = function (){
+        document.addEventListener('touchstart', function (e){
+            touchStartX = e.touches[0].pageX;
+        }, false);
+        document.addEventListener('touchend', function (e){
+            var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (pixelsMoved > SWIPE_SIZE) {
+                nextSlide();
+            }
+            else if (pixelsMoved < -SWIPE_SIZE) {
+                prevSlide();
+            }
+        }, false);
+    };
+
+    var addTocLinksListeners = function (){
+        var toc = document.getElementById('toc');
+        if (toc) {
+            var tocLinks = toc.getElementsByTagName('a');
+            for (var i = 0; i < tocLinks.length; i++) {
+                tocLinks.item(i).addEventListener('click', function (e){
+                    currentSlideNo = Number(this.attributes['href'].value.replace('#slide', ''));
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }, true);
+            }
+        }
+    };
+
+    // initialize
+
+    (function (){
+        if (window.location.hash == "") {
+            currentSlideNo = 1;
+        } else if (window.location.hash.indexOf("#presenter") != -1) {
+            currentSlideNo = Number(window.location.hash.replace('#presenter', ''));
+            isPresenterView = true;
+            showingPresenterView = true;
+            presenterViewWin = window;
+            addClass(document.body, 'presenter_view');
+        } else {
+            currentSlideNo = Number(window.location.hash.replace('#slide', ''));
+        }
+
+        document.addEventListener('keyup', checkModifierKeyUp, false);
+        document.addEventListener('keydown', handleBodyKeyDown, false);
+        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('DOMMouseScroll', handleWheel, false);
+
+        window.onmousewheel = document.onmousewheel = handleWheel;
+        window.onresize = expandSlides;
+        for (var i = 0, el; el = slides[i]; i++) {
+            addClass(el, 'slide far-future');
+        }
+        updateSlideClasses(false);
+
+        // add support for finger events (filter it by property detection?)
+        addTouchListeners();
+
+        addTocLinksListeners();
+
+        addSlideClickListeners();
+
+        addRemoteWindowControls();
+    })();
+}
+
+    </script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: array.prototype.reduce_dance.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Array.prototype.reduce Dance</h1></header>
+            
+            
+            <section><p><a href="http://glide.so/azu/6919649">http://glide.so/azu/6919649</a></p>
+<h2>Basic</h2>
+<blockquote>
+<p>var assert = require("assert");</p>
+</blockquote>
+<ul>
+<li>forと違いimmutableなオブジェクトを使わないで合計を出せる</li>
+<li><a href="http://toolness.github.io/slowmo-js/?code=%5B1%2C%202%5D.reduce(function%20(x%2C%20y)%20%7B%20return%20x%20%2B%20y%20%7D)%3B&amp;filterrange=5-5">Basic flow</a></li>
+</ul>
+<p><code>js
+var total = [1, 2, 3, 4, 5].reduce(function (a, b) {
+    return a + b;
+});
+assert.equal(total, 15);</code></p>
+<h3>初期値</h3>
+<ul>
+<li>初期値を指定することもできる</li>
+</ul>
+<p><code>js
+var initialTotal = [0, 1, 2, 3, 4].reduce(function (a, b) {
+    return a + b;
+}, 10);
+assert.equal(initialTotal, 20);</code></p>
+<h3>例外</h3>
+<ul>
+<li>空の配列の場合は例外を吐く</li>
+<li><a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.21" title="15.4.4.21 Array.prototype.reduce">15.4.4.21 Array.prototype.reduce</a><ul>
+<li>Step 8.c</li>
+</ul>
+</li>
+</ul>
+<p><code>js
+assert.throws(
+    function () {
+        [].reduce(function (a, b) {
+            return a + b
+        });
+    },
+    TypeError,
+    "k &lt; len の場合はTypeError"
+);</code></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="array.prototype.reduce_dance.md">array.prototype.reduce_dance.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/4
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: array.prototype.reduce_dance.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>every by reduce</h2></header>
+            
+            
+            <section><p><code>js
+var assert = require("assert");
+assert.ng = function(value, message){
+    assert.equal(false, !!value, message);
+};</code></p>
+<ul>
+<li><code>reduce</code> があれば、補完mapやeveryなどは実装できる</li>
+<li>柔軟性が高い</li>
+</ul>
+<blockquote>
+<p>このうちreduceが一番強力で、mapやfilterやsumなど、他の関数もこれをもとに定義できます</p>
+</blockquote>
+<p>via <a href="https://gist.github.com/ympbyc/5564146" title="Functional JavaScript">Functional JavaScript</a></p>
+<h3><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/every" title="Array.every">Array.every</a></h3>
+<p><code>js
+function every(array, predicate) {
+    return array.reduce(function (previousValue, currentValue, index, list) {
+        if (previousValue) {
+            return predicate(currentValue, index, list);
+        } else {
+            return previousValue;
+        }
+    }, true);
+}
+function isBigEnough(element, index, list) {
+    return (element &gt;= 10);
+}
+assert.ok(every([12, 130, 44], isBigEnough));
+assert.ng(every([1, 100, 200], isBigEnough));</code></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="array.prototype.reduce_dance.md">array.prototype.reduce_dance.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/4
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: array.prototype.reduce_dance.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>map</h2></header>
+            
+            
+            <section><blockquote>
+<p>var _ = require("underscore");</p>
+</blockquote>
+<ul>
+<li><code>map</code> は基本的に入力の個数と出力の個数が同じ</li>
+<li><code>map</code> だけだと <code>filter</code> (select) までは行えない</li>
+</ul>
+<p><code>js
+var filteredNumberToString = function (e) {
+    if (typeof e === "number") {
+        return String(e);
+    }
+};
+var mappedArray = [1, null, 3].map(filteredNumberToString);
+// 現実はundefinedになる
+assert.deepEqual(mappedArray, ["1", undefined, "3"]);</code></p>
+<h3>flatMap</h3>
+<ul>
+<li><code>reduce</code> なら違う形(入力と出力の個数が異なる)ものを返せる</li>
+</ul>
+<p><code>js
+function flatMap(obj, iterator) {
+    return _.reduce(obj, function (memo, value, index, list) {
+        var items = iterator(value, index, list);
+        if (items == null) {
+            return memo;
+        }
+        return memo.concat(items);
+    }, []);
+}
+var flatMappedArray = flatMap(["string", 1, null, 3], filteredNumberToString);
+// Numberだけにfilter + NumberをStringに変換した結果を返す
+assert.deepEqual(flatMappedArray, ["1", "3"]);</code></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="array.prototype.reduce_dance.md">array.prototype.reduce_dance.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/4
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: array.prototype.reduce_dance.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Null Guard</h2></header>
+            
+            
+            <section><ul>
+<li>配列に <strong>falsy</strong> な値が含まれてる意図しない結果になってしまう</li>
+</ul>
+<p><code>js
+var nums = [1, 2, 3, null, 5];
+var multFn = function (total, n) {
+    return total * n;
+};
+_.reduce(nums, multFn);// =&gt; 0 になってしまう…</code></p>
+<h3>Null Check?</h3>
+<ul>
+<li>multFnにnullチェックを入れるのは本質的じゃない</li>
+<li>nullチェックを加える高階関数を作る</li>
+</ul>
+<p><code>js
+function fnull(fn, defaultValue) {
+    return function () {
+    // falsyだった場合はdefaultValueにしたものに引数を構築し直す
+        var args = _.map(arguments, function (e) {
+            return e != null ? e : defaultValue;
+        });
+        return fn.apply(null, args);
+    }
+}</code></p>
+<h3>safeMult</h3>
+<ul>
+<li>falsyな値はdefalutValueに変更される</li>
+</ul>
+<p><code>js
+// var nums = [1, 2, 3, null, 5];
+// falsyな値はdefalutValue(1)に変更される
+var safeMultFn = fnull(multFn, 1);
+var totalMult = _.reduce(nums, safeMultFn);
+assert.equal(totalMult, 30);</code></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="array.prototype.reduce_dance.md">array.prototype.reduce_dance.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/4
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Array.prototype.reduce Dance</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-2" class="sub">
+          <th><a href="#slide2">every by reduce</a></th>
+          <td><a href="#slide2">2</a></td>
+        </tr>
+        
+        <tr id="toc-row-3" class="sub">
+          <th><a href="#slide3">map</a></th>
+          <td><a href="#slide3">3</a></td>
+        </tr>
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">Null Guard</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
