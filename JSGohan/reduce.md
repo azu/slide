@@ -1,5 +1,3 @@
----
-
 # Array.prototype.reduce Dance
 
 ---
