@@ -1,6 +1,8 @@
+---
+
 # Array.prototype.reduce Dance
 
-----
+---
 
 ## Basic
 
@@ -16,6 +18,8 @@ var total = [1, 2, 3, 4, 5].reduce(function (a, b) {
 assert.equal(total, 15);
 ```
 
+---
+
 ### 初期値
 
 * 初期値を指定することもできる
@@ -26,6 +30,8 @@ var initialTotal = [0, 1, 2, 3, 4].reduce(function (a, b) {
 }, 10);
 assert.equal(initialTotal, 20);
 ```
+
+---
 
 ### 例外
 
@@ -47,6 +53,8 @@ assert.throws(
 
 ----
 
+---
+
 ## every by reduce
 
 
@@ -63,6 +71,8 @@ assert.ng = function(value, message){
 > このうちreduceが一番強力で、mapやfilterやsumなど、他の関数もこれをもとに定義できます
 
 via [Functional JavaScript](https://gist.github.com/ympbyc/5564146 "Functional JavaScript")
+
+---
 
 ### [Array.every](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/every "Array.every")
 
@@ -85,6 +95,8 @@ assert.ng(every([1, 100, 200], isBigEnough));
 
 ----
 
+---
+
 ## map
 
 > var _ = require("underscore");
@@ -102,6 +114,8 @@ var mappedArray = [1, null, 3].map(filteredNumberToString);
 // 現実はundefinedになる
 assert.deepEqual(mappedArray, ["1", undefined, "3"]);
 ```
+
+---
 
 ### flatMap
 
@@ -125,6 +139,8 @@ assert.deepEqual(flatMappedArray, ["1", "3"]);
 
 ----
 
+---
+
 ### 高階関数
 
 * 関数を返す関数の事
@@ -147,6 +163,8 @@ function comparator(predicate) {
 }
 ```
 
+---
+
 ### Predicates to ComparisonResult
 
 
@@ -166,6 +184,8 @@ assert.deepEqual(results, expectedSortedValues);
 
 ----
 
+---
+
 ## Null Guard
 
 * 配列に **falsy** な値が含まれてる意図しない結果になってしまう
@@ -177,6 +197,8 @@ var multFn = function (total, n) {
 };
 _.reduce(nums, multFn);// => 0 になってしまう…
 ```
+
+---
 
 ### Null Check?
 
@@ -195,6 +217,8 @@ function fnull(fn, defaultValue) {
 }
 ```
 
+---
+
 ### safeMult
 
 * falsyな値はdefalutValueに変更される
@@ -206,6 +230,8 @@ var safeMultFn = fnull(multFn, 1);
 var totalMult = _.reduce(nums, safeMultFn);
 assert.equal(totalMult, 30);
 ```
+
+---
 
 ### おわり
 
