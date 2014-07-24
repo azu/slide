@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>healthkit</title>
+    <expansionState>1,3,8,9,11,13,14,17,19,21,23,26,31,34,44</expansionState>
+  </head>
+  <body>
+    <outline text="HealthKit概要"/>
+    <outline text="HealthKitの認証">
+      <outline text="健康情報はセンシティブなデータ"/>
+      <outline text="read / write それぞれ権限を要求される">
+        <outline text="￼"/>
+        <outline text="readとwriteそれぞれ設定できる"/>
+        <outline text="モーダルで勝手に表示される"/>
+        <outline text="[Luis Abreu: iOS 8 Privacy Updates](http://lmjabreu.com/post/ios-8-privacy-updates/ &quot;Luis Abreu: iOS 8 Privacy Updates&quot;)"/>
+      </outline>
+    </outline>
+    <outline text="データの種類">
+      <outline text="3type">
+        <outline text="HKCharasteristicType&#10;&#10;ユーザ固有の情報をあらわすデータタイプ (血液型や生年月日など)&#10;HKSampleType&#10;&#10;ある特定のタイミングに計測された量をあらわすデータタイプ (血圧や歩数など)&#10;HKQuantityType&#10;&#10;ある特定のタイミングに計測されたカテゴリーをあらわすデータタイプ (睡眠の状態など)"/>
+      </outline>
+      <outline text="オブジェクト">
+        <outline text="全てのデータがオブジェクトとなってる"/>
+      </outline>
+    </outline>
+    <outline text="データの作成">
+      <outline text="HKQuantitySampleがデータオブジェクト">
+        <outline text="HKQuantityType(種類)とHKQuantity(量)とHKUnit(単位)から構成される"/>
+        <outline text="HKQuantitySampleを作るときに種類と単位が一致してないと実行時エラー"/>
+      </outline>
+    </outline>
+    <outline text="データの書き込み">
+      <outline text="血圧データを書き込みする"/>
+    </outline>
+    <outline text="データの読み込み">
+      <outline text="別アプリからデータを読み込む"/>
+      <outline text="データのフィルタ">
+        <outline text="Queryで検索するときに絞り込める"/>
+        <outline text="by Source">
+          <outline text="query時に自分、identifier、アプリ名で絞り込める"/>
+          <outline text="後からpredicateでpredicateForObjectsFromSource:を使うことでもできる"/>
+        </outline>
+        <outline text="by Predicate">
+          <outline text="@interface HKQuery (HKObjectPredicates)" _note="metakeyをベースとした絞り込みのpredicateを生成できる"/>
+          <outline text="+ (NSPredicate *)predicateForSamplesWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate options:(HKQueryOptions)options;&#10;で日付の絞込"/>
+        </outline>
+        <outline text="基本的に後からpredicateで絞り直せる"/>
+        <outline text="HKStatisticsCollectionQueryである日"/>
+      </outline>
+    </outline>
+    <outline text="データを計算">
+      <outline text="グラフを表示するの目的"/>
+      <outline text="HKStatisticsQuery &amp; HKStatisticsで統計データを作る"/>
+      <outline text="曜日別のグラフを作成">
+        <outline text="HKStatisticsCollection"/>
+        <outline text="HKStatisticsCollectionQueryで日付以降のデータを取れる"/>
+        <outline text="intervalComponentsは必須"/>
+        <outline text="DateComponentsは[Solutions to Common Date and Time Challenges](https://developer.apple.com/videos/wwdc/2013/#227 &quot;Solutions to Common Date and Time Challenges&quot;)を見る"/>
+        <outline text="enumerateStatisticsFromDateはデータが存在しなくても区切りにそって列挙される"/>
+        <outline text="これはグラフではかなり重要なやり方"/>
+        <outline text="http://gyazo.com/37eada8c7ea10964d2b81ca01b6201bf.gif"/>
+        <outline text="￼"/>
+        <outline text="&#10; [cal enumerateDatesStartingAfterDate:[NSDate date]&#10;            matchingComponents:dateComponents&#10;                       options:&lt;options&gt;&#10;                    usingBlock:^(NSDate *date, BOOL exactMatch, BOOL *stop) {&#10;と一緒"/>
+      </outline>
+    </outline>
+    <outline text="データを一覧する">
+      <outline text="NSFormatterについてを解説する"/>
+    </outline>
+  </body>
+</opml>

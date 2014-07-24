@@ -28,6 +28,7 @@
       </enum-name-table>
     </style-attribute>
     <style-attribute version="0" key="paragraph-line-height-multiple" group="paragraph" name="line height multiple" class="number" integral="0" min="0" max="1000">0</style-attribute>
+    <style-attribute version="0" key="paragraph-tab-stop-interval" group="paragraph" name="tab stop interval" class="number" integral="0" min="0" max="1000">0</style-attribute>
     <style-attribute version="0" key="text-background-color" group="text" name="background color" class="color">
       <color w="0" a="0"/>
     </style-attribute>
@@ -71,6 +72,7 @@
   </named-styles>
   <attachments>
     <attachment id="att0" href="2014-07-07_23-53-27.jpg" type="image"/>
+    <attachment id="att1" href="37eada8c7ea10964d2b81ca01b6201bf.gif" type="image"/>
   </attachments>
   <settings>
     <base-style>
@@ -111,12 +113,12 @@
     </print-info>
     <auto-generate-level-styles>no</auto-generate-level-styles>
   </settings>
-  <editor content-size="{545, 760}" vertical-scrollbar-visible-width="15" scroll-position="{0, 1086}" column-titles-display-mode="auto" status-visible="no" hide-attachment-tags="yes" is-spellchecking-enabled="yes">
-    <drawer display="sections" width="185" palette-height="352"/>
+  <editor content-size="{773, 980}" vertical-scrollbar-visible-width="15" column-titles-display-mode="auto" status-visible="no" hide-attachment-tags="yes" is-spellchecking-enabled="yes">
+    <drawer display="sections" width="185" palette-height="351"/>
     <note-split-view height="132"/>
-    <selected-rows ids="bpZR2hIha-K"/>
+    <selected-rows ids="jBOfBfopAFV"/>
     <selected-columns ids="jFqHUGd_Dg1"/>
-    <selected-characters range="{11, 0}"/>
+    <selected-characters range="{53, 0}"/>
   </editor>
   <outline-title>
     <text>
@@ -145,7 +147,7 @@
         </text>
       </title>
     </column>
-    <column id="jFqHUGd_Dg1" type="text" width="509" minimum-width="13" maximum-width="1000000" text-export-width="72" is-outline-column="yes">
+    <column id="jFqHUGd_Dg1" type="text" width="737" minimum-width="13" maximum-width="1000000" text-export-width="72" is-outline-column="yes">
       <title>
         <text>
           <p>
@@ -290,6 +292,23 @@
                 </text>
               </values>
             </item>
+            <item id="mA4c3OCbSwv">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>[Luis Abreu: iOS 8 Privacy Updates](</lit>
+                    </run>
+                    <run>
+                      <lit><cell href="http://lmjabreu.com/post/ios-8-privacy-updates/" name="http://lmjabreu.com/post/ios-8-privacy-updates/" type="link"/></lit>
+                    </run>
+                    <run>
+                      <lit> &quot;Luis Abreu: iOS 8 Privacy Updates&quot;)</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
           </children>
         </item>
       </children>
@@ -377,6 +396,30 @@
                     </run>
                     <run>
                       <lit>)</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+          </children>
+        </item>
+        <item id="gLw-vvyRdRa" expanded="yes">
+          <values>
+            <text>
+              <p>
+                <run>
+                  <lit>オブジェクト</lit>
+                </run>
+              </p>
+            </text>
+          </values>
+          <children>
+            <item id="mucNhtA2I7F">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>全てのデータがオブジェクトとなってる</lit>
                     </run>
                   </p>
                 </text>
@@ -519,6 +562,178 @@
             </text>
           </values>
         </item>
+        <item id="fu8P97Y_-0l" expanded="yes">
+          <values>
+            <text>
+              <p>
+                <run>
+                  <lit>データのフィルタ</lit>
+                </run>
+              </p>
+            </text>
+          </values>
+          <children>
+            <item id="hV1NbnJRYli">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>Query</lit>
+                    </run>
+                    <run>
+                      <lit>で検索するときに絞り込める</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="niSHBPRfOGG" expanded="yes">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>by Source</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+              <children>
+                <item id="lcf7FTDn4aS">
+                  <values>
+                    <text>
+                      <p>
+                        <run>
+                          <lit>query</lit>
+                        </run>
+                        <run>
+                          <lit>時に自分、</lit>
+                        </run>
+                        <run>
+                          <lit>identifier</lit>
+                        </run>
+                        <run>
+                          <lit>、アプリ名で絞り込める</lit>
+                        </run>
+                      </p>
+                    </text>
+                  </values>
+                </item>
+                <item id="imcZ-SCns1a">
+                  <values>
+                    <text>
+                      <p>
+                        <run>
+                          <lit>後から</lit>
+                        </run>
+                        <run>
+                          <lit>predicate</lit>
+                        </run>
+                        <run>
+                          <lit>で</lit>
+                        </run>
+                        <run>
+                          <lit>predicateForObjectsFromSource:</lit>
+                        </run>
+                        <run>
+                          <lit>を使うことでもできる</lit>
+                        </run>
+                      </p>
+                    </text>
+                  </values>
+                </item>
+              </children>
+            </item>
+            <item id="dRByq-GIuLU" expanded="yes">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>by Predicate</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+              <children>
+                <item id="nvY-IGJ3FQG">
+                  <values>
+                    <text>
+                      <p>
+                        <run>
+                          <lit>@interface HKQuery (HKObjectPredicates)</lit>
+                        </run>
+                      </p>
+                    </text>
+                  </values>
+                  <note expanded="yes">
+                    <text>
+                      <p>
+                        <run>
+                          <lit>metakey</lit>
+                        </run>
+                        <run>
+                          <lit>をベースとした絞り込みの</lit>
+                        </run>
+                        <run>
+                          <lit>predicate</lit>
+                        </run>
+                        <run>
+                          <lit>を生成できる</lit>
+                        </run>
+                      </p>
+                    </text>
+                  </note>
+                </item>
+                <item id="d0yFbzQqcTn">
+                  <values>
+                    <text>
+                      <p>
+                        <run>
+                          <lit>+ (NSPredicate *)predicateForSamplesWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate options:(HKQueryOptions)options;</lit>
+                        </run>
+                      </p>
+                      <p>
+                        <run>
+                          <lit>で日付の絞込</lit>
+                        </run>
+                      </p>
+                    </text>
+                  </values>
+                </item>
+              </children>
+            </item>
+            <item id="ayRjZ1Mhir9">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>基本的に後から</lit>
+                    </run>
+                    <run>
+                      <lit>predicate</lit>
+                    </run>
+                    <run>
+                      <lit>で絞り直せる</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="fyj9oDEWiQl">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>HKStatisticsCollectionQuery</lit>
+                    </run>
+                    <run>
+                      <lit>である日</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+          </children>
+        </item>
       </children>
     </item>
     <item id="atLFNrBhMTl" expanded="yes">
@@ -557,7 +772,7 @@
             </text>
           </values>
         </item>
-        <item id="jKGzy_kVVfK">
+        <item id="jKGzy_kVVfK" expanded="yes">
           <values>
             <text>
               <p>
@@ -567,6 +782,168 @@
               </p>
             </text>
           </values>
+          <children>
+            <item id="m51nclxlCAH">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>HKStatisticsCollection</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="mdhEJtQZHAm">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>HKStatisticsCollectionQuery</lit>
+                    </run>
+                    <run>
+                      <lit>で日付以降のデータを取れる</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="kElT7rCrUN7">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>intervalComponents</lit>
+                    </run>
+                    <run>
+                      <lit>は必須</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="iF8ei4hidgn">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>DateComponents</lit>
+                    </run>
+                    <run>
+                      <lit>は</lit>
+                    </run>
+                    <run>
+                      <lit>[Solutions to Common Date and Time Challenges](</lit>
+                    </run>
+                    <run>
+                      <lit><cell href="https://developer.apple.com/videos/wwdc/2013/#227" name="https://developer.apple.com/videos/wwdc/2013/#227" type="link"/></lit>
+                    </run>
+                    <run>
+                      <lit> &quot;Solutions to Common Date and Time Challenges&quot;)</lit>
+                    </run>
+                    <run>
+                      <lit>を見る</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="aN_ff9PjaQz">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>enumerateStatisticsFromDate</lit>
+                    </run>
+                    <run>
+                      <lit>はデータが存在しなくても区切りにそって列挙される</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="pYl2qvss7Y3">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit>これはグラフではかなり重要なやり方</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="jBOfBfopAFV">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <lit><cell href="http://gyazo.com/37eada8c7ea10964d2b81ca01b6201bf" name="http://gyazo.com/37eada8c7ea10964d2b81ca01b6201bf" type="link"/></lit>
+                    </run>
+                    <run>
+                      <lit>.gif</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="i6CpuHOtRG3">
+              <values>
+                <text>
+                  <p>
+                    <run>
+                      <style>
+                        <value key="font-family">Times</value>
+                        <value key="font-fill">
+                          <color w="0"/>
+                        </value>
+                        <value key="font-italic">no</value>
+                        <value key="font-size">12</value>
+                        <value key="paragraph-line-height-multiple">0</value>
+                        <value key="paragraph-tab-stop-interval">36</value>
+                        <value key="text-background-color">
+                          <color w="0" a="0"/>
+                        </value>
+                      </style>
+                      <lit><cell refid="att1" expanded="yes" name="37eada8c7ea10964d2b81ca01b6201bf"/></lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+            <item id="oHVGCXbHc4v">
+              <values>
+                <text>
+                  <p/>
+                  <p>
+                    <run>
+                      <lit> [cal enumerateDatesStartingAfterDate:[NSDate date]</lit>
+                    </run>
+                  </p>
+                  <p>
+                    <run>
+                      <lit>            matchingComponents:dateComponents</lit>
+                    </run>
+                  </p>
+                  <p>
+                    <run>
+                      <lit>                       options:&lt;options&gt;</lit>
+                    </run>
+                  </p>
+                  <p>
+                    <run>
+                      <lit>                    usingBlock:^(NSDate *date, BOOL exactMatch, BOOL *stop) {</lit>
+                    </run>
+                  </p>
+                  <p>
+                    <run>
+                      <lit>と一緒</lit>
+                    </run>
+                  </p>
+                </text>
+              </values>
+            </item>
+          </children>
         </item>
       </children>
     </item>
