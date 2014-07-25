@@ -13,7 +13,11 @@ output: index.html
 }
 </style>
 
+[第1回 Tech-Gym byプラスアール @SMS : ATND](https://atnd.org/events/53530 "第1回 Tech-Gym byプラスアール @SMS : ATND")
+
 ![HealthKit.png](img/HealthKit.png)
+
+
 
 --
 
