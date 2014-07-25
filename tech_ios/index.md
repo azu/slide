@@ -1,4 +1,4 @@
-title: HealthKit概要
+title: HealthKit.framework概要
 author:
   name: azu
 theme: azu/cleaver-ribbon
@@ -17,7 +17,20 @@ output: index.html
 
 --
 
+# 自己紹介
+
+## azu
+
+![img](http://tech-gym.com/admin/wp-content/uploads/azu.jpg)
+
+* Objective-Cで小さなライブラリを作って使うのが最近の流行り
+
+
+--
+
 # アジェンダ
+
+> iOS8 β4時点でのHealthKitについて扱う
 
 - HealthKitとは
 - HealthKitの権限管理
@@ -34,7 +47,7 @@ output: index.html
 - iOS8にはHealth.appがビルトイン
 	- 健康データを管理、追加、グラフ表示出来るアプリ
 - HealthKit(Health.app)を通してデータを読み書き出来る
-	- データの権限管理は細かくされてる
+	- データの権限管理はユーザーが詳細に管理できる
 - 複数のアプリ間でデータ共有出来るようになる
 - iPadは未対応(iOS8β4時点)
 
@@ -66,11 +79,13 @@ output: index.html
 # パーミッションの範囲
 
 - それぞれのアプリごと
-- それぞれのデータの種類ごとに
+- それぞれのデータの種類ごと
     - write-only
     - read-only
     - read-write
-- アプリから権限の変更はできない
+- 扱うデータの種類を増やすともう一度認証から
+- アプリから別のアプリの権限の変更はできない
+
 
 --
 
@@ -91,11 +106,12 @@ output: index.html
 - 身長や血圧から、栄養素、睡眠時間、生年月日等がある
 - 基本的に用意された種類のみしか記憶出来ない
 	- UserInfoのように独自の属性は追加できる
-- β4では独自のTypeは作れない(はず)
+- iOS8 β4では独自のTypeは作れない(はず)
+	- [rdar://17257683: HealthKit should provide a way to store custom object types](http://openradar.appspot.com/radar?id=5892740361486336 "rdar://17257683: HealthKit should provide a way to store custom object types")
 
 --
 
-## データの4つの分類
+## データの4分類
 
 - HKQuantityType - 量を記録する分類
     - Fitness
@@ -164,12 +180,12 @@ output: index.html
 
 --
 
-# HKObject
+# HKSample
 
 - `@interface HKSample : HKObject{}`
-- HKObjectはメタ情報のみ定義されている
-- `HKQuantitySample` や `HKCategorySample` などがある
-- 値や単位はHKSampleに保持される
+- HKSampleはHKObjectを継承したもの
+- 更にサブクラスで、`HKQuantitySample` や `HKCategorySample`等がある
+- 値や単位などはHKSampleのサブクラスに入れていく
 - そのため実際に記録する時はHKSampleを作る -> 保存
 - ここでは量の記録である`HKQuantitySample`を例にする
 
@@ -234,7 +250,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 --
 
 
-# 書き込みまとめ
+# 書き込みのまとめ
 
 - 書き込みには書き込み権限が必要
 - 書き込むデータ = HKSample
@@ -245,7 +261,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 
 --
 
-# データの読み込み
+# データの読み込みのケース
 
 ![read](img/healthkit-read.png)
 
@@ -255,8 +271,8 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 
 - データはアプリ間で共有できる
 	- 他のアプリで記録したものも取得可能
-- 読み込みには読み込み権限が必要
-- データの取得はCoreDataのような感じ
+- 読み込みには**読み込み権限**が必要
+- データの取得とフィルターはCoreDataのような感じ
 - 読み込みAPIも非同期が基本
 
 --
@@ -271,10 +287,8 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 
 --
 
-## HKQueryのサブクラス
-
 - HKSampleQuery
-	- 単純な検索
+	- 標準的な検索
 - HKObserverQuery
 	- 変更検知
 - HKAnchoredObjectQuery 
@@ -286,10 +300,8 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 
 --
 
-## HKQueryのサブクラス
-
 - **HKSampleQuery**
-	- 単純な検索
+	- 標準的な検索
 - HKObserverQuery
 	- 変更検知
 - HKAnchoredObjectQuery
@@ -324,6 +336,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 	- CoreDataからデータを取り出すのと同じ
 - HealthKitには統計処理した結果の取得も可能
 	- => `HKStatistics` 
+	- ある期間のデータを統計処理したものが入ってる
 	- 平均や最大値	、最小値等を含むオブジェクト
 	
 --	
@@ -339,7 +352,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 
 - HKQueryのサブクラスなので基本は同じ
 	- HKSampleType(どの種類)
-	- NSPredicate(どういう条件)
+	- NSPredicate(取得条件)
 	- `HKStatisticsOptions` (統計取得オプション)
 - 検索結果は`HKStatistics`
 - 取得できるものはHKStatisticsOptionsで指定する
@@ -419,11 +432,24 @@ dayComponents.day = 1;
 
 --
 
+# CoreDataとの違い
+
+- 基本が非同期API
+- 扱えるデータの種類が限定されているが専用の型が用意されている
+- アプリ間のデータ共有が可能
+	- 他のアプリで記録したデータを使わない事も可能
+- データの扱いはユーザーが強い権限を持つ
+- 統計的な列挙を行うことが出来る
+	- CoreDataだと自前かKVC程度
+
+--
+
+
 # まとめのまとめ
 
 - HealthKitはread/write権限が細分化されている
 	- ユーザーがコントール出来る領域が大きい
-- 基本的に決められた種類のデータのみを扱える
+- 決められた種類のデータのみを扱える(β4時点)
 - アプリ間をまたいだデータの共有が容易
 - 非同期API(コールバック)が大量に出てくる
 	- PromiseやNSOperationを使った非同期処理のパターンは必須
@@ -453,6 +479,8 @@ dayComponents.day = 1;
 # Q.ローカライズは?
 
 - NSFormatterで`HKUnit`等を使ったローカライズができる
+- Mass, Length, & Energy Formatters
+- [NSFormatter - NSHipster](http://nshipster.com/nsformatter/ "NSFormatter - NSHipster")
 
 --
 
@@ -468,3 +496,5 @@ dayComponents.day = 1;
 
 * Xcode 6β4で増えた
 * フィットネス等の活動量を計測する `HKWorkout`
+* バックグランドでの計測もあるっぽい?
+	* `HKBackgroundDelivery`

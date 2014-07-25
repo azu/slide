@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-    <title>HealthKit概要</title>
+    <title>HealthKit.framework概要</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=792, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -707,7 +707,7 @@ a {
 <body class="list">
 
 <header class="caption">
-    <h1>HealthKit概要</h1>
+    <h1>HealthKit.framework概要</h1>
     <ul>
         <li>
             Name : <a href="">azu</a>
@@ -732,7 +732,21 @@ a {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
+      <h1 id="-">自己紹介</h1>
+<h2 id="azu">azu</h2>
+<p><img src="http://tech-gym.com/admin/wp-content/uploads/azu.jpg" alt="img"></p>
+<ul>
+<li>Objective-Cで小さなライブラリを作って使うのが最近の流行り</li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
       <h1 id="-">アジェンダ</h1>
+<blockquote>
+<p>iOS8 β4時点でのHealthKitについて扱う</p>
+</blockquote>
 <ul>
 <li>HealthKitとは</li>
 <li>HealthKitの権限管理</li>
@@ -754,7 +768,7 @@ a {
 </ul>
 </li>
 <li>HealthKit(Health.app)を通してデータを読み書き出来る<ul>
-<li>データの権限管理は細かくされてる</li>
+<li>データの権限管理はユーザーが詳細に管理できる</li>
 </ul>
 </li>
 <li>複数のアプリ間でデータ共有出来るようになる</li>
@@ -797,13 +811,14 @@ a {
       <h1 id="-">パーミッションの範囲</h1>
 <ul>
 <li>それぞれのアプリごと</li>
-<li>それぞれのデータの種類ごとに<ul>
+<li>それぞれのデータの種類ごと<ul>
 <li>write-only</li>
 <li>read-only</li>
 <li>read-write</li>
 </ul>
 </li>
-<li>アプリから権限の変更はできない</li>
+<li>扱うデータの種類を増やすともう一度認証から</li>
+<li>アプリから別のアプリの権限の変更はできない</li>
 </ul>
 
     </div>
@@ -831,14 +846,17 @@ a {
 <li>UserInfoのように独自の属性は追加できる</li>
 </ul>
 </li>
-<li>β4では独自のTypeは作れない(はず)</li>
+<li>iOS8 β4では独自のTypeは作れない(はず)<ul>
+<li><a href="http://openradar.appspot.com/radar?id=5892740361486336" title="rdar://17257683: HealthKit should provide a way to store custom object types">rdar://17257683: HealthKit should provide a way to store custom object types</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="-4-">データの4つの分類</h2>
+      <h2 id="-4-">データの4分類</h2>
 <ul>
 <li>HKQuantityType - 量を記録する分類<ul>
 <li>Fitness</li>
@@ -930,12 +948,12 @@ a {
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="hkobject">HKObject</h1>
+      <h1 id="hksample">HKSample</h1>
 <ul>
 <li><code>@interface HKSample : HKObject{}</code></li>
-<li>HKObjectはメタ情報のみ定義されている</li>
-<li><code>HKQuantitySample</code> や <code>HKCategorySample</code> などがある</li>
-<li>値や単位はHKSampleに保持される</li>
+<li>HKSampleはHKObjectを継承したもの</li>
+<li>更にサブクラスで、<code>HKQuantitySample</code> や <code>HKCategorySample</code>等がある</li>
+<li>値や単位などはHKSampleのサブクラスに入れていく</li>
 <li>そのため実際に記録する時はHKSampleを作る -&gt; 保存</li>
 <li>ここでは量の記録である<code>HKQuantitySample</code>を例にする</li>
 </ul>
@@ -1008,7 +1026,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-">書き込みまとめ</h1>
+      <h1 id="-">書き込みのまとめ</h1>
 <ul>
 <li>書き込みには書き込み権限が必要</li>
 <li>書き込むデータ = HKSample<ul>
@@ -1026,7 +1044,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h1 id="-">データの読み込み</h1>
+      <h1 id="-">データの読み込みのケース</h1>
 <p><img src="img/healthkit-read.png" alt="read"></p>
 
     </div>
@@ -1039,8 +1057,8 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 <li>他のアプリで記録したものも取得可能</li>
 </ul>
 </li>
-<li>読み込みには読み込み権限が必要</li>
-<li>データの取得はCoreDataのような感じ</li>
+<li>読み込みには<strong>読み込み権限</strong>が必要</li>
+<li>データの取得とフィルターはCoreDataのような感じ</li>
 <li>読み込みAPIも非同期が基本</li>
 </ul>
 
@@ -1063,10 +1081,9 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="hkquery-">HKQueryのサブクラス</h2>
-<ul>
+      <ul>
 <li>HKSampleQuery<ul>
-<li>単純な検索</li>
+<li>標準的な検索</li>
 </ul>
 </li>
 <li>HKObserverQuery<ul>
@@ -1091,10 +1108,9 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
   </section>
   <section class="slide">
     <div class="slide-wrapper">
-      <h2 id="hkquery-">HKQueryのサブクラス</h2>
-<ul>
+      <ul>
 <li><strong>HKSampleQuery</strong><ul>
-<li>単純な検索</li>
+<li>標準的な検索</li>
 </ul>
 </li>
 <li>HKObserverQuery<ul>
@@ -1147,6 +1163,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 </li>
 <li>HealthKitには統計処理した結果の取得も可能<ul>
 <li>=&gt; <code>HKStatistics</code> </li>
+<li>ある期間のデータを統計処理したものが入ってる</li>
 <li>平均や最大値    、最小値等を含むオブジェクト</li>
 </ul>
 </li>
@@ -1167,7 +1184,7 @@ HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:height
 <ul>
 <li>HKQueryのサブクラスなので基本は同じ<ul>
 <li>HKSampleType(どの種類)</li>
-<li>NSPredicate(どういう条件)</li>
+<li>NSPredicate(取得条件)</li>
 <li><code>HKStatisticsOptions</code> (統計取得オプション)</li>
 </ul>
 </li>
@@ -1268,13 +1285,32 @@ dayComponents<span class="variable">.day</span> = <span class="number">1</span>;
   </section>
   <section class="slide">
     <div class="slide-wrapper">
+      <h1 id="coredata-">CoreDataとの違い</h1>
+<ul>
+<li>基本が非同期API</li>
+<li>扱えるデータの種類が限定されているが専用の型が用意されている</li>
+<li>アプリ間のデータ共有が可能<ul>
+<li>他のアプリで記録したデータを使わない事も可能</li>
+</ul>
+</li>
+<li>データの扱いはユーザーが強い権限を持つ</li>
+<li>統計的な列挙を行うことが出来る<ul>
+<li>CoreDataだと自前かKVC程度</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-wrapper">
       <h1 id="-">まとめのまとめ</h1>
 <ul>
 <li>HealthKitはread/write権限が細分化されている<ul>
 <li>ユーザーがコントール出来る領域が大きい</li>
 </ul>
 </li>
-<li>基本的に決められた種類のデータのみを扱える</li>
+<li>決められた種類のデータのみを扱える(β4時点)</li>
 <li>アプリ間をまたいだデータの共有が容易</li>
 <li>非同期API(コールバック)が大量に出てくる<ul>
 <li>PromiseやNSOperationを使った非同期処理のパターンは必須</li>
@@ -1315,6 +1351,8 @@ dayComponents<span class="variable">.day</span> = <span class="number">1</span>;
       <h1 id="q-">Q.ローカライズは?</h1>
 <ul>
 <li>NSFormatterで<code>HKUnit</code>等を使ったローカライズができる</li>
+<li>Mass, Length, &amp; Energy Formatters</li>
+<li><a href="http://nshipster.com/nsformatter/" title="NSFormatter - NSHipster">NSFormatter - NSHipster</a></li>
 </ul>
 
     </div>
@@ -1336,6 +1374,10 @@ dayComponents<span class="variable">.day</span> = <span class="number">1</span>;
 <ul>
 <li>Xcode 6β4で増えた</li>
 <li>フィットネス等の活動量を計測する <code>HKWorkout</code></li>
+<li>バックグランドでの計測もあるっぽい?<ul>
+<li><code>HKBackgroundDelivery</code></li>
+</ul>
+</li>
 </ul>
 
     </div>
