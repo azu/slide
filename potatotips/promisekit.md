@@ -1,4 +1,4 @@
-title: "Promise Starter Kit"
+title: "Objective-CでのPromise処理"
 author:
   name: azu
   twitter: azu_re  
