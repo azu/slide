@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>promise</title>
+    <expansionState>1,7,14,18,21,25,29,36,38,40,44,47,49,52</expansionState>
+  </head>
+  <body>
+    <outline text="Promise Starter Kit" _note="PromiseKitについて"/>
+    <outline text="Promises?">
+      <outline text="PromiseKitはJavaScriptのPromise A/+を参照"/>
+      <outline text="Promise A/+ は`then`メソッドについて取り決めたコミュニティ仕様"/>
+      <outline text="JavaScriptの仕様としてはA/+をベースにES6 Promisesが策定された"/>
+      <outline text="ES6については [JavaScript Promiseの本](http://azu.github.io/promises-book/ &quot;JavaScript Promiseの本&quot;) で書いた"/>
+      <outline text="Promiseの仕様自体はとても小さい"/>
+    </outline>
+    <outline text="Promises A/+">
+      <outline text="✔ then"/>
+      <outline text="✘ Wait (=&gt;Promiseを使って可能)"/>
+      <outline text="✘ Deferred (=&gt;Promiseを使って可能)"/>
+      <outline text="✘ Progress"/>
+      <outline text="✘ Cancel"/>
+      <outline text="[Promises/A+ · Issue #7 · mxcl/PromiseKit](https://github.com/mxcl/PromiseKit/issues/7 &quot;Promises/A+ · Issue #7 · mxcl/PromiseKit&quot;)"/>
+    </outline>
+    <outline text="Promiseライブラリ">
+      <outline text="[PromiseKit](http://promisekit.org/ &quot;PromiseKit&quot;)"/>
+      <outline text="[RXPromise](https://github.com/couchdeveloper/RXPromise &quot;couchdeveloper/RXPromise&quot;)"/>
+      <outline text="✘ [Bolts](https://github.com/BoltsFramework/Bolts-iOS &quot;Bolts&quot;)はPromiseライクであってPromiseではない"/>
+    </outline>
+    <outline text="Promise Syntax">
+      <outline text="Promise#thenを使った直列"/>
+      <outline text="getURLラッパ"/>
+    </outline>
+    <outline text="Promiseは値の器">
+      <outline text="Objective-Cにはジェネリクスがないので中身は見えない"/>
+      <outline text="Swift版はジェネリクス多用してるのどうにかなる"/>
+      <outline text="[PromiseKit/swiftを読んだ - naoty.to_s](http://naoty.hatenablog.com/entry/2014/08/13/021253 &quot;PromiseKit/swiftを読んだ - naoty.to_s&quot;)"/>
+    </outline>
+    <outline text="Promiseの状態は3つだけ">
+      <outline text="pending"/>
+      <outline text="fulfilled"/>
+      <outline text="rejected"/>
+    </outline>
+    <outline text="Promiseは使い捨てオブジェクト">
+      <outline text="promiseオブジェクトは一度状態が変更したらそれ以降は不変"/>
+      <outline text="fulfilled or rejectedの事をsettled(不変)ということがある"/>
+      <outline text="同じオブジェクトを使いまわさない(immutable)"/>
+      <outline text="thenも常に新しいオブジェクトを作成して返す"/>
+      <outline text="= そこそこコストはあるけど、費用対効果"/>
+    </outline>
+    <outline text="もう一度getURLを見る"/>
+    <outline text="複数のリクエストを同時に?">
+      <outline text="Promise.allを使ったまとめ方"/>
+    </outline>
+    <outline text="Promiseとエラーハンドリング">
+      <outline text="Promise内で起きたエラーは自動的にキャッチされる"/>
+      <outline text="@try{ }catch{}">
+        <outline text="64bit なら コストがない"/>
+      </outline>
+    </outline>
+    <outline text="then は新しいオブジェクトを返す?" _note="``` objc&#10;PMKPromise *promise = [PMKPromise promiseWithValue:@1];&#10;PMKPromise *newPromise = promise.then(^{&#10;    return @1;&#10;});&#10;XCTAssertNotEqualObjects(promise, newPromise);&#10;```"/>
+    <outline text="メソッドチェーン"/>
+    <outline text="Promiseにも向き不向きがある">
+      <outline text="Promises A/+やES6 PromisesではProgress等の定義はない"/>
+      <outline text="NSProgressを回すほうがいい"/>
+    </outline>
+    <outline text="Promiseとスレッド">
+      <outline text="Promiseの処理は常に非同期で開始される"/>
+      <outline text="thenの中でUIアップデートは大丈夫なのか?">
+        <outline text="PromiseKitが取り計らってmain threadで実行してくれる"/>
+        <outline text="thenもバックグラウンドでやりたい場合はthenOnを使う"/>
+      </outline>
+    </outline>
+    <outline text="完璧なPromiseはない">
+      <outline text="Promise A/+はあくまでJavaScriptの世界"/>
+      <outline text="Objective-Cのようなスレッドについての定義はない"/>
+      <outline text="他の言語に持ってくる場合はどうしても独自の解釈が必要"/>
+      <outline text="PromiseKitはPromise A/+によせつつ、使い勝手を考慮した実装"/>
+    </outline>
+  </body>
+</opml>
