@@ -1,4 +1,4 @@
-title: "Objective-CでのPromise処理"
+title: "Objective-CでのPromiseと非同期処理"
 author:
   name: azu
   twitter: azu_re  
