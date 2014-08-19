@@ -16,7 +16,7 @@ function pLoadFileList(fileList) {
         });
     }));
 }
-var rootDir = pather.resolve(process.cwd(), "../");
+var rootDir = pather.resolve(__dirname, "../");
 var concatPromise = FS.listTree(rootDir, function isIndexHTML(filePath, stat) {
     if (stat.isDirectory()) {
         return false;
@@ -67,7 +67,7 @@ Handlebars.registerHelper('link_to', function () {
 });
 function compileToHTML(fileListObject) {
     var context = { object: fileListObject };
-    var source = fs.readFileSync("./index-template.hbs", "utf-8");
+    var source = fs.readFileSync(__dirname + "/index-template.hbs", "utf-8");
     var template = Handlebars.compile(source);
     return template(context);
 }
