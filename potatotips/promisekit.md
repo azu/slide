@@ -287,10 +287,11 @@ XCTAssertNotEqualObjects(promise, newPromise);
 --
 # その他
 
-- Objective-Cにはジェネリクスがないので中身は見えない
-- Swift版はジェネリクス多用してるのどうにかなる
-- [PromiseKit/swiftを読んだ - naoty.to_s](http://naoty.hatenablog.com/entry/2014/08/13/021253 "PromiseKit/swiftを読んだ - naoty.to_s")
-
+- 元の仕様は型がないJS向けだが、Objective-Cとの親和性は悪くない
+- PromiseKitは[Swift](https://github.com/mxcl/PromiseKit#swift "Swift")版もある
+- Swift版はジェネリクスとか色々
+    - [PromiseKit/swiftを読んだ - naoty.to_s](http://naoty.hatenablog.com/entry/2014/08/13/021253 "PromiseKit/swiftを読んだ - naoty.to_s")
+- SwiftはScalaの[Future](http://docs.scala-lang.org/ja/overviews/core/futures.html "Future")とか参考にした方がいいでのは
 
 --
 
