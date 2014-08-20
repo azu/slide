@@ -42,7 +42,7 @@ output: promisekit.html
 - ✘ Wait (=>Promiseを使って可能)
 - ✘ Deferred (=>Promiseを使って可能)
 - ✘ Progress
-- ✘ Cancel
+- ✘ Cancel => [Canceling a promise · Issue #18 · mxcl/PromiseKit · GitHub](https://github.com/mxcl/PromiseKit/issues/18 "Canceling a promise · Issue #18 · mxcl/PromiseKit · GitHub")
 - [Promises/A+ · Issue #7 · mxcl/PromiseKit](https://github.com/mxcl/PromiseKit/issues/7 "Promises/A+ · Issue #7 · mxcl/PromiseKit")
 
 --
