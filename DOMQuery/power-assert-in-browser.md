@@ -1,6 +1,6 @@
 # power-assert in browser
 
-### [http://azu.github.io/power-assert-demo/](http://azu.github.io/power-assert-demo/)
+### [http://azu.github.io/power-assert-demo/](http://azu.github.io/power-assert-demo/ "power-assert-demo")
 
 ---
 
