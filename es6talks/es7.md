@@ -284,11 +284,11 @@ global.asap(function(){
 	- TC39 MTGのMTGをしたい
 - 次回のMTGで話す事は[tc39/agendas](https://github.com/tc39/agendas "tc39/agendas")にまとめられています
 
-[ie]: icon/internet-explorer_512x512.png "Internet Explorer"
-[firefox]: icon/firefox_512x512.png "Firefox"
-[chrome]: icon/chrome_512x512.png "Google Chrome"
-[chromium]: icon/chromium_512x512.png "Chromium"
-[opera]: icon/opera_512x512.png "Opera"
-[webkit]: icon/webkit_512x512.png "Webkit"
-[github]: icon/github.png "GitHub"
-[twitter]: icon/twitter.png "Twitter"
+[ie]: icons/internet-explorer_512x512.png "Internet Explorer"
+[firefox]: icons/firefox_512x512.png "Firefox"
+[chrome]: icons/chrome_512x512.png "Google Chrome"
+[chromium]: icons/chromium_512x512.png "Chromium"
+[opera]: icons/opera_512x512.png "Opera"
+[webkit]: icons/webkit_512x512.png "Webkit"
+[github]: icons/github.png "GitHub"
+[twitter]: icons/twitter.png "Twitter"
