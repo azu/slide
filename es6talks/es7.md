@@ -253,12 +253,12 @@ Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情
 
 # AtScript is ES6+A(Annotations)
 
-	- Type Annotations
-		- TypeScriptでやるやつ
-	- Metadata Annotations
-		- メタデータを定義する`@Directive`
-	- Introspection
-		- DIなどで**実行時**に使えるメタ情報の提供
+- Type Annotations
+	- TypeScriptでやるやつ
+- Metadata Annotations
+	- メタデータを定義する`@Directive`
+- Introspection
+	- DIなどで**実行時**に使えるメタ情報の提供
 
 -----
 
