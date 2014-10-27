@@ -13,6 +13,7 @@
 ## @[azu_re](https://twitter.com/azu_re)
 ## [Web scratch], [JSer.info]
 
+
 [Web scratch]: http://efcl.info/ "Web scratch"
 [JSer.info]: http://jser.info/ "JSer.info"
 
@@ -200,12 +201,14 @@ BREAK THE WEBが発生する。
 ----
 
 
-# Types and Type Annotations :star: Stage 0
+# Types and Type Annotation :star: Stage 0
 
 ## [tc39-notes/sept-25.md](https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#types "tc39-notes/sept-25.md at master · rwaldron/tc39-notes")
 
 ^ By MS
-Typed Objectとは別のプロポーサル
+Typed Objectsとは別のプロポーサルです。
+Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情報を教えるために書くためのAPIなので、ちょっと違うもの。
+ [Typed Objects Status Report - Baby Steps](http://smallcultfollowing.com/babysteps/blog/2014/04/01/typed-objects-status-report/ "Typed Objects Status Report - Baby Steps")
 
 -----
 # Types and Type Annotations
@@ -223,7 +226,98 @@ Typed Objectとは別のプロポーサル
 	- その構文でType Annotationsの実装、型チェック
 	- `d.ts`のようなAPIのドキュメント定義に使いたい
 - 類似研究
+	- TypeScript
 	- Python
+
+-----
+
+# AtScript :star: Stage NaN
+
+^ By Google(Angluarチーム)
+`Types`とやりたいことはほぼ同じで型注釈の定義をSyntaxとして定義することがある。
+
+-----
+# AtScript
+
+![fit,right](img/atscript.jpg)
+
+- Angular 2.0で使われてる(まだ未公開)
+- ES6**+A(Annotations)**
+- TraceurでES6 validに変換できる
+	- [traceur-compiler 入門](http://yosuke-furukawa.hatenablog.com/entry/2014/07/31/093041 "traceur-compiler 入門 - from scratch")
+- まずは[Assert.js](http://angular.github.io/assert/ "Assert.js")を使ったruntime assertから
+
+^ Introspection は実際のコードから型情報を得るAPI(要はオブジェクトで型情報を取って検証出来る拡張)
+
+-----
+
+# AtScript is ES6+A(Annotations)
+
+	- Type Annotations
+		- TypeScriptでやるやつ
+	- Metadata Annotations
+		- メタデータを定義する`@Directive`
+	- Introspection
+		- DIなどで**実行時**に使えるメタ情報の提供
+
+-----
+
+# AtScript Roadmap
+
+![inline](img/atscript-roadmap.jpg)
+
+-----
+
+# AtScript Resources
+
+- [Keynote: AtScript](https://docs.google.com/presentation/d/1hr2IM-8G-0RzpB-WY8pLHvxqNggKPzUO0KvEv1IKPws/edit#slide=id.p "Keynote: AtScript - Google スライド")
+- [ES6 &amp; Traceur](http://arv.github.io/ngeurope/#/ "ES6 &amp; Traceur")
+- [AtScript Primer](https://docs.google.com/document/d/11YUzC-1d0V1-Q3V0fQ7KSit97HnZoKVygDxpWzEYW0U/preview "AtScript Primer - Google ドキュメント")
+	- [AtScript (was "ES6 +A") Q&A](https://docs.google.com/document/d/1cUTD8oVzfpwFqX5tMxHTifKO8uJm5VddwmB0aVQMxpI/edit "AtScript (was &#34;ES6 +A&#34;) Q&amp;A - Google ドキュメント")
+
+-----
+
+# Flow (Facebook) :star: Stage NaN
+
+----
+
+# Flow (Facebook)
+
+- [@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code](https://code.facebook.com/posts/712565848827879/-scale-2014-recap-of-web-track/ "@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code")
+- まだ未公開のツール
+- Facebook社内のType assertions 静的チェックツール?
+- [React](http://facebook.github.io/react/ "React")に使われている
+
+-----
+
+# Flow(Facebook)
+
+- Compatible TypeScript Syntax
+- Committed to evolved with JS standard
+- Integrated with React + JSX
+
+-- [youtu.be/M8x0bc81smU?t=12m47s](http://youtu.be/M8x0bc81smU?t=12m47s)
+
+^ まだ出てもないので何ともいえないけど、
+Flowは全てTypeをつけていくのではなく、Typeの浸透していくような大規模の目的に欲しい感じ。
+1のファイルじゃなくて、全体としてのTypeをつけていきたい感じ。
+Hack/HHVMみたいな話だと思う。
+型推論に強い仕組み、[hackificator](http://docs.hhvm.com/manual/en/install.hack.conversion.php "hackificator")みたいに元のコードを型付きへ変換していく仕組み(フロー)を持ってる
+
+-----
+
+# ECMAScriptと型
+
+- AtScriptとFlow(Facebook) どちらもTypeScriptのSyntaxをベースに置いている
+- TypeScriptのチームとAtScript/Flowのチームは話し合ってる
+
+> The TypeScript team is working with both the Flow and AtScript teams to help ensure that resources
+-- http://blogs.msdn.com/b/typescript/archive/2014/10/22/typescript-and-the-road-to-2-0.aspx
+
+^ MSのTypeScriptの人がTC39へ提案してる。
+AtScriptとFlowもオープンになったら議論に参加してくる可能性は高い。
+Type Annotationsの実行環境として既に3つ存在してるため、仕様が上手くまとまれてば仕様として入る可能性は考えられる。
+[Extensible Web Manifesto](http://extensiblewebmanifesto.org/ "Extensible Web Manifesto") のやり方
 
 -----
 
