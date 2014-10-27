@@ -211,6 +211,7 @@ Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情
  [Typed Objects Status Report - Baby Steps](http://smallcultfollowing.com/babysteps/blog/2014/04/01/typed-objects-status-report/ "Typed Objects Status Report - Baby Steps")
 
 -----
+
 # Types and Type Annotations
 
 - JSDocやTypeScript等色々な型注釈が溢れてる

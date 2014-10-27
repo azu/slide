@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>明日には使えなくなるES7トーク</title>
+    <style>
+        html, body, .main-content {
+            height: 100%;
+            margin: 0;
+            padding: 0; }
+
+        .markdown-body {
+            min-width: 200px;
+            max-width: 790px;
+            margin: 0 auto;
+            padding: 30px; }
+
+        .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+        .markdown-body li img {
+            height: 1em;
+            vertical-align: text-bottom; }
+        .markdown-body img {
+            max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=https://azu.github.com/slide/es6talks/es7.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+</div>
+<script>
+    (function () {
+        document.getElementById("main-slide").focus();
+    })();
+</script>
+<aside><a href="https://azu.github.com/slide/es6talks/es7.pdf" title="明日には使えなくなるES7トーク">Download PDF</a></aside>
+<article class="markdown-body"><h1 id="-es7-">明日には使えなくなるES7トーク</h1>
+<p>^ 明日には使えなくなるかもしれないES7+で提案されてる仕様についての発表です。
+まだ実装も無いケースが多いですし、仕様として策定されるかも未確定なため本当に明日から使えないものばかりです。</p>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
+<h2 id="-azu-"><strong>azu</strong></h2>
+<h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
+<h2 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h2>
+<hr>
+<h1 id="es7-proposals">ES7 Proposals</h1>
+<h2 id="-tc39-ecma262-https-github-com-tc39-ecma262-tc39-ecma262-"><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a></h2>
+<p>^ <a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-04/apr-9.md#es7-process-new-proposal-home" title="ES7 Process, New Proposal Home">ES7 Process, New Proposal Home</a>でこのリポジトリが作成された。
+Wikiの代わりにGitHub使いつつ議論を進めていくという方針が出た。</p>
+<hr>
+<h1 id="-">用語</h1>
+<ul>
+<li><code>TC</code> : Technical Committee = 専門委員会</li>
+<li><a href="http://www.ecma-international.org/memento/TC39.htm" title="TC39">TC39</a>: ECMAScriptを策定してる専門委員会</li>
+<li><code>プロポーサル</code> : 仕様の提案</li>
+<li><code>ECMAScript</code>: JavaScriptの仕様</li>
+<li><code>ES7</code>: ECMAScript7</li>
+</ul>
+<hr>
+<p><img src="img/es-release-model.png" alt="fit"></p>
+<p>^ <a href="http://nodeforward.org/" title="Node Forward">Node Forward</a>というNode.jsのリリースが遅い問題をどうにかしようというコミュニティでDomenicさんが&quot;TC39 is moving to a feature-based model.&quot;と言っていた
+<a href="https://twitter.com/mikeal/status/520973415553851393">https://twitter.com/mikeal/status/520973415553851393</a></p>
+<hr>
+<h1 id="tc39-is-moving-to-a-feature-based-model">TC39 is moving to a feature-based model</h1>
+<ul>
+<li>ECMAScript 7は機能ごとに仕様を策定していく(方針)</li>
+<li>仕様同士を独立して進めていく事でスピードをあげる</li>
+<li>仕様のモジュール化</li>
+<li><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>に現在のプロポーサルが一覧がある</li>
+<li>それぞれの仕様はTC39のプロセスで策定が進められる</li>
+</ul>
+<p>^ ECMAScriptの策定は機能ごとにプロポーサルをだして、Draftを書いて進めていく方針。
+機能レベルで決まっていれば、polyfillだったりそういうものも安定したものが早い段階で作りやすい。</p>
+<p>^このリリースプロセスの初出は2013年5月のTC39 MTGの<a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2013-05/may-23.md#es6-es7-es8-marks-strawman-roadmap" title="ES6, ES7, ES8... Mark&#39;s Strawman Roadmap">ES6, ES7, ES8... Mark&#39;s Strawman Roadmap</a>だと思う。</p>
+<hr>
+<h1 id="tc39-">TC39のプロセスとは</h1>
+<ul>
+<li>Stage 0. <code>Strawman</code> : ESに入れたいアイデアを議論する段階</li>
+<li>Stage 1. <code>Proposal</code> : <code>Strawman</code>を具体化、デモ作成、分析</li>
+<li>Stage 2. <code>Draft</code> : 正式な仕様定義の形式で仕様書を書く段階</li>
+<li>Stage 3. <code>Candidate</code>: Draftの実装等をしてフィードバック</li>
+<li>Stage 4. <code>Finished</code>: ECMAScriptに正式採用 - <a href="https://github.com/tc39/test262" title="Test262">Test262</a>への実装</li>
+</ul>
+<p>More Detail on <a href="https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit" title="TC39 Process">TC39 Process</a> [^1]</p>
+<p>[^1]:参考 <a href="http://www.yoheim.net/blog.php?q=20140403" title="[JS] ECMAScript6をまるっと学ぶ。重要用語とか、仕様策定の進め方とか、新機能とか。 - YoheiM .NET">[JS] ECMAScript6をまるっと学ぶ。重要用語とか、仕様策定の進め方とか、新機能とか。 - YoheiM .NET</a> </p>
+<p>^ <code>Proposal</code>は<code>approved</code>的な意味で使われる。
+少なくても承認された感じ。</p>
+<hr>
+<h1 id="-stage-0-">今日話すのはStage : 0の話が中心</h1>
+<h2 id="-">明日なくなるかもしれない仕様の話</h2>
+<h3 id="-">後あまり正確ではないです</h3>
+<hr>
+<h1 id="-object-observe-http-wiki-ecmascript-org-doku-php-id-harmony-observe-object-observe-star-stage-2"><a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe" title="Object.observe">Object.observe</a> :star: Stage 2</h1>
+<p>^ 結構前からある
+Googleっぽい空気ある</p>
+<hr>
+<h1 id="object-observe-">Object.observe()</h1>
+<ul>
+<li>JavaScriptオブジェクトの変更を監視する仕様</li>
+<li><img src="icons/chrome_512x512.png" alt="inline" title="Google Chrome"> Google Chrome 36には既に載ってる</li>
+<li><a href="http://www.html5rocks.com/ja/tutorials/es7/observe/" title="Object.observe() でデータバインディング革命 - HTML5 Rocks">Object.observe() でデータバインディング革命 - HTML5 Rocks</a></li>
+</ul>
+<hr>
+<pre><code class="lang-js">// データを持ったモデル
+var model = {};
+// modelを監視する
+Object.observe(model, function(changes){
+    changes.forEach(function(change) {
+        // 変更内容
+        console.log(change.type, change.name, change.oldValue);
+    });
+});
+// modelを変更する
+model.some = &quot;追加&quot;;
+</code></pre>
+<hr>
+<h1 id="-exponentiation-operator-https-github-com-rwaldron-exponentiation-operator-exponentiation-operator-star-stage-2"><a href="https://github.com/rwaldron/exponentiation-operator" title="Exponentiation Operator">Exponentiation Operator</a> :star: Stage 2</h1>
+<hr>
+<ul>
+<li><code>**</code> 演算子の仕様</li>
+<li>べき乗演算子</li>
+<li><code>x ** y == Math.pow(x,y)</code> のこと</li>
+<li>9月のTC39 MTGでStage 2まで上がった</li>
+<li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-23.md#58-exponentiation-operator-update" title="5.8 Exponentiation Operator Update">5.8 Exponentiation Operator Update</a></li>
+</ul>
+<p>^ @<a href="https://github.com/rwaldron" title="rwaldron">rwaldron</a>さんがメイン
+かなり速度が早い仕様</p>
+<hr>
+<h1 id="exponentiation-operator">Exponentiation Operator</h1>
+<ul>
+<li>Python, CoffeeScript, F#, Ruby, Perl 等他の言語にもある</li>
+<li>仕様自体は<code>Math.pow</code>そのままなのでシンプル</li>
+<li>Traceurに実装済み</li>
+<li><a href="https://github.com/google/traceur-compiler/pull/1216" title="Add support for the exponentiation operator by arv · Pull Request #1216 · google/traceur-compiler">Add support for the exponentiation operator by arv · Pull Request #1216 · google/traceur-compiler</a></li>
+</ul>
+<hr>
+<h1 id="-async-functions-https-github-com-lukehoban-ecmascript-asyncawait-async-functions-star-stage-1"><a href="https://github.com/lukehoban/ecmascript-asyncawait" title="Async Functions">Async Functions</a> :star: Stage 1</h1>
+<hr>
+<ul>
+<li><code>async</code>と<code>await</code>の仕様</li>
+<li><a href="http://taskjs.org/" title="Task.js: Beautiful Concurrency for JavaScript">Task.js:</a>の<code>spawn</code>のシンタックシュガー的な感じ</li>
+<li>Generator関数とPromiseを使った同期的な非同期処理</li>
+<li><a href="https://github.com/facebook/regenerator/tree/async-await" title="regenerator">regenerator</a>にTranspileの実装がある</li>
+<li><a href="https://github.com/facebook/regenerator/pull/101" title="Transform async functions and await expressions by benjamn · Pull Request #101 · facebook/regenerator">Transform async functions and await expressions by benjamn · Pull Request #101 · facebook/regenerator</a></li>
+</ul>
+<p>^ By MS</p>
+<hr>
+<h1 id="-array-prototype-contains-https-github-com-domenic-array-prototype-contains-array-prototype-contains-star-stage-1"><a href="https://github.com/domenic/Array.prototype.contains" title="Array.prototype.contains">Array.prototype.contains</a> :star: Stage 1</h1>
+<hr>
+<h1 id="-array-prototype-contains-https-github-com-domenic-array-prototype-contains-array-prototype-contains-"><a href="https://github.com/domenic/Array.prototype.contains" title="Array.prototype.contains">Array.prototype.contains</a> のモチベーション</h1>
+<pre><code class="lang-javascript">if (arr.indexOf(el) !== -1) {
+    ...
+}
+</code></pre>
+<p>というコードを無くして次のようにしたい</p>
+<pre><code class="lang-javascript">if (arr.contains(el)){
+    ...
+}
+</code></pre>
+<p>^ ちなみに<code>has</code>じゃなくて<code>contains</code>なのは第二引数で<code>fromIndex</code>が指定できるのでこちらの方が意味的に合ってるから</p>
+<hr>
+<h1 id="break-the-web-">BREAK THE WEBの問題</h1>
+<ul>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1075059" title="1075059 – non-enumerable Array.prototype.contains is not web-compatible (breaks jsfiddle.net)">1075059 – non-enumerable Array.prototype.contains is not web-compatible (breaks jsfiddle.net)</a></li>
+<li><a href="https://gist.github.com/fakedarren/28953b01e455078fb4f8" title="gist:28953b01e455078fb4f8">gist:28953b01e455078fb4f8</a></li>
+<li><a href="https://esdiscuss.org/topic/array-prototype-contains-solutions" title="Array.prototype.contains solutions">Array.prototype.contains solutions</a></li>
+</ul>
+<p>^ MooToolsがArray.containsを拡張していて、
+BREAK THE WEBが発生する。</p>
+<p>^ <a href="https://esdiscuss.org/topic/array-prototype-values-breaks-the-web" title="Array.prototype.values breaks the web">Array.prototype.values breaks the web</a> でも最近同じ事がおきてた。
+<a href="https://codereview.chromium.org/647703003" title="Issue 647703003: Don&#39;t expose Array.prototype.values as it breaks webcompat - Code Review">Issue 647703003: Don&#39;t expose Array.prototype.values as it breaks webcompat - Code Review</a></p>
+<hr>
+<h1 id="types-and-type-annotation-star-stage-0">Types and Type Annotation :star: Stage 0</h1>
+<h2 id="-tc39-notes-sept-25-md-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-09-sept-25-md-types-tc39-notes-sept-25-md-at-master-rwaldron-tc39-notes-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#types" title="tc39-notes/sept-25.md at master · rwaldron/tc39-notes">tc39-notes/sept-25.md</a></h2>
+<p>^ By MS
+Typed Objectsとは別のプロポーサルです。
+Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情報を教えるために書くためのAPIなので、ちょっと違うもの。
+ <a href="http://smallcultfollowing.com/babysteps/blog/2014/04/01/typed-objects-status-report/" title="Typed Objects Status Report - Baby Steps">Typed Objects Status Report - Baby Steps</a></p>
+<hr>
+<h1 id="types-and-type-annotations">Types and Type Annotations</h1>
+<ul>
+<li>JSDocやTypeScript等色々な型注釈が溢れてる</li>
+<li>短期目標<ul>
+<li>まずはその構文を予約しておきたい</li>
+<li>その構文を使った場合はSyntax Errorに落とす</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="types-and-type-annotations">Types and Type Annotations</h1>
+<ul>
+<li>長期目標<ul>
+<li>その構文でType Annotationsの実装、型チェック</li>
+<li><code>d.ts</code>のようなAPIのドキュメント定義に使いたい</li>
+</ul>
+</li>
+<li>類似研究<ul>
+<li>TypeScript</li>
+<li>Python</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="atscript-star-stage-nan">AtScript :star: Stage NaN</h1>
+<p>^ By Google(Angluarチーム)
+<code>Types</code>とやりたいことはほぼ同じで型注釈の定義をSyntaxとして定義することがある。</p>
+<hr>
+<h1 id="atscript">AtScript</h1>
+<p><img src="img/atscript.jpg" alt="fit,right"></p>
+<ul>
+<li>Angular 2.0で使われてる(まだ未公開)</li>
+<li>ES6<strong>+A(Annotations)</strong></li>
+<li>TraceurでES6 validに変換できる<ul>
+<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2014/07/31/093041" title="traceur-compiler 入門 - from scratch">traceur-compiler 入門</a></li>
+</ul>
+</li>
+<li>まずは<a href="http://angular.github.io/assert/" title="Assert.js">Assert.js</a>を使ったruntime assertから</li>
+</ul>
+<p>^ Introspection は実際のコードから型情報を得るAPI(要はオブジェクトで型情報を取って検証出来る拡張)</p>
+<hr>
+<h1 id="atscript-is-es6-a-annotations-">AtScript is ES6+A(Annotations)</h1>
+<ul>
+<li>Type Annotations<ul>
+<li>TypeScriptでやるやつ</li>
+</ul>
+</li>
+<li>Metadata Annotations<ul>
+<li>メタデータを定義する<code>@Directive</code></li>
+</ul>
+</li>
+<li>Introspection<ul>
+<li>DIなどで<strong>実行時</strong>に使えるメタ情報の提供</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="atscript-roadmap">AtScript Roadmap</h1>
+<p><img src="img/atscript-roadmap.jpg" alt="inline"></p>
+<hr>
+<h1 id="atscript-resources">AtScript Resources</h1>
+<ul>
+<li><a href="https://docs.google.com/presentation/d/1hr2IM-8G-0RzpB-WY8pLHvxqNggKPzUO0KvEv1IKPws/edit#slide=id.p" title="Keynote: AtScript - Google スライド">Keynote: AtScript</a></li>
+<li><a href="http://arv.github.io/ngeurope/#/" title="ES6 &amp; Traceur">ES6 &amp; Traceur</a></li>
+<li><a href="https://docs.google.com/document/d/11YUzC-1d0V1-Q3V0fQ7KSit97HnZoKVygDxpWzEYW0U/preview" title="AtScript Primer - Google ドキュメント">AtScript Primer</a><ul>
+<li><a href="https://docs.google.com/document/d/1cUTD8oVzfpwFqX5tMxHTifKO8uJm5VddwmB0aVQMxpI/edit" title="AtScript (was &#34;ES6 +A&#34;) Q&amp;A - Google ドキュメント">AtScript (was &quot;ES6 +A&quot;) Q&amp;A</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="flow-facebook-star-stage-nan">Flow (Facebook) :star: Stage NaN</h1>
+<hr>
+<h1 id="flow-facebook-">Flow (Facebook)</h1>
+<ul>
+<li><a href="https://code.facebook.com/posts/712565848827879/-scale-2014-recap-of-web-track/" title="@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code">@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code</a></li>
+<li>まだ未公開のツール</li>
+<li>Facebook社内のType assertions 静的チェックツール?</li>
+<li><a href="http://facebook.github.io/react/" title="React">React</a>に使われている</li>
+</ul>
+<hr>
+<h1 id="flow-facebook-">Flow(Facebook)</h1>
+<ul>
+<li>Compatible TypeScript Syntax</li>
+<li>Committed to evolved with JS standard</li>
+<li>Integrated with React + JSX</li>
+</ul>
+<p>-- <a href="http://youtu.be/M8x0bc81smU?t=12m47s">youtu.be/M8x0bc81smU?t=12m47s</a></p>
+<p>^ まだ出てもないので何ともいえないけど、
+Flowは全てTypeをつけていくのではなく、Typeの浸透していくような大規模の目的に欲しい感じ。
+1のファイルじゃなくて、全体としてのTypeをつけていきたい感じ。
+Hack/HHVMみたいな話だと思う。
+型推論に強い仕組み、<a href="http://docs.hhvm.com/manual/en/install.hack.conversion.php" title="hackificator">hackificator</a>みたいに元のコードを型付きへ変換していく仕組み(フロー)を持ってる</p>
+<hr>
+<h1 id="ecmascript-">ECMAScriptと型</h1>
+<ul>
+<li>AtScriptとFlow(Facebook) どちらもTypeScriptのSyntaxをベースに置いている</li>
+<li>TypeScriptのチームとAtScript/Flowのチームは話し合ってる</li>
+</ul>
+<blockquote>
+<p>The TypeScript team is working with both the Flow and AtScript teams to help ensure that resources
+-- <a href="http://blogs.msdn.com/b/typescript/archive/2014/10/22/typescript-and-the-road-to-2-0.aspx">http://blogs.msdn.com/b/typescript/archive/2014/10/22/typescript-and-the-road-to-2-0.aspx</a></p>
+</blockquote>
+<p>^ MSのTypeScriptの人がTC39へ提案してる。
+AtScriptとFlowもオープンになったら議論に参加してくる可能性は高い。
+Type Annotationsの実行環境として既に3つ存在してるため、仕様が上手くまとまれてば仕様として入る可能性は考えられる。
+<a href="http://extensiblewebmanifesto.org/" title="Extensible Web Manifesto">Extensible Web Manifesto</a> のやり方</p>
+<hr>
+<h1 id="global-asap-star-stage-0">global.asap :star: Stage 0</h1>
+<p>^ ＝as soon as possibleのこと
+Nodeの<a href="https://www.npmjs.org/package/asap" title="asap">asap</a>モジュールとは微妙に違う話</p>
+<hr>
+<ul>
+<li>ES6でJob Queuesというキューの仕組みが入った</li>
+<li>ES6 Promises等で利用している</li>
+<li><code>global.asap</code> はそのキューに優先度を付けたいという話</li>
+</ul>
+<pre><code class="lang-js">// high order queue
+global.asap(function(){
+
+});
+</code></pre>
+<hr>
+<h1 id="-trailing-commas-in-function-call-expressions-and-declarations-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-09-sept-24-md-51-trailing-commas-in-function-call-expressions-and-declarations-trailing-commas-in-function-call-expressions-and-declarations-star-stage-1"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-24.md#51-trailing-commas-in-function-call-expressions-and-declarations" title="Trailing Commas in Function Call Expressions and Declarations">Trailing Commas in Function Call Expressions and Declarations</a> :star: Stage 1</h1>
+<h3 id="-jeffmo-es-trailing-function-commas-https-github-com-jeffmo-es-trailing-function-commas-jeffmo-es-trailing-function-commas-"><a href="https://github.com/jeffmo/es-trailing-function-commas" title="jeffmo/es-trailing-function-commas">jeffmo/es-trailing-function-commas</a></h3>
+<hr>
+<h1 id="-">関数呼び出しと定義のケツカンマ問題</h1>
+<p><img src="img/trailing-comma.jpg" alt="inline"></p>
+<hr>
+<h1 id="-">関数呼び出しと定義のケツカンマ問題</h1>
+<ul>
+<li>現在の仕様だと関数定義の引数の末尾に<code>,</code>があるとエラー</li>
+<li>同様に関数呼び出しの末尾に<code>,</code>があってもエラー</li>
+<li>これを許容したいという提案</li>
+<li><strong>モチベーション</strong><ul>
+<li>gitなどでのdiffのわかり易さ</li>
+<li>コード生成のし易さ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="img/2014-10-21_23-52-38.jpg" alt="inline"></p>
+<p>^ 分かりやすい変更！！</p>
+<hr>
+<h1 id="-">おわりに</h1>
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a> にTC39のMTGノートがまとまってる<ul>
+<li>Follow <img src="icons/twitter.png" alt="inline" title="Twitter"> <a href="https://twitter.com/rwaldron" title="@rwaldron">@rwaldron</a></li>
+</ul>
+</li>
+<li>ポッドキャスト聞く感覚で読むと面白いと思います。<ul>
+<li>TC39 MTGのMTGをしたい</li>
+</ul>
+</li>
+<li>次回のMTGで話す事は<a href="https://github.com/tc39/agendas" title="tc39/agendas">tc39/agendas</a>にまとめられています</li>
+</ul>
+</article>
+</body>
+</html>
