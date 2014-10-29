@@ -54,9 +54,11 @@
 <hr>
 <h1 id="-">自己紹介</h1>
 <p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
-<h2 id="-azu-"><strong>azu</strong></h2>
+<h2 id="azu">azu</h2>
 <h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
-<h2 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h2>
+<h3 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h3>
+<p>^ 今週末に<a href="http://connpass.com/event/9067/">JSer.infoのイベント</a>をやります。
+この話に関連することを別アプローチについてちょっと話す予定です。</p>
 <hr>
 <h1 id="es7-proposals">ES7 Proposals</h1>
 <h2 id="-tc39-ecma262-https-github-com-tc39-ecma262-tc39-ecma262-"><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a></h2>
@@ -88,22 +90,21 @@ Wikiの代わりにGitHub使いつつ議論を進めていくという方針が�
 機能レベルで決まっていれば、polyfillだったりそういうものも安定したものが早い段階で作りやすい。</p>
 <p>^このリリースプロセスの初出は2013年5月のTC39 MTGの<a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2013-05/may-23.md#es6-es7-es8-marks-strawman-roadmap" title="ES6, ES7, ES8... Mark&#39;s Strawman Roadmap">ES6, ES7, ES8... Mark&#39;s Strawman Roadmap</a>だと思う。</p>
 <hr>
-<h1 id="tc39-">TC39のプロセスとは</h1>
+<h1 id="-ecmascript-7-https-docs-google-com-document-d-1qbee0bso4lvl7nftn5wxweieibfavuf7dk0hppppdzu-edit-tc39-process-1-"><a href="https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit" title="TC39 Process">ECMAScript 7の策定プロセス</a> [^1]</h1>
 <ul>
 <li>Stage 0. <code>Strawman</code> : ESに入れたいアイデアを議論する段階</li>
 <li>Stage 1. <code>Proposal</code> : <code>Strawman</code>を具体化、デモ作成、分析</li>
 <li>Stage 2. <code>Draft</code> : 正式な仕様定義の形式で仕様書を書く段階</li>
 <li>Stage 3. <code>Candidate</code>: Draftの実装等をしてフィードバック</li>
-<li>Stage 4. <code>Finished</code>: ECMAScriptに正式採用 - <a href="https://github.com/tc39/test262" title="Test262">Test262</a>への実装</li>
+<li>Stage 4. <code>Finished</code>: ECMAScriptに正式採用 - <a href="https://github.com/tc39/test262" title="Test262">Test262</a>へ実装</li>
 </ul>
-<p>More Detail on <a href="https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit" title="TC39 Process">TC39 Process</a> [^1]</p>
 <p>[^1]:参考 <a href="http://www.yoheim.net/blog.php?q=20140403" title="[JS] ECMAScript6をまるっと学ぶ。重要用語とか、仕様策定の進め方とか、新機能とか。 - YoheiM .NET">[JS] ECMAScript6をまるっと学ぶ。重要用語とか、仕様策定の進め方とか、新機能とか。 - YoheiM .NET</a> </p>
 <p>^ <code>Proposal</code>は<code>approved</code>的な意味で使われる。
 少なくても承認された感じ。</p>
 <hr>
 <h1 id="-stage-0-">今日話すのはStage : 0の話が中心</h1>
 <h2 id="-">明日なくなるかもしれない仕様の話</h2>
-<h3 id="-">後あまり正確ではないです</h3>
+<h3 id="-">こんな提案あったんだーぐらいの感覚でどうぞ</h3>
 <hr>
 <h1 id="-object-observe-http-wiki-ecmascript-org-doku-php-id-harmony-observe-object-observe-star-stage-2"><a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe" title="Object.observe">Object.observe</a> :star: Stage 2</h1>
 <p>^ 結構前からある
@@ -132,8 +133,7 @@ model.some = &quot;追加&quot;;
 <h1 id="-exponentiation-operator-https-github-com-rwaldron-exponentiation-operator-exponentiation-operator-star-stage-2"><a href="https://github.com/rwaldron/exponentiation-operator" title="Exponentiation Operator">Exponentiation Operator</a> :star: Stage 2</h1>
 <hr>
 <ul>
-<li><code>**</code> 演算子の仕様</li>
-<li>べき乗演算子</li>
+<li><code>**</code> 演算子(べき乗演算子)の仕様</li>
 <li><code>x ** y == Math.pow(x,y)</code> のこと</li>
 <li>9月のTC39 MTGでStage 2まで上がった</li>
 <li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-23.md#58-exponentiation-operator-update" title="5.8 Exponentiation Operator Update">5.8 Exponentiation Operator Update</a></li>
@@ -148,17 +148,27 @@ model.some = &quot;追加&quot;;
 <li>Traceurに実装済み</li>
 <li><a href="https://github.com/google/traceur-compiler/pull/1216" title="Add support for the exponentiation operator by arv · Pull Request #1216 · google/traceur-compiler">Add support for the exponentiation operator by arv · Pull Request #1216 · google/traceur-compiler</a></li>
 </ul>
+<p>^ モチベーションとしては他の言語にも実装が存在することが主だった</p>
 <hr>
 <h1 id="-async-functions-https-github-com-lukehoban-ecmascript-asyncawait-async-functions-star-stage-1"><a href="https://github.com/lukehoban/ecmascript-asyncawait" title="Async Functions">Async Functions</a> :star: Stage 1</h1>
 <hr>
+<h1 id="-async-functions-https-github-com-lukehoban-ecmascript-asyncawait-async-functions-"><a href="https://github.com/lukehoban/ecmascript-asyncawait" title="Async Functions">Async Functions</a></h1>
 <ul>
 <li><code>async</code>と<code>await</code>の仕様</li>
-<li><a href="http://taskjs.org/" title="Task.js: Beautiful Concurrency for JavaScript">Task.js:</a>の<code>spawn</code>のシンタックシュガー的な感じ</li>
+<li><a href="http://taskjs.org/" title="Task.js: Beautiful Concurrency for JavaScript">Task.js</a>の<code>spawn</code>のシンタックシュガー的な感じ</li>
 <li>Generator関数とPromiseを使った同期的な非同期処理</li>
 <li><a href="https://github.com/facebook/regenerator/tree/async-await" title="regenerator">regenerator</a>にTranspileの実装がある</li>
 <li><a href="https://github.com/facebook/regenerator/pull/101" title="Transform async functions and await expressions by benjamn · Pull Request #101 · facebook/regenerator">Transform async functions and await expressions by benjamn · Pull Request #101 · facebook/regenerator</a></li>
 </ul>
-<p>^ By MS</p>
+<p>^ By MS
+新しい構文ではあるけど、内容的にはGeneratorとPromiseをつかったシンタックシュガー。
+C#のあれ</p>
+<hr>
+<h1 id="async-on-es7">Async on ES7</h1>
+<blockquote>
+<p>Currently async functions are for ES 7, and async generators I&#39;m proposing for ES 7.
+--<a href="http://www.infoworld.com/article/2837425/javascript/ecmascript-6-returns-javascript-to-original-intent.html" title="ECMAScript 6 returns JavaScript to original intent | InfoWorld">ECMAScript 6 returns JavaScript to original intent | InfoWorld</a></p>
+</blockquote>
 <hr>
 <h1 id="-array-prototype-contains-https-github-com-domenic-array-prototype-contains-array-prototype-contains-star-stage-1"><a href="https://github.com/domenic/Array.prototype.contains" title="Array.prototype.contains">Array.prototype.contains</a> :star: Stage 1</h1>
 <hr>
@@ -184,6 +194,9 @@ model.some = &quot;追加&quot;;
 BREAK THE WEBが発生する。</p>
 <p>^ <a href="https://esdiscuss.org/topic/array-prototype-values-breaks-the-web" title="Array.prototype.values breaks the web">Array.prototype.values breaks the web</a> でも最近同じ事がおきてた。
 <a href="https://codereview.chromium.org/647703003" title="Issue 647703003: Don&#39;t expose Array.prototype.values as it breaks webcompat - Code Review">Issue 647703003: Don&#39;t expose Array.prototype.values as it breaks webcompat - Code Review</a></p>
+<hr>
+<h1 id="break-the-web">BREAK THE WEB</h1>
+<h2 id="-tc39-mtg-https-github-com-tc39-agendas-blob-master-2014-11-md-agendas-11-md-at-master-tc39-agendas-">続きは次回の<a href="https://github.com/tc39/agendas/blob/master/2014/11.md" title="agendas/11.md at master · tc39/agendas">TC39 MTG</a>で</h2>
 <hr>
 <h1 id="types-and-type-annotation-star-stage-0">Types and Type Annotation :star: Stage 0</h1>
 <h2 id="-tc39-notes-sept-25-md-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-09-sept-25-md-types-tc39-notes-sept-25-md-at-master-rwaldron-tc39-notes-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#types" title="tc39-notes/sept-25.md at master · rwaldron/tc39-notes">tc39-notes/sept-25.md</a></h2>
@@ -267,14 +280,18 @@ Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情
 <h1 id="flow-facebook-">Flow (Facebook)</h1>
 <ul>
 <li><a href="https://code.facebook.com/posts/712565848827879/-scale-2014-recap-of-web-track/" title="@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code">@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code</a></li>
-<li>まだ未公開のツール</li>
-<li>Facebook社内のType assertions 静的チェックツール?</li>
-<li><a href="http://facebook.github.io/react/" title="React">React</a>に使われている</li>
+<li>未公開のツール(2014年中にリリース)</li>
+<li>Facebook社内のAlt TypeScript<ul>
+<li>ES6 + TypeScriptの型定義</li>
 </ul>
+</li>
+</ul>
+<p>-- <a href="http://teppeis.hatenablog.com/entry/2014/10/facebook-flow-in-3-minutes" title="3分で分かるFacebook Flow - teppeis blog">3分で分かるFacebook Flow - teppeis blog</a></p>
 <hr>
 <h1 id="flow-facebook-">Flow(Facebook)</h1>
 <ul>
 <li>Compatible TypeScript Syntax</li>
+<li>Code Intelligent Server</li>
 <li>Committed to evolved with JS standard</li>
 <li>Integrated with React + JSX</li>
 </ul>
@@ -283,7 +300,9 @@ Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情
 Flowは全てTypeをつけていくのではなく、Typeの浸透していくような大規模の目的に欲しい感じ。
 1のファイルじゃなくて、全体としてのTypeをつけていきたい感じ。
 Hack/HHVMみたいな話だと思う。
-型推論に強い仕組み、<a href="http://docs.hhvm.com/manual/en/install.hack.conversion.php" title="hackificator">hackificator</a>みたいに元のコードを型付きへ変換していく仕組み(フロー)を持ってる</p>
+後、サーバにクエリを投げて返すような仕組みを作ってやってるとの話。
+型推論に強い仕組み、<a href="http://docs.hhvm.com/manual/en/install.hack.conversion.php" title="hackificator">hackificator</a>みたいに元のコードを型付きへ変換していく仕組み(フロー)を持ってる。
+詳しくは @teppeis さんに聞きましょう。</p>
 <hr>
 <h1 id="ecmascript-">ECMAScriptと型</h1>
 <ul>
@@ -298,6 +317,12 @@ Hack/HHVMみたいな話だと思う。
 AtScriptとFlowもオープンになったら議論に参加してくる可能性は高い。
 Type Annotationsの実行環境として既に3つ存在してるため、仕様が上手くまとまれてば仕様として入る可能性は考えられる。
 <a href="http://extensiblewebmanifesto.org/" title="Extensible Web Manifesto">Extensible Web Manifesto</a> のやり方</p>
+<hr>
+<h1 id="-">型まとめ</h1>
+<p>Dr.Axelがまとめてくれたので読みましょう！</p>
+<ul>
+<li><a href="http://www.2ality.com/2014/10/typed-javascript.html" title="Statically typed JavaScript via Microsoft TypeScript, Facebook Flow and Google AtScript">Statically typed JavaScript via Microsoft TypeScript, Facebook Flow and Google AtScript</a></li>
+</ul>
 <hr>
 <h1 id="global-asap-star-stage-0">global.asap :star: Stage 0</h1>
 <p>^ ＝as soon as possibleのこと

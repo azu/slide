@@ -9,13 +9,16 @@
 
 ![right](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
 
-## **azu**
+## azu
 ## @[azu_re](https://twitter.com/azu_re)
-## [Web scratch], [JSer.info]
+###  [Web scratch], [JSer.info]
 
 
 [Web scratch]: http://efcl.info/ "Web scratch"
 [JSer.info]: http://jser.info/ "JSer.info"
+
+^ 今週末に[JSer.infoのイベント](http://connpass.com/event/9067/)をやります。
+この話に関連することを別アプローチについてちょっと話す予定です。
 
 ----
 
@@ -65,15 +68,13 @@ https://twitter.com/mikeal/status/520973415553851393
 
 ----
 
-# TC39のプロセスとは
+# [ECMAScript 7の策定プロセス](https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit "TC39 Process") [^1]
 
 - Stage 0. `Strawman` : ESに入れたいアイデアを議論する段階
 - Stage 1. `Proposal` : `Strawman`を具体化、デモ作成、分析
 - Stage 2. `Draft` : 正式な仕様定義の形式で仕様書を書く段階
 - Stage 3. `Candidate`: Draftの実装等をしてフィードバック
-- Stage 4. `Finished`: ECMAScriptに正式採用 - [Test262](https://github.com/tc39/test262 "Test262")への実装
-
-More Detail on [TC39 Process](https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit "TC39 Process") [^1]
+- Stage 4. `Finished`: ECMAScriptに正式採用 - [Test262](https://github.com/tc39/test262 "Test262")へ実装
 
 [^1]:参考 [[JS] ECMAScript6をまるっと学ぶ。重要用語とか、仕様策定の進め方とか、新機能とか。 - YoheiM .NET](http://www.yoheim.net/blog.php?q=20140403 "[JS] ECMAScript6をまるっと学ぶ。重要用語とか、仕様策定の進め方とか、新機能とか。 - YoheiM .NET") 
 
@@ -86,7 +87,7 @@ More Detail on [TC39 Process](https://docs.google.com/document/d/1QbEE0BsO4lvl7N
 
 ##  明日なくなるかもしれない仕様の話
 
-### 後あまり正確ではないです
+### こんな提案あったんだーぐらいの感覚でどうぞ
 
 -----
 
@@ -125,8 +126,7 @@ model.some = "追加";
 
 ----
 
-- `**` 演算子の仕様
-- べき乗演算子
+- `**` 演算子(べき乗演算子)の仕様
 -  `x ** y == Math.pow(x,y)` のこと
 - 9月のTC39 MTGでStage 2まで上がった
 - [5.8 Exponentiation Operator Update](https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-23.md#58-exponentiation-operator-update "5.8 Exponentiation Operator Update")
@@ -144,20 +144,33 @@ model.some = "追加";
 - Traceurに実装済み
 - [Add support for the exponentiation operator by arv · Pull Request #1216 · google/traceur-compiler](https://github.com/google/traceur-compiler/pull/1216 "Add support for the exponentiation operator by arv · Pull Request #1216 · google/traceur-compiler")
 
+^ モチベーションとしては他の言語にも実装が存在することが主だった
+
 ----
 
 # [Async Functions](https://github.com/lukehoban/ecmascript-asyncawait "Async Functions") :star: Stage 1
 
 ----
 
+# [Async Functions](https://github.com/lukehoban/ecmascript-asyncawait "Async Functions")
+
 - `async`と`await`の仕様
-- [Task.js:](http://taskjs.org/ "Task.js: Beautiful Concurrency for JavaScript")の`spawn`のシンタックシュガー的な感じ
+- [Task.js](http://taskjs.org/ "Task.js: Beautiful Concurrency for JavaScript")の`spawn`のシンタックシュガー的な感じ
 - Generator関数とPromiseを使った同期的な非同期処理
 - [regenerator](https://github.com/facebook/regenerator/tree/async-await "regenerator")にTranspileの実装がある
 - [Transform async functions and await expressions by benjamn · Pull Request #101 · facebook/regenerator](https://github.com/facebook/regenerator/pull/101 "Transform async functions and await expressions by benjamn · Pull Request #101 · facebook/regenerator")
 
 
 ^ By MS
+新しい構文ではあるけど、内容的にはGeneratorとPromiseをつかったシンタックシュガー。
+C#のあれ
+
+------
+
+# Async on ES7
+
+> Currently async functions are for ES 7, and async generators I'm proposing for ES 7.
+--[ECMAScript 6 returns JavaScript to original intent | InfoWorld](http://www.infoworld.com/article/2837425/javascript/ecmascript-6-returns-javascript-to-original-intent.html "ECMAScript 6 returns JavaScript to original intent | InfoWorld")
 
 -----
 
@@ -197,6 +210,13 @@ BREAK THE WEBが発生する。
 
 ^ [Array.prototype.values breaks the web](https://esdiscuss.org/topic/array-prototype-values-breaks-the-web "Array.prototype.values breaks the web") でも最近同じ事がおきてた。
 [Issue 647703003: Don&#39;t expose Array.prototype.values as it breaks webcompat - Code Review](https://codereview.chromium.org/647703003 "Issue 647703003: Don&#39;t expose Array.prototype.values as it breaks webcompat - Code Review")
+
+----
+
+# BREAK THE WEB
+
+
+##  続きは次回の[TC39 MTG](https://github.com/tc39/agendas/blob/master/2014/11.md "agendas/11.md at master · tc39/agendas")で
 
 ----
 
@@ -285,15 +305,18 @@ Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情
 # Flow (Facebook)
 
 - [@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code](https://code.facebook.com/posts/712565848827879/-scale-2014-recap-of-web-track/ "@Scale 2014: Recap of Web Track | Engineering Blog | Facebook Code")
-- まだ未公開のツール
-- Facebook社内のType assertions 静的チェックツール?
-- [React](http://facebook.github.io/react/ "React")に使われている
+- 未公開のツール(2014年中にリリース)
+- Facebook社内のAlt TypeScript
+	- ES6 + TypeScriptの型定義
+
+-- [3分で分かるFacebook Flow - teppeis blog](http://teppeis.hatenablog.com/entry/2014/10/facebook-flow-in-3-minutes "3分で分かるFacebook Flow - teppeis blog")
 
 -----
 
 # Flow(Facebook)
 
 - Compatible TypeScript Syntax
+- Code Intelligent Server
 - Committed to evolved with JS standard
 - Integrated with React + JSX
 
@@ -303,7 +326,9 @@ Typed ObjectsはTypedArrayみたいに内部的にコンパイルにもっと情
 Flowは全てTypeをつけていくのではなく、Typeの浸透していくような大規模の目的に欲しい感じ。
 1のファイルじゃなくて、全体としてのTypeをつけていきたい感じ。
 Hack/HHVMみたいな話だと思う。
-型推論に強い仕組み、[hackificator](http://docs.hhvm.com/manual/en/install.hack.conversion.php "hackificator")みたいに元のコードを型付きへ変換していく仕組み(フロー)を持ってる
+後、サーバにクエリを投げて返すような仕組みを作ってやってるとの話。
+型推論に強い仕組み、[hackificator](http://docs.hhvm.com/manual/en/install.hack.conversion.php "hackificator")みたいに元のコードを型付きへ変換していく仕組み(フロー)を持ってる。
+詳しくは @teppeis さんに聞きましょう。
 
 -----
 
@@ -319,6 +344,14 @@ Hack/HHVMみたいな話だと思う。
 AtScriptとFlowもオープンになったら議論に参加してくる可能性は高い。
 Type Annotationsの実行環境として既に3つ存在してるため、仕様が上手くまとまれてば仕様として入る可能性は考えられる。
 [Extensible Web Manifesto](http://extensiblewebmanifesto.org/ "Extensible Web Manifesto") のやり方
+
+-----
+
+# 型まとめ
+
+Dr.Axelがまとめてくれたので読みましょう！
+
+- [Statically typed JavaScript via Microsoft TypeScript, Facebook Flow and Google AtScript](http://www.2ality.com/2014/10/typed-javascript.html "Statically typed JavaScript via Microsoft TypeScript, Facebook Flow and Google AtScript")
 
 -----
 
