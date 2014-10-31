@@ -52,14 +52,13 @@
 
 # [fit] ![inline][firefox] Mozilla Firefox 4
 
-- Rapid Releaseが開始前のメジャーバージョン
-- Chromeを先頭にリリース速度が加速してきた頃
+## Rapid Releaseが始まる直前
 
 ----
 
 # [fit] ![inline][chrome] Google Chrome 8
 
-- いつものChromeです
+## いつものChromeです
 
 ----
 
