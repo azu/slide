@@ -9,6 +9,14 @@
 
 ----
 
+# アジェンダ
+
+1. ブラウザやJavaScriptのリリースは変化してきている
+2. 私たちはどのように変化を知り見ていくのか
+3. そして私たちはどのように変化していくのか
+
+----
+
 # [fit] 世界のJavaScriptを見る話
 
 ### [fit] JSer.info 開始 2011年〜
@@ -67,48 +75,44 @@
 
 # [fit] ![inline][chrome] Google Chrome 38
 
----
+----
+
+
+# [fit] ![inline][ie] Internet Explorer 9 -> 12
+
+# [fit] ![inline][firefox] Mozilla Firefox 4 -> 33
+
+# [fit] ![inline][chrome] Google Chrome 8 -> 38
+
+
+----
 
 # Internet Explorerの開発方針も変わってきた
 
-- IE 12のDeveloperバージョンが先行公開
+- IEの[Developerバージョン](http://devchannel.modern.ie/ "IE Technical Preview")が先行公開
 - 今後開発予定の公開
 	-  [status.modern.IE](https://status.modern.ie/ "Internet Explorer Web Platform Status and Roadmap - status.modern.IE") [![][github]](https://github.com/internetexplorer/status.ie "InternetExplorer/Status.IE")
-- UserVoiceでの開発優先度の意見募集
+- [UserVoice](https://wpdev.uservoice.com/forums/257854-internet-explorer-platform)での開発優先度の意見募集
 - IEのサポートバージョンをOSで使える最新版だけに
 
+^ [Stay up-to-date with Internet Explorer - IEBlog - Site Home - MSDN Blogs](http://blogs.msdn.com/b/ie/archive/2014/08/07/stay-up-to-date-with-internet-explorer.aspx "Stay up-to-date with Internet Explorer - IEBlog - Site Home - MSDN Blogs")
 
 ---
 
-# バージョンニングの意味の変化
-
----
-
-- 機能ベースのリリース
-- リリースの速度自体の加速
-- semverの発達
-- 言語とライブラリは適切なリリーススケジュールが違う
-- しかしどちらも早くなってきてる
-- @todo node の stable/unstableモデルの弊害
-
----
 
 # [fit] ヘッドレスブラウザの登場
 
 ---
-# PhantomJS
+# [PhantomJS](http://phantomjs.org/ "PhantomJS")
 
-2011年 [WebkitベースのJavaScriptコマンドラインツール「PhantomJS」 - JSer.info](http://jser.info/post/2888913234/ "WebkitベースのJavaScriptコマンドラインツール「PhantomJS」 - JSer.info")
-
-# [SlimerJS](http://slimerjs.org/index.html "SlimerJS")
-
-- Firefox(Gecko)のヘッドレスブラウザ
-
-# [sdesalas/trifleJS](https://github.com/sdesalas/trifleJS "sdesalas/trifleJS")
-
-- IEのヘッドレスブラウザ
+-  [WebkitベースのJavaScriptコマンドラインツール「PhantomJS」 - JSer.info](http://jser.info/post/2888913234/ "WebkitベースのJavaScriptコマンドラインツール「PhantomJS」 - JSer.info") (2011)
+- [SlimerJS](http://slimerjs.org/index.html "SlimerJS") (2013)
+	- Firefox(Gecko)のヘッドレスブラウザ
+- [sdesalas/trifleJS](https://github.com/sdesalas/trifleJS "sdesalas/trifleJS") (2013)
+	- IEのヘッドレスブラウザ
 
 ----
+# ヘッドレスブラウザ
 
 - PhantomJSが先行し広く普及した
 - PhantomJSのAPIがデファクトとなった
@@ -117,20 +121,161 @@
 
 ----
 
-# WebDriver
+# ブラウザリリースのまとめ
 
-- 一方ブラウザを操作するAPIとしてWebDriver APIがある
-- 本物のブラウザを操作するためのAPI
-- WebDriver APIはW3Cで標準化された
-- Internet Explorer 11 でWebDriverが[サポート](http://blogs.msdn.com/b/ie/archive/2014/08/13/august-updates-for-internet-explorer.aspx "August updates for Internet Explorer - IEBlog - Site Home - MSDN Blogs")された
+- IE、Firefox、Chrome等のリリース周りは変化してきた
+- FirefoxとChromeはRapid Releaseへ
+- IEもIEらしさは残しつつ変化に対応しようとしてる
+- ヘッドレスブラウザなどツールとしてのブラウザがでてきた
 
----
+----
 
-# WebDriver を利用するフレームワークの発達
+# [fit] そもそも何故リリース速度が上がったの?
 
-   * [Protractor - end to end testing for AngularJS](http://angular.github.io/protractor/#/ "Protractor - end to end testing for AngularJS")
-   * [Leadfoot](http://theintern.github.io/leadfoot/ "Leadfoot docs: Index")
-   * [Nightwatch.js | Node.js powered End-to-End testing framework](http://nightwatchjs.org/ "Nightwatch.js | Node.js powered End-to-End testing framework")
+-----
+
+# [高速リリースサイクルに関するよくある質問 | 次世代ブラウザ Firefox](http://www.mozilla.jp/firefox/preview/faq/ "高速リリースサイクルに関するよくある質問 | 次世代ブラウザ Firefox")
+
+> Web ブラウザは、他のアプリケーションと異なり、Web という「生き物」を相手にしています。HTML5 や CSS3 など新たな標準技術が次々に考案され、ソーシャルメディアなどのトレンドも目まぐるしく変わっています。Web の進化するスピードが速くなっているので、これまでのように半年から 1 年周期のアップデートでは間に合わなくなっているのです。
+
+----
+
+# ウェブの変化の早さ
+
+- ウェブの変化に対応するためにブラウザのリリース速度は上がった
+- ライブラリも変化/トレンドに対応するためリリース速度は上がってる
+
+----
+
+# ライブラリのリリースの変化?
+
+![inline](img/compare-package.jpg)
+
+
+^ 開発者の皆さんに近い所としてライブラリのリリース周りを見て行きたいと思います。
+
+-----
+
+# npmで公開されてるパッケージ
+
+- 公開されてるパッケージ数は増加傾向
+- gemやMavenよりも多い by [Modulecounts](http://www.modulecounts.com/ "Modulecounts")
+
+^ 更新数についてはデータがないので不明だが、体感的には更新数自体も増えている
+
+-----
+
+![fit, js-pacakge](img/js-package.png)
+
+-----
+
+# リリース回数がとにかく増えた！
+
+- 原因は色々考えられる
+- ブラウザが変化したようにトレンドに対応するため
+	- 新しいライブラリが色々出てくる
+- もう一つの要因 =>  [Semantic Versioning](http://semver.org/ "Semantic Versioning 2.0.0")！
+
+-----
+
+# [Semantic Versioning](http://semver.org/ "Semantic Versioning 2.0.0")(semver)の採用
+
+- 1 commit = 1 patch release をするライブラリが増えた
+- バージョンをあげることへの抵抗感が薄くなった
+- => 結果としてリリース回数が増える
+- => リリースノートの自動化が進んだ
+
+
+
+^ JavaScriptのライブラリの多くは今セマンティクスバージョニングにてリリースしていってる。
+リリースノートについては後ほど詳しくやります。
+
+----
+
+# ライブラリとsemver
+
+- npmではバージョンは[semver](https://github.com/npm/node-semver "semver")として解釈する 
+- npmのエコシステムに載るにはsemverである方が自然
+- npmやbowerで公開するにはバージョンをあげる必要がある
+- => 結果としてリリース回数が増える
+
+^ semverもあるし、そもそもバージョンをあげないとnpmやbowerなどのものは更新できないのでリリース回数が自然と増える。
+1コミットで1パッチリリースする人も多いので、この辺まで来るとリリースノートは手動で書くのには無理がある。
+そのためコミットベースの自動生成が増えてきたと考える。
+
+----
+
+# Node.js 本体は?
+
+-----
+
+# Node.js 本体
+
+- Node.js本体のリリースが停滞してることが問題視されてきた
+- 一定期間でリリースされないので停滞しやすい
+- それを解決しようと[Node Forward](http://nodeforward.org/ "Node Forward")がでてきた
+- これに対応しようと[Node.js Advisory Board](https://www.joyent.com/blog/node-js-advisory-board "Node.js Advisory Board")が設置された
+- **リリース**を変えようとすると**コミュニティ**も変わってくる
+
+^ [Node.jsのコミュニティに変化を与えるnode-forwardについて - from scratch](http://yosuke-furukawa.hatenablog.com/entry/2014/10/23/101831 "Node.jsのコミュニティに変化を与えるnode-forwardについて - from scratch")
+
+^ 詳しくはNode.js 日本ユーザグループ代表の@yousuke_furukawaさんに聞きましょう！
+
+----
+
+# ECMAScript は?
+
+-----
+
+# ECMAScriptの進捗
+
+- JavaScriptの元となる標準仕様
+- [ES Discuss](https://esdiscuss.org/ "ES Discuss")で議論される
+- [tc39/tc39-notes](https://github.com/tc39/tc39-notes "tc39/tc39-notes")に定期MTGのNoteが公開される
+- ES6の機能策定はほぼ完了
+- ES7の機能提案の段階
+
+-----
+
+# ECMAScript 7
+
+## feature-model releaseへ
+
+-----
+
+# ECMAScript 7
+
+- ES6とES7の策定は同時に進行している
+- ES7は**機能毎**の仕様策定を中心に進めている
+	- feature-model release
+- 理由としてはもっとリリース速度をあげるため
+
+-- [明日には使えなくなるES7トーク](http://azu.github.io/slide/es6talks/ "明日には使えなくなるES7トーク")
+
+^ ES7は機能レベルの仕様それぞれに策定のstageを設けていて、それが一定の段階になったらES7として取り込むようになっている。
+このような事をする理由の一つがリリース速度の改善！
+
+-----
+
+
+# リリース傾向の変化まとめ
+
+- 変化はブラウザだけではなく言語まできてる :boom:
+- 言語もブラウザもライブラリもリリースが変わってきた
+- GitHubがかなり活用されている
+
+^ ブラウザはRapid Releaseを取り入れリリース速度が上がった。
+GitHubでのリリースの増加。
+ECMAScriptの策定も機能毎に進めリリース速度をあげようとしている。JavaScriptの実装はブラウザが中心なので、やはり変化の中心はブラウザだと考えられる。
+
+----
+
+# :watch: WATCH
+
+## どのように変化を知り見ていくのか
+
+^ では私達はどのようにその変化を見ていくのか?
+変化の中心であるGitHubとブラウザを中心に見ていこう。
 
 ----
 
@@ -140,7 +285,7 @@
 
 ----
 
-# ブログでのリリースノート
+# [fit] ブログとリリースノート
 
 ![fill, yuiのリリースノート](img/yui-release.jpg)
 
@@ -149,13 +294,18 @@
 
 ----
 
-# GitHubでのリリースノート
+# [fit] GitHubとリリースノート
 
 ![fill](img/github-release.jpg)
 
 ^ 最近ではGitHubにリリースノートを書くだけのケースが増えてきた
 あるいは、CHANGELOGを自動生成したもの(またはそれを両立したもの)
 
+----
+
+# リリースノートの場所
+
+## ブログとGitHubどっちが多い?
 
 ----
 ![fit](img/graph-release.png)
@@ -169,129 +319,99 @@ GitHub上のReleseまたはCHANGELOGを紹介したものと
 
 ----
 
+# リリースノートの場所(JSer.info調べ)
+
+- JSer.infoで紹介したもの(ある程度著名なものが中心)
+- ブログでのリリースノート自体はそこまで減ってない
+- GitHubでのリリースノートは増えている
+	- `CHANGELOG`ファイルを作成するケース
+	- GitHub Releaseに書くケース
+
+----
+
 # 最近のリリースノートの変化
 
 - 小さいものほどGitHubのみにしかリリースノートを書かない
-	- ブログに書いても初回のみ
-- Node moduleはsemverを採用するケースが増えリリース回数自体も多い
-- ブログとGitHubでのリリース(自動生成)を併用するパターンも多い
+- ライブラリはsemverを採用しリリース回数自体が増加
+- コミットからのリリースノートを自動生成
+	- [Git tagとGitHub ReleasesとCHANGELOG.mdの自動化](http://efcl.info/2014/07/20/git-tag-to-release-github/ "Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch")
 
-----
+^ 小さいライブラリはtagを貼るだけのケースが多い。
+また、そのときにコミット一覧をリリースノートに貼り付ける方式のリリースノートの自動化が多くなった。
+
+
+-----
 
 # リリースノートを見ていく方法も変化する
 
 - リリース方法が変化するので、見る方も変化する
 - まずリリースに気づけない問題が発生する
 	- お世辞にもGitHubは追いやすい形式になってない
-- CHANGELOGを直接見る必要(diffのみ)が出てくる
-- 対策は[GitHubでライブラリのリリースを見ていくためのツールや方法](http://efcl.info/2014/07/30/find-github-release/ "GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch") にてまとめた
+- 変更履歴のコミット直接見る必要が出てくる
+- 対策を[GitHubでライブラリのリリースを見ていくためのツールや方法](http://efcl.info/2014/07/30/find-github-release/ "GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch") に書いた
+
+^ リリースノートの書き方が変わってくると、それを読む側の意識も変わってこないと、そのライブラリの何が変わったのかわからなくなるケースが多い。
+まだ仕組みが未成熟であるため、もっと改善していくとエコシステムが良くなると思う。
 
 ----
 
-# [GitHubでライブラリのリリースを見ていくためのツールや方法](http://efcl.info/2014/07/30/find-github-release/ "GitHubでライブラリのリリースを見ていくためのツールや方法") 概要
+# GitHubのタイムラインを読む
 
-![right,fit](http://cl.ly/image/2v053R0Y0s0a/2014-04-29%2022_38_04.gif)
+![right,fit](img/github-reader.gif)
 
-* リポジトリのWatch
-    * [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
-* タイムライン
-    * [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
-* Star
-    * [starseeker](http://starseeker.so/ "starseeker")
+- リポジトリのWatchする
+	- [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
+- タイムラインを見る
+	- [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
+* 他の人がStarしたものを見る :star: 
+	* [starseeker](http://starseeker.so/ "starseeker")
+
+^ [GitHubでライブラリのリリースを見ていくためのツールや方法](http://efcl.info/2014/07/30/find-github-release/ "GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch") の内容から
 
 ----
 
-# リリースノートを購読
+# リリースノートを見る
 
 ![right fit](img/github-release-mod.png)
 
-* GitHub ReleaseのFeedlyでRSS購読
-    * [azu/github-releases-to-feedly](https://github.com/azu/github-releases-to-feedly "azu/github-releases-to-feedly")
-* Feedlyをバックエンドにして -> any
-    * [IFTTT](https://ifttt.com/myrecipes/personal "My Recipes - IFTTT")
+- GitHub ReleaseをRSS購読(Feedly)
+	- [azu/github-releases-to-feedly](https://github.com/azu/github-releases-to-feedly "azu/github-releases-to-feedly")
+* Feedlyをバックエンドに使う -> any
+	* [IFTTT](https://ifttt.com/myrecipes/personal "My Recipes - IFTTT")
 * GitHub Release -> CHANGELOG
-    * [azu/check_changelog_from_release](https://github.com/azu/check_changelog_from_release "azu/check_changelog_from_release")
-* GitHub Release -> Compare tags
-    * [azu/show-diff-from-release](https://github.com/azu/show-diff-from-release "azu/show-diff-from-release")
+	* [azu/check_changelog_from_release](https://github.com/azu/check_changelog_from_release "azu/check_changelog_from_release")
+* GitHub Release -> Version Diff
+	*  [azu/show-diff-from-release](https://github.com/azu/show-diff-from-release "azu/show-diff-from-release")
 
 ----
 
 # リリースノートまとめ
 
 - リリースノートの出し方も変化してる
-- MLやブログ以外にもGitHubが増えてきた
-- リリース速度の変化も関係してそう
-- リリースはしやすくなった、リリースはまだ見やすくない
-	- まだバランスが悪い
-- リリースを見る側も変化が必要になる
+- ブログ以外にもGitHubが増えてきた
+- リリースはしやすくなったが、リリースはまだ見やすくない
+- リリースノートの仕組みが未成熟
+- リリースを見る側も工夫が必要になる
 
-^GitHubにtagをつけてpushするだけというスタイル速度が取れるようになったので、リリース速度は上がっている。
+^GitHubにtagをつけてpushするだけというスタイルになったため、リリース速度は上がっている。
 しかし、必然的にリリース回数があがりリリースノートが軽視されてる傾向がある。
 もっとリリースノートを書こう。そのためにはリリースノートを書きやすい仕組みが必要だと考えてる。
 
-----
-
-# :star: リリース傾向の変化
-
-^ 先ほど、リリース回数が増えてると紹介したが、
-そもそものリリースするバージョンニングの形態が変化してきていると感じる。
-特にNode.jsではsemverがデフォルトのバージョンニングとなっているため、sermverを意識するとリリース回数が増える傾向がある(minor fix)
-
----
-
-# [高速リリースサイクルに関するよくある質問 | 次世代ブラウザ Firefox](http://www.mozilla.jp/firefox/preview/faq/ "高速リリースサイクルに関するよくある質問 | 次世代ブラウザ Firefox")
-
-> Web ブラウザは、他のアプリケーションと異なり、Web という「生き物」を相手にしています。HTML5 や CSS3 など新たな標準技術が次々に考案され、ソーシャルメディアなどのトレンドも目まぐるしく変わっています。Web の進化するスピードが速くなっているので、これまでのように半年から 1 年周期のアップデートでは間に合わなくなっているのです。
-
 
 ----
 
-# ウェブの変化の早さ
+# [fit] 話はブラウザに戻って
 
-- ウェブの変化に対応するためにブラウザのリリース速度は上がった
-- ライブラリも変化/トレンドに対応するためリリース速度は上がってる
-- 速度が全てではないが、仕様や言語に近い部分にも変化がある
+-----
 
-----
+# 現在のウェブの変化の中心はブラウザ！
 
-# ライブラリとsemver
+- ブラウザの変化を知ることができれば他の変化が見えるかも
+- ブラウザはベンダーがいるので公式の情報がある
+	- ライブラリ等に比べれば安定した情報 :green_heart:
+- ブラウザごとにその安定した情報を見ていこう！
 
-- semver だとminorリリースを顕著
-
-----
-
-# Node.js
-
-- node-forward @todo
-- Node.js本体のstable/unstableモデルの問題
-- 一定期間でリリースされないので停滞しやすい
-
-----
-
-# ECMAScript
-
-- JavaScriptの元となる標準仕様
-- [ES Discuss](https://esdiscuss.org/ "ES Discuss")で議論される
-- [tc39/tc39-notes](https://github.com/tc39/tc39-notes "tc39/tc39-notes")に定期MTGのNoteがある
-- ES6の機能策定はだいたい完了、ES7の機能提案の段階
-- feature-model releaseへ
-
-----
-
-# :watch: WATCH
-
-^ では私達はどのようにその変化を見ていくのか?
-
-----
-
-# Watcher
-
-- 人が集まる専門分野には必ずWatcherがいる!
-- ME too! @todo
-
-----
-
-# 各Watch Pointを見て行こう
+^ 安定した情報がある
 
 -----
 
@@ -321,16 +441,27 @@ GitHub上のReleseまたはCHANGELOGを紹介したものと
 
 -- [status.modern.IEの見方 | Web Scratch](http://efcl.info/2014/10/19/modern-ie/ "status.modern.IEの見方 | Web Scratch")
 
+^ status.modern.IE を見ておけば、IEの開発状況が分かると言えるぐらい更新が活発なので見て損はない。
+
 -----
 
 # ![inline][firefox] Firefox
 
 - [Firefox Nightly News](http://firefoxnightly.tumblr.com/ "Firefox Nightly News") [![inline][twitter]](https://twitter.com/firefoxnightly)
-	- FirefoxのNightlyに入った機能などについての紹介
+	- FirefoxのNightlyの機能について
+- [FxSiteCompat - MozillaWiki](https://wiki.mozilla.org/FxSiteCompat "FxSiteCompat - MozillaWiki") [![inline][twitter]](https://twitter.com/FxSiteCompat)
+	- Firefoxのリリース情報
 - [Mozilla Hacks – the Web developer blog](https://hacks.mozilla.org/ "Mozilla Hacks – the Web developer blog") [![inline][twitter]](https://twitter.com/mozhacks)
-	- FirefoxやWebなど色々 - [HTML5 Rocks](http://www.html5rocks.com/ "HTML5 Rocks - A resource for open web HTML5 developers")もそれに近い
-- [Mozilla Developer Street (modest)](https://dev.mozilla.jp/ "Mozilla Developer Street (modest)")
+	- Firefox中心に色々紹介 - [HTML5 Rocks](http://www.html5rocks.com/ "HTML5 Rocks - A resource for open web HTML5 developers")もそれに近い
+
+----
+
+# ![inline][firefox] Firefox
+
+ [Mozilla Developer Street (modest)](https://dev.mozilla.jp/ "Mozilla Developer Street (modest)")
 	- Mozilla Hacksの日本語訳やリリース情報が多い
+
+^ その他詳しくはFirefox/Servoのコミッタである @saneyuki_s  さんに聞きましょう！
 
 ----
 
@@ -421,6 +552,8 @@ Chromeは"リリース"という部分が分かりにくく感じる。
 
 ^ SafariやiOS、[Qt WebKit](http://qt-project.org/doc/qt-5/qtwebkit-index.html "Qt WebKit")(PhantomJS)、[WebKitGTK+](http://webkitgtk.org/ "WebKitGTK+")等で使われるブラウザエンジンです。
 
+^ 詳しくはWebKitコミッターでもある @Constellation  さんに聞きましょう！
+
 ----
 
 # ![inline][webkit] [WebKit](https://www.webkit.org/ "WebKit")
@@ -472,17 +605,17 @@ WebKitを使ったメジャーなブラウザはSafariぐらいで、Safariは�
 ^ **Echo JS**は結構いい感じの情報が流れてくるのでオススメ。
 また体感的にはHNにただPostされるより、Echo JSにただPostされたほうが反応がある感じがする。
 
-
 ----
 
 # [Meta Weekly](http://azu.github.io/Meta-Weekly/ "Meta Weekly")
 
-![meta-weekly](img/meta-weekly.jpg)
+![right, meta-weekly](img/meta-weekly.jpg)
 
-Daily/Weekly/Monthlyで更新されてるサイトをまとめてるサイト
+Daily/Weekly/Monthlyで更新されてるサイトのまとめ
 
 - [JavaScript Weekly](http://javascriptweekly.com/ "JavaScript Weekly")  [![inline][twitter]](https://twitter.com/JavaScriptDaily)
 - [JSer.info](http://jser.info/ "JSer.info") [![inline][twitter]](https://twitter.com/jser_info)
+
 
 ----
 
@@ -504,28 +637,199 @@ Daily/Weekly/Monthlyで更新されてるサイトをまとめてるサイト
 
 [^1]:https://flic.kr/p/4zBvWg
 
-----
-
-# そして、私達はどう変化する?
+^  GitHubやブラウザを中心にどこで変化がおきてることを知ることが大事という話をしましたが、いつまでも続くとは限らない
 
 ----
 
-- ブラウザ、言語側は変化してきた
-- リリースサイクル、リリースの意味、バージョニング
-- 変化を通知するプラットフォーム化
-- フィードバックのし易さの改善
-- 開発者にもっとコアに参加したほしいとした
+# [fit] そして、私達はどう変化する?
 
-- 今は過渡期だからという言葉片付けるのは簡単
-- じゃ何が無くなったら過渡期ではないのかは考えないと意味ない
+-----
+
+# 人は変化する
+
+- ブラウザ、言語側は変化してきた 
+- 言語は勝手に策定されてリリースされるわけではない
+- 結局は人が決めてるので、人が変化してきたと言える
+
+-----
+
+# 誰がその変化を作ってるのか
+
+^ 自分を変えるのは大変なので、周りの変化を感じのが手っ取り早い。
+その一つとして変化を作ってる人達を見ていくのが近道。
+
+-----
+
+# 引力 :earth_africa:
+
+- 変化を求める人の所には引力がある
+- 自然と情報が集まる
+- まずはそういう人たちを知ることが手っ取り早い
+
+-----
+
+# ターニングポイント :triangular_flag_on_post:
+
+## 変化を作ってる人が集まる場所を考える
+
+-----
+
+# ターニングポイント
+
+1. GitHub
+2. BTS(Bug Tracking System)
+3. SNS
+
+-----
+
+# GitHub
+
+![right fit 90%](img/GitHub.png)
+
+## 今の開発はGitHubなしでは成立してない
+
+-----
+
+# GitHub
+
+- ライブラリから仕様まで多種多様な開発が行われてる
+- 全てを追うことは無理なので諦めよう
+	- 中の人でも全て見ようとすると迷子になる via [Rebuild: 62](http://rebuild.fm/62/ "Rebuild: 62: Wrong Username Mentions (dice)")
+- 通知メールのフィルターや工夫して乗り切ろう
+
+^ Watchには抑制する力も必要。
+何でも見て追おうとすると破綻する。
+中の人も全てを応用にすると破綻するといってるので、
+上手いバランスを見つけてやるのが大事。
+
+-----
+
+# BTS(Bug Tracking System)
+
+![inline fill, ie](img/ie-feedback.jpg)
+![inline, chromium](img/chromium-issues.jpg)
+![inline, mozilla](img/mozilla-bugzilla.jpg)
+![inline, webkit](img/webkit-bugzilla.jpg)
+
+# BTS
+
+- [ブラウザのバグを見つけたときにやること - Please Sleep](http://please-sleep.cou929.nu/how-to-report-bugs-of-browser.html "ブラウザのバグを見つけたときにやること - Please Sleep")
+- [Microsoft Connect](http://connect.microsoft.com/)
+- [Issues - chromium](https://code.google.com/p/chromium/issues/list "Issues - chromium - An open-source project to help move the web forward. - Google Project Hosting")
+- [Bugzilla@Mozilla](https://bugzilla.mozilla.org/ "Bugzilla@Mozilla")
+- [WebKit Bugzilla](https://bugs.webkit.org/ "WebKit Bugzilla")
+- GitHubのリポジトリ(各種仕様)
+
+^ IE以外はオープンソースであり、Issueも対外的にはオープンに公開されている。
+IEに関してはstatus.modern.IEを通して開発状況をオープンにしてる。
+
+-----
+
+# BTS
+
+- ブラウザに実装予定/バグ等は大抵の場合チケットがある
+- 開発者は必ずここにいるはず
+- つまり、変化を作る人がいるはず
+
+-----
+
+# ウェブ開発者にはBTSは遠い
+
+- ウェブ開発者がブラウザのBTSを見る機会は少ない
+- その他だとWatcherぐらいしか見てない
+- しかし、ウェブ開発者からのフィードバックも求めてる
+
+-----
+
+# もっと身近なフィードバックへ
+
+- [Specifiction](http://discourse.specifiction.org/ "Specifiction")
+	- 仕様に対してどこに意見を言えばいいのかを解決する場所
+- [webcompat.com](https://webcompat.com/ "webcompat.com")
+	- ウェブサイト/ブラウザの問題指摘をする場所
+	- 「Firefox Mobileだとgmail.comでタッチ出来ない」
+
+-- [ウェブの仕様は今どこにあるのか？ | Web Scratch](http://efcl.info/2014/09/02/webspec-here/ "ウェブの仕様は今どこにあるのか？ | Web Scratch")
+
+------
+
+# 最新の情報を追うことの意味
+
+-----
+
+# フィードバックする機会を失う問題
+
+- ウェブの進化は早い(10分ぶり3度目)
+- でも、仕様策定者だけで全ては決めたくない
+- だから、ウェブ開発者にもフィードバックを求めてる
+- フィードバック側はその**最新の情報**に気づかないといけない
+- そうしないとフィードバックする機会を失う
+
+^ 情報を知らないとフィードバック出来ないわけじゃない。
+[Specifiction](http://discourse.specifiction.org/ "Specifiction")はまさにそれを解決しようとしてる。
+しかし、ある程度知ってないとフィードバックが心理的にしにくいという現状がある。
+
+^ 今は過渡期だからという言葉片付けるのは簡単だけど、過渡期が終わったら理想が来るとは限らない
+
+-----
+
+# [fit] SNS
+-----
+
+# SNS
+
+- ![inline][twitter] TwitterやGoogle+のようなSNS
+- フロー型のサービスは最新情報が流れやすい
+	- 流れやすいけど、気づきにくい
+- 他のものと併用すればいい
+
+^ 変化を感じるならSNSが一番お手軽。
+ウェブの場合はオープンにやっていることが殆どなので、変化を作ってる人たちも多くはSNSにもいる。
+
+-----
+
+# その他
+
+- ブログ
+- メーリングリスト
+- メールマガジン[^1]
+- ポッドキャスト
+
+[^1]: [Meta Weekly](http://azu.github.io/Meta-Weekly/ "Meta Weekly")
+
+^ 情報源は色々あるはず、好きな形体とバランスを見極めよう。
+
+-----
+
+# 大事なこと
+
+- 一番大事なのは追うことに無理をしないこと
+- 好きな方法で追うのが一番いい
+	- 例) メールは嫌いなのでメーリングリストは見ない
+- 負荷がかかる方法は長続きしないから仕組みを変えるべき
+- 自分の好きな形に持ち込む事が大事
+
+^ リリースを追うために自身が変化することは大切ではあるけど、無理はしてはいけない。
+スクラップ、RSS、Notification、メールなど自分の好きな形に持ち込むことが大切。
+
+^ 非連続性、非同期である事がストレスフリーである空間を作るのに役立ちそう。
+^ 取りこぼしが不安感があるなら取りこぼしを取る方法をいれ二回拾えばいい。
 
 
-@todo
+-----
 
-- Webはずっと変化してる
-- 今はよくても次は良いとは限らない
+# まとめ
+
+- 未来は突然やってこない
+- 最新の情報は変化の兆候捉えるための要素でしかない
+- 最新の情報を追う技術 ＝ 変化兆候を捉える技術
+- 変化を作る人を見つけて見るのが一番
+- ものは使い分け、自分の好きな方法を使えばいい
 
 ----
+
+# [fit] おわり
+
 
 
 [ie]: icon/internet-explorer_512x512.png "Internet Explorer"
