@@ -15,7 +15,7 @@
 
 ^ AMD、CommonJS、ES6 modules等のモジュールがあり、 モジュールの利用方法としてrequire.js、Browserify、webpackなどがあると思いますが、今後のモジュール管理のありかたはどうなると思いますか?
 ^ 結局現状だと何を使えばいいんですか?
-^ Browserify後悔しないの? 
+^ 会場の匿名Mosaic.fmさんから「Browserify後悔しないの? 」との事です
 
 ----
 
@@ -29,6 +29,8 @@
 # React.jsって結局何なんですか？
 
 ## Fluxとはどういう関係なんですか？
+
+^ saneyuki , mizchiへ振る
 
 ------
 
@@ -91,7 +93,21 @@ Object.observe、Async Functions,Generators、Typed Obejct、Types、SIMD、Pral
 
 ----
 
-# ASTおじさんの進捗どうですか？
+## Mozilla AST Parser、traverse、transform含めてどのツールを選べばいいんでしょう？
+
+### ES6の新しい語彙はどうやって決めてるんでしょうか？
+
+### CSTの進捗どうですか?
+
+^ esprima, esprima-fb, recast, acorn, esparse(これは独自)がパーサとしてある。
+ES6の対応状況もやや独自だけどfbはesprimaに出してる。(recastの中はfb)
+そもそも違いはあるの？ あと、Moziila Parser APIに無い"ClassDeclaration"みたい
+
+^ CSTの進捗は7ヶ月前に止まってきり
+^ [RReverser](https://github.com/RReverser "RReverser")が広く活発
+^ Recastを使ってるものが増えた(formatter)。esnext,6to5,
+^ CSSは[cssprima](https://github.com/ezequiel/cssprima "cssprima")というのYahooの人が作っていて@okuryuさんどうでしょう?
+
 
 -----
 
@@ -164,3 +180,6 @@ Object.observe、Async Functions,Generators、Typed Obejct、Types、SIMD、Pral
 	- 続きはビアバッシュでーー
 - 最初からビール
 -->
+
+
+------
