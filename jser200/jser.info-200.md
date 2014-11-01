@@ -157,7 +157,7 @@ JSer.infoのように定期的に更新されるブログやメールマガジ�
 ^ RSSで購読してるのは今までどおり。
 LDRが終了の撤回してよかった。
 去年あたりからGitHubのリリースをどう追うべきかを色々考えて、色々Watchする仕組みを作ってきた。
-詳細は次のスライドではなします。
+詳細は[次のスライド](http://azu.github.io/slide/jser200/javascript-2014.html)ではなします。
 
 -----
 
@@ -263,3 +263,9 @@ LDRが終了の撤回してよかった。
 ----
 
 # 質問
+
+-----
+
+# つづく
+
+## [世界のJavaScriptを読もう @ 2014](http://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
