@@ -7,23 +7,20 @@
         html, body, .main-content {
             height: 100%;
             margin: 0;
-            padding: 0;
-        }
+            padding: 0; }
 
         .markdown-body {
             min-width: 200px;
             max-width: 790px;
             margin: 0 auto;
-            padding: 30px;
-        }
+            padding: 30px; }
 
-        h1 img, h2 img, h3 img, h4 img, h5 img, h6 img,
-        li img{
+        .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+        .markdown-body li img {
             height: 1em;
-        }
+            vertical-align: text-bottom; }
         .markdown-body img {
-            max-width: 100%;
-        }
+            max-width: 100%; }
     </style>
     <noscript>
         <style>
@@ -32,705 +29,742 @@
             }
         </style>
     </noscript>
-    <!--<link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>-->
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
 </head>
 <body>
 <div class="main-content">
-    <!--<iframe id="main-slide"-->
-            <!--src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/jser200/javascript-2014.pdf"-->
-            <!--scrolling="no"-->
-            <!--allowtransparency="true"-->
-            <!--width="100%"-->
-            <!--height="100%"-->
-            <!--style="border:0;">-->
-    <!--</iframe>-->
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/jser200/javascript-2014.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
 </div>
 <script>
     (function () {
         document.getElementById("main-slide").focus();
     })();
 </script>
-<aside><a href="http://azu.github.io/slide/jser200/javascript-2014.pdf" title="世界のJavaScriptを読もう @ 2014">Download
-    PDF</a></aside>
+<aside><a href="http://azu.github.io/slide/jser200/javascript-2014.pdf" title="世界のJavaScriptを読もう @ 2014">Download PDF</a></aside>
 <article class="markdown-body"><h1 id="-javascript-2014">世界のJavaScriptを読もう @ 2014</h1>
-
 <p>^目的: ウェブの世界は絶対変化するもの
-    変化する前提の行動が求める
-    それをどうやって見ていくか、それを知ってどうするか</p>
-
+変化する前提の行動が求める
+それをどうやって見ていくか、それを知ってどうするか</p>
 <p>^ JavaScriptやブラウザ周りのリリースの状況はウェブの変化にあわせるように変化してきている。
-    どのように変化してきたか知り、どうやって変化を見ていくのか、そしてわたしたちはどう変化していくのかを考えよう。</p>
+どのように変化してきたか知り、どうやって変化を見ていくのか、そしてわたしたちはどう変化していくのかを考えよう。</p>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<ol>
+<li>ブラウザやJavaScriptのリリースは変化してきている</li>
+<li>私たちはどのように変化を知り見ていくのか</li>
+<li>そして私たちはどのように変化していくのか</li>
+</ol>
 <hr>
 <h1 id="-fit-javascript-">[fit] 世界のJavaScriptを見る話</h1>
-
 <h3 id="-fit-jser-info-2011-">[fit] JSer.info 開始 2011年〜</h3>
-
 <p>^ JSer.infoを始めた2011年を一つの基準として考えて、
-    そこからブラウザやJavaScript等にどういう変化があったのかを振り替えつつ、&quot;今&quot;どういう変化が起きてるのかを見て行きたいと思います。</p>
+そこからブラウザやJavaScript等にどういう変化があったのかを振り替えつつ、&quot;今&quot;どういう変化が起きてるのかを見て行きたいと思います。</p>
 <hr>
 <h1 id="-fit-browser">[fit] Browser</h1>
 <hr>
 <h1 id="-fit-browser-version-2011">[fit] Browser Version @ 2011</h1>
-
 <h3 id="jser-info-2011-">JSer.info が開始した2011年ごろのブラウザバージョン</h3>
 <hr>
-<h1 id="-fit-inline-ie-internet-explorer-9">[fit] <img src="icon/internet-explorer_512x512.png" alt="inline"
-                                                       title="Internet Explorer"> Internet Explorer 9</h1>
-
-<h1 id="-fit-inline-firefox-mozilla-firefox-4">[fit] <img src="icon/firefox_512x512.png" alt="inline" title="Firefox">
-    Mozilla Firefox 4</h1>
-
-<h1 id="-fit-inline-chrome-google-chrome-8">[fit] <img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome">
-    Google Chrome 8</h1>
+<h1 id="-fit-inline-ie-internet-explorer-9">[fit] <img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> Internet Explorer 9</h1>
+<h1 id="-fit-inline-firefox-mozilla-firefox-4">[fit] <img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Mozilla Firefox 4</h1>
+<h1 id="-fit-inline-chrome-google-chrome-8">[fit] <img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome"> Google Chrome 8</h1>
 <hr>
-<h1 id="-fit-inline-ie-internet-explorer-9">[fit] <img src="icon/internet-explorer_512x512.png" alt="inline"
-                                                       title="Internet Explorer"> Internet Explorer 9</h1>
+<h1 id="-fit-inline-ie-internet-explorer-9">[fit] <img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> Internet Explorer 9</h1>
 <ul>
-    <li>正常になってくるIE9がリリースされたころ</li>
-    <li>
-        <a href="http://channel9.msdn.com/Blogs/Charles/IE9-RTW-Due-Date-A-Big-Thank-You-MIX11-and-a-Unicorn-Named-Frank"
-           title="IE9 RTW Due Date, A Big Thank You, MIX11, and a Unicorn Named Frank | Charles | Channel 9">IE9 RTW Due
-            Date, A Big Thank You, MIX11, and a Unicorn Named Frank | Charles | Channel 9</a></li>
-    <li>日本だけ東北地方太平洋沖地震の影響で延期</li>
+<li>正常になってくるIE9がリリースされたころ</li>
+<li><a href="http://channel9.msdn.com/Blogs/Charles/IE9-RTW-Due-Date-A-Big-Thank-You-MIX11-and-a-Unicorn-Named-Frank" title="IE9 RTW Due Date, A Big Thank You, MIX11, and a Unicorn Named Frank | Charles | Channel 9">IE9 RTW Due Date, A Big Thank You, MIX11, and a Unicorn Named Frank | Charles | Channel 9</a></li>
+<li>日本だけ東北地方太平洋沖地震の影響で延期</li>
 </ul>
 <hr>
-<h1 id="-fit-inline-firefox-mozilla-firefox-4">[fit] <img src="icon/firefox_512x512.png" alt="inline" title="Firefox">
-    Mozilla Firefox 4</h1>
-<ul>
-    <li>Rapid Releaseが開始前のメジャーバージョン</li>
-    <li>Chromeを先頭にリリース速度が加速してきた頃</li>
-</ul>
+<h1 id="-fit-inline-firefox-mozilla-firefox-4">[fit] <img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Mozilla Firefox 4</h1>
+<h2 id="rapid-release-">Rapid Releaseが始まる直前</h2>
 <hr>
-<h1 id="-fit-inline-chrome-google-chrome-8">[fit] <img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome">
-    Google Chrome 8</h1>
-<ul>
-    <li>いつものChromeです</li>
-</ul>
+<h1 id="-fit-inline-chrome-google-chrome-8">[fit] <img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome"> Google Chrome 8</h1>
+<h2 id="-chrome-">いつものChromeです</h2>
 <hr>
 <h1 id="-fit-browser-version-2014">[fit] Browser Version @ 2014</h1>
-
 <h3 id="2014-11-01-">2014-11-01 現在のブラウザ</h3>
 <hr>
-<h1 id="-fit-inline-ie-internet-explorer-12">[fit] <img src="icon/internet-explorer_512x512.png" alt="inline"
-                                                        title="Internet Explorer"> Internet Explorer 12</h1>
-
-<h1 id="-fit-inline-firefox-mozilla-firefox-33">[fit] <img src="icon/firefox_512x512.png" alt="inline" title="Firefox">
-    Mozilla Firefox 33</h1>
-
-<h1 id="-fit-inline-chrome-google-chrome-38">[fit] <img src="icon/chrome_512x512.png" alt="inline"
-                                                        title="Google Chrome"> Google Chrome 38</h1>
+<h1 id="-fit-inline-ie-internet-explorer-12">[fit] <img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> Internet Explorer 12</h1>
+<h1 id="-fit-inline-firefox-mozilla-firefox-33">[fit] <img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Mozilla Firefox 33</h1>
+<h1 id="-fit-inline-chrome-google-chrome-38">[fit] <img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome"> Google Chrome 38</h1>
+<hr>
+<h1 id="-fit-inline-ie-internet-explorer-9-12">[fit] <img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> Internet Explorer 9 -&gt; 12</h1>
+<h1 id="-fit-inline-firefox-mozilla-firefox-4-33">[fit] <img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Mozilla Firefox 4 -&gt; 33</h1>
+<h1 id="-fit-inline-chrome-google-chrome-8-38">[fit] <img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome"> Google Chrome 8 -&gt; 38</h1>
 <hr>
 <h1 id="internet-explorer-">Internet Explorerの開発方針も変わってきた</h1>
 <ul>
-    <li>IE 12のDeveloperバージョンが先行公開</li>
-    <li>今後開発予定の公開
-        <ul>
-            <li><a href="https://status.modern.ie/"
-                   title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a> <a
-                    href="https://github.com/internetexplorer/status.ie" title="InternetExplorer/Status.IE"><img
-                    src="icon/github.png" alt="" title="GitHub"></a></li>
-        </ul>
-    </li>
-    <li>UserVoiceでの開発優先度の意見募集</li>
-    <li>IEのサポートバージョンをOSで使える最新版だけに</li>
+<li>IEの<a href="http://devchannel.modern.ie/" title="IE Technical Preview">Developerバージョン</a>が先行公開</li>
+<li>今後開発予定の公開<ul>
+<li><a href="https://status.modern.ie/" title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a> <a href="https://github.com/internetexplorer/status.ie" title="InternetExplorer/Status.IE"><img src="icon/github.png" alt="" title="GitHub"></a></li>
 </ul>
-<hr>
-<h1 id="-">バージョンニングの意味の変化</h1>
-<hr>
-<ul>
-    <li>機能ベースのリリース</li>
-    <li>リリースの速度自体の加速</li>
-    <li>semverの発達</li>
-    <li>言語とライブラリは適切なリリーススケジュールが違う</li>
-    <li>しかしどちらも早くなってきてる</li>
-    <li>@todo node の stable/unstableモデルの弊害</li>
+</li>
+<li><a href="https://wpdev.uservoice.com/forums/257854-internet-explorer-platform">UserVoice</a>での開発優先度の意見募集</li>
+<li>IEのサポートバージョンをOSで使える最新版だけに</li>
 </ul>
+<p>^ <a href="http://blogs.msdn.com/b/ie/archive/2014/08/07/stay-up-to-date-with-internet-explorer.aspx" title="Stay up-to-date with Internet Explorer - IEBlog - Site Home - MSDN Blogs">Stay up-to-date with Internet Explorer - IEBlog - Site Home - MSDN Blogs</a></p>
 <hr>
 <h1 id="-fit-">[fit] ヘッドレスブラウザの登場</h1>
 <hr>
-<h1 id="phantomjs">PhantomJS</h1>
-
-<p>2011年 <a href="http://jser.info/post/2888913234/" title="WebkitベースのJavaScriptコマンドラインツール「PhantomJS」 - JSer.info">WebkitベースのJavaScriptコマンドラインツール「PhantomJS」
-    - JSer.info</a></p>
-
-<h1 id="-slimerjs-http-slimerjs-org-index-html-slimerjs-"><a href="http://slimerjs.org/index.html" title="SlimerJS">SlimerJS</a>
-</h1>
+<h1 id="-phantomjs-http-phantomjs-org-phantomjs-"><a href="http://phantomjs.org/" title="PhantomJS">PhantomJS</a></h1>
 <ul>
-    <li>Firefox(Gecko)のヘッドレスブラウザ</li>
+<li><a href="http://jser.info/post/2888913234/" title="WebkitベースのJavaScriptコマンドラインツール「PhantomJS」 - JSer.info">WebkitベースのJavaScriptコマンドラインツール「PhantomJS」 - JSer.info</a> (2011)</li>
+<li><a href="http://slimerjs.org/index.html" title="SlimerJS">SlimerJS</a> (2013)<ul>
+<li>Firefox(Gecko)のヘッドレスブラウザ</li>
 </ul>
-<h1 id="-sdesalas-triflejs-https-github-com-sdesalas-triflejs-sdesalas-triflejs-"><a
-        href="https://github.com/sdesalas/trifleJS" title="sdesalas/trifleJS">sdesalas/trifleJS</a></h1>
-<ul>
-    <li>IEのヘッドレスブラウザ</li>
+</li>
+<li><a href="https://github.com/sdesalas/trifleJS" title="sdesalas/trifleJS">sdesalas/trifleJS</a> (2013)<ul>
+<li>IEのヘッドレスブラウザ</li>
+</ul>
+</li>
 </ul>
 <hr>
+<h1 id="-">ヘッドレスブラウザ</h1>
 <ul>
-    <li>PhantomJSが先行し広く普及した</li>
-    <li>PhantomJSのAPIがデファクトとなった
-        <ul>
-            <li><a href="http://casperjs.org/"
-                   title="CasperJS, a navigation scripting and testing utility for PhantomJS and SlimerJS">CasperJS</a>
-            </li>
-            <li><a href="http://www.nightmarejs.org/" title="Nightmare">Nightmare</a></li>
-        </ul>
-    </li>
+<li>PhantomJSが先行し広く普及した</li>
+<li>PhantomJSのAPIがデファクトとなった<ul>
+<li><a href="http://casperjs.org/" title="CasperJS, a navigation scripting and testing utility for PhantomJS and SlimerJS">CasperJS</a></li>
+<li><a href="http://www.nightmarejs.org/" title="Nightmare">Nightmare</a></li>
+</ul>
+</li>
 </ul>
 <hr>
-<h1 id="webdriver">WebDriver</h1>
+<h1 id="-">ブラウザリリースのまとめ</h1>
 <ul>
-    <li>一方ブラウザを操作するAPIとしてWebDriver APIがある</li>
-    <li>本物のブラウザを操作するためのAPI</li>
-    <li>WebDriver APIはW3Cで標準化された</li>
-    <li>Internet Explorer 11 でWebDriverが<a
-            href="http://blogs.msdn.com/b/ie/archive/2014/08/13/august-updates-for-internet-explorer.aspx"
-            title="August updates for Internet Explorer - IEBlog - Site Home - MSDN Blogs">サポート</a>された
-    </li>
+<li>IE、Firefox、Chrome等のリリース周りは変化してきた</li>
+<li>FirefoxとChromeはRapid Releaseへ</li>
+<li>IEもIEらしさは残しつつ変化に対応しようとしてる</li>
+<li>ヘッドレスブラウザなどツールとしてのブラウザがでてきた</li>
 </ul>
 <hr>
-<h1 id="webdriver-">WebDriver を利用するフレームワークの発達</h1>
-<ul>
-    <li><a href="http://angular.github.io/protractor/#/" title="Protractor - end to end testing for AngularJS">Protractor
-        - end to end testing for AngularJS</a></li>
-    <li><a href="http://theintern.github.io/leadfoot/" title="Leadfoot docs: Index">Leadfoot</a></li>
-    <li><a href="http://nightwatchjs.org/" title="Nightwatch.js | Node.js powered End-to-End testing framework">Nightwatch.js
-        | Node.js powered End-to-End testing framework</a></li>
-</ul>
+<h1 id="-fit-">[fit] そもそも何故リリース速度が上がったの?</h1>
 <hr>
-<h1 id="-memo-">:memo: リリースノートの変化</h1>
-
-<p><img src="img/github-release.jpg" alt="right"></p>
-<hr>
-<h1 id="-">ブログでのリリースノート</h1>
-
-<p><img src="img/yui-release.jpg" alt="fill, yuiのリリースノート"></p>
-
-<p>^ 今も多くあるが、ブログでのリリースノートを書くスタイルが中心だった。
-    しかし、今はある程度の規模のライブラリでないとブログにリリースノートを書く人は少なくなってきた。</p>
-<hr>
-<h1 id="github-">GitHubでのリリースノート</h1>
-
-<p><img src="img/github-release.jpg" alt="fill"></p>
-
-<p>^ 最近ではGitHubにリリースノートを書くだけのケースが増えてきた
-    あるいは、CHANGELOGを自動生成したもの(またはそれを両立したもの)</p>
-<hr>
-<p><img src="img/graph-release.png" alt="fit"></p>
-
-<p>^ JSer.infoで紹介したリリースノートからの抜粋
-    GitHub上のReleseまたはCHANGELOGを紹介したものと
-    それ以外の数を並べたもの。</p>
-
-<p>^ JSer.infoで紹介するものはある程度規模のあるものが中心なので、
-    ブログスタイルもそこまで減っているという訳ではない。</p>
-<hr>
-<h1 id="-">最近のリリースノートの変化</h1>
-<ul>
-    <li>小さいものほどGitHubのみにしかリリースノートを書かない
-        <ul>
-            <li>ブログに書いても初回のみ</li>
-        </ul>
-    </li>
-    <li>Node moduleはsemverを採用するケースが増えリリース回数自体も多い</li>
-    <li>ブログとGitHubでのリリース(自動生成)を併用するパターンも多い</li>
-</ul>
-<hr>
-<h1 id="-">リリースノートを見ていく方法も変化する</h1>
-<ul>
-    <li>リリース方法が変化するので、見る方も変化する</li>
-    <li>まずリリースに気づけない問題が発生する
-        <ul>
-            <li>お世辞にもGitHubは追いやすい形式になってない</li>
-        </ul>
-    </li>
-    <li>CHANGELOGを直接見る必要(diffのみ)が出てくる</li>
-    <li>対策は<a href="http://efcl.info/2014/07/30/find-github-release/"
-              title="GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch">GitHubでライブラリのリリースを見ていくためのツールや方法</a> にてまとめた
-    </li>
-</ul>
-<hr>
-<h1 id="-github-http-efcl-info-2014-07-30-find-github-release-github-"><a
-        href="http://efcl.info/2014/07/30/find-github-release/" title="GitHubでライブラリのリリースを見ていくためのツールや方法">GitHubでライブラリのリリースを見ていくためのツールや方法</a>
-    概要</h1>
-
-<p><img src="http://cl.ly/image/2v053R0Y0s0a/2014-04-29%2022_38_04.gif" alt="right,fit"></p>
-<ul>
-    <li>リポジトリのWatch
-        <ul>
-            <li><a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a></li>
-        </ul>
-    </li>
-    <li>タイムライン
-        <ul>
-            <li><a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a></li>
-        </ul>
-    </li>
-    <li>Star
-        <ul>
-            <li><a href="http://starseeker.so/" title="starseeker">starseeker</a></li>
-        </ul>
-    </li>
-</ul>
-<hr>
-<h1 id="-">リリースノートを購読</h1>
-
-<p><img src="img/github-release-mod.png" alt="right fit"></p>
-<ul>
-    <li>GitHub ReleaseのFeedlyでRSS購読
-        <ul>
-            <li><a href="https://github.com/azu/github-releases-to-feedly" title="azu/github-releases-to-feedly">azu/github-releases-to-feedly</a>
-            </li>
-        </ul>
-    </li>
-    <li>Feedlyをバックエンドにして -&gt; any
-        <ul>
-            <li><a href="https://ifttt.com/myrecipes/personal" title="My Recipes - IFTTT">IFTTT</a></li>
-        </ul>
-    </li>
-    <li>GitHub Release -&gt; CHANGELOG
-        <ul>
-            <li><a href="https://github.com/azu/check_changelog_from_release" title="azu/check_changelog_from_release">azu/check_changelog_from_release</a>
-            </li>
-        </ul>
-    </li>
-    <li>GitHub Release -&gt; Compare tags
-        <ul>
-            <li><a href="https://github.com/azu/show-diff-from-release" title="azu/show-diff-from-release">azu/show-diff-from-release</a>
-            </li>
-        </ul>
-    </li>
-</ul>
-<hr>
-<h1 id="-">リリースノートまとめ</h1>
-<ul>
-    <li>リリースノートの出し方も変化してる</li>
-    <li>MLやブログ以外にもGitHubが増えてきた</li>
-    <li>リリース速度の変化も関係してそう</li>
-    <li>リリースはしやすくなった、リリースはまだ見やすくない
-        <ul>
-            <li>まだバランスが悪い</li>
-        </ul>
-    </li>
-    <li>リリースを見る側も変化が必要になる</li>
-</ul>
-<p>^GitHubにtagをつけてpushするだけというスタイル速度が取れるようになったので、リリース速度は上がっている。
-    しかし、必然的にリリース回数があがりリリースノートが軽視されてる傾向がある。
-    もっとリリースノートを書こう。そのためにはリリースノートを書きやすい仕組みが必要だと考えてる。</p>
-<hr>
-<h1 id="-star-">:star: リリース傾向の変化</h1>
-
-<p>^ 先ほど、リリース回数が増えてると紹介したが、
-    そもそものリリースするバージョンニングの形態が変化してきていると感じる。
-    特にNode.jsではsemverがデフォルトのバージョンニングとなっているため、sermverを意識するとリリース回数が増える傾向がある(minor fix)</p>
-<hr>
-<h1 id="-firefox-http-www-mozilla-jp-firefox-preview-faq-firefox-"><a href="http://www.mozilla.jp/firefox/preview/faq/"
-                                                                      title="高速リリースサイクルに関するよくある質問 | 次世代ブラウザ Firefox">高速リリースサイクルに関するよくある質問
-    | 次世代ブラウザ Firefox</a></h1>
+<h1 id="-firefox-http-www-mozilla-jp-firefox-preview-faq-firefox-"><a href="http://www.mozilla.jp/firefox/preview/faq/" title="高速リリースサイクルに関するよくある質問 | 次世代ブラウザ Firefox">高速リリースサイクルに関するよくある質問 | 次世代ブラウザ Firefox</a></h1>
 <blockquote>
-    <p>Web ブラウザは、他のアプリケーションと異なり、Web という「生き物」を相手にしています。HTML5 や CSS3 など新たな標準技術が次々に考案され、ソーシャルメディアなどのトレンドも目まぐるしく変わっています。Web
-        の進化するスピードが速くなっているので、これまでのように半年から 1 年周期のアップデートでは間に合わなくなっているのです。</p>
+<p>Web ブラウザは、他のアプリケーションと異なり、Web という「生き物」を相手にしています。HTML5 や CSS3 など新たな標準技術が次々に考案され、ソーシャルメディアなどのトレンドも目まぐるしく変わっています。Web の進化するスピードが速くなっているので、これまでのように半年から 1 年周期のアップデートでは間に合わなくなっているのです。</p>
 </blockquote>
 <hr>
 <h1 id="-">ウェブの変化の早さ</h1>
 <ul>
-    <li>ウェブの変化に対応するためにブラウザのリリース速度は上がった</li>
-    <li>ライブラリも変化/トレンドに対応するためリリース速度は上がってる</li>
-    <li>速度が全てではないが、仕様や言語に近い部分にも変化がある</li>
+<li>ウェブの変化に対応するためにブラウザのリリース速度は上がった</li>
+<li>ライブラリも変化/トレンドに対応するためリリース速度は上がってる</li>
 </ul>
+<hr>
+<h1 id="-">ライブラリのリリースの変化?</h1>
+<p><img src="img/compare-package.jpg" alt="inline"></p>
+<p>^ 開発者の皆さんに近い所としてライブラリのリリース周りを見て行きたいと思います。</p>
+<hr>
+<h1 id="npm-">npmで公開されてるパッケージ</h1>
+<ul>
+<li>公開されてるパッケージ数は増加傾向</li>
+<li>gemやMavenよりも多い by <a href="http://www.modulecounts.com/" title="Modulecounts">Modulecounts</a></li>
+</ul>
+<p>^ 更新数についてはデータがないので不明だが、体感的には更新数自体も増えている</p>
+<hr>
+<p><img src="img/js-package.png" alt="fit, js-pacakge"></p>
+<hr>
+<h1 id="-">リリース回数がとにかく増えた！</h1>
+<ul>
+<li>原因は色々考えられる</li>
+<li>ブラウザが変化したようにトレンドに対応するため<ul>
+<li>新しいライブラリが色々出てくる</li>
+</ul>
+</li>
+<li>もう一つの要因 =&gt;  <a href="http://semver.org/" title="Semantic Versioning 2.0.0">Semantic Versioning</a>！</li>
+</ul>
+<hr>
+<h1 id="-semantic-versioning-http-semver-org-semantic-versioning-2-0-0-semver-"><a href="http://semver.org/" title="Semantic Versioning 2.0.0">Semantic Versioning</a>(semver)の採用</h1>
+<ul>
+<li>1 commit = 1 patch release をするライブラリが増えた</li>
+<li>バージョンをあげることへの抵抗感が薄くなった</li>
+<li>=&gt; 結果としてリリース回数が増える</li>
+<li>=&gt; リリースノートの自動化が進んだ</li>
+</ul>
+<p>^ JavaScriptのライブラリの多くは今セマンティクスバージョニングにてリリースしていってる。
+リリースノートについては後ほど詳しくやります。</p>
 <hr>
 <h1 id="-semver">ライブラリとsemver</h1>
 <ul>
-    <li>semver だとminorリリースを顕著</li>
+<li>npmではバージョンは<a href="https://github.com/npm/node-semver" title="semver">semver</a>として解釈する </li>
+<li>npmのエコシステムに載るにはsemverである方が自然</li>
+<li>npmやbowerで公開するにはバージョンをあげる必要がある</li>
+<li>=&gt; 結果としてリリース回数が増える</li>
+</ul>
+<p>^ semverもあるし、そもそもバージョンをあげないとnpmやbowerなどのものは更新できないのでリリース回数が自然と増える。
+1コミットで1パッチリリースする人も多いので、この辺まで来るとリリースノートは手動で書くのには無理がある。
+そのためコミットベースの自動生成が増えてきたと考える。</p>
+<hr>
+<h1 id="node-js-">Node.js 本体は?</h1>
+<hr>
+<h1 id="node-js-">Node.js 本体</h1>
+<ul>
+<li>Node.js本体のリリースが停滞してることが問題視されてきた</li>
+<li>一定期間でリリースされないので停滞しやすい</li>
+<li>それを解決しようと<a href="http://nodeforward.org/" title="Node Forward">Node Forward</a>がでてきた</li>
+<li>これに対応しようと<a href="https://www.joyent.com/blog/node-js-advisory-board" title="Node.js Advisory Board">Node.js Advisory Board</a>が設置された</li>
+<li><strong>リリース</strong>を変えようとすると<strong>コミュニティ</strong>も変わってくる</li>
+</ul>
+<p>^ <a href="http://yosuke-furukawa.hatenablog.com/entry/2014/10/23/101831" title="Node.jsのコミュニティに変化を与えるnode-forwardについて - from scratch">Node.jsのコミュニティに変化を与えるnode-forwardについて - from scratch</a></p>
+<p>^ 詳しくはNode.js 日本ユーザグループ代表の@yousuke_furukawaさんに聞きましょう！</p>
+<hr>
+<h1 id="ecmascript-">ECMAScript は?</h1>
+<hr>
+<h1 id="ecmascript-">ECMAScriptの進捗</h1>
+<ul>
+<li>JavaScriptの元となる標準仕様</li>
+<li><a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a>で議論される</li>
+<li><a href="https://github.com/tc39/tc39-notes" title="tc39/tc39-notes">tc39/tc39-notes</a>に定期MTGのNoteが公開される</li>
+<li>ES6の機能策定はほぼ完了</li>
+<li>ES7の機能提案の段階</li>
 </ul>
 <hr>
-<h1 id="node-js">Node.js</h1>
-<ul>
-    <li>node-forward @todo</li>
-    <li>Node.js本体のstable/unstableモデルの問題</li>
-    <li>一定期間でリリースされないので停滞しやすい</li>
-</ul>
+<h1 id="ecmascript-7">ECMAScript 7</h1>
+<h2 id="feature-model-release-">feature-model releaseへ</h2>
 <hr>
-<h1 id="ecmascript">ECMAScript</h1>
+<h1 id="ecmascript-7">ECMAScript 7</h1>
 <ul>
-    <li>JavaScriptの元となる標準仕様</li>
-    <li><a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a>で議論される</li>
-    <li><a href="https://github.com/tc39/tc39-notes" title="tc39/tc39-notes">tc39/tc39-notes</a>に定期MTGのNoteがある</li>
-    <li>ES6の機能策定はだいたい完了、ES7の機能提案の段階</li>
-    <li>feature-model releaseへ</li>
+<li>ES6とES7の策定は同時に進行している</li>
+<li>ES7は<strong>機能毎</strong>の仕様策定を中心に進めている<ul>
+<li>feature-model release</li>
 </ul>
+</li>
+<li>理由としてはもっとリリース速度をあげるため</li>
+</ul>
+<p>-- <a href="http://azu.github.io/slide/es6talks/" title="明日には使えなくなるES7トーク">明日には使えなくなるES7トーク</a></p>
+<p>^ ES7は機能レベルの仕様それぞれに策定のstageを設けていて、それが一定の段階になったらES7として取り込むようになっている。
+このような事をする理由の一つがリリース速度の改善！</p>
+<hr>
+<h1 id="-">リリース傾向の変化まとめ</h1>
+<ul>
+<li>変化はブラウザだけではなく言語まできてる :boom:</li>
+<li>言語もブラウザもライブラリもリリースが変わってきた</li>
+<li>GitHubがかなり活用されている</li>
+</ul>
+<p>^ ブラウザはRapid Releaseを取り入れリリース速度が上がった。
+GitHubでのリリースの増加。
+ECMAScriptの策定も機能毎に進めリリース速度をあげようとしている。JavaScriptの実装はブラウザが中心なので、やはり変化の中心はブラウザだと考えられる。</p>
 <hr>
 <h1 id="-watch-watch">:watch: WATCH</h1>
-
-<p>^ では私達はどのようにその変化を見ていくのか?</p>
+<h2 id="-">どのように変化を知り見ていくのか</h2>
+<p>^ では私達はどのようにその変化を見ていくのか?
+変化の中心であるGitHubとブラウザを中心に見ていこう。</p>
 <hr>
-<h1 id="watcher">Watcher</h1>
+<h1 id="-memo-">:memo: リリースノートの変化</h1>
+<p><img src="img/github-release.jpg" alt="right"></p>
+<hr>
+<h1 id="-fit-">[fit] ブログとリリースノート</h1>
+<p><img src="img/yui-release.jpg" alt="fill, yuiのリリースノート"></p>
+<p>^ 今も多くあるが、ブログでのリリースノートを書くスタイルが中心だった。
+しかし、今はある程度の規模のライブラリでないとブログにリリースノートを書く人は少なくなってきた。</p>
+<hr>
+<h1 id="-fit-github-">[fit] GitHubとリリースノート</h1>
+<p><img src="img/github-release.jpg" alt="fill"></p>
+<p>^ 最近ではGitHubにリリースノートを書くだけのケースが増えてきた
+あるいは、CHANGELOGを自動生成したもの(またはそれを両立したもの)</p>
+<hr>
+<h1 id="-">リリースノートの場所</h1>
+<h2 id="-github-">ブログとGitHubどっちが多い?</h2>
+<hr>
+<p><img src="img/graph-release.png" alt="fit"></p>
+<p>^ JSer.infoで紹介したリリースノートからの抜粋
+GitHub上のReleseまたはCHANGELOGを紹介したものと
+それ以外の数を並べたもの。</p>
+<p>^ JSer.infoで紹介するものはある程度規模のあるものが中心なので、
+ブログスタイルもそこまで減っているという訳ではない。</p>
+<hr>
+<h1 id="-jser-info-">リリースノートの場所(JSer.info調べ)</h1>
 <ul>
-    <li>人が集まる専門分野には必ずWatcherがいる!</li>
-    <li>ME too! @todo</li>
+<li>JSer.infoで紹介したもの(ある程度著名なものが中心)</li>
+<li>ブログでのリリースノート自体はそこまで減ってない</li>
+<li>GitHubでのリリースノートは増えている<ul>
+<li><code>CHANGELOG</code>ファイルを作成するケース</li>
+<li>GitHub Releaseに書くケース</li>
+</ul>
+</li>
 </ul>
 <hr>
-<h1 id="-watch-point-">各Watch Pointを見て行こう</h1>
+<h1 id="-">最近のリリースノートの変化</h1>
+<ul>
+<li>小さいものほどGitHubのみにしかリリースノートを書かない</li>
+<li>ライブラリはsemverを採用しリリース回数自体が増加</li>
+<li>コミットからのリリースノートを自動生成<ul>
+<li><a href="http://efcl.info/2014/07/20/git-tag-to-release-github/" title="Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch">Git tagとGitHub ReleasesとCHANGELOG.mdの自動化</a></li>
+</ul>
+</li>
+</ul>
+<p>^ 小さいライブラリはtagを貼るだけのケースが多い。
+また、そのときにコミット一覧をリリースノートに貼り付ける方式のリリースノートの自動化が多くなった。</p>
 <hr>
-<p><img src="icon/internet-explorer_512x512.png" alt="IE, inline" title="Internet Explorer"> <img
-        src="icon/firefox_512x512.png" alt="firefox,inline" title="Firefox"> <img src="icon/chrome_512x512.png"
-                                                                                  alt="chrome,inline"
-                                                                                  title="Google Chrome"> <img
-        src="icon/opera_512x512.png" alt="opera,inline" title="Opera"> <img src="icon/webkit_512x512.png" alt="inline"
-                                                                            title="Webkit"></p>
-
+<h1 id="-">リリースノートを見ていく方法も変化する</h1>
+<ul>
+<li>リリース方法が変化するので、見る方も変化する</li>
+<li>まずリリースに気づけない問題が発生する<ul>
+<li>お世辞にもGitHubは追いやすい形式になってない</li>
+</ul>
+</li>
+<li>変更履歴のコミット直接見る必要が出てくる</li>
+<li>対策を<a href="http://efcl.info/2014/07/30/find-github-release/" title="GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch">GitHubでライブラリのリリースを見ていくためのツールや方法</a> に書いた</li>
+</ul>
+<p>^ リリースノートの書き方が変わってくると、それを読む側の意識も変わってこないと、そのライブラリの何が変わったのかわからなくなるケースが多い。
+まだ仕組みが未成熟であるため、もっと改善していくとエコシステムが良くなると思う。</p>
+<hr>
+<h1 id="github-">GitHubのタイムラインを読む</h1>
+<p><img src="img/github-reader.gif" alt="right,fit"></p>
+<ul>
+<li>リポジトリのWatchする<ul>
+<li><a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a></li>
+</ul>
+</li>
+<li>タイムラインを見る<ul>
+<li><a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a></li>
+</ul>
+</li>
+<li>他の人がStarしたものを見る :star: <ul>
+<li><a href="http://starseeker.so/" title="starseeker">starseeker</a></li>
+</ul>
+</li>
+</ul>
+<p>^ <a href="http://efcl.info/2014/07/30/find-github-release/" title="GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch">GitHubでライブラリのリリースを見ていくためのツールや方法</a> の内容から</p>
+<hr>
+<h1 id="-">リリースノートを見る</h1>
+<p><img src="img/github-release-mod.png" alt="right fit"></p>
+<ul>
+<li>GitHub ReleaseをRSS購読(Feedly)<ul>
+<li><a href="https://github.com/azu/github-releases-to-feedly" title="azu/github-releases-to-feedly">azu/github-releases-to-feedly</a></li>
+</ul>
+</li>
+<li>Feedlyをバックエンドに使う -&gt; any<ul>
+<li><a href="https://ifttt.com/myrecipes/personal" title="My Recipes - IFTTT">IFTTT</a></li>
+</ul>
+</li>
+<li>GitHub Release -&gt; CHANGELOG<ul>
+<li><a href="https://github.com/azu/check_changelog_from_release" title="azu/check_changelog_from_release">azu/check_changelog_from_release</a></li>
+</ul>
+</li>
+<li>GitHub Release -&gt; Version Diff<ul>
+<li><a href="https://github.com/azu/show-diff-from-release" title="azu/show-diff-from-release">azu/show-diff-from-release</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">リリースノートまとめ</h1>
+<ul>
+<li>リリースノートの出し方も変化してる</li>
+<li>ブログ以外にもGitHubが増えてきた</li>
+<li>リリースはしやすくなったが、リリースはまだ見やすくない</li>
+<li>リリースノートの仕組みが未成熟</li>
+<li>リリースを見る側も工夫が必要になる</li>
+</ul>
+<p>^GitHubにtagをつけてpushするだけというスタイルになったため、リリース速度は上がっている。
+しかし、必然的にリリース回数があがりリリースノートが軽視されてる傾向がある。
+もっとリリースノートを書こう。そのためにはリリースノートを書きやすい仕組みが必要だと考えてる。</p>
+<hr>
+<h1 id="-fit-">[fit] 話はブラウザに戻って</h1>
+<hr>
+<h1 id="-">現在のウェブの変化の中心はブラウザ！</h1>
+<ul>
+<li>ブラウザの変化を知ることができれば他の変化が見えるかも</li>
+<li>ブラウザはベンダーがいるので公式の情報がある<ul>
+<li>ライブラリ等に比べれば安定した情報 :green_heart:</li>
+</ul>
+</li>
+<li>ブラウザごとにその安定した情報を見ていこう！</li>
+</ul>
+<p>^ 安定した情報がある</p>
+<hr>
+<p><img src="icon/internet-explorer_512x512.png" alt="IE, inline" title="Internet Explorer">  <img src="icon/firefox_512x512.png" alt="firefox,inline" title="Firefox">  <img src="icon/chrome_512x512.png" alt="chrome,inline" title="Google Chrome">  <img src="icon/opera_512x512.png" alt="opera,inline" title="Opera"> <img src="icon/webkit_512x512.png" alt="inline" title="Webkit"></p>
 <h1 id="-fit-browser-watcher">[fit] Browser Watcher</h1>
 <hr>
-<h1 id="-inline-ie-internet-explorer"><img src="icon/internet-explorer_512x512.png" alt="inline"
-                                           title="Internet Explorer"> Internet Explorer</h1>
+<h1 id="-inline-ie-internet-explorer"><img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> Internet Explorer</h1>
 <ul>
-    <li><a href="http://blogs.msdn.com/b/ie/" title="IEBlog - Site Home - MSDN Blogs">IEBlog</a> （<a
-            href="http://blogs.msdn.com/b/ie_jp/" title="(日本語版)">日本語版</a>）
-        <ul>
-            <li>公式ブログ</li>
-        </ul>
-    </li>
-    <li><a href="https://status.modern.ie/"
-           title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a> <a
-            href="https://github.com/internetexplorer/status.ie" title="InternetExplorer/Status.IE"><img
-            src="icon/github.png" alt="" title="GitHub"></a>
-        <ul>
-            <li>IEのロードマップや開発状態が機能別に公開されている</li>
-        </ul>
-    </li>
-    <li><a href="http://hebikuzure.wordpress.com/" title="Hebikuzure&#39;s Tech Memo | 技術的覚書と情報">Hebikuzure&#39;s Tech
-        Memo | 技術的覚書と情報</a> by <a href="https://twitter.com/hebikuzure" title="hebikuzure ">@hebikuzure</a>
-        <ul>
-            <li>IEBlogの翻訳やWindowsやIEの細かい挙動について書かれてる</li>
-        </ul>
-    </li>
+<li><a href="http://blogs.msdn.com/b/ie/" title="IEBlog - Site Home - MSDN Blogs">IEBlog</a> （<a href="http://blogs.msdn.com/b/ie_jp/" title="(日本語版)">日本語版</a>）<ul>
+<li>公式ブログ</li>
+</ul>
+</li>
+<li><a href="https://status.modern.ie/" title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a> <a href="https://github.com/internetexplorer/status.ie" title="InternetExplorer/Status.IE"><img src="icon/github.png" alt="" title="GitHub"></a><ul>
+<li>IEのロードマップや開発状態が機能別に公開されている</li>
+</ul>
+</li>
+<li><a href="http://hebikuzure.wordpress.com/" title="Hebikuzure&#39;s Tech Memo | 技術的覚書と情報">Hebikuzure&#39;s Tech Memo | 技術的覚書と情報</a> by <a href="https://twitter.com/hebikuzure" title="hebikuzure ">@hebikuzure</a><ul>
+<li>IEBlogの翻訳やWindowsやIEの細かい挙動について書かれてる</li>
+</ul>
+</li>
 </ul>
 <hr>
-<h1 id="-inline-ie-status-modern-ie-https-status-modern-ie-internet-explorer-web-platform-status-and-roadmap-status-modern-ie-github-https-github-com-internetexplorer-status-ie-internetexplorer-status-ie-">
-    <img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> <a
-        href="https://status.modern.ie/" title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a>
-    <a href="https://github.com/internetexplorer/status.ie" title="InternetExplorer/Status.IE"><img
-            src="icon/github.png" alt="" title="GitHub"></a></h1>
+<h1 id="-inline-ie-status-modern-ie-https-status-modern-ie-internet-explorer-web-platform-status-and-roadmap-status-modern-ie-github-https-github-com-internetexplorer-status-ie-internetexplorer-status-ie-"><img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer">  <a href="https://status.modern.ie/" title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a> <a href="https://github.com/internetexplorer/status.ie" title="InternetExplorer/Status.IE"><img src="icon/github.png" alt="" title="GitHub"></a></h1>
 <ul>
-    <li><code>Not currently planned</code> : 今のところ予定なし</li>
-    <li><code>Under Consideration</code> : 実装を検討、調査中</li>
-    <li><code>In Development</code> : 開発中</li>
-    <li><code>Preview Release</code> : プレビューリリース版に実装済み</li>
-    <li><code>IExx+</code>: IEのバージョンxxから利用可能</li>
+<li><code>Not currently planned</code> : 今のところ予定なし</li>
+<li><code>Under Consideration</code> : 実装を検討、調査中</li>
+<li><code>In Development</code> : 開発中</li>
+<li><code>Preview Release</code> : プレビューリリース版に実装済み</li>
+<li><code>IExx+</code>: IEのバージョンxxから利用可能</li>
 </ul>
-<p>-- <a href="http://efcl.info/2014/10/19/modern-ie/" title="status.modern.IEの見方 | Web Scratch">status.modern.IEの見方 |
-    Web Scratch</a></p>
+<p>-- <a href="http://efcl.info/2014/10/19/modern-ie/" title="status.modern.IEの見方 | Web Scratch">status.modern.IEの見方 | Web Scratch</a></p>
+<p>^ status.modern.IE を見ておけば、IEの開発状況が分かると言えるぐらい更新が活発なので見て損はない。</p>
 <hr>
 <h1 id="-inline-firefox-firefox"><img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Firefox</h1>
 <ul>
-    <li><a href="http://firefoxnightly.tumblr.com/" title="Firefox Nightly News">Firefox Nightly News</a> <a
-            href="https://twitter.com/firefoxnightly"><img src="icon/twitter.png" alt="inline" title="Twitter"></a>
-        <ul>
-            <li>FirefoxのNightlyに入った機能などについての紹介</li>
-        </ul>
-    </li>
-    <li><a href="https://hacks.mozilla.org/" title="Mozilla Hacks – the Web developer blog">Mozilla Hacks – the Web
-        developer blog</a> <a href="https://twitter.com/mozhacks"><img src="icon/twitter.png" alt="inline"
-                                                                       title="Twitter"></a>
-        <ul>
-            <li>FirefoxやWebなど色々 - <a href="http://www.html5rocks.com/"
-                                     title="HTML5 Rocks - A resource for open web HTML5 developers">HTML5 Rocks</a>もそれに近い
-            </li>
-        </ul>
-    </li>
-    <li><a href="https://dev.mozilla.jp/" title="Mozilla Developer Street (modest)">Mozilla Developer Street
-        (modest)</a>
-        <ul>
-            <li>Mozilla Hacksの日本語訳やリリース情報が多い</li>
-        </ul>
-    </li>
+<li><a href="http://firefoxnightly.tumblr.com/" title="Firefox Nightly News">Firefox Nightly News</a> <a href="https://twitter.com/firefoxnightly"><img src="icon/twitter.png" alt="inline" title="Twitter"></a><ul>
+<li>FirefoxのNightlyの機能について</li>
+</ul>
+</li>
+<li><a href="https://wiki.mozilla.org/FxSiteCompat" title="FxSiteCompat - MozillaWiki">FxSiteCompat - MozillaWiki</a> <a href="https://twitter.com/FxSiteCompat"><img src="icon/twitter.png" alt="inline" title="Twitter"></a><ul>
+<li>Firefoxのリリース情報</li>
+</ul>
+</li>
+<li><a href="https://hacks.mozilla.org/" title="Mozilla Hacks – the Web developer blog">Mozilla Hacks – the Web developer blog</a> <a href="https://twitter.com/mozhacks"><img src="icon/twitter.png" alt="inline" title="Twitter"></a><ul>
+<li>Firefox中心に色々紹介 - <a href="http://www.html5rocks.com/" title="HTML5 Rocks - A resource for open web HTML5 developers">HTML5 Rocks</a>もそれに近い</li>
+</ul>
+</li>
 </ul>
 <hr>
-<h1 id="-inline-firefox-planet-mozilla-http-planet-mozilla-org-planet-mozilla-"><img src="icon/firefox_512x512.png"
-                                                                                     alt="inline" title="Firefox"> <a
-        href="http://planet.mozilla.org/" title="Planet Mozilla">Planet Mozilla</a></h1>
-
+<h1 id="-inline-firefox-firefox"><img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Firefox</h1>
+<p> <a href="https://dev.mozilla.jp/" title="Mozilla Developer Street (modest)">Mozilla Developer Street (modest)</a></p>
+<pre><code>- Mozilla Hacksの日本語訳やリリース情報が多い
+</code></pre><p>^ その他詳しくはFirefox/Servoのコミッタである @saneyuki_s  さんに聞きましょう！</p>
+<hr>
+<h1 id="-inline-firefox-planet-mozilla-http-planet-mozilla-org-planet-mozilla-"><img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> <a href="http://planet.mozilla.org/" title="Planet Mozilla">Planet Mozilla</a></h1>
 <p><img src="icon/firefox_512x512.png" alt="right fit, firefox" title="Firefox"></p>
-
 <p><a href="https://blog.mozilla.org/">The Mozilla Blog</a>
-    <a href="https://blog.mozilla.org/futurereleases/">Future Releases</a>
-    <a href="https://blog.mozilla.org/research/">Mozilla Research</a>
-    <a href="https://blog.mozilla.org/security/">Mozilla Security Blog</a>
-    <a href="https://blog.mozilla.org/privacy/">Mozilla Privacy Blog</a>
-    <a href="https://blog.mozilla.org/ux/">Mozilla UX</a>
-    <a href="https://blog.mozilla.org/services/">Mozilla Cloud Services</a>
-    <a href="https://blog.mozilla.org/javascript/">JavaScript</a></p>
-
+<a href="https://blog.mozilla.org/futurereleases/">Future Releases</a>
+<a href="https://blog.mozilla.org/research/">Mozilla Research</a>
+<a href="https://blog.mozilla.org/security/">Mozilla Security Blog</a>
+<a href="https://blog.mozilla.org/privacy/">Mozilla Privacy Blog</a>
+<a href="https://blog.mozilla.org/ux/">Mozilla UX</a>
+<a href="https://blog.mozilla.org/services/">Mozilla Cloud Services</a>
+<a href="https://blog.mozilla.org/javascript/">JavaScript</a></p>
 <p>^ 公式ブログがそれぞれジャンルごとに存在する。
-    <code>Planet *</code> というのは一時期流行った感じの関連するRSSをまとめたものを配信するアグリゲートの事。
-    <a href="http://www.planetplanet.org/" title="Planet Feed Reader">Planet Feed Reader</a></p>
+<code>Planet *</code> というのは一時期流行った感じの関連するRSSをまとめたものを配信するアグリゲートの事。
+<a href="http://www.planetplanet.org/" title="Planet Feed Reader">Planet Feed Reader</a></p>
 <hr>
-<h1 id="-inline-chrome-google-chrome"><img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome"> Google
-    Chrome</h1>
+<h1 id="-inline-chrome-google-chrome"><img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome"> Google Chrome</h1>
 <ul>
-    <li><a href="http://www.html5rocks.com/" title="HTML5 Rocks - A resource for open web HTML5 developers">HTML5
-        Rocks</a>
-        <ul>
-            <li>大きめな新しい機能は大体ここで紹介される</li>
-        </ul>
-    </li>
-    <li><a href="https://plus.google.com/+GoogleChromeDevelopers/posts" title="Google Chrome Developers - Google+">Google
-        Chrome Developers - Google+</a>
-        <ul>
-            <li>Google+にGoogleの人がいる</li>
-        </ul>
-    </li>
-    <li><a href="http://js-next.hatenablog.com/" title="JS.next">JS.next</a>
-        <ul>
-            <li>V8に実装された新しい機能について書かれてる</li>
-        </ul>
-    </li>
+<li><a href="http://www.html5rocks.com/" title="HTML5 Rocks - A resource for open web HTML5 developers">HTML5 Rocks</a><ul>
+<li>大きめな新しい機能は大体ここで紹介される</li>
+</ul>
+</li>
+<li><a href="https://plus.google.com/+GoogleChromeDevelopers/posts" title="Google Chrome Developers - Google+">Google Chrome Developers - Google+</a><ul>
+<li>Google+にGoogleの人がいる</li>
+</ul>
+</li>
+<li><a href="http://js-next.hatenablog.com/" title="JS.next">JS.next</a><ul>
+<li>V8に実装された新しい機能について書かれてる</li>
+</ul>
+</li>
 </ul>
 <hr>
-<h1 id="-inline-chrome-planet-chrome-http-planet-chromium-org-planet-chromium-"><img src="icon/chrome_512x512.png"
-                                                                                     alt="inline" title="Google Chrome">
-    <a href="http://planet.chromium.org/" title="Planet Chromium">Planet Chrome</a></h1>
-
+<h1 id="-inline-chrome-planet-chrome-http-planet-chromium-org-planet-chromium-"><img src="icon/chrome_512x512.png" alt="inline" title="Google Chrome"> <a href="http://planet.chromium.org/" title="Planet Chromium">Planet Chrome</a></h1>
 <p><img src="icon/chrome_512x512.png" alt="right,fit chrome" title="Google Chrome"></p>
 <ul>
-    <li><a href="http://chrome.blogspot.jp/">Google Chrome Blog</a></li>
-    <li><a href="http://blog.chromium.org/">Chromium Blog</a></li>
-    <li><a href="http://googlechromereleases.blogspot.jp/">Chrome Releases</a></li>
-    <li><a href="https://developer.chrome.com/home"
-           title="Mobile DevTools: Remote Debugging for Android with Screencast - Google Chrome">developer.chrome.com</a>
-    </li>
-    <li><a href="http://devtoolstips.com/" title="DevTools Tips">DevTools Tips</a></li>
+<li><a href="http://chrome.blogspot.jp/">Google Chrome Blog</a></li>
+<li><a href="http://blog.chromium.org/">Chromium Blog</a></li>
+<li><a href="http://googlechromereleases.blogspot.jp/">Chrome Releases</a></li>
+<li><a href="https://developer.chrome.com/home" title="Mobile DevTools: Remote Debugging for Android with Screencast - Google Chrome">developer.chrome.com</a></li>
+<li><a href="http://devtoolstips.com/" title="DevTools Tips">DevTools Tips</a></li>
 </ul>
 <p>^ V8やBlinkといったJavaScriptについてだと、公式のブログはそこまで読みやすくない。
-    後述する<a href="https://dev.opera.com/blog/" title="Dev.Opera — Blog">Dev.Opera</a>も見ることを薦めている。</p>
+後述する<a href="https://dev.opera.com/blog/" title="Dev.Opera — Blog">Dev.Opera</a>も見ることを薦めている。</p>
 <hr>
-<h1 id="-inline-chromium-chromium-http-www-chromium-org-the-chromium-projects-"><img src="icon/chromium_512x512.png"
-                                                                                     alt="inline" title="Chromium"> <a
-        href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></h1>
+<h1 id="-inline-chromium-chromium-http-www-chromium-org-the-chromium-projects-"><img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></h1>
 <blockquote>
-    <p>Chromium is an open-source browser.
-        -- <a href="http://www.chromium.org/">http://www.chromium.org/</a></p>
+<p>Chromium is an open-source browser.
+-- <a href="http://www.chromium.org/">http://www.chromium.org/</a></p>
 </blockquote>
 <p>^ Google Chromeのオープンソース版というところ。
-    Chromeに入る機能の大体はここへコミットされる。(一部ChromeにあってChromiumないものもある。翻訳機能とか)
-    <a href="https://code.google.com/p/v8/" title="V8">V8</a> や<a href="http://dev.chromium.org/blink" title=" Blink ">
-        Blink </a>なども含まれているプロジェクトの総称。</p>
+Chromeに入る機能の大体はここへコミットされる。(一部ChromeにあってChromiumないものもある。翻訳機能とか)
+<a href="https://code.google.com/p/v8/" title="V8">V8</a> や<a href="http://dev.chromium.org/blink" title=" Blink "> Blink </a>なども含まれているプロジェクトの総称。</p>
 <hr>
-<h1 id="-inline-chromium-chromium-http-www-chromium-org-the-chromium-projects-"><img src="icon/chromium_512x512.png"
-                                                                                     alt="inline" title="Chromium"> <a
-        href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></h1>
+<h1 id="-inline-chromium-chromium-http-www-chromium-org-the-chromium-projects-"><img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></h1>
 <ul>
-    <li><a href="https://www.chromestatus.com/features" title="Chromium Dashboard">Chromium Dashboard</a>
-        <ul>
-            <li><img src="icon/internet-explorer_512x512.png" alt="IE, inline" title="Internet Explorer"> <img
-                    src="icon/firefox_512x512.png" alt="firefox,inline" title="Firefox"> <img
-                    src="icon/chrome_512x512.png" alt="chrome,inline" title="Google Chrome"> Chromiumを中心にブラウザの実装ステータス
-            </li>
-        </ul>
-    </li>
-    <li><a href="http://commits.peter.sh/" title="Highlights from recent Chromium, Blink, Skia and v8 commits">Highlights
-        from recent Chromium, Blink, Skia and v8 commits</a> <a href="https://twitter.com/beverloo"><img
-            src="icon/twitter.png" alt="inline" title="Twitter"></a>
-        <ul>
-            <li>Chromium等のコミットサマリ + <a href="https://feeds.peter.sh/chrome-devtools/" title="Chromium DevTools">Chromium
-                DevTools</a> <a href="https://twitter.com/ChromeDevTools"><img src="icon/twitter.png" alt="inline"
-                                                                               title="Twitter"></a></li>
-        </ul>
-    </li>
-    <li><a href="https://groups.google.com/a/chromium.org/forum/#!forum/blink-dev" title="blink-dev - Google グループ">blink-dev
-        - Google グループ</a>
-        <ul>
-            <li><strong>Intent to 〜</strong> にBlinkに入る予定の機能が載る</li>
-        </ul>
-    </li>
+<li><a href="https://www.chromestatus.com/features" title="Chromium Dashboard">Chromium Dashboard</a><ul>
+<li><img src="icon/internet-explorer_512x512.png" alt="IE, inline" title="Internet Explorer">  <img src="icon/firefox_512x512.png" alt="firefox,inline" title="Firefox">  <img src="icon/chrome_512x512.png" alt="chrome,inline" title="Google Chrome"> Chromiumを中心にブラウザの実装ステータス</li>
+</ul>
+</li>
+<li><a href="http://commits.peter.sh/" title="Highlights from recent Chromium, Blink, Skia and v8 commits">Highlights from recent Chromium, Blink, Skia and v8 commits</a> <a href="https://twitter.com/beverloo"><img src="icon/twitter.png" alt="inline" title="Twitter"></a><ul>
+<li>Chromium等のコミットサマリ + <a href="https://feeds.peter.sh/chrome-devtools/" title="Chromium DevTools">Chromium DevTools</a> <a href="https://twitter.com/ChromeDevTools"><img src="icon/twitter.png" alt="inline" title="Twitter"></a> </li>
+</ul>
+</li>
+<li><a href="https://groups.google.com/a/chromium.org/forum/#!forum/blink-dev" title="blink-dev - Google グループ">blink-dev - Google グループ</a><ul>
+<li><strong>Intent to 〜</strong> にBlinkに入る予定の機能が載る</li>
+</ul>
+</li>
 </ul>
 <p>^ Chromeを自力で追うとかんがえると何故かコミットやChromiumの開発者向けのところまで見ないといけない事がある。
-    Chromeは&quot;リリース&quot;という部分が分かりにくく感じる。</p>
+Chromeは&quot;リリース&quot;という部分が分かりにくく感じる。</p>
 <hr>
 <h1 id="-inline-opera-opera"><img src="icon/opera_512x512.png" alt="inline" title="Opera"> Opera</h1>
 <ul>
-    <li><a href="https://dev.opera.com/blog/" title="Dev.Opera — Blog">Dev.Opera</a> <a
-            href="https://github.com/operasoftware/devopera"><img src="icon/github.png" alt="inline" title="GitHub"></a>
-        <a href="https://twitter.com/odevrel"><img src="icon/twitter.png" alt="inline" title="Twitter"></a>
-        <ul>
-            <li>現在のOperaはChromiumベースになってる</li>
-            <li><a href="http://blog.chromium.org/" title="Chromium Blog">Chromium Blog</a>より分かりやすい解説が載ってる</li>
-            <li>:heart: <a href="https://twitter.com/mathias" title="@mathias">@mathias</a></li>
-        </ul>
-    </li>
-    <li><a href="http://blogs.opera.com/desktop/" title="Opera Desktop Team&#39;s blog - Opera Software">Opera Desktop
-        Team&#39;s blog - Opera Software</a></li>
-    <li><a href="https://operasoftware.github.io/upstreamtools/" title="Upstreamed commits – Opera">Upstreamed commits –
-        Opera</a></li>
+<li><a href="https://dev.opera.com/blog/" title="Dev.Opera — Blog">Dev.Opera</a> <a href="https://github.com/operasoftware/devopera"><img src="icon/github.png" alt="inline" title="GitHub"></a> <a href="https://twitter.com/odevrel"><img src="icon/twitter.png" alt="inline" title="Twitter"></a><ul>
+<li>現在のOperaはChromiumベースになってる</li>
+<li><a href="http://blog.chromium.org/" title="Chromium Blog">Chromium Blog</a>より分かりやすい解説が載ってる</li>
+<li>:heart: <a href="https://twitter.com/mathias" title="@mathias">@mathias</a></li>
+</ul>
+</li>
+<li><a href="http://blogs.opera.com/desktop/" title="Opera Desktop Team&#39;s blog - Opera Software">Opera Desktop Team&#39;s blog - Opera Software</a></li>
+<li><a href="https://operasoftware.github.io/upstreamtools/" title="Upstreamed commits – Opera">Upstreamed commits – Opera</a></li>
 </ul>
 <hr>
-<h1 id="-inline-webkit-webkit-https-www-webkit-org-webkit-"><img src="icon/webkit_512x512.png" alt="inline"
-                                                                 title="Webkit"> <a href="https://www.webkit.org/"
-                                                                                    title="WebKit">WebKit</a></h1>
+<h1 id="-inline-webkit-webkit-https-www-webkit-org-webkit-"><img src="icon/webkit_512x512.png" alt="inline" title="Webkit"> <a href="https://www.webkit.org/" title="WebKit">WebKit</a></h1>
 <blockquote>
-    <p>WebKit is an open source web browser engine.
-        -- <a href="https://www.webkit.org/">https://www.webkit.org/</a></p>
+<p>WebKit is an open source web browser engine.
+-- <a href="https://www.webkit.org/">https://www.webkit.org/</a></p>
 </blockquote>
-<p>^ SafariやiOS、<a href="http://qt-project.org/doc/qt-5/qtwebkit-index.html" title="Qt WebKit">Qt WebKit</a>(PhantomJS)、<a
-        href="http://webkitgtk.org/" title="WebKitGTK+">WebKitGTK+</a>等で使われるブラウザエンジンです。</p>
+<p>^ SafariやiOS、<a href="http://qt-project.org/doc/qt-5/qtwebkit-index.html" title="Qt WebKit">Qt WebKit</a>(PhantomJS)、<a href="http://webkitgtk.org/" title="WebKitGTK+">WebKitGTK+</a>等で使われるブラウザエンジンです。</p>
+<p>^ 詳しくはWebKitコミッターでもある @Constellation  さんに聞きましょう！</p>
 <hr>
-<h1 id="-inline-webkit-webkit-https-www-webkit-org-webkit-"><img src="icon/webkit_512x512.png" alt="inline"
-                                                                 title="Webkit"> <a href="https://www.webkit.org/"
-                                                                                    title="WebKit">WebKit</a></h1>
+<h1 id="-inline-webkit-webkit-https-www-webkit-org-webkit-"><img src="icon/webkit_512x512.png" alt="inline" title="Webkit"> <a href="https://www.webkit.org/" title="WebKit">WebKit</a></h1>
 <ul>
-    <li><a href="https://www.webkit.org/blog/" title="Surfin&#39; Safari - The WebKit Blog">Surfin&#39; Safari - The
-        WebKit Blog</a>
-        <ul>
-            <li>公式のブログ - 内部実装の話が多い</li>
-        </ul>
-    </li>
-    <li><a href="https://developer.apple.com/news/" title="News and Updates - Apple Developer">News and Updates - Apple
-        Developer</a>
-        <ul>
-            <li>AppleのNews - まれにSafariについてがある</li>
-        </ul>
-    </li>
-    <li><a href="http://planet.igalia.com/" title="Planet Igalia">Planet Igalia</a> <a
-            href="https://twitter.com/igalia/"><img src="icon/twitter.png" alt="inline" title="Twitter"></a>
-        <ul>
-            <li><a href="http://www.igalia.com/" title="Igalia">Igalia</a>社はWebKitやChromiumに<a
-                    href="http://www.igalia.com/webkit/">コミット</a>してるコンサル企業
-            </li>
-        </ul>
-    </li>
+<li><a href="https://www.webkit.org/blog/" title="Surfin&#39; Safari - The WebKit Blog">Surfin&#39; Safari - The WebKit Blog</a><ul>
+<li>公式のブログ - 内部実装の話が多い</li>
+</ul>
+</li>
+<li><a href="https://developer.apple.com/news/" title="News and Updates - Apple Developer">News and Updates - Apple Developer</a><ul>
+<li>AppleのNews - まれにSafariについてがある</li>
+</ul>
+</li>
+<li><a href="http://planet.igalia.com/" title="Planet Igalia">Planet Igalia</a> <a href="https://twitter.com/igalia/"><img src="icon/twitter.png" alt="inline" title="Twitter"></a><ul>
+<li><a href="http://www.igalia.com/" title="Igalia">Igalia</a>社はWebKitやChromiumに<a href="http://www.igalia.com/webkit/">コミット</a>してるコンサル企業</li>
+</ul>
+</li>
 </ul>
 <p>^ WebKitはChromiumと同様に実装よりの話が中心となる。
-    WebKitを使ったメジャーなブラウザはSafariぐらいで、Safariはあんまりそういうリリース書かないのでコミットを追っている人を見ていくのが中心になりやすい。</p>
+WebKitを使ったメジャーなブラウザはSafariぐらいで、Safariはあんまりそういうリリース書かないのでコミットを追っている人を見ていくのが中心になりやすい。</p>
 <hr>
 <h1 id="-inline-webkit-webkit-watch"><img src="icon/webkit_512x512.png" alt="inline" title="Webkit"> Webkit Watch</h1>
 <ul>
-    <li><a href="http://trac.webkit.org/" title="ChangeSet – WebKit">trac.webkit.org</a>
-        <ul>
-            <li>WebKitのリポジトリ</li>
-        </ul>
-    </li>
-    <li><a href="https://github.com/uupaa/Spec.js/wiki/WebKit-Changesets"
-           title="WebKit Changesets · uupaa/Spec.js Wiki">WebKit Changesets · uupaa/Spec.js Wiki</a> by <a
-            href="https://twitter.com/uupaa" title="@uupaa">@uupaa</a>
-        <ul>
-            <li>iOSバージョン間のコミット差分がまとめられている</li>
-        </ul>
-    </li>
-    <li><a href="http://www.mobilexweb.com/"
-           title="Mobile Web &amp; HTML5 for mobile devices analysis, news and source code">mobilexweb.com</a> と <a
-            href="http://www.sencha.com/blog/" title="Blog | Sencha">sencha.com/blog/</a>
-        <ul>
-            <li>iOSのアップデート時にWebKitのレポートを書いてる</li>
-        </ul>
-    </li>
+<li><a href="http://trac.webkit.org/" title="ChangeSet – WebKit">trac.webkit.org</a><ul>
+<li>WebKitのリポジトリ</li>
+</ul>
+</li>
+<li><a href="https://github.com/uupaa/Spec.js/wiki/WebKit-Changesets" title="WebKit Changesets · uupaa/Spec.js Wiki">WebKit Changesets · uupaa/Spec.js Wiki</a> by <a href="https://twitter.com/uupaa" title="@uupaa">@uupaa</a><ul>
+<li>iOSバージョン間のコミット差分がまとめられている</li>
+</ul>
+</li>
+<li><a href="http://www.mobilexweb.com/" title="Mobile Web &amp; HTML5 for mobile devices analysis, news and source code">mobilexweb.com</a> と <a href="http://www.sencha.com/blog/" title="Blog | Sencha">sencha.com/blog/</a><ul>
+<li>iOSのアップデート時にWebKitのレポートを書いてる</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="other-vendor">Other Vendor</h1>
 <ul>
-    <li><a href="http://blogs.adobe.com/webplatform/" title="Web Platform Team Blog">Web Platform Team Blog</a>
-        <ul>
-            <li>Adobeのブログ - 主に<a href="http://webplatform.adobe.com/" title="Adobe Web Platform Team">CSS周り</a>のコミットをしてる
-            </li>
-        </ul>
-    </li>
+<li><a href="http://blogs.adobe.com/webplatform/" title="Web Platform Team Blog">Web Platform Team Blog</a><ul>
+<li>Adobeのブログ - 主に<a href="http://webplatform.adobe.com/" title="Adobe Web Platform Team">CSS周り</a>のコミットをしてる</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="other">Other</h1>
 <ul>
-    <li><a href="http://caniuse.com/" title="Can I use... Support tables for HTML5, CSS3, etc">Can I use... Support
-        tables for HTML5, CSS3, etc</a> <a href="https://github.com/fyrd/caniuse"><img src="icon/github.png"
-                                                                                       alt="inline, github"
-                                                                                       title="GitHub"></a>
-        <ul>
-            <li><img src="icon/internet-explorer_512x512.png" alt="IE, inline" title="Internet Explorer"> <img
-                    src="icon/firefox_512x512.png" alt="firefox,inline" title="Firefox"> <img
-                    src="icon/chrome_512x512.png" alt="chrome,inline" title="Google Chrome"> <img
-                    src="icon/opera_512x512.png" alt="opera,inline" title="Opera"> ブラウザの実装状況がまとまってる
-            </li>
-        </ul>
-    </li>
-    <li><a href="http://platformstatustracker.azurewebsites.net/" title="Browser Platform Status Tracker">Browser
-        Platform Status Tracker</a> by <a href="https://twitter.com/mayuki" title="@mayuki">@mayuki</a>
-        <ul>
-            <li><img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> <a
-                    href="https://status.modern.ie/"
-                    title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a>
-                と<img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a
-                        href="https://www.chromestatus.com/features" title="Chromium Dashboard">Chromium Dashboard</a>の差分
-            </li>
-        </ul>
-    </li>
-    <li><a href="http://www.echojs.com/" title="Echo JS - JavaScript News">Echo JS - JavaScript News</a> <a
-            href="https://twitter.com/echojs"><img src="icon/twitter.png" alt="inline" title="Twitter"></a>
-        <ul>
-            <li>HNスタイルのJavaScript特化ニュースサイト</li>
-        </ul>
-    </li>
+<li><a href="http://caniuse.com/" title="Can I use... Support tables for HTML5, CSS3, etc">Can I use... Support tables for HTML5, CSS3, etc</a> <a href="https://github.com/fyrd/caniuse"><img src="icon/github.png" alt="inline, github" title="GitHub"></a><ul>
+<li><img src="icon/internet-explorer_512x512.png" alt="IE, inline" title="Internet Explorer">  <img src="icon/firefox_512x512.png" alt="firefox,inline" title="Firefox">  <img src="icon/chrome_512x512.png" alt="chrome,inline" title="Google Chrome">  <img src="icon/opera_512x512.png" alt="opera,inline" title="Opera"> ブラウザの実装状況がまとまってる  </li>
+</ul>
+</li>
+<li><a href="http://platformstatustracker.azurewebsites.net/" title="Browser Platform Status Tracker">Browser Platform Status Tracker</a> by <a href="https://twitter.com/mayuki" title="@mayuki">@mayuki</a><ul>
+<li><img src="icon/internet-explorer_512x512.png" alt="inline" title="Internet Explorer"> <a href="https://status.modern.ie/" title="Internet Explorer Web Platform Status and Roadmap - status.modern.IE">status.modern.IE</a> と<img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a href="https://www.chromestatus.com/features" title="Chromium Dashboard">Chromium Dashboard</a>の差分</li>
+</ul>
+</li>
+<li><a href="http://www.echojs.com/" title="Echo JS - JavaScript News">Echo JS - JavaScript News</a> <a href="https://twitter.com/echojs"><img src="icon/twitter.png" alt="inline" title="Twitter"></a><ul>
+<li>HNスタイルのJavaScript特化ニュースサイト</li>
+</ul>
+</li>
 </ul>
 <p>^ <strong>Can I use...</strong>は多くの人が使ったことがあると思うサイトで、著名な機能については大体載っているのでまず最初に見ると把握がし易いです。
-    載っていない機能は<a href="http://www.google.com/moderator/#15/e=ae425&amp;t=ae425.40&amp;f=ae425.6f6689"
-                title="Support table suggestions">Support table suggestions</a>からVoteしたりPull Requestで追加したりも出来ます。
-    ベンダーに依存してるわけではなく、<a href="https://github.com/postcss/autoprefixer" title="Autoprefixer">Autoprefixer</a>や<a
-            href="http://compass-style.org/" title="Compass">Compass</a>など幅広く利用されている。</p>
-
+載っていない機能は<a href="http://www.google.com/moderator/#15/e=ae425&amp;t=ae425.40&amp;f=ae425.6f6689" title="Support table suggestions">Support table suggestions</a>からVoteしたりPull Requestで追加したりも出来ます。
+ベンダーに依存してるわけではなく、<a href="https://github.com/postcss/autoprefixer" title="Autoprefixer">Autoprefixer</a>や<a href="http://compass-style.org/" title="Compass">Compass</a>など幅広く利用されている。</p>
 <p>^ <strong>Echo JS</strong>は結構いい感じの情報が流れてくるのでオススメ。
-    また体感的にはHNにただPostされるより、Echo JSにただPostされたほうが反応がある感じがする。</p>
+また体感的にはHNにただPostされるより、Echo JSにただPostされたほうが反応がある感じがする。</p>
 <hr>
-<h1 id="-meta-weekly-http-azu-github-io-meta-weekly-meta-weekly-"><a href="http://azu.github.io/Meta-Weekly/"
-                                                                     title="Meta Weekly">Meta Weekly</a></h1>
-
-<p><img src="img/meta-weekly.jpg" alt="meta-weekly"></p>
-
-<p>Daily/Weekly/Monthlyで更新されてるサイトをまとめてるサイト</p>
+<h1 id="-meta-weekly-http-azu-github-io-meta-weekly-meta-weekly-"><a href="http://azu.github.io/Meta-Weekly/" title="Meta Weekly">Meta Weekly</a></h1>
+<p><img src="img/meta-weekly.jpg" alt="right, meta-weekly"></p>
+<p>Daily/Weekly/Monthlyで更新されてるサイトのまとめ</p>
 <ul>
-    <li><a href="http://javascriptweekly.com/" title="JavaScript Weekly">JavaScript Weekly</a> <a
-            href="https://twitter.com/JavaScriptDaily"><img src="icon/twitter.png" alt="inline" title="Twitter"></a>
-    </li>
-    <li><a href="http://jser.info/" title="JSer.info">JSer.info</a> <a href="https://twitter.com/jser_info"><img
-            src="icon/twitter.png" alt="inline" title="Twitter"></a></li>
+<li><a href="http://javascriptweekly.com/" title="JavaScript Weekly">JavaScript Weekly</a>  <a href="https://twitter.com/JavaScriptDaily"><img src="icon/twitter.png" alt="inline" title="Twitter"></a></li>
+<li><a href="http://jser.info/" title="JSer.info">JSer.info</a> <a href="https://twitter.com/jser_info"><img src="icon/twitter.png" alt="inline" title="Twitter"></a></li>
 </ul>
 <hr>
 <h1 id="person">Person</h1>
 <ul>
-    <li><a href="https://twitter.com/rockridge07" title="@rockridge07">@rockridge07</a>
-        <ul>
-            <li><img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Mozilla関係のWatch</li>
-        </ul>
-    </li>
-    <li><a href="https://twitter.com/myakura" title="@myakura">@myakura</a>
-        <ul>
-            <li><img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <img src="icon/webkit_512x512.png"
-                                                                                         alt="inline" title="Webkit"> <a
-                    href="http://b.hatena.ne.jp/vantguarde/" title="はてなブックマーク - vantguarde">はてなブックマーク</a> + <a
-                    href="https://plus.google.com/115203843155141445032/posts"
-                    title="Masataka Yakura - Google+">Google+</a></li>
-        </ul>
-    </li>
+<li><a href="https://twitter.com/rockridge07" title="@rockridge07">@rockridge07</a><ul>
+<li><img src="icon/firefox_512x512.png" alt="inline" title="Firefox"> Mozilla関係のWatch</li>
+</ul>
+</li>
+<li><a href="https://twitter.com/myakura" title="@myakura">@myakura</a> <ul>
+<li><img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <img src="icon/webkit_512x512.png" alt="inline" title="Webkit"> <a href="http://b.hatena.ne.jp/vantguarde/" title="はてなブックマーク - vantguarde">はてなブックマーク</a> + <a href="https://plus.google.com/115203843155141445032/posts" title="Masataka Yakura - Google+">Google+</a></li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="meta-meta">Meta-Meta</h1>
-
-<p><img src="https://farm3.staticflickr.com/2172/2349444295_7becc0fc4a_b.jpg" alt="right"></p>
-
+<p><img src="https://farm3.staticflickr.com/2172/2349444295_7becc0fc4a_b.jpg" alt="right"> </p>
 <h3 id="-1-">今は更新されててもいずれは死ぬ<a href="https://flic.kr/p/4zBvWg">^1</a></h3>
+<p>^  GitHubやブラウザを中心にどこで変化がおきてることを知ることが大事という話をしましたが、いつまでも続くとは限らない</p>
 <hr>
-<h1 id="-">そして、私達はどう変化する?</h1>
+<h1 id="-fit-">[fit] そして、私達はどう変化する?</h1>
 <hr>
+<h1 id="-">人は変化する</h1>
 <ul>
-    <li>ブラウザ、言語側は変化してきた</li>
-    <li>リリースサイクル、リリースの意味、バージョニング</li>
-    <li>変化を通知するプラットフォーム化</li>
-    <li>フィードバックのし易さの改善</li>
-    <li><p>開発者にもっとコアに参加したほしいとした</p>
-    </li>
-    <li><p>今は過渡期だからという言葉片付けるのは簡単</p>
-    </li>
-    <li>じゃ何が無くなったら過渡期ではないのかは考えないと意味ない</li>
-</ul>
-<p>@todo</p>
-<ul>
-    <li>Webはずっと変化してる</li>
-    <li>今はよくても次は良いとは限らない</li>
+<li>ブラウザ、言語側は変化してきた </li>
+<li>言語は勝手に策定されてリリースされるわけではない</li>
+<li>結局は人が決めてるので、人が変化してきたと言える</li>
 </ul>
 <hr>
+<h1 id="-">誰がその変化を作ってるのか</h1>
+<p>^ 自分を変えるのは大変なので、周りの変化を感じのが手っ取り早い。
+その一つとして変化を作ってる人達を見ていくのが近道。</p>
+<hr>
+<h1 id="-earth_africa-">引力 :earth_africa:</h1>
+<ul>
+<li>変化を求める人の所には引力がある</li>
+<li>自然と情報が集まる</li>
+<li>まずはそういう人たちを知ることが手っ取り早い</li>
+</ul>
+<hr>
+<h1 id="-triangular_flag_on_post-">ターニングポイント :triangular_flag_on_post:</h1>
+<h2 id="-">変化を作ってる人が集まる場所を考える</h2>
+<hr>
+<h1 id="-">ターニングポイント</h1>
+<ol>
+<li>GitHub</li>
+<li>BTS(Bug Tracking System)</li>
+<li>SNS</li>
+</ol>
+<hr>
+<h1 id="github">GitHub</h1>
+<p><img src="img/GitHub.png" alt="right fit 90%"></p>
+<h2 id="-github-">今の開発はGitHubなしでは成立してない</h2>
+<hr>
+<h1 id="github">GitHub</h1>
+<ul>
+<li>ライブラリから仕様まで多種多様な開発が行われてる</li>
+<li>全てを追うことは無理なので諦めよう<ul>
+<li>中の人でも全て見ようとすると迷子になる via <a href="http://rebuild.fm/62/" title="Rebuild: 62: Wrong Username Mentions (dice)">Rebuild: 62</a></li>
+</ul>
+</li>
+<li>通知メールのフィルターや工夫して乗り切ろう</li>
+</ul>
+<p>^ Watchには抑制する力も必要。
+何でも見て追おうとすると破綻する。
+中の人も全てを応用にすると破綻するといってるので、
+上手いバランスを見つけてやるのが大事。</p>
+<hr>
+<h1 id="bts-bug-tracking-system-">BTS(Bug Tracking System)</h1>
+<p><img src="img/ie-feedback.jpg" alt="inline fill, ie">
+<img src="img/chromium-issues.jpg" alt="inline, chromium">
+<img src="img/mozilla-bugzilla.jpg" alt="inline, mozilla">
+<img src="img/webkit-bugzilla.jpg" alt="inline, webkit"></p>
+<h1 id="bts">BTS</h1>
+<ul>
+<li><a href="http://please-sleep.cou929.nu/how-to-report-bugs-of-browser.html" title="ブラウザのバグを見つけたときにやること - Please Sleep">ブラウザのバグを見つけたときにやること - Please Sleep</a></li>
+<li><a href="http://connect.microsoft.com/">Microsoft Connect</a></li>
+<li><a href="https://code.google.com/p/chromium/issues/list" title="Issues - chromium - An open-source project to help move the web forward. - Google Project Hosting">Issues - chromium</a></li>
+<li><a href="https://bugzilla.mozilla.org/" title="Bugzilla@Mozilla">Bugzilla@Mozilla</a></li>
+<li><a href="https://bugs.webkit.org/" title="WebKit Bugzilla">WebKit Bugzilla</a></li>
+<li>GitHubのリポジトリ(各種仕様)</li>
+</ul>
+<p>^ IE以外はオープンソースであり、Issueも対外的にはオープンに公開されている。
+IEに関してはstatus.modern.IEを通して開発状況をオープンにしてる。</p>
+<hr>
+<h1 id="bts">BTS</h1>
+<ul>
+<li>ブラウザに実装予定/バグ等は大抵の場合チケットがある</li>
+<li>開発者は必ずここにいるはず</li>
+<li>つまり、変化を作る人がいるはず</li>
+</ul>
+<hr>
+<h1 id="-bts-">ウェブ開発者にはBTSは遠い</h1>
+<ul>
+<li>ウェブ開発者がブラウザのBTSを見る機会は少ない</li>
+<li>その他だとWatcherぐらいしか見てない</li>
+<li>しかし、ウェブ開発者からのフィードバックも求めてる</li>
+</ul>
+<hr>
+<h1 id="-">もっと身近なフィードバックへ</h1>
+<ul>
+<li><a href="http://discourse.specifiction.org/" title="Specifiction">Specifiction</a><ul>
+<li>仕様に対してどこに意見を言えばいいのかを解決する場所</li>
+</ul>
+</li>
+<li><a href="https://webcompat.com/" title="webcompat.com">webcompat.com</a><ul>
+<li>ウェブサイト/ブラウザの問題指摘をする場所</li>
+<li>「Firefox Mobileだとgmail.comでタッチ出来ない」</li>
+</ul>
+</li>
+</ul>
+<p>-- <a href="http://efcl.info/2014/09/02/webspec-here/" title="ウェブの仕様は今どこにあるのか？ | Web Scratch">ウェブの仕様は今どこにあるのか？ | Web Scratch</a></p>
+<hr>
+<h1 id="-">最新の情報を追うことの意味</h1>
+<hr>
+<h1 id="-">フィードバックする機会を失う問題</h1>
+<ul>
+<li>ウェブの進化は早い(10分ぶり3度目)</li>
+<li>でも、仕様策定者だけで全ては決めたくない</li>
+<li>だから、ウェブ開発者にもフィードバックを求めてる</li>
+<li>フィードバック側はその<strong>最新の情報</strong>に気づかないといけない</li>
+<li>そうしないとフィードバックする機会を失う</li>
+</ul>
+<p>^ 情報を知らないとフィードバック出来ないわけじゃない。
+<a href="http://discourse.specifiction.org/" title="Specifiction">Specifiction</a>はまさにそれを解決しようとしてる。
+しかし、ある程度知ってないとフィードバックが心理的にしにくいという現状がある。</p>
+<p>^ 今は過渡期だからという言葉片付けるのは簡単だけど、過渡期が終わったら理想が来るとは限らない</p>
+<hr>
+<h1 id="-fit-sns">[fit] SNS</h1>
+<hr>
+<h1 id="sns">SNS</h1>
+<ul>
+<li><img src="icon/twitter.png" alt="inline" title="Twitter"> TwitterやGoogle+のようなSNS</li>
+<li>フロー型のサービスは最新情報が流れやすい<ul>
+<li>流れやすいけど、気づきにくい</li>
+</ul>
+</li>
+<li>他のものと併用すればいい</li>
+</ul>
+<p>^ 変化を感じるならSNSが一番お手軽。
+ウェブの場合はオープンにやっていることが殆どなので、変化を作ってる人たちも多くはSNSにもいる。</p>
+<hr>
+<h1 id="-">その他</h1>
+<ul>
+<li>ブログ</li>
+<li>メーリングリスト</li>
+<li>メールマガジン<a href="https://flic.kr/p/4zBvWg">^1</a></li>
+<li>ポッドキャスト</li>
+</ul>
+<p><a href="https://flic.kr/p/4zBvWg">^1</a>: <a href="http://azu.github.io/Meta-Weekly/" title="Meta Weekly">Meta Weekly</a></p>
+<p>^ 情報源は色々あるはず、好きな形体とバランスを見極めよう。</p>
+<hr>
+<h1 id="-">大事なこと</h1>
+<ul>
+<li>一番大事なのは追うことに無理をしないこと</li>
+<li>好きな方法で追うのが一番いい<ul>
+<li>例) メールは嫌いなのでメーリングリストは見ない</li>
+</ul>
+</li>
+<li>負荷がかかる方法は長続きしないから仕組みを変えるべき</li>
+<li>自分の好きな形に持ち込む事が大事</li>
+</ul>
+<p>^ リリースを追うために自身が変化することは大切ではあるけど、無理はしてはいけない。
+スクラップ、RSS、Notification、メールなど自分の好きな形に持ち込むことが大切。</p>
+<p>^ 非連続性、非同期である事がストレスフリーである空間を作るのに役立ちそう。
+^ 取りこぼしが不安感があるなら取りこぼしを取る方法をいれ二回拾えばいい。</p>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>未来は突然やってこない</li>
+<li>最新の情報は変化の兆候捉えるための要素でしかない</li>
+<li>最新の情報を追う技術 ＝ 変化兆候を捉える技術</li>
+<li>変化を作る人を見つけて見るのが一番</li>
+<li>ものは使い分け、自分の好きな方法を使えばいい</li>
+</ul>
+<hr>
+<h1 id="-fit-">[fit] おわり</h1>
 </article>
 </body>
 </html>
