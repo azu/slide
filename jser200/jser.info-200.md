@@ -181,7 +181,7 @@ LDRが終了の撤回してよかった。
 - [jser/jser.info](https://github.com/jser/jser.info/ "jser/jser.info")にpushされたデータをTravis CIでLintする
 - 副作用 = GitHubが芝ができやすい
 
-![inline,fill](http://monosnap.com/image/QG2PjZPQ6Fuh5uDr59TWP1d3EltWlD.png)
+![inline,fill](img/2014-11-07_22-15-21.jpg)
 
 ----
 
