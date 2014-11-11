@@ -240,7 +240,7 @@ nicodic = new Nicodic();
 
 -----
 
-# Remote prototype.js
+# Remove prototype.js
 
 - prototype.js は取り除く努力をすべき
 	- Big bottleneck!
