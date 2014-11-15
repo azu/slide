@@ -1,0 +1,19 @@
+{
+  "name": "puzzleCanvasDRM",
+  "version": "0.0.0",
+  "authors": [
+    "azu <azuciao@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "FileSaver": "*",
+    "canvas-toBlob.js": "~0.1.3"
+  }
+}
