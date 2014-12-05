@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>TC39 MTG Notes 第43回 報告会</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 80%;
+        height: 80%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/chatwork/tc39-mtg-2014-11.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/chatwork/tc39-mtg-2014-11.pdf" title="TC39 MTG Notes 第43回 報告会">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="tc39-mtg-notes-43-">TC39 MTG Notes 第43回 報告会</h1>
+<hr>
+<h1 id="-4-3-assignment-to-a-const-static-error-https-github-com-tc39-tc39-notes-blob-master-es6-2014-11-nov-18-md-43-assignment-to-a-const-static-error-4-3-assignment-to-a-const-static-error-"><a href="https://github.com/tc39/tc39-notes/blob/master/es6/2014-11/nov-18.md#43-assignment-to-a-const-static-error" title="4.3 Assignment to a const: static error?">4.3 Assignment to a const: static error?</a></h1>
+<ul>
+<li>ES6の<code>const</code>で定義した変数への代入はエラーに<ul>
+<li>今まではstrict modeの時のみだった</li>
+</ul>
+</li>
+<li>strict mode / non-strict mode( sloppy mode)どちらもエラー</li>
+<li><a href="https://esdiscuss.org/topic/rationale-for-const-not-throwing-in-sloppy-mode" title="Rationale for const not throwing in sloppy mode?">Rationale for const not throwing in sloppy mode?</a></li>
+</ul>
+<pre><code class="lang-js">const x = 42;
+x = 32;// Error!!!
+</code></pre>
+<hr>
+<h1 id="-4-3-assignment-to-a-const-static-error-https-github-com-tc39-tc39-notes-blob-master-es6-2014-11-nov-18-md-43-assignment-to-a-const-static-error-4-3-assignment-to-a-const-static-error-"><a href="https://github.com/tc39/tc39-notes/blob/master/es6/2014-11/nov-18.md#43-assignment-to-a-const-static-error" title="4.3 Assignment to a const: static error?">4.3 Assignment to a const: static error?</a></h1>
+<ul>
+<li>だがES5で<code>undefined</code>への代入等はnon-strict modeでは何も言わない</li>
+<li>代入しても無視されるだけでエラーが出ない</li>
+<li>これは引き続きES6でも同じ仕様をが維持される</li>
+</ul>
+<hr>
+<pre><code class="lang-js">&quot;don&#39;t use strict&quot;;
+// もちろんstrict modeならエラー
+Object.defineProperty(this, &quot;globalReadOnly&quot;, { value: &quot;readonly&quot; });
+
+var func = function f() {
+  // silently skips assignment
+  f = undefined;
+  // silently skips assignment
+  undefined = 42;
+  Infinity = 0;  
+};
+func();
+</code></pre>
+<hr>
+<h1 id="-4-6-zepto-broken-by-new-this-construct-usage-in-some-array-prototype-methods-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-11-nov-18-md-46-zepto-broken-by-new-thisconstruct-usage-in-some-arrayprototype-methods-4-6-zepto-broken-by-new-this-construct-usage-in-some-array-prototype-methods-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-11/nov-18.md#46-zepto-broken-by-new-thisconstruct-usage-in-some-arrayprototype-methods" title="4.6 Zepto broken by new this.construct usage in some Array.prototype methods">4.6 Zepto broken by new this.construct usage in some Array.prototype methods</a></h1>
+<ul>
+<li><code>new this.constructor()</code> がES5と互換なくなってたのは直す</li>
+<li>ZeptoやPromiseのサブクラス的なもので見かける</li>
+</ul>
+<hr>
+<h1 id="-5-1-amp-4-4-array-prototype-contains-and-string-prototype-contains-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-11-nov-18-md-51-44-arrayprototypecontains-and-stringprototypecontains-5-1-amp-4-4-array-prototype-contains-and-string-prototype-contains-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-11/nov-18.md#51--44-arrayprototypecontains-and-stringprototypecontains" title="5.1 &amp; 4.4 Array.prototype.contains and String.prototype.contains">5.1 &amp; 4.4 Array.prototype.contains and String.prototype.contains</a></h1>
+<ul>
+<li><code>Array.prototype.contains</code>はBreak the Web<ul>
+<li><code>includes</code>に変更！</li>
+</ul>
+</li>
+<li><code>String.prototype.contains</code> =&gt; <code>String.prototype.includes</code></li>
+<li><code>Array.prototype.contains</code> =&gt; <code>Array.prototype.includes</code></li>
+</ul>
+<hr>
+<h1 id="array-prototype-contains-">Array.prototype.containsの変更</h1>
+<ul>
+<li><a href="https://efcl.wordpress.com/2014/11/22/ecma-tc39-meeting-2014-11%e3%81%ae%e3%83%a1%e3%83%a2/" title="ECMA, TC39 Meeting 2014-11のメモ | GH Issue Note">ECMA, TC39 Meeting 2014-11のメモ | GH Issue Note</a></li>
+<li>ブラウザベンダーは大体当日にIssue立てて解決済み</li>
+</ul>
+<hr>
+<h1 id="-4-10-regexp-subclassing-fixes-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-11-nov-18-md-410-regexp-subclassing-fixes-4-10-regexp-subclassing-fixes-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-11/nov-18.md#410-regexp-subclassing-fixes" title="4.10 RegExp subclassing fixes">4.10 RegExp subclassing fixes</a></h1>
+<ul>
+<li><code>RegExp.prototype.flags</code> というflagを取るメソッドを追加</li>
+<li><code>/test/i.flags // i</code>  ?</li>
+</ul>
+<hr>
+<h1 id="-4-12-should-weakmap-weakset-have-a-clear-method-markm-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-11-nov-19-md-412-should-weakmapweakset-have-a-clear-method-markm-4-12-should-weakmap-weakset-have-a-clear-method-markm-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-11/nov-19.md#412-should-weakmapweakset-have-a-clear-method-markm" title="4.12 Should WeakMap/WeakSet have a .clear method? (MarkM)">4.12 Should WeakMap/WeakSet have a .clear method? (MarkM)</a></h1>
+<ul>
+<li>WeakMap と WeakSet から <code>clear</code>メソッドが消えました</li>
+<li><a href="https://twitter.com/awbjs/status/535829756285964289" title="Allen Wirfs-Brock on Twitter: &#34;ES6 WeakMap and WeakSet &#39;clear&#39; methods eliminated&#34;">Allen Wirfs-Brock on Twitter: &#34;ES6 WeakMap and WeakSet &#39;clear&#39; methods eliminated&#34;</a></li>
+<li>実装に考慮した感じっぽい</li>
+</ul>
+<hr>
+<h1 id="-abstract-references-as-a-solution-to-ltr-composition-and-private-state-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-11-nov-19-md-abstract-references-as-a-solution-to-ltr-composition-and-private-state-abstract-references-as-a-solution-to-ltr-composition-and-private-state-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-11/nov-19.md#abstract-references-as-a-solution-to-ltr-composition-and-private-state" title="Abstract references as a solution to LTR composition and private state">Abstract references as a solution to LTR composition and private state</a></h1>
+<ul>
+<li><img src="https://avatars3.githubusercontent.com/u/5995084?v=3&amp;s=400" alt="icon,inline"> <a href="https://github.com/zenparsing/es-abstract-refs" title="zenparsing/es-abstract-refs">zenparsing/es-abstract-refs</a></li>
+<li>ビルドインオブジェクトをprivateに拡張するための抽象インターフェスの定義の提案</li>
+</ul>
+<hr>
+<h1 id="-5-6-object-observe-proposal-to-move-to-stage-3-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-11-nov-20-md-56-objectobserve-proposal-to-move-to-stage-3-5-6-object-observe-proposal-to-move-to-stage-3-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-11/nov-20.md#56-objectobserve-proposal-to-move-to-stage-3" title="5.6 Object.observe: proposal to move to Stage 3.">5.6 Object.observe: proposal to move to Stage 3.</a></h1>
+<ul>
+<li>:star: Object.observe がES7 Stage 3へ</li>
+<li>恐らくObject.observeが最初のStage 3</li>
+<li>参照: <a href="http://azu.github.io/slide/es6talks/" title="明日には使えなくなるES7トーク">明日には使えなくなるES7トーク</a></li>
+</ul>
+<hr>
+<h1 id="-5-4-i-o-streams-as-part-of-the-es-standard-library-https-github-com-rwaldron-tc39-notes-blob-master-es6-2014-11-nov-20-md-54-io-streams-as-part-of-the-es-standard-library-5-4-i-o-streams-as-part-of-the-es-standard-library-"><a href="https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-11/nov-20.md#54-io-streams-as-part-of-the-es-standard-library" title="5.4 I/O Streams as part of the ES standard library">5.4 I/O Streams as part of the ES standard library</a></h1>
+<ul>
+<li>StreamをECMAScriptに入れるかどうかの話</li>
+<li>入れたいとは思うが現状では難しい</li>
+<li>I/Oとかそういうものの標準があるならばあるいは</li>
+<li>現在はWHATWGで管理してるので仕様団体的な議論</li>
+<li>結局今は無理なので提案は撤回</li>
+</ul>
+<hr>
+<h1 id="-">成果</h1>
+<p><img src="http://monosnap.com/image/iS38agcWx1VSQggMMo2hNDYMDBTsbq.png" alt="inline,fill"></p>
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes/pull/25">https://github.com/rwaldron/tc39-notes/pull/25</a></li>
+<li><a href="https://github.com/rwaldron/tc39-notes/pull/24">https://github.com/rwaldron/tc39-notes/pull/24</a></li>
+</ul>
+<hr>
+<h1 id="-">おわりに</h1>
+<ul>
+<li><a href="http://tc39-mtg.doorkeeper.jp/" title="TC39 MTG Notes MTG | Doorkeeper">TC39 MTG Notes MTG | Doorkeeper</a></li>
+<li>読む時毎回イベントを立てていく予定</li>
+<li>オンラインでTwitterに <a href="https://twitter.com/search?f=realtime&amp;q=%23TC39MTG&amp;src=typd" title="#TC39MTG">#TC39MTG</a> とつぶやくだけ</li>
+<li>今回: <a href="http://tc39-mtg.doorkeeper.jp/events/18001" title="ECMA, TC39 Meeting Notes 第43回目を読む - TC39 MTG Notes MTG | Doorkeeper">ECMA, TC39 Meeting Notes 第43回目を読む - TC39 MTG Notes MTG | Doorkeeper</a></li>
+</ul>
+</article>
+</body>
+</html>

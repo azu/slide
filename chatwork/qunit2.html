@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>QUnit 2.xで変わること</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 80%;
+        height: 80%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/chatwork/qunit2.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/chatwork/qunit2.pdf" title="QUnit 2.xで変わること">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="qunit-2-x-">QUnit 2.xで変わること</h1>
+<h1 id="-logo-inline-img-logo-qunit-png-"><img src="img/logo-qunit.png" alt="logo,inline"></h1>
+<hr>
+<h1 id="qunit-2-x-">QUnit 2.xで変わること</h1>
+<h2 id="-qunit-1-16-0">現バージョン: QUnit 1.16.0</h2>
+<hr>
+<h1 id="-">基本方針</h1>
+<ul>
+<li>2.0 では互換レイヤーを入れて互換性を維持<ul>
+<li>既存のメソッド名の変更もDeprecatedだが動く</li>
+</ul>
+</li>
+<li>2.1で互換レイヤーを破棄して完全に移行</li>
+<li>詳しくは <a href="http://qunitjs.com/upgrade-guide-2.x/" title="QUnit 2.x Upgrade Guide | QUnit">QUnit 2.x Upgrade Guide | QUnit</a> を読む</li>
+</ul>
+<hr>
+<h1 id="try-own">Try Own</h1>
+<ul>
+<li><a href="https://github.com/azu/qunit-examples" title="azu/qunit-examples">azu/qunit-examples</a></li>
+<li>今回でてきたサンプルコード</li>
+</ul>
+<hr>
+<h1 id="avoid-global">Avoid Global</h1>
+<ul>
+<li>グローバルに合ったものが<code>Qunit.*</code>に移動</li>
+</ul>
+<pre><code class="lang-js">// OLD Style
+module(&quot;module name&quot;);
+test(&quot;old test&quot;, function (assert) {
+    expect(1);// 1つのassertがあるという宣言
+    assert.ok(true);
+});
+</code></pre>
+<hr>
+<h1 id="avoid-global">Avoid Global</h1>
+<ul>
+<li>グローバルに合ったものが<code>Qunit.*</code>に移動</li>
+</ul>
+<pre><code class="lang-js">// NEW Style
+QUnit.module(&quot;module name&quot;);
+QUnit.test(&quot;new test&quot;, function (assert) {
+    assert.expect(1);// 1つのassertがあるという宣言
+    assert.ok(1);
+});
+</code></pre>
+<hr>
+<h1 id="avoid-global">Avoid Global</h1>
+<p> deepEqual(), equal(), notDeepEqual(), notEqual(), notPropEqual(), notStrictEqual(), ok(), propEqual(), strictEqual(), throws()</p>
+<p>などのassertionも<code>assert.*</code>に移動</p>
+<hr>
+<h1 id="-done-"><code>done</code>での非同期テストの導入</h1>
+<ul>
+<li><code>asyncTest</code>や<code>start</code>などはDeprecatedに</li>
+</ul>
+<pre><code class="lang-js">asyncTest(&quot;old async test&quot;, function (assert) {
+    setTimeout(function () {
+        assert.ok(true);
+        start();
+    }, 16);
+});
+</code></pre>
+<hr>
+<h1 id="-done-"><code>done</code>での非同期テストの導入</h1>
+<ul>
+<li><code>assert.async</code>の返り値が<code>done</code>関数</li>
+<li><code>asyncTest</code>という宣言は不要</li>
+</ul>
+<pre><code class="lang-js">QUnit.test(&quot;new async test&quot;, function (assert) {
+    var done = assert.async();
+    setTimeout(function () {
+        assert.ok(1);
+        done();
+    }, 16);
+});
+</code></pre>
+<hr>
+<h1 id="setup-teardown-">setup/teardown のリネーム</h1>
+<ul>
+<li>setup/teardown が  beforeEach/afterEach にリネーム</li>
+</ul>
+<pre><code class="lang-js">QUnit.module( &quot;router&quot;, {
+    setup: function( assert ) {
+        this.router = new Router();
+    },
+    teardown: function( assert ) {
+        this.router.destroy();
+    }
+});
+</code></pre>
+<hr>
+<h1 id="setup-teardown-">setup/teardown のリネーム</h1>
+<ul>
+<li>setup/teardown が  beforeEach/afterEach にリネーム</li>
+</ul>
+<pre><code class="lang-js">QUnit.module( &quot;router&quot;, {
+    beforeEach: function( assert ) {
+        this.router = new Router();
+    },
+    afterEach: function( assert ) {
+        this.router.destroy();
+    }
+});
+</code></pre>
+<hr>
+<h1 id="promise-">Promiseサポート</h1>
+<ul>
+<li>MochaやBuster.jsなどで採用されてるスタイル</li>
+<li><code>reutrn promise;</code>というかんじで<a href="http://azu.github.io/promises-book/" title="Thenable">Thenable</a>を返すと認識</li>
+</ul>
+<pre><code class="lang-js">QUnit.test(&quot;fulfilled Promise&quot;, function (assert) {
+    return Promise.resolve(&quot;value&quot;).then(function (value) {
+        assert.equal(value, &quot;value&quot;)
+    });
+});
+</code></pre>
+<hr>
+<h1 id="promise-">Promiseテスト</h1>
+<ul>
+<li><code>assert.expect</code>が動く！(利用assert数を宣言する機能)</li>
+<li><a href="http://azu.github.io/promises-book/#mocha-promise" title="意図しないテスト結果">意図しないテスト結果</a> となるのを宣言で防止出来る</li>
+</ul>
+<pre><code class="lang-js">QUnit.test(&quot;fulfilled Promise&quot;, function (assert) {
+    assert.expect(1);// it&#39;s work!
+    return Promise.resolve(&quot;value&quot;).then(function (value) {
+        assert.equal(value, &quot;value&quot;)
+    });
+});
+</code></pre>
+<hr>
+<h1 id="promise-">Promiseテスト</h1>
+<ul>
+<li><code>assert</code>がひとつも呼ばれないテストは自動で失敗する!</li>
+<li>Promiseテストのミスがかなり軽減される GREATE!</li>
+</ul>
+<pre><code class="lang-js">QUnit.test(&quot;Year! Fail test&quot;, function (assert) {
+    // `resolve`なので`catch`は呼ばれない
+    return Promise.resolve().catch(function (value) {
+        assert.equal(value, &quot;value&quot;)
+    });
+});
+</code></pre>
+<hr>
+<h1 id="-">レポーターの標準化</h1>
+<ul>
+<li><a href="https://github.com/js-reporters/js-reporters" title="js-reporters/js-reporters">js-reporters/js-reporters</a></li>
+<li>テストフレームワークのレポーターの標準化活動</li>
+<li><a href="https://github.com/js-reporters/js-reporters/issues/4" title="test status">テスト結果のStatusの標準化</a> - Pass/Fail/Pending...</li>
+<li><a href="https://github.com/js-reporters/js-reporters/issues/1#issuecomment-54572441" title="Standard Events/Hooks · Issue #1 · js-reporters/js-reporters">テストのHook Eventの標準化</a> - SuiteStart/testEnd...</li>
+<li><a href="https://github.com/js-reporters/js-reporters/issues/3" title="Standard API · Issue #3 · js-reporters/js-reporters">レポーターAPIの標準化</a> - イベントベース?</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>グローバル空間には<code>QUnit</code>のみ</li>
+<li><code>done</code>を使った非同期テストのサポート</li>
+<li><code>return promise</code>でのPromiseテストのサポート</li>
+<li><code>assert.expect</code>とPromiseテストの相性が良い</li>
+<li>2.0では互換レイヤーあり、2.1で完全移行</li>
+<li>続きは <a href="http://qunitjs.com/upgrade-guide-2.x/" title="QUnit 2.x Upgrade Guide | QUnit">QUnit 2.x Upgrade Guide | QUnit</a> で</li>
+</ul>
+<hr>
+<h1 id="-azu-qunit-examples-https-github-com-azu-qunit-examples-azu-qunit-examples-"><a href="https://github.com/azu/qunit-examples" title="azu/qunit-examples">azu/qunit-examples</a></h1>
+</article>
+</body>
+</html>
