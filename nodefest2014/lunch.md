@@ -9,19 +9,6 @@
 ^ maxが書いたオススメJavaScript企業
 ^ furukawaさんが言ってたけど、「JavaScript企業」って言われて思いつくのはサイボウズ、ピクセルグリット、Cyber Agent等
 
------
-
-# maxさんのオススメJavaScript企業
-
-- [npm](https://www.npmjs.org/) in Oakland. contact person: https://twitter.com/izs
-- [good eggs](https://www.goodeggs.com) in SF. contact person: https://github.com/demands
-- [tessel](https://tessel.io/) in Berkeley. contact person: https://twitter.com/SelkeyMoonbeam
-- [diy](https://diy.org/) in SF. contact person: https://twitter.com/drk
-- [uber](https://www.uber.com/) in SF. contact person https://github.com/raynos
-- [mapbox](https://www.mapbox.com/) - in SF (also DC). 
-
-etc...
-
 ----
 
 # [fit] 質問素材
@@ -44,13 +31,21 @@ etc...
 
 -----
 
-# JavaScriptの負の遺産について
+# JavaScriptの技術的負債
 
 ## 進捗どうですか?
 
 ^ 負の遺産ってどうやって解決していってるか。
 ^ JavaScriptの場合開発中にこっちの方がいいとかいう話が出てくる気がするので、ライブラリ選択とかも大変になるきがする(クオリティがバラバラ)
 
+-----
+
+# JavaScriptの技術的負債のレベル
+
+1. 使ってるライブラリが古い
+2. コードベースが古い
+3. テストがない
+4. 触ると爆発する
 
 -----
 
