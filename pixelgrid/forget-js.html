@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>#JavaScript忘年会</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 80%;
+        height: 80%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/pixelgrid/forget-js.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/pixelgrid/forget-js.pdf" title="#JavaScript忘年会">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="-javascript-">#JavaScript忘年会</h1>
+<h2 id="-">今年で忘れていいもの</h2>
+<hr>
+<h1 id="-logo-inline-http-yuilibrary-com-img-yui-logo-png-yui-library-http-yuilibrary-com-yui-library-ghost-"><img src="http://yuilibrary.com/img/yui-logo.png" alt="logo inline"> <a href="http://yuilibrary.com/" title="YUI Library">YUI Library</a> :ghost:</h1>
+<hr>
+<h1 id="yui">YUI</h1>
+<ul>
+<li><a href="http://yahooeng.tumblr.com/post/96098168666/important-announcement-regarding-yui" title="Important Announcement Regarding YUI | Yahoo Engineering">Important Announcement Regarding YUI | Yahoo Engineering</a></li>
+<li>YUIの開発は終了</li>
+<li>Yetiも開発終了? - <a href="https://github.com/yui/yeti/issues/90" title="Future of YETI? · Issue #90 · yui/yeti">Future of YETI? · Issue #90 · yui/yeti</a></li>
+<li><a href="http://purecss.io/" title="Pure">Pure.css</a>は継続 - <a href="https://github.com/yahoo/pure/issues/373" title="YUI is going away - what does this mean for Pure? · Issue #373 · yahoo/pure">YUI is going away - what does this mean for Pure? · Issue #373 · yahoo/pure</a></li>
+</ul>
+<hr>
+<h1 id="iframe-ghost-">iframeでクロスドメインハック :ghost:</h1>
+<h1 id="-postmessage-star-">=&gt; postMessage :star:</h1>
+<hr>
+<ul>
+<li><code>window.name</code>を使った方法<ul>
+<li><code>&lt;iframe src=&quot;http://example.com/&quot; name=&quot;message&quot;&gt;</code></li>
+<li>iframe内からは<code>window.name</code>で<code>&quot;message&quot;</code>を取れる</li>
+</ul>
+</li>
+<li>XSSで使われる<ul>
+<li><a href="http://d.hatena.ne.jp/st4rdust/20110329/1301386042" title="XSS例題（下書き中） - st4rdustの日記">XSS例題（下書き中） - st4rdustの日記</a></li>
+<li><a href="http://masatokinugawa.l0.cm/2014/12/flash-local-with-filesystem-sandbox-bypass.html" title="Masato Kinugawa Security Blog: Flashのlocal-with-filesystem Sandboxのバイパス">Masato Kinugawa Security Blog: Flashのlocal-with-filesystem Sandboxのバイパス</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>location.hash</code>を使った方法<ul>
+<li><code>http://example.com/#location.hash</code></li>
+<li>Detail : <a href="http://www.slideshare.net/SlexAxton/breaking-the-cross-domain-barrier" title="Breaking The Cross Domain Barrier">Breaking The Cross Domain Barrier</a></li>
+</ul>
+</li>
+</ul>
+<p><img src="http://monosnap.com/image/LJqkrEH4uvI5G88csRelLsQn3QcpXT.png" alt="img,inline"></p>
+<hr>
+<h1 id="iframe-ghost-">iframeでクロスドメインハック :ghost:</h1>
+<h1 id="-postmessage-1-">=&gt; postMessageを使おう :+1:</h1>
+<ul>
+<li><a href="http://gihyo.jp/dev/serial/01/front-end_web/000302" title="第3回　localStorageとpostMessageの使いどころ（2）：フロントエンドWeb戦略室｜gihyo.jp … 技術評論社">第3回　localStorageとpostMessageの使いどころ（2）：フロントエンドWeb戦略室｜gihyo.jp … 技術評論社</a></li>
+<li><a href="https://github.com/oyvindkinsey/easyXDM" title="oyvindkinsey/easyXDM">oyvindkinsey/easyXDM</a></li>
+</ul>
+<hr>
+<h1 id="-jstestdriver-https-code-google-com-p-js-test-driver-js-test-driver-remote-javascript-console-google-project-hosting-ghost-"><a href="https://code.google.com/p/js-test-driver/" title="js-test-driver - Remote javascript console - Google Project Hosting">JsTestDriver</a> :ghost:</h1>
+<h2 id="latest-release-oct-5-2012">Latest Release : Oct 5, 2012</h2>
+<h1 id="-testem-karma-intern-star-">=&gt; testem/karma/Intern :star:</h1>
+<hr>
+<h2 id="-airportyh-testem-https-github-com-airportyh-testem-airportyh-testem-"><a href="https://github.com/airportyh/testem" title="airportyh/testem">airportyh/testem</a></h2>
+<p><img src="img/testem.jpg" alt="testem,inline fill"></p>
+<hr>
+<h2 id="-karma-runner-karma-https-github-com-karma-runner-karma-karma-runner-karma-"><a href="https://github.com/karma-runner/karma" title="karma-runner/karma">karma-runner/karma</a></h2>
+<p><img src="img/karma.jpg" alt="karma, inline fill"></p>
+<hr>
+<h2 id="-intern-a-next-generation-javascript-testing-stack-http-theintern-io-intern-a-next-generation-javascript-testing-stack-"><a href="http://theintern.io/" title="Intern: A next-generation JavaScript testing stack">Intern: A next-generation JavaScript testing stack</a></h2>
+<p><img src="img/intern.jpg" alt="intern, inline fill"></p>
+<hr>
+<h1 id="-vows-http-vowsjs-org-vows-ghost-"><a href="http://vowsjs.org/" title="Vows">Vows</a> :ghost:</h1>
+<h2 id="node-js-bdd-">Node.js向けのBDDフレームワーク</h2>
+<h1 id="-mocha-question-">=&gt; Mocha :question:</h1>
+<hr>
+<h1 id="-vows-http-vowsjs-org-vows-ghost-"><a href="http://vowsjs.org/" title="Vows">Vows</a> :ghost:</h1>
+<ul>
+<li><a href="https://github.com/vowsjs/vows/issues/318" title="v1.0.0">v1.0.0</a> に向けてコミット活発化</li>
+</ul>
+<p><img src="img/vows.jpg" alt="vows inline"></p>
+<hr>
+<h1 id="-rapha-l-http-raphaeljs-com-rapha-l-ghost-"><a href="http://raphaeljs.com/" title="Raphaël">Raphaël</a> :ghost:</h1>
+<h1 id="-snap-svg-http-snapsvg-io-snap-svg-star-">=&gt; <a href="http://snapsvg.io/" title="Snap.svg">Snap.svg</a> :star:</h1>
+<hr>
+<h1 id="-rapha-l-http-raphaeljs-com-rapha-l-"><a href="http://raphaeljs.com/" title="Raphaël">Raphaël</a></h1>
+<ul>
+<li><a href="http://raphaeljs.com/" title="Raphaël">Raphaël</a>はレガシーIE(IE8以下)に対応してる</li>
+<li>Raphaëlの新規開発はもう殆どない</li>
+<li>同じ作者の<a href="http://snapsvg.io/" title="Snap.svg">Snap.svg</a>の方が開発が活発</li>
+<li><a href="http://www.h2.dion.ne.jp/~defghi/snapsvg/snapsvg.xhtml#section_26" title="Raphaël.jsとSnap.svgとの違い">Raphaël.jsとSnap.svgとの違い</a></li>
+</ul>
+<hr>
+<h1 id="rapha-l-js-snap-svg-">Raphaël.jsからSnap.svgに移行すべきか</h1>
+<blockquote>
+<p>Raphaël.js前提のプロジェクトが既に構築済みの場合，無理にSnap.svgに移行する必要はありません
+...
+なお開発の注力は既にSnap.svgに移っており，今後Raphaël.jsの機能向上はそれほど期待できません．特にこだわりが無い限り，Snap.svgをお勧めします．
+-- <a href="http://www.h2.dion.ne.jp/~defghi/snapsvg/snapsvg.xhtml#section_26" title="Snap.svgの使い方まとめ">Snap.svgの使い方まとめ</a></p>
+</blockquote>
+<hr>
+<h1 id="-json2-js-https-github-com-douglascrockford-json-js-json2-js-ghost-"><a href="https://github.com/douglascrockford/JSON-js" title="json2.js">json2.js</a> :ghost:</h1>
+<h1 id="-json-star-">=&gt; ネイティブ  <code>JSON</code> :star:</h1>
+<hr>
+<h1 id="-douglascrockford-json-js-https-github-com-douglascrockford-json-js-douglascrockford-json-js-"><a href="https://github.com/douglascrockford/JSON-js" title="douglascrockford/JSON-js">douglascrockford/JSON-js</a></h1>
+<ul>
+<li>IE8以降ならネイティブの<code>JSON.parse</code>が使える</li>
+</ul>
+<hr>
+<h1 id="websql">WebSQL</h1>
+<h2 id="-">仕様の策定が停止</h2>
+<hr>
+<h1 id="websql">WebSQL</h1>
+<ul>
+<li>Indexed Databaseを使う</li>
+<li><a href="http://www.html5rocks.com/ja/tutorials/offline/quota-research/" title="モダンブラウザのストレージ容量と調査方法まとめ - HTML5 Rocks">モダンブラウザのストレージ容量と調査方法まとめ - HTML5 Rocks</a></li>
+</ul>
+<hr>
+<h1 id="-component-https-github-com-componentjs-component-component-ghost-"><a href="https://github.com/componentjs/component" title="Component">Component</a> :ghost:</h1>
+<h1 id="-duo-http-duojs-org-duo-star-">=&gt; <a href="http://duojs.org/" title="Duo">Duo</a> :star:</h1>
+<hr>
+<h1 id="-component-https-github-com-componentjs-component-component-"><a href="https://github.com/componentjs/component" title="Component">Component</a></h1>
+<blockquote>
+<p>The team and organization have undergone massive changes. In summary, jonathanong stopped developing Component and started with normalize.io and the guys from segmentio switched to using duo. Component will still be maintained and updated while it is in use. You can read more about Duo.js and Component here.</p>
+</blockquote>
+<hr>
+<h1 id="-fit-new-activexobject-msxml2-xmlhttp-6-0-ghost-">[fit] <code>new ActiveXObject(’MSXML2.XMLHTTP.6.0’);</code> :ghost:</h1>
+<h1 id="-xmlhttprequest-star-">=&gt; XMLHttpRequest :star:</h1>
+<hr>
+<h1 id="xmlhttprequest">XMLHttpRequest</h1>
+<ul>
+<li>IE7から利用できる</li>
+<li><a href="http://gihyo.jp/dev/serial/01/crossbrowser-javascript/0012" title="第12回　XMLHttpRequest入門：これでできる！ クロスブラウザJavaScript入門｜gihyo.jp … 技術評論社">第12回　XMLHttpRequest入門：これでできる！ クロスブラウザJavaScript入門｜gihyo.jp … 技術評論社</a></li>
+</ul>
+<hr>
+<h1 id="attachevent-ghost-">attachEvent :ghost:</h1>
+<h1 id="-addeventlistener-https-developer-mozilla-org-ja-docs-web-api-eventtarget-addeventlistener-addeventlistener-star-">=&gt; <a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget.addEventListener" title="addEventListener">addEventListener</a> :star:</h1>
+<hr>
+<h1 id="-addeventlistener-https-developer-mozilla-org-ja-docs-web-api-eventtarget-addeventlistener-addeventlistener-"><a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget.addEventListener" title="addEventListener">addEventListener</a></h1>
+<ul>
+<li>IE9から使える</li>
+<li><a href="http://uupaa.hatenablog.com/entry/2012/03/06/204911" title="IE 6, IE 7, IE 8 が退場した未来 - latest log">IE 6, IE 7, IE 8 が退場した未来 - latest log</a></li>
+</ul>
+<hr>
+<h1 id="-jquery-mobile-http-jquerymobile-com-jquery-mobile-ghost-"><a href="http://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a> :ghost:</h1>
+<hr>
+<h1 id="-titanium-http-www-appcelerator-com-titanium-titanium-ghost-"><a href="http://www.appcelerator.com/titanium/" title="Titanium">Titanium</a> :ghost:</h1>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>IE8以下は忘れよう<ul>
+<li><a href="http://japan.zdnet.com/article/35057570/" title="セールスフォース、2015年5月に「IE7」と「IE8」のサポートを打ち切りへ - ZDNet Japan">セールスフォース、2015年5月に「IE7」と「IE8」のサポートを打ち切りへ - ZDNet Japan</a></li>
+<li><a href="https://github.com/twbs/bootstrap/issues/14128" title="Dropping IE8 support in version 4 · Issue #14128 · twbs/bootstrap">Dropping IE8 support in version 4 · Issue #14128 · twbs/bootstrap</a></li>
+<li><a href="http://uupaa.hatenablog.com/entry/2012/03/06/204911" title="IE 6, IE 7, IE 8 が退場した未来 - latest log">IE 6, IE 7, IE 8 が退場した未来 - latest log</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>捨てる技術は捨てやすいように使おう</li>
+<li>polyfillを使える時は使おう</li>
+<li>テストフレームワークが死んだ時のことを考えよう</li>
+<li>ウェブ標準仕様化されてるならそれに反してないかをチェックしよう</li>
+</ul>
+</article>
+</body>
+</html>
