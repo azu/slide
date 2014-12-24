@@ -11,6 +11,8 @@
 
 # アジェンダ
 
+[世界のJavaScriptを読もう @ 2012](http://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012") の続編的なものです
+
 1. ブラウザやJavaScriptのリリースは変化してきている
 2. 私たちはどのように変化を知り見ていくのか
 3. そして私たちはどのように変化していくのか
