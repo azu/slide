@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>textlintから学んだこと</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 80%;
+        height: 80%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/reactsushi/textlint.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/reactsushi/textlint.pdf" title="textlintから学んだこと">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="textlint-">textlintから学んだこと</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
+<h2 id="azu">azu</h2>
+<h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
+<h3 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h3>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<ul>
+<li>What is <a href="https://github.com/azu/textlint" title="textlint">textlint</a>?<ul>
+<li>CLIツールの設計思想</li>
+</ul>
+</li>
+<li>ASTのLintの仕組み</li>
+<li>モジュールに分けるべし<ul>
+<li>インターフェースとしての問題</li>
+<li>ドキュメントとしての問題</li>
+</ul>
+</li>
+<li>ドキュメント JSDocとd.ts</li>
+</ul>
+<hr>
+<h1 id="textlint-">textlint とは何か</h1>
+<ul>
+<li>MarkdownやテキストをLintするツール</li>
+<li>ESLintのテキスト版！</li>
+<li>MarkdownやテキストをASTにしてチェックする</li>
+<li>チェックルールをJavaScriptで書いて簡単に追加出来る</li>
+</ul>
+<hr>
+<h1 id="textlint-">textlintの設計</h1>
+<ul>
+<li>LintはASTのKeyをEmitして行う</li>
+<li>そこそこでかい固まり</li>
+<li>最初は<a href="http://eslint.org/" title="ESLint">ESLint</a>のフォークみたいな感じ</li>
+<li>不要な機能を削ったり、モジュール化してる</li>
+</ul>
+<hr>
+<h1 id="textlint-">textlintの構造</h1>
+<ul>
+<li>CLI<ul>
+<li>I/Oに関係することのみ</li>
+</ul>
+</li>
+<li>TextLint-Engine<ul>
+<li>textlintのラッパ</li>
+<li>複数のファイルを扱う抽象レイヤー</li>
+</ul>
+</li>
+<li>textlint<ul>
+<li>Core</li>
+<li>一つのファイル/テキストを扱う</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="lint-">Lintの仕組み</h1>
+<ol>
+<li>Markdown or TextをASTに変換</li>
+<li>ASTは<strong>TxtNode</strong>というインターフェースを持つ<ul>
+<li>例えば、<code>node.type</code>が&quot;Header&quot;という種類</li>
+<li><code>node.raw</code>にテキストの中身、<code>node.loc</code>に行番号等の位置</li>
+<li><a href="https://github.com/azu/textlint/blob/master/docs/txtnode.d.ts" title="txtnode.d.ts">txtnode.d.ts</a>に定義してある</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="lint-2">Lintの仕組み - 2</h1>
+<ul>
+<li>ルールスクリプトは<code>node.type</code>ごとにイベントを受け取るような書き方をする</li>
+</ul>
+<pre><code class="lang-js">exports[context.Syntax.Link] = function (node) {
+    // Link nodeの時にこのチェック関数が呼ばれる
+    // 問題があったらcontext.report()で報告する
+};
+</code></pre>
+<ul>
+<li>textlintはnodeの<code>type</code>毎にルールにチェックをお願いする<ul>
+<li><code>api.emit(node.type, node)</code> という感じ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="markdown-ast">Markdown -&gt; AST</h1>
+<p><img src="img/textlint-ast.png" alt="textlint-ast, inline"></p>
+<hr>
+<p><img src="img/ast-lint.png" alt="ast-lint, inline"></p>
+<hr>
+<h1 id="lint-3">Lintの仕組み - 3</h1>
+<ul>
+<li><code>context.report()</code>で報告されたエラーを<a href="https://github.com/azu/textlint-formatter" title="textlint-formatter">textlint-formatter</a>に</li>
+<li>文字列を組み立ててくれるのでそれを標準出力へ流す or ファイルとして吐く</li>
+</ul>
+<p><img src="http://monosnap.com/image/9FeIQr95kXjGPWFjZFRq6ZFG16YscF.png" alt="result, inline"></p>
+<hr>
+<h1 id="-">仕組みの仕組み</h1>
+<ul>
+<li>textlintとルールスクリプトの関係はpub/sub</li>
+<li>ルールスクリプトはやってくるnodeだけを考えればLintを書ける</li>
+<li>やってくるnodeの流れは木構造を走査する形 - <a href="https://github.com/azu/txt-ast-traverse" title="txt-ast-traverse">txt-ast-traverse</a></li>
+<li>ルールが疎結合なので、自由にルールを追加出来る！</li>
+</ul>
+<p><img src="http://gyazo.com/155c68f0f9ff35e0a549d655a787c01e.gif" alt="gif visualize-txt-traverse,right, fit"></p>
+<hr>
+<h1 id="textlint-eslint">textlintとESLint</h1>
+<ul>
+<li>textlintはESLintのfork的な作りで始めた</li>
+<li>ESLintの構造をそのままもってきて分解していった</li>
+</ul>
+<hr>
+<h1 id="eslint-">ESLintの構造</h1>
+<ul>
+<li>cli.js<ul>
+<li>コマンドライン引数の処理</li>
+</ul>
+</li>
+<li>cli-engine.js<ul>
+<li>設定の読み込み、Core APIのラッパ、複数のファイルを扱ったり</li>
+</ul>
+</li>
+<li>eslint.js(Core)<ul>
+<li>実際に<code>emit</code>したりLintするAPIを持つ</li>
+</ul>
+</li>
+</ul>
+<p><img src="img/eslint.png" alt="eslint, right fit"></p>
+<hr>
+<h1 id="eslint-api">ESLintの公開API</h1>
+<ul>
+<li>package.jsonの<code>&quot;main&quot;</code>でexportsされてるモジュールだけでは、微妙に届かないAPIが存在する</li>
+</ul>
+<pre><code class="lang-js">module.exports = {
+    linter: require(&quot;./eslint&quot;),
+    cli: require(&quot;./cli&quot;),
+    CLIEngine: require(&quot;./cli-engine&quot;)
+};
+</code></pre>
+<hr>
+<h1 id="eslint-api-">ESLintの公開API の問題</h1>
+<ul>
+<li><a href="https://github.com/adametry/gulp-eslint" title="adametry/gulp-eslint">adametry/gulp-eslint</a>みたいなラッパを書く場合に、formatterを正規な方法で取得できない</li>
+<li><code>require(&#39;eslint/lib/config&#39;);</code> という感じで読んだり</li>
+<li><code>node_modules</code> から自分で取り出す事が必要(ESLintの内部で同じ事やってる)</li>
+</ul>
+<hr>
+<h1 id="-api-">どこまで公開APIか</h1>
+<ul>
+<li>何でも公開APIにする?<ul>
+<li>面倒だし、すぐに壊しそう</li>
+</ul>
+</li>
+<li>=&gt; それぞれの機能を別モジュールとして公開すれば自然と解決する<ul>
+<li>formatter、parser、traverse</li>
+</ul>
+</li>
+<li>同様のやり方: <a href="https://github.com/twada/power-assert" title="twada/power-assert">twada/power-assert</a></li>
+</ul>
+<hr>
+<h1 id="textlint-">textlintの場合</h1>
+<ul>
+<li><a href="https://github.com/azu/textlint-formatter">azu/textlint-formatter</a> を別モジュールとして出してる</li>
+<li><a href="https://github.com/azu/markdown-to-ast">azu/markdown-to-ast</a> と <a href="https://github.com/azu/txt-to-ast">azu/txt-to-ast</a> パーサも分離してる</li>
+<li><a href="https://github.com/azu/txt-ast-traverse">azu/txt-ast-traverse</a> Traverseも分離してる</li>
+</ul>
+<pre><code class="lang-js">module.exports = {
+    cli: require(&quot;./lib/cli&quot;),
+    TextLintEngine: require(&quot;./lib/textlint-engine&quot;),
+    textlint: require(&quot;./lib/textlint&quot;)
+};
+</code></pre>
+<hr>
+<h1 id="-api-api-">公開APIはどこまで公開API?</h1>
+<ul>
+<li>目安としたもの:</li>
+<li>gulpプラグインを書く場合に、CLIと同じことをやるのにモジュールを使うだけでできるか?</li>
+</ul>
+<hr>
+<h1 id="-fit-">[fit] モジュールとドキュメントの分離</h1>
+<hr>
+<h1 id="-">ドキュメントも分離するべきか?</h1>
+<ul>
+<li>ソフトウェアがでかくなる = ドキュメントがでかくなる</li>
+<li>新規ユーザーはどこから見ればいいのか分からない</li>
+<li>ユーザーの種類を分けてドキュメントを分ける<ul>
+<li>コマンドラインアプリとして使うユーザー (READMEに入れる)</li>
+<li>Nodeモジュールとして使う開発者 (docs/に入れる)</li>
+</ul>
+</li>
+<li>READMEはできるだけキレイに保つ必要がある</li>
+</ul>
+<hr>
+<h1 id="-thought_balloon-">モジュールのドキュメント :thought_balloon:</h1>
+<ul>
+<li>モジュールとして使うのは大体開発者</li>
+<li>分離するかはライブラリの種類によってケースバイケース</li>
+<li>類似APIなら<a href="http://underscorejs.org/" title="Underscore.js">一枚岩のドキュメント</a>の方が検索できて便利?</li>
+<li>単体として完全に分離できてるならそのモジュール毎にドキュメントがあったほうがいい<ul>
+<li>索引だけはプロジェクトからリンクされてると良さそう</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>どのAPIを公開するか迷ったら、それより小さいモジュールに分けて別途公開できないかを考えよう</li>
+<li>コード共にドキュメントも肥大化する<ul>
+<li>モジュールとして分けるとドキュメントも分けやすい</li>
+<li>ただ、利用者が迷子にならないように整理が必要</li>
+<li>小さいモジュールを大量に作った場合の問題も別にある</li>
+<li><a href="http://blog.andyet.com/2015/01/07/modularizing-underscorejs" title="Modularizing Underscore.js | &amp;yet Blog">Modularizing Underscore.js | &amp;yet Blog</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">課題。。</h1>
+<hr>
+<h1 id="readme-api">READMEとAPI</h1>
+<ul>
+<li>READMEにAPIの詳細をずらっと書くとあんまり読みやすくない<ul>
+<li>JSDocそのままREADMEに落とした感じのとか</li>
+</ul>
+</li>
+<li>適度に情報を間引く必要がありそう</li>
+<li>サンプルコードの方が視認性は高い</li>
+</ul>
+<hr>
+<h1 id="jsdoc-d-ts-">JSDocとd.tsの使い分け</h1>
+<ul>
+<li>d.tsはオプションオブジェクトの定義が楽に出来る<ul>
+<li>型定義的には使いやすい</li>
+<li>逆に全てのインターフェースの定義はだるい</li>
+</ul>
+</li>
+<li>JSDocは関数の説明はしやすい<ul>
+<li>ドキュメントとしてはd.tsよりもやりやすい</li>
+<li><a href="http://qiita.com/maku77/items/6410c67ce95e08d8d1bd" title="Javadoc ドキュメンテーションコメントの書き方 - Qiita">Javadoc ドキュメンテーションコメントの書き方 - Qiita</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="jsdoc-d-ts-">JSDocとd.tsの使い分け</h1>
+<ul>
+<li><a href="https://github.com/azu/textlint-formatter" title="azu/textlint-formatter">azu/textlint-formatter</a></li>
+<li>d.tsとJSDocが混在してる</li>
+<li>書きやすいけど、解釈出来るものがWebStormぐらいしかなさそう…</li>
+<li>TypeScriptのASTが公開されたらd.ts周りのツールが充実するかもという希望的観測</li>
+</ul>
+<pre><code>declare module TextLintFormatter {
+    function format(results:TextLintResult[]):string;
+    // createFormatter(options)
+    interface options {
+        // formatter file name
+        formatterName?: string;
+    }
+}
+</code></pre><hr>
+<h1 id="-d-ts-">不完全なd.ts配布の問題</h1>
+<ul>
+<li>モジュールを細分化していくとインターフェースの共有をしたくなる</li>
+<li>d.tsを使いたい =&gt; けど何で配布する?</li>
+<li>d.tsがあるだけのモジュールをつくるべきなのか?<ul>
+<li>全てのAPIについて定義してるわけじゃなくて完全にInternalの利用</li>
+</ul>
+</li>
+</ul>
+</article>
+</body>
+</html>
