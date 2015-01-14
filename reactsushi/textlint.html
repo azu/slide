@@ -117,32 +117,6 @@
 <li>チェックルールをJavaScriptで書いて簡単に追加出来る</li>
 </ul>
 <hr>
-<h1 id="textlint-">textlintの設計</h1>
-<ul>
-<li>LintはASTのKeyをEmitして行う</li>
-<li>そこそこでかい固まり</li>
-<li>最初は<a href="http://eslint.org/" title="ESLint">ESLint</a>のフォークみたいな感じ</li>
-<li>不要な機能を削ったり、モジュール化してる</li>
-</ul>
-<hr>
-<h1 id="textlint-">textlintの構造</h1>
-<ul>
-<li>CLI<ul>
-<li>I/Oに関係することのみ</li>
-</ul>
-</li>
-<li>TextLint-Engine<ul>
-<li>textlintのラッパ</li>
-<li>複数のファイルを扱う抽象レイヤー</li>
-</ul>
-</li>
-<li>textlint<ul>
-<li>Core</li>
-<li>一つのファイル/テキストを扱う</li>
-</ul>
-</li>
-</ul>
-<hr>
 <h1 id="lint-">Lintの仕組み</h1>
 <ol>
 <li>Markdown or TextをASTに変換</li>
@@ -334,6 +308,8 @@
 <li>書きやすいけど、解釈出来るものがWebStormぐらいしかなさそう…</li>
 <li>TypeScriptのASTが公開されたらd.ts周りのツールが充実するかもという希望的観測</li>
 </ul>
+<hr>
+<p>d.tsで定義した型をJSDocで使ってる</p>
 <pre><code>declare module TextLintFormatter {
     function format(results:TextLintResult[]):string;
     // createFormatter(options)

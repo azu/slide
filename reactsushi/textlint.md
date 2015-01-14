@@ -38,28 +38,6 @@
 
 ----
 
-# textlintの設計
-
-- LintはASTのKeyをEmitして行う
-- そこそこでかい固まり
-- 最初は[ESLint](http://eslint.org/ "ESLint")のフォークみたいな感じ
-- 不要な機能を削ったり、モジュール化してる
-
-----
-
-# textlintの構造
-
-- CLI
-	- I/Oに関係することのみ
-- TextLint-Engine
-	- textlintのラッパ
-	- 複数のファイルを扱う抽象レイヤー
-- textlint
-	- Core
-	- 一つのファイル/テキストを扱う
-
-----
-
 # Lintの仕組み
 
 1. Markdown or TextをASTに変換
@@ -262,6 +240,10 @@ module.exports = {
  - d.tsとJSDocが混在してる
  - 書きやすいけど、解釈出来るものがWebStormぐらいしかなさそう…
  - TypeScriptのASTが公開されたらd.ts周りのツールが充実するかもという希望的観測
+
+-----
+
+d.tsで定義した型をJSDocで使ってる
 
 ```
 declare module TextLintFormatter {
