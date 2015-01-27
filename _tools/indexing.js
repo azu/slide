@@ -16,13 +16,13 @@ function pLoadFileList(fileList) {
         });
     }));
 }
-var rootDir = pather.resolve(__dirname, "../");
+var rootDir = pather.join(__dirname, "..");
 var concatPromise = FS.listTree(rootDir, function isIndexHTML(filePath, stat) {
     if (stat.isDirectory()) {
         return false;
     }
     // root 直下は除外
-    if (pather.dirname(pather.resolve(process.cwd(), filePath)) === rootDir) {
+    if (pather.dirname(pather.resolve(rootDir, filePath)) === rootDir) {
         return false;
     }
     // ignore rule
