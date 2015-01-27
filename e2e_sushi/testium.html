@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Testium</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 80%;
+        height: 80%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/e2e_sushi/testium.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/e2e_sushi/testium.pdf" title="Testium">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="testium">Testium</h1>
+<h2 id="-e2e_sushi">#e2e_sushi</h2>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
+<h2 id="azu">azu</h2>
+<h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
+<h3 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h3>
+<hr>
+<h1 id="-">概要</h1>
+<ul>
+<li><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>って何？</li>
+<li>同期的なWebDriver API</li>
+<li>PageObjectパターン</li>
+</ul>
+<hr>
+<h1 id="testium">Testium</h1>
+<ul>
+<li>グルーポンが作ってるE2Eテストフレームワーク</li>
+<li>同期的なWebDriver APIが特徴</li>
+</ul>
+<hr>
+<h1 id="-webdriver">同期的なWebDriver</h1>
+<ul>
+<li><code>click()</code> などのブラウザ操作が同期的な処理になってる</li>
+<li><a href="https://github.com/groupon-testium/webdriver-http-sync" title="groupon-testium/webdriver-http-sync">groupon-testium/webdriver-http-sync</a></li>
+<li>testiumの<code>brorser</code> APIはこれをラップしたもの</li>
+<li>Nodeには同期HTTP APIがないので<a href="https://www.npmjs.com/package/request-sync" title="request-sync">request-sync</a>を使ってる</li>
+</ul>
+<hr>
+<h1 id="-">なぜ同期的(なぜ非同期)?</h1>
+<ul>
+<li>非同期だとコールバック地獄が多発</li>
+<li>それを解消するためにPromiseやメソッドチェーンを多様する<ul>
+<li>Jasmineの<code>expect(promise)</code>のような特殊なassertが必要</li>
+<li>テストフレームワークが密接になってしまう</li>
+</ul>
+</li>
+<li>そもそもUIの操作が非同期であって嬉しい感じではない...</li>
+</ul>
+<hr>
+<h1 id="-coding-kata-todo-app-jquery-to-backbone-https-github-com-coding-kata-todo-app-jquery-to-backbone-coding-kata-todo-app-jquery-to-backbone-"><a href="https://github.com/coding-kata/todo-app-jquery-to-backbone/" title="coding-kata/todo-app-jquery-to-backbone">coding-kata/todo-app-jquery-to-backbone</a></h1>
+<h2 id="e2e-">E2Eテストを使ったリファクタリングのサンプル</h2>
+<hr>
+<h1 id="-e2e-">素で書いたE2Eテスト</h1>
+<pre><code class="lang-js">var injectBrowser = require(&#39;testium/mocha&#39;);
+var assert = require(&quot;power-assert&quot;);
+var browser;
+function addTodo(text) {
+    browser.setValue(&#39;.todoText&#39;, text);
+    browser.click(&#39;.todoBtn&#39;);
+}
+describe(&quot;app-test&quot;, function () {
+    var text = &#39;todo text&#39;;
+    before(injectBrowser());
+    beforeEach(function () {
+        browser = this.browser;
+        this.browser.navigateTo(&quot;/&quot;);
+    });
+    context(&quot;when テキストボックスに文字を入れて送信した時&quot;, function () {
+        beforeEach(function () {
+            addTodo(text)
+        });
+        it(&quot;should li要素が作成されている&quot;, function () {
+            var list = browser.getElements(&#39;.todoList li&#39;);
+            assert(list.length &gt; 0);
+        });
+
+        it(&quot;should リストアイテムのテキストは送信したものと一致している&quot;, function () {
+            browser.assert.elementHasText(&#39;.todoList li&#39;, text)
+        });
+    });
+});
+</code></pre>
+<hr>
+<h1 id="-e2e-">素で書いたE2Eテスト</h1>
+<ul>
+<li>セレクタが直接出てくる</li>
+<li>アプリをリファクタリングして構造が変わると一瞬で壊れる</li>
+<li>画面や操作を抽象化するリファクタリングが必要</li>
+<li>E2Eテストのリファクタリング =&gt; PageObjectパターン?</li>
+</ul>
+<hr>
+<h1 id="pageobject-">PageObjectパターン</h1>
+<ul>
+<li>The public methods represent the services that the page offers（publicメソッドは、ページが提供するサービスを表す）</li>
+<li>Try not to expose the the internals of the page （ページの内部を公開しないこと）</li>
+</ul>
+<h2 id="-pageobject-ui-http-softwaretest-jp-labo-tech-labo-292-pageobject-ui-">....  <a href="http://softwaretest.jp/labo/tech/labo-292/" title="PageObjectデザインパターンを利用して画面変更に強いUIテストを作成する│ソフトウェアテストラボ｜アプリテスト｜スマートフォンテスト｜株式会社シフト">PageObjectデザインパターンを利用して画面変更に強いUIテストを作成する</a></h2>
+<h1 id="element-prototype-getelement">Element.prototype.getElement</h1>
+<ul>
+<li><code>context.querySelector</code> みたいなものがなかった</li>
+<li>Page Object的な事をやるのに欲しかった</li>
+<li>=&gt; 実装してPRした</li>
+<li><a href="https://github.com/groupon-testium/webdriver-http-sync/pull/22" title="Implement Element.prototype.getElement(s) by azu · Pull Request #22 · groupon-testium/webdriver-http-sync">Implement Element.prototype.getElement(s) by azu · Pull Request #22 · groupon-testium/webdriver-http-sync</a></li>
+</ul>
+<hr>
+<h1 id="pageobject-">PageObjectで書きなおしたもの</h1>
+<h2 id="app-pageobject">AppのPageObject</h2>
+<pre><code class="lang-js">function AppPage(browser) {
+    this.browser = browser;
+    this.browser.navigateTo(&quot;/&quot;);// Constructorで移動
+}
+AppPage.prototype.addTodo = function (text) {
+    this.browser.setValue(&#39;.todoText&#39;, text);
+    this.browser.click(&#39;.todoBtn&#39;);// Todoを追加
+};
+AppPage.prototype.getTodoItems = function () {
+    return this.browser.getElements(&#39;.todoList li&#39;);
+};
+AppPage.prototype.toggleTodo = function (todo) {
+    var input = todo.getElement(&#39;input[type=&quot;checkbox&quot;]&#39;);
+    input.click();
+};
+AppPage.prototype.removeTodo = function (todo) {
+    var input = todo.getElement(&#39;.removeBtn&#39;);
+    input.click();
+};
+module.exports = AppPage;
+</code></pre>
+<hr>
+<h1 id="pageobject-">PageObjectを使ったテスト</h1>
+<pre><code class="lang-js">var AppPage = require(&quot;./page-objects/app-page&quot;);
+describe(&quot;app-test&quot;, function () {
+    var inputText = &#39;todo text&#39;;
+    var page;
+    before(injectBrowser());
+    beforeEach(function () {
+        // ページの遷移をnew Pageで表せる
+        page = new AppPage(this.browser);
+    });
+    context(&quot;when テキストボックスに文字を入れて送信した時&quot;, function () {
+        beforeEach(function () {
+            page.addTodo(inputText)
+        });
+        it(&quot;should li要素が作成されている&quot;, function () {
+            var list = page.getTodoItems();
+            assert(list.length === 1);
+        });
+
+        it(&quot;should リストアイテムのテキストは送信したものと一致している&quot;, function () {
+            var todo = page.getTodoItems()[0];
+            var text = todo.get(&quot;text&quot;);
+            assert.equal(text, inputText);
+        });
+    });
+})
+</code></pre>
+<hr>
+<h1 id="pageobject-">PageObject?</h1>
+<ul>
+<li>PageのObject と ComponentのObjectがある<ul>
+<li>Componentで分けても良さそう</li>
+</ul>
+</li>
+<li><code>new Page(driver)</code> が必ずしも画面遷移ではない</li>
+</ul>
+</article>
+</body>
+</html>
