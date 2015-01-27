@@ -106,8 +106,8 @@ describe("app-test", function () {
 
 - The public methods represent the services that the page offers（publicメソッドは、ページが提供するサービスを表す）
 - Try not to expose the the internals of the page （ページの内部を公開しないこと）
+- いくつか原則がある => 詳細: [PageObjectデザインパターンを利用して画面変更に強いUIテストを作成する](http://softwaretest.jp/labo/tech/labo-292/ "PageObjectデザインパターンを利用して画面変更に強いUIテストを作成する│ソフトウェアテストラボ｜アプリテスト｜スマートフォンテスト｜株式会社シフト")
 
-....  [PageObjectデザインパターンを利用して画面変更に強いUIテストを作成する](http://softwaretest.jp/labo/tech/labo-292/ "PageObjectデザインパターンを利用して画面変更に強いUIテストを作成する│ソフトウェアテストラボ｜アプリテスト｜スマートフォンテスト｜株式会社シフト")
 ----
 
 # Element.prototype.getElement
