@@ -1,6 +1,20 @@
 # 最近のASTパーサの動き
 
 -----
+
+# 自己紹介
+
+![right](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
+
+## azu
+## @[azu_re](https://twitter.com/azu_re)
+###  [Web scratch], [JSer.info]
+
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+-----
 # [Esprima](http://esprima.org/ "Esprima")
 
 - Owner: [@ariya](https://github.com/ariya "ariya")
@@ -214,7 +228,7 @@
 
 ----
 
-# Keep Track People
+# Keep Track of People
 
 
 - [The list of JavaScript AST-related person.](https://gist.github.com/azu/a44cc817c233c53a496c "The list of JavaScript AST-related person.")
