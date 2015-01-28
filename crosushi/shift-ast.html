@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>最近のASTパーサの動き</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 80%;
+        height: 80%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/crosushi/shift-ast.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/crosushi/shift-ast.pdf" title="最近のASTパーサの動き">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="-ast-">最近のASTパーサの動き</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
+<h2 id="azu">azu</h2>
+<h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
+<h3 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h3>
+<hr>
+<h1 id="-esprima-http-esprima-org-esprima-"><a href="http://esprima.org/" title="Esprima">Esprima</a></h1>
+<ul>
+<li>Owner: <a href="https://github.com/ariya" title="ariya">@ariya</a></li>
+<li>Spidermonkey <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>のASTを元に実装したJavaScriptパーサ</li>
+<li>JavaScriptパーサのデファクト的な立ち位置</li>
+</ul>
+<hr>
+<h1 id="esprima-">Esprimaの問題</h1>
+<ul>
+<li>Spidermonkey AST自体にはES6等の対応がない(ES6はまだだったので)</li>
+<li>Harmony Branchで実装FirstでES6対応をやっていた<ul>
+<li>微妙にパーサ間でES6のASTに齟齬がでてきた</li>
+</ul>
+</li>
+<li>加えて<a href="https://github.com/ariya" title="ariya">@ariya</a>が忙しいので対応に遅れがでてきた</li>
+<li>(<a href="https://github.com/ariya" title="ariya">@ariya</a>は後述するShift ASTを推奨する方向)</li>
+</ul>
+<hr>
+<h1 id="-esprima-fb-https-github-com-facebook-esprima-esprima-fb-"><a href="https://github.com/facebook/esprima" title="Esprima-FB">Esprima-FB</a></h1>
+<ul>
+<li>Owner: <a href="https://github.com/facebook" title="Facebook">Facebook</a></li>
+<li>JSX/FlowTypeサポート</li>
+<li>Esprima/Harmony Branchのfork<ul>
+<li>Esprima/HarmonyへContributeしてる</li>
+</ul>
+</li>
+<li>ECMAScript6についても一部サポート</li>
+</ul>
+<hr>
+<h1 id="-espree-https-github-com-eslint-espree-eslint-espree-"><a href="https://github.com/eslint/espree" title="eslint/espree">espree</a></h1>
+<hr>
+<h1 id="-espree-https-github-com-eslint-espree-eslint-espree-"><a href="https://github.com/eslint/espree" title="eslint/espree">espree</a></h1>
+<ul>
+<li>Owner: <a href="http://eslint.org/" title="ESLint">ESLint</a></li>
+<li><a href="http://eslint.org/" title="ESLint">ESLint</a>プロジェクトの一つ</li>
+<li>Esprima(not Harmony branch)のfork</li>
+<li>目的<ul>
+<li>ECMAScript 6のopt-inサポート<ul>
+<li>対応する機能を<code>ecmaFeatures</code>で指定出来る</li>
+</ul>
+</li>
+<li>JSXのオプショナルサポート</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="espree-">espree進捗</h1>
+<ul>
+<li><a href="https://github.com/eslint/espree/issues/10" title="Add ECMAScript 6 features · Issue #10 · eslint/espree">Add ECMAScript 6 features · Issue #10 · eslint/espree</a></li>
+<li>Esprima-FB &gt;= espree &gt; Shift-ASTという感じの進捗</li>
+</ul>
+<hr>
+<h1 id="-faq-https-github-com-eslint-espree-frequently-asked-questions-frequently-asked-questions-of-espree-esprima"><a href="https://github.com/eslint/espree#frequently-asked-questions" title="Frequently Asked Questions">FAQ</a> of espree | Esprima</h1>
+<ul>
+<li>Why Esprima fork?<ul>
+<li>Esprimaの進捗が遅い</li>
+<li>Bug登録とかしたけど、反応がなかった</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>I&#39;ve also been filing bugs on the Esprima bug tracker and getting no updates and no indication if a fix is forthcoming. 
+-- <a href="https://github.com/eslint/eslint/issues/1291#issuecomment-67259498" title="Investigate supporting ES6/JSX · Issue #1291 · eslint/eslint">Investigate supporting ES6/JSX · Issue #1291 · eslint/eslint</a></p>
+</blockquote>
+<hr>
+<h1 id="-faq-https-github-com-eslint-espree-frequently-asked-questions-frequently-asked-questions-of-espree-esprima-fb"><a href="https://github.com/eslint/espree#frequently-asked-questions" title="Frequently Asked Questions">FAQ</a> of espree | Esprima-fb</h1>
+<ul>
+<li>Why don&#39;t  use Esprima-fb fork?<ul>
+<li>Esprima-fbはharmoneyベース</li>
+<li>Harmony由来の問題があるのでパス(Esprimaの進捗の問題を引きずってしまう)</li>
+<li><a href="https://github.com/eslint/espree/issues/12" title="Is there a reason why you don&#39;t contribute to esprima-fb · Issue #12 · eslint/espree">Is there a reason why you don&#39;t contribute to esprima-fb</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-faq-https-github-com-eslint-espree-frequently-asked-questions-frequently-asked-questions-of-espree-acorn"><a href="https://github.com/eslint/espree#frequently-asked-questions" title="Frequently Asked Questions">FAQ</a> of espree | acorn</h1>
+<ul>
+<li>Why don&#39;t use Acorn?<ul>
+<li>ESLintはASTだけではなく詳細度の高い<code>token</code>にも依存してる</li>
+<li><code>tokens</code>はAcornとEsprimaで大きく異なるためパス</li>
+<li>(コメントとかwhite spaceみたいなASTでは表現できない部分の違い)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-why-not-use-shift-ast-">(Why not use Shift AST)?</h1>
+<ul>
+<li>(個人の感想 :thought_balloon:)<ul>
+<li>今はmoving forwardを優先</li>
+<li>Shift ASTもまだES6対応は未完ではある</li>
+<li>Acorn-jsx or Esprima-fbで消耗したので、自分でコントロール出来る場所にあったほうがいいという結論?</li>
+<li>Shift ASTの完成度が変わるとespreeの動きがあるかも?</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-memo-espree">:memo: espree</h1>
+<ul>
+<li>acorn <a href="https://github.com/marijnh/acorn/issues/168" title="Pluggable extensions support? · Issue #168 · marijnh/acorn">Pluggable extensions support? · Issue #168 · marijnh/acorn</a></li>
+<li>jQuery Fundation <a href="https://github.com/eslint/espree/issues/42" title="jQuery Foundation adopts Esprima · Issue #42 · eslint/espree">jQuery Foundation adopts Esprima · Issue #42 · eslint/espree</a></li>
+<li>Start point: <a href="https://github.com/eslint/eslint/issues/1291" title="Investigate supporting ES6/JSX · Issue #1291 · eslint/eslint">Investigate supporting ES6/JSX · Issue #1291 · eslint/eslint</a><ul>
+<li>espree &amp; Shift AST</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="shift-ast">Shift AST</h1>
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-spec" title="Shift AST Specification">Shift AST Specification</a> by Sharp Security</li>
+<li>Sharp Securityは<a href="https://github.com/ariya" title="ariya">@ariya</a>/<a href="https://github.com/michaelficarra" title="michaelficarra">@michaelficarra</a>がいる会社</li>
+<li><a href="http://engineering.shapesecurity.com/2014/12/announcing-shift-javascript-ast.html">Shape Security Labs: Announcing the Shift JavaScript AST Specification</a></li>
+</ul>
+<hr>
+<h1 id="shift-family">Shift Family</h1>
+<h3 id="create">Create</h3>
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-parser-js">Shift Parser</a></li>
+<li><a href="https://github.com/shapesecurity/shift-ast-js">Shift AST Constructors</a></li>
+<li><a href="https://github.com/shapesecurity/shift-spidermonkey-converter-js">Shift-SpiderMonkey Converter</a><ul>
+<li>SpiderMonkey AST -&gt; Shift AST</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="shift-family">Shift Family</h1>
+<h3 id="transform">Transform</h3>
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-reducer-js">Shift Reducer</a></li>
+<li><a href="https://github.com/shapesecurity/shift-codegen-js">Shift Code Generator</a></li>
+</ul>
+<hr>
+<h1 id="shift-family">Shift Family</h1>
+<h3 id="analyse">Analyse</h3>
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-validator-js">Shift Validator</a></li>
+<li><a href="https://github.com/shapesecurity/shift-scope-js">Shift Scope Analyzer</a></li>
+</ul>
+<hr>
+<h1 id="shift-ast-es6">Shift AST &amp; ES6</h1>
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-parser-js/issues/8" title="add support for ES6 · Issue #8 · shapesecurity/shift-parser-js">add support for ES6 · Issue #8 · shapesecurity/shift-parser-js</a> (Implementation)</li>
+<li>まだES6の仕様策定も完全ではない</li>
+<li><a href="http://engineering.shapesecurity.com/2015/01/a-technical-comparison-of-shift-and.html" title="Shape Security Labs: A Technical Comparison of the Shift and SpiderMonkey AST Formats">Shape Security Labs: A Technical Comparison of the Shift and SpiderMonkey AST Formats</a></li>
+</ul>
+<hr>
+<h1 id="thought-on-shift-ast">Thought on Shift AST</h1>
+<ul>
+<li>Ariya/Esprima<ul>
+<li><blockquote>
+<p>This is not in the plan anymore. For the alternative syntax tree, check out <a href="https://github.com/shapesecurity/shift-spec">https://github.com/shapesecurity/shift-spec</a>.</p>
+</blockquote>
+</li>
+<li>Esprimaの後継はShift AST</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="shift-ast-">Shift ASTトリビア</h1>
+<ul>
+<li>元の名前は&quot;LaserBat AST&quot;</li>
+<li><a href="https://github.com/shapesecurity/shift-spidermonkey-converter-js/issues/1" title="change name to laserbat-spidermonkey-converter-js · Issue #1 · shapesecurity/shift-spidermonkey-converter-js">change name to laserbat-spidermonkey-converter-js · Issue #1 · shapesecurity/shift-spidermonkey-converter-js</a></li>
+<li><a href="https://github.com/shapesecurity/shift-java/pull/4" title="Renamed to Shift AST by dwightmulcahy · Pull Request #4 · shapesecurity/shift-java">Renamed to Shift AST by dwightmulcahy · Pull Request #4 · shapesecurity/shift-java</a></li>
+</ul>
+<hr>
+<h1 id="-acorn-https-github-com-marijnh-acorn-acorn-"><a href="https://github.com/marijnh/acorn" title="acorn">acorn</a></h1>
+<hr>
+<h1 id="-acorn-https-github-com-marijnh-acorn-acorn-"><a href="https://github.com/marijnh/acorn" title="acorn">acorn</a></h1>
+<ul>
+<li>Owner: <a href="https://github.com/marijnh" title="marijnh">@marijnh</a> (CodeMirror/tern)</li>
+<li>Esprimaとは別起源のJavaScriptパーサ</li>
+<li>ASTレベルではEsprimaだと大体の互換性がある</li>
+<li>Spidermonkey AST + ES6(こっちは空気感的な互換)</li>
+</ul>
+<hr>
+<h1 id="-acorn-jsx-https-github-com-rreverser-acorn-jsx-acorn-jsx-acorn-6to5-https-github-com-6to5-acorn-6to5-acorn-6to5-"><a href="https://github.com/RReverser/acorn-jsx" title="acorn-jsx">acorn-jsx</a> &amp; <a href="https://github.com/6to5/acorn-6to5/" title="acorn-6to5">acorn-6to5</a></h1>
+<ul>
+<li>どちらも6to5の向け(パーサのみ)<ul>
+<li>ジェネレータについては用意してない</li>
+<li>コンテキストが6to5に優先される</li>
+</ul>
+</li>
+<li>仕様とはあまり関わりがない</li>
+<li>:memo:  <a href="https://github.com/6to5/6to5/issues/568" title="Project scope and future · Issue #568 · 6to5/6to5">Project scope and future · Issue #568 · 6to5/6to5</a></li>
+</ul>
+<hr>
+<h1 id="jquery-esprima-">jQuery/Esprima?</h1>
+<ul>
+<li>Airya -&gt; jQuery Fundationに移管された</li>
+<li><a href="http://blog.jquery.com/2015/01/26/jquery-foundation-adopts-esprima/" title="jQuery Foundation adopts Esprima | Official jQuery Blog">jQuery Foundation adopts Esprima | Official jQuery Blog</a></li>
+</ul>
+<hr>
+<h1 id="-">今後の見どころ</h1>
+<ul>
+<li>jQuery/Esprimaとなった事で開発方式はどうなるか?<ul>
+<li>espree &lt; 方向性が一緒ならばマージ出来るよう協力する</li>
+<li><a href="https://github.com/eslint/espree/issues/42" title="jQuery Foundation adopts Esprima · Issue #42 · eslint/espree">jQuery Foundation adopts Esprima · Issue #42 · eslint/espree</a></li>
+</ul>
+</li>
+<li>espree, 6to5はプロダクトがあるので開発急いでる感がある<ul>
+<li>Shift AST的な仕様の話にどうやって巻き込むかが大切そう</li>
+<li><a href="https://github.com/6to5/6to5/issues/568" title="Haha, Hasbro sending a cease and desist to an open source project would make a good headline.">Haha, Hasbro sending a cease and desist to an open source project would make a good headline.</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">今後の見どころ</h1>
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-spec" title="Shift AST Specification">Shift AST Specification</a><ul>
+<li>実装と仕様があるのは良い</li>
+<li>勢いが少し足りない</li>
+<li>他のASTを使ったプロダクトはちょっと勢いを求めてる感じ</li>
+<li>他が勢いのまま進んで、振り出しに戻る事ないようなポディションが必要そう</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="keep-track-of-people">Keep Track of People</h1>
+<ul>
+<li><a href="https://gist.github.com/azu/a44cc817c233c53a496c" title="The list of JavaScript AST-related person.">The list of JavaScript AST-related person.</a></li>
+<li>AST周りに関係ありそうな人たちのリスト</li>
+</ul>
+</article>
+</body>
+</html>
