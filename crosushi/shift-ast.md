@@ -48,6 +48,7 @@
 # espree進捗
 
 - [Add ECMAScript 6 features · Issue #10 · eslint/espree](https://github.com/eslint/espree/issues/10 "Add ECMAScript 6 features · Issue #10 · eslint/espree")
+- Esprima-FB >= espree > Shift-ASTという感じの進捗
 
 ------
 
@@ -98,6 +99,7 @@
 - Start point: [Investigate supporting ES6/JSX · Issue #1291 · eslint/eslint](https://github.com/eslint/eslint/issues/1291 "Investigate supporting ES6/JSX · Issue #1291 · eslint/eslint")
 	- espree & Shift AST
 
+-----
 
 # Shift AST
 
@@ -159,7 +161,6 @@
 - [change name to laserbat-spidermonkey-converter-js · Issue #1 · shapesecurity/shift-spidermonkey-converter-js](https://github.com/shapesecurity/shift-spidermonkey-converter-js/issues/1 "change name to laserbat-spidermonkey-converter-js · Issue #1 · shapesecurity/shift-spidermonkey-converter-js")
 - [Renamed to Shift AST by dwightmulcahy · Pull Request #4 · shapesecurity/shift-java](https://github.com/shapesecurity/shift-java/pull/4 "Renamed to Shift AST by dwightmulcahy · Pull Request #4 · shapesecurity/shift-java")
 
-
 -----
 
 # [acorn](https://github.com/marijnh/acorn "acorn")
@@ -182,9 +183,39 @@
 - 仕様とはあまり関わりがない
 - :memo:  [Project scope and future · Issue #568 · 6to5/6to5](https://github.com/6to5/6to5/issues/568 "Project scope and future · Issue #568 · 6to5/6to5")
 
-------
 
-# Esprima?
+-----
+
+# jQuery/Esprima?
 
 - Airya -> jQuery Fundationに移管された
 - [jQuery Foundation adopts Esprima | Official jQuery Blog](http://blog.jquery.com/2015/01/26/jquery-foundation-adopts-esprima/ "jQuery Foundation adopts Esprima | Official jQuery Blog")
+
+-----
+
+# 今後の見どころ
+
+- jQuery/Esprimaとなった事で開発方式はどうなるか?
+	- espree < 方向性が一緒ならばマージ出来るよう協力する
+	- [jQuery Foundation adopts Esprima · Issue #42 · eslint/espree](https://github.com/eslint/espree/issues/42 "jQuery Foundation adopts Esprima · Issue #42 · eslint/espree")
+- espree, 6to5はプロダクトがあるので開発急いでる感がある
+	- Shift AST的な仕様の話にどうやって巻き込むかが大切そう
+	- [Haha, Hasbro sending a cease and desist to an open source project would make a good headline.](https://github.com/6to5/6to5/issues/568 "Haha, Hasbro sending a cease and desist to an open source project would make a good headline.")
+
+-----
+
+# 今後の見どころ
+
+- [Shift AST Specification](https://github.com/shapesecurity/shift-spec "Shift AST Specification")
+	- 実装と仕様があるのは良い
+	- 勢いが少し足りない
+	- 他のASTを使ったプロダクトはちょっと勢いを求めてる感じ
+	- 他が勢いのまま進んで、振り出しに戻る事ないようなポディションが必要そう
+
+----
+
+# Keep Track People
+
+
+- [The list of JavaScript AST-related person.](https://gist.github.com/azu/a44cc817c233c53a496c "The list of JavaScript AST-related person.")
+- AST周りに関係ありそうな人たちのリスト
