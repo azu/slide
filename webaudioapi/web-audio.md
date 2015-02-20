@@ -85,7 +85,7 @@ document.body.addEventListner('click', function (event) {
 
 # Web Audio API - サポートブラウザ
 
-- IEやAndroidなどでサポートされてない
+- IEやAndroidなどでサポートされてない([次期IEには載る](https://status.modern.ie/webaudioapi?term=audio%20api))
 - Flashを使ってシミュレート、フェールバックとしてAudio要素を使うものが存在する
 - [g200kg/WAAPISim](https://github.com/g200kg/WAAPISim "g200kg/WAAPISim")
 - [CreateJS/SoundJS](https://github.com/CreateJS/SoundJS "CreateJS/SoundJS")
