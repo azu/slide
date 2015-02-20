@@ -7,7 +7,7 @@
 
 - ウェブで音を扱う方法
 - HTML Audio要素
-	- Audi要素の制限
+	- Audio要素の制限
 - Web Audio API
 
 
