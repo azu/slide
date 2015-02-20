@@ -17,7 +17,7 @@
 # HTML Audio要素
 
 - `<audio src="music.mp3" autoplay />` 
-- Audio要素で音声ファイルを指定指定再生できる
+- Audio要素で音声ファイルを指定再生できる
 - Img要素、Video要素の音声版
 - 指定するだけなので簡単
 
@@ -85,8 +85,8 @@ document.body.addEventListner('click', function (event) {
 
 # Web Audio API - サポートブラウザ
 
-- IEやAndroidなどがまだサポートされてない
-- Flashを使ってシミュレート、FallBackとしてAudio要素を使って再現するものが存在する
+- IEやAndroidなどでサポートされてない
+- Flashを使ってシミュレート、フェールバックとしてAudio要素を使うものが存在する
 - [g200kg/WAAPISim](https://github.com/g200kg/WAAPISim "g200kg/WAAPISim")
 - [CreateJS/SoundJS](https://github.com/CreateJS/SoundJS "CreateJS/SoundJS")
 - [sebpiq/node-web-audio-api](https://github.com/sebpiq/node-web-audio-api "sebpiq/node-web-audio-api")
@@ -110,27 +110,27 @@ source.start(0, 0);// 0秒後にoffset0で再生開始
 -----
 
 
-# [AudioNode](https://developer.mozilla.org/ja/docs/Web/API/AudioNode "AudioNode")
+# [AudioNode](https://developer.mozilla.org/ja/docs/Web/API/AudioNode "AudioNode")をつなぐ
 
 ![audio node](img/audio-node.png)
 
 ----
 
-# AudioNode
+# AudioNodeとは
 
 - 基本的には音源、フィルターや解析器などが`*Node`として用意されている
 - `nodeA.connect(nodeB)`のようにつなぎ合わせる
 - シンプルなフローコントロールライブラリを書いた
 	- [azu/audio-node-flow](https://github.com/azu/audio-node-flow "azu/audio-node-flow")
 - 最終出力は`AudioDestinationNode`というcontextが持つ特殊なNodeへ`connect`する
-- これらのNodeは基本的に**使い捨て**なので再利用できない
+- 作ったNodeは基本的に**使い捨て**なので再利用できない
 
 ----
 
 # Web Audio API - 問題
 
 - ブラウザによって古い実装が混じってる
-	- `webkit` prefix、`play` or `noteOn` ....
+	- `webkit` prefix、`play` or `noteOn`、メソッド名の変更...
 	- 大体は[polyfill](http://qiita.com/mohayonao/items/d79e9fc56b4e9c157be1#polyfill "polyfill")で吸収できる
 - 古いiOS(7.1)などで特殊な動作をすることがある
 - iOSで最初の一回のみユーザインタラクションで始めないと再生できない
