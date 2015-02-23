@@ -25,9 +25,10 @@
 
 # Audio要素のいいところ
 
-- 大体のブラウザがサポートしてる
+- 
+[大体のブラウザがサポートしてる](http://caniuse.com/#feat=audio)
 
-[![Audio Element](http://monosnap.com/image/j9MzKXxcRl7QUVbSdW2kI7PIPKgJJE.png)](http://caniuse.com/#feat=audio)
+![Audio Element, inline](http://monosnap.com/image/j9MzKXxcRl7QUVbSdW2kI7PIPKgJJE.png)
 
 ------
 
@@ -77,9 +78,9 @@ document.body.addEventListner('click', function (event) {
 
 -----
 
-# Web Audio API - サポートブラウザ
+# Web Audio API - [サポートブラウザ](http://caniuse.com/#feat=audio-api)
 
-[![audio-api](http://monosnap.com/image/zjS9ZVTmqTyfmYWoRJ26jKxp1x7veL.png)](http://caniuse.com/#feat=audio-api)
+![audio-api, inline](http://monosnap.com/image/zjS9ZVTmqTyfmYWoRJ26jKxp1x7veL.png)
 
 -----
 
@@ -112,7 +113,7 @@ source.start(0, 0);// 0秒後にoffset0で再生開始
 
 # [AudioNode](https://developer.mozilla.org/ja/docs/Web/API/AudioNode "AudioNode")をつなぐ
 
-![audio node](img/audio-node.png)
+![audio node,inline](img/audio-node.png)
 
 ----
 

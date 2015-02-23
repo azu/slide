@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>JavaScriptとWeb Audio事始め</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/webaudioapi/web-audio.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/webaudioapi/web-audio.pdf" title="JavaScriptとWeb Audio事始め">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="javascript-web-audio-">JavaScriptとWeb Audio事始め</h1>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<ul>
+<li>ウェブで音を扱う方法</li>
+<li>HTML Audio要素<ul>
+<li>Audio要素の制限</li>
+</ul>
+</li>
+<li>Web Audio API</li>
+</ul>
+<hr>
+<h1 id="html-audio-">HTML Audio要素</h1>
+<ul>
+<li><code>&lt;audio src=&quot;music.mp3&quot; autoplay /&gt;</code> </li>
+<li>Audio要素で音声ファイルを指定再生できる</li>
+<li>Img要素、Video要素の音声版</li>
+<li>指定するだけなので簡単</li>
+</ul>
+<hr>
+<h1 id="audio-">Audio要素のいいところ</h1>
+<ul>
+<li><a href="http://caniuse.com/#feat=audio">大体のブラウザがサポートしてる</a></li>
+</ul>
+<p><img src="http://monosnap.com/image/j9MzKXxcRl7QUVbSdW2kI7PIPKgJJE.png" alt="Audio Element, inline"></p>
+<hr>
+<h1 id="audio-">Audio要素の問題</h1>
+<ul>
+<li>iOSやAndroidで制限がある</li>
+<li>ユーザーインタラクションで開始しないと再生できない</li>
+<li>同時に再生できる音声が1つとなる制限</li>
+</ul>
+<hr>
+<h1 id="audio-">Audio要素の問題 - ユーザインタラクション</h1>
+<pre><code class="lang-js">var audio = new Audio(&#39;sound.mp3&#39;);
+// クリックしたら、再生
+document.body.addEventListner(&#39;click&#39;, function (event) {
+    event.preventDefault();
+    // 再生開始
+    audio.play();
+});
+</code></pre>
+<hr>
+<h1 id="audio-1-">Audio要素の問題 - 同時再生数が1つ</h1>
+<ul>
+<li>複数の音を同時に扱えない</li>
+<li>オーディオスプライトという回避策がある<ul>
+<li>複数の音源を一つにまとめて、再生位置をずらして扱う</li>
+<li><a href="http://qiita.com/nakajmg/items/7be91626113bfc10846a" title="JavaScript - スマホで音声再生をスムーズに行うためにオーディオスプライトを作成/使用する - Qiita">JavaScript - スマホで音声再生をスムーズに行うためにオーディオスプライトを作成/使用する - Qiita</a></li>
+</ul>
+</li>
+<li>Web Audio APIならこの制限はない</li>
+</ul>
+<hr>
+<h1 id="web-audio-api">Web Audio API</h1>
+<hr>
+<h1 id="web-audio-api">Web Audio API</h1>
+<ul>
+<li>Audioを扱うAPI</li>
+<li>AudioNodeやAudioParamを組み合わせて音を加工できる</li>
+<li>複数の音を同時に鳴らせる</li>
+<li><a href="http://www.html5rocks.com/ja/tutorials/audio/scheduling/" title="正確なスケジューリング">正確なスケジューリング</a>が可能(どのタイミングで音を鳴らすか)</li>
+</ul>
+<hr>
+<h1 id="web-audio-api-http-caniuse-com-feat-audio-api-">Web Audio API - <a href="http://caniuse.com/#feat=audio-api">サポートブラウザ</a></h1>
+<p><img src="http://monosnap.com/image/zjS9ZVTmqTyfmYWoRJ26jKxp1x7veL.png" alt="audio-api, inline"></p>
+<hr>
+<h1 id="web-audio-api-">Web Audio API - サポートブラウザ</h1>
+<ul>
+<li>IEやAndroidなどでサポートされてない(<a href="https://status.modern.ie/webaudioapi?term=audio%20api">次期IEには載る</a>)</li>
+<li>Flashを使ってシミュレート、フェールバックとしてAudio要素を使うものが存在する</li>
+<li><a href="https://github.com/g200kg/WAAPISim" title="g200kg/WAAPISim">g200kg/WAAPISim</a></li>
+<li><a href="https://github.com/CreateJS/SoundJS" title="CreateJS/SoundJS">CreateJS/SoundJS</a></li>
+<li><a href="https://github.com/sebpiq/node-web-audio-api" title="sebpiq/node-web-audio-api">sebpiq/node-web-audio-api</a></li>
+</ul>
+<hr>
+<h1 id="web-audio-api-">Web Audio API - コード</h1>
+<pre><code class="lang-js">// Nodeなどを管理する`context`
+var context = new AudioContext();
+// Nodeを作ってconnectしていく
+var sourceNode = context.createBufferSource();
+sourceNode.buffer = audioBuffer;// 音源データはBuffer
+var gainNode = context.createGain();
+sourceNode.connect(gainNode);
+gainNode.connect(context.destination);
+source.start(0, 0);// 0秒後にoffset0で再生開始
+</code></pre>
+<hr>
+<h1 id="-audionode-https-developer-mozilla-org-ja-docs-web-api-audionode-audionode-"><a href="https://developer.mozilla.org/ja/docs/Web/API/AudioNode" title="AudioNode">AudioNode</a>をつなぐ</h1>
+<p><img src="img/audio-node.png" alt="audio node,inline"></p>
+<hr>
+<h1 id="audionode-">AudioNodeとは</h1>
+<ul>
+<li>基本的には音源、フィルターや解析器などが<code>*Node</code>として用意されている</li>
+<li><code>nodeA.connect(nodeB)</code>のようにつなぎ合わせる</li>
+<li>シンプルなフローコントロールライブラリを書いた<ul>
+<li><a href="https://github.com/azu/audio-node-flow" title="azu/audio-node-flow">azu/audio-node-flow</a></li>
+</ul>
+</li>
+<li>最終出力は<code>AudioDestinationNode</code>というcontextが持つ特殊なNodeへ<code>connect</code>する</li>
+<li>作ったNodeは基本的に<strong>使い捨て</strong>なので再利用できない</li>
+</ul>
+<hr>
+<h1 id="web-audio-api-">Web Audio API - 問題</h1>
+<ul>
+<li>ブラウザによって古い実装が混じってる<ul>
+<li><code>webkit</code> prefix、<code>play</code> or <code>noteOn</code>、メソッド名の変更...</li>
+<li>大体は<a href="http://qiita.com/mohayonao/items/d79e9fc56b4e9c157be1#polyfill" title="polyfill">polyfill</a>で吸収できる</li>
+</ul>
+</li>
+<li>古いiOS(7.1)などで特殊な動作をすることがある</li>
+<li>iOSで最初の一回のみユーザインタラクションで始めないと再生できない</li>
+</ul>
+<hr>
+<h1 id="-">ライブラリ</h1>
+<ul>
+<li><a href="https://github.com/CreateJS/SoundJS" title="CreateJS/SoundJS">CreateJS/SoundJS</a></li>
+<li><a href="https://github.com/goldfire/howler.js/" title="goldfire/howler.js">goldfire/howler.js</a><ul>
+<li>定番的な立ち位置のライブラリ</li>
+<li>データのロード、再生、フェールバック、iOSの初回再生のハックなど</li>
+</ul>
+</li>
+<li><a href="https://github.com/mohayonao/web-audio-test-api" title="mohayonao/web-audio-test-api">mohayonao/web-audio-test-api</a><ul>
+<li>Nodeで動くモック的なテストライブラリ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">参考</h1>
+<ul>
+<li><a href="http://qiita.com/mohayonao/items/d79e9fc56b4e9c157be1#polyfill" title="音を扱うJavaScriptライブラリや記事 - Qiita">音を扱うJavaScriptライブラリや記事 - Qiita</a></li>
+<li><a href="http://www.oreilly.co.jp/books/9784873116419/" title="O&#39;Reilly Japan - Web Audio API">O&#39;Reilly Japan - Web Audio API</a></li>
+<li><a href="http://www.g200kg.com/jp/docs/webaudio/" title="Web Audio API 解説 - 01.前説 | g200kg Music &amp; Software">Web Audio API 解説 - 01.前説 | g200kg Music &amp; Software</a></li>
+<li><a href="http://qiita.com/mohayonao/items/ae1c90eaba32c97fd96c" title="JavaScript - Web Audio APIのソースコード - Qiita">JavaScript - Web Audio APIのソースコード - Qiita</a></li>
+<li><a href="http://150217-html5sound.fnobi.com/" title="HTML5で音を扱う3つの方法">HTML5で音を扱う3つの方法</a></li>
+</ul>
+<hr>
+<h1 id="-ios-">問題集(若干古めのiOS)</h1>
+<ul>
+<li><a href="http://takazudo.github.io/blog/entry/2013-02-06-videoaudio.html" title="Takazudolog - 地獄のvideo／audio要素">Takazudolog - 地獄のvideo／audio要素</a></li>
+<li><a href="http://mohayonao.hatenablog.com/entry/2012/12/12/103009" title="Web Audio系APIを使うときに注意する点 - 音の鳴るブログ">Web Audio系APIを使うときに注意する点 - 音の鳴るブログ</a></li>
+<li><a href="http://qiita.com/nakajmg/items/7be91626113bfc10846a" title="JavaScript - スマホで音声再生をスムーズに行うためにオーディオスプライトを作成/使用する - Qiita">JavaScript - スマホで音声再生をスムーズに行うためにオーディオスプライトを作成/使用する - Qiita</a></li>
+</ul>
+</article>
+</body>
+</html>
