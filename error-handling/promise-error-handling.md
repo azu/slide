@@ -101,3 +101,99 @@ setTimeout(function () {
 - 呼ばれることがない`catch`の発見に役立つ
 
 ----
+
+# 実際の使い方
+
+- unhandledRejectionのログを取りたい場合
+
+```javascript
+var unhandledRejections = new Set();
+process.on('unhandledRejection', function(reason, p) {
+  unhandledRejections.add(p);
+});
+process.on('rejectionHandled', function(p) {
+  unhandledRejections.delete(p);
+});
+```
+
+-----
+
+# unhandledRejection & rejectionHandled
+
+- なぜ`unhandledRejection`だけ欲しいのに`rejectionHandled`も見るの?
+- => `rejectionHandled` が起きるケースは`unhandledRejection`が先に起きてる事がある
+
+```js
+var rejected = Promise.reject();
+setTimeout(()=>{
+    // 2. rejectionHandledイベント
+    rejected.catch(()=>{});
+}, 100);
+// 1. unhandledRejectionイベント
+```
+
+
+-----
+
+# unhandledRejection & rejectionHandled
+
+- unhandledRejection と rejectionHandled は基本セットで使う
+- rejectionHandled単体の使い道はあんまりなさそう?
+
+-----
+
+# 使い方とドキュメント
+
+参考資料
+
+- [process io.js Manual &amp; Documentation](https://iojs.org/api/process.html#process_event_uncaughtexception "process io.js v1.4.3 Manual &amp; Documentation")
+- [Promise unhandled rejection tracking global handler hook](https://gist.github.com/benjamingr/0237932cee84712951a2 "Promise unhandled rejection tracking global handler hook")
+- [Global rejection events - bluebird](https://github.com/petkaantonov/bluebird/blob/master/API.md#global-rejection-events "Global rejection events")
+
+----
+
+# 実装
+
+----
+
+# ことのはじまり
+
+- bluebirdの実装提案
+	- [Difficult to get onPossiblyUnhandledRejection to work all of the time in Node.js due to submodules · Issue #357 · petkaantonov/bluebird](https://github.com/petkaantonov/bluebird/issues/357 "Difficult to get onPossiblyUnhandledRejection to work all of the time in Node.js due to submodules · Issue #357 · petkaantonov/bluebird")
+- [@benjamingr](https://github.com/benjamingr "benjamingr")さんが色々[利用状況](https://github.com/petkaantonov/bluebird/issues/357#issuecomment-68995997)を調べてプロポーサルを書いた
+- [Promise unhandled rejection tracking global handler hook](https://gist.github.com/benjamingr/0237932cee84712951a2 "Promise unhandled rejection tracking global handler hook")
+
+----
+
+# ライブラリの実装
+
+- [bluebird v2.7.0](https://github.com/petkaantonov/bluebird/releases/tag/v2.7.0 "Release v2.7.0 · petkaantonov/bluebird")で実装
+- [when.js  v3.7.0](https://github.com/cujojs/when/releases/tag/3.7.0 "Release 3.7.0: Add cross-lib debugging events · cujojs/when")で実装
+- [io.js v1.4.1](https://github.com/iojs/io.js/blob/v1.x/CHANGELOG.md#2015-02-26-version-141-rvagg "Version 1.4.1")で実装 by [@petkaantonov](https://github.com/petkaantonov "petkaantonov")
+	- [Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js](https://github.com/iojs/io.js/issues/256 "Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js")
+	- [Implement unhandled rejection tracking by petkaantonov · Pull Request #758 · iojs/io.js](https://github.com/iojs/io.js/pull/758 "Implement unhandled rejection tracking by petkaantonov · Pull Request #758 · iojs/io.js")
+
+
+-----
+
+# 小さいプロポーサルからの実装
+
+- Promise/A+の頃から同じような話はあった
+	- [Library hooks · Issue #3 · promises-aplus/unhandled-rejections-spec](https://github.com/promises-aplus/unhandled-rejections-spec/issues/3 "Library hooks · Issue #3 · promises-aplus/unhandled-rejections-spec")
+- DOM/ECMAScript Promiseでも話があった程度
+	- 実際に仕様としては入ることはなかった
+	- [[whatwg] An API for unhandled promise rejections from Domenic Denicola on 2014-09-12 (public-whatwg-archive@w3.org from September 2014)](https://lists.w3.org/Archives/Public/public-whatwg-archive/2014Sep/0024.html "[whatwg] An API for unhandled promise rejections from Domenic Denicola on 2014-09-12 (public-whatwg-archive@w3.org from September 2014)")
+
+-----
+
+# Implementation in userland
+
+> Implementation in userland
+> -- [Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js](https://github.com/iojs/io.js/issues/256 "Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js")
+
+- ユーザランドでの実装から始まっている面白い動き
+- io.js にも入ったため、他のPromiseライブラリにも実装が進んでいきそうな空気がある
+	- コミュニティ標準から仕様へ?
+
+----
+
