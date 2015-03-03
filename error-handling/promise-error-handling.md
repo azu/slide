@@ -36,9 +36,16 @@ promise.catch(function(error){
 - 少なくてもエラーのログは取りたい
 	- `Promise.prototype.done`を実装するのは本質的ではない
 - `'unhandledRejection'`,  `'rejectionHandled'` というイベントの実装が進められているという話
-- bluebirdが主導してるの例はbluebirdで進める
+- ECMAScript 6の仕様ではありません
 
 ----
+
+# unhandledRejection / rejectionHandled
+
+### bluebirdが主導してるの例はbluebird
+
+
+-----
 
 # unhandledRejection イベント
 
@@ -92,3 +99,5 @@ setTimeout(function () {
 
 - rejected済みのpromiseに`catch`した時に起きるイベント
 - 呼ばれることがない`catch`の発見に役立つ
+
+----
