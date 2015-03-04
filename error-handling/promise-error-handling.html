@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Promise Error Handling</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/error-handling/promise-error-handling.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/error-handling/promise-error-handling.pdf" title="Promise Error Handling">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="promise-error-handling">Promise Error Handling</h1>
+<h2 id="-">約束されたエラー</h2>
+<hr>
+<h1 id="promise-">Promiseとエラーの基本</h1>
+<ul>
+<li>Promise内で起きた例外は自動でキャッチされる</li>
+<li>エラー処理は<code>.catch(fn)</code>で行う</li>
+</ul>
+<pre><code class="lang-javascript">var promise = new Promise(function(){
+    throw new Error(&quot;例外&quot;);
+});
+promise.catch(function(error){
+    // 例外をキャッチできる
+});
+</code></pre>
+<hr>
+<h1 id="-">よくある問題</h1>
+<ul>
+<li><code>.catch(fn)</code> をしないとエラーログも出せない</li>
+<li><code>.catch(fn)</code> をしわすれてエラーの握りつぶしが起きる</li>
+<li>= <strong>unhandled rejection</strong>　(<code>.catch</code>をしてないpromise)</li>
+<li><a href="http://azu.github.io/promises-book/#promise-done" title="4.6. Promise.prototype.done とは何か?">4.6. Promise.prototype.done とは何か?</a></li>
+</ul>
+<hr>
+<h1 id="-unhandled-rejection-">現状のunhandled rejectionへの対応</h1>
+<ul>
+<li><strong>unhandled rejection</strong>が発生した時にコンソールに出すかは実装依存</li>
+<li>FirefoxはGCのタイミング</li>
+<li>Chromeは開発者ツールが有効の場合<ul>
+<li><a href="https://github.com/v8/v8-git-mirror/blob/3709b9254e9d054796f6735b0f5cefed65ce69d3/src/promise.js" title="v8-git-mirror/promise.js at 3709b9254e9d054796f6735b0f5cefed65ce69d3 · v8/v8-git-mirror">v8-git-mirror/promise.js at 3709b9254e9d054796f6735b0f5cefed65ce69d3 · v8/v8-git-mirror</a></li>
+</ul>
+</li>
+<li>bluebirdやypromiseはコンソールへ出す</li>
+<li>Node.jsは何も言わない?</li>
+</ul>
+<hr>
+<h1 id="-unhandledrejection">今日のテーマ: unhandledRejection</h1>
+<ul>
+<li>unhandled rejectionは予期せぬ出来事</li>
+<li>少なくてもエラーのログは取りたい<ul>
+<li><code>Promise.prototype.done</code>を実装するのは本質的ではない</li>
+</ul>
+</li>
+<li><code>&#39;unhandledRejection&#39;</code>,  <code>&#39;rejectionHandled&#39;</code> というイベントの実装が進められているという話</li>
+<li>ECMAScript 6の仕様ではありません</li>
+</ul>
+<hr>
+<h1 id="unhandledrejection-rejectionhandled">unhandledRejection / rejectionHandled</h1>
+<h3 id="bluebird-bluebird">bluebirdが主導してるの例はbluebird</h3>
+<hr>
+<h1 id="unhandledrejection-">unhandledRejection イベント</h1>
+<pre><code class="lang-javascript">var bluebird = require(&quot;bluebird&quot;);
+process.on(&quot;unhandledRejection&quot;, function (reason, promise) {
+    console.log(&quot;unhandledRejection&quot;);
+});
+
+var resolved = bluebird.resolve();
+resolved.then(function () {
+    throw new Error(&quot;Yay!&quot;);
+});
+</code></pre>
+<hr>
+<h1 id="unhandledrejection-">unhandledRejection イベント</h1>
+<ul>
+<li><code>catch</code>してないPromiseでエラーが発生すると発行されるイベント</li>
+<li><code>.catch</code> してないpromiseオブジェクトを見つけるのを助ける</li>
+<li><code>window.onerror</code>みたいなもの</li>
+</ul>
+<pre><code class="lang-javascript">process.on(&quot;unhandledRejection&quot;, function (reason, promise) {
+    // エラー理由とpromiseがやってくる
+});
+</code></pre>
+<hr>
+<h1 id="rejectionhandled-">rejectionHandled イベント</h1>
+<pre><code class="lang-javascript">var Promise = require(&quot;bluebird&quot;);
+process.on(&quot;rejectionHandled&quot;, function (promise) {
+    console.log(&quot;rejectionHandled&quot;);
+});
+var rejected = Promise.reject(new Error(&quot;Error Promise&quot;));
+setTimeout(function () {
+    rejected.catch(function () {
+        // rejected済みのpromiseに`catch`する
+    });
+},100);
+</code></pre>
+<hr>
+<h1 id="rejectionhandled-">rejectionHandled イベント</h1>
+<ul>
+<li>rejected済みのpromiseに<code>catch</code>した時に起きるイベント</li>
+<li>呼ばれることがない<code>catch</code>の発見に役立つ</li>
+</ul>
+<hr>
+<h1 id="-">実際の使い方</h1>
+<ul>
+<li>unhandledRejectionのログを取りたい場合</li>
+</ul>
+<pre><code class="lang-javascript">var unhandledRejections = new Set();
+process.on(&#39;unhandledRejection&#39;, function(reason, p) {
+  unhandledRejections.add(p);
+});
+process.on(&#39;rejectionHandled&#39;, function(p) {
+  unhandledRejections.delete(p);
+});
+</code></pre>
+<hr>
+<h1 id="unhandledrejection-rejectionhandled">unhandledRejection &amp; rejectionHandled</h1>
+<ul>
+<li>なぜ<code>unhandledRejection</code>だけ欲しいのに<code>rejectionHandled</code>も見るの?</li>
+<li>=&gt; <code>rejectionHandled</code> が起きるケースは<code>unhandledRejection</code>が先に起きてる事がある</li>
+</ul>
+<hr>
+<h1 id="unhandledrejection-rejectionhandled-">unhandledRejection &amp; rejectionHandledパータン</h1>
+<pre><code class="lang-js">var rejected = Promise.reject();
+setTimeout(()=&gt;{
+    // 2. rejectionHandledイベント
+    rejected.catch(()=&gt;{});
+}, 100);
+// 1. unhandledRejectionイベント
+</code></pre>
+<hr>
+<h1 id="unhandledrejection-rejectionhandled">unhandledRejection &amp; rejectionHandled</h1>
+<ul>
+<li>unhandledRejection と rejectionHandled は基本セットで使う</li>
+<li>rejectionHandled単体の使い道はあんまりなさそう?</li>
+</ul>
+<hr>
+<h1 id="-">使い方とドキュメント</h1>
+<p>参考資料</p>
+<ul>
+<li><a href="https://iojs.org/api/process.html#process_event_uncaughtexception" title="process io.js v1.4.3 Manual &amp; Documentation">process io.js Manual &amp; Documentation</a></li>
+<li><a href="https://gist.github.com/benjamingr/0237932cee84712951a2" title="Promise unhandled rejection tracking global handler hook">Promise unhandled rejection tracking global handler hook</a></li>
+<li><a href="https://github.com/petkaantonov/bluebird/blob/master/API.md#global-rejection-events" title="Global rejection events">Global rejection events - bluebird</a></li>
+</ul>
+<hr>
+<h1 id="-">実装</h1>
+<hr>
+<h1 id="-">ことのはじまり</h1>
+<ul>
+<li>bluebirdの実装提案<ul>
+<li><a href="https://github.com/petkaantonov/bluebird/issues/357" title="Difficult to get onPossiblyUnhandledRejection to work all of the time in Node.js due to submodules · Issue #357 · petkaantonov/bluebird">Difficult to get onPossiblyUnhandledRejection to work all of the time in Node.js due to submodules · Issue #357 · petkaantonov/bluebird</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/benjamingr" title="benjamingr">@benjamingr</a>さんが色々<a href="https://github.com/petkaantonov/bluebird/issues/357#issuecomment-68995997">利用状況</a>を調べてプロポーサルを書いた</li>
+<li><a href="https://gist.github.com/benjamingr/0237932cee84712951a2" title="Promise unhandled rejection tracking global handler hook">Promise unhandled rejection tracking global handler hook</a></li>
+</ul>
+<hr>
+<h1 id="-">ライブラリの実装</h1>
+<ul>
+<li><a href="https://github.com/petkaantonov/bluebird/releases/tag/v2.7.0" title="Release v2.7.0 · petkaantonov/bluebird">bluebird v2.7.0</a>で実装</li>
+<li><a href="https://github.com/cujojs/when/releases/tag/3.7.0" title="Release 3.7.0: Add cross-lib debugging events · cujojs/when">when.js  v3.7.0</a>で実装</li>
+<li><a href="https://github.com/iojs/io.js/blob/v1.x/CHANGELOG.md#2015-02-26-version-141-rvagg" title="Version 1.4.1">io.js v1.4.1</a>で実装 by <a href="https://github.com/petkaantonov" title="petkaantonov">@petkaantonov</a><ul>
+<li><a href="https://github.com/iojs/io.js/issues/256" title="Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js">Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js</a></li>
+<li><a href="https://github.com/iojs/io.js/pull/758" title="Implement unhandled rejection tracking by petkaantonov · Pull Request #758 · iojs/io.js">Implement unhandled rejection tracking by petkaantonov · Pull Request #758 · iojs/io.js</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">小さいプロポーサルからの実装</h1>
+<ul>
+<li>Promise/A+の頃から同じような話はあった<ul>
+<li><a href="https://github.com/promises-aplus/unhandled-rejections-spec/issues/3" title="Library hooks · Issue #3 · promises-aplus/unhandled-rejections-spec">Library hooks · Issue #3 · promises-aplus/unhandled-rejections-spec</a></li>
+</ul>
+</li>
+<li>DOM/ECMAScript Promiseでも話があった程度<ul>
+<li>実際に仕様としては入ることはなかった</li>
+<li><a href="https://lists.w3.org/Archives/Public/public-whatwg-archive/2014Sep/0024.html" title="[whatwg] An API for unhandled promise rejections from Domenic Denicola on 2014-09-12 (public-whatwg-archive@w3.org from September 2014)">[whatwg] An API for unhandled promise rejections from Domenic Denicola on 2014-09-12 (public-whatwg-archive@w3.org from September 2014)</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="implementation-in-userland">Implementation in userland</h1>
+<blockquote>
+<p>Implementation in userland
+-- <a href="https://github.com/iojs/io.js/issues/256" title="Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js">Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js</a></p>
+</blockquote>
+<hr>
+<h1 id="implementation-in-userland">Implementation in userland</h1>
+<ul>
+<li>ユーザランドでの実装から始まっている面白い動き<ul>
+<li>Promise自体もコミュニティ仕様からECMAScript仕様に入った</li>
+</ul>
+</li>
+<li>io.js にも入ったため、他のPromiseライブラリにも実装が進んでいきそうな空気がある<ul>
+<li>コミュニティ標準から仕様へ?</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>Promiseでエラーの握りつぶしがよく起きてる</li>
+<li>現状ではunhandled rejectionの扱いは実装依存</li>
+<li>unhandled rejectionが起きた時に発行するイベントを定義したコミュニティプロポーサルがでた</li>
+<li>bluebirdやio.jsなどで実装された</li>
+<li>ECMAScript仕様の話はまだない</li>
+</ul>
+</article>
+</body>
+</html>

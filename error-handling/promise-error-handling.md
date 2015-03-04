@@ -134,6 +134,11 @@ process.on('rejectionHandled', function(p) {
 - なぜ`unhandledRejection`だけ欲しいのに`rejectionHandled`も見るの?
 - => `rejectionHandled` が起きるケースは`unhandledRejection`が先に起きてる事がある
 
+----
+
+# unhandledRejection & rejectionHandledパータン
+
+
 ```js
 var rejected = Promise.reject();
 setTimeout(()=>{
@@ -215,7 +220,7 @@ setTimeout(()=>{
 
 # まとめ
 
-- Promiseでは`catch`し忘れによるエラーの握りつぶしがよく起きてる
+- Promiseでエラーの握りつぶしがよく起きてる
 - 現状ではunhandled rejectionの扱いは実装依存
 - unhandled rejectionが起きた時に発行するイベントを定義したコミュニティプロポーサルがでた
 - bluebirdやio.jsなどで実装された
