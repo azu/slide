@@ -53,7 +53,7 @@ promise.catch(function(error){
 
 # unhandledRejection / rejectionHandled
 
-### bluebirdが主導してるの例はbluebird
+### 例はbluebird
 
 
 -----
