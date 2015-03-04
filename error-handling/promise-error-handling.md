@@ -30,6 +30,17 @@ promise.catch(function(error){
 
 ----
 
+# 現状のunhandled rejectionへの対応
+
+- **unhandled rejection**が発生した時にコンソールに出すかは実装依存
+- FirefoxはGCのタイミング
+- Chromeは開発者ツールが有効の場合
+	- [v8-git-mirror/promise.js at 3709b9254e9d054796f6735b0f5cefed65ce69d3 · v8/v8-git-mirror](https://github.com/v8/v8-git-mirror/blob/3709b9254e9d054796f6735b0f5cefed65ce69d3/src/promise.js "v8-git-mirror/promise.js at 3709b9254e9d054796f6735b0f5cefed65ce69d3 · v8/v8-git-mirror")
+- bluebirdやypromiseはコンソールへ出す
+- Node.jsは何も言わない?
+
+----
+
 # 今日のテーマ: unhandledRejection
 
 - unhandled rejectionは予期せぬ出来事
@@ -191,9 +202,21 @@ setTimeout(()=>{
 > Implementation in userland
 > -- [Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js](https://github.com/iojs/io.js/issues/256 "Consider exposing promise unhandled rejection hook · Issue #256 · iojs/io.js")
 
+----
+
+# Implementation in userland
+
 - ユーザランドでの実装から始まっている面白い動き
+	- Promise自体もコミュニティ仕様からECMAScript仕様に入った
 - io.js にも入ったため、他のPromiseライブラリにも実装が進んでいきそうな空気がある
 	- コミュニティ標準から仕様へ?
 
 ----
 
+# まとめ
+
+- Promiseでは`catch`し忘れによるエラーの握りつぶしがよく起きてる
+- 現状ではunhandled rejectionの扱いは実装依存
+- unhandled rejectionが起きた時に発行するイベントを定義したコミュニティプロポーサルがでた
+- bluebirdやio.jsなどで実装された
+- ECMAScript仕様の話はまだない
