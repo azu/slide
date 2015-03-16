@@ -2,6 +2,20 @@
 
 ----
 
+# 自己紹介
+
+![right](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
+
+## azu
+## @[azu_re](https://twitter.com/azu_re)
+###  [Web scratch], [JSer.info]
+
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+----
+
 # アジェンダ
 
 
