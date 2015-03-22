@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Decorators進捗</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/typescript-sushi/decorators.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/typescript-sushi/decorators.pdf" title="Decorators進捗">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="decorators-">Decorators進捗</h1>
+<h2 id="typescript-ecmascript-7">TypeScript / ECMAScript 7</h2>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
+<h2 id="azu">azu</h2>
+<h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
+<h3 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h3>
+<hr>
+<h1 id="typescript-">TypeScript進捗</h1>
+<ul>
+<li><a href="https://github.com/Microsoft/TypeScript/issues/2249" title="Decorators · Issue #2249 · Microsoft/TypeScript">Decorators · Issue #2249 · Microsoft/TypeScript</a><ul>
+<li>仕様 Issue</li>
+<li>仕様 : <a href="https://github.com/jonathandturner/brainstorming" title="jonathandturner/brainstorming">jonathandturner/brainstorming</a> </li>
+</ul>
+</li>
+<li><a href="https://github.com/Microsoft/TypeScript/pull/2399" title="Minimal implementation of Decorators by rbuckton · Pull Request #2399 · Microsoft/TypeScript">Minimal implementation of Decorators by rbuckton · Pull Request #2399 · Microsoft/TypeScript</a><ul>
+<li>Origin: <a href="https://github.com/Microsoft/TypeScript/pull/2386" title="Value decorators by rbuckton · Pull Request #2386 · Microsoft/TypeScript">Value decorators by rbuckton · Pull Request #2386 · Microsoft/TypeScript</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="ecmascript-7-next-">ECMAScript 7(next?)</h1>
+<ul>
+<li><a href="https://github.com/wycats/javascript-decorators" title="wycats/javascript-decorators">wycats/javascript-decorators</a><ul>
+<li>by Yehuda Katz</li>
+<li><a href="https://github.com/tc39/agendas/blob/master/2015/03.md" title="agendas/03.md at master · tc39/agendas">agendas/03.md at master · tc39/agendas</a>で提案予定</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="es7-decorators">ES7 Decorators</h1>
+<pre><code class="lang-js">class Person {
+  @nonenumerable
+  get kidCount() { return this.children.length; }
+}
+
+function nonenumerable(target, name, descriptor) {
+  descriptor.enumerable = false;
+  return descriptor;
+}
+</code></pre>
+<hr>
+<pre><code class="lang-js">  @nonenumerable
+  get kidCount() { return this.children.length; }
+</code></pre>
+<p>=&gt; 以下のように定義が<code>nonenumerable</code>関数でラッパされる</p>
+<pre><code class="lang-js">descriptor = nonenumerable(Person.prototype, &#39;kidCount&#39;, descriptor);
+</code></pre>
+<pre><code>function nonenumerable(target, name, descriptor) {
+  descriptor.enumerable = false;// non emu
+  return descriptor;
+}
+</code></pre><hr>
+<h1 id="es7-decorator-is-suger">ES7 Decorator is suger</h1>
+<ul>
+<li>Decorator は ただの糖衣構文</li>
+</ul>
+<pre><code class="lang-js">@F(&quot;color&quot;)
+class Foo {
+}
+// ====== //
+var Foo = (function () {
+  class Foo {
+  }
+
+  Foo = F(&quot;color&quot;)(Foo) || Foo;
+  return Foo;
+})();
+</code></pre>
+<hr>
+<h1 id="-confusing-zenparsing-es-private-fields-https-github-com-zenparsing-es-private-fields-zenparsing-es-private-fields-">@ confusing <a href="https://github.com/zenparsing/es-private-fields" title="zenparsing/es-private-fields">zenparsing/es-private-fields</a>?</h1>
+<p><img src="https://avatars3.githubusercontent.com/u/5995084?v=3&amp;s=400" alt="img"></p>
+<pre><code class="lang-js">class Point {
+    @x;
+    @y;
+    constructor(x = 0, y = 0) {
+        @x = +x;
+        @y = +y;
+    }
+    get x() { return @x }
+    set x(value) { @x = +value }
+    get y() { return @y }
+    set y(value) { @y = +value }
+    toString() { return `Point&lt;${ this.@x },${ this.@y }&gt;` }
+}
+</code></pre>
+<hr>
+<ul>
+<li><a href="https://github.com/zenparsing/es-private-fields" title="zenparsing/es-private-fields">zenparsing/es-private-fields</a><ul>
+<li>class内に<code>@var = 42</code>でprivate変数</li>
+<li>coffeescriptの<code>@</code>に近い書き味(privateになるけど)</li>
+</ul>
+</li>
+<li><a href="https://github.com/wycats/javascript-decorators" title="wycats/javascript-decorators">wycats/javascript-decorators</a><ul>
+<li><code>@func</code> class外/class内 どちらでも使える</li>
+</ul>
+</li>
+<li><code>;</code> の有無しかという違いがある！！</li>
+<li>=&gt; <a href="https://github.com/tc39/agendas/blob/master/2015/03.md" title="45th meeting of Ecma TC39">45th meeting of Ecma TC39</a> で話し合うとの事！</li>
+</ul>
+<hr>
+<h1 id="typescript-es7">TypeScriptとES7</h1>
+<ul>
+<li>Decoratorsの糖衣構文的な仕組みは同じっぽい?</li>
+<li>C.3 Type Serialization: とか方に関する記述もあるので仕様はTypeScriptのヤツのほうが大きい</li>
+</ul>
+<hr>
+<h1 id="babel">Babel</h1>
+<ul>
+<li><a href="https://github.com/babel/babel/issues/974" title="Decorators · Issue #974 · babel/babel">Decorators · Issue #974 · babel/babel</a></li>
+<li>それぞれの仕様提案してる人が集まるので観測に便利</li>
+</ul>
+<hr>
+</article>
+</body>
+</html>
