@@ -20,17 +20,23 @@
 
 ----
 
-# Fluxでよく見る図
-
-![fit, overview](img/flux-overview.png)
-
-----
 
 # 目的
 
 - 小さなFluxの実装を作りながらFluxついて学ぶ
 - Fluxの特徴: Unidirectional data flow
 	- 本当にデータが一方通行に流れるのかを確認する
+
+
+-----
+
+
+![fit, overview](img/flux-overview.png)
+
+----
+# Fluxでよく見る図
+
+![fit, overview](img/flux-overview.png)
 
 ----
 
@@ -39,9 +45,17 @@
 - 何か色々いる
 	- Action Creators, Dispatcher, Store, React Views...
 	- Dispatcher = EventEmitterと今回は考える
-- もっと内部的な実装から見てみる
+- もっと実装的な視点から見てみる
 
 ![fit,inline overview](img/flux-overview.png)
+
+----
+
+# 実装からのイメージ
+
+
+![inline](img/life-cycle.png)
+
 
 ----
 
@@ -55,6 +69,16 @@
 
 ----
 
+# Fluxを実装してみよう
+
+- Fluxを実装しながら小さなアプリを作ってみる
+- クリックしたら、カウントが増えるだけのアプリ
+
+![gif,inline](http://gyazo.com/eee10c116a5f0035286bbe6383c447e8.gif)
+
+
+----
+
 # EventEmitter
 
 ![inline](img/eventemitter.png)
@@ -63,29 +87,26 @@
 
 # EventEmitter
 
-- 最低限以下のような実装が存在すればいい
+- イベントリスナの登録/処理ができるモジュールを作る
 - `#on` : イベント`type`に対してコールバックの登録
 - `#emit`: イベント`type`に登録されたコールバックの実装
 - `#off` : イベント`type`に対してコールバックの登録解除
 
 -----
 
-# Emitter.js
+# EventEmitter.js
 
 ```js
-class EventEmitter {
+export default class EventEmitter {
     constructor() {
         this._handlers = {};
     }
-    // イベントの登録
     on(type, handler) {
         if (typeof this._handlers[type] === 'undefined') {
             this._handlers[type] = [];
         }
-
         this._handlers[type].push(handler);
     }
-    // イベントの発火
     emit(type, data) {
         var handlers = this._handlers[type] || [];
         for (var i = 0; i < handlers.length; i++) {
@@ -93,8 +114,18 @@ class EventEmitter {
             handler.call(this, data);
         }
     }
+
 }
 ```
+
+----
+
+# EventEmitter
+
+- EventEmitterでStoreとActionCreatorなどを繋ぐ
+- いわゆるオブザーブパターンに使う
+- [facebook/flux](https://github.com/facebook/flux "facebook/flux")ではDispatcherがこの役割を持ってる
+
 
 ----
 
@@ -102,8 +133,8 @@ class EventEmitter {
 
 - Facebookの`flux`モジュールが唯一提供してる機能
 - EventEmitterに優先順序をつけたもの と理解
-- 基本的にシングルトンとして利用することを意図したデザイン
-- 今回は単純なイベント駆動なのでEventEmitterで
+- 基本的にシングルトンとして利用を意図したデザイン
+- 今回は単純にしたかったのでEventEmitterで
 
 ----
 
@@ -116,15 +147,67 @@ class EventEmitter {
 # Store
 
 - モデルみたいなもの
-- あるイベントがやってきたら、内部データを更新する
+- あるイベントがやってきたら、Stateを更新する
 	- イベントを経由しない書き込みを制限する
-- `get*`的なメソッドで外から取れるようにする
+- `get*`的なメソッドで外からStateを取れるようにする
 - StoreはEventEmitterを継承する
+
+-----
+
+```js
+import Emitter from "./EventEmitter"
+export default class Store extends Emitter {
+    constructor(dispatcher) { // dispatcherを受け取る
+        super();
+        this.count = 0;
+        // <--- observe event.
+        dispatcher.on("countUp", this.onCountUp.bind(this));
+    }
+    getCount() { // stateを取り出すメソッド
+        return this.count;
+    }
+    onCountUp(count) {
+         // dispatcherがemitされると呼ばれる
+    }
+}
+```
+
+----
+
+# Store
+
 - 内部データを更新したら"CHANGE"イベントを発行する
+	- 自分自身がEventEmitterのインスタンスなので
+	- self emit "CHANGE"  -> Storeに対して`#on`してるものが呼ばれる
+	- ComponentからStoreに`#on`することで、ComponentはStoreの変更を監視できる
+
 
 ----
 
 ![inline](img/store-change.png)
+
+
+----
+
+```js
+import Emitter from "./EventEmitter"
+export default class Store extends Emitter {
+    constructor(dispatcher) {
+        super();
+        this.count = 0;
+        dispatcher.on("countUp", this.onCountUp.bind(this));
+    }
+    getCount() {
+        return this.count;
+    }
+    onCountUp(count) {
+        this.count = count;
+        // emit "CHANGE" ---> self
+        this.emit("CHANGE");
+    }
+}
+```
+
 
 ----
 
@@ -139,6 +222,20 @@ class EventEmitter {
 - あるイベントを発行するだけ
 	- emit "<ANY EVENT>"
 - ユーザーアクションから始まる非同期通信とかもここに
+
+----
+
+```js
+export default class ActionCreator {
+    constructor(dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+    // "Emit" event ----> Store
+    countUp(data) {
+        this.dispatcher.emit("countUp", data);
+    }
+}
+```
 
 ----
 
@@ -160,6 +257,41 @@ class EventEmitter {
 
 ----
 
+```js
+import React from "react"
+import ActionCreator from "./ActionCreator"
+import Store from "./Store"
+import EventEmitter from "./EventEmitter"
+// EventEmitterのインスタンスをそれぞれ渡す
+var dispatcher = new EventEmitter();
+var action = new ActionCreator(dispatcher);
+var store = new Store(dispatcher);
+export default class Component extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {count: store.getCount()};
+        // <---- Observe store's change
+        store.on("CHANGE", () => {
+            this._onChange();
+        });
+    }
+    _onChange() {
+        this.setState({count: store.getCount()});
+    }
+    tick() {
+        action.countUp(this.state.count + 1);
+    }
+    render(){ /* ... */ }
+}
+```
+
+
+----
+
+# ボタンをクリックしたらカウントする
+
+![inline](img/component-render.jpg)
+
 ----
 
 # Fluxの特徴
@@ -179,6 +311,20 @@ class EventEmitter {
 ----
 
 # コールスタックを見てみる
+
+```js
+    _onChange() {
+        console.trace();// <= onChangeまでのコールスタックを吐く
+        this.setState({count: store.getCount()});
+    }
+
+    tick() {
+        action.countUp(this.state.count + 1);
+    }
+```
+
+
+----
 
 ```
 // console.traceからさかのぼる
@@ -208,25 +354,37 @@ Component#tick -> Action#CountUp -> Store#onCountUp -> Component#_onChange
 
 ----
 
+# まとめ
+
+- 特別なライブラリや複雑な実装がなくてもFluxはできた
+- 確かにデータは一方行に流れているのが確認できた
+- オブザーブパターンに役割と名前が付いたもの = Flux
+- Fluxを理解するにはFluxを実装してみるのが手っ取り早い
+
+-----
+
+
 # Facebook flux
 
 - Facebookの[Flux](http://facebook.github.io/flux/ "Flux")モジュールはDispatcherという機能のみを提供
 - 今回のEventEmitterに順序制御などを加えたもの
 	- `waitFor([id])` というメソッドを持ち、発行されたイベントの依存関係を記述できる(Store依存関係に使われる)
 
-
----
 ---
 
 # 非同期処理はどこへ
 
-- ユーザがボタンを押すなどの操作により通信が発生する場合Action
+- ユーザがボタンを押すなどの操作により通信が発生する場合はAction
 
 例)
 
 - FacebookのFlux Chat Example
 - https://github.com/voronianski/flux-comparison
- 
+
+----
+
+# 非同期処理はどこへ
+
 逆にユーザーインタラクションを経由しなかったり、通信開始のトリガーが別である場合は、Store内から通信してStoreで完結しても良い
 
 例)
