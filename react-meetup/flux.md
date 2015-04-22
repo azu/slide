@@ -354,12 +354,25 @@ Component#tick -> Action#CountUp -> Store#onCountUp -> Component#_onChange
 
 ----
 
+# 今回実装したもの
+
+## [azu/mini-flux](https://github.com/azu/mini-flux "azu/mini-flux")
+
+----
+
 # まとめ
 
 - 特別なライブラリや複雑な実装がなくてもFluxはできた
 - 確かにデータは一方行に流れているのが確認できた
 - オブザーブパターンに役割と名前が付いたもの = Flux
 - Fluxを理解するにはFluxを実装してみるのが手っ取り早い
+
+-----
+
+# 実装してみる?
+
+- [azu/material-flux](https://github.com/azu/material-flux "azu/material-flux") - 今回mini-fluxをもう少し突き詰めたもの
+- [voronianski/flux-comparison](https://github.com/voronianski/flux-comparison "voronianski/flux-comparison")を実装みるのをオススメ
 
 -----
 
