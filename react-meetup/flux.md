@@ -245,15 +245,33 @@ export default class ActionCreator {
 
 ----
 
-# Component
+# Componentの役割
 
 - Viewの更新
-	- Storeの変更を監視する(Listen)
+	- **Store**の変更を監視する(Listen)
 	- Storeが自身の変更を"CAHNGE"イベントで伝えてくれる
 	- 後はStoreからデータを取ってきて描画すればいいだけ
-- ユーザーイベントの受付
+	- React的にはStoreから取得した値を`setState`するか[Centralize State](http://aeflash.com/2015-02/react-tips-and-best-practices.html "Centralize State")パータンで状態を更新するだけ
+
+
+----
+
+# Componentの役割
+
+- ユーザーイベントの受付 
 	- clickされた◯◯するといった動作
-	- DOMイベントを付けて、それに対してActionを呼べばいいだけ！
+	- イベントハンドラで対応する**Action**を呼べば良い
+
+Component -> _(call)_ -> Action -> _(emit)_ ->  Store#onHandler
+
+----
+
+
+![component-action,inline](img/component-action.png)
+
+[Introduction To React─ Frontrend Conference](https://html5experts.jp/hokaccha/13301/ "今話題のReact.jsはどのようなWebアプリケーションに適しているか？ Introduction To React─ Frontrend Conference | HTML5Experts.jp") から引用
+
+
 
 ----
 
@@ -297,20 +315,35 @@ export default class Component extends React.Component {
 # Fluxの特徴
 
 - 一方通行のデータフローが形成できること
-- ホントに先ほどのプログラムは一方通行にデータが流れている?
-- 実際に検証してみよう :see:
+- ホントに先の実装は一方通行にデータが流れている?
+- 実際に検証してみよう :eyes:
 
 ----
 
-# プログラムの動作フローを見る
+# プログラムの動作フローを見るには
 
 - コードの動きを見る
 - 簡単に見るにはコールスタックを見れば良い
-- デバッガーでブレークポイント OR `console.trace`
+- **`console.trace`** OR デバッガーでブレークポイントを貼る
 
 ----
 
 # コールスタックを見てみる
+
+- コールスタックは呼ばれた順で積み上がる
+- 最後に呼ばれた関数が1番目、その前の関数が2番目 ....
+- 一周したところからコールスタックを見るとわかる
+- ユーザーアクションをスタートとすると、Componentのアップデートがループの終わり
+- => Componentの`_onChange`で取れば良さそう
+
+
+
+-----
+
+![trace](img/flux-trace.png)
+
+
+----
 
 ```js
     _onChange() {
@@ -327,7 +360,7 @@ export default class Component extends React.Component {
 ----
 
 ```
-// console.traceからさかのぼる
+// 上に行くほど新しい
 _onChange	@	Component.js:23
 (anonymous function)	@	Component.js:18
 emit	@	EventEmitter.js:23
