@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>10分で実装するFlux</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/react-meetup/flux.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/react-meetup/flux.pdf" title="10分で実装するFlux">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="10-flux">10分で実装するFlux</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
+<h2 id="azu">azu</h2>
+<h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
+<h3 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h3>
+<hr>
+<h1 id="-flux-http-facebook-github-io-flux-flux-"><a href="http://facebook.github.io/flux/" title="Flux">Flux</a></h1>
+<h2 id="-fl-ks-">/flˈʌks/</h2>
+<hr>
+<h1 id="flux-">Fluxとは</h1>
+<ul>
+<li>Facebookが提唱したSmalltalk MVCの焼き直し</li>
+<li>CQRS(Command Query Responsibility Segregation)と類似</li>
+<li>データが一方通行へ流れるようにするアーキテクチャ</li>
+</ul>
+<hr>
+<h1 id="-">目的</h1>
+<ul>
+<li>小さなFluxの実装を作りながらFluxついて学ぶ</li>
+<li>Fluxの特徴: Unidirectional data flow<ul>
+<li>本当にデータが一方通行に流れるのかを確認する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="img/flux-overview.png" alt="fit, overview"></p>
+<hr>
+<h1 id="flux-">Fluxでよく見る図</h1>
+<p><img src="img/flux-overview.png" alt="fit, overview"></p>
+<hr>
+<h1 id="-">登場人物</h1>
+<ul>
+<li>何か色々いる<ul>
+<li>Action Creators, Dispatcher, Store, React Views...</li>
+<li>Dispatcher = EventEmitterと今回は考える</li>
+</ul>
+</li>
+<li>もっと実装的な視点から見てみる</li>
+</ul>
+<p><img src="img/flux-overview.png" alt="fit,inline overview"></p>
+<hr>
+<h1 id="-">実装からのイメージ</h1>
+<p><img src="img/life-cycle.png" alt="inline"></p>
+<hr>
+<h1 id="-">実装イメージ</h1>
+<ul>
+<li>Action、Store、Component(React)の3つが存在</li>
+<li>それを繋ぐのが<strong>EventEmitter</strong>(or Dispatcher)</li>
+</ul>
+<p><img src="img/life-cycle.png" alt="inline"></p>
+<hr>
+<h1 id="-">実装イメージ</h1>
+<ul>
+<li><strong>Store</strong>は<strong>Action</strong>をlisten<ul>
+<li>-&gt; Actionが持つEventEmitterを監視</li>
+</ul>
+</li>
+<li><strong>Component</strong>は<strong>Action</strong>をcall<ul>
+<li>-&gt; ActionがEventを発行</li>
+</ul>
+</li>
+<li><strong>Component</strong>は<strong>Store</strong>の変更をlisten<ul>
+<li>-&gt; Store自身がEventEmitter</li>
+</ul>
+</li>
+</ul>
+<p><img src="img/life-cycle.png" alt="right,fit"></p>
+<hr>
+<h1 id="flux-">Fluxを実装してみよう</h1>
+<ul>
+<li>Fluxを実装しながら小さなアプリを作ってみる</li>
+<li>クリックしたら、カウントが増えるだけのアプリ</li>
+</ul>
+<p><img src="http://gyazo.com/eee10c116a5f0035286bbe6383c447e8.gif" alt="gif,inline"></p>
+<hr>
+<h1 id="eventemitter">EventEmitter</h1>
+<p><img src="img/eventemitter.png" alt="inline"></p>
+<hr>
+<h1 id="eventemitter">EventEmitter</h1>
+<ul>
+<li>イベントリスナの登録/処理ができるモジュールを作る</li>
+<li><code>#on</code> : イベント<code>type</code>に対してコールバックの登録</li>
+<li><code>#emit</code>: イベント<code>type</code>に登録されたコールバックの実装</li>
+<li><code>#off</code> : イベント<code>type</code>に対してコールバックの登録解除</li>
+</ul>
+<hr>
+<h1 id="eventemitter-js">EventEmitter.js</h1>
+<pre><code class="lang-js">export default class EventEmitter {
+    constructor() {
+        this._handlers = {};
+    }
+    on(type, handler) {
+        if (typeof this._handlers[type] === &#39;undefined&#39;) {
+            this._handlers[type] = [];
+        }
+        this._handlers[type].push(handler);
+    }
+    emit(type, data) {
+        var handlers = this._handlers[type] || [];
+        for (var i = 0; i &lt; handlers.length; i++) {
+            var handler = handlers[i];
+            handler.call(this, data);
+        }
+    }
+}
+</code></pre>
+<hr>
+<h1 id="eventemitter">EventEmitter</h1>
+<ul>
+<li>EventEmitterでStoreとAction、StoreとComponentを繋ぐ</li>
+<li>いわゆるオブザーブパターンに使う</li>
+<li><a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>ではDispatcherがこの役割を持ってる</li>
+</ul>
+<hr>
+<h1 id="dispatcher-">Dispatcher?</h1>
+<ul>
+<li>Facebookの<code>flux</code>モジュールが唯一提供してる機能</li>
+<li>EventEmitterに優先順序をつけたもの と理解</li>
+<li>基本的にシングルトンとして利用を意図したデザイン</li>
+<li>今回は単純にしたかったのでEventEmitterで</li>
+</ul>
+<hr>
+<h1 id="store">Store</h1>
+<p><img src="img/store.png" alt="inline"></p>
+<hr>
+<h1 id="store">Store</h1>
+<ul>
+<li>モデルみたいなもの</li>
+<li>あるイベントがやってきたら、Stateを更新する<ul>
+<li>イベントを経由しない書き込みを制限する</li>
+</ul>
+</li>
+<li><code>get*</code>的なメソッドで外からStateを取れるようにする</li>
+<li>StoreはEventEmitterを継承する</li>
+</ul>
+<hr>
+<pre><code class="lang-js">import Emitter from &quot;./EventEmitter&quot;
+export default class Store extends Emitter {
+    constructor(dispatcher) { // dispatcherを受け取る
+        super();
+        this.count = 0;
+        // &lt;--- observe event.
+        dispatcher.on(&quot;countUp&quot;, this.onCountUp.bind(this));
+    }
+    getCount() { // stateを取り出すメソッド
+        return this.count;
+    }
+    onCountUp(count) {
+         // dispatcherがemitされると呼ばれる
+    }
+}
+</code></pre>
+<hr>
+<h1 id="store">Store</h1>
+<ul>
+<li>内部データを更新したら&quot;CHANGE&quot;イベントを発行する<ul>
+<li>自分自身がEventEmitterのインスタンスなので</li>
+<li>self emit &quot;CHANGE&quot;  -&gt; Storeに対して<code>#on</code>してるものが呼ばれる</li>
+<li>ComponentからStoreに<code>#on</code>することで、ComponentはStoreの変更を監視できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="img/store-change.png" alt="inline"></p>
+<hr>
+<pre><code class="lang-js">import Emitter from &quot;./EventEmitter&quot;
+export default class Store extends Emitter {
+    constructor(dispatcher) {
+        super();
+        this.count = 0;
+        dispatcher.on(&quot;countUp&quot;, this.onCountUp.bind(this));
+    }
+    getCount() {
+        return this.count;
+    }
+    onCountUp(count) {
+        this.count = count;
+        // emit &quot;CHANGE&quot; ---&gt; self
+        this.emit(&quot;CHANGE&quot;);
+    }
+}
+</code></pre>
+<hr>
+<h1 id="action-creator-">Action(Creator)</h1>
+<p><img src="img/action.png" alt="inline"></p>
+<hr>
+<h1 id="action-creator-">Action(Creator)</h1>
+<ul>
+<li>あるイベントを発行する関数<ul>
+<li>emit &quot;<ANY EVENT>&quot;</li>
+</ul>
+</li>
+<li>ユーザーアクションから始まる非同期通信とかもここに</li>
+</ul>
+<hr>
+<pre><code class="lang-js">export default class ActionCreator {
+    constructor(dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+    // &quot;Emit&quot; event ----&gt; Store
+    countUp(data) {
+        this.dispatcher.emit(&quot;countUp&quot;, data);
+    }
+}
+</code></pre>
+<hr>
+<h1 id="component">Component</h1>
+<p><img src="img/component.png" alt="inline"></p>
+<hr>
+<h1 id="component-">Componentの役割</h1>
+<ul>
+<li>Viewの更新<ul>
+<li><strong>Store</strong>の変更を監視する(Listen)</li>
+<li>Storeが自身の変更を&quot;CAHNGE&quot;イベントで伝えてくれる</li>
+<li>後はStoreからデータを取ってきて描画すればいいだけ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="component-">Componentの役割</h1>
+<ul>
+<li>ユーザーイベントの受付 <ul>
+<li>clickされた◯◯するといった動作</li>
+<li>イベントハンドラで対応する<strong>Action</strong>を呼べば良い</li>
+</ul>
+</li>
+</ul>
+<p>Component -&gt; <em>(call)</em> -&gt; Action -&gt; <em>(emit)</em> -&gt;  Store#onHandler</p>
+<hr>
+<p><img src="img/component-action.png" alt="component-action,inline"></p>
+<p><a href="https://html5experts.jp/hokaccha/13301/" title="今話題のReact.jsはどのようなWebアプリケーションに適しているか？ Introduction To React─ Frontrend Conference | HTML5Experts.jp">Introduction To React─ Frontrend Conference</a> から引用</p>
+<hr>
+<pre><code class="lang-js">import React from &quot;react&quot;
+import ActionCreator from &quot;./ActionCreator&quot;
+import Store from &quot;./Store&quot;
+import EventEmitter from &quot;./EventEmitter&quot;
+// EventEmitterのインスタンスをそれぞれ渡す
+var dispatcher = new EventEmitter();
+var action = new ActionCreator(dispatcher);
+var store = new Store(dispatcher);
+export default class Component extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {count: store.getCount()};
+        // &lt;---- Observe store&#39;s change
+        store.on(&quot;CHANGE&quot;, () =&gt; {
+            this._onChange();
+        });
+    }
+    _onChange() {
+        this.setState({count: store.getCount()});
+    }
+    tick() {
+        action.countUp(this.state.count + 1);
+    }
+    render(){ /* ... */ }
+}
+</code></pre>
+<hr>
+<h1 id="-">ボタンをクリックしたらカウントする</h1>
+<p><img src="img/component-render.jpg" alt="inline"></p>
+<hr>
+<h1 id="flux-">Fluxの特徴</h1>
+<ul>
+<li>一方通行のデータフローが形成できること</li>
+<li>ホントに先の実装は一方通行にデータが流れている?</li>
+<li>実際に検証してみよう :eyes:</li>
+</ul>
+<hr>
+<h1 id="-">プログラムの動作フローを見るには</h1>
+<ul>
+<li>コードの動きを見る</li>
+<li>簡単に見るにはスタックトレースを見れば良い</li>
+<li>スタックトレースには関数が呼び出された順が入ってる</li>
+<li><strong><code>console.trace</code></strong> OR デバッガーでブレークポイントを貼る</li>
+</ul>
+<hr>
+<h1 id="-">スタックトレースを見てみる</h1>
+<ul>
+<li>スタックトレースは呼ばれた順で積み上がる</li>
+<li>最後に呼ばれた関数が1番目、その前の関数が2番目 ....</li>
+<li>一周したところからコールスタックを見るとわかる</li>
+<li>ユーザーアクションをスタートとすると、Componentのアップデートがループの終わり</li>
+<li>=&gt; Componentの<code>_onChange</code>で取れば良さそう</li>
+</ul>
+<hr>
+<p><img src="img/flux-trace.png" alt="fit, trace"></p>
+<hr>
+<h1 id="-console-">コールスタックをconsoleへ出力</h1>
+<pre><code class="lang-js">    _onChange() {
+        console.trace();// &lt;= onChangeまでのコールスタックを吐く
+        this.setState({count: store.getCount()});
+    }
+
+    tick() {
+        action.countUp(this.state.count + 1);
+    }
+</code></pre>
+<hr>
+<h1 id="-">スタックトレース</h1>
+<pre><code>// 上に行くほど新しい
+_onChange    @    Component.js:23
+(anonymous function)    @    Component.js:18
+emit    @    EventEmitter.js:23
+onCountUp    @    Store.js:22
+emit    @    EventEmitter.js:23
+countUp    @    ActionCreator.js:10
+tick    @    Component.js:28
+// Start
+</code></pre><hr>
+<h1 id="-">呼び出しの流れ</h1>
+<pre><code>Component#tick -&gt; Action#CountUp -&gt; Store#onCountUp -&gt; Component#_onChange
+</code></pre><ul>
+<li>Component -&gt; Action -&gt; Store -&gt; Componentへとデータが流れている</li>
+<li>つまり一方通行のデータフローが作成できた！</li>
+</ul>
+<hr>
+<h1 id="-">今回実装したもの</h1>
+<h2 id="-azu-mini-flux-https-github-com-azu-mini-flux-azu-mini-flux-"><a href="https://github.com/azu/mini-flux" title="azu/mini-flux">azu/mini-flux</a></h2>
+<hr>
+<h1 id="-">もっと実装してみる?</h1>
+<ul>
+<li><a href="https://github.com/azu/material-flux" title="azu/material-flux">azu/material-flux</a> - 今回mini-fluxをもう少し突き詰めたもの</li>
+<li><a href="https://github.com/voronianski/flux-comparison" title="voronianski/flux-comparison">voronianski/flux-comparison</a>を実装みるのをオススメ</li>
+<li><a href="https://gist.github.com/azu/3c69f8521584feed79da" title="flux-comparison app spec( unofficial )">flux-comparison app spec( unofficial )</a></li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>特別なライブラリや複雑な実装がなくてもFluxはできた</li>
+<li>確かにデータは一方行に流れているのが確認できた</li>
+<li>オブザーブパターンに役割と名前が付いたもの = Flux</li>
+<li>Fluxを理解するにはFluxを実装してみるのが手っ取り早い</li>
+</ul>
+<hr>
+<h1 id="-">おまけ</h1>
+<hr>
+<h1 id="facebook-flux">Facebook flux</h1>
+<ul>
+<li>Facebookの<a href="http://facebook.github.io/flux/" title="Flux">Flux</a>モジュールはDispatcherという機能のみを提供</li>
+<li>今回のEventEmitterに順序制御などを加えたもの<ul>
+<li><code>waitFor([id])</code> というメソッドを持ち、発行されたイベントの依存関係を記述できる(Store依存関係に使われる)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">非同期処理はどこへ</h1>
+<ul>
+<li>ユーザがボタンを押すなどの操作により通信が発生する場合はAction</li>
+</ul>
+<p>例)</p>
+<ul>
+<li>FacebookのFlux Chat Example</li>
+<li><a href="https://github.com/voronianski/flux-comparison">https://github.com/voronianski/flux-comparison</a></li>
+</ul>
+<hr>
+<h1 id="-">非同期処理はどこへ</h1>
+<p>逆にユーザーインタラクションを経由しなかったり、通信開始のトリガーが別である場合は、Store内から通信してStoreで完結しても良い</p>
+<p>例)</p>
+<blockquote>
+<p>1分ごとにサーバに問い合わせて最新のデータを取得して表示したい。
+(StoreからXHRで取得して、Storeが変更されたことを通知する -&gt; Viewの書き換え)</p>
+</blockquote>
+<hr>
+<h1 id="-flux-">オススメFluxライブラリ</h1>
+<ul>
+<li>決定版はない</li>
+<li>機能は大差ないので、インターフェースの好みによる<ul>
+<li>デバッグのしやすさとかを考慮すると良さそう</li>
+</ul>
+</li>
+<li><a href="https://github.com/kenwheeler/mcfly" title="kenwheeler/mcfly">kenwheeler/mcfly</a><ul>
+<li><a href="http://facebook.github.io/flux/" title="Flux">Flux</a>の薄いラッパー</li>
+</ul>
+</li>
+<li><a href="https://github.com/acdlite/flummox" title="acdlite/flummox">acdlite/flummox</a></li>
+</ul>
+</article>
+</body>
+</html>
