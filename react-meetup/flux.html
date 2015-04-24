@@ -102,9 +102,10 @@
 <li>Facebookが提唱したSmalltalk MVCの焼き直し</li>
 <li>CQRS(Command Query Responsibility Segregation)と類似</li>
 <li>データが一方通行へ流れるようにするアーキテクチャ</li>
+<li>ウェブUIについてそれを適応する</li>
 </ul>
 <hr>
-<h1 id="-">目的</h1>
+<h1 id="-">今日の目的</h1>
 <ul>
 <li>小さなFluxの実装を作りながらFluxついて学ぶ</li>
 <li>Fluxの特徴: Unidirectional data flow<ul>
@@ -129,8 +130,7 @@
 </ul>
 <p><img src="img/flux-overview.png" alt="fit,inline overview"></p>
 <hr>
-<h1 id="-">実装からのイメージ</h1>
-<p><img src="img/life-cycle.png" alt="inline"></p>
+<p><img src="img/life-cycle.png" alt="fit"></p>
 <hr>
 <h1 id="-">実装イメージ</h1>
 <ul>
@@ -199,15 +199,18 @@
 <ul>
 <li>EventEmitterでStoreとAction、StoreとComponentを繋ぐ</li>
 <li>いわゆるオブザーブパターンに使う</li>
-<li><a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>ではDispatcherがこの役割を持ってる</li>
+<li><a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>ではDispatcherが一部この役割を持ってる<ul>
+<li>EventEmitter自体も合わせて使ってる</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="dispatcher-">Dispatcher?</h1>
 <ul>
-<li>Facebookの<code>flux</code>モジュールが唯一提供してる機能</li>
-<li>EventEmitterに優先順序をつけたもの と理解</li>
-<li>基本的にシングルトンとして利用を意図したデザイン</li>
-<li>今回は単純にしたかったのでEventEmitterで</li>
+<li>Facebookの<a href="http://facebook.github.io/flux/" title="Flux">flux</a>モジュールが唯一提供してる機能</li>
+<li>EventEmitterに順序制御をつけたもの と理解</li>
+<li>基本的にシングルトンで利用する事を意図したデザイン</li>
+<li>今回は単純にしたかったのでEventEmitterだけで</li>
 </ul>
 <hr>
 <h1 id="store">Store</h1>
@@ -216,7 +219,7 @@
 <h1 id="store">Store</h1>
 <ul>
 <li>モデルみたいなもの</li>
-<li>あるイベントがやってきたら、Stateを更新する<ul>
+<li>あるイベントがやってきたら、State(内部の状態)を更新する<ul>
 <li>イベントを経由しない書き込みを制限する</li>
 </ul>
 </li>
@@ -243,7 +246,7 @@ export default class Store extends Emitter {
 <hr>
 <h1 id="store">Store</h1>
 <ul>
-<li>内部データを更新したら&quot;CHANGE&quot;イベントを発行する<ul>
+<li>内部Stateを更新したら&quot;CHANGE&quot;イベントを発行する<ul>
 <li>自分自身がEventEmitterのインスタンスなので</li>
 <li>self emit &quot;CHANGE&quot;  -&gt; Storeに対して<code>#on</code>してるものが呼ばれる</li>
 <li>ComponentからStoreに<code>#on</code>することで、ComponentはStoreの変更を監視できる</li>
@@ -387,7 +390,10 @@ export default class Component extends React.Component {
     }
 </code></pre>
 <hr>
+<p><img src="img/demo.mp4" alt="fit, demo"></p>
+<hr>
 <h1 id="-">スタックトレース</h1>
+<p>動画: <a href="img/demo.mp4">demo.mp4</a></p>
 <pre><code>// 上に行くほど新しい
 _onChange    @    Component.js:23
 (anonymous function)    @    Component.js:18
@@ -432,6 +438,15 @@ tick    @    Component.js:28
 <li><code>waitFor([id])</code> というメソッドを持ち、発行されたイベントの依存関係を記述できる(Store依存関係に使われる)</li>
 </ul>
 </li>
+</ul>
+<hr>
+<h1 id="-">なぜシングルトン?</h1>
+<ul>
+<li>確かにシングルトンだと実装は簡単</li>
+<li>けどテストがとても難しくなる = Jestじゃないとつらそう</li>
+<li>mini-fluxも途中までシングルトンで書いてた</li>
+<li>テストが書きにくかったのでシングルトンではなくなった</li>
+<li><a href="https://github.com/azu/mini-flux/tree/master/test" title="mini-flux/test at master · azu/mini-flux">mini-flux/test at master · azu/mini-flux</a></li>
 </ul>
 <hr>
 <h1 id="-">非同期処理はどこへ</h1>
