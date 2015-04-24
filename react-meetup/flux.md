@@ -14,6 +14,7 @@
 [Web scratch]: http://efcl.info/ "Web scratch"
 [JSer.info]: http://jser.info/ "JSer.info"
 
+
 ----
 
 
@@ -28,11 +29,12 @@
 - Facebookが提唱したSmalltalk MVCの焼き直し
 - CQRS(Command Query Responsibility Segregation)と類似
 - データが一方通行へ流れるようにするアーキテクチャ
+- ウェブUIについてそれを適応する
 
 ----
 
 
-# 目的
+# 今日の目的
 
 - 小さなFluxの実装を作りながらFluxついて学ぶ
 - Fluxの特徴: Unidirectional data flow
@@ -62,10 +64,7 @@
 
 ----
 
-# 実装からのイメージ
-
-
-![inline](img/life-cycle.png)
+![fit](img/life-cycle.png)
 
 
 ----
@@ -149,17 +148,18 @@ export default class EventEmitter {
 
 - EventEmitterでStoreとAction、StoreとComponentを繋ぐ
 - いわゆるオブザーブパターンに使う
-- [facebook/flux](https://github.com/facebook/flux "facebook/flux")ではDispatcherがこの役割を持ってる
+- [facebook/flux](https://github.com/facebook/flux "facebook/flux")ではDispatcherが一部この役割を持ってる
+	- EventEmitter自体も合わせて使ってる
 
 
 ----
 
 # Dispatcher?
 
-- Facebookの`flux`モジュールが唯一提供してる機能
-- EventEmitterに優先順序をつけたもの と理解
-- 基本的にシングルトンとして利用を意図したデザイン
-- 今回は単純にしたかったのでEventEmitterで
+- Facebookの[flux](http://facebook.github.io/flux/ "Flux")モジュールが唯一提供してる機能
+- EventEmitterに順序制御をつけたもの と理解
+- 基本的にシングルトンで利用する事を意図したデザイン
+- 今回は単純にしたかったのでEventEmitterだけで
 
 ----
 
@@ -172,7 +172,7 @@ export default class EventEmitter {
 # Store
 
 - モデルみたいなもの
-- あるイベントがやってきたら、Stateを更新する
+- あるイベントがやってきたら、State(内部の状態)を更新する
 	- イベントを経由しない書き込みを制限する
 - `get*`的なメソッドで外からStateを取れるようにする
 - StoreはEventEmitterを継承する
@@ -201,7 +201,7 @@ export default class Store extends Emitter {
 
 # Store
 
-- 内部データを更新したら"CHANGE"イベントを発行する
+- 内部Stateを更新したら"CHANGE"イベントを発行する
 	- 自分自身がEventEmitterのインスタンスなので
 	- self emit "CHANGE"  -> Storeに対して`#on`してるものが呼ばれる
 	- ComponentからStoreに`#on`することで、ComponentはStoreの変更を監視できる
@@ -385,7 +385,14 @@ export default class Component extends React.Component {
 
 ----
 
+![fit, demo](img/demo.mp4)
+
+
+----
+
 # スタックトレース
+
+動画: [demo.mp4](img/demo.mp4)
 
 ```
 // 上に行くほど新しい
@@ -451,7 +458,17 @@ Component#tick -> Action#CountUp -> Store#onCountUp -> Component#_onChange
 - 今回のEventEmitterに順序制御などを加えたもの
 	- `waitFor([id])` というメソッドを持ち、発行されたイベントの依存関係を記述できる(Store依存関係に使われる)
 
----
+----
+
+# なぜシングルトン?
+
+- 確かにシングルトンだと実装は簡単
+- けどテストがとても難しくなる = Jestじゃないとつらそう
+- mini-fluxも途中までシングルトンで書いてた
+- テストが書きにくかったのでシングルトンではなくなった
+- [mini-flux/test at master · azu/mini-flux](https://github.com/azu/mini-flux/tree/master/test "mini-flux/test at master · azu/mini-flux")
+
+----
 
 # 非同期処理はどこへ
 
