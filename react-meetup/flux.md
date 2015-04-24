@@ -2,6 +2,21 @@
 
 ----
 
+# 自己紹介
+
+![right](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
+
+## azu
+## @[azu_re](https://twitter.com/azu_re)
+###  [Web scratch], [JSer.info]
+
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+----
+
+
 # [Flux](http://facebook.github.io/flux/ "Flux")
 
 ## /flˈʌks/
@@ -13,10 +28,6 @@
 - Facebookが提唱したSmalltalk MVCの焼き直し
 - CQRS(Command Query Responsibility Segregation)と類似
 - データが一方通行へ流れるようにするアーキテクチャ
-
-
-| Model | View | Controller |
-| Store | Component | ActionCreator(Actions) |
 
 ----
 
@@ -61,11 +72,26 @@
 
 # 実装イメージ
 
-- Actions、Store、Component(React)の3つが存在
+- Action、Store、Component(React)の3つが存在
 - それを繋ぐのが**EventEmitter**(or Dispatcher)
 
 ![inline](img/life-cycle.png)
 
+----
+
+# 実装イメージ
+
+
+ - **Store**は**Action**をlisten
+	 - -> Actionが持つEventEmitterを監視
+ - **Component**は**Action**をcall
+	 - -> ActionがEventを発行
+ - **Component**は**Store**の変更をlisten
+	 - -> Store自身がEventEmitter
+
+
+
+![right,fit](img/life-cycle.png)
 
 ----
 
@@ -114,7 +140,6 @@ export default class EventEmitter {
             handler.call(this, data);
         }
     }
-
 }
 ```
 
@@ -122,7 +147,7 @@ export default class EventEmitter {
 
 # EventEmitter
 
-- EventEmitterでStoreとActionCreatorなどを繋ぐ
+- EventEmitterでStoreとAction、StoreとComponentを繋ぐ
 - いわゆるオブザーブパターンに使う
 - [facebook/flux](https://github.com/facebook/flux "facebook/flux")ではDispatcherがこの役割を持ってる
 
@@ -211,15 +236,15 @@ export default class Store extends Emitter {
 
 ----
 
-# ActionCreator
+# Action(Creator)
 
 ![inline](img/action.png)
 
 ----
 
-# ActionCreator
+# Action(Creator)
 
-- あるイベントを発行するだけ
+- あるイベントを発行する関数
 	- emit "<ANY EVENT>"
 - ユーザーアクションから始まる非同期通信とかもここに
 
@@ -251,8 +276,6 @@ export default class ActionCreator {
 	- **Store**の変更を監視する(Listen)
 	- Storeが自身の変更を"CAHNGE"イベントで伝えてくれる
 	- 後はStoreからデータを取ってきて描画すればいいだけ
-	- React的にはStoreから取得した値を`setState`するか[Centralize State](http://aeflash.com/2015-02/react-tips-and-best-practices.html "Centralize State")パータンで状態を更新するだけ
-
 
 ----
 
@@ -323,14 +346,15 @@ export default class Component extends React.Component {
 # プログラムの動作フローを見るには
 
 - コードの動きを見る
-- 簡単に見るにはコールスタックを見れば良い
+- 簡単に見るにはスタックトレースを見れば良い
+- スタックトレースには関数が呼び出された順が入ってる
 - **`console.trace`** OR デバッガーでブレークポイントを貼る
 
 ----
 
-# コールスタックを見てみる
+# スタックトレースを見てみる
 
-- コールスタックは呼ばれた順で積み上がる
+- スタックトレースは呼ばれた順で積み上がる
 - 最後に呼ばれた関数が1番目、その前の関数が2番目 ....
 - 一周したところからコールスタックを見るとわかる
 - ユーザーアクションをスタートとすると、Componentのアップデートがループの終わり
@@ -340,10 +364,12 @@ export default class Component extends React.Component {
 
 -----
 
-![trace](img/flux-trace.png)
+![fit, trace](img/flux-trace.png)
 
 
 ----
+
+# コールスタックをconsoleへ出力
 
 ```js
     _onChange() {
@@ -358,6 +384,8 @@ export default class Component extends React.Component {
 
 
 ----
+
+# スタックトレース
 
 ```
 // 上に行くほど新しい
@@ -393,6 +421,16 @@ Component#tick -> Action#CountUp -> Store#onCountUp -> Component#_onChange
 
 ----
 
+
+# もっと実装してみる?
+
+- [azu/material-flux](https://github.com/azu/material-flux "azu/material-flux") - 今回mini-fluxをもう少し突き詰めたもの
+- [voronianski/flux-comparison](https://github.com/voronianski/flux-comparison "voronianski/flux-comparison")を実装みるのをオススメ
+- [flux-comparison app spec( unofficial )](https://gist.github.com/azu/3c69f8521584feed79da "flux-comparison app spec( unofficial )")
+
+
+----
+
 # まとめ
 
 - 特別なライブラリや複雑な実装がなくてもFluxはできた
@@ -402,10 +440,7 @@ Component#tick -> Action#CountUp -> Store#onCountUp -> Component#_onChange
 
 -----
 
-# 実装してみる?
-
-- [azu/material-flux](https://github.com/azu/material-flux "azu/material-flux") - 今回mini-fluxをもう少し突き詰めたもの
-- [voronianski/flux-comparison](https://github.com/voronianski/flux-comparison "voronianski/flux-comparison")を実装みるのをオススメ
+# おまけ
 
 -----
 
@@ -437,3 +472,15 @@ Component#tick -> Action#CountUp -> Store#onCountUp -> Component#_onChange
 
 > 1分ごとにサーバに問い合わせて最新のデータを取得して表示したい。
 > (StoreからXHRで取得して、Storeが変更されたことを通知する -> Viewの書き換え)
+
+
+----
+
+# オススメFluxライブラリ
+
+- 決定版はない
+- 機能は大差ないので、インターフェースの好みによる
+	- デバッグのしやすさとかを考慮すると良さそう
+- [kenwheeler/mcfly](https://github.com/kenwheeler/mcfly "kenwheeler/mcfly")
+	- [Flux](http://facebook.github.io/flux/ "Flux")の薄いラッパー
+- [acdlite/flummox](https://github.com/acdlite/flummox "acdlite/flummox")
