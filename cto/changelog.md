@@ -7,21 +7,21 @@
 ![flow, fit right](flow.png)
 
 - 変更点を
-	- 探す
-	- 見る
-	- 見つける
+	- ChangeLogで知る
+	- Issue/PRで知る
+	- Commitで知る
 
 
 -------
 
 # アジェンダ
 
-![flow,fit right](flow.png)
+![flow,fit,left](flow.png)
 
 - 変更点を
-	- 書く
-	- まとめる
-	- 作る
+	- Commitに書く
+	- Issue/PRを扱う
+	- ChangeLogにまとめる
 
 -----
 
@@ -89,7 +89,7 @@
 
 -----
 
-# Babel 5.3.0の変更点
+#  [Babel 5.3.0](https://github.com/babel/babel/blob/master/CHANGELOG.md#530 "5.3.0")の変更点
 
 ![right,fit](img/babel5.3.0-full.jpg)
 
@@ -214,36 +214,160 @@
 
 -----
 
-# コミットレベルでの検索
+# ここまでの見解
+------
+
+# ここまでの見解
+
+- Issueを見つければ勝ち :thumbsup:
+- Pull Requestを見つければ勝ち :thumbsup:
+- Commitを見つければ勝ち :thumbsup:
+- もしコミットすら見つからなかったら :question:
+- ここまではブラウザだけでできるので比較的気軽
+
+------
+
+# コミットを検索する
 
 ## ここからはコマンドラインが必要
 
 -----
 
-# git bisect
+# GitHubの問題
+
+- コミットメッセージを検索する手段がない
+	- [Add support for search in commit messages · Issue #352 · isaacs/github](https://github.com/isaacs/github/issues/352 "Add support for search in commit messages · Issue #352 · isaacs/github")
+- repositories、code、Issue、userしか検索できない
+	- [Search | GitHub API](https://developer.github.com/v3/search/ "Search | GitHub API")
+
+-----
+
+# ノイズが多い場合
+
+![right,fit](img/babel5.4.0.jpg)
+
+> Added "env" option. Especially handy when using the .babelrc.
+
+- 上記の変更の詳細を知りたい！
+- Issue検索だとノイズが多くて探せない時
+- 直接該当する変更のコミットを探す
+
+-----
+
+# 該当コミットを探す
+
+![fit, right](img/git-log.jpg)
 
 
+```sh
+git clone https://github.com/babel/babel.git
+git log v5.3.0...v5.4.0 --grep "env"
+# v5.3.0からv5.4.0の中で"env"というコミットメッセージを探す
+commit 41b5607ef374945b0e4ca771644d94d3b849ed58
+Author: Sebastian McKenzie <sebmck@gmail.com>
+Date:   Fri May 15 00:11:28 2015 +0100
+
+    fix env option tests
+
+commit 024e4454a1e3778b0f9b6d081d5f4e792f6035db
+Author: Sebastian McKenzie <sebmck@gmail.com>
+Date:   Thu May 14 23:47:56 2015 +0100
+
+    add env option - closes #1531
+```
 
 ----
-
 # コミットメッセージの検索
 
-----
+- [explainshell.com - git log v5.3.0...v5.4.0 -S "env"](http://explainshell.com/explain?cmd=git+log+v5.3.0...v5.4.0+-S+%22env%22 "explainshell.com - git log v5.3.0...v5.4.0 -S &#34;env&#34;")
+- _024e4454a..._が該当コミットっぽい
+- [motemen/git-browse-remote](https://github.com/motemen/git-browse-remote "motemen/git-browse-remote")でGitHubのコミットページを開く
+- 関連するIssueが見つかった！ :bulb:
 
-# コミットのDiff検索
+```
+git-browse-remote 024e4454a1e3778b0f9b6d081d5f4e792f6035db
+```
 
-----
-
-# git bisectを使った検索
-
-- [git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん](http://d.hatena.ne.jp/innx_hidenori/20110124/1295870463 "git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん")
-
+![right,fit](img/git-log-browse.jpg)
 
 -----
 
 
-# 変更点を作る :construction_worker:
+# コミットのDiff検索方法色々
 
+- コミットメッセージのみで検索
+	- `git log --grep "word"` 
+- コミットの中身の差分から検索
+	- `git log -s "word"`
+- [git logでコミットの差分の中身で絞り込む - Qiita](http://qiita.com/yuichielectric/items/cce64b5b5e0eacc02e64 "git logでコミットの差分の中身で絞り込む - Qiita")
+
+-----
+
+# コミットの検索する必要性?
+
+- できればそこまで行く前に解決してた方が嬉しい
+
+> Added "env" option. Especially handy when using the .babelrc.
+
+- この例もドキュメントを見るのが正解！
+- [Options · Babel](https://babeljs.io/docs/usage/options/ "Options · Babel")
+- しかし、どういうユースケースなのかはIssueに残ってる場合が多い
+
+-----
+
+# Breaking Change検索
+
+-----
+
+# Breaking Changeの検索
+
+
+- ある機能があるバージョンで壊れてた
+- 具体的に壊れた/壊した理由を知りたい！
+- どこで壊れたのかコミットをみつける
+	- コミットが見つかったIssueを探す
+
+-----
+
+
+# git bisectを使った検索
+
+- 任意のテストスクリプトをコミット毎に走らせて、テストが失敗するコミットをみつける
+- [git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん](http://d.hatena.ne.jp/innx_hidenori/20110124/1295870463 "git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん")
+- さすがにここまで行くとやり過ぎ感…
+
+------
+
+
+![flow, fit](flow.png)
+
+------
+
+
+# 探すから作るへ
+
+
+![flow,fit left](flow.png)
+
+
+-----
+
+# 変更点の追い方と変更点の作り方は同じ
+
+- 変更点が追いやすい == いい変更点の作り方
+
+
+-----
+
+# 追いやすい変更点って?
+
+- 良いChangeLog
+- コミットとIssueやPull Requestを関連付ける
+- 良いコミット
+
+-----
+
+# 変更点を作る :construction_worker:
 
 -----
 
@@ -251,7 +375,113 @@
 
 -----
 
+# [fit] コミットメッセージを書く
+
+------
+
+# コミットメッセージを書く
+
+- 今更感があるけど、要約と本文で書くのが基本
+- [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/ "How to Write a Git Commit Message")
+- [見えないチカラ: 【翻訳】Gitのコミットメッセージに関する注意点](http://keijinsonyaban.blogspot.jp/2011/01/git.html "見えないチカラ: 【翻訳】Gitのコミットメッセージに関する注意点")
+
+------
+
+# 良いコミットメッセージ?
+
+- 追いやすい変更点という観点から考える :thought_balloon:
+	- ちゃんと書かれてる
+	- キーワードが含まれている
+	- 関連するIssueやPull Requestと紐付いてる
+
+------
+
 # conventional changelog
+
+- ChangeLog自動生成のためのコミットメッセージ規約のこと
+- [ajoslin/conventional-changelog](https://github.com/ajoslin/conventional-changelog "ajoslin/conventional-changelog")
+
+```
+feat(ngInclude): add template url parameter to events
+
+The `src` (i.e. the url of the template to load) is now provided to the
+`$includeContentRequested`, `$includeContentLoaded` and `$includeContentError`
+events.
+
+Closes #8453
+Closes #8454
+```
+
+-----
+
+# conventional changelog
+
+- 規約の形は何でも良い = ツールとの相性
+- コミット検索向けのキーワードとしてtypeとcomponentの利用
+
+```
+                       component        commit title
+        commit type       /                /      
+                \        |                |
+                 feat(ngInclude): add template url parameter to events
+            
+        body ->  The 'src` (i.e. the url of the template to load) is now provided to the
+                 `$includeContentRequested`, `$includeContentLoaded` and `$includeContentError`
+                 events.
+
+ referenced  ->  Closes #8453
+ issues          Closes #8454
+```
+
+-----
+
+# コミットメッセージへの追加情報
+
+- コミットの種類 : feat?、fix?、Breaking Change?
+- コミットの対象: (スコープ)
+	- 多分コミット書くときに悩む
+	- コミットメッセージを検索しやすくするための**キーワード**として考えるといいのかも
+
+-----
+
+
+# コミットメッセージへの追加情報
+
+- 関連するIssueの場所
+	- GitHubはIssueの`#42`的なIDをコミットメッセージに書くと連動する
+	- IssueのURLでも問題ない
+	- [Closing issues via commit messages - User Documentation](https://help.github.com/articles/closing-issues-via-commit-messages/ "Closing issues via commit messages - User Documentation")
+
+-----
+# conventional changelog
+
+- メリット: コミットから自動的にChangeLogを生成出来る
+	- ChangeLogに該当Issueへのリンクが生成できる事が大事
+- [ajoslin/conventional-changelog](https://github.com/ajoslin/conventional-changelog "ajoslin/conventional-changelog")
+	- Rust: [clog - A conventional changelog generator for the rest of us](http://blog.thoughtram.io/announcements/tools/2014/09/18/announcing-clog-a-conventional-changelog-generator-for-the-rest-of-us.html "clog - A conventional changelog generator for the rest of us")
+- [rvagg/changelog-maker](https://github.com/rvagg/changelog-maker "rvagg/changelog-maker")
+
+-----
+
+# コミットメッセージを書くの面倒問題
+
+- 特に関連するIssueを書くのが大変(補完の問題)
+- GitHubではPull Requestでマージされたコミットに自動的にリンクが付く
+- 常にPull Requestで開発すれば自動的にIssueと紐づく！
+
+-----
+
+#  Pull Request駆動
+
+-----
+
+# Pull Request駆動
+
+![left,fit](img/es7.trailingCommas-commit.jpg)
+
+- Pull Requstで取り込まれたコミットは自動的にIssueと紐づく
+- [Linking merged pull requests from commits](https://github.com/blog/1905-linking-merged-pull-requests-from-commits "Linking merged pull requests from commits")
+- Pull Requestに詳細を書くことで、自動的に情報が集約される + コミットからのリンク
 
 -----
 
@@ -262,5 +492,3 @@
 # Change Log
 
 -----
-
-# Pull Request駆動
