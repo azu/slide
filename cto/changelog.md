@@ -1,5 +1,7 @@
 #  われわれは、いかにして変更点を追うか
 
+## Issueを追う技術
+
 -----
 
 # アジェンダ
@@ -161,7 +163,7 @@
 
 # Speeeeed - 結論
 
-- ChangelogからTwitter、GitHub Issueを探すことで
+- ChangelogからTwitter、GitHub Issueを探せた
 - [Merge internal transformers into single traversal pass by sebmck · Pull Request #1472 · babel/babel](https://github.com/babel/babel/pull/1472 "Merge internal transformers into single traversal pass by sebmck · Pull Request #1472 · babel/babel")
 	- 複数のtransformerを1 passで通す変更が入った
 - transformerを使うプロジェクトでは変換速度が上がった
@@ -218,6 +220,10 @@
 -----
 
 # ここまでの見解
+
+
+## [fit] 追う時に何を見つけたら詳細が分かるか?
+
 ------
 
 # ここまでの見解
@@ -366,18 +372,19 @@ git-browse-remote 024e4454a1e3778b0f9b6d081d5f4e792f6035db
 
 -----
 
-# 変更点の追い方と変更点の作り方は同じ
+# 変更点の追い方≒変更点の作り方
 
-- 変更点が追いやすい == いい変更点の作り方
+- 変更点が追いやすい == いい変更点
+- 変更点の追い方を知ってる ≒ いい変更点を作れるのでは?
 
 
 -----
 
 # 追いやすい変更点って?
 
-- 良いChangeLog
-- コミットとIssueやPull Requestを関連付ける
 - 良いコミット
+- 良いIssue/Pull Request
+- 良いChangeLog
 
 -----
 
@@ -385,11 +392,7 @@ git-browse-remote 024e4454a1e3778b0f9b6d081d5f4e792f6035db
 
 -----
 
-# 変更点を作る事で変更点を知る
-
------
-
-# [fit] コミットメッセージを書く
+# 良いコミット
 
 ------
 
@@ -403,10 +406,11 @@ git-browse-remote 024e4454a1e3778b0f9b6d081d5f4e792f6035db
 
 # 良いコミットメッセージ?
 
-- 追いやすい変更点という観点から考える :thought_balloon:
-	- ちゃんと書かれてる
-	- キーワードが含まれている
-	- 関連するIssueやPull Requestと紐付いてる
+- 追いやすい変更点からの良いコミットメッセージとは? :thought_balloon:
+	- サマリと本文がある
+	- 検索しやすいキーワードが存在する
+	- 関連するIssue/Pull Requestが書かれてる
+- 実現するための規約の一種として**conventional changelog**
 
 ------
 
@@ -467,9 +471,9 @@ Closes #8454
 	- [Closing issues via commit messages - User Documentation](https://help.github.com/articles/closing-issues-via-commit-messages/ "Closing issues via commit messages - User Documentation")
 
 -----
-# conventional changelog
+# conventional changelogのメリット
 
-- メリット: コミットから自動的にChangeLogを生成出来る
+- コミットから自動的にChangeLogを生成出来る
 	- ChangeLogに該当Issueへのリンクが生成できる事が大事
 - [ajoslin/conventional-changelog](https://github.com/ajoslin/conventional-changelog "ajoslin/conventional-changelog")
 	- Rust: [clog - A conventional changelog generator for the rest of us](http://blog.thoughtram.io/announcements/tools/2014/09/18/announcing-clog-a-conventional-changelog-generator-for-the-rest-of-us.html "clog - A conventional changelog generator for the rest of us")
@@ -481,7 +485,7 @@ Closes #8454
 
 - 特に関連するIssueを書くのが大変(補完の問題)
 - GitHubではPull Requestでマージされたコミットに自動的にリンクが付く
-- 常にPull Requestで開発すれば自動的にIssueと紐づく！
+- つまり、常にPull Requestで開発すれば自動的にIssueと紐づく！
 
 -----
 
@@ -499,10 +503,72 @@ Closes #8454
 
 -----
 
-# GitHub Release
+# Pull Request駆動の副作用(感想)
+
+- コミットが常にサーバにあるので、複数端末での開発がしやすい
+- 開発時のメモ欄がある感覚
+- Watchしてる人へ通知が行って、他の人が参加するチャンスがある
 
 -----
 
-# Change Log
+# ChangeLog
+
 
 -----
+
+# ChangeLogは人が読むもの
+
+- ChangeLogは人が読むものなので、無意味な自動生成は無意味
+- 自動生成はできるが、自動生成のソースがダメだとChangeLogもダメ
+- 良いコミットの副産物として良いChangeLogが作れる
+- 良いコミットではない場合は、手動で書いたほうがマシ
+
+-----
+
+# ChangeLogにあると良いもの
+
+- 日付
+- バージョン
+- 変更内容
+	- グルーピングされてるとより良い
+- 関連するIssue/Pull Request
+- [Keep a Changelog](http://keepachangelog.com/ "Keep a Changelog")
+
+-----
+
+
+# GitHub ReleaseとCHANGELOG
+
+- [GitHub Release](https://help.github.com/articles/creating-releases/ "Creating Releases - User Documentation")
+- [CHANGELOG](http://keepachangelog.com/ "CHANGELOG")ファイル
+- どっちに書く? 
+
+-----
+
+# GItHub Release
+
+- Pros
+	- 日付、バージョン、パーマネントリンク、RSSを得られる
+	- tagと連動する、IssueやcommitのSHA値が自動的にリンクされる
+- Cons
+	- 自動化がイマイチ難しい
+	- [Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について ](http://efcl.info/2014/07/20/git-tag-to-release-github/ "Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch")
+
+
+------
+
+# CHANGELOG
+
+- Pros
+	- 伝統的なやり方なのでツール等が多い
+	- 自動化がしやすい
+- Cons
+	- パーマネントリンクが微妙になりやすい(Markdownじゃないとリンクができない、ハッシュ)
+
+-----
+
+
+# おわり
+
+- This presentation is also Pull Request Driven
+- [われわれは、いかにして変更点を追うか - Issueを追う技術 by azu · Pull Request #10 · azu/slide](https://github.com/azu/slide/pull/10 "われわれは、いかにして変更点を追うか - Issueを追う技術 by azu · Pull Request #10 · azu/slide")
