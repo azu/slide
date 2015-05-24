@@ -8,7 +8,7 @@
 
 - 変更点を
 	- ChangeLogで知る
-	- Issue/PRで知る
+	- Issue/Pull Requestで知る
 	- Commitで知る
 
 
@@ -20,7 +20,7 @@
 
 - 変更点を
 	- Commitに書く
-	- Issue/PRを扱う
+	- Issue/Pull Requestを扱う
 	- ChangeLogにまとめる
 
 -----
@@ -29,27 +29,30 @@
 
 -----
 
-# ChangeLog
+# ChangeLogの追い方
 
+- ChangeLogを追うにはまずChangeLogの更新に気づく事が必要
 - [GitHubでライブラリのリリースを見ていくためのツールや方法](http://efcl.info/2014/07/30/find-github-release/ "GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch")に書いた
+- 更新検知の仕組みや補助ツールについて
 
-* リポジトリのWatch => [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
-* タイムライン => [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
-* Star => [starseeker](http://starseeker.so/ "starseeker")
-* GitHub ReleaseのRSS => [azu/github-releases-to-feedly](https://github.com/azu/github-releases-to-feedly "azu/github-releases-to-feedly")
-* GitHub Releaseの補助
-    * [azu/check_changelog_from_release](https://github.com/azu/check_changelog_from_release "azu/check_changelog_from_release")
-    * [azu/show-diff-from-release](https://github.com/azu/show-diff-from-release "azu/show-diff-from-release")
+-----
 
+- リポジトリのWatch => [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
+- タイムライン => [azu/github-reader](https://github.com/azu/github-reader "azu/github-reader")
+- Star => [starseeker](http://starseeker.so/ "starseeker")
+- GitHub ReleaseのRSS => [azu/github-releases-to-feedly](https://github.com/azu/github-releases-to-feedly "azu/github-releases-to-feedly")
+- GitHub Releaseの閲覧補助
+	* [azu/check_changelog_from_release](https://github.com/azu/check_changelog_from_release "azu/check_changelog_from_release")
+	* [azu/show-diff-from-release](https://github.com/azu/show-diff-from-release "azu/show-diff-from-release")
 
 -----
 
 # ChangeLogの問題
 
 - 全ての変更がChangeLogからわかるわけじゃない
-- 多くの人はめんどうなのでChangeLogを書かない
+- そもそも多くの人は面倒なのでChangeLogを書かない
 - ChangeLogがあってもそれはサマリなので、細かい内容が分からない
-- ChangeLogより更に細かく見たい場合は**Issue/Pull Request**を探す
+- ChangeLogより更に細かく見たい場合はまずは**Issue/Pull Request**を探す
 
 -----
 
@@ -312,6 +315,17 @@ git-browse-remote 024e4454a1e3778b0f9b6d081d5f4e792f6035db
 - この例もドキュメントを見るのが正解！
 - [Options · Babel](https://babeljs.io/docs/usage/options/ "Options · Babel")
 - しかし、どういうユースケースなのかはIssueに残ってる場合が多い
+
+------
+
+# GUIでコミット検索
+
+![fit,right](http://monosnap.com/image/YoPmZy88jlraDsvLiBNhhvZsrWqVr2.png)
+
+- [azu/git-scriptable-search](https://github.com/azu/git-scriptable-search "azu/git-scriptable-search")
+- 作った
+- JavaScriptでフィルターを書いてコミットの絞込出来るアプリ
+- フィルターの処理コストが大きい問題がまだ未解決…
 
 -----
 
