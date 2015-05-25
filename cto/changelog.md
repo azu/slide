@@ -1,6 +1,20 @@
 #  われわれは、いかにして変更点を追うか
 
-## Issueを追う技術
+## ChangeLog/Issueを追う技術
+
+-----
+
+# 自己紹介
+
+![right](https://github.com/azu/slide/raw/master/offline_study/simple320_320.png)
+
+## azu
+## @[azu_re](https://twitter.com/azu_re)
+###  [Web scratch], [JSer.info]
+
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
 
 -----
 
@@ -47,13 +61,14 @@
 	* [azu/check_changelog_from_release](https://github.com/azu/check_changelog_from_release "azu/check_changelog_from_release")
 	* [azu/show-diff-from-release](https://github.com/azu/show-diff-from-release "azu/show-diff-from-release")
 
+
 -----
 
 # ChangeLogの問題
 
 - 全ての変更がChangeLogからわかるわけじゃない
 - そもそも多くの人は面倒なのでChangeLogを書かない
-- ChangeLogがあってもそれはサマリなので、細かい内容が分からない
+- ChangeLogがあってもそれはサマリだと、細かい内容が分からない
 - ChangeLogより更に細かく見たい場合はまずは**Issue/Pull Request**を探す
 
 -----
@@ -68,23 +83,6 @@
 -----
 
 # Issue/PRの探し方 - 検索
-
------
-
-# GitHub検索
-
-- GitHubのリポジトリ検索
-- -> Issueも検索できるのでキーボードから探す
-- 関連ファイルからの検索
-- -> 関連するファイルから探す
-- Twitter検索
-- -> 関係ある人がそれに関係あるキーボードを書いてる可能性がある
-- 公式サイト/ドキュメント
-- ->真面目に書いてるならリリース時にドキュメントが更新されてる
-
------
-
-# Issue/PRの探し方
 
 -----
 
@@ -219,14 +217,26 @@
 
 -----
 
-# ここまでの見解
+# ここまでのまとめ
 
 
 ## [fit] 追う時に何を見つけたら詳細が分かるか?
 
-------
+-----
 
-# ここまでの見解
+- GitHubのリポジトリ検索
+	- Issueも検索できるのでキーワードから探す
+- 関連ファイルからの検索
+	- 関連ファイルから変更されたコミットを探す
+- Twitter検索
+	- その変更に関係することを書いてるを探す
+- 公式サイト/ドキュメント
+	- リリース時にドキュメントが更新されてるかも
+
+-----
+
+
+# ここまでのまとめ
 
 - Issueを見つければ勝ち :thumbsup:
 - Pull Requestを見つければ勝ち :thumbsup:
@@ -549,10 +559,10 @@ Closes #8454
 
 - Pros
 	- 日付、バージョン、パーマネントリンク、RSSを得られる
-	- tagと連動する、IssueやcommitのSHA値が自動的にリンクされる
+	- git tagと連動できる
 - Cons
-	- 自動化がイマイチ難しい
-	- [Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について ](http://efcl.info/2014/07/20/git-tag-to-release-github/ "Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch")
+	- メッセージの自動化がイマイチ難しい
+	- [Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について](http://efcl.info/2014/07/20/git-tag-to-release-github/ "Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch")
 
 
 ------
@@ -564,6 +574,15 @@ Closes #8454
 	- 自動化がしやすい
 - Cons
 	- パーマネントリンクが微妙になりやすい(Markdownじゃないとリンクができない、ハッシュ)
+
+-----
+
+# まとめ
+
+- ChangeLogの追い方を知ることは、いいChangeLogを書くことに繋がる
+- GitHub上だけでも情報の詳細度が異なる
+	- ChangeLog > Issue/Pull Request -> Commits
+- この3つが繋がるような変更点をできるのが理想的
 
 -----
 
