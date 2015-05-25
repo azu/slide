@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>われわれは、いかにして変更点を追うか</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/cto/changelog.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/cto/changelog.pdf" title="われわれは、いかにして変更点を追うか">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="-">われわれは、いかにして変更点を追うか</h1>
+<h2 id="changelog-issue-">ChangeLog/Issueを追う技術</h2>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="right"></p>
+<h2 id="azu">azu</h2>
+<h2 id="-azu_re-https-twitter-com-azu_re-">@<a href="https://twitter.com/azu_re">azu_re</a></h2>
+<h3 id="-web-scratch-jser-info-"><a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></h3>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<p><img src="flow.png" alt="flow, fit right"></p>
+<ul>
+<li>変更点を<ul>
+<li>ChangeLogで知る</li>
+<li>Issue/Pull Requestで知る</li>
+<li>Commitで知る</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<p><img src="flow.png" alt="flow,fit,left"></p>
+<ul>
+<li>変更点を<ul>
+<li>Commitに書く</li>
+<li>Issue/Pull Requestを扱う</li>
+<li>ChangeLogにまとめる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-mouse-">変更点を追う :mouse:</h1>
+<hr>
+<h1 id="changelog-">ChangeLogの追い方</h1>
+<ul>
+<li>ChangeLogを追うにはまずChangeLogの更新に気づく事が必要</li>
+<li><a href="http://efcl.info/2014/07/30/find-github-release/" title="GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch">GitHubでライブラリのリリースを見ていくためのツールや方法</a>に書いた</li>
+<li>更新検知の仕組みや補助ツールについて</li>
+</ul>
+<hr>
+<ul>
+<li>リポジトリのWatch =&gt; <a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a></li>
+<li>タイムライン =&gt; <a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a></li>
+<li>Star =&gt; <a href="http://starseeker.so/" title="starseeker">starseeker</a></li>
+<li>GitHub ReleaseのRSS =&gt; <a href="https://github.com/azu/github-releases-to-feedly" title="azu/github-releases-to-feedly">azu/github-releases-to-feedly</a></li>
+<li>GitHub Releaseの閲覧補助<ul>
+<li><a href="https://github.com/azu/check_changelog_from_release" title="azu/check_changelog_from_release">azu/check_changelog_from_release</a></li>
+<li><a href="https://github.com/azu/show-diff-from-release" title="azu/show-diff-from-release">azu/show-diff-from-release</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="changelog-">ChangeLogの問題</h1>
+<ul>
+<li>全ての変更がChangeLogからわかるわけじゃない</li>
+<li>そもそも多くの人は面倒なのでChangeLogを書かない</li>
+<li>ChangeLogがあってもそれはサマリだと、細かい内容が分からない</li>
+<li>ChangeLogより更に細かく見たい場合はまずは<strong>Issue/Pull Request</strong>を探す</li>
+</ul>
+<hr>
+<h1 id="issue-pull-request">Issue/Pull Request</h1>
+<ul>
+<li>大きなライブラリほどIssueやPull Requestと関連付けてコミットされる</li>
+<li>ChangeLogにも該当Issueが書いてあることが多い</li>
+<li>=&gt; ChangeLogからIssue/PRを探すとより細かい情報が見られる</li>
+<li>ChangeLogにIssue/PRが書いてない場合は? </li>
+</ul>
+<hr>
+<h1 id="issue-pr-">Issue/PRの探し方 - 検索</h1>
+<hr>
+<h1 id="-babel-5-3-0-https-github-com-babel-babel-blob-master-changelog-md-530-5-3-0-"><a href="https://github.com/babel/babel/blob/master/CHANGELOG.md#530" title="5.3.0">Babel 5.3.0</a>の例</h1>
+<p><img src="img/babel.png" alt="Babel"></p>
+<hr>
+<h1 id="-babel-5-3-0-https-github-com-babel-babel-blob-master-changelog-md-530-5-3-0-"><a href="https://github.com/babel/babel/blob/master/CHANGELOG.md#530" title="5.3.0">Babel 5.3.0</a>の変更点</h1>
+<p><img src="img/babel5.3.0-full.jpg" alt="right,fit"></p>
+<ul>
+<li>変更内容については書いてある</li>
+<li><strong>[New Feature]</strong>、<strong>[Bug Fix]</strong>、<strong>[Spec Compliancy]</strong>などジャンル分けされている</li>
+<li>&quot;Speeeeed&quot; とあるがどれくらい変わったのか書いてない</li>
+<li>IssueやPR、該当コミットへのリンクはない</li>
+</ul>
+<hr>
+<h1 id="speeeeed-">Speeeeed??</h1>
+<h2 id="-">具体的な速度の向上内容を知りたい!</h2>
+<hr>
+<h1 id="speeeeed-">Speeeeed - 何がどう変わったのか</h1>
+<h2 id="twitter-">Twitterで検索</h2>
+<ul>
+<li><a href="https://github.com/babel/babel/blob/master/CHANGELOG.md#530">https://github.com/babel/babel/blob/master/CHANGELOG.md#530</a> への言及から探す</li>
+<li>&quot;Speeeeed Babel&quot;で検索する</li>
+<li><a href="https://twitter.com/babeljs">公式アカウント</a>から探す</li>
+</ul>
+<hr>
+<h1 id="speeeeed-">Speeeeed - 見つかった</h1>
+<ul>
+<li>20-40% ぐらい速度が上がったとのこと(公式アカウントより)</li>
+</ul>
+<p><img src="img/babel-speeeeed.jpg" alt="inline"></p>
+<hr>
+<h1 id="speeeeed-depth">Speeeeed - Depth</h1>
+<p><img src="img/babel-perf.jpg" alt="right,fit"></p>
+<ul>
+<li>パフォーマンスの向上は鵜呑みにしない :warning:</li>
+<li>何が変更して、どういう計測方法で変わったのかを調べる</li>
+<li>該当IssueやPRを見つけたい :seedling:</li>
+<li>:bulb: 公式アカウントへのレスで発見 ！ </li>
+</ul>
+<hr>
+<h1 id="speeeeed-">Speeeeed - 結果</h1>
+<ul>
+<li>以下のIssueを見ていけばいいことがわかった</li>
+<li><a href="https://github.com/babel/babel/issues/1486">Speeeeed · Issue #1486 · babel/babel</a></li>
+<li><a href="https://github.com/babel/babel/pull/1472">Merge internal transformers into single traversal pass by sebmck · Pull Request #1472 · babel/babel</a><ul>
+<li>6.3.0でマージされたPR</li>
+<li>内部のtransformerを最適化する変更が入った</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="speeeeed-">Speeeeed - 結果</h1>
+<p><img src="img/babel-perf-own.jpg" alt="right,fit"></p>
+<ul>
+<li>tsserver.js、Traceur、Ember等を対象にして大体20-40%ぐらいコンパイル速度が上がった</li>
+<li><a href="https://twitter.com/babeljs/status/598303570824421376">Tweet</a>の根拠が分かった</li>
+<li>根拠や理論は分かった =&gt; 実際に自分で計測する</li>
+<li>プロジェクトによっては誤差レベルだった</li>
+</ul>
+<hr>
+<h1 id="speeeeed-">Speeeeed - 結論</h1>
+<ul>
+<li>ChangelogからTwitter、GitHub Issueを探せた</li>
+<li><a href="https://github.com/babel/babel/pull/1472" title="Merge internal transformers into single traversal pass by sebmck · Pull Request #1472 · babel/babel">Merge internal transformers into single traversal pass by sebmck · Pull Request #1472 · babel/babel</a><ul>
+<li>複数のtransformerを1 passで通す変更が入った</li>
+</ul>
+</li>
+<li>transformerを使うプロジェクトでは変換速度が上がった</li>
+<li>transformerを使ってないプロジェクトでは影響が少ない</li>
+</ul>
+<hr>
+<h1 id="next-">Next: ファイルから探す</h1>
+<hr>
+<h2 id="es7-trailingcommas-">es7.trailingCommasの仕様への追従</h2>
+<p><img src="img/babel5.3.0.jpg" alt="inline"></p>
+<blockquote>
+<pre><code>Allow trailing param commas for methods when using the es7.trailingCommas transformer.
+</code></pre></blockquote>
+<p>どういう変更だったのか詳細を知りたい :thought_balloon:</p>
+<hr>
+<h1 id="es7-trailingcommas-">es7.trailingCommasの仕様への追従</h1>
+<p><img src="img/es7.trailingCommas.jpg" alt="right,fit"></p>
+<ul>
+<li>Babelでは<code>es7.trailingCommas</code>の変換するためのtransformerはファイルを分けて実装されてる</li>
+<li>GitHubでは&quot;T&quot;でファイル検索ができる</li>
+<li><a href="http://d.hatena.ne.jp/kitokitoki/20110212/p1" title="github のプロジェクトのページでファイルのインクリメンタル検索 - わからん">github のプロジェクトのページでファイルのインクリメンタル検索 - わからん</a></li>
+</ul>
+<hr>
+<h1 id="-">ファイルからコミットを探す</h1>
+<p><img src="img/file-commiet-tree.jpg" alt="inline"></p>
+<hr>
+<h1 id="-issue-">コミットからIssueを探す</h1>
+<p><img src="img/es7.trailingCommas-commit.jpg" alt="right,fit"></p>
+<ul>
+<li><a href="https://github.com/babel/babel/commit/6834cc5b468f4f76f0f03c2f103c5535e0a2b93f">該当コミット</a>からIssueへのリンクがあるかを見る</li>
+<li>GitHubではPull Requestでマージされたコミットに自動的にリンクが付く</li>
+<li><a href="https://github.com/blog/1905-linking-merged-pull-requests-from-commits" title="Linking merged pull requests from commits">Linking merged pull requests from commits</a></li>
+</ul>
+<hr>
+<h1 id="-">ファイルから探す - 結論</h1>
+<ul>
+<li>変更履歴から関連するファイルを検索</li>
+<li>そのファイルについてのコミットを見る</li>
+<li>該当コミットからPull Requestを発見出来た :bulb:</li>
+<li><a href="https://github.com/babel/babel/pull/1487" title="[es7.trailingFunctionCommas] Allow in new expressions by amasad · Pull Request #1487 · babel/babel">[es7.trailingFunctionCommas] Allow in new expressions by amasad · Pull Request #1487 · babel/babel</a></li>
+</ul>
+<hr>
+<h1 id="-">ここまでのまとめ</h1>
+<h2 id="-fit-">[fit] 追う時に何を見つけたら詳細が分かるか?</h2>
+<hr>
+<ul>
+<li>GitHubのリポジトリ検索<ul>
+<li>Issueも検索できるのでキーワードから探す</li>
+</ul>
+</li>
+<li>関連ファイルからの検索<ul>
+<li>関連ファイルから変更されたコミットを探す</li>
+</ul>
+</li>
+<li>Twitter検索<ul>
+<li>その変更に関係することを書いてるを探す</li>
+</ul>
+</li>
+<li>公式サイト/ドキュメント<ul>
+<li>リリース時にドキュメントが更新されてるかも</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">ここまでのまとめ</h1>
+<ul>
+<li>Issueを見つければ勝ち :thumbsup:</li>
+<li>Pull Requestを見つければ勝ち :thumbsup:</li>
+<li>Commitを見つければ勝ち :thumbsup:</li>
+<li>もしコミットすら見つからなかったら :question:</li>
+<li>ここまではブラウザだけでできるので比較的気軽</li>
+</ul>
+<hr>
+<h1 id="-">コミットを検索する</h1>
+<h2 id="-">ここからはコマンドラインが必要</h2>
+<hr>
+<h1 id="github-">GitHubの問題</h1>
+<ul>
+<li>コミットメッセージを検索する手段がない<ul>
+<li><a href="https://github.com/isaacs/github/issues/352" title="Add support for search in commit messages · Issue #352 · isaacs/github">Add support for search in commit messages · Issue #352 · isaacs/github</a></li>
+</ul>
+</li>
+<li>repositories、code、Issue、userしか検索できない<ul>
+<li><a href="https://developer.github.com/v3/search/" title="Search | GitHub API">Search | GitHub API</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">ノイズが多い場合</h1>
+<p><img src="img/babel5.4.0.jpg" alt="right,fit"></p>
+<blockquote>
+<p>Added &quot;env&quot; option. Especially handy when using the .babelrc.</p>
+</blockquote>
+<ul>
+<li>上記の変更の詳細を知りたい！</li>
+<li>Issue検索だとノイズが多くて探せない時</li>
+<li>直接該当する変更のコミットを探す</li>
+</ul>
+<hr>
+<h1 id="-">該当コミットを探す</h1>
+<p><img src="img/git-log.jpg" alt="fit, right"></p>
+<pre><code class="lang-sh">git clone https://github.com/babel/babel.git
+git log v5.3.0...v5.4.0 --grep &quot;env&quot;
+# v5.3.0からv5.4.0の中で&quot;env&quot;というコミットメッセージを探す
+commit 41b5607ef374945b0e4ca771644d94d3b849ed58
+Author: Sebastian McKenzie &lt;sebmck@gmail.com&gt;
+Date:   Fri May 15 00:11:28 2015 +0100
+
+    fix env option tests
+
+commit 024e4454a1e3778b0f9b6d081d5f4e792f6035db
+Author: Sebastian McKenzie &lt;sebmck@gmail.com&gt;
+Date:   Thu May 14 23:47:56 2015 +0100
+
+    add env option - closes #1531
+</code></pre>
+<hr>
+<h1 id="-">コミットメッセージの検索</h1>
+<ul>
+<li><a href="http://explainshell.com/explain?cmd=git+log+v5.3.0...v5.4.0+-S+%22env%22" title="explainshell.com - git log v5.3.0...v5.4.0 -S &#34;env&#34;">explainshell.com - git log v5.3.0...v5.4.0 -S &quot;env&quot;</a></li>
+<li><em>024e4454a...</em>が該当コミットっぽい</li>
+<li><a href="https://github.com/motemen/git-browse-remote" title="motemen/git-browse-remote">motemen/git-browse-remote</a>でGitHubのコミットページを開く</li>
+<li>関連するIssueが見つかった！ :bulb:</li>
+</ul>
+<pre><code>git-browse-remote 024e4454a1e3778b0f9b6d081d5f4e792f6035db
+</code></pre><p><img src="img/git-log-browse.jpg" alt="right,fit"></p>
+<hr>
+<h1 id="-diff-">コミットのDiff検索方法色々</h1>
+<ul>
+<li>コミットメッセージのみで検索<ul>
+<li><code>git log --grep &quot;word&quot;</code> </li>
+</ul>
+</li>
+<li>コミットの中身の差分から検索<ul>
+<li><code>git log -s &quot;word&quot;</code></li>
+</ul>
+</li>
+<li><a href="http://qiita.com/yuichielectric/items/cce64b5b5e0eacc02e64" title="git logでコミットの差分の中身で絞り込む - Qiita">git logでコミットの差分の中身で絞り込む - Qiita</a></li>
+</ul>
+<hr>
+<h1 id="-">コミットの検索する必要性?</h1>
+<ul>
+<li>できればそこまで行く前に解決してた方が嬉しい</li>
+</ul>
+<blockquote>
+<p>Added &quot;env&quot; option. Especially handy when using the .babelrc.</p>
+</blockquote>
+<ul>
+<li>この例もドキュメントを見るのが正解！</li>
+<li><a href="https://babeljs.io/docs/usage/options/" title="Options · Babel">Options · Babel</a></li>
+<li>しかし、どういうユースケースなのかはIssueに残ってる場合が多い</li>
+</ul>
+<hr>
+<h1 id="gui-">GUIでコミット検索</h1>
+<p><img src="http://monosnap.com/image/YoPmZy88jlraDsvLiBNhhvZsrWqVr2.png" alt="fit,right"></p>
+<ul>
+<li><a href="https://github.com/azu/git-scriptable-search" title="azu/git-scriptable-search">azu/git-scriptable-search</a></li>
+<li>作った</li>
+<li>JavaScriptでフィルターを書いてコミットの絞込出来るアプリ</li>
+<li>フィルターの処理コストが大きい問題がまだ未解決…</li>
+</ul>
+<hr>
+<h1 id="breaking-change-">Breaking Change検索</h1>
+<hr>
+<h1 id="breaking-change-">Breaking Changeの検索</h1>
+<ul>
+<li>ある機能があるバージョンで壊れてた</li>
+<li>具体的に壊れた/壊した理由を知りたい！</li>
+<li>どこで壊れたのかコミットをみつける<ul>
+<li>コミットが見つかったIssueを探す</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="git-bisect-">git bisectを使った検索</h1>
+<ul>
+<li>任意のテストスクリプトをコミット毎に走らせて、テストが失敗するコミットをみつける</li>
+<li><a href="http://qiita.com/usamik26/items/cce867b3b139ea5568a6" title="AdventCalendar - git bisect で問題箇所を特定する - Qiita">AdventCalendar - git bisect で問題箇所を特定する - Qiita</a></li>
+<li><a href="http://d.hatena.ne.jp/innx_hidenori/20110124/1295870463" title="git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん">git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん</a></li>
+<li>さすがにここまで行くとやり過ぎ感…</li>
+</ul>
+<hr>
+<p><img src="flow.png" alt="flow, fit"></p>
+<hr>
+<h1 id="-">探すから作るへ</h1>
+<p><img src="flow.png" alt="flow,fit left"></p>
+<hr>
+<h1 id="-">変更点の追い方≒変更点の作り方</h1>
+<ul>
+<li>変更点が追いやすい == いい変更点</li>
+<li>変更点の追い方を知ってる ≒ いい変更点を作れるのでは?</li>
+</ul>
+<hr>
+<h1 id="-">追いやすい変更点って?</h1>
+<ul>
+<li>良いコミット</li>
+<li>良いIssue/Pull Request</li>
+<li>良いChangeLog</li>
+</ul>
+<hr>
+<h1 id="-construction_worker-">変更点を作る :construction_worker:</h1>
+<hr>
+<h1 id="-">良いコミット</h1>
+<hr>
+<h1 id="-">コミットメッセージを書く</h1>
+<ul>
+<li>今更感があるけど、要約と本文で書くのが基本</li>
+<li><a href="http://chris.beams.io/posts/git-commit/" title="How to Write a Git Commit Message">How to Write a Git Commit Message</a></li>
+<li><a href="http://keijinsonyaban.blogspot.jp/2011/01/git.html" title="見えないチカラ: 【翻訳】Gitのコミットメッセージに関する注意点">見えないチカラ: 【翻訳】Gitのコミットメッセージに関する注意点</a></li>
+</ul>
+<hr>
+<h1 id="-">良いコミットメッセージ?</h1>
+<ul>
+<li>追いやすい変更点からの良いコミットメッセージとは? :thought_balloon:<ul>
+<li>サマリと本文がある</li>
+<li>検索しやすいキーワードが存在する</li>
+<li>関連するIssue/Pull Requestが書かれてる</li>
+</ul>
+</li>
+<li>実現するための規約の一種として<strong>conventional changelog</strong></li>
+</ul>
+<hr>
+<h1 id="conventional-changelog">conventional changelog</h1>
+<ul>
+<li>ChangeLog自動生成のためのコミットメッセージ規約のこと</li>
+<li><a href="https://github.com/ajoslin/conventional-changelog" title="ajoslin/conventional-changelog">ajoslin/conventional-changelog</a></li>
+</ul>
+<pre><code>feat(ngInclude): add template url parameter to events
+
+The `src` (i.e. the url of the template to load) is now provided to the
+`$includeContentRequested`, `$includeContentLoaded` and `$includeContentError`
+events.
+
+Closes #8453
+Closes #8454
+</code></pre><hr>
+<h1 id="conventional-changelog">conventional changelog</h1>
+<ul>
+<li>規約の形は何でも良い = ツールとの相性</li>
+<li>コミット検索向けのキーワードとしてtypeとcomponentの利用</li>
+</ul>
+<pre><code>                       component        commit title
+        commit type       /                /      
+                \        |                |
+                 feat(ngInclude): add template url parameter to events
+
+        body -&gt;  The &#39;src` (i.e. the url of the template to load) is now provided to the
+                 `$includeContentRequested`, `$includeContentLoaded` and `$includeContentError`
+                 events.
+
+ referenced  -&gt;  Closes #8453
+ issues          Closes #8454
+</code></pre><hr>
+<h1 id="-">コミットメッセージへの追加情報</h1>
+<ul>
+<li>コミットの種類 : feat?、fix?、Breaking Change?</li>
+<li>コミットの対象: (スコープ)<ul>
+<li>多分コミット書くときに悩む</li>
+<li>コミットメッセージを検索しやすくするための<strong>キーワード</strong>として考えるといいのかも</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">コミットメッセージへの追加情報</h1>
+<ul>
+<li>関連するIssueの場所<ul>
+<li>GitHubはIssueの<code>#42</code>的なIDをコミットメッセージに書くと連動する</li>
+<li>IssueのURLでも問題ない</li>
+<li><a href="https://help.github.com/articles/closing-issues-via-commit-messages/" title="Closing issues via commit messages - User Documentation">Closing issues via commit messages - User Documentation</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="conventional-changelog-">conventional changelogのメリット</h1>
+<ul>
+<li>コミットから自動的にChangeLogを生成出来る<ul>
+<li>ChangeLogに該当Issueへのリンクが生成できる事が大事</li>
+</ul>
+</li>
+<li><a href="https://github.com/ajoslin/conventional-changelog" title="ajoslin/conventional-changelog">ajoslin/conventional-changelog</a><ul>
+<li>Rust: <a href="http://blog.thoughtram.io/announcements/tools/2014/09/18/announcing-clog-a-conventional-changelog-generator-for-the-rest-of-us.html" title="clog - A conventional changelog generator for the rest of us">clog - A conventional changelog generator for the rest of us</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/rvagg/changelog-maker" title="rvagg/changelog-maker">rvagg/changelog-maker</a></li>
+</ul>
+<hr>
+<h1 id="-">コミットメッセージを書くの面倒問題</h1>
+<ul>
+<li>特に関連するIssueを書くのが大変(補完の問題)</li>
+<li>GitHubではPull Requestでマージされたコミットに自動的にリンクが付く</li>
+<li>つまり、常にPull Requestで開発すれば自動的にIssueと紐づく！</li>
+</ul>
+<hr>
+<h1 id="pull-request-">Pull Request駆動</h1>
+<hr>
+<h1 id="pull-request-">Pull Request駆動</h1>
+<p><img src="img/es7.trailingCommas-commit.jpg" alt="left,fit"></p>
+<ul>
+<li>Pull Requstで取り込まれたコミットは自動的にIssueと紐づく</li>
+<li><a href="https://github.com/blog/1905-linking-merged-pull-requests-from-commits" title="Linking merged pull requests from commits">Linking merged pull requests from commits</a></li>
+<li>Pull Requestに詳細を書くことで、自動的に情報が集約される + コミットからのリンク</li>
+</ul>
+<hr>
+<h1 id="pull-request-">Pull Request駆動の副作用(感想)</h1>
+<ul>
+<li>コミットが常にサーバにあるので、複数端末での開発がしやすい</li>
+<li>開発時のメモ欄がある感覚</li>
+<li>Watchしてる人へ通知が行って、他の人が参加するチャンスがある</li>
+</ul>
+<hr>
+<h1 id="changelog">ChangeLog</h1>
+<hr>
+<h1 id="changelog-">ChangeLogは人が読むもの</h1>
+<ul>
+<li>ChangeLogは人が読むものなので、無意味な自動生成は無意味</li>
+<li>自動生成はできるが、自動生成のソースがダメだとChangeLogもダメ</li>
+<li>良いコミットの副産物として良いChangeLogが作れる</li>
+<li>良いコミットではない場合は、手動で書いたほうがマシ</li>
+</ul>
+<hr>
+<h1 id="changelog-">ChangeLogにあると良いもの</h1>
+<ul>
+<li>日付</li>
+<li>バージョン</li>
+<li>変更内容<ul>
+<li>グルーピングされてるとより良い</li>
+</ul>
+</li>
+<li>関連するIssue/Pull Request</li>
+<li><a href="http://keepachangelog.com/" title="Keep a Changelog">Keep a Changelog</a></li>
+</ul>
+<hr>
+<h1 id="github-release-changelog">GitHub ReleaseとCHANGELOG</h1>
+<ul>
+<li><a href="https://help.github.com/articles/creating-releases/" title="Creating Releases - User Documentation">GitHub Release</a></li>
+<li><a href="http://keepachangelog.com/" title="CHANGELOG">CHANGELOG</a>ファイル</li>
+<li>どっちに書く? </li>
+</ul>
+<hr>
+<h1 id="github-release">GItHub Release</h1>
+<ul>
+<li>Pros<ul>
+<li>日付、バージョン、パーマネントリンク、RSSを得られる</li>
+<li>git tagと連動できる</li>
+</ul>
+</li>
+<li>Cons<ul>
+<li>メッセージの自動化がイマイチ難しい</li>
+<li><a href="http://efcl.info/2014/07/20/git-tag-to-release-github/" title="Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch">Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="changelog">CHANGELOG</h1>
+<ul>
+<li>Pros<ul>
+<li>伝統的なやり方なのでツール等が多い</li>
+<li>自動化がしやすい</li>
+</ul>
+</li>
+<li>Cons<ul>
+<li>パーマネントリンクが微妙になりやすい(Markdownじゃないとリンクができない、ハッシュ)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>ChangeLogの追い方を知ることは、いいChangeLogを書くことに繋がる</li>
+<li>GitHub上だけでも情報の詳細度が異なる<ul>
+<li>ChangeLog &gt; Issue/Pull Request -&gt; Commits</li>
+</ul>
+</li>
+<li>この3つが繋がるような変更点をできるのが理想的</li>
+</ul>
+<hr>
+<h1 id="-">おわり</h1>
+<ul>
+<li>This presentation is also Pull Request Driven</li>
+<li><a href="https://github.com/azu/slide/pull/10" title="われわれは、いかにして変更点を追うか - Issueを追う技術 by azu · Pull Request #10 · azu/slide">われわれは、いかにして変更点を追うか - Issueを追う技術 by azu · Pull Request #10 · azu/slide</a></li>
+</ul>
+</article>
+</body>
+</html>
