@@ -363,6 +363,7 @@ git-browse-remote 024e4454a1e3778b0f9b6d081d5f4e792f6035db
 # git bisectを使った検索
 
 - 任意のテストスクリプトをコミット毎に走らせて、テストが失敗するコミットをみつける
+- [AdventCalendar - git bisect で問題箇所を特定する - Qiita](http://qiita.com/usamik26/items/cce867b3b139ea5568a6 "AdventCalendar - git bisect で問題箇所を特定する - Qiita")
 - [git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん](http://d.hatena.ne.jp/innx_hidenori/20110124/1295870463 "git bisectでメソッドが削除されたコミットを探す - しんふぉにゃん")
 - さすがにここまで行くとやり過ぎ感…
 
