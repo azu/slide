@@ -1,5 +1,6 @@
-# ECMAScript 6 Draft.git
+# ECMAScript 6 Draft Hisotry Repo
 
+## ES6 Draftの歴史のGitリポジトリ
 
 -----
 
@@ -100,6 +101,37 @@
 ![right](img/st.png)
 
 - [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision "meta-ecmascript/es6-draft-revision")
+
+-----
+
+# DEMO
+
+- `Reflect.construct`が何時入ったのかを見てみよう
+
+
+-----
+
+# コミットを見つけたら
+
+- Rev前後のミーティングノートやMLを探してみる
+- [ES Discuss](https://esdiscuss.org/ "ES Discuss")
+- [rwaldron/tc39-notes](https://github.com/rwaldron/tc39-notes "rwaldron/tc39-notes")
+- [Bugzilla](https://bugs.ecmascript.org/describecomponents.cgi "Bugzilla")
+
+-----
+
+# 参考
+
+- [インデントコミットで真犯人がわからなくなった場合の git blame - Qiita](http://qiita.com/sonots/items/b6852db6638cda233bc8 "インデントコミットで真犯人がわからなくなった場合の git blame - Qiita")
+- [git logでコミットの差分の中身で絞り込む - Qiita](http://qiita.com/yuichielectric/items/cce64b5b5e0eacc02e64 "git logでコミットの差分の中身で絞り込む - Qiita")
+
+
+-----
+
+# 類似研究
+
+- [dspinellis/unix-history-repo](https://github.com/dspinellis/unix-history-repo "dspinellis/unix-history-repo")
+	-  Unixの歴史のgitレポジトリ
 
 -----
 
