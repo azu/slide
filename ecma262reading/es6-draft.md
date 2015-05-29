@@ -106,7 +106,14 @@
 
 # DEMO
 
-- `Reflect.construct`が何時入ったのかを見てみよう
+- `Reflect.construct`が何時入ったのかを探してみよう
+- [26.1.2 Reflect.construct ( target, argumentsList [, newTarget] )](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-reflect.construct "26.1.2 Reflect.construct ( target, argumentsList [, newTarget] )")
+- `new target` + 内部処理もできるReflrect API
+
+^ `git log -S "Reflect.construct"`を検索
+^ 横断的に検索できる
+^ `tig grep "Reflect.construct"`で検索
+^ `,`のショートカットdえ戻っていく
 
 
 -----
