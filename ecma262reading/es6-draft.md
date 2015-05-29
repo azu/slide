@@ -1,6 +1,6 @@
 # ECMAScript 6 Draft Hisotry Repo
 
-## ES6 Draftの歴史のGitリポジトリ
+## ES6 DraftのGitリポジトリを作る
 
 -----
 
@@ -22,15 +22,15 @@
 - 一般的なバージョン管理がされてない
 	- Wordの編集履歴とChangeLogのみ
 - Revision同士の差分が取得できない
-	- Rev 16と30を比較してどういう記述が変わったの家などがわからない
+	- Rev 16と30を比較してどういう記述が変わったのか分からない
 
 
 ----
 
 # ES6ドラフトの差分を見たい
 
-- Gitリポジトリがあればなー
-	- revごとに変更点がコミットされたものがあれば
+- Gitリポジトリとして更新されていればなー
+	- Rev毎に変更点がコミットされたものがあれば
 - ないなら作ってしまおう !!
 - [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision)
 
@@ -38,7 +38,9 @@
 
 # どういうこと?
 
-- ES6ドラフトのファイルをテキストファイルに変換
+![repository,right](img/repository.png)
+
+- ES6ドラフトをRev毎にテキストファイルに変換
 - １つのテキストファイルの単一リポジトリとしてES6ドラフトの履歴を表現
 - [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision)
 
@@ -98,9 +100,24 @@
 
 # 完成
 
-![right](img/st.png)
+## [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision "meta-ecmascript/es6-draft-revision")
 
-- [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision "meta-ecmascript/es6-draft-revision")
+![](img/st.png)
+
+-----
+
+![](img/annotation.jpg)
+
+----
+
+# (Gitリポジトリにすると)何が良いのか
+
+- テキストファイルだから検索しやすい
+- Gitを使った変更履歴の検索パターンが応用できる
+	- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+- ドラフトのどのバージョンで変更があったのかが追いやすい
+	- 関連するログを調べて何故そういう変更があったのかを調べるのに役立つ
+
 
 -----
 
@@ -113,7 +130,7 @@
 ^ `git log -S "Reflect.construct"`を検索
 ^ 横断的に検索できる
 ^ `tig grep "Reflect.construct"`で検索
-^ `,`のショートカットdえ戻っていく
+^ `,`のショートカットで戻っていく
 
 
 -----
@@ -129,6 +146,7 @@
 
 # 参考
 
+- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
 - [インデントコミットで真犯人がわからなくなった場合の git blame - Qiita](http://qiita.com/sonots/items/b6852db6638cda233bc8 "インデントコミットで真犯人がわからなくなった場合の git blame - Qiita")
 - [git logでコミットの差分の中身で絞り込む - Qiita](http://qiita.com/yuichielectric/items/cce64b5b5e0eacc02e64 "git logでコミットの差分の中身で絞り込む - Qiita")
 
@@ -142,7 +160,9 @@
 
 -----
 
-# おわり
+# まとめ
 
-- [ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch](http://efcl.info/2015/05/07/es6-draft-search/ "ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch")
-- [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision)
+- (Gitの)歴史は捏造できる
+- Git向けのツールがそのまま転用できるg
+	- [ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch](http://efcl.info/2015/05/07/es6-draft-search/ "ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch")
+	- [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision)
