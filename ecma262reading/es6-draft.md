@@ -22,7 +22,7 @@
 - 一般的なバージョン管理がされてない
 	- Wordの編集履歴とChangeLogのみ
 - Revision同士の差分が取得できない
-	- Rev 16と30を比較してどういう記述が変わったのか分からない
+	- 例) Rev 16とRev 30を比較できない
 
 
 ----
@@ -100,9 +100,11 @@
 
 # 完成
 
+![fit](img/st.png)
+
+
 ## [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision "meta-ecmascript/es6-draft-revision")
 
-![](img/st.png)
 
 -----
 
@@ -131,6 +133,42 @@
 ^ 横断的に検索できる
 ^ `tig grep "Reflect.construct"`で検索
 ^ `,`のショートカットで戻っていく
+
+
+------
+# Class - TypeScriptとBabel
+
+- Classで定義したmethodの違い
+- TypeScriptはmethodがenumerable
+- Babelはmethodがnon-enumerable
+- どっちが正しい?
+
+
+-----
+
+![typescript,inline](img/typescript-class.png)
+![babel,inline](img/babel-class.png)
+
+
+-----
+
+# ClassMethodはnon-enumerable
+
+- 現在の仕様ではClassのmethodはnon-enumerable
+- Babelの方が仕様に沿ってる
+- なぜこうした違いが生まれているのかを変更履歴から見る
+	- DEMO:([やり方はこちら](http://efcl.info/2015/05/07/es6-draft-search/ "ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch"))
+
+^ `PropertyDefinitionEvaluation`でこの列挙が定義されてる
+^ tig grep -i "PropertyDefinitionEvaluation"で現在の仕様を見る
+^ `b`でblameモードに入る
+^ `,`でコミットを戻って変更を確認できる
+^ Rev 26でその変更が入ったことがわかる
+
+
+-----
+
+![img](img/correct-class-method.png)
 
 
 -----
@@ -163,6 +201,6 @@
 # まとめ
 
 - (Gitの)歴史は捏造できる
-- Git向けのツールがそのまま転用できるg
+- Git向けのツールがそのまま転用できる
 	- [ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch](http://efcl.info/2015/05/07/es6-draft-search/ "ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch")
 	- [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision)
