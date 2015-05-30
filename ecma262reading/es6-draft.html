@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>ECMAScript 6 Draft Hisotry Repo</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/ecma262reading/es6-draft.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/ecma262reading/es6-draft.pdf" title="ECMAScript 6 Draft Hisotry Repo">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="ecmascript-6-draft-hisotry-repo">ECMAScript 6 Draft Hisotry Repo</h1>
+<h2 id="es6-draft-git-">ES6 DraftのGitリポジトリを作る</h2>
+<hr>
+<h1 id="ecmascript-6-">ECMAScript 6 ドラフト</h1>
+<p><img src="img/es6-draft-list.png" alt="list,right,fit"></p>
+<ul>
+<li><a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts" title="Draft Specification for ES.next (Ecma-262 Edition 6)">Draft Specification for ES.next (Ecma-262 Edition 6)</a></li>
+<li>Revision 38まである</li>
+<li>doc、pdfで公開されている</li>
+<li>非公式のHTML版も公開されてる<ul>
+<li><a href="https://github.com/jorendorff/es-spec-html" title="jorendorff/es-spec-html">jorendorff/es-spec-html</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="ecmascript-6-">ECMAScript 6 ドラフトの問題点</h1>
+<ul>
+<li>一般的なバージョン管理がされてない<ul>
+<li>Wordの編集履歴とChangeLogのみ</li>
+</ul>
+</li>
+<li>Revision同士の差分が取得できない<ul>
+<li>例) Rev 16とRev 30を比較できない</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="es6-">ES6ドラフトの差分を見たい</h1>
+<ul>
+<li>Gitリポジトリとして更新されていればなー<ul>
+<li>Rev毎に変更点がコミットされたものがあれば</li>
+</ul>
+</li>
+<li>ないなら作ってしまおう !!</li>
+<li><a href="https://github.com/meta-ecmascript/es6-draft-revision">meta-ecmascript/es6-draft-revision</a></li>
+</ul>
+<hr>
+<h1 id="-">どういうこと?</h1>
+<p><img src="img/repository.png" alt="repository,right"></p>
+<ul>
+<li>ES6ドラフトをRev毎にテキストファイルに変換</li>
+<li>１つのテキストファイルの単一リポジトリとしてES6ドラフトの履歴を表現</li>
+<li><a href="https://github.com/meta-ecmascript/es6-draft-revision">meta-ecmascript/es6-draft-revision</a></li>
+</ul>
+<hr>
+<p><img src="img/tig.png" alt="repository"></p>
+<hr>
+<h1 id="-">作り方</h1>
+<ol>
+<li>ドラフトのdocファイルを全部ダウンロード</li>
+<li>docファイルをテキストに変換する</li>
+<li>GitにRevごとにコミットとして突っ込む</li>
+<li>git log -S -i &quot;search&quot;とかで検索できる!</li>
+</ol>
+<hr>
+<h1 id="-doc-">ドラフトのdocファイルを全部ダウンロード</h1>
+<ul>
+<li>ダウンロードするURLの一覧</li>
+<li><a href="https://github.com/meta-ecmascript/es6-spec-changelog" title="meta-ecmascript/es6-spec-changelog">meta-ecmascript/es6-spec-changelog</a></li>
+<li>ダウンロードするツール</li>
+<li><a href="https://github.com/meta-ecmascript/download-es6-spec" title="meta-ecmascript/download-es6-spec">meta-ecmascript/download-es6-spec</a></li>
+</ul>
+<hr>
+<p><img src="img/es6-draft-list.png" alt="list,fit"></p>
+<hr>
+<h1 id="doc-">docファイルをテキストに変換する</h1>
+<ul>
+<li>docファイルを直接テキストに変換は難しい</li>
+<li>doc -&gt; docx -&gt; txt としてやる</li>
+<li>doc から docx への変換を安定してやるにはWordを使うしかない…<ul>
+<li>wordで開いてdocxで保存するマクロで変換</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="img/es6-word.png" alt="word"></p>
+<hr>
+<p><img src="http://embed.gyazo.com/68a583b43ea127b79973f6202f1a556e.gif" alt="gif-word"></p>
+<hr>
+<h1 id="git-rev-">GitにRevごとにコミットとする</h1>
+<ul>
+<li>pandocでdocx -&gt; txtとして変換</li>
+<li>revごとのテキストファイル作成</li>
+<li>es6-draft.txtにリネーム-&gt;コミット-&gt;次のRevでes6-draft.txtを上書き...<ul>
+<li>繰り返してGitのコミット積み上げる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">完成</h1>
+<p><img src="img/st.png" alt="fit"></p>
+<h2 id="-meta-ecmascript-es6-draft-revision-https-github-com-meta-ecmascript-es6-draft-revision-meta-ecmascript-es6-draft-revision-"><a href="https://github.com/meta-ecmascript/es6-draft-revision" title="meta-ecmascript/es6-draft-revision">meta-ecmascript/es6-draft-revision</a></h2>
+<hr>
+<p><img src="img/annotation.jpg" alt=""></p>
+<hr>
+<h1 id="-git-">(Gitリポジトリにすると)何が良いのか</h1>
+<ul>
+<li>テキストファイルだから検索しやすい</li>
+<li>Gitを使った変更履歴の検索パターンが応用できる<ul>
+<li><a href="http://azu.github.io/slide/cto/changelog.html" title="われわれは、いかにして変更点を追うか">われわれは、いかにして変更点を追うか</a></li>
+</ul>
+</li>
+<li>ドラフトのどのバージョンで変更があったのかが追いやすい<ul>
+<li>関連するログを調べて何故そういう変更があったのかを調べるのに役立つ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="demo">DEMO</h1>
+<ul>
+<li><code>Reflect.construct</code>が何時入ったのかを探してみよう</li>
+<li><a href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-reflect.construct" title="26.1.2 Reflect.construct ( target, argumentsList [, newTarget] )">26.1.2 Reflect.construct ( target, argumentsList [, newTarget] )</a></li>
+<li><code>new target</code> + 内部処理もできるReflrect API</li>
+</ul>
+<p>^ <code>git log -S &quot;Reflect.construct&quot;</code>を検索
+^ 横断的に検索できる
+^ <code>tig grep &quot;Reflect.construct&quot;</code>で検索
+^ <code>,</code>のショートカットで戻っていく</p>
+<hr>
+<h1 id="class-typescript-babel">Class - TypeScriptとBabel</h1>
+<ul>
+<li>Classで定義したmethodの違い</li>
+<li>TypeScriptはmethodがenumerable</li>
+<li>Babelはmethodがnon-enumerable</li>
+<li>どっちが正しい?</li>
+</ul>
+<hr>
+<p><img src="img/typescript-class.png" alt="typescript,inline">
+<img src="img/babel-class.png" alt="babel,inline"></p>
+<hr>
+<h1 id="classmethod-non-enumerable">ClassMethodはnon-enumerable</h1>
+<ul>
+<li>現在の仕様ではClassのmethodはnon-enumerable</li>
+<li>Babelの方が仕様に沿ってる</li>
+<li>なぜこうした違いが生まれているのかを変更履歴から見る<ul>
+<li>DEMO:(<a href="http://efcl.info/2015/05/07/es6-draft-search/" title="ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch">やり方はこちら</a>)</li>
+</ul>
+</li>
+</ul>
+<p>^ <code>PropertyDefinitionEvaluation</code>でこの列挙が定義されてる
+^ tig grep -i &quot;PropertyDefinitionEvaluation&quot;で現在の仕様を見る
+^ <code>b</code>でblameモードに入る
+^ <code>,</code>でコミットを戻って変更を確認できる
+^ Rev 26でその変更が入ったことがわかる</p>
+<hr>
+<p><img src="img/correct-class-method.png" alt="img"></p>
+<hr>
+<h1 id="-">コミットを見つけたら</h1>
+<ul>
+<li>Rev前後のミーティングノートやMLを探してみる</li>
+<li><a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a></li>
+<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a></li>
+<li><a href="https://bugs.ecmascript.org/describecomponents.cgi" title="Bugzilla">Bugzilla</a></li>
+</ul>
+<hr>
+<h1 id="-">参考</h1>
+<ul>
+<li><a href="http://azu.github.io/slide/cto/changelog.html" title="われわれは、いかにして変更点を追うか">われわれは、いかにして変更点を追うか</a></li>
+<li><a href="http://qiita.com/sonots/items/b6852db6638cda233bc8" title="インデントコミットで真犯人がわからなくなった場合の git blame - Qiita">インデントコミットで真犯人がわからなくなった場合の git blame - Qiita</a></li>
+<li><a href="http://qiita.com/yuichielectric/items/cce64b5b5e0eacc02e64" title="git logでコミットの差分の中身で絞り込む - Qiita">git logでコミットの差分の中身で絞り込む - Qiita</a></li>
+</ul>
+<hr>
+<h1 id="-">類似研究</h1>
+<ul>
+<li><a href="https://github.com/dspinellis/unix-history-repo" title="dspinellis/unix-history-repo">dspinellis/unix-history-repo</a><ul>
+<li>Unixの歴史のgitレポジトリ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>(Gitの)歴史は捏造できる</li>
+<li>Git向けのツールがそのまま転用できる<ul>
+<li><a href="http://efcl.info/2015/05/07/es6-draft-search/" title="ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch">ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch</a></li>
+<li><a href="https://github.com/meta-ecmascript/es6-draft-revision">meta-ecmascript/es6-draft-revision</a></li>
+</ul>
+</li>
+</ul>
+</article>
+</body>
+</html>
