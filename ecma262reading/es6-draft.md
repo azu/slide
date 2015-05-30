@@ -6,7 +6,7 @@
 
 # 自己紹介
 
-![right](https://s.gravatar.com/avatar/274ac35774956379f381cb41bb6e2524?s=320)
+![right](http://monosnap.com/image/TOr9Ca1m0Vs3gH1yGf9N1lqOaZ3Vx0.png)
 
 ## azu
 ## @[azu_re](https://twitter.com/azu_re)
@@ -218,3 +218,5 @@
 - Git向けのツールがそのまま転用できる
 	- [ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch](http://efcl.info/2015/05/07/es6-draft-search/ "ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch")
 	- [meta-ecmascript/es6-draft-revision](https://github.com/meta-ecmascript/es6-draft-revision)
+
+-----
