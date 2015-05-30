@@ -4,6 +4,20 @@
 
 -----
 
+# 自己紹介
+
+![right](https://s.gravatar.com/avatar/274ac35774956379f381cb41bb6e2524?s=320)
+
+## azu
+## @[azu_re](https://twitter.com/azu_re)
+###  [Web scratch], [JSer.info]
+
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+-----
+
 # ECMAScript 6 ドラフト
 
 ![list,right,fit](img/es6-draft-list.png)
