@@ -121,13 +121,10 @@
 
 -----
 
-
 ```
 ╔═══════════════════════╤═════════════════════╗
 ║           A           │          B          ║
 ╠═══════════════════════╪═════════════════════╣
-║ X                     │ Y                   ║
-╟───────────────────────┼─────────────────────╢
 ║ Classes               │ SubClassing         ║
 ╟───────────────────────┼─────────────────────╢
 ║ spread (...) operator │ Proxy               ║
@@ -162,6 +159,16 @@
 -----
 
 # ES6を学ぶ
+
+----
+
+
+# [es6-features.org](http://es6-features.org/)
+
+![es6-features](img/es60features.png)
+
+^ 簡単に機能を一覧できる
+^ Transpilerでできるかどうか = ES5でも可能かどうか
 
 ----
 
@@ -222,18 +229,39 @@
 
 -----
 
-# ES Nextを読む
+# :arrow_forward: ECMAScript Next 
 
 ----
 
+# プロポーサル一覧
+
+
+- [tc39/ecma262](https://github.com/tc39/ecma262 "tc39/ecma262")
+- [Stage 0 Proposals](https://github.com/tc39/ecma262/blob/master/stage0.md "Stage 0 Proposals")
+- [ecmarkup](https://github.com/bterlson/ecmarkup "ecmarkup")でプロポーサルを書き、GitHubに置く
+	- + [ES Discuss](https://esdiscuss.org/ "ES Discuss")
+	- 議論の場所を議論中: [Move es-discuss to discuss.webplatform.org?](https://esdiscuss.org/topic/move-es-discuss-to-discuss-webplatform-org "Move es-discuss to discuss.webplatform.org?")
+
+
+
+----
 
 # [tc39/tc39-notes](https://github.com/tc39/tc39-notes/ "tc39/tc39-notes")
+
+- ECMAScriptを作成する委員会(TC39)のミーティングノート
+- 大体3ヶ月に1度開催
+- [#TC39MTG](https://tc39-mtg.doorkeeper.jp/ "TC39 MTG Notes MTG | Doorkeeper")で一人読書会をやってます
+- ミーティングに参加してないけどコミットしてる 
+
+![tc39, right,fit](img/tc39-notes.png)
 
 ----
 
 # [明日には使えなくなるES7トーク](http://azu.github.io/slide/es6talks/ "明日には使えなくなるES7トーク")
 
-## 賞味期限 まで 後 
+- 賞味期限 まで 後
+- ES7以降の仕様策定の流れ
+- Stageって何か?
 
 -----
 
@@ -241,5 +269,6 @@
 # まとめ
 
 - [WEB+DB PRESS Vol.87](http://developer.cybozu.co.jp/tech/?p=9081 "WEB+DB PRESS Vol.87")で概要を把握
-- [es6-features.org](http://es6-features.org/)で簡単にどんな機能が増えたのかを見て、[tower-of-babel](https://github.com/yosuke-furukawa/tower-of-babel "tower-of-babel")で実際に書いてみる
+- [es6-features.org](http://es6-features.org/)で簡単にどんな機能が増えたのかを見る
+- [tower-of-babel](https://github.com/yosuke-furukawa/tower-of-babel "tower-of-babel")で実際に書いてみる
 - もっと深く知りたい場合は[Exploring ES6](http://exploringjs.com/ "Exploring ES6")を読む
