@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Array.prototype.reduce Dance</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/JSGohan/reduce.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/JSGohan/reduce.pdf" title="Array.prototype.reduce Dance">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="array-prototype-reduce-dance">Array.prototype.reduce Dance</h1>
+<hr>
+<h2 id="basic">Basic</h2>
+<blockquote>
+<p>var assert = require(&quot;assert&quot;);</p>
+</blockquote>
+<ul>
+<li>forと違いimmutableなオブジェクトを使わないで合計を出せる</li>
+<li><a href="http://toolness.github.io/slowmo-js/?code=%5B1%2C%202%5D.reduce(function%20(x%2C%20y)%20%7B%20return%20x%20%2B%20y%20%7D)%3B&amp;filterrange=5-5">Basic flow</a></li>
+</ul>
+<pre><code class="lang-js">var total = [1, 2, 3, 4, 5].reduce(function (a, b) {
+    return a + b;
+});
+assert.equal(total, 15);
+</code></pre>
+<hr>
+<h3 id="-">初期値</h3>
+<ul>
+<li>初期値を指定することもできる</li>
+</ul>
+<pre><code class="lang-js">var initialTotal = [0, 1, 2, 3, 4].reduce(function (a, b) {
+    return a + b;
+}, 10);
+assert.equal(initialTotal, 20);
+</code></pre>
+<hr>
+<h3 id="-">例外</h3>
+<ul>
+<li>空の配列の場合は例外を吐く</li>
+<li><a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.21" title="15.4.4.21 Array.prototype.reduce">15.4.4.21 Array.prototype.reduce</a><ul>
+<li>Step 8.c</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-js">assert.throws(
+    function () {
+        [].reduce(function (a, b) {
+            return a + b
+        });
+    },
+    TypeError,
+    &quot;k &lt; len の場合はTypeError&quot;
+);
+</code></pre>
+<hr>
+<hr>
+<h2 id="every-by-reduce">every by reduce</h2>
+<pre><code class="lang-js">var assert = require(&quot;assert&quot;);
+assert.ng = function(value, message){
+    assert.equal(false, !!value, message);
+};
+</code></pre>
+<ul>
+<li><code>reduce</code> があれば、補完mapやeveryなどは実装できる</li>
+<li>柔軟性が高い</li>
+</ul>
+<blockquote>
+<p>このうちreduceが一番強力で、mapやfilterやsumなど、他の関数もこれをもとに定義できます</p>
+</blockquote>
+<p>via <a href="https://gist.github.com/ympbyc/5564146" title="Functional JavaScript">Functional JavaScript</a></p>
+<hr>
+<h3 id="-array-every-https-developer-mozilla-org-ja-docs-web-javascript-reference-global_objects-array-every-array-every-"><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/every" title="Array.every">Array.every</a></h3>
+<pre><code class="lang-js">function every(array, predicate) {
+    return array.reduce(function (prev, current, index, list) {
+        if (prev) {
+            return predicate(current, index, list);
+        } else {
+            return prev;
+        }
+    }, true);
+}
+function isBigEnough(element, index, list) {
+    return (element &gt;= 10);
+}
+assert.ok(every([12, 130, 44], isBigEnough));
+assert.ng(every([1, 100, 200], isBigEnough));
+</code></pre>
+<hr>
+<h2 id="map">map</h2>
+<blockquote>
+<p>var _ = require(&quot;underscore&quot;);</p>
+</blockquote>
+<ul>
+<li><code>map</code> は基本的に入力の個数と出力の個数が同じ</li>
+<li><code>map</code> だけだと <code>filter</code> (select) までは行えない</li>
+</ul>
+<pre><code class="lang-js">var filteredNumberToString = function (e) {
+    if (typeof e === &quot;number&quot;) {
+        return String(e);
+    }
+};
+var mappedArray = [1, null, 3].map(filteredNumberToString);
+// 現実はundefinedになる
+assert.deepEqual(mappedArray, [&quot;1&quot;, undefined, &quot;3&quot;]);
+</code></pre>
+<hr>
+<h3 id="flatmap">flatMap</h3>
+<ul>
+<li><code>reduce</code> なら違う形(入力と出力の個数が異なる)ものを返せる</li>
+</ul>
+<pre><code class="lang-js">function flatMap(obj, iterator) {
+    return _.reduce(obj, function (memo, value, index, list) {
+        var items = iterator(value, index, list);
+        if (items == null) {
+            return memo;
+        }
+        return memo.concat(items);
+    }, []);
+}
+var flatMappedArray = flatMap([&quot;string&quot;, 1, null, 3], filteredNumberToString);
+// Numberだけにfilter + NumberをStringに変換した結果を返す
+assert.deepEqual(flatMappedArray, [&quot;1&quot;, &quot;3&quot;]);
+</code></pre>
+<hr>
+<h3 id="-">高階関数</h3>
+<ul>
+<li>関数を返す関数の事</li>
+</ul>
+<pre><code class="lang-js">var ComparisonResult = {
+    ascending: -1,// &lt;
+    same: 0,      // ==
+    descending: 1 // &gt;
+};
+function comparator(predicate) {
+    return function (x, y) {
+        if (predicate(x, y)) {
+            return ComparisonResult.ascending
+        } else if (predicate(y, x)) {
+            return ComparisonResult.descending;
+        }
+        return ComparisonResult.same;
+    };
+}
+</code></pre>
+<hr>
+<h3 id="predicates-to-comparisonresult">Predicates to ComparisonResult</h3>
+<ul>
+<li>真偽値 -&gt; comparator を通して -&gt; <code>ComparisonResult</code> を返す関数を作る</li>
+<li>真偽値を返す関数を Predicates という</li>
+<li>真偽値から <code>&lt;</code> <code>==</code> <code>&gt;</code> の3種類の状態を返せるのでシンプル</li>
+</ul>
+<pre><code class="lang-js">function isLessOrEqual(x, y) {
+    return x &lt;= y;
+}
+var values = [2, 3, -1, -6, 0, -108, 42, 10];
+var expectedSortedValues = [-108, -6, -1, 0, 2, 3, 10, 42];
+var results = values.sort(comparator(isLessOrEqual));
+assert.deepEqual(results, expectedSortedValues);
+</code></pre>
+<hr>
+<hr>
+<h2 id="null-guard">Null Guard</h2>
+<ul>
+<li>配列に <strong>falsy</strong> な値が含まれてる意図しない結果になってしまう</li>
+</ul>
+<pre><code class="lang-js">var nums = [1, 2, 3, null, 5];
+var multFn = function (total, n) {
+    return total * n;
+};
+_.reduce(nums, multFn);// =&gt; 0 になってしまう…
+</code></pre>
+<hr>
+<h3 id="null-check-">Null Check?</h3>
+<ul>
+<li>multFnにnullチェックを入れるのは本質的じゃない</li>
+<li>nullチェックを加える <strong>高階関数</strong> を作る</li>
+</ul>
+<pre><code class="lang-js">function fnull(fn, defaultValue) {
+    return function () {
+    // falsyだった場合はdefaultValueにしたものに引数を構築し直す
+        var args = _.map(arguments, function (e) {
+            return e != null ? e : defaultValue;
+        });
+        return fn.apply(null, args);
+    }
+}
+</code></pre>
+<hr>
+<h3 id="safemult">safeMult</h3>
+<ul>
+<li>falsyな値はdefalutValueに変更される</li>
+</ul>
+<pre><code class="lang-js">// var nums = [1, 2, 3, null, 5];
+// falsyな値はdefalutValue(1)に変更される
+var safeMultFn = fnull(multFn, 1);
+var totalMult = _.reduce(nums, safeMultFn);
+assert.equal(totalMult, 30);
+</code></pre>
+<hr>
+<h3 id="-">おわり</h3>
+<p>サンプルコード</p>
+<ul>
+<li><a href="https://github.com/azu/ReduceDance" title="azu/ReduceDance">azu/ReduceDance</a></li>
+</ul>
+<p>参考</p>
+<ul>
+<li><a href="http://www.functionaljavascript.com/" title="functional javascript">functional javascript</a></li>
+<li><a href="http://taiju.hatenablog.com/entry/20110331/1301535208#fn1" title="reduce関数は結構有用っていうお話 - あと味">reduce関数は結構有用っていうお話 - あと味</a></li>
+</ul>
+</article>
+</body>
+</html>

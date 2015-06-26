@@ -93,8 +93,6 @@ assert.ng(every([1, 100, 200], isBigEnough));
 
 ----
 
----
-
 ## map
 
 > var _ = require("underscore");
@@ -137,7 +135,6 @@ assert.deepEqual(flatMappedArray, ["1", "3"]);
 
 ----
 
----
 
 ### 高階関数
 
