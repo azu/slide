@@ -4,8 +4,6 @@
 
 -----
 
-# 自己紹介
-
 ![azu](img/azu.png)
 
 ^ azuです。JSer.infoなどをやっています。
