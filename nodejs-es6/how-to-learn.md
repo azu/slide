@@ -64,7 +64,7 @@ TranspilerはES6の機能をES5の機能で実現するために変換してい�
 
 
 ^ まずは @teppeis さんが書いてるES6特集。
-まだ日本語でのES6全体についてまとまってる文章はすくないです。
+まだ日本語でのES6全体についてまとまってる文章は少ない印象です。
 
 -----
 
@@ -72,7 +72,7 @@ TranspilerはES6の機能をES5の機能で実現するために変換してい�
 
 ![git-es6features.png](img/git-es6features.png)
 
-^サクッとES6の機能の概要を見たい場合はes6festuresというリポジトリが加担です
+^サクッとES6の機能の概要を見たい場合はes6festuresというリポジトリを見るのが簡単です。
 
 ----
 
@@ -112,7 +112,7 @@ ES6はまだ承認されたばかりですが、大部分は既に動かす手�
 
 ![js-compatibibility-table.png](img/js-compatibibility-table.png)
 
-^ 補足: DOMオブジェクトにあるプロパティがあるかどうか、またそのプロパティのtypeof何かを一覧できる
+^ 補足: DOMオブジェクトにあるプロパティがあるかどうか、またそのプロパティのtypeof何かを一覧できます。
 
 ----
 
