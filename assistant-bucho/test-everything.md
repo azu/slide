@@ -117,6 +117,19 @@
 
 -----
 
+# WebAudioのテスト
+
+## 解決したい問題
+
+- Audio Nodeが正しくつながってるかを検証したい
+
+## 解決する方法
+
+- [mohayonao/web-audio-test-api](https://github.com/mohayonao/web-audio-test-api "mohayonao/web-audio-test-api")を使う
+- 例 [azu/audio-node-flow](https://github.com/azu/audio-node-flow "azu/audio-node-flow")
+
+-----
+
 # 動画のテスト :movie_camera:
 
 ----
@@ -183,7 +196,7 @@ describe("Videoのテスト", () => { /* .... */ });
 
 - requestAnimationFrameでメインループを書いたけどテストできない
 - requestAnimationFrameはモックすることできない
-- setTimeoutなどは[tickable-timer](https://github.com/mohayonao/tickable-timer "tickable-timer")でモック出来るが、`performance.now`のようなdelta値を制御が必要になる
+- setTimeoutなどは[tickable-timer](https://github.com/mohayonao/tickable-timer "tickable-timer")でモック出来るが、`Date.now()`のようなdelta値を作る部分の制御が必要になる
 
 -----
 
@@ -318,13 +331,14 @@ assert(typeof dict === "object");
 
 - [azu/textlint](https://github.com/azu/textlint "azu/textlint")
 - [JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch](http://efcl.info/2014/12/30/textlint/ "JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch")
-- [jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch](http://efcl.info/2015/03/04/linting-article/ "jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch")
+
 
 ------
 
 ## 使ってる場所
 
  - [jser.info/blob/gh-pages/tests/lint-text-content.js](https://github.com/jser/jser.info/blob/gh-pages/tests/lint-text-content.js)
+ - [jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch](http://efcl.info/2015/03/04/linting-article/ "jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch")
 
 -----
 
