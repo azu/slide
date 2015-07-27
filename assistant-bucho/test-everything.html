@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/assistant-bucho/test-everything.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/assistant-bucho/test-everything.pdf" title="ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="-e2e-example-js-">ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="アイコン"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-">ロジックテスト</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>コードのロジックを確かめたい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>Mocha、Jasmineなどでユニットテストを書く</li>
+<li>よくあることなので</li>
+</ul>
+<hr>
+<h1 id="e2e-">E2Eテスト</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>動いてるサイトのコードを変更したい</li>
+<li>だが手元にそのサイトを動かす手順がない</li>
+<li>動いてる本番のサイトはある</li>
+</ul>
+<hr>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li><a href="https://github.com/azu/node-cocproxy" title="node-CocProxy">node-CocProxy</a> + <a href="http://karma-runner.github.io/">Karma</a></li>
+<li>KarmaにproxyとしてCocProxyを挟む</li>
+<li>ローカルのコードを本番サイト上のものとすり替える</li>
+<li><a href="https://github.com/angular/protractor" title="Protractor">Protractor</a>でE2Eテストを書く</li>
+</ul>
+<hr>
+<h1 id="-">画像のテスト</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>画像同士を差異をチェックしたい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li><a href="https://github.com/HumbleSoftware/js-imagediff" title="js-imagediff">js-imagediff</a>や<a href="https://github.com/yahoo/blink-diff" title="Blink-Diff">Blink-Diff</a>でdiffを取る</li>
+</ul>
+<hr>
+<h1 id="-fireworks-">描画のテスト :fireworks:</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>画像同士の比較はメンテコストが高い<ul>
+<li>画像をイチイチ作るのが大変</li>
+</ul>
+</li>
+<li>HTMLを表示して描画の結果から比較したい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>ReftestによりHTMLの描画結果を画像比較する</li>
+</ul>
+<hr>
+<h2 id="reftest">Reftest</h2>
+<p><img src="https://github.com/azu/reftest-runner/raw/master/docs/reftest-runner-overview-image.png" alt="fit right, reftest"></p>
+<ul>
+<li><a href="https://github.com/azu/reftest-runner" title="Reftest-runner">Reftest-runner</a>を作りReftestを行った</li>
+<li><a href="http://efcl.info/2015/05/14/reftest-runner/" title="ブラウザでビジュアルテストをするreftest-runnerを作った | Web Scratch">ブラウザでビジュアルテストをするreftest-runnerを作った | Web Scratch</a></li>
+</ul>
+<hr>
+<h2 id="reftest-">Reftestからの学び</h2>
+<ul>
+<li>Reftestで作成するHTMLはサンプルとしても動作する<ul>
+<li>デバッグに役立つ</li>
+</ul>
+</li>
+<li>Canvasを使ったライブラリの互換テストとして役立った</li>
+<li>Runtime Errorの検知に実際に動かすテストは役立つ</li>
+<li>実際に動かした時に色々なログを出すことが重要</li>
+</ul>
+<hr>
+<h1 id="-sound-">音声のテスト :sound:</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>Web Audio API、HTML Audio等の再生ができてるかをテストしたい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>実際にテストで音声を再生して確認する</li>
+<li>テストに音が鳴り始める</li>
+</ul>
+<hr>
+<h1 id="-movie_camera-">動画のテスト :movie_camera:</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li><code>&lt;video&gt;</code>要素のライブラリのテストを書きたい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>実際にブラウザで動かしてテストする</li>
+</ul>
+<hr>
+<h1 id="-movie_camera-">動画のテスト例 :movie_camera:</h1>
+<ul>
+<li><a href="https://github.com/azu/video-prefetcher">https://github.com/azu/video-prefetcher</a></li>
+<li><a href="https://github.com/azu/video-transcript-tracker">https://github.com/azu/video-transcript-tracker</a></li>
+</ul>
+<hr>
+<h1 id="-feature-detect">テストとFeature Detect</h1>
+<ul>
+<li>音声や動画はPhantomJSなどレガシーブラウザは動かない</li>
+<li>動かない環境がない前提としてテストが必要になる</li>
+<li>テストにもFeature Detectを導入する</li>
+</ul>
+<hr>
+<blockquote>
+<p><a href="https://github.com/azu/video-prefetcher/blob/9cef5ea796dbd7629180ff99e5ef78de06a720c5/test/video-prefetcher-test.js#L6-L14">video-prefetcher-test.js</a>より</p>
+</blockquote>
+<pre><code class="lang-js">// 動画をサポートしてるか判定
+function isSupportVideo() {
+    var video = document.createElement(&quot;video&quot;);
+    var playType = video.canPlayType(&#39;video/mp4; codecs=&quot;avc1.42E01E&quot;&#39;);
+    if (!playType) {
+        return false;
+    }
+    return playType.length &gt; 0;
+}
+
+var describe = isSupportVideo() ? window.describe : window.describe.skip;
+describe(&quot;Videoのテスト&quot;, () =&gt; { /* .... */ });
+</code></pre>
+<hr>
+<h2 id="feature-detect-deferred-test">Feature DetectとDeferred test</h2>
+<ul>
+<li>サポートしてない環境ではテストをスキップする<ul>
+<li>Mochaでは<code>.skip</code>、Jasmineでは<code>xdescribe</code>など</li>
+</ul>
+</li>
+<li>Buster.jsの<a href="http://docs.busterjs.org/en/latest/overview/#feature-detection" title="Feature detection¶">Feature detection</a>がこの機能を持ってる</li>
+<li>備考: PhantomJSで動くようにするより、実際のブラウザをCIで動かしたほうが良い</li>
+</ul>
+<hr>
+<h1 id="requestanimationframe-">requestAnimationFrameのテスト</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>requestAnimationFrameでメインループを書いたけどテストできない</li>
+<li>requestAnimationFrameはモックすることできない</li>
+<li>setTimeoutなどは<a href="https://github.com/mohayonao/tickable-timer" title="tickable-timer">tickable-timer</a>でモック出来るが、<code>performance.now</code>のようなdelta値を制御が必要になる</li>
+</ul>
+<hr>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>requestAnimationFrameでメインループを管理する機構を作る</li>
+<li><a href="https://github.com/uupaa/Clock.js" title="uupaa/Clock.js">uupaa/Clock.js</a><ul>
+<li><a href="https://github.com/uupaa/Clock.js/wiki" title="Home · uupaa/Clock.js Wiki">Home · uupaa/Clock.js Wiki</a> をベースに作成</li>
+</ul>
+</li>
+<li>テストはtimeStamp, deltaTimeの値を元に行う</li>
+<li>Clock.jsはdeltaTimeを制御出来る仕組みを持ってる</li>
+</ul>
+<hr>
+<h2 id="-">解決までの道</h2>
+<ul>
+<li>テストに何が必要なのかをモックをしながら調べる</li>
+<li>モック出来ない限界まできたら、そこを抽象化できる仕組みをまとめる</li>
+<li><code>requestAnimationFrame(fn);</code>はfnに<code>timestamp</code>を渡してくれる</li>
+<li>毎回呼ばれる<code>timestamp</code>同士の差分<code>delta</code>値のみが大事だと分かる</li>
+</ul>
+<hr>
+<ul>
+<li>まず、コアは一つの機能に集中+外からConfigurableに設計<ul>
+<li>コアは、ひたらすらrequestAnimationFrameでループを回す+外から渡された関数に(timestamp, delta)を渡す事だけに集中</li>
+</ul>
+</li>
+<li>コアを実際のアプリに合わせた形に変換する層を作る<ul>
+<li>メインループ -&gt; FPSにあわせたメインループ と調整して使う</li>
+<li>コアでFPSの調整などを機能として入れてはいけない</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">なぜコア -&gt; 変換層 -&gt; アプリなのか</h2>
+<ul>
+<li>変換層はコアから貰った<code>delta</code>値を元に調整を行う<ul>
+<li>Dateなど他の時間軸には依存させない</li>
+</ul>
+</li>
+<li>コアの<code>delta</code>値を偽装する機能を追加する</li>
+<li>-&gt; 変換層も<code>delta</code>値を元に動くのでテストが書ける</li>
+</ul>
+<hr>
+<h1 id="-">通信のテスト</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>Socketを繋いで動くようなアプリで、実際につながってるのかをテストしたい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>実際にテスト時にSocketにつながるようにしてテストを動かす</li>
+<li>テストサーバをbefore-testで立てて、after-testでサーバを落とす</li>
+<li><a href="https://github.com/substack/psy" title="psy">psy</a>を使うとサーバのプロセス管理が簡単に出来る</li>
+</ul>
+<hr>
+<h1 id="example-">Exampleテスト</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>テストが面倒なものをテストしたい</li>
+<li>gulp plugin等パターン化されたもの、テストが書きにくいものなど</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>実際に動くexampleを書いてexampleを実行する</li>
+<li>正常に終了したらテスト成功！</li>
+<li>半分ぐらいの問題は実際に動いていれば解決される</li>
+</ul>
+<hr>
+<h1 id="example-">Exampleテストのパターン</h1>
+<ul>
+<li>例) <a href="https://github.com/azu/kantan-ej-dict" title="azu/kantan-ej-dict">azu/kantan-ej-dict</a>というnpmモジュール</li>
+<li>JSONをnpm install時にダウンロードして、<code>require(&quot;kantan-ej-dict&quot;)</code>でJSONがとれるだけ</li>
+<li>テストコードは殆ど書く意味がないレベル</li>
+<li>example/ ディレクトリにサンプルを作る</li>
+<li><code>npm i -S ../</code> で<a href="http://efcl.info/2014/10/04/npm2-local-module/" title="ローカルモジュール">ローカルモジュール</a>として読み込む</li>
+</ul>
+<hr>
+<h1 id="example-">Exampleテストのパターン</h1>
+<p><em>example/example.js</em>という感じで動くサンプルコードを書く</p>
+<pre><code class="lang-js">var assert = require(&quot;assert&quot;);
+var dict = require(&quot;kantan-ej-dict&quot;);
+assert(typeof dict === &quot;object&quot;);
+</code></pre>
+<ul>
+<li>サンプルコードから相対パスがなくなる! </li>
+</ul>
+<pre><code>&quot;script&quot;: {// npm testでサンプルコードを実行する
+  &quot;test&quot;: &quot;(cd example &amp;&amp; npm i &amp;&amp; node test.js)&quot;
+}
+</code></pre><hr>
+<h1 id="example-">Exampleテストのいいところ</h1>
+<ul>
+<li><code>package.json</code>の設定ミスとかをチェック出来る<ul>
+<li>&quot;main&quot; の間違いとかがある場合、example.jsが失敗する</li>
+</ul>
+</li>
+<li>exampleのコードがコピペフレンドリーになる</li>
+<li>ロジックテストが難しいものでも、動くサンプルコードを書くのは難易度が下がる</li>
+</ul>
+<hr>
+<h2 id="example-">Exampleテストを使ったもの</h2>
+<ul>
+<li><a href="https://github.com/azu/fly-textlint">azu/fly-textlint</a></li>
+<li><a href="https://github.com/azu/reftest-runner">azu/reftest-runner</a></li>
+<li><a href="https://github.com/azu/kantan-ej-dict">azu/kantan-ej-dict</a></li>
+<li><a href="https://github.com/azu/electron-zip-packager">azu/electron-zip-packager</a></li>
+<li><a href="https://github.com/azu/video-transcript-tracker">azu/video-transcript-tracker</a></li>
+</ul>
+<hr>
+<h1 id="-memo-">文章のテスト :memo:</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>typoを減らしたい</li>
+<li>用語の統一性を持ちたい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li><a href="https://github.com/azu/textlint" title="azu/textlint">azu/textlint</a></li>
+<li><a href="http://efcl.info/2014/12/30/textlint/" title="JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/03/04/linting-article/" title="jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch">jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch</a></li>
+</ul>
+<hr>
+<h2 id="-">使ってる場所</h2>
+<ul>
+<li><a href="https://github.com/jser/jser.info/blob/gh-pages/tests/lint-text-content.js">jser.info/blob/gh-pages/tests/lint-text-content.js</a></li>
+</ul>
+<hr>
+<h1 id="-wrench-">設定のテスト :wrench:</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>Jekyll記事のカテゴリなどの設定ミスを減らしたい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li><a href="https://github.com/isaacs/node-glob">glob</a>で対象ファイルを取得、<a href="https://www.npmjs.com/package/front-matter" title="front-matter">front-matter</a>でメタ情報取得テストする</li>
+<li><a href="jser.github.io/tree/develop/test">jser.github.io/tree/develop/test</a></li>
+</ul>
+<hr>
+<h1 id="-">リリース(前)のテスト</h1>
+<hr>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>npm publishのミスを減らしたい</li>
+<li>private moduleを間違ってpublicしたくない</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li>npm publishのラッパを使う</li>
+<li><a href="http://efcl.info/2015/04/09/npm-publish-pattern/" title="npm publishのパターン | Web Scratch">npm publishのパターン | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>exampleテストのようなテストも結構不安は解消される</li>
+<li>reftestのような実際に動くサンプルが残るという副産物が便利</li>
+<li><a href="https://www.npmjs.com/package/selenium-webdriver" title="selenium-webdriver">selenium-webdriver</a>など結構気軽に使えるので、ブラウザを動かすテストも色々書ける</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>コードにもテストのしやすい設計が必要<ul>
+<li>ひたすらモックしていき、コアに必要なものを探る</li>
+<li>ひたすらConfigurableに作り、コアに必要なものだけに絞る</li>
+</ul>
+</li>
+</ul>
+</article>
+</body>
+</html>
