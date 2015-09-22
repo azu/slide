@@ -231,8 +231,8 @@ $ summary-to-path SUMMARY.md | xargs textlint
 [include, test.js](fixtures/test.js)
 ```
 
-と書けば、Code Blockとして展開される。
-=> GitHub上ではただのコードへのリンクとなる(Fallback)
+と書けば、CodeBlockとして展開される。
+=> GitHub上ではただのリンクとなる(fallback)
 
 
 ----
@@ -263,7 +263,7 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 - [eslint/eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown "eslint/eslint-plugin-markdown")を利用
 - ESLintのプラグインとしてインラインコードをLintできる
-	- `js`や`javascript`といったCode Blockに対してLint
+	- `js`や`javascript`といったCodeBlockに対してLint
 
 
 ----
@@ -297,7 +297,7 @@ $ summary-to-path SUMMARY.md | xargs textlint
 # エディタ
 
 - 殆ど素のMarkdownなので好きなエディタが使える
-- GitBookの公式エディタもある
+- GitBookの[公式エディタ](https://www.gitbook.com/editor)もある
 - WebStorm、Atom、Markdownエディタなどでよい
 
 
@@ -376,3 +376,9 @@ $ summary-to-path SUMMARY.md | xargs textlint
 - textlintで文章をチェック
 - JavaScriptやインラインコードをESLintでチェック
 - Issue/Pull Request駆動でモチベーションを保つ
+
+-----
+
+# 疑問点
+
+- 登場してきたIssueに書いてみるといいかも!?
