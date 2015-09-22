@@ -28,27 +28,9 @@
 ## 電子書籍の開発中にやったこと
 
 
------
-
-
-# Issue/Pull Request駆動
-
-![fit, pulse](img/pulse.png)
-
 ----
 
-# Issue/Pull Request駆動
-
-- 文章の正しさは人により異なるので根拠を残す
-	- コードと違って曖昧成分が多い
-	- 文章の自動チェックを入れた理由を残す
-- Pull Request駆動で文章もCIを通してから
-	- [検証済みマージ](http://d.hatena.ne.jp/kkawa/20120604/p1 "検証済みマージ") - マージされるとGitBookに自動反映
-
-
-----
-
-# チェックしたいこと
+# やりたかったこと
 
 ![fit, inline, aim](img/aim.png)
 
@@ -69,7 +51,7 @@
 
 - Markdown/文章のLint => [textlint](https://github.com/azu/textlint "textlint")
 - インラインコードのLint => [ESLint](http://eslint.org/ "ESLint")
-- ファイルのincludeするMarkdown拡張 => [GitBook](https://www.gitbook.com/)
+- ファイルのincludeするMarkdown拡張 => [GitBook](https://www.gitbook.com/)+プラグイン
 - Markdown to HTML or PDF => [GitBook](https://www.gitbook.com/)
 - エディタ => [GitBook Editor](https://www.gitbook.com/editor)
 
@@ -77,19 +59,25 @@
 
 # [GitBook](https://www.gitbook.com/)
 
+![fit, gitbook](img/gitbook.jpg)
+
+-----
+
+# [GitBook](https://www.gitbook.com/)
+
 - Markdownで電子書籍を書けるツール/プラットフォーム
 - [GitbookIO/gitbook](https://github.com/GitbookIO/gitbook "GitbookIO/gitbook")
-	- Markdown -> HTML/PDF/Epub
-- [gitbook.com](https://www.gitbook.com)
-	- 書籍公開プラットフォーム
-	- GitHubと連携して自動ビルド、販売等に対応
+	- Markdown -> HTML/PDF/Epubの変換
+	- 各章を書いてSUMMARY.mdにリンクを書くだけで作れる
+	- プラグインで拡張できる
 
 -----
 # [gitbook.com](https://www.gitbook.com)
 
 - GitBookの公開プラットフォーム
 - とても良く出来てる
-- コラボレーター、販売、PDF/Epubの自動生成、コミットごとのプレビュー、アップデート通知、オンラインエディタ
+- HTML/PDF/Epubの自動生成、コミット毎プレビュー、販売/寄付、Oraganization、アップデート通知、オンラインエディタ
+- GitHubとDeployment APIでhookして自動的に反映できる
 
 
 -----
@@ -122,8 +110,8 @@
 ├── book.json
 ├── src(*.js)
 │   └── jQuery
-├── ja (*.md, *.png 文章系)
-│    └── jQuery
+├── ja (*.md, *.png 文章関係)
+│   └── jQuery
 ├── test (*-test.js)
 │   └── jQuery
 └── package.json
@@ -167,11 +155,10 @@
 
 # プロジェクト固有の表記揺れ
 
-- 表記揺れのチェックは汎用的ではない
-- プロジェクト固有の表記揺れチェックが必要
-- [textlint-rule-prh](https://github.com/azu/textlint-rule-prh "textlint-rule-prh")
-- [textlint + prhで表記ゆれを検出する | Web Scratch](http://efcl.info/2015/09/14/textlint-rule-prh/ "textlint + prhで表記ゆれを検出する | Web Scratch")
-- ymlで手軽に表記揺れの辞書を追加できるtextlint rule
+- 表記揺れのチェックに汎用的な辞書/ルールはない
+	- 全ての表現が一意ならそもそも表記揺れなんて起きない
+	- 書籍の中で一貫した表現を保証するためのもの
+- プロジェクト固有のルールで表記揺れのチェックが必要
 
 -----
 
@@ -189,6 +176,14 @@ rules:
       - プラグインのアーキテクチャ
 ```
 
+-----
+
+# [textlint-rule-prh](https://github.com/azu/textlint-rule-prh "textlint-rule-prh")
+
+
+- textlint-rule-prhについては詳しくは以下の記事を参照
+- [textlint + prhで表記ゆれを検出する | Web Scratch](http://efcl.info/2015/09/14/textlint-rule-prh/ "textlint + prhで表記ゆれを検出する | Web Scratch")
+
 
 -----
 
@@ -203,12 +198,13 @@ rules:
 
 # GitBook + textlint
 
-- GitBookは`SUMMARY.md`からmdへのリンクがある
+- GitBookは`SUMMARY.md`から各章の.mdへのリンクがある
 - [azu/gitbook-summary-to-path](https://github.com/azu/gitbook-summary-to-path "azu/gitbook-summary-to-path")
-- SUMMARY.mdにに書かれているファイルに`textlint`を行う
+- SUMMARY.mdに書かれているファイルを`textlint`する
 
 ```sh
 $ summary-to-path SUMMARY.md | xargs textlint
+# 全ての章がtextlintでLintできる
 ```
 
 ----
@@ -220,7 +216,7 @@ $ summary-to-path SUMMARY.md | xargs textlint
 # コードのLint
 
 - コードを[ESLint](http://eslint.org/ "ESLint")でチェックしたい
-- 技術書を書く場合、コードを書く方法が2種類
+- 技術書に載せるコードを書く方法は2種類
 	- コードを外部ファイルとして書いて読み込む
 	- インラインにコードを書く
 
@@ -232,7 +228,7 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 
 ```
-[include](fixtures/test.js)
+[include, test.js](fixtures/test.js)
 ```
 
 と書けば、Code Blockとして展開される。
@@ -253,6 +249,7 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 # インラインコードのLint
 
+	これは`a`という変数を定義している。
 	```js
 	var a = 1;
 	```
@@ -267,11 +264,22 @@ $ summary-to-path SUMMARY.md | xargs textlint
 - [eslint/eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown "eslint/eslint-plugin-markdown")を利用
 - ESLintのプラグインとしてインラインコードをLintできる
 	- `js`や`javascript`といったCode Blockに対してLint
-- 問題: インラインコードは常に実行できるとは限らない！！
+
 
 ----
 
-# 実行できないインラインコードのLint
+# インラインコードのLintの問題
+
+- 問題: インラインコードは実行できないのが正常というケース！
+- 説明するためにコードの一部を取り出す場合
+	- コードとしては実行できない
+	- コードブロックのみで見ると変数が未定義となってる
+- => インラインコード専用のゆるいルールを作る
+
+
+----
+
+# インラインコード専用のゆるいルール
 
 - 設定ファイルを分けることで解決！
 - 通常のコード用: [.eslintrc](https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/.eslintrc ".eslintrc")
@@ -285,6 +293,29 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 ----
 
+
+# エディタ
+
+- 殆ど素のMarkdownなので好きなエディタが使える
+- GitBookの公式エディタもある
+- WebStorm、Atom、Markdownエディタなどでよい
+
+
+----
+
+# WebStorm + File Watch + textlint
+
+
+![inline](https://gyazo.com/28cf940bfb8e64e5efd6d1f969a2a967.gif)
+
+-----
+
+# Atom + [1000ch/linter-textlint](https://github.com/1000ch/linter-textlint "1000ch/linter-textlint")
+
+![fit,inline, linter-textlint](https://gyazo.com/af14634690a0515c2c5ce56bd2fd6431.gif)
+
+-----
+
 # CONTRIBUTING.md
 
 - [Contributing Guidelines](https://github.com/blog/1184-contributing-guidelines "Contributing Guidelines")を書いてみる
@@ -296,3 +327,31 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 
 ## ✔ [CONTRIBUTING.md · Issue #12 · azu/JavaScript-Plugin-Architecture](https://github.com/azu/JavaScript-Plugin-Architecture/issues/12 "CONTRIBUTING.md · Issue #12 · azu/JavaScript-Plugin-Architecture")
+
+
+----
+
+
+# Issue/Pull Request駆動
+
+![fit, pulse](img/pulse.png)
+
+----
+
+# Issue/Pull Request駆動
+
+- 文章の正しさは人により異なるので根拠を残す
+	- コードと違って曖昧成分が多い
+	- 文章の自動チェックを入れた理由を残す
+- Pull Request駆動で文章もCIを通してから
+	- [検証済みマージ](http://d.hatena.ne.jp/kkawa/20120604/p1 "検証済みマージ") - マージされるとGitBookに自動反映
+
+
+-----
+
+# Issue駆動
+
+
+- Issueで設計をしてから文章を書く
+- 気になったことはとりあえずIssueとして置いておく
+- [Githubで書く電子書籍](https://azu.github.io/slide/individual/ "Githubで書く電子書籍")
