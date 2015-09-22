@@ -1,4 +1,4 @@
-# 電子書籍の開発環境
+# Markdownで書く電子書籍開発環境
 
 ----
 
@@ -349,9 +349,30 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 -----
 
-# Issue駆動
+# Issue
 
 
 - Issueで設計をしてから文章を書く
-- 気になったことはとりあえずIssueとして置いておく
+- 気になったことはとりあえずIssueとしてメモ書き
+- 参考リンクとかをコメントにどんどん書いていく
+- ちょっとづつ進められるようにタスクをIssueとして細分化
+	- => 飽きやすいのを防止するため
+
+-----
+
+# GitHubと電子書籍
+
+- [Promise本](http://azu.github.io/promises-book/ "Promiseの本")での話
 - [Githubで書く電子書籍](https://azu.github.io/slide/individual/ "Githubで書く電子書籍")
+- [Promise本で取り組んだ電子書籍の開発ツール、CI、継続的リリースについて](http://efcl.info/2015/01/06/ebook-env/ "Promise本で取り組んだ電子書籍の開発ツール、CI、継続的リリースについて")
+
+
+-----
+
+# まとめ
+
+- [JavaScript Plugin Architecture](https://github.com/azu/JavaScript-Plugin-Architecture/ "JavaScript Plugin Architecture")という電子書籍で実践してる事
+- Markdownで書いてGitBookでビルド、公開してる
+- textlintで文章をチェック
+- JavaScriptやインラインコードをESLintでチェック
+- Issue/Pull Request駆動でモチベーションを保つ
