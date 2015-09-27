@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Markdownで書く電子書籍開発環境</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/slide/niku_sushi/ebook_development.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/slide/niku_sushi/ebook_development.pdf" title="Markdownで書く電子書籍開発環境">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="markdown-">Markdownで書く電子書籍開発環境</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="アイコン"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-javascript-plugin-architecture-"><a href="https://github.com/azu/JavaScript-Plugin-Architecture/" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a></h1>
+<p><img src="img/book.png" alt="fit, book"></p>
+<hr>
+<h1 id="-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-javascript-plugin-architecture-"><a href="https://github.com/azu/JavaScript-Plugin-Architecture/" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a></h1>
+<h2 id="-">電子書籍の開発中にやったこと</h2>
+<hr>
+<h1 id="-">やりたかったこと</h1>
+<p><img src="img/aim.png" alt="fit, inline, aim"></p>
+<hr>
+<h1 id="-markdown-issue-42-https-github-com-azu-azu-issues-42-markdown-issue-42-azu-azu-"><a href="https://github.com/azu/azu/issues/42" title="[Markdown] 電子書籍開発環境 · Issue #42 · azu/azu">[Markdown] 電子書籍開発環境 · Issue #42</a></h1>
+<ul>
+<li>Markdown/文章のLint</li>
+<li>インラインコードのLint</li>
+<li>ファイルのincludeするMarkdown拡張</li>
+<li>Markdown to HTML or PDF</li>
+<li>エディタ</li>
+</ul>
+<hr>
+<h1 id="-markdown-issue-42-https-github-com-azu-azu-issues-42-markdown-issue-42-azu-azu-"><a href="https://github.com/azu/azu/issues/42" title="[Markdown] 電子書籍開発環境 · Issue #42 · azu/azu">[Markdown] 電子書籍開発環境 · Issue #42</a></h1>
+<ul>
+<li>Markdown/文章のLint =&gt; <a href="https://github.com/azu/textlint" title="textlint">textlint</a></li>
+<li>インラインコードのLint =&gt; <a href="http://eslint.org/" title="ESLint">ESLint</a></li>
+<li>ファイルのincludeするMarkdown拡張 =&gt; <a href="https://www.gitbook.com/">GitBook</a>+プラグイン</li>
+<li>Markdown to HTML or PDF =&gt; <a href="https://www.gitbook.com/">GitBook</a></li>
+<li>エディタ =&gt; <a href="https://www.gitbook.com/editor">GitBook Editor</a></li>
+</ul>
+<hr>
+<h1 id="-gitbook-https-www-gitbook-com-"><a href="https://www.gitbook.com/">GitBook</a></h1>
+<p><img src="img/gitbook.jpg" alt="fit, gitbook"></p>
+<hr>
+<h1 id="-gitbook-https-www-gitbook-com-"><a href="https://www.gitbook.com/">GitBook</a></h1>
+<ul>
+<li>Markdownで電子書籍を書けるツール/プラットフォーム</li>
+<li><a href="https://github.com/GitbookIO/gitbook" title="GitbookIO/gitbook">GitbookIO/gitbook</a><ul>
+<li>Markdown -&gt; HTML/PDF/Epubの変換</li>
+<li>各章を書いてSUMMARY.mdにリンクを書くだけで作れる</li>
+<li>プラグインで拡張できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-gitbook-com-https-www-gitbook-com-"><a href="https://www.gitbook.com">gitbook.com</a></h1>
+<ul>
+<li>GitBookの公開プラットフォーム</li>
+<li>とても良く出来てる</li>
+<li>HTML/PDF/Epubの自動生成、コミット毎プレビュー、販売/寄付、Oraganization、アップデート通知、オンラインエディタ</li>
+<li>GitHubとDeployment APIでhookして自動的に反映できる</li>
+</ul>
+<hr>
+<h1 id="-gitbook-issue-4-azu-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-issues-4-gitbook-issue-4-azu-javascript-plugin-architecture-">✔ <a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/4" title="GitBook連携の設定 · Issue #4 · azu/JavaScript-Plugin-Architecture">GitBook連携の設定 · Issue #4 · azu/JavaScript-Plugin-Architecture</a></h1>
+<hr>
+<h1 id="gitbook-">GitBookの構造</h1>
+<p><img src="img/summary.png" alt="fit, right"></p>
+<pre><code>.
+├── README.md
+├── SUMMARY.md
+└── book.json
+</code></pre><ul>
+<li><code>SUMMARY.md</code> から各章へのMarkdownファイルへリンク</li>
+<li><code>gitbook build</code> =&gt; 静的なHTMLが生成される</li>
+</ul>
+<hr>
+<h1 id="javascript-plugin-architecture-">JavaScript Plugin Architectureの構造</h1>
+<pre><code>├── README.md
+├── SUMMARY.md
+├── book.json
+├── src(*.js)
+│   └── jQuery
+├── ja (*.md, *.png 文章関係)
+│   └── jQuery
+├── test (*-test.js)
+│   └── jQuery
+└── package.json
+</code></pre><hr>
+<h1 id="-issue-5-azu-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-issues-5-issue-5-azu-javascript-plugin-architecture-">✔ <a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/5" title="プロジェクト構造について · Issue #5 · azu/JavaScript-Plugin-Architecture">プロジェクト構造について · Issue #5 · azu/JavaScript-Plugin-Architecture</a></h1>
+<hr>
+<h1 id="-textlint-https-github-com-azu-textlint-textlint-"><a href="https://github.com/azu/textlint" title="textlint">textlint</a></h1>
+<ul>
+<li>Markdownやテキスト向けのLintツール</li>
+<li>テキスト版ESLintツール<ul>
+<li>ルールをJavaScriptで簡単に追加できる</li>
+</ul>
+</li>
+<li><a href="http://efcl.info/2015/09/10/introduce-textlint/" title="textlintで日本語の文章をチェックする | Web Scratch">textlintで日本語の文章をチェックする | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="textlint-rule">textlint rule</h1>
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-max-ten">textlint-rule-max-ten</a><ul>
+<li>一文に利用できる<code>、</code>の数をチェックするルール</li>
+</ul>
+</li>
+<li><a href="https://github.com/azu/textlint-rule-spellcheck-tech-word">textlint-rule-spellcheck-tech-word</a><ul>
+<li>WEB+DB用語統一ルールベースの単語チェックするルール</li>
+</ul>
+</li>
+<li><a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu">textlint-rule-no-mix-dearu-desumasu</a><ul>
+<li>「ですます」調と「である」調の混在をチェックするルール</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="textlint-rule">textlint rule</h1>
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-no-start-duplicated-conjunction" title="azu/textlint-rule-no-start-duplicated-conjunction">textlint-rule-no-start-duplicated-conjunction</a><ul>
+<li>「しかし、〜　。 しかし、〜。」など同じ接続詞が連続してないかをチェックするルール</li>
+</ul>
+</li>
+<li>textlintのルールは以下にまとめられている<ul>
+<li><a href="https://github.com/azu/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · azu/textlint Wiki">Collection of textlint rule · azu/textlint Wiki</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">プロジェクト固有の表記揺れ</h1>
+<ul>
+<li>表記揺れのチェックに汎用的な辞書/ルールはない<ul>
+<li>全ての表現が一意ならそもそも表記揺れなんて起きない</li>
+<li>書籍の中で一貫した表現を保証するためのもの</li>
+</ul>
+</li>
+<li>プロジェクト固有のルールで表記揺れのチェックが必要</li>
+</ul>
+<hr>
+<h1 id="-textlint-rule-prh-https-github-com-azu-textlint-rule-prh-textlint-rule-prh-"><a href="https://github.com/azu/textlint-rule-prh" title="textlint-rule-prh">textlint-rule-prh</a></h1>
+<ul>
+<li><a href="https://github.com/vvakame/prh" title="vvakame/prh">vvakame/prh</a> を利用したtextlint rule</li>
+<li>yamlでルールを簡単に追加できる(正規表現や大文字小文字などよくある表記揺れは簡単に書ける仕組みがある)</li>
+</ul>
+<pre><code>rules:
+  - expected: プラグインアーキテクチャ
+    pattern:
+      - プラグイン機構
+      - プラグインのアーキテクチャ
+</code></pre><hr>
+<h1 id="-textlint-rule-prh-https-github-com-azu-textlint-rule-prh-textlint-rule-prh-"><a href="https://github.com/azu/textlint-rule-prh" title="textlint-rule-prh">textlint-rule-prh</a></h1>
+<ul>
+<li>textlint-rule-prhについては詳しくは以下の記事を参照</li>
+<li><a href="http://efcl.info/2015/09/14/textlint-rule-prh/" title="textlint + prhで表記ゆれを検出する | Web Scratch">textlint + prhで表記ゆれを検出する | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="-">なぜプロジェクト毎に表記揺れルール？</h1>
+<ul>
+<li>typoなどを見つけた場合にルールを追加して<strong>から</strong>修正できる</li>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/48" title="**C**onnectに統一しよう · Issue #48 · azu/JavaScript-Plugin-Architecture"><strong>C</strong>onnectに統一しよう · Issue #48 · azu/JavaScript-Plugin-Architecture</a><ul>
+<li>リグレッションテストと同じ意味合い</li>
+</ul>
+</li>
+<li>表記がルールとして明文化できるので<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/CONTRIBUTING.md" title="Contribute">Contribute</a>しやすい</li>
+</ul>
+<hr>
+<h1 id="gitbook-textlint">GitBook + textlint</h1>
+<ul>
+<li>GitBookは<code>SUMMARY.md</code>から各章の.mdへのリンクがある</li>
+<li><a href="https://github.com/azu/gitbook-summary-to-path" title="azu/gitbook-summary-to-path">azu/gitbook-summary-to-path</a></li>
+<li>SUMMARY.mdに書かれているファイルを<code>textlint</code>する</li>
+</ul>
+<pre><code class="lang-sh">$ summary-to-path SUMMARY.md | xargs textlint
+# 全ての章がtextlintでLintできる
+</code></pre>
+<hr>
+<h1 id="-textlint-issue-1-azu-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-issues-1-textlint-issue-1-azu-javascript-plugin-architecture-">✔ <a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/1" title="textlintの導入 · Issue #1 · azu/JavaScript-Plugin-Architecture">textlintの導入 · Issue #1 · azu/JavaScript-Plugin-Architecture</a></h1>
+<hr>
+<h1 id="-lint">コードのLint</h1>
+<ul>
+<li>コードを<a href="http://eslint.org/" title="ESLint">ESLint</a>でチェックしたい</li>
+<li>技術書に載せるコードを書く方法は2種類<ul>
+<li>コードを外部ファイルとして書いて読み込む</li>
+<li>インラインにコードを書く</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">外部ファイルのコード</h1>
+<ul>
+<li><a href="https://github.com/azu/gitbook-plugin-include-codeblock" title="azu/gitbook-plugin-include-codeblock">azu/gitbook-plugin-include-codeblock</a></li>
+<li>いい感じに外部ファイルをCodeBlockとして読み込むGitBookプラグイン</li>
+</ul>
+<pre><code>[include, test.js](fixtures/test.js)
+</code></pre><p>と書けば、CodeBlockとして展開される。
+=&gt; GitHub上ではただのリンクとなる(fallback)</p>
+<hr>
+<h1 id="-lint">外部ファイルのコードをLint</h1>
+<ul>
+<li>ESLintを使い単純にJavaScriptとしてLintを通す</li>
+</ul>
+<h2 id="-eslint-issue-6-azu-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-issues-6-eslint-issue-6-azu-javascript-plugin-architecture-">✔ <a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/6" title="ESLintの導入 · Issue #6 · azu/JavaScript-Plugin-Architecture">ESLintの導入 · Issue #6 · azu/JavaScript-Plugin-Architecture</a></h2>
+<hr>
+<h1 id="-lint">インラインコードのLint</h1>
+<pre><code>これは`a`という変数を定義している。
+```js
+var a = 1;
+```
+</code></pre><ul>
+<li>インラインに書かれているコードに対してもLintを行う</li>
+<li>インラインコードは実行されないのでtypoし易い</li>
+</ul>
+<hr>
+<h1 id="-lint">インラインコードのLint</h1>
+<ul>
+<li><a href="https://github.com/eslint/eslint-plugin-markdown" title="eslint/eslint-plugin-markdown">eslint/eslint-plugin-markdown</a>を利用</li>
+<li>ESLintのプラグインとしてインラインコードをLintできる<ul>
+<li><code>js</code>や<code>javascript</code>といったCodeBlockに対してLint</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-lint-">インラインコードのLintの問題</h1>
+<ul>
+<li>問題: インラインコードは実行できないのが正常というケース！</li>
+<li>説明するためにコードの一部を取り出す場合<ul>
+<li>コードとしては実行できない</li>
+<li>コードブロックのみで見ると変数が未定義となってる</li>
+</ul>
+</li>
+<li>=&gt; インラインコード専用のゆるいルールを作る</li>
+</ul>
+<hr>
+<h1 id="-">インラインコード専用のゆるいルール</h1>
+<ul>
+<li>設定ファイルを分けることで解決！</li>
+<li>通常のコード用: <a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/.eslintrc" title=".eslintrc">.eslintrc</a></li>
+<li>インラインコード用: <a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/.md.eslintrc" title=".md.eslintrc">.md.eslintrc</a><ul>
+<li>.eslintrcを継承</li>
+<li><code>no-undef</code>や<code>no-unused-vars</code>などを無効化</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-eslint-lint-issue-7-azu-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-issues-7-eslint-lint-issue-7-azu-javascript-plugin-architecture-">✔ <a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/7" title="ESLintでインラインコードのLint · Issue #7 · azu/JavaScript-Plugin-Architecture">ESLintでインラインコードのLint · Issue #7 · azu/JavaScript-Plugin-Architecture</a></h1>
+<hr>
+<h1 id="-">エディタ</h1>
+<ul>
+<li>殆ど素のMarkdownなので好きなエディタが使える</li>
+<li>GitBookの<a href="https://www.gitbook.com/editor">公式エディタ</a>もある</li>
+<li>WebStorm、Atom、Markdownエディタなどでよい</li>
+</ul>
+<hr>
+<h1 id="webstorm-file-watch-textlint">WebStorm + File Watch + textlint</h1>
+<p><img src="https://gyazo.com/28cf940bfb8e64e5efd6d1f969a2a967.gif" alt="inline"></p>
+<hr>
+<h1 id="atom-1000ch-linter-textlint-https-github-com-1000ch-linter-textlint-1000ch-linter-textlint-">Atom + <a href="https://github.com/1000ch/linter-textlint" title="1000ch/linter-textlint">1000ch/linter-textlint</a></h1>
+<blockquote>
+<p><a href="https://1000ch.net/posts/2015/linter-textlint.html" title="textlintのAtomプラグイン - 1000ch.net">textlintのAtomプラグイン - 1000ch.net</a></p>
+</blockquote>
+<p><img src="https://gyazo.com/af14634690a0515c2c5ce56bd2fd6431.gif" alt="fit,inline, linter-textlint"></p>
+<hr>
+<h1 id="contributing-md">CONTRIBUTING.md</h1>
+<ul>
+<li><a href="https://github.com/blog/1184-contributing-guidelines" title="Contributing Guidelines">Contributing Guidelines</a>を書いてみる</li>
+<li>書こうと思うと、どういう手順でプレビューできるか、修正するか、文章を書いていくかの整理が必要になる</li>
+<li>自分のためでもあり、Contributingする人のためになる</li>
+</ul>
+<hr>
+<h2 id="-contributing-md-issue-12-azu-javascript-plugin-architecture-https-github-com-azu-javascript-plugin-architecture-issues-12-contributing-md-issue-12-azu-javascript-plugin-architecture-">✔ <a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/12" title="CONTRIBUTING.md · Issue #12 · azu/JavaScript-Plugin-Architecture">CONTRIBUTING.md · Issue #12 · azu/JavaScript-Plugin-Architecture</a></h2>
+<hr>
+<h1 id="issue-pull-request-">Issue/Pull Request駆動</h1>
+<p><img src="img/pulse.png" alt="fit, pulse"></p>
+<hr>
+<h1 id="issue-pull-request-">Issue/Pull Request駆動</h1>
+<ul>
+<li>文章の正しさは人により異なるので根拠を残す<ul>
+<li>コードと違って曖昧成分が多い</li>
+<li>文章の自動チェックを入れた理由を残す</li>
+</ul>
+</li>
+<li>Pull Request駆動で文章もCIを通してから<ul>
+<li><a href="http://d.hatena.ne.jp/kkawa/20120604/p1" title="検証済みマージ">検証済みマージ</a> - マージされるとGitBookに自動反映</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="issue">Issue</h1>
+<ul>
+<li>Issueで設計をしてから文章を書く</li>
+<li>気になったことはとりあえずIssueとしてメモ書き</li>
+<li>参考リンクとかをコメントにどんどん書いていく</li>
+<li>ちょっとづつ進められるようにタスクをIssueとして細分化<ul>
+<li>=&gt; 飽きやすいのを防止するため</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="github-">GitHubと電子書籍</h1>
+<ul>
+<li><a href="http://azu.github.io/promises-book/" title="Promiseの本">Promise本</a>での話</li>
+<li><a href="https://azu.github.io/slide/individual/" title="Githubで書く電子書籍">Githubで書く電子書籍</a></li>
+<li><a href="http://efcl.info/2015/01/06/ebook-env/" title="Promise本で取り組んだ電子書籍の開発ツール、CI、継続的リリースについて">Promise本で取り組んだ電子書籍の開発ツール、CI、継続的リリースについて</a></li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>という電子書籍で実践してる事</li>
+<li>Markdownで書いてGitBookでビルド、公開してる</li>
+<li>textlintで文章をチェック</li>
+<li>JavaScriptやインラインコードをESLintでチェック</li>
+<li>Issue/Pull Request駆動でモチベーションを保つ</li>
+</ul>
+<hr>
+<h1 id="-">疑問点</h1>
+<ul>
+<li>登場してきたIssueに書いてみるといいかも!?</li>
+</ul>
+</article>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>npmで成果物をsemantic-release :rocket:</title>
+    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
+    .markdown-body li img {
+        height: 1em;
+        vertical-align: text-bottom; }
+
+    html, body, .main-content {
+        height: 100%;
+        margin: 0 auto;
+        padding: 0; }
+
+    #main-slide {
+        margin: 0 auto;
+        display: block; }
+
+    .slide-controller {
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        display: block;
+        text-align: right; }
+    .slide-controller a, .slide-controller p, .slide-controller button {
+        vertical-align: text-bottom; }
+
+    .slide-state-normal, .main-content {
+        width: 90%;
+        height: 90%; }
+
+    .slide-state-fullscreen {
+        width: 100%;
+        height: 100%; }
+
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px; }
+
+    .markdown-body img {
+        max-width: 100%; }
+    </style>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+</head>
+<body>
+<div class="main-content">
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/niku_sushi/npm-semantic-release.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller"><a href="http://azu.github.io/slide/niku_sushi/npm-semantic-release.pdf" title="npmで成果物をsemantic-release :rocket:">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             version="1.1"
+             class="svg-icon"
+             viewBox="0 0 512 512">
+            <path
+                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                    style="fill:#000000"></path>
+        </svg>
+        Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    </aside>
+</div>
+<script>
+    (function () {
+        // focus slide
+        document.getElementById("main-slide").focus();
+        var fullScreenButton = document.getElementById("js-fullscreen-button");
+        fullScreenButton.addEventListener("click", function () {
+            var content = document.querySelector(".main-content");
+            content.classList.toggle("slide-state-fullscreen");
+        });
+    })();
+</script>
+<article class="markdown-body"><h1 id="npm-semantic-release-rocket-">npmで成果物をsemantic-release :rocket:</h1>
+<hr>
+<h1 id="-npm-json-">目的: npmで単独のJSONファイルを配布したい</h1>
+<h2 id="-">例) 辞書ファイル、更新頻度が高いファイル</h2>
+<hr>
+<h1 id="-">最終的にやりたいこと</h1>
+<p>npm installして</p>
+<pre><code>npm install technical-word-rules
+</code></pre><p><code>require</code>するだけで辞書ファイルをJavaScriptから使いたい</p>
+<pre><code class="lang-js">var json = require(&quot;technical-word-rules&quot;);
+// 辞書ファイルを使えるようにしたい
+</code></pre>
+<hr>
+<h2 id="-1-install-hook">方法1: <code>install</code> hook</h2>
+<p>npmの<code>pacakage.json</code>にはinstall時に行う挙動を書くことが出来る</p>
+<pre><code class="lang-js">  &quot;scripts&quot;: {
+    &quot;install&quot;: &quot;node install-hook.js&quot;
+  },
+</code></pre>
+<p><code>npm install technical-word-rules</code>すると<code>install-hook.js</code>が実行出来る。</p>
+<hr>
+<h2 id="install-hook-js">install-hook.js</h2>
+<pre><code class="lang-js">// ファイルをダウンロードして最新のものへと置き換える
+var fs = require(&quot;fs&quot;);
+var http = require(&quot;http&quot;);
+http.get(&quot;http://azu.github.io/technical-word-rules/all.json&quot;, function (res) {
+    var body = &#39;&#39;;
+    res.setEncoding(&#39;utf8&#39;);
+
+    res.on(&#39;data&#39;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&#39;end&#39;, function (res) {
+        fs.writeFileSync(require(&quot;path&quot;).join(__dirname, &quot;all.json&quot;), body, &quot;utf-8&quot;);
+    });
+}).on(&#39;error&#39;, function (e) {
+    console.log(&quot;Got error: &quot; + e.message);
+});
+</code></pre>
+<hr>
+<h2 id="-install-hook">問題: install-hook</h2>
+<ul>
+<li>無理矢理感がある</li>
+<li>npm側のバージョンは上がらないので、リソースのバージョン管理ができてない</li>
+<li>HTTPで最新のリソースがダウンロード出来るようにしておく必要がある<ul>
+<li>先ほどの例だとコミット毎にgh-pagesにpushしてる…</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-2-semantic-release">方法2: semantic-release</h1>
+<h2 id="-npm-rocket-">コミット毎にnpmにリリースすればいい :rocket:</h2>
+<hr>
+<h1 id="-semantic-release-https-github-com-semantic-release-semantic-release-semantic-release-"><a href="https://github.com/semantic-release/semantic-release" title="semantic-release">semantic-release</a></h1>
+<ul>
+<li>コミットメッセージから自動的にsemverでバージョンをあげてnpmにpublishする</li>
+<li>=&gt; Travis CIからテストがパスするごとにnpm publishされる</li>
+<li>Gitで管理する<code>pacakge.json</code>からは<code>version</code>を取り除く<ul>
+<li><a href="https://github.com/semantic-release/semantic-release" title="semantic-release">semantic-release</a>が&quot;前回のバージョン&quot;としているのはnpmに挙げられているバージョン</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-semantic-release-https-github-com-semantic-release-semantic-release-semantic-release-"><a href="https://github.com/semantic-release/semantic-release" title="semantic-release">semantic-release</a>のワークフロー</h1>
+<ul>
+<li>ローカル: git commit -&gt; git push</li>
+<li>Travis CI:<ul>
+<li>semantic-release pre(package.jsonにversionを書き込み)</li>
+<li>npm publish</li>
+<li>semantic-release post(GitHub ReleaseにChangeLogの書き込み)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">どうやってバージョンを決める?</h1>
+<ul>
+<li>元となるバージョンはnpmから取得</li>
+<li>コミットメッセージを見て<code>feat</code>があるなら<code>minor</code>、<code>fix</code>なら<code>patch</code>と解析してsermverで自動的にあげる<ul>
+<li>デフォルトは<a href="https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.uyo6cb12dt6w" title="Git Commit Message Conventions - Google ドキュメント">Git Commit Message Conventions - Google ドキュメント</a>に従ったルール</li>
+<li>自分で定義出来る : <a href="https://github.com/semantic-release/semantic-release#analyzecommits" title="analyzeCommits">analyzeCommits</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">関連</h1>
+<ul>
+<li><a href="https://github.com/ajoslin/conventional-changelog" title="ajoslin/conventional-changelog">ajoslin/conventional-changelog</a></li>
+<li><a href="http://efcl.info/2015/06/18/good-changelog/" title="良いChangeLog、良くないChangeLog | Web Scratch">良いChangeLog、良くないChangeLog | Web Scratch</a></li>
+</ul>
+<hr>
+<h2 id="-">導入が簡単</h2>
+<p><img src="https://monosnap.com/file/MJZOSoWmONPf7qgUxmZC0abWf6wHcU.png" alt="img,right,fit"></p>
+<pre><code class="lang-sh">$ npm install -g semantic-release-cli
+$ semantic-release-cli setup
+</code></pre>
+<p>後は対話に応えるだけで、Travis CI、npm、GitHubの連携をやってくれる。</p>
+<ul>
+<li><a href="https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-automating-releases-with-semantic-release" title="How to Write a JavaScript Library - Automating Releases with semantic-release - JavaScript Video Tutorial #free @eggheadio">How to Write a JavaScript Library - Automating Releases with semantic-release - JavaScript Video Tutorial #free @eggheadio</a></li>
+</ul>
+<hr>
+<h2 id="-">実践</h2>
+<ul>
+<li><a href="https://github.com/azu/technical-word-rules" title="azu/technical-word-rules">azu/technical-word-rules</a></li>
+<li>コミット毎にnpmに自動的にリリースされる</li>
+<li><a href="https://github.com/azu/technical-word-rules/releases" title="Releases · azu/technical-word-rules">Releases · azu/technical-word-rules</a></li>
+<li>GitHub Releseに自動的にChangelogも追加される</li>
+</ul>
+<hr>
+<h1 id="-or-">全自動 or 半自動</h1>
+<ul>
+<li>全自動でやるには<a href="https://github.com/semantic-release/semantic-release" title="semantic-release">semantic-release</a>は便利</li>
+<li>辞書みたいな更新頻度が高いものを手動リリースしなくていい</li>
+<li>セミオートでやりたい場合はconventional-changelogを使うと同様の事ができる</li>
+<li><a href="https://github.com/ajoslin/conventional-changelog">ajoslin/conventional-changelog</a></li>
+<li><a href="https://github.com/stevemao/conventional-github-releaser">stevemao/conventional-github-releaser</a></li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li><a href="https://github.com/semantic-release/semantic-release" title="semantic-release">semantic-release</a>を使うことでリソースをnpmで配りたい場合もsemverで管理できるようになる</li>
+<li>GitHub Releaseのリリースノートも自動化できる(APIを使ってる)</li>
+<li>GitHub Releaseに自動生成CHANGELOG + コメントを編集で加えるパターンだと、比較的簡単にリリースノートを書ける</li>
+</ul>
+</article>
+</body>
+</html>
