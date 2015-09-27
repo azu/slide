@@ -312,6 +312,8 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 # Atom + [1000ch/linter-textlint](https://github.com/1000ch/linter-textlint "1000ch/linter-textlint")
 
+> [textlintのAtomプラグイン - 1000ch.net](https://1000ch.net/posts/2015/linter-textlint.html "textlintのAtomプラグイン - 1000ch.net")
+
 ![fit,inline, linter-textlint](https://gyazo.com/af14634690a0515c2c5ce56bd2fd6431.gif)
 
 -----
