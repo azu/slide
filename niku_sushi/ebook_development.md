@@ -1,5 +1,7 @@
 # Markdownで書く電子書籍開発環境
 
+## [#niku_sushi](http://efcl.info/2015/09/27/niku_sushi/ "#niku_sushi")
+
 ----
 
 # 自己紹介
@@ -370,6 +372,21 @@ $ summary-to-path SUMMARY.md | xargs textlint
 
 
 -----
+
+# この構成で技術書を書きたい人へ
+
+- [azu/gitbook-starter-kit](https://github.com/azu/gitbook-starter-kit "azu/gitbook-starter-kit")
+- git cloneするだけでこの構成で書けるスターターキット
+- 以下のようにするだけで技術書を書ける環境です(gitbook.comの設定は各自)
+
+```sh
+git clone https://github.com/azu/gitbook-starter-kit.git your-book-name
+cd your-book-name
+npm install
+```
+
+-----
+
 
 # まとめ
 
