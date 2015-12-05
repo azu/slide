@@ -3,46 +3,6 @@
 <head lang="ja">
     <meta charset="UTF-8">
     <title>npmで成果物をsemantic-release :rocket:</title>
-    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
-    .markdown-body li img {
-        height: 1em;
-        vertical-align: text-bottom; }
-
-    html, body, .main-content {
-        height: 100%;
-        margin: 0 auto;
-        padding: 0; }
-
-    #main-slide {
-        margin: 0 auto;
-        display: block; }
-
-    .slide-controller {
-        width: 70%;
-        height: 70%;
-        margin: 0 auto;
-        display: block;
-        text-align: right; }
-    .slide-controller a, .slide-controller p, .slide-controller button {
-        vertical-align: text-bottom; }
-
-    .slide-state-normal, .main-content {
-        width: 90%;
-        height: 90%; }
-
-    .slide-state-fullscreen {
-        width: 100%;
-        height: 100%; }
-
-    .markdown-body {
-        min-width: 200px;
-        max-width: 790px;
-        margin: 0 auto;
-        padding: 30px; }
-
-    .markdown-body img {
-        max-width: 100%; }
-    </style>
     <noscript>
         <style>
             .main-content {
@@ -50,7 +10,7 @@
             }
         </style>
     </noscript>
-    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
 </head>
 <body>
 <div class="main-content">
@@ -72,20 +32,20 @@
                     style="fill:#000000"></path>
         </svg>
         Download PDF</a>
-        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
     </aside>
 </div>
-<script>
-    (function () {
-        // focus slide
-        document.getElementById("main-slide").focus();
-        var fullScreenButton = document.getElementById("js-fullscreen-button");
-        fullScreenButton.addEventListener("click", function () {
-            var content = document.querySelector(".main-content");
-            content.classList.toggle("slide-state-fullscreen");
-        });
-    })();
-</script>
 <article class="markdown-body"><h1 id="npm-semantic-release-rocket-">npmで成果物をsemantic-release :rocket:</h1>
 <hr>
 <h1 id="-npm-json-">目的: npmで単独のJSONファイルを配布したい</h1>
@@ -210,5 +170,6 @@ $ semantic-release-cli setup
 <li>GitHub Releaseに自動生成CHANGELOG + コメントを編集で加えるパターンだと、比較的簡単にリリースノートを書ける</li>
 </ul>
 </article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
 </body>
 </html>
