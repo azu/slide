@@ -3,46 +3,6 @@
 <head lang="ja">
     <meta charset="UTF-8">
     <title>世界のJavaScriptを読もう @ 2014</title>
-    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
-    .markdown-body li img {
-        height: 1em;
-        vertical-align: text-bottom; }
-
-    html, body, .main-content {
-        height: 100%;
-        margin: 0 auto;
-        padding: 0; }
-
-    #main-slide {
-        margin: 0 auto;
-        display: block; }
-
-    .slide-controller {
-        width: 70%;
-        height: 70%;
-        margin: 0 auto;
-        display: block;
-        text-align: right; }
-    .slide-controller a, .slide-controller p, .slide-controller button {
-        vertical-align: text-bottom; }
-
-    .slide-state-normal, .main-content {
-        width: 80%;
-        height: 80%; }
-
-    .slide-state-fullscreen {
-        width: 100%;
-        height: 100%; }
-
-    .markdown-body {
-        min-width: 200px;
-        max-width: 790px;
-        margin: 0 auto;
-        padding: 30px; }
-
-    .markdown-body img {
-        max-width: 100%; }
-    </style>
     <noscript>
         <style>
             .main-content {
@@ -50,10 +10,11 @@
             }
         </style>
     </noscript>
-    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
 </head>
-<body>
+<body itemscope itemtype="http://schema.org/Article">
 <div class="main-content">
+    <meta itemprop="name headline" content="世界のJavaScriptを読もう @ 2014"/>
     <iframe id="main-slide"
             src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/jser200/javascript-2014.pdf"
             scrolling="no"
@@ -62,31 +23,38 @@
             height="100%"
             style="border:0;">
     </iframe>
-    <aside class="slide-controller"><a href="http://azu.github.io/slide/jser200/javascript-2014.pdf" title="世界のJavaScriptを読もう @ 2014">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             version="1.1"
-             class="svg-icon"
-             viewBox="0 0 512 512">
-            <path
-                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
-                    style="fill:#000000"></path>
-        </svg>
-        Download PDF</a>
-        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2014-10-19" id="datePublished">
+            2014-10-19
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2015-12-06" id="dateModified">
+            2015-12-06
+        </time></span>
+        <a href="http://azu.github.io/slide/jser200/javascript-2014.pdf" title="世界のJavaScriptを読もう @ 2014">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
     </aside>
 </div>
-<script>
-    (function () {
-        // focus slide
-        document.getElementById("main-slide").focus();
-        var fullScreenButton = document.getElementById("js-fullscreen-button");
-        fullScreenButton.addEventListener("click", function () {
-            var content = document.querySelector(".main-content");
-            content.classList.toggle("slide-state-fullscreen");
-        });
-    })();
-</script>
-<article class="markdown-body"><h1 id="-javascript-2014">世界のJavaScriptを読もう @ 2014</h1>
+<article class="markdown-body" itemprop="articleBody"><h1 id="-javascript-2014">世界のJavaScriptを読もう @ 2014</h1>
 <p>^目的: ウェブの世界は絶対変化するもの
 変化する前提の行動が求める
 それをどうやって見ていくか、それを知ってどうするか</p>
@@ -512,7 +480,7 @@ GitHub上のReleseまたはCHANGELOGを紹介したものと
 <p>^ V8やBlinkといったJavaScriptについてだと、公式のブログはそこまで読みやすくない。
 後述する<a href="https://dev.opera.com/blog/" title="Dev.Opera — Blog">Dev.Opera</a>も見ることを薦めている。</p>
 <hr>
-<h1 id="-inline-chromium-chromium-http-www-chromium-org-the-chromium-projects-"><img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></h1>
+<p>#<img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></p>
 <blockquote>
 <p>Chromium is an open-source browser.
 -- <a href="http://www.chromium.org/">http://www.chromium.org/</a></p>
@@ -521,7 +489,7 @@ GitHub上のReleseまたはCHANGELOGを紹介したものと
 Chromeに入る機能の大体はここへコミットされる。(一部ChromeにあってChromiumないものもある。翻訳機能とか)
 <a href="https://code.google.com/p/v8/" title="V8">V8</a> や<a href="http://dev.chromium.org/blink" title=" Blink "> Blink </a>なども含まれているプロジェクトの総称。</p>
 <hr>
-<h1 id="-inline-chromium-chromium-http-www-chromium-org-the-chromium-projects-"><img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></h1>
+<p>#<img src="icon/chromium_512x512.png" alt="inline" title="Chromium"> <a href="http://www.chromium.org/" title="The Chromium Projects">Chromium</a></p>
 <ul>
 <li><a href="https://www.chromestatus.com/features" title="Chromium Dashboard">Chromium Dashboard</a><ul>
 <li><img src="icon/internet-explorer_512x512.png" alt="IE, inline" title="Internet Explorer">  <img src="icon/firefox_512x512.png" alt="firefox,inline" title="Firefox">  <img src="icon/chrome_512x512.png" alt="chrome,inline" title="Google Chrome"> Chromiumを中心にブラウザの実装ステータス</li>
@@ -805,5 +773,6 @@ IEに関してはstatus.modern.IEを通して開発状況をオープンにし�
 <hr>
 <h1 id="-fit-">[fit] おわり</h1>
 </article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
 </body>
 </html>
