@@ -3,46 +3,6 @@
 <head lang="ja">
     <meta charset="UTF-8">
     <title>Visualize TC39 Process</title>
-    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
-    .markdown-body li img {
-        height: 1em;
-        vertical-align: text-bottom; }
-
-    html, body, .main-content {
-        height: 100%;
-        margin: 0 auto;
-        padding: 0; }
-
-    #main-slide {
-        margin: 0 auto;
-        display: block; }
-
-    .slide-controller {
-        width: 70%;
-        height: 70%;
-        margin: 0 auto;
-        display: block;
-        text-align: right; }
-    .slide-controller a, .slide-controller p, .slide-controller button {
-        vertical-align: text-bottom; }
-
-    .slide-state-normal, .main-content {
-        width: 90%;
-        height: 90%; }
-
-    .slide-state-fullscreen {
-        width: 100%;
-        height: 100%; }
-
-    .markdown-body {
-        min-width: 200px;
-        max-width: 790px;
-        margin: 0 auto;
-        padding: 30px; }
-
-    .markdown-body img {
-        max-width: 100%; }
-    </style>
     <noscript>
         <style>
             .main-content {
@@ -50,43 +10,51 @@
             }
         </style>
     </noscript>
-    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
 </head>
-<body>
+<body itemscope itemtype="http://schema.org/Article">
 <div class="main-content">
+    <meta itemprop="name headline" content="Visualize TC39 Process"/>
     <iframe id="main-slide"
-            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/assistant-bucho/visual-tc39-process.pdf"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/slide/assistant-bucho/visual-tc39-process.pdf"
             scrolling="no"
             allowtransparency="true"
             width="100%"
             height="100%"
             style="border:0;">
     </iframe>
-    <aside class="slide-controller"><a href="http://azu.github.io/slide/assistant-bucho/visual-tc39-process.pdf" title="Visualize TC39 Process">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             version="1.1"
-             class="svg-icon"
-             viewBox="0 0 512 512">
-            <path
-                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
-                    style="fill:#000000"></path>
-        </svg>
-        Download PDF</a>
-        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2015-07-26" id="datePublished">
+            2015-07-26
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2015-12-06" id="dateModified">
+            2015-12-06
+        </time></span>
+        <a href="http://azu.github.io/slide/slide/assistant-bucho/visual-tc39-process.pdf" title="Visualize TC39 Process">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
     </aside>
 </div>
-<script>
-    (function () {
-        // focus slide
-        document.getElementById("main-slide").focus();
-        var fullScreenButton = document.getElementById("js-fullscreen-button");
-        fullScreenButton.addEventListener("click", function () {
-            var content = document.querySelector(".main-content");
-            content.classList.toggle("slide-state-fullscreen");
-        });
-    })();
-</script>
-<article class="markdown-body"><h1 id="visualize-tc39-process">Visualize TC39 Process</h1>
+<article class="markdown-body" itemprop="articleBody"><h1 id="visualize-tc39-process">Visualize TC39 Process</h1>
 <h2 id="tc39-ecmascript-">TC39によるECMAScript策定プロセス</h2>
 <hr>
 <h1 id="-tc39-process-google-https-docs-google-com-document-d-1qbee0bso4lvl7nftn5wxweieibfavuf7dk0hppppdzu-edit-tc39-process-google-">詳しくは<a href="https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit" title="TC39 Process - Google ドキュメント">TC39 Process - Google ドキュメント</a>を参照</h1>
@@ -102,7 +70,7 @@
 </ul>
 <p>毎年 3月と9月にstage4なったものを取り入れたものを新しいECMAScriptとする</p>
 <hr>
-<h1 id="demo">DEMO</h1>
+<p>#DEMO</p>
 <p><img src="http://monosnap.com/image/OjbcN954c9EosPIR9rpX4MkDD7jwEk.png" alt="fit img"></p>
 <h2 id="-azu-github-io-tc39-svg-http-azu-github-io-tc39-svg-"><a href="http://azu.github.io/tc39-svg/">azu.github.io/tc39-svg/</a></h2>
 <hr>
@@ -187,10 +155,11 @@ var ECMAYRange = linear().domain(TenPercent).range([0, 500]);
     xRange={ECMAXRange} yRange={ECMAYRange}/&gt;
 </code></pre>
 <hr>
-<h1 id="a-proposal">A Proposal</h1>
+<p>#A Proposal</p>
 <ul>
 <li><a href="https://github.com/azu/azu/issues/57" title="ES nextの策定プロセスを分かりやすくまとめた記事 · Issue #57 · azu/azu">ES nextの策定プロセスを分かりやすくまとめた記事 · Issue #57 · azu/azu</a></li>
 </ul>
 </article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
 </body>
 </html>

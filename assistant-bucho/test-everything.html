@@ -3,46 +3,6 @@
 <head lang="ja">
     <meta charset="UTF-8">
     <title>ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト</title>
-    <style>.main-content .svg-icon, .markdown-body h1 img, .markdown-body h2 img, .markdown-body h3 img, .markdown-body h4 img, .markdown-body h5 img, .markdown-body h6 img,
-    .markdown-body li img {
-        height: 1em;
-        vertical-align: text-bottom; }
-
-    html, body, .main-content {
-        height: 100%;
-        margin: 0 auto;
-        padding: 0; }
-
-    #main-slide {
-        margin: 0 auto;
-        display: block; }
-
-    .slide-controller {
-        width: 70%;
-        height: 70%;
-        margin: 0 auto;
-        display: block;
-        text-align: right; }
-    .slide-controller a, .slide-controller p, .slide-controller button {
-        vertical-align: text-bottom; }
-
-    .slide-state-normal, .main-content {
-        width: 90%;
-        height: 90%; }
-
-    .slide-state-fullscreen {
-        width: 100%;
-        height: 100%; }
-
-    .markdown-body {
-        min-width: 200px;
-        max-width: 790px;
-        margin: 0 auto;
-        padding: 30px; }
-
-    .markdown-body img {
-        max-width: 100%; }
-    </style>
     <noscript>
         <style>
             .main-content {
@@ -50,43 +10,51 @@
             }
         </style>
     </noscript>
-    <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css"/>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
 </head>
-<body>
+<body itemscope itemtype="http://schema.org/Article">
 <div class="main-content">
+    <meta itemprop="name headline" content="ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト"/>
     <iframe id="main-slide"
-            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/assistant-bucho/test-everything.pdf"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/slide/assistant-bucho/test-everything.pdf"
             scrolling="no"
             allowtransparency="true"
             width="100%"
             height="100%"
             style="border:0;">
     </iframe>
-    <aside class="slide-controller"><a href="http://azu.github.io/slide/assistant-bucho/test-everything.pdf" title="ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             version="1.1"
-             class="svg-icon"
-             viewBox="0 0 512 512">
-            <path
-                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
-                    style="fill:#000000"></path>
-        </svg>
-        Download PDF</a>
-        <button class="fullscreen-button" id="js-fullscreen-button">最大化</button>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2015-07-26" id="datePublished">
+            2015-07-26
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2015-12-06" id="dateModified">
+            2015-12-06
+        </time></span>
+        <a href="http://azu.github.io/slide/slide/assistant-bucho/test-everything.pdf" title="ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
     </aside>
 </div>
-<script>
-    (function () {
-        // focus slide
-        document.getElementById("main-slide").focus();
-        var fullScreenButton = document.getElementById("js-fullscreen-button");
-        fullScreenButton.addEventListener("click", function () {
-            var content = document.querySelector(".main-content");
-            content.classList.toggle("slide-state-fullscreen");
-        });
-    })();
-</script>
-<article class="markdown-body"><h1 id="-e2e-example-js-">ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト</h1>
+<article class="markdown-body" itemprop="articleBody"><h1 id="-e2e-example-js-">ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト</h1>
 <hr>
 <h1 id="-">自己紹介</h1>
 <p><img src="https://github.com/azu/slide/raw/master/offline_study/simple320_320.png" alt="アイコン"></p>
@@ -181,6 +149,17 @@
 <li>テストに音が鳴り始める</li>
 </ul>
 <hr>
+<h1 id="webaudio-">WebAudioのテスト</h1>
+<h2 id="-">解決したい問題</h2>
+<ul>
+<li>Audio Nodeが正しくつながってるかを検証したい</li>
+</ul>
+<h2 id="-">解決する方法</h2>
+<ul>
+<li><a href="https://github.com/mohayonao/web-audio-test-api" title="mohayonao/web-audio-test-api">mohayonao/web-audio-test-api</a>を使う</li>
+<li>例 <a href="https://github.com/azu/audio-node-flow" title="azu/audio-node-flow">azu/audio-node-flow</a></li>
+</ul>
+<hr>
 <h1 id="-movie_camera-">動画のテスト :movie_camera:</h1>
 <hr>
 <h2 id="-">解決したい問題</h2>
@@ -238,7 +217,7 @@ describe(&quot;Videoのテスト&quot;, () =&gt; { /* .... */ });
 <ul>
 <li>requestAnimationFrameでメインループを書いたけどテストできない</li>
 <li>requestAnimationFrameはモックすることできない</li>
-<li>setTimeoutなどは<a href="https://github.com/mohayonao/tickable-timer" title="tickable-timer">tickable-timer</a>でモック出来るが、<code>performance.now</code>のようなdelta値を制御が必要になる</li>
+<li>setTimeoutなどは<a href="https://github.com/mohayonao/tickable-timer" title="tickable-timer">tickable-timer</a>でモック出来るが、<code>Date.now()</code>のようなdelta値を作る部分の制御が必要になる</li>
 </ul>
 <hr>
 <h2 id="-">解決する方法</h2>
@@ -361,12 +340,12 @@ assert(typeof dict === &quot;object&quot;);
 <ul>
 <li><a href="https://github.com/azu/textlint" title="azu/textlint">azu/textlint</a></li>
 <li><a href="http://efcl.info/2014/12/30/textlint/" title="JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/03/04/linting-article/" title="jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch">jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch</a></li>
 </ul>
 <hr>
 <h2 id="-">使ってる場所</h2>
 <ul>
 <li><a href="https://github.com/jser/jser.info/blob/gh-pages/tests/lint-text-content.js">jser.info/blob/gh-pages/tests/lint-text-content.js</a></li>
+<li><a href="http://efcl.info/2015/03/04/linting-article/" title="jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch">jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch</a></li>
 </ul>
 <hr>
 <h1 id="-wrench-">設定のテスト :wrench:</h1>
@@ -410,5 +389,6 @@ assert(typeof dict === &quot;object&quot;);
 </li>
 </ul>
 </article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
 </body>
 </html>

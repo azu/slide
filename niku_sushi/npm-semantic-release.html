@@ -12,26 +12,34 @@
     </noscript>
     <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
 </head>
-<body>
+<body itemscope itemtype="http://schema.org/Article">
 <div class="main-content">
+    <meta itemprop="name headline" content="npmで成果物をsemantic-release :rocket:"/>
     <iframe id="main-slide"
-            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/niku_sushi/npm-semantic-release.pdf"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/slide/niku_sushi/npm-semantic-release.pdf"
             scrolling="no"
             allowtransparency="true"
             width="100%"
             height="100%"
             style="border:0;">
     </iframe>
-    <aside class="slide-controller"><a href="http://azu.github.io/slide/niku_sushi/npm-semantic-release.pdf" title="npmで成果物をsemantic-release :rocket:">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             version="1.1"
-             class="svg-icon"
-             viewBox="0 0 512 512">
-            <path
-                    d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
-                    style="fill:#000000"></path>
-        </svg>
-        Download PDF</a>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2015-09-27" id="datePublished">
+            2015-09-27
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2015-12-06" id="dateModified">
+            2015-12-06
+        </time></span>
+        <a href="http://azu.github.io/slide/slide/niku_sushi/npm-semantic-release.pdf" title="npmで成果物をsemantic-release :rocket:">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
         <button class="fullscreen-button" id="js-fullscreen-button">
             <svg xmlns="http://www.w3.org/2000/svg"
                  version="1.1"
@@ -46,7 +54,7 @@
         </button>
     </aside>
 </div>
-<article class="markdown-body"><h1 id="npm-semantic-release-rocket-">npmで成果物をsemantic-release :rocket:</h1>
+<article class="markdown-body" itemprop="articleBody"><h1 id="npm-semantic-release-rocket-">npmで成果物をsemantic-release :rocket:</h1>
 <hr>
 <h1 id="-npm-json-">目的: npmで単独のJSONファイルを配布したい</h1>
 <h2 id="-">例) 辞書ファイル、更新頻度が高いファイル</h2>
