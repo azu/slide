@@ -67,10 +67,12 @@
 - デフォルトでは日本語は文字化けする
 	- `cmaps`のロードが必要
 - デフォルトではCanvasに画像としてレンダリングされるだけ
-- テキストレイヤーやリンクのクリックもできない!
+- テキスト選択やリンクのクリックもできない!
 
 
 -----
+
+
 
 ## [pdf.js-controller](https://github.com/azu/pdf.js-controller "pdf.js-controller")
 
@@ -82,9 +84,39 @@
 
 -----
 
-## このスライドも[pdf.js-controller](https://github.com/azu/pdf.js-controller "pdf.js-controller")
+# pdf.jsのレイヤー構造
+
+-----
+
+# 全体像3D
+
+![3D View, inline](https://monosnap.com/file/IowSnMYNqvBbU3sGCCd3o3U2DlVYnA.png)
+
+
+----
+
+# Canvas
+
+![Canvas Layer, inline](https://monosnap.com/file/NjFOff5GhvGbB4I1XQKftvznz0bzD1.png)
+
+----
+
+# テキスト
+
+
+![Text Layer,inline](https://monosnap.com/file/3rjEGpf4jm9phrC3R3oyj9ohjNoSEG.png)
 
 
 -----
 
-- [ ] どういう仕組みで動いてるの?
+# アノテーション
+
+![Annotation Layer, inline](https://monosnap.com/file/BUFO9rYHuw0gK7UbhooUZ5tNRo7WCd.png)
+
+
+-----
+
+## このスライドも[pdf.js-controller](https://github.com/azu/pdf.js-controller "pdf.js-controller")
+
+
+-----
