@@ -195,6 +195,43 @@ git pushup
 
 ------
 
+# 適当に作ったもの
+
+- [JSer.info Pull Request Form](http://jser.info/contributing/ "JSer.info Pull Request Form")
+	- Angularを試したくなり作った
+	- [JSer.infoに紹介してもらいたい記事のPull Requestが出来るようになりました - JSer.info](http://jser.info/post/75446735069/jser-info-pull-request/ "JSer.infoに紹介してもらいたい記事のPull Requestが出来るようになりました - JSer.info")
+- [JSer.info contributing item preview](http://jser.info/contributing-preview/ "JSer.info contributing item preview")
+	- Vue.js 1.0を試したくなり作った
+
+------
+
+- [azu/hatebu-mydata-search](https://github.com/azu/hatebu-mydata-search "azu/hatebu-mydata-search")
+	- Flux Utilsを試したくなり作った
+	- [はてなブックマーク検索を作りながらFlux Utilsについて学ぶ | Web Scratch](http://efcl.info/2015/08/24/flux-utils/ "はてなブックマーク検索を作りながらFlux Utilsについて学ぶ | Web Scratch")
+- [azu/bookmarkletter](https://github.com/azu/bookmarkletter "azu/bookmarkletter")
+	- [benjamn/ast-types](https://github.com/benjamn/ast-types "benjamn/ast-types")を使いたくて作った
+	- [ブックマークレットを作るコマンドラインツール | Web Scratch](http://efcl.info/2014/09/08/bookmarklets-env/ "ブックマークレットを作るコマンドラインツール | Web Scratch")
+
+------
+
+- [azu/video-prefetcher](https://github.com/azu/video-prefetcher)
+- [azu/video-shortcut-controller](https://github.com/azu/video-shortcut-controller)
+- [azu/video-transcript-note](https://github.com/azu/video-transcript-note)
+- [azu/video-transcript-tracker](https://github.com/azu/video-transcript-tracker)
+	- `<video>`と`<track>`に触りたくて作った
+	- [動画とルビ翻訳された字幕をみながらMarkdownメモできるアプリを書いた | Web Scratch](http://efcl.info/2015/07/27/video-transcript-note/ "動画とルビ翻訳された字幕をみながらMarkdownメモできるアプリを書いた | Web Scratch")
+
+------
+
+- [jser/stat-js](https://github.com/jser/stat-js "jser/stat-js")
+	- [natural](https://www.npmjs.com/package/natural "natural")を使った自然言語解析がやりたくなった
+- [azu/audio-node-flow](https://github.com/azu/audio-node-flow "azu/audio-node-flow")
+	- Web Audio APIに触りたくて書いた
+	- => Web Audio APIの標準に同様のものが追加されてた [Web Audio Method Chaining Sample](https://googlechrome.github.io/samples/webaudio-method-chaining/index.html "Web Audio Method Chaining Sample")
+	- [JavaScriptとWeb Audio事始め](http://azu.github.io/slide/webaudioapi/web-audio.html "JavaScriptとWeb Audio事始め")
+
+------
+
 # Issueを出す
 
 - 問題がある時に一番いいのは再現可能なサンプル
