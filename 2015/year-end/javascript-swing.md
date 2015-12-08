@@ -1,8 +1,8 @@
-# JavaScriptの素振りをする技術
+# JavaScriptの素振りする技術
 
 ----
 
-# ライブラリを試す
+## ライブラリをちょっと試す
 
 -----
 
@@ -11,7 +11,7 @@
 - JavaScriptライブラリはデモを置いてることも多い
 - デモがないとローカルで動かすのは面倒くさい
 	- わざわざローカルで`npm install`して...
-- そういう時に使えるツール
+- ちょっとしたこと試す時に使えるツール
 
 -----
 
@@ -26,27 +26,42 @@
 
 -----
 
-## 他にも
+## 他にも色々
 
 - [RequireBin](http://requirebin.com/ "RequireBin")
 	- Browserify + JSFiddle的なサービス
-- Chrome DevTools
+- Firefox DevTools
 	- URLをページにインジェクト出来る
-	- ライブラリを読み込ませてConsoleで叩くw
+	- [開発ツールバー](https://developer.mozilla.org/ja/docs/Tools/GCLI "開発ツールバー")の `inject` コマンド
+	- ライブラリを読み込ませてConsoleで叩く
 
 -----
 
-# 新しい機能を試す
+# [JS Envy](http://jsenvy.com/ "JS Envy")
+
+![js envy](https://monosnap.com/file/5xnaU8dqIJgcOPjwTk9mWDZIQlxq4D.png)
+
+-----
+
+# ライブラリをちょっと試すまとめ
+
+- ライブラリをちょっと試すだけならブラウザだけでイケる
+- 説明文をそのまま鵜呑みよりは一行でも実行する
+- 実行するためのツールは色々充実してきている
+- Node.js向けでもBrowserifyで動くレベルならブラウザでREPLができる
+
+-----
+
+# ライブラリの新しい機能を試す
 
 - ライブラリで新しい機能追加された
-- 細かいことが書かれてない
-- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
-- ちょっと探しても見つからなかったら実際に試すのが早い
-
+- リリースノートに細かいことが書かれてない
+- 関連: [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+- ちょっと探しても見つからなかったら実際に試す
 
 -----
 
-## Jasmineのランダムテスト
+## 例) Jasmineのランダムテスト
 
 - [2015-12-07のJS: Jasmine 2.4.0、Redux入門、Firefox Platform Status - JSer.info](http://jser.info/2015/12/07/jasmine2.4-redux-firefox/ "2015-12-07のJS: Jasmine 2.4.0、Redux入門、Firefox Platform Status - JSer.info")
 	- Jasmine 2.4.0で追加されたランダムテストの紹介
@@ -112,20 +127,105 @@ $ jasmine # run
 - https://github.com/azu/jasmine-random-example/
 - http://azu.github.io/jasmine-random-example/?random=true
 
+------
+
+# |壁|
+
 -----
 
+# 実際に動かすまでには壁がある
 
-## Create example run example
+- ライブラリを読み込んで実行するまでに色々手順が必要
+- 自分なり手順をテンプレ化しておく = 素振り
+- npm install -> write code -> git push が大まかな流れ
 
-## パフォーマンスの嘘
+-----
 
-## Issue
+## @azu のケース
 
-## Fix
+```sh
+# ghqディレクトリにhogeを作ってhogeへ移動
+mkdev hoge
+# git, npm, license init
+init-node.sh
+### Development... ###
+# Githubリポジトリを作成
+hub create -d "description"
+# git push -uのスクリプト
+git pushup
+```
 
-## MVP
+-----
+## 使用してるスクリプト
 
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">素振り専用のリポジトリ作ってめっちゃ素振りしているので結局コード書く速さも動く速さも書いた分量によると思うよ <a href="https://t.co/VCMl2uT6bA">https://t.co/VCMl2uT6bA</a></p>&mdash; ダイナモS+ (@mizchi) <a href="https://twitter.com/mizchi/status/532914332518989824">November 13, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+- https://gist.github.com/azu/09dd6f27f52e2e8d9978
+- 基本的に覚えられるコマンドしか使わない
+- `init-node.sh`はpecoで色々なパターンを選択して使う
+- 大体どの言語でも同じパターンで作って公開してる
 
-ELectron, NW.js
+------
+
+# ライブラリの使い勝手を試す
+
+- 使い勝手を把握するのは実際に何かを書かないと分かりにくい
+- コストが高いのであんまり多用できない
+- でも、書かないと使い勝手を見るのは難しい
+
+-----
+
+![mizchi素振り](https://monosnap.com/file/9iqROc63qzR27m92owMJSPs1CD8veh.png)
+
+------
+
+## 何を持って使い勝手を試すか
+
+- 結局素振り
+- 書くものがないならElectronやNW.js
+	- 環境が固定されてる、新しい機能が使いやすい
+	- メンテを考えないならコンテキストが混ざってるNW.jsだと楽
+
+-----
+
+## とりあえず作る
+
+- 作ってGitHubにあげる
+- 完成しなくてもGitHubにあげる
+- そのままローカルのゴミ箱に捨てるよりはGitHubに捨てる
+- ゴミ箱に捨ててしまうと記憶からも無くなってしまう
+
+------
+
+# Issueを出す
+
+- 問題がある時に一番いいのは再現可能なサンプル
+	- 合わせてスクリーンショットなど
+- 再現可能なサンプルを作って公開するのは面倒
+
+-----
+
+# Issueのサンプル
+
+- JSFiddleみたいなパーマネントリンクだけ済むならそれを出す
+- コマンドだったり、ファイルサイズみたいな問題だと実際にリポジトリを作る
+- 素振りで慣れておけばサンプルをあげるのも5分かからない
+
+-----
+
+# Issueのサンプル : deku
+
+
+- [Reduce build file size by azu · Pull Request #297 · dekujs/deku](https://github.com/dekujs/deku/pull/297 "Reduce build file size by azu · Pull Request #297 · dekujs/deku")
+- [Add "browser" field for browserify by azu](https://github.com/component/type/pull/23 "Add &#34;browser&#34; field for browserify by azu · Pull Request #23 · component/type")
+- Browserifyで使うとファイルサイズが50KB増える問題
+- 実際にファイルサイズが50KBになるリポジトリへリンク
+	- [azu/component-type-with-browserify-issue](https://github.com/azu/component-type-with-browserify-issue "azu/component-type-with-browserify-issue")
+
+-----
+
+# まとめ
+
+- 実際にローカル環境を作らなくてもJavaScriptは動かせる
+- ローカル環境でもパターン化してスグ動かせるように素振りしよう
+- バグ報告には再現可能なサンプルを一緒に出そう
+- ゴミはゴミ箱ではなくGitHubへ
+- ライブラリ書く側は利用者にそんな事させないためにドキュメントを分かりやすく書こう、デモを作ろう
