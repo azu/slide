@@ -1,4 +1,4 @@
-# [pdf.js-controller](https://github.com/azu/pdf.js-controller "pdf.js-controller")
+# pdf.js-controller
 
 
 -----
