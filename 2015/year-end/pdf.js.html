@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>[pdf.js-controller](https:&#x2F;&#x2F;github.com&#x2F;azu&#x2F;pdf.js-controller &quot;pdf.js-controller&quot;)</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="[pdf.js-controller](https:&#x2F;&#x2F;github.com&#x2F;azu&#x2F;pdf.js-controller &quot;pdf.js-controller&quot;)"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/year-end/pdf.js.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2015-12-08" id="datePublished">
+            2015-12-08
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2015-12-09" id="dateModified">
+            2015-12-09
+        </time></span>
+        <a href="http://azu.github.io/slide/year-end/pdf.js.pdf" title="[pdf.js-controller](https:&#x2F;&#x2F;github.com&#x2F;azu&#x2F;pdf.js-controller &quot;pdf.js-controller&quot;)">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="-pdf-js-controller-https-github-com-azu-pdf-js-controller-pdf-js-controller-"><a href="https://github.com/azu/pdf.js-controller" title="pdf.js-controller">pdf.js-controller</a></h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-mozilla-pdf-js-https-github-com-mozilla-pdf-js-mozilla-pdf-js-"><a href="https://github.com/mozilla/pdf.js" title="mozilla/pdf.js">mozilla/pdf.js</a></h1>
+<p> <img src="img/pdf.js.png" alt="pdf inline"></p>
+<hr>
+<h1 id="-mozilla-pdf-js-https-github-com-mozilla-pdf-js-mozilla-pdf-js-"><a href="https://github.com/mozilla/pdf.js" title="mozilla/pdf.js">mozilla/pdf.js</a></h1>
+<ul>
+<li>JavaScriptで書かれたPDFレンダリングライブラリ</li>
+<li>FirefoxのビルトインPDFビューアーに使われてる</li>
+<li>PDFをパース =&gt; Canvas + テキストでレンダリング</li>
+</ul>
+<hr>
+<h2 id="pdf-js-">pdf.jsの問題</h2>
+<ul>
+<li>とにかく扱いにくい</li>
+<li><code>cmaps</code>という言語ロケールの動的ロードが必要<ul>
+<li>必要なロケールのみを取得するため</li>
+</ul>
+</li>
+<li><code>pdf.worker.js</code>というのをWebWorkerで動かす<ul>
+<li><code>pdf.worker.js</code>のURLを指定する必要がある</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="pdf-worker-js">pdf.worker.js</h2>
+<ul>
+<li>pdf.jsはWebWorkerで計算を行う</li>
+<li><code>PDFJS.workerSrc</code> はなぜかURLのみしか受け付けない</li>
+<li><a href="https://gist.github.com/azu/1949d61a57d0eb896f2a" title="String to Blob URL for WebWorker">String to Blob URL for WebWorker</a>だとChromeでクラッシュした…<ul>
+<li>ファイルサイズがでかいとWorker+Blobがダメなのかも?</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="pdf-js-">pdf.jsのテクニック</h2>
+<ul>
+<li>Worker内なら同期XHRが使える</li>
+<li>WorkerのコピーコストはBlob URLをやり取りで解消<ul>
+<li><a href="http://colonelpanic.net/2014/08/using-pdf-js-web-worker-cross-domain-cors/" title="Using PDF.js web worker cross domain (CORS) | ColonelPanic">Using PDF.js web worker cross domain (CORS) | ColonelPanic</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="pdf-js-">pdf.jsの問題</h2>
+<ul>
+<li>デフォルトでは日本語は文字化けする<ul>
+<li><code>cmaps</code>のロードが必要</li>
+</ul>
+</li>
+<li>デフォルトではCanvasに画像としてレンダリングされるだけ</li>
+<li>テキスト選択やリンクのクリックもできない!</li>
+</ul>
+<hr>
+<h2 id="-pdf-js-controller-https-github-com-azu-pdf-js-controller-pdf-js-controller-"><a href="https://github.com/azu/pdf.js-controller" title="pdf.js-controller">pdf.js-controller</a></h2>
+<ul>
+<li>pdf.jsの面倒なところをラップしたライブラリ</li>
+<li>スライド表示を扱うAPI</li>
+<li><a href="https://www.npmjs.com/package/pdfjs-dist" title="pdfjs-dist">pdfjs-dist</a>へのパスを書くだけで面倒なことはやってくれる</li>
+<li>最初から日本語表示できる。テキスト選択出来る。リンクをクリック出来る</li>
+</ul>
+<hr>
+<h1 id="pdf-js-">pdf.jsのレイヤー構造</h1>
+<hr>
+<h1 id="-3d">全体像3D</h1>
+<p><img src="https://monosnap.com/file/IowSnMYNqvBbU3sGCCd3o3U2DlVYnA.png" alt="3D View, inline"></p>
+<hr>
+<h1 id="canvas">Canvas</h1>
+<p><img src="https://monosnap.com/file/NjFOff5GhvGbB4I1XQKftvznz0bzD1.png" alt="Canvas Layer, inline"></p>
+<hr>
+<h1 id="-">テキスト</h1>
+<p><img src="https://monosnap.com/file/3rjEGpf4jm9phrC3R3oyj9ohjNoSEG.png" alt="Text Layer,inline"></p>
+<hr>
+<h1 id="-">アノテーション</h1>
+<p><img src="https://monosnap.com/file/BUFO9rYHuw0gK7UbhooUZ5tNRo7WCd.png" alt="Annotation Layer, inline"></p>
+<hr>
+<h2 id="-pdf-js-controller-https-github-com-azu-pdf-js-controller-pdf-js-controller-">このスライドも<a href="https://github.com/azu/pdf.js-controller" title="pdf.js-controller">pdf.js-controller</a></h2>
+<hr>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>

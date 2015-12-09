@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>JavaScriptの素振りする技術</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="JavaScriptの素振りする技術"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/year-end/javascript-swing.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2015-12-08" id="datePublished">
+            2015-12-08
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2015-12-09" id="dateModified">
+            2015-12-09
+        </time></span>
+        <a href="http://azu.github.io/slide/year-end/javascript-swing.pdf" title="JavaScriptの素振りする技術">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="javascript-">JavaScriptの素振りする技術</h1>
+<hr>
+<h2 id="-">ライブラリをちょっと試す</h2>
+<hr>
+<h2 id="-">ライブラリをブラウザで試す</h2>
+<ul>
+<li>JavaScriptライブラリはデモを置いてることも多い</li>
+<li>デモがないとローカルで動かすのは面倒くさい<ul>
+<li>わざわざローカルで<code>npm install</code>して...</li>
+</ul>
+</li>
+<li>ちょっとしたこと試す時に使えるツール</li>
+</ul>
+<hr>
+<h2 id="npm-">npmをその場で試す</h2>
+<p><img src="https://monosnap.com/file/xKGVwkjuxArDwEj7OslITBRPef5Yxe.png" alt="right, fit"></p>
+<ul>
+<li><a href="https://tonicdev.com/" title="Tonic: a better REPL for node.js">Tonic: a better REPL for node.js</a></li>
+<li>Browserify + REPLのようなサービス</li>
+<li>npmからリンクが貼られてる!</li>
+<li>例: <a href="https://tonicdev.com/npm/lodash" title="Tonic: npm on Tonic">Tonic: npm on Tonic</a></li>
+</ul>
+<hr>
+<h2 id="-">他にも色々</h2>
+<ul>
+<li><a href="http://requirebin.com/" title="RequireBin">RequireBin</a><ul>
+<li>Browserify + JSFiddle的なサービス</li>
+</ul>
+</li>
+<li>Firefox DevTools<ul>
+<li>URLをページにインジェクト出来る</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Tools/GCLI" title="開発ツールバー">開発ツールバー</a>の <code>inject</code> コマンド</li>
+<li>ライブラリを読み込ませてConsoleで叩く</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-js-envy-http-jsenvy-com-js-envy-"><a href="http://jsenvy.com/" title="JS Envy">JS Envy</a></h1>
+<p><img src="https://monosnap.com/file/5xnaU8dqIJgcOPjwTk9mWDZIQlxq4D.png" alt="js envy"></p>
+<hr>
+<h1 id="-">ライブラリをちょっと試すまとめ</h1>
+<ul>
+<li>ライブラリをちょっと試すだけならブラウザだけでイケる</li>
+<li>説明文をそのまま鵜呑みよりは一行でも実行する</li>
+<li>実行するためのツールは色々充実してきている</li>
+<li>Node.js向けでもBrowserifyで動くレベルならブラウザでREPLができる</li>
+</ul>
+<hr>
+<h1 id="-">ライブラリの新しい機能を試す</h1>
+<ul>
+<li>ライブラリで新しい機能追加された</li>
+<li>リリースノートに細かいことが書かれてない</li>
+<li>関連: <a href="http://azu.github.io/slide/cto/changelog.html" title="われわれは、いかにして変更点を追うか">われわれは、いかにして変更点を追うか</a></li>
+<li>ちょっと探しても見つからなかったら実際に試す</li>
+</ul>
+<hr>
+<h2 id="-jasmine-">例) Jasmineのランダムテスト</h2>
+<ul>
+<li><a href="http://jser.info/2015/12/07/jasmine2.4-redux-firefox/" title="2015-12-07のJS: Jasmine 2.4.0、Redux入門、Firefox Platform Status - JSer.info">2015-12-07のJS: Jasmine 2.4.0、Redux入門、Firefox Platform Status - JSer.info</a><ul>
+<li>Jasmine 2.4.0で追加されたランダムテストの紹介</li>
+</ul>
+</li>
+<li><a href="https://github.com/jasmine/jasmine/blob/master/release_notes/2.4.0.md" title="Release Notes">Release Notes</a>には細かいことが書かれない</li>
+<li>実際に試さないと正確なことが書けなかった</li>
+</ul>
+<hr>
+<h2 id="-">動かす前の認識</h2>
+<blockquote>
+<p>Run jasmine&#39;s specs in random order</p>
+</blockquote>
+<p>デフォルトでランダム実行になった?</p>
+<blockquote>
+<p>Add support for returning run details for reporting randomness</p>
+</blockquote>
+<p>どういう意味?</p>
+<hr>
+<h2 id="-">動かす</h2>
+<pre><code class="lang-sh">$ mkdev jasmine-random-example
+$ npm install -g jasmine
+$ jasmine init
+$ jasmine examples
+$ jasmine # run
+</code></pre>
+<ul>
+<li><code>jasmine.json</code>に<code>&quot;random&quot;: false</code>というのが増えていた<ul>
+<li>=&gt; デフォルトは<code>false</code>だった</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">動かす</h2>
+<ul>
+<li>Node.jsのjasmineだと<code>true</code>にしても何故かランダムじゃない</li>
+<li>jasmineはHTML上で動かせる事を思い出した</li>
+<li>HTMLで動かしたら設定を見つけた！</li>
+<li><em>run details for reporting randomness</em>は<code>seed</code>値のパーマネントを作るという意味</li>
+</ul>
+<p><img src="https://monosnap.com/file/irp2XkqW8cuWDcQGxyotfqhvghviGE.png" alt="right"></p>
+<hr>
+<h2 id="-">動かした後の認識</h2>
+<ul>
+<li>デフォルトではランダム順序の実行ではなかった</li>
+</ul>
+<blockquote>
+<p>Add support for returning run details for reporting randomness</p>
+</blockquote>
+<p>これは<code>seed</code>値が失敗した時にでるという意味だと分かった</p>
+<hr>
+<h2 id="-">動かすことで得たもの</h2>
+<ul>
+<li>10分ぐらいで適当に動かせて認識を正すことができた</li>
+<li>ついでにそのままGitHubにpushして動くサンプルを作れた</li>
+<li><a href="https://github.com/azu/jasmine-random-example/">https://github.com/azu/jasmine-random-example/</a></li>
+<li><a href="http://azu.github.io/jasmine-random-example/?random=true">http://azu.github.io/jasmine-random-example/?random=true</a></li>
+</ul>
+<hr>
+<h1 id="-">|壁|</h1>
+<hr>
+<h1 id="-">実際に動かすまでには壁がある</h1>
+<ul>
+<li>ライブラリを読み込んで実行するまでに色々手順が必要</li>
+<li>自分なり手順をテンプレ化しておく = 素振り</li>
+<li>npm install -&gt; write code -&gt; git push が大まかな流れ</li>
+</ul>
+<hr>
+<h2 id="-azu-">@azu のケース</h2>
+<pre><code class="lang-sh"># ghqディレクトリにhogeを作ってhogeへ移動
+mkdev hoge
+# git, npm, license init
+init-node.sh
+### Development... ###
+# Githubリポジトリを作成
+hub create -d &quot;description&quot;
+# git push -uのスクリプト
+git pushup
+</code></pre>
+<hr>
+<h2 id="-">使用してるスクリプト</h2>
+<ul>
+<li><a href="https://gist.github.com/azu/09dd6f27f52e2e8d9978">https://gist.github.com/azu/09dd6f27f52e2e8d9978</a></li>
+<li>基本的に覚えられるコマンドしか使わない</li>
+<li><code>init-node.sh</code>はpecoで色々なパターンを選択して使う</li>
+<li>大体どの言語でも同じパターンで作って公開してる</li>
+</ul>
+<hr>
+<h1 id="-">ライブラリの使い勝手を試す</h1>
+<ul>
+<li>使い勝手を把握するのは実際に何かを書かないと分かりにくい</li>
+<li>コストが高いのであんまり多用できない</li>
+<li>でも、書かないと使い勝手を見るのは難しい</li>
+</ul>
+<hr>
+<p><img src="https://monosnap.com/file/9iqROc63qzR27m92owMJSPs1CD8veh.png" alt="mizchi素振り"></p>
+<hr>
+<h2 id="-">何を持って使い勝手を試すか</h2>
+<ul>
+<li>結局素振り</li>
+<li>書くものがないならElectronやNW.js<ul>
+<li>環境が固定されてる、新しい機能が使いやすい</li>
+<li>メンテを考えないならコンテキストが混ざってるNW.jsだと楽</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">とりあえず作る</h2>
+<ul>
+<li>作ってGitHubにあげる</li>
+<li>完成しなくてもGitHubにあげる</li>
+<li>そのままローカルのゴミ箱に捨てるよりはGitHubに捨てる</li>
+<li>ゴミ箱に捨ててしまうと記憶からも無くなってしまう</li>
+</ul>
+<hr>
+<h1 id="-">適当に作ったもの</h1>
+<ul>
+<li><a href="http://jser.info/contributing/" title="JSer.info Pull Request Form">JSer.info Pull Request Form</a><ul>
+<li>Angularを試したくなり作った</li>
+<li><a href="http://jser.info/post/75446735069/jser-info-pull-request/" title="JSer.infoに紹介してもらいたい記事のPull Requestが出来るようになりました - JSer.info">JSer.infoに紹介してもらいたい記事のPull Requestが出来るようになりました - JSer.info</a></li>
+</ul>
+</li>
+<li><a href="http://jser.info/contributing-preview/" title="JSer.info contributing item preview">JSer.info contributing item preview</a><ul>
+<li>Vue.js 1.0を試したくなり作った</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://github.com/azu/hatebu-mydata-search" title="azu/hatebu-mydata-search">azu/hatebu-mydata-search</a><ul>
+<li>Flux Utilsを試したくなり作った</li>
+<li><a href="http://efcl.info/2015/08/24/flux-utils/" title="はてなブックマーク検索を作りながらFlux Utilsについて学ぶ | Web Scratch">はてなブックマーク検索を作りながらFlux Utilsについて学ぶ | Web Scratch</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/azu/bookmarkletter" title="azu/bookmarkletter">azu/bookmarkletter</a><ul>
+<li><a href="https://github.com/benjamn/ast-types" title="benjamn/ast-types">benjamn/ast-types</a>を使いたくて作った</li>
+<li><a href="http://efcl.info/2014/09/08/bookmarklets-env/" title="ブックマークレットを作るコマンドラインツール | Web Scratch">ブックマークレットを作るコマンドラインツール | Web Scratch</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://github.com/azu/video-prefetcher">azu/video-prefetcher</a></li>
+<li><a href="https://github.com/azu/video-shortcut-controller">azu/video-shortcut-controller</a></li>
+<li><a href="https://github.com/azu/video-transcript-note">azu/video-transcript-note</a></li>
+<li><a href="https://github.com/azu/video-transcript-tracker">azu/video-transcript-tracker</a><ul>
+<li><code>&lt;video&gt;</code>と<code>&lt;track&gt;</code>に触りたくて作った</li>
+<li><a href="http://efcl.info/2015/07/27/video-transcript-note/" title="動画とルビ翻訳された字幕をみながらMarkdownメモできるアプリを書いた | Web Scratch">動画とルビ翻訳された字幕をみながらMarkdownメモできるアプリを書いた | Web Scratch</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://github.com/jser/stat-js" title="jser/stat-js">jser/stat-js</a><ul>
+<li><a href="https://www.npmjs.com/package/natural" title="natural">natural</a>を使った自然言語解析がやりたくなった</li>
+</ul>
+</li>
+<li><a href="https://github.com/azu/audio-node-flow" title="azu/audio-node-flow">azu/audio-node-flow</a><ul>
+<li>Web Audio APIに触りたくて書いた</li>
+<li>=&gt; Web Audio APIの標準に同様のものが追加されてた <a href="https://googlechrome.github.io/samples/webaudio-method-chaining/index.html" title="Web Audio Method Chaining Sample">Web Audio Method Chaining Sample</a></li>
+<li><a href="http://azu.github.io/slide/webaudioapi/web-audio.html" title="JavaScriptとWeb Audio事始め">JavaScriptとWeb Audio事始め</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="issue-">Issueを出す</h1>
+<ul>
+<li>問題がある時に一番いいのは再現可能なサンプル<ul>
+<li>合わせてスクリーンショットなど</li>
+</ul>
+</li>
+<li>再現可能なサンプルを作って公開するのは面倒</li>
+</ul>
+<hr>
+<h1 id="issue-">Issueのサンプル</h1>
+<ul>
+<li>JSFiddleみたいなパーマネントリンクだけ済むならそれを出す</li>
+<li>コマンドだったり、ファイルサイズみたいな問題だと実際にリポジトリを作る</li>
+<li>素振りで慣れておけばサンプルをあげるのも5分かからない</li>
+</ul>
+<hr>
+<h1 id="issue-deku">Issueのサンプル : deku</h1>
+<ul>
+<li><a href="https://github.com/dekujs/deku/pull/297" title="Reduce build file size by azu · Pull Request #297 · dekujs/deku">Reduce build file size by azu · Pull Request #297 · dekujs/deku</a></li>
+<li><a href="https://github.com/component/type/pull/23" title="Add &#34;browser&#34; field for browserify by azu · Pull Request #23 · component/type">Add &quot;browser&quot; field for browserify by azu</a></li>
+<li>Browserifyで使うとファイルサイズが50KB増える問題</li>
+<li>実際にファイルサイズが50KBになるリポジトリへリンク<ul>
+<li><a href="https://github.com/azu/component-type-with-browserify-issue" title="azu/component-type-with-browserify-issue">azu/component-type-with-browserify-issue</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>実際にローカル環境を作らなくてもJavaScriptは動かせる</li>
+<li>ローカル環境でもパターン化してスグ動かせるように素振り</li>
+<li>バグ報告には再現可能なサンプルを一緒に出そう</li>
+<li>ゴミはゴミ箱ではなくGitHubへ</li>
+<li>ライブラリ書く側はドキュメントを分かりやすく書こう、デモを作ろう</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
