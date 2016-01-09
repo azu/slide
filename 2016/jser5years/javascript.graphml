@@ -16,15 +16,14 @@
     <data key="d0"/>
     <node id="n0" yfiles.foldertype="group">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="371.166015625" width="620.0" x="278.0" y="236.333984375"/>
+              <y:Geometry height="353.5" width="620.0" x="278.0" y="254.0"/>
               <y:Fill color="#F5F5F5" transparent="false"/>
               <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
-              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="620.0" x="0.0" y="0.0">Group 3</y:NodeLabel>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" hasText="false" height="4.0" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="620.0" x="0.0" y="0.0"/>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
@@ -45,7 +44,6 @@
       </data>
       <graph edgedefault="directed" id="n0:">
         <node id="n0::n0" yfiles.foldertype="group">
-          <data key="d5"/>
           <data key="d6">
             <y:TableNode configuration="YED_TABLE_NODE">
               <y:Geometry height="289.5" width="589.3333333333333" x="293.6666666666667" y="303.0"/>
@@ -120,7 +118,6 @@
           </data>
           <graph edgedefault="directed" id="n0::n0:">
             <node id="n0::n0::n0">
-              <data key="d5"/>
               <data key="d6">
                 <y:ShapeNode>
                   <y:Geometry height="30.0" width="121.0" x="420.66666666666674" y="529.6666666666667"/>
@@ -138,7 +135,6 @@
               </data>
             </node>
             <node id="n0::n0::n1">
-              <data key="d5"/>
               <data key="d6">
                 <y:ShapeNode>
                   <y:Geometry height="30.0" width="103.0" x="750.0" y="376.0"/>
@@ -156,7 +152,6 @@
               </data>
             </node>
             <node id="n0::n0::n2">
-              <data key="d5"/>
               <data key="d6">
                 <y:ShapeNode>
                   <y:Geometry height="30.0" width="103.0" x="751.0" y="470.0"/>
@@ -174,7 +169,6 @@
               </data>
             </node>
             <node id="n0::n0::n3">
-              <data key="d5"/>
               <data key="d6">
                 <y:ShapeNode>
                   <y:Geometry height="30.0" width="103.0" x="752.0" y="518.0"/>
@@ -192,13 +186,12 @@
               </data>
             </node>
             <node id="n0::n0::n4">
-              <data key="d5"/>
               <data key="d6">
                 <y:ShapeNode>
                   <y:Geometry height="30.0" width="153.99999999999994" x="314.0" y="417.0"/>
                   <y:Fill color="#FFCC00" transparent="false"/>
                   <y:BorderStyle color="#000000" type="line" width="1.0"/>
-                  <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Monospaced" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="148.0" x="2.999999999999943" y="6.015625">ライブラリで書いたコード<y:LabelModel>
+                  <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Monospaced" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="148.0" x="3.0" y="6.015625">ライブラリで書いたコード<y:LabelModel>
                       <y:SmartNodeLabelModel distance="4.0"/>
                     </y:LabelModel>
                     <y:ModelParameter>
@@ -210,7 +203,6 @@
               </data>
             </node>
             <node id="n0::n0::n5">
-              <data key="d5"/>
               <data key="d6">
                 <y:ShapeNode>
                   <y:Geometry height="30.975609756097562" width="126.99999999999994" x="328.0" y="467.5121951219512"/>
@@ -229,7 +221,6 @@
             </node>
             <node id="n0::n0::n6" yfiles.foldertype="group">
               <data key="d4"/>
-              <data key="d5"/>
               <data key="d6">
                 <y:ProxyAutoBoundsNode>
                   <y:Realizers active="0">
@@ -259,7 +250,6 @@
               </data>
               <graph edgedefault="directed" id="n0::n0::n6:">
                 <node id="n0::n0::n6::n0">
-                  <data key="d5"/>
                   <data key="d6">
                     <y:SVGNode>
                       <y:Geometry height="43.00953063540188" width="39.64612671898878" x="638.1666717529297" y="372.1739196777344"/>
@@ -274,7 +264,6 @@
                   </data>
                 </node>
                 <node id="n0::n0::n6::n1">
-                  <data key="d5"/>
                   <data key="d6">
                     <y:ImageNode>
                       <y:Geometry height="44.0" width="44.0" x="638.3333333333333" y="422.5"/>
@@ -286,7 +275,6 @@
                   </data>
                 </node>
                 <node id="n0::n0::n6::n2">
-                  <data key="d5"/>
                   <data key="d6">
                     <y:SVGNode>
                       <y:Geometry height="43.034820556640625" width="42.17544121419234" x="638.8108767382816" y="472.9825897216797"/>
@@ -301,7 +289,6 @@
                   </data>
                 </node>
                 <node id="n0::n0::n6::n3">
-                  <data key="d5"/>
                   <data key="d6">
                     <y:ImageNode>
                       <y:Geometry height="48.0" width="48.0" x="636.3333333333333" y="521.5"/>
@@ -315,7 +302,6 @@
               </graph>
             </node>
             <node id="n0::n0::n7">
-              <data key="d5"/>
               <data key="d6">
                 <y:ShapeNode>
                   <y:Geometry height="30.0" width="103.0" x="752.0" y="422.0"/>
@@ -335,7 +321,6 @@
           </graph>
         </node>
         <node id="n0::n1">
-          <data key="d5"/>
           <data key="d6">
             <y:ShapeNode>
               <y:Geometry height="30.0" width="121.0" x="293.0" y="273.0"/>
@@ -353,7 +338,6 @@
           </data>
         </node>
         <node id="n0::n2">
-          <data key="d5"/>
           <data key="d6">
             <y:ShapeNode>
               <y:Geometry height="30.0" width="119.0" x="764.0" y="273.0"/>
@@ -371,7 +355,6 @@
           </data>
         </node>
         <node id="n0::n3">
-          <data key="d5"/>
           <data key="d6">
             <y:ImageNode>
               <y:Geometry height="47.99999999999994" width="47.99999999999994" x="511.66666666666674" y="376.66666666666674"/>
@@ -383,7 +366,6 @@
           </data>
         </node>
         <node id="n0::n4">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="48.31578947368416" width="53.99999999999994" x="479.6666666666667" y="435.3508771929826"/>
@@ -398,7 +380,6 @@
           </data>
         </node>
         <node id="n0::n5">
-          <data key="d5"/>
           <data key="d6">
             <y:ImageNode>
               <y:Geometry height="48.0" width="48.0" x="540.6666666666667" y="423.16666666666674"/>
@@ -410,7 +391,6 @@
           </data>
         </node>
         <node id="n0::n6">
-          <data key="d5"/>
           <data key="d6">
             <y:ShapeNode>
               <y:Geometry height="30.0" width="90.0" x="342.0" y="371.0"/>
@@ -430,7 +410,6 @@
       </graph>
     </node>
     <edge id="n0::e0" source="n0::n2" target="n0::n1">
-      <data key="d9"/>
       <data key="d10">
         <y:GenericEdge configuration="com.yworks.edge.framed">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
