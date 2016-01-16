@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title></title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content=""/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/jser5years/javascript-information.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-01-09" id="datePublished">
+            2016-01-09
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-01-16" id="dateModified">
+            2016-01-16
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/jser5years/javascript-information.pdf" title="">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="javascript-">JavaScript情報ってなんだっけ?</h1>
+<h3 id="-jser-info-5-http-jser-connpass-com-event-24202-jser-info-5-"><a href="http://jser.connpass.com/event/24202/" title="JSer.info 5周年記念イベント">JSer.info 5周年記念イベント</a></h3>
+<p><img src="img/question.png" alt="filtered, fit, left"></p>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<ul>
+<li>情報の定義</li>
+<li>JavaScript情報は欲しい、でも溢れてる</li>
+<li>選択肢が多すぎる問題を切り分けする話</li>
+<li>ライブラリコミュニティの読み方</li>
+</ul>
+<p>^ アジェンダとしては以下のような感じになっています。
+JavaScriptの場合よっぽどエッジな事じゃない限り、基本的に何らかは検索すると出てくると思います。逆にここで出てくる情報が多すぎてノイズが多いとも言われます。
+そういう時に何を基準に情報を分けていくのかという話をします。</p>
+<hr>
+<h1 id="-">最初に書いておくが答えはない</h1>
+<p>^ このスライドで何か新しい情報を得られたりはしないと思うので、若干退屈な内容になっていると思います。なので期待せずに聞きましょう</p>
+<hr>
+<h1 id="-">「情報」って何?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^「情報」「情報」と連呼しているので、最初にここでの「情報」の定義についてお話します。</p>
+<hr>
+<h1 id="-">「情報」って何?</h1>
+<blockquote>
+<p>『知る』ということの実体化。われわれが、あるものについて『知る』ということは、何かしらを得たこと、何かを頭の中に取り込んだことである。その『何かしら』を、われわれは情報と呼ぶのである
+-- <a href="https://ja.wikipedia.org/wiki/%E9%AB%98%E6%A9%8B%E7%A7%80%E4%BF%8A" title="高橋秀俊">高橋秀俊</a></p>
+</blockquote>
+<p>^ via <a href="http://www.icit.jp/life-informatics/etc/information.html" title="情報 (Information）">情報 (Information）</a>
+情報処理学会の元会長の高橋秀俊による定義です。</p>
+<hr>
+<h1 id="-">データ != 情報</h1>
+<ul>
+<li>データ自体はデータでしかない<ul>
+<li>ただのバイト列のデータ</li>
+<li>(人間が)データを解釈して情報となる</li>
+</ul>
+</li>
+<li>意味あるデータ = 情報</li>
+<li>同じデータでも人によってそれが<strong>情報</strong>なのか?は異なる</li>
+</ul>
+<p>^ データと情報というのは似たような言葉ですが、
+ここでの定義としては、意味のあるデータが情報であるということにします。
+誰にとって意味があるデータなのかは、やはり人によって違うので、同じデータでも人によってはそれは価値ある情報ではないかもしれません。</p>
+<hr>
+<h1 id="-">なんで情報が欲しいの?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^そもそも情報が欲しいのは何でかというと</p>
+<hr>
+<p><img src="img/A.png" alt="filtered, fit, right"></p>
+<h1 id="-fit-">[fit] 何で情報が欲しいの?</h1>
+<ul>
+<li>新しい技術が面白そうだから</li>
+<li>開発で楽をしたいから</li>
+<li>話題だから</li>
+<li><strong>選択肢を持ちたいから</strong> :anchor:</li>
+</ul>
+<p>^ 以下のように人によって色々ですが、それを使うため/選択肢として扱えるためにしたいため<strong>情報</strong>が欲しいのだと思います。
+本当に人によって違うので、ここではそういう趣旨で話を勧めます。しいのだと思います。</p>
+<hr>
+<h1 id="-">情報って既に沢山あるのでは?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^ 能動的に情報を探したりする人は情報が逆に多すぎるのではという感じがしていると重います。
+まさにその通り！</p>
+<hr>
+<h1 id="-">ありすぎて困る</h1>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<p>^ データと情報は異なるもの。
+なので言い換えるとデータはありすぎる。
+その人が意味があると思ったデータ = 情報となります。
+しかし、普通に検索すると何個も似たようなものがでてきたりして混乱するケースが多いと思います。そうして、でてきたものはその人が欲しがっているものなので意味がある情報ですが、「こっちがよい」や「あっちがよい」など相反する情報があるのが現状だと思います。
+その際に、JavaScriptに慣れている人はなんとなく「どっちがいい」 または 「どっちもよくない」という判断ができるかもしれません。そうした判断はどういう情報でおこなわれているのかというのも今日の論点です。</p>
+<hr>
+<h1 id="-">情報の整理が必要</h1>
+<p>^ 「どっちがいい」 または 「どっちもよくない」という判断をするためには情報の整理が必要になると思います。
+何でそういう考えになるのかは、最近のJavaScriptの変化をちょっと見てみます。</p>
+<hr>
+<h1 id="-">情報が整理されないと何が問題なってくるのか</h1>
+<h2 id="-">少し過去を振り返る</h2>
+<hr>
+<h1 id="2011-">2011年</h1>
+<blockquote>
+<p><a href="http://www.slideshare.net/efcl/javascript-6580879" title="世界のJavaScript情報を読もう">世界のJavaScript情報を読もう</a></p>
+</blockquote>
+<ul>
+<li>古いものと最近のものが混ざって見つけにくい</li>
+</ul>
+<p><img src="img/0-current.png" alt="fit, right"></p>
+<p>^ JSer.infoを始めた年ですが、始めた理由として過去の情報と最近の情報が混ざってしまってるのをどうにかしたいというのが一つの理由でした。
+新しい情報が欲しいのに過去の情報ばかりが出てきてしまうという状態がありました。</p>
+<hr>
+<h1 id="2012-">2012年</h1>
+<blockquote>
+<p><a href="http://azu.github.io/slide/offline_study/javascript_world.html#slide1" title="世界のJavaScriptを読もう @ 2012">世界のJavaScriptを読もう @ 2012</a></p>
+</blockquote>
+<ul>
+<li>古いものと最近のものが混ざってる</li>
+<li>最近のものを整理するWeekly、ニュースサイトが増えた</li>
+</ul>
+<p><img src="img/1-matome.png" alt="right,fit"></p>
+<p>^ これは言い換えると世の中にJavaScriptのデータがあふれ始めたので、
+それを整理して情報として届けようと言う試みが行われるようになったといえる。
+いわゆるWeekly系というのは<a href="http://javascriptweekly.com/" title="JavaScript Weekly">JavaScript Weekly</a>のような週刊のメルマガです。
+また<a href="http://www.echojs.com/" title="Echo JS">Echo JS</a>のようなニュースサイトも出てきました。
+誰かが整理した情報を配信するので新しい情報に絞って取得出来るようになったといえます。</p>
+<hr>
+<h2 id="-meta-weekly-http-azu-github-io-meta-weekly-meta-weekly-"><a href="http://azu.github.io/Meta-Weekly/" title="Meta Weekly">Meta Weekly</a></h2>
+<p><img src="./img/meta-weekly.png" alt="meta-weekly"></p>
+<p>^自分もそういうまとめをまとめようMeta-Weeklyというのを作った。</p>
+<hr>
+<h1 id="-">古いものと最近のものが混ざってる</h1>
+<ul>
+<li>自然の摂理</li>
+<li>しょうがない</li>
+</ul>
+<p>^ 新陳代謝がちゃんと行われている証拠。
+つまりエコシステムが働いているということになると思います。
+古い設計のライブラリは廃れて、新しい設計のライブラリが出てくるとかもこういう自然の流れだと思います。</p>
+<hr>
+<h1 id="2014-">2014年</h1>
+<blockquote>
+<p><a href="http://azu.github.io/slide/jser200/javascript-2014.html" title="世界のJavaScriptを読もう @ 2014">世界のJavaScriptを読もう @ 2014</a></p>
+</blockquote>
+<ul>
+<li>急速にライブラリの数が増えてきた</li>
+<li>ユーザーがライブラリの選択で悩むようになってきた<ul>
+<li>現在に対する選択肢の増加</li>
+</ul>
+</li>
+</ul>
+<p><img src="img/3-web.png" alt="right fit web-rapid"></p>
+<p>^ 2010年台からですがブラウザのRapid Releaseが一般的となり、それに伴いウェブ全体の進化が早くなった。
+ライブラリなどもそれを追従するようにリリース速度が加速しています。
+いわゆる情報も多くなった。価値がある情報とそうでない情報を一見するのが難しくなった。</p>
+<hr>
+<h1 id="-http-www-modulecounts-com-"><a href="http://www.modulecounts.com/">ライブラリの数の推移</a></h1>
+<p><img src="./img/modulecounts-npm.png" alt="modulecounts-npm.png"></p>
+<hr>
+<p><img src="./img/modulecounts-npm.png" alt="fit modulecounts-npm.png"></p>
+<p>^ 2014年にはGemを上回り他の言語含めて一番モジュールが多くなりました。
+2016年にはGemの二倍ぐらいまで増えていて、加速度的に増えています。</p>
+<hr>
+<h1 id="-">そもそも何でこんなにライブラリって多いの?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<hr>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<h1 id="-">色々な要因</h1>
+<ul>
+<li>単純にユーザーが多い</li>
+<li>標準ライブラリがない<ul>
+<li>Node.jsもコアAPIは少ない</li>
+</ul>
+</li>
+<li>UIKitのようなUIデザインの元が薄い</li>
+<li>小さなライブラリを組み合わせて使うのが良いとされてる</li>
+<li>etc...</li>
+</ul>
+<p>^ 単純にユーザーが多いというのはありますが、それ以上に標準ライブラリ的なものが少ないことにも要因はあります。
+日付操作も<code>moment</code>などのライブラリを使わないとdate-formatすら難しいですし、i18nも<code>Intl</code>オブジェクトがありますがローカライズの用途を全てカバーできるAPIではありません。そのため<a href="http://formatjs.io/" title="FormatJS">FormatJS</a>のようなECMA i18n APIを使ったライブラリがひつようになるでしょう。
+また、XHRとかコレクション操作とかそれぞれの機能に特化した小さなライブラリを組み合わせてアプリケーションを作るのがJavaScriptの世界だと良しとされていると思います。
+Angular 2の発表の時に起きた<a href="https://gist.github.com/azu/df63f08e2aa82cb81b5e">反発</a>で、この傾向はより一層広がった気がします。</p>
+<hr>
+<h1 id="node-js">Node.js</h1>
+<h2 id="-">少ないほうが豊かであるという考え方</h2>
+<blockquote>
+<p>Less is more 
+@mikeal -- <a href="https://github.com/nodejs/NG/issues/18" title="Less is more · Issue #18 · nodejs/NG">Less is more · Issue #18 · nodejs/NG</a></p>
+</blockquote>
+<h2 id="-">ウェブの変化が激しいのは決められてないことが多い</h2>
+<blockquote>
+<p>決定版がないというのは、変化が早いということ
+@yosuke_furukawa -- <a href="http://codelunch.fm/19/" title="The Node.js Future | CodeLunch.fm">The Node.js Future | CodeLunch.fm</a></p>
+</blockquote>
+<p>^ エコシステムが主役。複雑な機能や便利機能はライブラリでやってもらう</p>
+<hr>
+<h1 id="2015-">2015年 - 去年</h1>
+<ul>
+<li>古いものと最近のものがまざってる</li>
+<li>現在に対する候補が多い</li>
+<li>未来に関する悩みが増えた :star:</li>
+<li>ブラウザの情報が整理された</li>
+</ul>
+<p>^最近起きた新しい情報の混乱というと未来に関することで悩んでいる人が増えたということがあります。
+これはJavaScriptの変化が早いというのを認識してる人が増えたことでもあります。</p>
+<hr>
+<h1 id="-">未来に関する悩みって?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<hr>
+<h1 id="-">未来に関する悩み?</h1>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<ul>
+<li>不確実な新しすぎるものが増えた</li>
+<li>Transpilerによって未来の仕様が身近になった</li>
+</ul>
+<p>例えば、将来</p>
+<ul>
+<li><a href="https://github.com/tc39/ecma262">ECMAScript Proposal</a>の機能が全て使えるわけではない</li>
+<li><a href="http://cssnext.io/" title="cssnext">cssnext</a>にある機能が全て使えるわけではない</li>
+</ul>
+<p>^ まだ仕様が安定していないものもTranspilerを使えば、実際に動くコードとして扱えてしまうということが起きてきた。
+変化が早いので仕様という安定したもの乗っかると安全だという考えがあるので、無理して<strong>安定してない</strong>仕様に乗っかる人が増えた印象です。</p>
+<hr>
+<h1 id="-">未来の悩みって今悩まなくてもいいのでは?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<hr>
+<h1 id="-">未来と現在の混同</h1>
+<ul>
+<li>BabelがES6の仕様だと思ってる人がいる<ul>
+<li>まだProposalの機能をES6だと思って使ってる</li>
+</ul>
+</li>
+<li>AngularJSやReduxのように不確定な仕様を推奨するものがある</li>
+<li>:rocket: 安定した仕様とそうでないものを見分ける必要がある</li>
+</ul>
+<p>^ AngularJS2のようにDecoratorを前提とした書き方や、ReduxのチュートリアルにまだECMAScript Proposalでしかない記法が色々出てきているなどものも一端だと言えます。</p>
+<hr>
+<h1 id="-">安定した/してない仕様の見分け方は?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^ 先ほどから出てきている&quot;安定しない仕様&quot;とは何なのかという話をします。</p>
+<hr>
+<h1 id="-">仕様の策定プロセスを知るのが近道</h1>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<p>^ 安定しているかしていないかを知るには、仕様の策定プロセスを見るのが一番簡単です。</p>
+<hr>
+<h1 id="-ecmascript">仕様 - ECMAScript</h1>
+<ul>
+<li>大きく分類</li>
+<li><strong>Stable</strong> - ECMAScript 20XX<ul>
+<li>ES6、ES2016... 1年ごとリリース</li>
+</ul>
+</li>
+<li><strong>Unstable</strong> - Proposal<ul>
+<li>仕様のProposal、ドラフト</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-proposal">仕様 - Proposal</h1>
+<ul>
+<li>ES 2016からは機能毎のProposal<ul>
+<li><a href="http://azu.github.io/slide-what-is-ecmascript/slide/10.html" title="ES.nextと策定プロセス | ECMAScriptとは何か？">ES.nextと策定プロセス | ECMAScriptとは何か？</a></li>
+</ul>
+</li>
+<li>Proposalには5段階のStageがある</li>
+<li>Stage 4以外は基本的にUnstableと考える</li>
+</ul>
+<hr>
+<h1 id="-stage">仕様 - Stage</h1>
+<ul>
+<li>Stage 0 Strawman - アイデア</li>
+<li>Stage 0.5 :rocket: - Championが付きアイデア</li>
+<li>Stage 1 Proposal - 提案</li>
+<li>Stage 2 Draft - ドラフト</li>
+<li>Stage 3 Candidate- 仕様書と同じ形式</li>
+<li>Stage 4 Finished - 策定完了 =&gt; 仕様書へマージ</li>
+</ul>
+<hr>
+<h2 id="stage-0-5-rocket-">Stage 0.5 :rocket:</h2>
+<ul>
+<li>(<a href="https://tc39.github.io/process-document/">公式用語</a>ではない) </li>
+<li><a href="https://github.com/tc39/ecma262/blob/master/stage0.md" title="Stage 0 Proposals">Stage 0 Proposals</a>にはChampionが付いてるかどうかの違いがある</li>
+<li>Champion :rocket: : 仕様を最後まで進めるTC39のメンバー</li>
+<li>例) BabelはChampion :rocket:ついてないStage 0は実装しない<ul>
+<li><a href="https://github.com/babel/babel/pull/3159#issuecomment-164370243" title="New plugin for pipeline operator proposal #3159">New plugin for pipeline operator proposal #3159</a></li>
+</ul>
+</li>
+</ul>
+<p>^ 0.5というのは勝手に付いているだけなので同じStage 0です。
+ですが同じ0でもChampionがついているかそうでないかという違いがあります。
+<a href="https://github.com/mindeavor/es-pipeline-operator" title="mindeavor/es-pipeline-operator">mindeavor/es-pipeline-operator</a>はStage 0ですらないです。</p>
+<hr>
+<h1 id="-">仕様の策定プロセスまとめ</h1>
+<ul>
+<li>ECMAScriptはProposalを見れば安定したものなのか分かる<ul>
+<li><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a></li>
+</ul>
+</li>
+<li>まだProposalなもの = 安定してない</li>
+<li>正式に仕様に入ったもの = 安定してる</li>
+<li>仕様はGitHub上で管理されている</li>
+</ul>
+<p>^ 正式な仕様というのは、毎年6月にEcmaのGAで承認されてリリースされてるECMAScriptの仕様です。
+つまりECMAScript 2016/2017とかのことです。</p>
+<hr>
+<h1 id="-">仕様っていつブラウザでいつ使えるの?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<hr>
+<h1 id="-">ステータスページを見ればわかる</h1>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<p>^ 先ほど言っていたようにブラウザの情報が整理されてきています。
+どういうことかというとブラウザ公式で実装状況についてが特定のフォーマットで公開されてるようになったためです。(機械的に処理しやすい形で公開されています。)</p>
+<hr>
+<h1 id="-">ステータスページ</h1>
+<p><img src="./img/main-desktop.png" alt="fit main-desktop.png"></p>
+<ul>
+<li><a href="https://github.com/azu/browser-javascript-resource" title="azu/browser-javascript-resource">azu/browser-javascript-resource</a><ul>
+<li>主要なブラウザ(エンジン)のステータスページが用意された！</li>
+</ul>
+</li>
+<li><a href="https://status.modern.ie/">status.modern.IE</a></li>
+<li><a href="https://platatus.herokuapp.com/" title="Firefox Platform Status">Firefox Platform Status</a></li>
+<li><a href="https://www.chromestatus.com/features" title="Chromium Dashboard">Chromium Dashboard</a></li>
+<li><a href="http://www.webkit.org/status.html" title="WebKit Web Platform Status">WebKit Web Platform Status</a></li>
+</ul>
+<p>^ ステータスページには各ブラウザ(エンジン)別の実装状況や関連するIssueへのリンクが貼られています。大体のものはココ見れば解決すると思います。</p>
+<hr>
+<h1 id="-browser-platform-status-tracker-http-platformstatustracker-azurewebsites-net-browser-platform-status-tracker-"><a href="http://platformstatustracker.azurewebsites.net/" title="Browser Platform Status Tracker">Browser Platform Status Tracker</a></h1>
+<p><img src="img/platformstatustracker.png" alt="platformstatustracker fit"></p>
+<p>^ <a href="https://github.com/mayuki" title="mayuki">mayuki</a>さんによるプラットフォームステータスのDiffを見られるサイト。</p>
+<hr>
+<h1 id="-back-">話を戻して :back:</h1>
+<hr>
+<h1 id="-">(ライブラリ)選択肢が多いことはいいことなのでは?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<hr>
+<h1 id="-">基本はいいこと</h1>
+<ul>
+<li>選択肢が多い != 選択肢を持てる</li>
+<li>状況に応じて選択できないと意味ない</li>
+</ul>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<p>^基本はいいことですが、情報と思われるものが多すぎて選択しにくくなってる。
+背景にはウェブの変化加速しているため、陳腐化してしまうという恐怖心もある。</p>
+<hr>
+<h1 id="-">ライブラリはどうやって選択するの?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<hr>
+<h1 id="-">必要なのは整理された情報</h1>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<hr>
+<p><img src="img/library-browser-spec.png" alt="fit, library-browser-spec"></p>
+<hr>
+<h1 id="-">ライブラリ/ツールの選択は難しい</h1>
+<ul>
+<li>ライブラリの種類による<ul>
+<li>JavaScriptが扱えることが増えた分色々なコミュニティがある</li>
+<li>例えばフロントエンド、音声、サーバ、自然言語系(NLP) etc..</li>
+</ul>
+</li>
+<li>仕様のようにプロセスが一意ではない</li>
+<li>ライブラリごとのコミュニティがある</li>
+</ul>
+<hr>
+<h1 id="-fit-">[fit] そのライブラリ安定してる?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<hr>
+<h2 id="-">ライブラリのバージョン種類</h2>
+<ul>
+<li>ライブラリのバージョニングは基本Semver(例外あり)</li>
+<li>Suffixが付いてるのはUnstableなバージョン<ul>
+<li>β</li>
+<li>α</li>
+<li>RC</li>
+</ul>
+</li>
+<li>何もついてない(Stable)</li>
+</ul>
+<p>^ sentimental versioningを採用してるライブラリもあります。</p>
+<hr>
+<h3 id="-">ライブラリのリリースバージョン</h3>
+<p>ライブラリバージョンの安定度かけ算(嘘)</p>
+<blockquote>
+<p>α <em> 0.1 + β </em> 0.3 + RC * Math.random() + (Version - 1)</p>
+</blockquote>
+<pre><code class="lang-js">var α = 0;
+var β = 0;
+var RC = 1;
+var Version = 1;
+α * 0.1 + β * 0.3 + RC * Math.random() + (Version - 1)
+</code></pre>
+<p>^ RCがなぜ<code>Math.random()</code>なのかというと、Ember RC8、deku rc12のようにRCの数はあんまりあてにならないというジョークです。</p>
+<hr>
+<h1 id="-">ライブラリ/ツールの選択は難しい</h1>
+<ul>
+<li>自分なりの基準を設けて、複数の情報を組み合わせて使う</li>
+<li>少なくても死にそうなものは避けたい :skull:</li>
+<li>後は状況に応じて選べるようにしよう</li>
+</ul>
+<hr>
+<h1 id="-">ライブラリの生死ってどうやって見るの?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^ 死にそうなライブラリは避けたいというのが心情だと思います。
+死にそうなものを生き返らそうという人は偉いです。</p>
+<hr>
+<h1 id="pulse-heartpulse-">PULSE :heartpulse:</h1>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<hr>
+<h1 id="-pluse">ライブラリのPluse</h1>
+<ul>
+<li>ライブラリがアクティブにメンテナンスされているか?</li>
+<li>小さなライブラリはAPIがフリーズしてることがあるので例外<ul>
+<li>小さなライブラリとは自分で書き直せるなという規模</li>
+</ul>
+</li>
+<li>大きなライブラリ/フレームワークはアクティブなのかは重要<ul>
+<li>特にエコシステムを持つものは重要 :recycle:</li>
+</ul>
+</li>
+</ul>
+<p>^ JavaScriptのエコシステムは小さなライブラリはそれ以上やることがなくなるとアクティブには見えなくなるという問題があります。
+なのでここでは例外としています。
+逆にコードベース的に大きなライブラリ、色々なものから依存されてるようなライブラリがアクティブ化どうかは重要です。</p>
+<hr>
+<h1 id="-github-pulse-https-help-github-com-articles-about-pulse-pulse-"><a href="https://help.github.com/articles/about-pulse/" title="Pulse">GitHub Pulse</a></h1>
+<p><img src="./img/github-pulse.png" alt="github-pulse.png,fit"></p>
+<p>^GitHub公式の1日/3日/1周間/1ヶ月でのオーバービュー</p>
+<hr>
+<h1 id="-issue-stats-http-issuestats-com-issue-stats-"><a href="http://issuestats.com/" title="Issue Stats">Issue Stats</a></h1>
+<p><img src="img/issue-stats.png" alt="issue-stats.png, fit"></p>
+<p>^ リポジトリのIssueやPRが平均どれくらいで処理されているかを見られるサービス。</p>
+<hr>
+<h1 id="contributor-s-warning-">Contributor(s) :warning:</h1>
+<hr>
+<h1 id="contributor-s-warning-">Contributor(s) :warning:</h1>
+<ul>
+<li>現在がアクティブでもContributorが1人(本人のみ)というケース</li>
+<li>コミットが止まる =&gt; プロジェクトが止まる</li>
+<li>単一障害点(SPOF)</li>
+</ul>
+<p>^ 例としては<a href="http://vuejs.org/" title="vue.js">vue.js</a>はこれになりますが、コミットが止まったらプロジェクトが終了するかはコミュニティ次第と言えます。</p>
+<hr>
+<h1 id="-spof-">単一障害点(SPOF)</h1>
+<ul>
+<li>SPOFに対してどういう対策をしているかというのも一つの基準</li>
+<li>これに対する答えはアクティブなコントリビューターを増やす</li>
+<li>それのためにどういう工夫をしているかを見る</li>
+</ul>
+<p>^ これはオープンソース一般の話になるかと思いますが、多くのケースではアクティブなコントリビューターが複数いるほうが良いです。
+たまに内乱とかがありますが、アクティブな人は複数いたほうがいいです。
+ECMAScriptの仕様もそうですが、JavaScriptは特定の場所が意見が強いという方向が少ないと思います。</p>
+<hr>
+<h1 id="file">FILE</h1>
+<ul>
+<li><code>LICENSE.md</code></li>
+<li><code>CONTRIBUTING.md</code><ul>
+<li>ガイドラインがあるか</li>
+</ul>
+</li>
+<li><code>CODE_OF_CONDUCT.md</code><ul>
+<li>行動規範、ポリティカル・コレクトネス問題</li>
+</ul>
+</li>
+<li>ORGANIZATION<ul>
+<li>リリースを出来る人が複数いるかどうか</li>
+</ul>
+</li>
+</ul>
+<p>^ コントリビュートしやすくしてるかというをぱっと見る方法として関連ファイルを見るという方法があります。
+CONTRIBUTING.mdなどガイドラインがちゃんと書かれているかなど。
+<a href="http://qiita.com/azu/items/1bc6dff4fa349f58855f" title="Ruby - Contributor Code of Conductのメモ - Qiita">Ruby - Contributor Code of Conductのメモ - Qiita</a>
+Triage Issueをしてコントリビュートしやすくしているかとか、
+ORGANIZATIONの問題はパッケージ管理(npm)側にも問題があるので、まだまだ。</p>
+<hr>
+<h1 id="-add-code_of_conduct-by-azu-pull-request-83-jser-jser-info-https-github-com-jser-jser-info-pull-83-add-code_of_conduct-by-azu-pull-request-83-jser-jser-info-"><a href="https://github.com/jser/jser.info/pull/83" title="Add CODE_OF_CONDUCT by azu · Pull Request #83 · jser/jser.info">Add <code>CODE_OF_CONDUCT</code> by azu · Pull Request #83 · jser/jser.info</a></h1>
+<p>^ JSer.infoにも<code>CODE_OF_CONDUCT.md</code>入れようとしています。</p>
+<hr>
+<h1 id="-">コミュニティの問題</h1>
+<ul>
+<li><a href="https://babeljs.io/" title="Babel">Babel</a><ul>
+<li><a href="https://medium.com/@sebmck/2015-in-review-51ac7035e272" title="~2015 in review — Medium">~2015 in review — Medium</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/masayuki0812/c3" title="C3.js">C3.js</a><ul>
+<li><a href="https://github.com/masayuki0812/c3/issues/1440" title="Create an organisation? · Issue #1440 · masayuki0812/c3">Create an organisation? · Issue #1440 · masayuki0812/c3</a></li>
+</ul>
+</li>
+<li>そのプロジェクトがContributeしやすくできてるかが大事</li>
+</ul>
+<p>^ Babelは最近sebmckのコミットはかなり少なくなったけど、ちゃんと他のアクティブなコントリビューターが活動してる。それでも普通のプロジェクトよりかなり早い。
+C3はメインのコミッターがいなくなってて、もう一人の管理権限持ってる人が管理できないスピードでIssueができてる。
+C3にはプラグインのような仕組みがないため、コアに対して要望のIssueができてしまい捌けなくなってしまうため、そういうの解消するためにプラグインシステムは必要という話をしていた。</p>
+<hr>
+<h1 id="-">プラグインアーキテクチャ</h1>
+<ul>
+<li>ライブラリコアに全ての機能を持たせると、要望が全てIssueになる<ul>
+<li>Issueの処理ばかりになって開発に支障がでることがある</li>
+</ul>
+</li>
+<li>回避するためにプラグインアーキテクチャを持たせて分散</li>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture">azu/JavaScript-Plugin-Architecture</a></li>
+</ul>
+<hr>
+<h1 id="-dear-github-https-github-com-dear-github-dear-github-dear-github-"><a href="https://github.com/dear-github/dear-github" title="dear-github">dear-github</a></h1>
+<blockquote>
+<p> An open letter to GitHub from the maintainers of open source projects</p>
+</blockquote>
+<p><img src="./img/dear-github.png" alt="right, fit, dear-github.png"></p>
+<p>^ GitHub Issueへのフラストレーションについてのオープンレーター。
++1のコメントが邪魔、バージョン情報の入力項目(Babelはそういう問題があって<a href="https://phabricator.babeljs.io/" title="Phabricator">Phabricator</a>に移動した)とか、CONTRIBUTING.mdがただのリンクなので読まれない問題など</p>
+<hr>
+<h1 id="-">じゃあ結局どうやって選択すればいいの?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^ ライブラリはコミュニティの問題も関係あるので一つ見て判断はしにくいと思います。
+じゃあ実際どうやればいいのかというと</p>
+<hr>
+<h1 id="-">一つの情報でダメなら複数の情報で</h1>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<p>^ 先ほども言ったように、一つの情報だけで判断しないで複数の情報から判断するのがいいと思います。
+そのライブラリの設計はどうなのか、アクティブに活動してるのか、アクティブなコントリビューターがいるのか、ライセンスやコントリビュートのガイドラインとかを整備してるのか、バージョニングの付け方おかしくないのかなど色々な要素があります。
+逆にそういった足りてないならそこについて貢献していくなどの方法も取ることができると思います。</p>
+<hr>
+<h1 id="-">結局、詳しい人に聞けばいいのでは?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^ 話をしていて面倒くさいと思ったと思います！
+なので詳しい人に「これどう?」って聞いたほうが楽な気がします。</p>
+<hr>
+<h1 id="-">正解</h1>
+<h2 id="-">誰が何に興味を持っているかはそういう意味でも大事</h2>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<p>^ まさに詳しい人に聞くというのは整理された情報が手に入りやすいので確実です。
+しかし、JavaScriptは幅広いので、その詳しい人が誰なのか、誰が何について興味を持っているのかということを知っているとその辺がスムーズに動けると思います。</p>
+<hr>
+<h1 id="-1-">選択できても1年後には変わるんでしょ?</h1>
+<p><img src="img/Q.png" alt="filtered, fit, left"></p>
+<p>^ そうやって色々調べて結局1年後に変わってるんでしょ?という疑問があると思います。</p>
+<hr>
+<h1 id="-">はい</h1>
+<h2 id="-">一度選んで終わりではない！</h2>
+<p><img src="img/A.png" alt="filtered, fit, left"></p>
+<p>^ はい！</p>
+<hr>
+<h1 id="-fit-javascript-">[fit] JavaScriptのエコシステムへようこそ！</h1>
+<h2 id="-recycle-recycle-recycle-">:recycle::recycle::recycle:</h2>
+<p>^ この流れの速さがJavaScriptのエコシステムでもあるので、これを楽しめるようにしましょう！</p>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>データが多いと選択は難しくなる</li>
+<li>情報にも種類があるのでちゃんと区別を付ける<ul>
+<li>StableとUnstableからはじめてみる</li>
+</ul>
+</li>
+<li>ライブラリの選択は難しい<ul>
+<li>コミュニティの問題も関連する</li>
+</ul>
+</li>
+<li>一つの情報ではなく複数の情報から判断しよう</li>
+</ul>
+<hr>
+<h1 id="-">おわり</h1>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
