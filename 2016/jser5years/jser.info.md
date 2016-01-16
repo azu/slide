@@ -132,7 +132,8 @@ autoscale: true
 
 # from [2013-01-21のJS: jQuery 1.9... - JSer.info](http://jser.info/post/41104670903/ "2013-01-21のJS: jQuery 1.9、Testing jQuery Plugins、JavaScript testing boilerplate - JSer.info")
 
-> 開始するときにまず2年間は続けると決めたのはとりあえず達成しました。以上
+> 開始するときにまず2年間は続けると決めたのは達成しました。 
+> 以上
 
 -----
 

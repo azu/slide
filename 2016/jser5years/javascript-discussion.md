@@ -1,6 +1,9 @@
+footer: [JSer.info 5周年記念イベント](http://jser.connpass.com/event/24202/ "JSer.info 5周年記念イベント")
+
 # JavaScript Discussion
 
 -----
+
 # テーマ
 
 ## https://app.sli.do/0116 から入力

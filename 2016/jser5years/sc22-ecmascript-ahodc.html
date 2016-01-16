@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title></title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content=""/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-01-16" id="datePublished">
+            2016-01-16
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-01-16" id="dateModified">
+            2016-01-16
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.pdf" title="">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="sc22-ecmascript-ad-hoc-">SC22 ECMAScript Ad hoc委員会</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<p><img src="img/sc22.png" alt="fit, sc22"></p>
+<hr>
+<h1 id="-">国際標準</h1>
+<p>WTO/TBT協定</p>
+<blockquote>
+<p>国家規格(法規)には、既に存在する国際標準を使うことを推奨する</p>
+</blockquote>
+<p>WTO/GP協定</p>
+<blockquote>
+<p>政府およびその関連機関が調達する物品の)性能に関する技術仕様については、既にそれが存在する場合、国際標準に基づいていなければならない</p>
+</blockquote>
+<hr>
+<h1 id="-">国際標準とは?</h1>
+<blockquote>
+<p>WTOの協定で求められている「国際標準」とは、何なのでしょうか。実は、何も定義されていません。ISO(国際標準化機構)、IEC(国際電気標準会議)、およびITU(国際電気通信連合)の3つの国際組織が制定するものは、とりあえず「国際標準」と言ってよいであろうと、世界的に考えられています
+-- <a href="https://www.itscj.ipsj.or.jp/hyojunka/hyojunka_01.html" title="標準化について | IPSJ/ITSCJ">標準化について | IPSJ/ITSCJ</a></p>
+</blockquote>
+<hr>
+<h1 id="ecmascript-es5-">ECMAScriptと国際標準(ES5までの話)</h1>
+<ul>
+<li>Ecma InternationalがECMAScriptを標準化</li>
+<li>その後、同じものをISO/IEC JTC 1からもISO/IEC 16262として標準化</li>
+<li>ISO標準化のプロセスとして<a href="https://www.jisc.go.jp/international/iso-prcs.html" title="迅速手続（Fast-track procedure）制度">迅速手続（Fast-track procedure）制度</a>を利用</li>
+</ul>
+<hr>
+<h1 id="-iso-iec-jtc-1-https-ja-wikipedia-org-wiki-iso-iec_jtc_1-iso-iec-jtc-1-"><a href="https://ja.wikipedia.org/wiki/ISO/IEC_JTC_1" title="ISO/IEC JTC 1">ISO/IEC JTC 1</a></h1>
+<blockquote>
+<p>ISO/IEC JTC 1とは、国際標準化機構 (ISO) と国際電気標準会議 (IEC) の第一合同技術委員会</p>
+</blockquote>
+<p>分野毎にSubcommittee (SC) に分かれている。</p>
+<hr>
+<h1 id="sc22-ecmascript-ad-hoc-">SC22 ECMAScript Ad hoc委員会</h1>
+<ul>
+<li>Subcommittee (SC)の一つとしてSC22がある</li>
+<li>SC22: &quot;プログラム言語、その環境及びシステムソフトウェアインタフェース&quot;を扱う</li>
+<li>国際のJTC 1/SC 22には、ECMAScript Subcommitteeはない</li>
+<li>国内のSC22に独自のアドホックな委員会としてECMAScript Ad hocがある</li>
+</ul>
+<hr>
+<h1 id="-fast-track-procedure-https-www-jisc-go-jp-international-iso-prcs-html-fast-track-procedure-"><a href="https://www.jisc.go.jp/international/iso-prcs.html" title="迅速手続（Fast-track procedure）制度">迅速手続(Fast-track procedure)制度</a></h1>
+<ul>
+<li>既存の仕様をISO標準化するプロセス<ul>
+<li>例: ECMAScript 5をISO/IEC 16262:2011としてISO標準化</li>
+</ul>
+</li>
+<li>ざっくりとした流れ</li>
+<li>既存の仕様 -&gt; ISO/IEC JTC1のメンバー(National Body=国ごと)に意見を求める -&gt; National Bodyが投票 -&gt; 賛成されたならISO標準化</li>
+<li>少なくても6ヶ月はかかる</li>
+</ul>
+<hr>
+<h1 id="-fast-track-">ざっくりFast-track図解</h1>
+<hr>
+<p><img src="img/fast-track-start.png" alt="fit, fast-track-start"></p>
+<hr>
+<h1 id="fast-track-">Fast-track レビュー</h1>
+<ul>
+<li>EcmaからECMAScriptのFast-track手続きの依頼</li>
+<li>National Body(国)ごとに仕様を技術的レビューして意見を出す</li>
+<li>ここがSC22 ECMAScript Ad hoc委員会のメインタスク</li>
+<li>レビューを元に仕様へ賛成反対を投票する(1国1票)</li>
+</ul>
+<hr>
+<p><img src="img/fast-track-end.png" alt="fit, fast-track-end"></p>
+<hr>
+<h1 id="-">投票後</h1>
+<ul>
+<li>投票結果によりその仕様がISO標準化される</li>
+<li>ECMAScript5ならISO/IEC 16262:2011としてISO標準化されるという形</li>
+</ul>
+<hr>
+<h1 id="-">もっと詳しく</h1>
+<ul>
+<li><a href="http://www.atmarkit.co.jp/ait/articles/1210/23/news153.html">OSSコミュニティの“中の人”（4）：できないことは全部やる。できる依頼は断る――竹迫良範氏インタビュー【後編】 (1/2) - ＠IT</a></li>
+<li><a href="http://www.slideshare.net/takesako/devsumi2010-ecmascript5-isoiec-jtc1sc22">Devsumi2010 Ecmascript5 (ISO/IEC JTC1/SC22)</a></li>
+<li><a href="http://blogs.msdn.com/b/brian_jones/archive/2007/01/29/explanation-of-the-iso-fast-track-process.aspx" title="Explanation of the ISO “Fast-Track” process - Brian Jones: Office Solutions - Site Home - MSDN Blogs">Explanation of the ISO “Fast-Track” process - Brian Jones: Office Solutions - Site Home - MSDN Blogs</a></li>
+</ul>
+<hr>
+<h1 id="-">何してるの?</h1>
+<h2 id="ecmascript-ad-hoc-">ECMAScript Ad hocの話。他の委員会は分からない</h2>
+<hr>
+<h1 id="-">仕様書のレビューとフィードバック</h1>
+<blockquote>
+<p>日本の専門委員会としてECMAScriptに対して、こうするべきとかここ直したほうがいいなどの意見を提出するのが目的</p>
+</blockquote>
+<ul>
+<li>仕様書をレビュー</li>
+<li>間違い、おかしな点を報告</li>
+</ul>
+<hr>
+<h2 id="-">主な活動</h2>
+<ul>
+<li>集まってミーティング(合計三回)</li>
+<li>メーリングリストで情報共有</li>
+</ul>
+<hr>
+<h1 id="-2015-6-">一回目 - 2015年6月</h1>
+<ul>
+<li>ECMAScript仕様書の担当箇所を決めた</li>
+<li>章毎に分けて決めた</li>
+<li>自分は25-26章のGenerator、Promise、Reflectionあたりの担当</li>
+</ul>
+<hr>
+<h1 id="-2015-10-">二回目 - 2015年10月</h1>
+<ul>
+<li>担当した箇所について気になった点を話し合い</li>
+</ul>
+<p>例)</p>
+<blockquote>
+<p>20.3.1.1 Time Values and Time Range
+うるう年を考慮してないからapproximately 285,616 yearsとなってしまってる</p>
+</blockquote>
+<hr>
+<h2 id="-">指摘例</h2>
+<blockquote>
+<p><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-normative-references" title="3 Normative references">3 Normative references</a>
+If the adopted ISO/IEC 10646-1 subset is not otherwise specified, it is presumed to be the Unicode set, collection 10646</p>
+</blockquote>
+<ul>
+<li>&quot;collection 10646&quot;って何?</li>
+<li>&quot;collection 308&quot;のtypo?</li>
+<li><a href="https://github.com/tc39/ecma262/pull/90" title="JP22: maybe typo? by YosAwed · Pull Request #90 · tc39/ecma262">JP22: maybe typo? by YosAwed · Pull Request #90 · tc39/ecma262</a></li>
+</ul>
+<hr>
+<h2 id="iso-">ISO標準化の道先</h2>
+<ul>
+<li>EcmaとしてISO標準化していくかがまだ未定<ul>
+<li>ES2016から策定プロセスを変えたため</li>
+<li>毎年リリース予定なのに、ISO標準はそれ追従できるの?みたいな話</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="github-issue">GitHub Issue</h2>
+<ul>
+<li>本来(Fast-Track)は、意見をまとめて提出する</li>
+<li>まだFast-Track依頼がEcmaからきてない</li>
+<li>個人個人で直接、<a href="https://github.com/tc39/ecma262/issues" title="Issues · tc39/ecma262">Issues · tc39/ecma262</a>に指摘のIssueを立てた</li>
+</ul>
+<hr>
+<h1 id="-2016-1-">三回目 - 2016年1月</h1>
+<ul>
+<li>まだEcmaとしてISO標準化どうするか未定</li>
+<li>TC39としては1年毎にECMAScriptをリリースという方針は決まってる<ul>
+<li>いわゆるECMAScriptの仕様</li>
+<li><a href="http://azu.github.io/slide-what-is-ecmascript/" title="Introduction | ECMAScriptとは何か？">Introduction | ECMAScriptとは何か？</a></li>
+</ul>
+</li>
+<li>ISO標準化はそのペースだとどうやるの?という議論中</li>
+</ul>
+<hr>
+<h2 id="-">プロセスの変化?</h2>
+<hr>
+<h2 id="-fast-track-">従来のプロセス(Fast-track)</h2>
+<ul>
+<li>Fast-Trackでのプロセスは基本国レベル</li>
+<li>各国の委員会からの報告には何らかの形でレスポンス返すのが普通<ul>
+<li>国レベルのコミュニケーションという扱いなので</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">現状</h2>
+<ul>
+<li>(そもそもFast-trackがきてないので)</li>
+<li><a href="https://github.com/tc39/ecma262/issues" title="Issues · tc39/ecma262">Issues · tc39/ecma262</a></li>
+<li>GitHubにIssueを個人的に立てて報告</li>
+<li>typoなどEditorialな軽い修正は反映しやすい</li>
+<li>面倒な話は、普通のGitHubと同じく放置されてしまうことがある</li>
+</ul>
+<hr>
+<h1 id="-">オープンソースと国際標準化</h1>
+<ul>
+<li>オープンソースな仕様の開発とそれを国際標準とするケース<ul>
+<li>ECMAScriptはGitHub上で普通に開発されてる</li>
+</ul>
+</li>
+<li>オープンソースと国際標準を両立する手法が確率されているわけではない</li>
+<li>事例が少なくてよくわからない</li>
+<li>ECMAScriptで上手くいくと他にもケースは増えるかもしれない</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>今まではFast-trackでECMAScriptをISO標準化していた</li>
+<li>ECMAScript自体の策定プロセス自体が加速した</li>
+<li>ISO標準化のようなプロセスが重たいものは、今後どうなるかが議論中</li>
+<li>標準化プロセスも変化してきている</li>
+</ul>
+<hr>
+<h1 id="-">感想</h1>
+<ul>
+<li>Takesakoさんに誘われてSC22 ECMAScript Ad hoc委員会に参加</li>
+<li>仕様(ECMAScriptではなくもっと大きな括りの仕様)のあり方について詳しい人の話を聞けて面白い</li>
+<li>ウェブでよく参照するデファクト標準(W3CとかECMAScriptとか)とまた違い、国際標準には国際標準で色々流れがあるんだなーと思った</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
