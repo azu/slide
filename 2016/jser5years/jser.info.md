@@ -154,7 +154,7 @@ autoscale: true
 - TumblrからGitHub Pagesへ
 	  - [JSer.infoをTumblrからGitHub Pagesに移行しました - JSer.info](http://jser.info/2014/08/03/renewal/ "JSer.infoをTumblrからGitHub Pagesに移行しました - JSer.info")
 - 韓国語版 by @[UYEONG](https://github.com/UYEONG "UYEONG")
-- Pull Reuqest駆動へ
+- Pull Request駆動へ
 
 -----
 
@@ -163,7 +163,7 @@ autoscale: true
 
 1. 記事を読む
 2. [Tombfix](https://github.com/tombfix "Tombfix")でメモ付きでブックマーク
-3. 一週間ぐらい1,2を繰り返しで紹介記事のデータを貯める
+3. 一週間ぐらい1、2を繰り返して紹介記事のデータを貯める
 4. 貯めたアーカイブを整形
 5. 整形した記事をコピペ、ヘッドラインを書く => **記事完成**
 
@@ -176,7 +176,7 @@ autoscale: true
 1. 記事を読む
 2. [Tombfix](https://github.com/tombfix "Tombfix")でメモ付きでブックマーク
    - :new: CIが[単語の自動チェック](http://efcl.info/2014/10/20/lint-tech-word/)
-3. 一週間ぐらい1,2を繰り返しで紹介記事のデータを貯める
+3. 一週間ぐらい1、2を繰り返して紹介記事のデータを貯める
    - :new: [編集用アプリ](https://github.com/jser/jser.info-editor)の作成
 4. 貯めたアーカイブを整形
 5. 整形した記事をコピペ、ヘッドラインを書く => **記事完成**
@@ -262,11 +262,11 @@ from [2015-11-16のJS](http://jser.info/2015/11/16/ecmascript-7-ms-node-js/ "201
 1. 記事を読む
 2. :new: [投稿用クライアント](https://github.com/azu/postem "postem")でブクマ
    - :new: CIが[textlint](https://github.com/textlint/textlint "textlint")で自然言語のLint
-3. 一週間ぐらい1,2を繰り返しで紹介記事のデータを貯める
+3. 一週間ぐらい1、2を繰り返して紹介記事のデータを貯める
    - [編集用アプリ](https://github.com/jser/jser.info-editor)の利用
 4. 貯めたアーカイブを整形
 5. 整形した記事をコピペ、ヘッドラインを書く
-   - Pull Reuest駆動 => CIが自動チェック
+   - Pull Request駆動 => CIが自動チェック
    - Atom+[linter-textlint](https://github.com/1000ch/linter-textlint "linter-textlint")でリアルタイムLint 
 6. 記事の完成
 
@@ -312,7 +312,7 @@ from [2015-11-16のJS](http://jser.info/2015/11/16/ecmascript-7-ms-node-js/ "201
 
 # 今後
 
-- [jser/jser.info - Gitter](https://gitter.im/jser/jser.info "jser/jser.info - Gitter") をもっと活用したい
+- [jser/jser.info - Gitter](https://gitter.im/jser/jser.info "jser/jser.info - Gitter")をもっと活用したい
 - [![Gitter chat](https://badges.gitter.im/jser/jser.info.png)](https://gitter.im/jser/jser.info)
 - 中期的なまとめを書けるようにしたい
 
