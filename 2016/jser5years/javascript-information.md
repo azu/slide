@@ -115,7 +115,7 @@ JavaScriptの場合よっぽどエッジな事じゃない限り、基本的に�
 
 -----
 
-# 情報が整理されないと何が問題なってくるのか
+# 情報が整理されないと何が問題になってくるのか
 
 ## 少し過去を振り返る
 
@@ -335,7 +335,7 @@ Angular 2の発表の時に起きた[反発](https://gist.github.com/azu/df63f08
 # 仕様 - Stage
 
 - Stage 0 Strawman - アイデア
-- Stage 0.5 :rocket: - Championが付きアイデア
+- Stage 0.5 :rocket: - Championが付いているアイデア
 - Stage 1 Proposal - 提案
 - Stage 2 Draft - ドラフト
 - Stage 3 Candidate- 仕様書と同じ形式
@@ -370,7 +370,7 @@ Angular 2の発表の時に起きた[反発](https://gist.github.com/azu/df63f08
 
 -----
 
-# 仕様っていつブラウザでいつ使えるの?
+# 仕様っていつブラウザで使えるの?
 
 ![filtered, fit, left](img/Q.png)
 
