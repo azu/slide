@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>3分でわかるtextlint</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="3分でわかるtextlint"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/reject-sushi/textlint.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-02-23" id="datePublished">
+            2016-02-23
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-02-23" id="dateModified">
+            2016-02-23
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/reject-sushi/textlint.pdf" title="3分でわかるtextlint">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="3-textlint">3分でわかるtextlint</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-textlint-http-textlint-github-io-"><a href="http://textlint.github.io/">textlint</a></h1>
+<ul>
+<li>自然言語を扱うLintツール</li>
+<li>MarkdownやHTML、テキストファイルを扱える</li>
+<li>ファイルをASTとしてパースするため誤検知しない</li>
+</ul>
+<hr>
+<p><img src="img/textlint.png" alt="online"></p>
+<hr>
+<h2 id="-">オンラインデモ</h2>
+<ul>
+<li><a href="http://textlint.github.io/">textlint.github.io/</a></li>
+<li>JavaScript(Node.js)で書かれているので当然ブラウザでも動かせる</li>
+<li>サイトはDeku v2 + Redux + SUIT CSS<ul>
+<li>Reduxを理解するならDekuと合わせて使ったほうが簡単</li>
+</ul>
+</li>
+<li>CodeMirrorプラグイン<ul>
+<li><a href="https://github.com/azu/codemirror-textlint" title="azu/codemirror-textlint: CodeMirror with textlint">azu/codemirror-textlint: CodeMirror with textlint</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">英語向けルール</h2>
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-rousseau" title="textlint-rule-rousseau">textlint-rule-rousseau</a><ul>
+<li>英文法の簡易チェック</li>
+</ul>
+</li>
+<li><a href="https://github.com/azu/textlint-rule-alex" title="textlint-rule-alex">textlint-rule-alex</a><ul>
+<li>ポリティカルコネストな用語のチェック</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">日本語向けルール</h2>
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-preset-japanese" title="textlint-rule-preset-japanese">textlint-rule-preset-japanese</a><ul>
+<li>日本語向けルール詰め合わせ</li>
+</ul>
+</li>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="textlint-rule-preset-JTF-style">textlint-rule-preset-JTF-style</a><ul>
+<li>JTF日本語標準スタイルガイド</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">ルール</h2>
+<ul>
+<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a></li>
+<li>総ルール数は100ぐらいある<ul>
+<li>プリセットでまとまってるので見かけは少ないめ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">フォーマット</h2>
+<ul>
+<li>Markdown</li>
+<li>txt</li>
+<li>HTML</li>
+<li><a href="https://github.com/orangain/textlint-plugin-review" title="Re:VIEW">Re:VIEW</a></li>
+</ul>
+<hr>
+<p><img src="img/textlint-ast.png" alt="ast"></p>
+<hr>
+<h2 id="textmate-to-ast">Textmate to AST</h2>
+<ul>
+<li><a href="https://github.com/azu/textlint-plugin-asciidoc" title="azu/textlint-plugin-asciidoc: WIP">azu/textlint-plugin-asciidoc: WIP</a></li>
+<li>Textmate bundleはシンタックスハイライトのための定義を持ってる</li>
+<li>正規表現ベースだけど、よく出来たbundleは必要な部分の解析出来る<ul>
+<li>textlint的に欲しいのは文章部分</li>
+</ul>
+</li>
+<li>Textmate bundle -&gt; <a href="https://github.com/Microsoft/vscode-textmate" title="2193Microsoft/vscode-textmate">Microsoft/vscode-textmate</a> -&gt; tokenはできた</li>
+<li>tokenからASTに組み上げるのは作る必要がある…</li>
+</ul>
+<hr>
+<h1 id="-">色々な使い方</h1>
+<ul>
+<li><a href="http://efcl.info/2016/01/12/textlint-coverage/" title="textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch">textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch</a><ul>
+<li>文章のコードカバレッジを取る</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">今後</h1>
+<ul>
+<li>もっと面白いルールを書ける土壌を作る</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
