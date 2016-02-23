@@ -1,6 +1,6 @@
 autoscale: true
 
-# How to work Team :balloon:
+# How to work as a Team
 
 ----
 
