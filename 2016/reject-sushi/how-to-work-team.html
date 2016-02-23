@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>How to work as a Team</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="How to work as a Team"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-02-23" id="datePublished">
+            2016-02-23
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-02-23" id="dateModified">
+            2016-02-23
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.pdf" title="How to work as a Team">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="how-to-work-as-a-team">How to work as a Team</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-">目的</h1>
+<ul>
+<li>新規でそこそこ複雑なウェブページを作る(アプリに近い)</li>
+<li>ある程度柔軟に拡張でき、メンテできるような設計にしたい</li>
+<li>無難にReact + 何かでちゃんと設計して作っていきたい</li>
+<li>この設計部分をどう決めていくのかという話</li>
+</ul>
+<hr>
+<h1 id="-">現状</h1>
+<ul>
+<li>チームにReact/Flux/Reduxを触ったことがない人が多い</li>
+<li>どれが(主にView以外の設計)ベストかは分からない<ul>
+<li>Flux的な部分の話</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-br-">ものごとは変わる。<br>混乱は変わらない</h1>
+<hr>
+<h1 id="-">混乱の原因</h1>
+<ul>
+<li>情報過多</li>
+<li>情報不足</li>
+<li>適切でない情報</li>
+<li>上記の組み合わせ！</li>
+</ul>
+<p>via P21 <a href="http://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a></p>
+<hr>
+<h1 id="-">情報の共有</h1>
+<ul>
+<li>情報不足 <ul>
+<li>そもそもReactなどを知らない人には知ってもらう必要がある</li>
+</ul>
+</li>
+<li>Flux 何がいいのか分からない問題<ul>
+<li>:triangular_flag_on_post:  既存の実装でサンプルを作って見てもらう</li>
+<li>どれがしっくりくるのかを聞く</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">サンプルづくり</h2>
+<ul>
+<li>サンプルのテーマ決め<ul>
+<li>新しく作るページに必要な要素を簡単に盛り込む</li>
+<li>タイトル、画像の切り替え、アニメーション、非同期でデータを読み込むなど</li>
+</ul>
+</li>
+<li>テーマを決めらたら作る</li>
+</ul>
+<hr>
+<h2 id="-">サンプルづくり</h2>
+<ul>
+<li>Flux Util</li>
+<li>Redux</li>
+<li>Fluxible</li>
+<li>material-flux<ul>
+<li>でそれぞれ作った</li>
+</ul>
+</li>
+<li>View(React)は全て同じものを参照して、Viewと他はちゃんと分離出来ることも証明してみせた</li>
+</ul>
+<hr>
+<h1 id="-">作ったサンプルをみてもらう</h1>
+<ul>
+<li>:thought_balloon: Action/ActionCreatorが謎い<ul>
+<li>ある処理をするので、<code>execute</code>を持つUsecaseクラスとしてみると親しみが湧く</li>
+</ul>
+</li>
+<li>:thought_balloon: Storeって何? モデルではない?<ul>
+<li>モデルというよりはStateの入れ物に近い</li>
+<li>Stateとわかるような名前にしてみるとか</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-triangular_flag_on_post-">:triangular_flag_on_post: 意見を聞いて実装してみる</h2>
+<hr>
+<h2 id="usecase">Usecase</h2>
+<ul>
+<li><code>execute</code>を持っているexecutableクラスっぽい</li>
+</ul>
+<pre><code class="lang-js">class UseCase {
+    // executeは暗黙的に呼ばれる
+    execute(context){
+        // dispatch
+        context.dispatch(key, value);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="usecase-">Usecaseの実行</h2>
+<pre><code class="lang-js">const stateStore = new StateStore();
+const dispatcher = new Dispatcher();
+// dispatcherとstoresを紐つけるContext
+const appContext = new AppContext({
+    dispatcher,
+    stores: [stateStore]
+});
+// Usecaseの実行
+context.execute(new UseCase({ data }));
+</code></pre>
+<ul>
+<li><a href="http://fluxible.io/api/actions.html" title="API: Actions | Fluxible">API: Actions | Fluxible</a> と近い</li>
+</ul>
+<hr>
+<p><img src="./img/callstack.png" alt="fit callstack"></p>
+<hr>
+<p><img src="./img/rendering.png" alt="fit rendering"></p>
+<hr>
+<h2 id="-">また見てもらう</h2>
+<ul>
+<li>まあまあ良さそう</li>
+<li>でもStoreはホントにただの入れ物っぽい</li>
+<li>Usecaseにロジックが集中しそう</li>
+<li>ドメインとかレイヤーをちゃんと考えるの課題</li>
+<li>ちゃんとこれでアプリの動くのかが不安</li>
+<li><a href="http://www.slideshare.net/saneyuki/my-thoughy-about-beyond-flux" title="My thought about beyond flux">My thought about beyond flux</a></li>
+</ul>
+<hr>
+<h1 id="-fit-">[fit] 現状の課題/混乱をまとめる</h1>
+<hr>
+<p><img src="img/current-confuse.png" alt="fit current-confuse.png"></p>
+<hr>
+<h1 id="-">行うことは知ること</h1>
+<blockquote>
+<p>「知っている」だけでは十分ではありません。「多くを知りすぎている」ことでも、私たちはぐずぐずと手間取ることもありえます。 
+実際に行うことよりも、知り続ける事を優先すると、ある時点から混乱がましてきます。</p>
+</blockquote>
+<p>via P32 <a href="http://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a></p>
+<hr>
+<h1 id="-">手を動かさないと進まない</h1>
+<ul>
+<li>ずっと頭で考えてても設計はうまくいかない</li>
+<li>実際に作る/メンテするのはTeamなので全員が書かないと意味ない</li>
+<li>サンプルは作ってあるので、Teamの人にも自分なりに書いてもらう</li>
+</ul>
+<hr>
+<h2 id="team-">Teamの人にも書いてもらう間に</h2>
+<ul>
+<li>ReactはComponent志向</li>
+<li>Componentとデータフローの設計は並行できる</li>
+<li>:triangular_flag_on_post:  Componentの開発を進めておく</li>
+</ul>
+<hr>
+<p><img src="img/arch-imp.png" alt="fit arch-imp.png"></p>
+<hr>
+<h1 id="-">作り始めて考える事</h1>
+<ul>
+<li>使う言葉</li>
+<li>使わない言葉</li>
+<li>要件(名詞 + 動詞)</li>
+</ul>
+<hr>
+<p><img src="img/lang.png" alt="fit lang"></p>
+<hr>
+<h1 id="-fit-">[fit] たたかいははじまったばかりだ</h1>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
