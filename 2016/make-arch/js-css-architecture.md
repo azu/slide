@@ -4,8 +4,9 @@
 
 ## 概要
 
-- DDD + CQRSベースなレイヤードアーキテクチャ
-- イベントソーシングはやってない
+- DDD/CQRSベースなレイヤードアーキテクチャ
+	- Write(コマンド)/Read(クエリ)
+	- イベントソーシングはやってない
 - DTO(データ変換オブジェクト)はまだ入れてない
 	- なのでDomainのインスタンスがViewにそのまま渡す(Read Only)
 - テストが可能
@@ -21,6 +22,8 @@
 ## 実装
 
 - [azu/presentation-annotator: viewing presentation and annotate.](https://github.com/azu/presentation-annotator "azu/presentation-annotator: viewing presentation and annotate.")
+	- [WIP: Event bus by azu · Pull Request #4 · azu/presentation-annotator](https://github.com/azu/presentation-annotator/pull/4 "WIP: Event bus by azu · Pull Request #4 · azu/presentation-annotator")
+
 
 ----
 
@@ -44,7 +47,7 @@
 
 -----
 
-## Write Stack
+## Write Stack :arrow_left:
 
 ![fit, right, Archtecture Flow](2016-04-08 10.44.12.jpg)
 
@@ -56,7 +59,7 @@
 
 -----
 
-## Write Stack
+## Write Stack :arrow_left:
 
 ![fit, right, Archtecture Flow](2016-04-08 10.44.12.jpg)
 
@@ -100,9 +103,97 @@
 ![fit, right, EventAggregator](2016-04-08 12.35.04.jpg)
 
 - WriteとReadの協調はどうやるの?
-- Event Aggregator
+- WriteはDBに書き込み、ReadはDBから読み込む
+- DBが変更したことは誰がどう伝えるのか
+- Event Aggregator :persevere:
 	- シングルトンなEventEmitter
 	- 差し替え可能なのでテスト可能に
+
+-----
+
+## 協調動作 :left_right_arrow:
+
+![fit, right, EventAggregator](2016-04-08 12.35.04.jpg)
+
+- EventPub/Sub(Event Aggregate)
+  - シングルトンなDomain EventのPub/Sub
+  - 実態は中にEventEmitterがいるだけ
+  - 差し替え可能にしてテストできる
+- ドメインモデルの変更を監視 <->> 監視してる人へ通知
+
+-----
+
+```js
+import DomainEventEmitter from "./DomainEventEmitter";
+export class DomainEventAggregator {
+    constructor() {
+        // テストはこれを置き換えちゃう
+        this.eventEmitter = new DomainEventEmitter();
+    }
+    subscribe(EntityName, handler) {
+        this.eventEmitter.subscribe(({type, value}) => {
+            if (type === EntityName) {
+                handler(value);
+            }
+        });
+    }
+    publish(EntityName, value) {
+        this.eventEmitter.publish({
+            type: EntityName,
+            value
+        });
+    }
+}
+// シングルトン
+export default new DomainEventAggregator();
+```
+
+----
+
+## Read Stack
+
+![fit, right, EventAggregator](2016-04-08 12.35.04.jpg)
+
+- Store
+  - DataBaseから読み込んだDomain + State
+  - Viewに向けた形に変換しても良い
+- Read(Store)Aggregate
+  - Storeをまとめて、一つのでっかいStateとして返すもの
+  - Factory の対っぽい役割も持ってる
+  - [Single source of truth](https://en.wikipedia.org/wiki/Single_source_of_truth "Single source of truth") inspiered by Flux
+
+-----
+
+## Shortcut UseCase -> Read Store
+
+![fit, right, EventAggregator](2016-04-08 12.35.04.jpg)
+
+- UseCaseからStoreへ値をdispatchする仕組みも備えてる
+- Stateだけの変更をしたい場合にDomainを通さないで更新することができる
+
+
+-----
+
+
+## 課題点
+
+- Factory:UseCase=1:1 はテストのためのコストがある
+  - ギリギリ許容範囲かなと思ってるがもう少し意味的に適切な方法があるかも
+- ネーミングイマイチ Store Aggregator
+- DomainEventAggregator どうなん?
+- Shortcut UseCase -> Read Store 使い分けがわかりにくそう
+
+----
+
+## 例) 新しい機能を実装する
+
+[feat: marking specific page of presentation by azu · Pull Request #5 · azu/presentation-annotator](https://github.com/azu/presentation-annotator/pull/5 "feat: marking specific page of presentation by azu · Pull Request #5 · azu/presentation-annotator")
+
+1. UseCaseを実装する
+2. Storeを実装する
+3. テストを実装する
+4. Componentを実装する
+
 
 
 
