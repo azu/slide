@@ -22,8 +22,6 @@
 ## 実装
 
 - [azu/presentation-annotator: viewing presentation and annotate.](https://github.com/azu/presentation-annotator "azu/presentation-annotator: viewing presentation and annotate.")
-	- [WIP: Event bus by azu · Pull Request #4 · azu/presentation-annotator](https://github.com/azu/presentation-annotator/pull/4 "WIP: Event bus by azu · Pull Request #4 · azu/presentation-annotator")
-
 
 ----
 
@@ -44,6 +42,7 @@
 
 - React Component
 - CSS Architecture(別途)
+	- Container + Project Componentベース
 
 -----
 
