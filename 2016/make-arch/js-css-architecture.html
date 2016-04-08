@@ -240,6 +240,33 @@ export default new DomainEventAggregator();
 <li>Shortcut UseCase -&gt; Read Store 使い分けがわかりにくそう</li>
 </ul>
 <hr>
+<h2 id="-">課題点 - 使う方</h2>
+<ul>
+<li>Repositoryが人によって解釈違う<ul>
+<li>自分はDBへのget/add/findな薄いやつ(非同期で通信とはちょっとイメージ違う)</li>
+<li>Repositoryのライフサイクルは誰が監視する?</li>
+</ul>
+</li>
+<li>シーケンシャルな非同期はUseCaseでどうやるのか?<ul>
+<li>A -&gt; B -&gt; Cというユースケースを逐次的に処理する何かがいるのかどうか?</li>
+<li>ユースケースの中に毎回シーケンシャルな処理がでると重複が気になる大きな処理</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">課題点 - ドメイン</h2>
+<ul>
+<li>ドメインモデルはステートフル<ul>
+<li>ドメインモデルの作成、削除のライフサイクルは誰が管理し、それに紐づくイベントをちゃんと消す仕組みが必要(どこ?)</li>
+<li>安易なメモリリークが起きそう</li>
+</ul>
+</li>
+<li>AドメインモデルがBドメインモデルを監視するというのはありそう(集約的な単位)<ul>
+<li>これを上手く実現するパターンが必要そう</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h2 id="-">例) 新しい機能を実装する</h2>
 <p><a href="https://github.com/azu/presentation-annotator/pull/5" title="feat: marking specific page of presentation by azu · Pull Request #5 · azu/presentation-annotator">feat: marking specific page of presentation by azu · Pull Request #5 · azu/presentation-annotator</a></p>
 <ol>
