@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>JavaScriptのアーキテクチャ</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="JavaScriptのアーキテクチャ"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/make-arch/js-css-architecture.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-04-08" id="datePublished">
+            2016-04-08
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-04-08" id="dateModified">
+            2016-04-08
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/make-arch/js-css-architecture.pdf" title="JavaScriptのアーキテクチャ">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="javascript-">JavaScriptのアーキテクチャ</h1>
+<hr>
+<h2 id="-">概要</h2>
+<ul>
+<li>DDD/CQRSベースなレイヤードアーキテクチャ<ul>
+<li>Write(コマンド)/Read(クエリ)</li>
+<li>イベントソーシングはやってない</li>
+</ul>
+</li>
+<li>DTO(データ変換オブジェクト)はまだ入れてない<ul>
+<li>なのでDomainのインスタンスがViewにそのまま渡す(Read Only)</li>
+</ul>
+</li>
+<li>テストが可能</li>
+</ul>
+<hr>
+<p><img src="2016-04-08 10.44.12.jpg" alt="fit Archtecture Flow"></p>
+<hr>
+<h2 id="-">実装</h2>
+<ul>
+<li><a href="https://github.com/azu/presentation-annotator" title="azu/presentation-annotator: viewing presentation and annotate.">azu/presentation-annotator: viewing presentation and annotate.</a><ul>
+<li><a href="https://github.com/azu/presentation-annotator/pull/4" title="WIP: Event bus by azu · Pull Request #4 · azu/presentation-annotator">WIP: Event bus by azu · Pull Request #4 · azu/presentation-annotator</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">登場人</h2>
+<ul>
+<li>View(React Component)</li>
+<li>Write Stack<ul>
+<li>UseCase</li>
+<li>Repository</li>
+<li>Domain</li>
+</ul>
+</li>
+<li>Read Stack<ul>
+<li>Store</li>
+</ul>
+</li>
+<li>DataBase(Memory)</li>
+</ul>
+<hr>
+<h2 id="view">View</h2>
+<ul>
+<li>React Component</li>
+<li>CSS Architecture(別途)</li>
+</ul>
+<hr>
+<h2 id="write-stack-arrow_left-">Write Stack :arrow_left:</h2>
+<p><img src="2016-04-08 10.44.12.jpg" alt="fit, right, Archtecture Flow"></p>
+<ul>
+<li>ViewからUseCaseを発行(Actionと類似)</li>
+<li>UseCaseと1対1のFactoryを持ってる<ul>
+<li>テストのためというのがメインだが薄いレイヤーがViewとUseCaseの間に欲しかった</li>
+<li>FactoryがRepositoryのインスタンスをUseCaseに渡す(依存関係逆転の原則)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="write-stack-arrow_left-">Write Stack :arrow_left:</h2>
+<p><img src="2016-04-08 10.44.12.jpg" alt="fit, right, Archtecture Flow"></p>
+<ul>
+<li>UseCase<ul>
+<li>Repositoryから永続化されたDomainを取り出す</li>
+<li>Domainモデルを使って操作する</li>
+<li>Domainモデルを作ってRepositoryに保存する</li>
+</ul>
+</li>
+<li>Domain<ul>
+<li>Domainモデル(EntityとValueObject)</li>
+<li>ビジネスロジックのコア部分(UseCaseはこれを使う役)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="read-stack-arrow_right-">Read Stack :arrow_right:</h2>
+<p><img src="2016-04-08 10.44.12.jpg" alt="fit, left, Archtecture Flow"></p>
+<ul>
+<li>Read Modelからなる層<ul>
+<li>読み込み + 変換がメイン</li>
+<li>読み込みのみなので、インフラでありドメインでありアプリである</li>
+</ul>
+</li>
+<li>Database<ul>
+<li>Write Stackで保存されているデータがある</li>
+<li>Read Stackから取り出す</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="read-stack-arrow_right-">Read Stack :arrow_right:</h2>
+<p><img src="2016-04-08 10.44.12.jpg" alt="fit, left, Archtecture Flow"></p>
+<ul>
+<li>DataBaseから読み込んだデータをUIに向けて変換する<ul>
+<li>State, ViewModelに近い概念</li>
+</ul>
+</li>
+<li>UIは必要になったらRead Stackからデータを取得する<ul>
+<li>取得したデータを使ってUIを構築する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="read-and-write-left_right_arrow-">READ AND WRITE :left_right_arrow:</h2>
+<p><img src="2016-04-08 12.35.04.jpg" alt="fit, right, EventAggregator"></p>
+<ul>
+<li>WriteとReadの協調はどうやるの?</li>
+<li>WriteはDBに書き込み、ReadはDBから読み込む</li>
+<li>DBが変更したことは誰がどう伝えるのか</li>
+<li>Event Aggregator :persevere:<ul>
+<li>シングルトンなEventEmitter</li>
+<li>差し替え可能なのでテスト可能に</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-left_right_arrow-">協調動作 :left_right_arrow:</h2>
+<p><img src="2016-04-08 12.35.04.jpg" alt="fit, right, EventAggregator"></p>
+<ul>
+<li>EventPub/Sub(Event Aggregate)<ul>
+<li>シングルトンなDomain EventのPub/Sub</li>
+<li>実態は中にEventEmitterがいるだけ</li>
+<li>差し替え可能にしてテストできる</li>
+</ul>
+</li>
+<li>ドメインモデルの変更を監視 &lt;-&gt;&gt; 監視してる人へ通知</li>
+</ul>
+<hr>
+<pre><code class="lang-js">import DomainEventEmitter from &quot;./DomainEventEmitter&quot;;
+export class DomainEventAggregator {
+    constructor() {
+        // テストはこれを置き換えちゃう
+        this.eventEmitter = new DomainEventEmitter();
+    }
+    subscribe(EntityName, handler) {
+        this.eventEmitter.subscribe(({type, value}) =&gt; {
+            if (type === EntityName) {
+                handler(value);
+            }
+        });
+    }
+    publish(EntityName, value) {
+        this.eventEmitter.publish({
+            type: EntityName,
+            value
+        });
+    }
+}
+// シングルトン
+export default new DomainEventAggregator();
+</code></pre>
+<hr>
+<h2 id="read-stack">Read Stack</h2>
+<p><img src="2016-04-08 12.35.04.jpg" alt="fit, right, EventAggregator"></p>
+<ul>
+<li>Store<ul>
+<li>DataBaseから読み込んだDomain + State</li>
+<li>Viewに向けた形に変換しても良い</li>
+</ul>
+</li>
+<li>Read(Store)Aggregate<ul>
+<li>Storeをまとめて、一つのでっかいStateとして返すもの</li>
+<li>Factory の対っぽい役割も持ってる</li>
+<li><a href="https://en.wikipedia.org/wiki/Single_source_of_truth" title="Single source of truth">Single source of truth</a> inspiered by Flux</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="shortcut-usecase-read-store">Shortcut UseCase -&gt; Read Store</h2>
+<p><img src="2016-04-08 12.35.04.jpg" alt="fit, right, EventAggregator"></p>
+<ul>
+<li>UseCaseからStoreへ値をdispatchする仕組みも備えてる</li>
+<li>Stateだけの変更をしたい場合にDomainを通さないで更新することができる</li>
+</ul>
+<hr>
+<h2 id="-">課題点</h2>
+<ul>
+<li>Factory:UseCase=1:1 はテストのためのコストがある<ul>
+<li>ギリギリ許容範囲かなと思ってるがもう少し意味的に適切な方法があるかも</li>
+</ul>
+</li>
+<li>ネーミングイマイチ Store Aggregator</li>
+<li>DomainEventAggregator どうなん?</li>
+<li>Shortcut UseCase -&gt; Read Store 使い分けがわかりにくそう</li>
+</ul>
+<hr>
+<h2 id="-">例) 新しい機能を実装する</h2>
+<p><a href="https://github.com/azu/presentation-annotator/pull/5" title="feat: marking specific page of presentation by azu · Pull Request #5 · azu/presentation-annotator">feat: marking specific page of presentation by azu · Pull Request #5 · azu/presentation-annotator</a></p>
+<ol>
+<li>UseCaseを実装する</li>
+<li>Storeを実装する</li>
+<li>テストを実装する</li>
+<li>Componentを実装する</li>
+</ol>
+<hr>
+<h2 id="-">参考</h2>
+<ul>
+<li>CQRS + ES<ul>
+<li><a href="http://www.slideshare.net/MatsushitaSatoshi/cqrsesakka-persistence">CQRS+ESをAkka Persistenceを使って実装してみる。</a></li>
+<li><a href="https://speakerdeck.com/j5ik2o/zui-xin-dddakitekutiyatoakkadefalseshi-zhuang-hintonituite">最新DDDアーキテクチャとAkkaでの実装ヒントについて // Speaker Deck</a></li>
+</ul>
+</li>
+<li>DDD クリーンアーキテクチャ<ul>
+<li><a href="https://speakerdeck.com/yoskhdia/ddd-plus-clean-architecture-plus-ucdom-essenceban">DDD + Clean Architecture + UCDOM Essence版 // Speaker Deck</a></li>
+<li><a href="https://speakerdeck.com/kimutyam/scaladexue-buhekisagonaruakitekutiyashi-jian-ru-men">Scalaで学ぶヘキサゴナルアーキテクチャ実践入門 // Speaker Deck</a></li>
+</ul>
+</li>
+<li><a href="http://mattun.hatenablog.com/entry/2014/07/19/135320">レイヤー設計とか、オブジェクト指向とか、DDDとか、その辺 - まっつんの日記</a></li>
+</ul>
+<hr>
+<h2 id="-">参考</h2>
+<ul>
+<li><a href="https://tech.recruit-mp.co.jp/mobile/android-architecture/">[ Android ] – これからの「設計」の話をしよう – NET BIZ DIV. TECH BLOG</a></li>
+<li><a href="http://blog.fukuchiharuki.me/entry/2016/02/20/173233">CQRSの小さな演習(1) 現実の問題 - 考える場所</a></li>
+</ul>
+<hr>
+<h2 id="-mvvm">参考 MVVM</h2>
+<ul>
+<li><a href="http://www.slideboom.com/presentations/381148">MVVMパターンとは？</a></li>
+<li><a href="http://www.slideshare.net/Posaune/livetmvvm">塹壕よりLivetとMVVM</a></li>
+<li><a href="http://ugaya40.hateblo.jp/entry/model-mistake">MVVMのModelにまつわる誤解 - the sea of fertility</a></li>
+<li><a href="http://www.atmarkit.co.jp/fdotnet/chushin/greatblogentry_02/greatblogentry_02_01.html">MVVMパターンの常識 ― 「M」「V」「VM」の役割とは？ － ＠IT</a></li>
+<li><a href="http://www.atmarkit.co.jp/fdotnet/chushin/greatblogentry_10/greatblogentry_10_01.html">開発者が知っておくべき、6つのUIアーキテクチャ・パターン － ＠IT</a></li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
