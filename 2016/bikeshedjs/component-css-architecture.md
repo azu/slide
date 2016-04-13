@@ -3,6 +3,20 @@ autoscale: true
 
 -----
 
+# 自己紹介
+
+![アイコン right](https://github.com/azu.png)
+
+- Name : **azu**
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- Website: [Web scratch], [JSer.info]
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+----
+
+
 # CSSについて
 
 CSSとはレイアウトとコンポーネントのデザインをするもの
@@ -144,7 +158,7 @@ MyComponent.is-active {
 
 # Container ComponentとProject Componentの使い分け
 
---
+-----
 
 # Containerは次の事ができる
 
@@ -159,11 +173,11 @@ MyComponent.is-active {
 
 ----
 
-#### Projectは次の事ができる
+## Projectは次の事ができる
 
 - コンポーネントの内側のスタイルを設定して良い
 
-#### Projectは次の事ができない
+## Projectは次の事ができない
 
 - 他のコンポーネントの実装を知ってはいけない
     - nvkitのUIコンポーネントは例外としてあり
@@ -264,7 +278,11 @@ CSS Custom Propertyの変数使い、高さ(`height`)を外から指定できる
 
 DOM構造的に解決できるならそちらで解決したほうが良い
 
+-----
+
 `Component-inner` の高さが`Component`からの相対値で出せないようなケース
+
+-----
 
 `Component.js`
 ```js
@@ -275,6 +293,8 @@ DOM構造的に解決できるならそちらで解決したほうが良い
 </div>
 ```
 
+
+-----
 
 `Component.css`
 
@@ -287,11 +307,22 @@ DOM構造的に解決できるならそちらで解決したほうが良い
 
 としておき、外のCSSから`--Component-inner--height`の値を設定する。
 
-```cs
+```css
 :root{
     --Component-inner--height: 500px;
 }
 ```
 
+
+-----
+
 こうすることで、`Component.css`には具体的な値(Fallbackのみ)がなくなり、
 具体的な値は外のCSSに出すことができる。
+
+
+----
+
+# 結論
+
+
+- 設計なんて人、目的次第 つまり #bikeshedjs 
