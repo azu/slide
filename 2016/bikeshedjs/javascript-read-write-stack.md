@@ -66,8 +66,7 @@ autoscale: true
 
 > 要求にもとづいて作業をしていないアーキテクトは、  
 > 実際上「大仕掛なハッキング」をしているだけです。
-
-via [オブジェクト開発の神髄](http://bpstore.nikkeibp.co.jp/item/books/P82370.html "オブジェクト開発の神髄")
+> -- [オブジェクト開発の神髄](http://bpstore.nikkeibp.co.jp/item/books/P82370.html)
 
 ![inline オブジェクト開発の神髄](http://ec2.images-amazon.com/images/I/51SE5K29G8L._SL500_AA300_.jpg)
 
@@ -101,6 +100,9 @@ via [オブジェクト開発の神髄](http://bpstore.nikkeibp.co.jp/item/books
 
 
 ![right,fit, Simple Data Flow](./img/dataflow-architecture.png)
+
+## 画像は概念イメージで、データや処理の流れを表すものではありません
+### あえて表現するなら説明の流れにすぎません
 
 -----
 
@@ -155,13 +157,16 @@ via [オブジェクト開発の神髄](http://bpstore.nikkeibp.co.jp/item/books
 ![right,fit, Simple Data Flow](./img/dataflow-architecture.png)
 
 
-- ViewからUseCaseを発行(ActionCreatorと類似)
+- ViewからUseCaseを発行(ActionCreatorと類似) [^図]
 - 振るまいの流れを記述する
 - トランザクションスクリプトっぽくもある(アプリケーション層)
 - UseCaseと対になるFactoryを持ってる
 	- Factoryはテストのため
 	- FactoryがRepositoryのインスタンスをUseCaseに渡す(依存関係逆転の原則)
 - `execute()`にユースケース実装する
+
+[^図]: 概念にすぎず、データや処理の流れを表すものではありません
+
 -----
 
 # Domain Model
@@ -173,11 +178,14 @@ via [オブジェクト開発の神髄](http://bpstore.nikkeibp.co.jp/item/books
 
 ![right,fit, Simple Data Flow](./img/dataflow-architecture.png)
 
-- 作ろうとしてるものを表現するオブジェクト
+- 作ろうとしてるものを表現するオブジェクト[^図]
 - モデルクラス
 - ここでは、データと**振る舞い**を持ったクラス
 - できるだけPOJO(Plain Old JavaScript)である
 - [いまさらきけない「ドメインモデル」と「トランザクションスクリプト」](http://d.hatena.ne.jp/higayasuo/20080519/1211183826 "いまさらきけない「ドメインモデル」と「トランザクションスクリプト」")
+
+[^図]: 概念にすぎず、データや処理の流れを表すものではありません
+
 
 ----
 
@@ -201,11 +209,14 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 ![right,fit, Simple Data Flow](./img/dataflow-architecture.png)
 
-- ドメインモデルのインタンスを永続化するレイヤー
+- ドメインモデルのインタンスを永続化するレイヤー [^図]
 	- Repositoryパターン
 - シングルトン！！！
 - `find(id)`/`save(model)`/`delete(model)` 表からはコレクションっぽい
 	- JavaScriptの場合はメモリ(ただのMap)として保持する
+
+[^図]: 概念にすぎず、データや処理の流れを表すものではありません
+
 
 -----
 
@@ -228,7 +239,7 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 - 理想のAPIを擬似コードで書くのはあくまで参考
 - クライアントサイドでは永続化の持ち方の問題が付きまとう
 	- サーバならどっかにプロセス立てて、プロセス同士で通信みたいなことができる
-- 実際にデータの流れと状態の持ち方を書いてみて、設計することが重要
+- 実際にデータの流れと状態の持ち方を**コードとして**書いてみて、設計することが重要
 
 -----
 
@@ -246,13 +257,14 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 ![right,fit, Simple Data Flow](./img/dataflow-architecture.png)
 
-- ただの`Map`オブジェクト
+- ただの`Map`オブジェクト [^図]
 - Repositoryをできるだけシンプルに保つため、データベースもシンプルに
 	- `key` : `value` だと簡単で良い
 - `localStorage`とかに入れても良い
 - 変更されたら変更したことを通知する(実際はrepositoryが投げてる)
 	- `emit("Changed")`
 
+[^図]: データベースは一つとは限らないしやっぱり概念
 
 -----
 
@@ -331,13 +343,151 @@ export class TransactionTodoUseCase {
 }
 ````
 
+-----
 
+# Read Stack
+
+-----
+
+# Read Stack?
+
+-----
+
+![fit CQRS](./img/domain-model-vs-cqrs.png)
+
+-----
+
+# Write(Command)とRead(Query)
+
+- CQRS (Command Query Responsibility Segregation)
+- ざっくり: WriteとReadを層として分けて責務を分離する
+- 一方通行のデータフロー
+- FluxとかReduxでやっていることと同じ
+
+-----
+
+![fit, flux](./img/flux.png)
+
+-----
+
+# Read Stack
+
+![left, fit, Simple Data Flow](./img/dataflow-architecture.png)
+
+- Readはデータベースが読み込んでView用のデータを作って渡すだけ[^図]
+- 読み取り専用(変更はしない)ので色々簡略化できる
+- 縦に別れたので、テスト依存関係が簡略化できる！
+
+[^図]: やっぱりただの概念で依存のフローという話ではない
+
+----
+
+## Read Stack
+
+
+![left, fit, Simple Data Flow](./img/dataflow-architecture.png)
+
+- Repository
+	- Write Stackと同じものを参照してもいいかも?
+- Read Model
+	- Writeのドメインから振るまいを消したモデルを作ってもよい
+	- ドメインモデル貧血症にわざとする = Viewのためのモデル
+- Store
+	- FluxのStoreと同じだけど、Read Stackでは一番重要
+
+
+[^図]: ご自由に考えて
+
+----
+
+# Store
+
+![left, fit, Simple Data Flow](./img/dataflow-architecture.png)
+
+- Stateを持つオブジェクト[^図]
+- StateはUIに渡してUIが更新される
+- Stateが更新された事をUIに伝える(Context経由)
+
+[^図]: 入れ物っぽい感じがするよね
+
+
+----
+
+# クライアントサイドで多発する問題 :warning:
+
+-----
+# クライアントサイドで多発する問題
+
+- 現在のアーキテクチャでは、永続化したデータしか使えない
+- クライアントサイドではStateを更新したら、UIにすぐ反映されて欲しいことがある
+	- 「ほんのいっとき」が許されないケースはクライアントサイドにはある
+	- コンポーネントに閉じ込めるというのあり
+- そのため縦(Read/Writeの層)じゃなくて、横のルールも必要
+
+----
+
+![inline p299](./img/p299.png)
+
+via [.NETのエンタープライズアプリケーションアーキテクチャ　第2版](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版") p299
+
+
+-----
+
+# UseCase -> Store
+
+![right, fit, javascript-dataflow-architecture.png](./img/javascript-dataflow-architecture.png)
+
+
+- UseCaseからdispatchしたイベントが、Storeに届く横のルート
+	- 抜け穴感があるので慎重に取り扱いたい
+- FluxやReduxはこのルートが基本的な流れ
+	- 図の上半分がよく見る流れ
+
+-----
+
+# ものごとを構造化するための方法はたくさんある
+## [^今日からはじめる情報設計, p131]
+
+![fit, right, structure_information.jpg](./img/structure_information.jpg)
+
+[^今日からはじめる情報設計, p131]: [今日からはじめる情報設計](http://www.bnn.co.jp/dl/mess/ "今日からはじめる情報設計")
+
+----
+
+# 分類法(タクソノミー)
+
+- 分類法(タクソノミー) は構造化の手法
+- 分類法を組み合わせて形状を作る
+	- UIに反映する形となったもの。 e.g.) ページ、ボタンとか
+- 曖昧な分類と正確な分類はそれぞれメリット、デメリットがある
+	- 曖昧さは明確性を犠牲にし、正確性は柔軟性を犠牲にする
+- ファセット = 主キーで分類する
+
+-----
+
+## 分類の結果
+
+![right, structure-type.jpg](./img/structure-type.jpg)
+
+- 分類法は
+	- 並列的構造
+	- 階層的構造
+- どちらかになる [^p143]
+
+[^p143]: [今日からはじめる情報設計](http://www.bnn.co.jp/dl/mess/ "今日からはじめる情報設計")
+
+
+-----
+
+## 実装したもの
+
+- [azu/presentation-annotator: viewing presentation and annotate.](https://github.com/azu/presentation-annotator "azu/presentation-annotator: viewing presentation and annotate.")
+	- この話は [New framework by azu · Pull Request #7 · azu/presentation-annotator](https://github.com/azu/presentation-annotator/pull/7 "New framework by azu · Pull Request #7 · azu/presentation-annotator") で加えた変更を元にしているので、masterは書かれている事と違うコードになっている可能性があります。
 
 -----
 
 ## 参考
 
 - [今日からはじめる情報設計](http://www.bnn.co.jp/dl/mess/ "今日からはじめる情報設計")
-- .net
-- IDDD
--  オブジェクト開発の神髄
+- [.NETのエンタープライズアプリケーションアーキテクチャ　第2版](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
+- [オブジェクト開発の神髄](http://bpstore.nikkeibp.co.jp/item/books/P82370.html "オブジェクト開発の神髄")
