@@ -17,6 +17,15 @@ autoscale: true
 
 -----
 
+# This is  [Bikeshed.js](http://connpass.com/event/29019/ "Bikeshed.js") :bike:
+
+## 抽象的な話が多いので、実装はコード見て(Pull Request投げて！)
+## これが正しいという話ではないです。
+## 自転車置き場の議論なので！
+
+
+-----
+
 # 中規模以上のJavaScript
 
 - 設計が必要になる
@@ -43,10 +52,10 @@ autoscale: true
 # 設計の目的
 
 - 中規模以上のウェブアプリ
-	- SPAよりは画面が複雑なElectronアプリのようなイメージ
+	- SPAというよりは、画面が複雑なElectronアプリのようなイメージ
 - スケーラブル
 	- 人、機能追加、柔軟性、独立性
-- 見た目上複雑ではないアーキテクチャ
+- 見た目が複雑ではないアーキテクチャ
 	- 書き方が特殊ではなく見て分かるもの
 
 -----
@@ -234,6 +243,14 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 -----
 
+# 依存関係逆転の原則(DIP)
+
+![inline, DIP](./img/dip.png)
+
+[Scalaで学ぶヘキサゴナルアーキテクチャ実践入門 // Speaker Deck](https://speakerdeck.com/kimutyam/scaladexue-buhekisagonaruakitekutiyashi-jian-ru-men "Scalaで学ぶヘキサゴナルアーキテクチャ実践入門 // Speaker Deck")
+
+-----
+
 # :memo: 設計の進め方
 
 - 理想のAPIを擬似コードで書くのはあくまで参考
@@ -378,7 +395,7 @@ export class TransactionTodoUseCase {
 - 読み取り専用(変更はしない)ので色々簡略化できる
 - 縦に別れたので、テスト依存関係が簡略化できる！
 
-[^図]: やっぱりただの概念で依存のフローという話ではない
+[^図]: やっぱりただの概念で、依存のフローという話ではない
 
 ----
 
@@ -445,6 +462,10 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 -----
 
+# :memo: 構造化の考え方
+
+-----
+
 # ものごとを構造化するための方法はたくさんある
 ## [^今日からはじめる情報設計, p131]
 
@@ -458,7 +479,7 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 - 分類法(タクソノミー) は構造化の手法
 - 分類法を組み合わせて形状を作る
-	- UIに反映する形となったもの。 e.g.) ページ、ボタンとか
+	- UIに反映する形となったもの。 e.g.) ページ、Repositoryとか
 - 曖昧な分類と正確な分類はそれぞれメリット、デメリットがある
 	- 曖昧さは明確性を犠牲にし、正確性は柔軟性を犠牲にする
 - ファセット = 主キーで分類する
@@ -486,8 +507,36 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 -----
 
-## 参考
+## 参考書籍
 
 - [今日からはじめる情報設計](http://www.bnn.co.jp/dl/mess/ "今日からはじめる情報設計")
-- [.NETのエンタープライズアプリケーションアーキテクチャ　第2版](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
 - [オブジェクト開発の神髄](http://bpstore.nikkeibp.co.jp/item/books/P82370.html "オブジェクト開発の神髄")
+- [.NETのエンタープライズアプリケーションアーキテクチャ　第2版](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
+
+----
+
+## 参考
+
+- CQRS + ES
+	- [CQRS+ESをAkka Persistenceを使って実装してみる。](http://www.slideshare.net/MatsushitaSatoshi/cqrsesakka-persistence)
+	- [最新DDDアーキテクチャとAkkaでの実装ヒントについて // Speaker Deck](https://speakerdeck.com/j5ik2o/zui-xin-dddakitekutiyatoakkadefalseshi-zhuang-hintonituite)
+- DDD クリーンアーキテクチャ
+	- [DDD + Clean Architecture + UCDOM Essence版 // Speaker Deck](https://speakerdeck.com/yoskhdia/ddd-plus-clean-architecture-plus-ucdom-essenceban)
+	- [Scalaで学ぶヘキサゴナルアーキテクチャ実践入門 // Speaker Deck](https://speakerdeck.com/kimutyam/scaladexue-buhekisagonaruakitekutiyashi-jian-ru-men)
+- [レイヤー設計とか、オブジェクト指向とか、DDDとか、その辺 - まっつんの日記](http://mattun.hatenablog.com/entry/2014/07/19/135320)
+
+----
+## 参考 
+
+- [[ Android ] – これからの「設計」の話をしよう – NET BIZ DIV. TECH BLOG](https://tech.recruit-mp.co.jp/mobile/android-architecture/)
+- [CQRSの小さな演習(1) 現実の問題 - 考える場所](http://blog.fukuchiharuki.me/entry/2016/02/20/173233)
+
+----
+
+## 参考 MVVM
+
+- [MVVMパターンとは？](http://www.slideboom.com/presentations/381148)
+- [塹壕よりLivetとMVVM](http://www.slideshare.net/Posaune/livetmvvm)
+- [MVVMのModelにまつわる誤解 - the sea of fertility](http://ugaya40.hateblo.jp/entry/model-mistake)
+- [MVVMパターンの常識 ― 「M」「V」「VM」の役割とは？ － ＠IT](http://www.atmarkit.co.jp/fdotnet/chushin/greatblogentry_02/greatblogentry_02_01.html)
+- [開発者が知っておくべき、6つのUIアーキテクチャ・パターン － ＠IT](http://www.atmarkit.co.jp/fdotnet/chushin/greatblogentry_10/greatblogentry_10_01.html)
