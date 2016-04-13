@@ -285,6 +285,7 @@ DOM構造的に解決できるならそちらで解決したほうが良い
 -----
 
 `Component.js`
+
 ```js
 <div class="Component">
     <div class="Component-inner">

@@ -461,6 +461,35 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 	- 図の上半分がよく見る流れ
 
 -----
+## Storeの構造化がまだ不安
+
+- Storeはstateを持っている 
+	- `getState(): State` を返す
+- StoreとStateってなんか被ってるのが気持ち悪い
+- Storeが更新されるパターンは2つある
+	- UseCase -> Store への直接
+	- Repositoryが更新 -> Storeが検知
+
+-----
+
+## Storeの構造化がまだ不安
+
+- Storeが更新するパターンが2つある
+	- Storeの中に `on???` がいっぱいあるとStoreがごちゃつきそう
+	- せっかくRead Stackとして分けたのに…
+- ここを大きくするには構造化していく必要がありそう
+
+-----
+
+# Storeの構造化 :construction:
+
+- StoreをまとめるStoreGroupという概念を追加した
+	- Storeが同期的に一斉にemitChangeすると、何回もUIが更新されてしまう
+	- StoreGroupは同時に発生したemitChangeを一つにまとめる
+		- イベントを間引く役 = UI層に近い
+- まだ迷っている感じ :construction:
+
+-----
 
 # :memo: 構造化の考え方
 

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>コンポーネントとCSSのアーキテクチャ</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="コンポーネントとCSSのアーキテクチャ"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/bikeshedjs/component-css-architecture.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-04-13" id="datePublished">
+            2016-04-13
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-04-13" id="dateModified">
+            2016-04-13
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/bikeshedjs/component-css-architecture.pdf" title="コンポーネントとCSSのアーキテクチャ">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="-css-">コンポーネントとCSSのアーキテクチャ</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="css-">CSSについて</h1>
+<p>CSSとはレイアウトとコンポーネントのデザインをするもの</p>
+<hr>
+<h2 id="-">場所</h2>
+<ul>
+<li><code>src/component</code> 以下に置く<ul>
+<li><code>component/&lt;ジャンル&gt;/&lt;コンポーネント&gt;/</code><ul>
+<li><code>コンポーネント.js</code></li>
+<li><code>コンポーネント.css</code></li>
+<li>子コンポーネント</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">分類</h2>
+<p>コンポーネントに関連するCSSはコンポーネント単位でJavaScriptと同居するので同じルールが適応される</p>
+<ul>
+<li>src/component/container/<ul>
+<li>ページから見たレイアウトを扱える</li>
+<li>Containerコンポーネントのレイアウト</li>
+</ul>
+</li>
+<li>src/component/project/<ul>
+<li>プロジェクトコンポーネントに対するスタイル</li>
+</ul>
+</li>
+<li>src/component/ui-kit/<ul>
+<li>ui-kitに対するスタイル</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>コンポーネント以外のCSSは <code>src/css</code> に配置する</p>
+<ul>
+<li>src/css/base<ul>
+<li>要素や<code>*</code>に対して適応するベースのCSS</li>
+<li>normalize.cssのようなもの</li>
+</ul>
+</li>
+<li>css/utils/<ul>
+<li><code>u-</code> prefixの<code>!important</code>のクラス</li>
+<li><a href="https://github.com/suitcss/utils" title="SUIT CSS utilities">SUIT CSS utilities</a></li>
+</ul>
+</li>
+<li>src/css/variable<ul>
+<li>グローバルなCSS Custom Property変数</li>
+<li>CSS Custom Property変数は上書き禁止(Transpilerでは正しく依存を解決できないため)</li>
+</ul>
+</li>
+</ul>
+<p>note: 全てのCSSは <code>src/index.css</code> から読み込まれ適応される。
+そのため、コンポーネントに対するCSSは読み込み順序に依存しては行けない。</p>
+<hr>
+<h2 id="-">原則</h2>
+<ul>
+<li>各コンポーネントは <code>分類/&lt;ComponentName&gt;/&lt;ComponentName&gt;.css</code> のように配置する<ul>
+<li><code>ComponentName</code> は大文字開始のキャメルケール</li>
+<li><code>&lt;ComponentName&gt;.css</code>にはそのコンポーネントと子コンポーネント(<code>&lt;ComponentName&gt;-&lt;childName&gt;</code>)を含んで良い</li>
+<li>対となるJavaScript(React)に書かれていないクラスはできるだけ扱わない(コンポーネント間の独立性を保つ)</li>
+</ul>
+</li>
+<li>各コンポーネントのStateは <code>分類/&lt;ComponentName&gt;/&lt;ComponentName&gt;.is-&lt;stateName&gt;.css</code> のように配置する<ul>
+<li>StateごとにCSSファイルを分ける</li>
+</ul>
+</li>
+<li>各コンポーネントのディレクトリの中にはJavaScriptとCSSと同居して存在する</li>
+</ul>
+<hr>
+<h2 id="-">命名規則</h2>
+<p>命名規則は<a href="http://suitcss.github.io/" title="SUIT CSS">SUIT CSS</a>の規約に準拠する。</p>
+<ul>
+<li><a href="https://github.com/suitcss/suit/tree/master/doc" title="SUIT CSS documentation">SUIT CSS documentation</a></li>
+<li>命名規則: <a href="https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md" title="SUIT CSS naming conventions">SUIT CSS naming conventions</a></li>
+</ul>
+<p>ただしSUIT CSSのライブラリなどはそのまま使わなくても良い</p>
+<ul>
+<li>コンポーネント(Container/Project/ui-kit)はそのコンポーネントより上の要素/クラスのスタイルを扱わない</li>
+</ul>
+<hr>
+<p>例) MyComponent</p>
+<p><code>MyComponent/MyComponent.js</code> というコンポーネントがあった場合に</p>
+<pre><code class="lang-js">import React from &quot;react&quot;;
+export default class MyComponent extends React.Component {
+    render() {
+        return &lt;div className=&quot;MyComponent&quot;&gt;
+            &lt;h1 className=&quot;MyComponent-title&quot;&gt;{this.props.title}&lt;/h1&gt;
+        &lt;/div&gt;;
+    }
+}
+</code></pre>
+<hr>
+<h1 id="-css">コンポーネントのCSS</h1>
+<p>CSSは以下のような形で書く</p>
+<p><code>MyComponent/MyComponent.css</code>:</p>
+<pre><code class="lang-css">.MyComponent {
+}
+.MyComponent-title {
+}
+</code></pre>
+<hr>
+<h1 id="state-css">State と CSS</h1>
+<p>MyComponentにstateがある場合は、SUIT CSSの規約に基づき <code>is-*</code> というクラスが追加される。</p>
+<p>この場合は<code>is-active</code>というstateが追加されている。</p>
+<pre><code class="lang-html">&lt;div className=&quot;MyComponent is-active&quot;&gt;
+    &lt;h1 className=&quot;MyComponent-title&quot;&gt;{this.props.title}&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h2 id="state-css-">StateのCSSファイル</h2>
+<p>このstateに対するCSSは、<code>MyComponent/MyComponent.css</code>とは別ファイルとして作成する。</p>
+<p><code>MyComponent/MyComponent.is-active.css</code>:</p>
+<pre><code class="lang-css">MyComponent.is-active {
+    /* is-active の時のスタイル */
+}
+</code></pre>
+<hr>
+<h2 id="faq">FAQ</h2>
+<hr>
+<h1 id="container-component-project-component-">Container ComponentとProject Componentの使い分け</h1>
+<hr>
+<h1 id="container-">Containerは次の事ができる</h1>
+<ul>
+<li><code>project/&lt;ComponentName&gt;</code>の実装を知っていても良い</li>
+<li>レイアウトに関するスタイルをして良い</li>
+<li><code>margin</code>, <code>width</code>, <code>position:fixed</code>, <code>z-index</code>, <code>!important</code> のようなスタイルを使って良い</li>
+</ul>
+<h1 id="container-">Containerは次の事ができない</h1>
+<ul>
+<li>親のContainer Componentに触っていは行けない</li>
+</ul>
+<hr>
+<h2 id="project-">Projectは次の事ができる</h2>
+<ul>
+<li>コンポーネントの内側のスタイルを設定して良い</li>
+</ul>
+<h2 id="project-">Projectは次の事ができない</h2>
+<ul>
+<li>他のコンポーネントの実装を知ってはいけない<ul>
+<li>nvkitのUIコンポーネントは例外としてあり</li>
+</ul>
+</li>
+<li><code>margin</code>, <code>width</code>, <code>position:fixed</code>, <code>z-index</code>, <code>!important</code> のようなスタイルを使ってはいけない<ul>
+<li><code>margin: 0;</code> のような打ち消しはありだが、親を意識したマージンを設定してはいけない</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="suit-css-is-state-is-state-component-">SUIT CSSの<code>.is-state</code>は<code>.is-state Component</code>と書いてはいけない?</h3>
+<ul>
+<li>推奨: <code>Component.is-state</code></li>
+<li>非推奨: <code>.is-state ChildComponent</code></li>
+</ul>
+<p>TODO:</p>
+<ul>
+<li><a href="https://github.com/azu/presentation-annotator/blob/master/docs/css.md" title="presentation-annotator/css.md at master · azu/presentation-annotator">presentation-annotator/css.md at master · azu/presentation-annotator</a></li>
+<li><a href="https://github.com/suitcss/suit/issues/96" title="states on descendents · Issue #96 · suitcss/suit">states on descendents · Issue #96 · suitcss/suit</a></li>
+</ul>
+<hr>
+<h3 id="-">変数と定数</h3>
+<ul>
+<li>PostCSSを使い、CSS Custom Property(<code>--variable: &lt;値&gt;;</code>)を変数として利用できる。</li>
+<li>CSS Custom Propertyの仕様的には、変数の上書きはできるが読み込み順序に依存するため、</li>
+<li>基本的に変数は再定義しないでグローバルな定数として扱う。</li>
+</ul>
+<hr>
+<h3 id="-">変数の名前</h3>
+<pre><code>--&lt;変数名&gt; : &lt;値&gt;:
+</code></pre><p>という形で変数を定義できる。</p>
+<hr>
+<h3 id="-">変数の使い道</h3>
+<p>PostCSSで扱えるCSS Custom Propertyの変数はグローバル変数であるため、
+変数を多用しすぎるとグローバルに必要な変数とコンポーネントに紐づく変数を命名規則で分離する。</p>
+<p>グローバルな変数はページ全体から見た時に、認識として共通であるものをまとめるために利用する。
+現在が同じ色だからという理由で、一つの変数を使いまわすと、
+変更する際の変更箇所が増えてしまいまとめた意味がなくなってしまうことに注意する。</p>
+<ul>
+<li>色</li>
+<li>フォント</li>
+<li><code>z-index</code></li>
+<li>コンポーネント間の幅(できればコンポーネントに紐づくものとして管理したい)</li>
+<li>幅や高さ</li>
+<li>など</li>
+</ul>
+<p>変数を使わなくても問題ない部分を無理やり変数にまとめようとしない。
+(あくまでグローバル変数なので、グローバル変数を増やしすぎるのも逆に問題が起きやすいため)</p>
+<hr>
+<h4 id="-">コンポーネントに紐づく変数</h4>
+<p>コンポーネントのそれぞれの要素には一意なクラスがあるので、それに準拠した変数名を使う</p>
+<pre><code>--&lt;ComponentName&gt;--&lt;PropertyName&gt;: 値:
+</code></pre><p>という形式を利用する。</p>
+<hr>
+<p>例): <code>ComponentName-childName</code> の <code>width</code> に対する変数</p>
+<pre><code class="lang-css">.ComponentName-childName {
+    width: var(ComponentName-childName--width, 100px);
+}
+</code></pre>
+<p>コンポーネントに紐付かない変数についてはこの限りではない。</p>
+<p>CSS Custom Propertyの仕様は下記を参照する</p>
+<ul>
+<li><a href="http://www.hcn.zaq.ne.jp/___/WEB/css-variables-ja.html" title="CSS カスケード変数のためのカスタムプロパティ — CSS Custom Properties for Cascading Variables Module Level 1 （日本語訳）">CSS カスケード変数のためのカスタムプロパティ — CSS Custom Properties for Cascading Variables Module Level 1 （日本語訳）</a></li>
+</ul>
+<hr>
+<h3 id="-">(仮)コンポーネントの外からコンポーネントの高さを決めたい</h3>
+<p><strong>注記</strong>) 現実的には結構扱いが難しいでの、親がはっきりしているなら親で子の高さを決定しても良い。
+表示が壊れた時に、どこを見ればわかるかというのを意識して書けば良い。</p>
+<hr>
+<p>CSS Custom Propertyの変数使い、高さ(<code>height</code>)を外から指定できるようにすることで、
+コンポーネントの高さを外から指定できるようにする。</p>
+<p>DOM構造的に解決できるならそちらで解決したほうが良い</p>
+<hr>
+<p><code>Component-inner</code> の高さが<code>Component</code>からの相対値で出せないようなケース</p>
+<hr>
+<p><code>Component.js</code></p>
+<pre><code class="lang-js">&lt;div class=&quot;Component&quot;&gt;
+    &lt;div class=&quot;Component-inner&quot;&gt;
+        &lt;p&gt;hi&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><code>Component.css</code></p>
+<pre><code class="lang-css">.Component-inner {
+    /* 300px は --Component-inner--height の値が定義されてない場合のFallback) */
+    height: var(--Component-inner--height, 300px);
+}
+</code></pre>
+<p>としておき、外のCSSから<code>--Component-inner--height</code>の値を設定する。</p>
+<pre><code class="lang-css">:root{
+    --Component-inner--height: 500px;
+}
+</code></pre>
+<hr>
+<p>こうすることで、<code>Component.css</code>には具体的な値(Fallbackのみ)がなくなり、
+具体的な値は外のCSSに出すことができる。</p>
+<hr>
+<h1 id="-">結論</h1>
+<ul>
+<li>設計なんて人、目的次第 つまり #bikeshedjs </li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
