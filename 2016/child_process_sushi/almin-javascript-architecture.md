@@ -685,9 +685,9 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 # FAQ
 
-## CQRとCQRSの違い
+## CQSとCQRSの違い
 
-- CQRSはCQRの発展形
+- CQRSはCQSの発展形
 - CQRはRead/Writeの層に分けただけ
 - CQRSは一貫性を結果整合性であることを許容してる
 - CQRSはRead/WriteでDBを持っていい or ReadはView向けの非正規化したデータを扱っていい という理解
