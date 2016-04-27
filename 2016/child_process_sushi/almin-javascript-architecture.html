@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Almin.js | JavaScriptアーキテクチャ</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="Almin.js | JavaScriptアーキテクチャ"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-04-27" id="datePublished">
+            2016-04-27
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-04-27" id="dateModified">
+            2016-04-27
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.pdf" title="Almin.js | JavaScriptアーキテクチャ">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="almin-js-javascript-">Almin.js | JavaScriptアーキテクチャ</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-javascript">中規模以上のJavaScript</h1>
+<ul>
+<li>設計が必要になる</li>
+<li>正しい設計はない <a href="http://connpass.com/event/29019/" title="Bikeshed.js">Bikeshed.js</a> :bike:<ul>
+<li>人、目的、何を作るかによってアーキテクチャは異なる</li>
+</ul>
+</li>
+<li>前回の続き?<ul>
+<li><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a></li>
+<li><a href="http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html" title="Read/Write Stack | JavaScriptアーキテクチャ">Read/Write Stack | JavaScriptアーキテクチャ</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">用語</h1>
+<p><img src="./img/ドメインモデル.png" alt="fit ドメインモデル"></p>
+<hr>
+<p><img src="./img/ドメインモデル.png" alt="fit ドメインモデル"></p>
+<hr>
+<h1 id="-">設計の目的</h1>
+<ul>
+<li>中規模以上のウェブアプリ<ul>
+<li>SPAというよりは、画面が複雑なElectronアプリのようなイメージ</li>
+</ul>
+</li>
+<li>スケーラブル<ul>
+<li>人、機能追加、柔軟性、独立性</li>
+</ul>
+</li>
+<li>見た目が複雑ではないアーキテクチャ<ul>
+<li>書き方が特殊ではなく見て分かるもの</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">設計の目的</h1>
+<ul>
+<li>テストが自然に書ける<ul>
+<li>パーツごとに無理なく依存を切り離せる</li>
+</ul>
+</li>
+<li>新しい機能を追加するときにどこに何があるかが分かる</li>
+<li>ドメインモデルを持てるようにする<ul>
+<li>わかりやすいモデルがありビジネスロジックを持つ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">設計の目的</h1>
+<ul>
+<li>Fluxにおける「ドメインロジックをどこに実装するか」へのパス<ul>
+<li>Flux特にReduxはCQRS+ES(イベントソーシング)に近い</li>
+<li>全てがイベントである。ロジックをどこに書けばいいのかをちゃんと導いてくれない気がする</li>
+<li>Reducerを書いていると型が欲しくなる(不安になる)</li>
+</ul>
+</li>
+<li>MV*からCQRS+ESへ一気にスキップしてしまった気がするので、ドメインモデルについてもう一度考えられるようにしたい</li>
+</ul>
+<hr>
+<h2 id="greg-young">Greg Young</h2>
+<blockquote>
+<p>The last problem Young mentions is the lack of Process managers. 
+-- <a href="http://www.infoq.com/news/2016/04/event-sourcing-anti-pattern" title="Event Sourced Systems is an Anti-Pattern">Event Sourced Systems is an Anti-Pattern</a></p>
+</blockquote>
+<p>^The single biggest bad thing that Young has seen during the last ten years is the common anti-pattern of building a whole system based on Event sourcing. 
+^ 優れたProcess Managerが必要。Akkaで作ったらしい</p>
+<hr>
+<h1 id="-">要求にもとづいてアーキテクチャを作成する</h1>
+<blockquote>
+<p>要求にもとづいて作業をしていないアーキテクトは、<br>実際上「大仕掛なハッキング」をしているだけです。
+-- <a href="http://bpstore.nikkeibp.co.jp/item/books/P82370.html">オブジェクト開発の神髄</a></p>
+</blockquote>
+<p><img src="http://ec2.images-amazon.com/images/I/51SE5K29G8L._SL500_AA300_.jpg" alt="inline オブジェクト開発の神髄"></p>
+<hr>
+<h1 id="-almin-js-https-github-com-almin-almin-almin-almin-"><a href="https://github.com/almin/almin" title="almin/almin">Almin.js</a></h1>
+<p><img src="https://almin.github.io/media/logo/logo.png" alt="fit Almin.js"></p>
+<hr>
+<h1 id="-">実装例</h1>
+<ul>
+<li><a href="https://github.com/almin/almin/tree/master/example">almin/example at master · almin/almin</a></li>
+<li><a href="https://github.com/azu/presentation-annotator">azu/presentation-annotator: viewing presentation and annotate.</a></li>
+</ul>
+<hr>
+<h1 id="-">このスライドの目的</h1>
+<ul>
+<li><a href="https://github.com/almin/almin" title="Almin.js">Almin.js</a>を作るまでに考えた設計の概念的な話<ul>
+<li>理想的な形をクライアントサイドで動く現実の形に落とす話</li>
+<li>サーバサイドのアーキテクチャをそのままクライアントサイドに持ってくる際に直面する問題</li>
+</ul>
+</li>
+<li>コードの解説ではないです</li>
+</ul>
+<hr>
+<h1 id="-">考えるポイント</h1>
+<ul>
+<li>クライアントサイドで問題点となるのはオブジェクトの永続化<ul>
+<li>シングルトンがでてくる問題</li>
+</ul>
+</li>
+<li>Write StackとRead Stackを隔離する<ul>
+<li>データの流れがシンプルになる</li>
+</ul>
+</li>
+<li>結果統合性のみでは解決しない物がクライアントサイドにある<ul>
+<li>CQRS + Event Sourcing</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-simple-">全体像(Simple版)</h1>
+<p><img src="./img/workflow-simple.jpg" alt="right fit, workflow-simple.jpg"></p>
+<hr>
+<h1 id="-simple-">全体像(Simple版)</h1>
+<p><img src="./img/almin-architecture-simple.png" alt="right,fit, Simple Data Flow"></p>
+<h2 id="-">画像は概念イメージで、データや処理の流れを表すものではありません</h2>
+<h3 id="-">あえて表現するなら説明の流れにすぎません</h3>
+<hr>
+<h2 id="-">登場人物</h2>
+<ul>
+<li>View(React Component)</li>
+<li>Write Stack<ul>
+<li>UseCase</li>
+<li>Domain</li>
+<li>Repository :arrow_left: 同一かも</li>
+</ul>
+</li>
+<li>Read Stack<ul>
+<li>Store</li>
+<li>Repository :arrow_right: 同一かも</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="view">View</h1>
+<hr>
+<h2 id="view">View</h2>
+<ul>
+<li>Reactを使う 以上</li>
+<li>React ComponentとCSSの設計も色々ある<ul>
+<li>コンポーネントなCSS</li>
+<li>SUIT CSS</li>
+<li>コンポーネントの分類と命名規則</li>
+<li>長いので省略</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="write-stack">Write Stack</h1>
+<hr>
+<h1 id="write-stack">Write Stack</h1>
+<p><img src="./img/almin-architecture-simple-write.png" alt="right,fit, Simple Data Flow"></p>
+<hr>
+<h1 id="usecase">UseCase</h1>
+<hr>
+<h2 id="usecase">UseCase</h2>
+<p><img src="./img/almin-architecture-simple-usecase.png" alt="right,fit, Simple Data Flow"></p>
+<ul>
+<li>ViewからUseCaseを発行(ActionCreatorと類似) <a href="Storeは入れ物、Stateは中身という考え方">^図</a></li>
+<li>ドメインをの振るまいの流れを記述する</li>
+<li>トランザクションスクリプト的にもできる(アプリケーション層)</li>
+<li>UseCaseと対になるFactoryを持ってる<ul>
+<li>Factoryはテストのため(コンストラクタによる依存解決)</li>
+<li>Decoratorがあると、DIできるのでFactoryはいらない</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">トランザクションスクリプトとドメインモデル</h2>
+<p><img src="http://image.itmedia.co.jp/im/articles/0702/21/r5extend08_04.gif" alt="inline, ビジネスロジックの複雑さ"></p>
+<p>via <a href="http://www.itmedia.co.jp/im/articles/0702/21/news110_4.html" title="保守性・拡張性に優れたシステムを作る（8）：ドメイン層に最適なアーキテクチャを考える (4/4) - ITmedia エンタープライズ">ドメイン層に最適なアーキテクチャを考える</a> 元はPoEAA</p>
+<hr>
+<blockquote>
+<p>トランザクションスクリプトで始めた場合は、ドメインモデルの方向へためらわずにリファクタリングしてほしい   (中略)
+これらの3つのパターンは相互に排他的な選択肢ではない。実際にドメインロジックの一部にトランザクションスクリプトを使用し、それ以外にテーブルモジュールまたはドメインモデルを使用することは珍しくない。[^PoEAA, p33]</p>
+</blockquote>
+<hr>
+<h2 id="usecase-">UseCaseの例</h2>
+<ul>
+<li>Repositoryから<code>TodoList</code> Entityのインスタンスを取り出す</li>
+<li><code>TodoList</code>に<code>TodoItem</code>を追加する。(TodoListの中身が変更される)</li>
+<li>Repositoryに<code>TodoList</code>を保存する</li>
+</ul>
+<p>もしくは</p>
+<ul>
+<li>UseCaseからイベントをDispatchする(後述)</li>
+</ul>
+<hr>
+<pre><code class="lang-js">import {UseCase} from &quot;almin&quot;;
+import todoListRepository from &quot;../infra/TodoRepository&quot;
+export class AddTodoItemFactory {
+    static create() { // 依存解決してUseCaseを作るだけ
+        return new AddTodoItemUseCase({ todoListRepository });
+    }
+}
+export class AddTodoItemUseCase extends UseCase {
+    constructor({todoListRepository}) {
+        super();
+        this.todoListRepository = todoListRepository;
+    }
+    execute(title) {
+        const todoList = this.todoListRepository.lastUsed();
+        todoList.addItem(title);
+        this.todoListRepository.save(todoList);
+    }
+}
+</code></pre>
+<hr>
+<h1 id="domain-model">Domain Model</h1>
+<hr>
+<h2 id="domain-model">Domain Model</h2>
+<p><img src="./img/almin-architecture-simple-domain.png" alt="right,fit, Simple Data Flow"></p>
+<ul>
+<li>作ろうとしてるものを表現するオブジェクト<a href="Storeは入れ物、Stateは中身という考え方">^図</a></li>
+<li>モデルクラス</li>
+<li>ここでは、データと<strong>振る舞い</strong>を持ったクラス</li>
+<li>できるだけPOJO(Plain Old JavaScript)である</li>
+<li><a href="http://d.hatena.ne.jp/higayasuo/20080519/1211183826" title="いまさらきけない「ドメインモデル」と「トランザクションスクリプト」">いまさらきけない「ドメインモデル」と「トランザクションスクリプト」</a></li>
+</ul>
+<hr>
+<h2 id="-">モデルとは…</h2>
+<p><img src="./img/model.jpeg" alt="inline model"></p>
+<p>via <a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版">.NETのエンタープライズアプリケーションアーキテクチャ</a></p>
+<hr>
+<h2 id="-memo-">:memo: 言葉を定義するのも設計</h2>
+<hr>
+<h1 id="repository">Repository</h1>
+<hr>
+<h1 id="repository">Repository</h1>
+<p><img src="./img/almin-architecture-simple-repository.png" alt="right,fit, Simple Data Flow"></p>
+<ul>
+<li>ドメインモデルのインタンスを永続化するレイヤー <a href="Storeは入れ物、Stateは中身という考え方">^図</a><ul>
+<li>Repositoryパターン</li>
+</ul>
+</li>
+<li>シングルトン！！！</li>
+<li><code>find(id)</code>/<code>save(model)</code>/<code>delete(model)</code> などAPIからはコレクションっぽい<ul>
+<li>JavaScriptの場合はメモリ(ただのMap)として保持(localStorageとかでもいい)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="repository-">Repositoryの永続化問題</h1>
+<p><img src="./img/dataflow-architecture.png" alt="right,fit, Simple Data Flow"></p>
+<ul>
+<li>クライアントサイドJavaScriptでは永続化が難しい</li>
+<li>どこでインスタンス化するの?問題<ul>
+<li>それへの現実解としてシングルトンが出てくる</li>
+</ul>
+</li>
+<li>依存関係逆転の原則(DIP)</li>
+<li>UseCaseのコンストラクタに引数(依存)としてrepositoryを渡す<ul>
+<li>Factoryはそのための存在</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-dip-">依存関係逆転の原則(DIP)</h1>
+<p><img src="./img/dip.png" alt="inline, DIP"></p>
+<p><a href="https://speakerdeck.com/kimutyam/scaladexue-buhekisagonaruakitekutiyashi-jian-ru-men" title="Scalaで学ぶヘキサゴナルアーキテクチャ実践入門 // Speaker Deck">Scalaで学ぶヘキサゴナルアーキテクチャ実践入門 // Speaker Deck</a></p>
+<hr>
+<pre><code class="lang-js">import {UseCase} from &quot;almin&quot;;
+// シングルトン
+import todoListRepository from &quot;../infra/TodoRepository&quot;
+export class AddTodoItemFactory {
+    static create() { 
+        // シングルトンをコンストラクタの引数へ
+        return new AddTodoItemUseCase({ todoListRepository });
+    }
+}
+// テストする際は直接`UseCase`クラスを使う
+export class AddTodoItemUseCase extends UseCase {
+    constructor({todoListRepository}) {
+        super();
+        this.todoListRepository = todoListRepository;
+    }
+    execute() {
+        this.todoListRepository.find(...)
+    }
+}
+</code></pre>
+<hr>
+<h1 id="-dip-">依存関係逆転の原則(DIP)</h1>
+<ul>
+<li>反則っぽく見える</li>
+<li>ドメインがリポジトリに依存しなくて良い</li>
+<li>ドメインがちゃんと永続化できる<ul>
+<li>シングルトンのリポジトリは常に存在するから</li>
+</ul>
+</li>
+<li>テスト時はUseCaseのコンストラクタにDIすることでテストもできる</li>
+</ul>
+<p><img src="./img/almin-architecture-dip.png" alt="right,fit, almin-architecture-dip.png"></p>
+<hr>
+<h2 id="implementation-note-memo-">Implementation Note :memo:</h2>
+<p><img src="./img/term-repository.png" alt="inline, fit,Term repository"></p>
+<ul>
+<li>Domain layerにドメインの名前を使ったRepositoryの抽象I/F</li>
+<li>Infraにその抽象の実装を書くパターン</li>
+<li>JavaScriptに抽象がないので、DomainにRepositoryを作るのは手間だけに見える</li>
+</ul>
+<hr>
+<h1 id="-memo-">:memo: 設計の進め方</h1>
+<ul>
+<li>理想のAPIを擬似コードで書くのはあくまで参考にすぎない</li>
+<li>クライアントサイドでは永続化の問題が付きまとう<ul>
+<li>サーバならどっかにプロセス立てて、プロセス同士で通信みたいなことができる</li>
+</ul>
+</li>
+<li>実際にデータの流れと状態の持ち方を<strong>コードとして</strong>書いてみて、設計することが重要</li>
+</ul>
+<hr>
+<blockquote>
+<p>処理の流れではなく、
+データの流れを定義 
+-- <a href="http://www.slideshare.net/MasashiSakurai/javascript-js-53219222">http://www.slideshare.net/MasashiSakurai/javascript-js-53219222</a></p>
+</blockquote>
+<hr>
+<h1 id="database">DataBase</h1>
+<hr>
+<h1 id="database">DataBase</h1>
+<p><img src="./img/almin-architecture-simple.png" alt="right,fit, Simple Data Flow"></p>
+<ul>
+<li>ただの<code>Map</code>オブジェクト <a href="Storeは入れ物、Stateは中身という考え方">^図</a></li>
+<li>Repositoryをできるだけシンプルに保つため、データベースもシンプルに<ul>
+<li><code>key</code> : <code>value</code> だと簡単で良い</li>
+</ul>
+</li>
+<li><code>localStorage</code>とかに入れても良い</li>
+<li>変更されたら変更したことを通知する(実際はrepositoryが投げてる)<ul>
+<li><code>emit(&quot;Changed&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="read-stack">Read Stack</h1>
+<hr>
+<h1 id="read-stack-">Read Stack?</h1>
+<hr>
+<p><img src="./img/domain-model-vs-cqrs.png" alt="fit CQRS"></p>
+<hr>
+<h1 id="write-command-read-query-">Write(Command)とRead(Query)</h1>
+<ul>
+<li>CQRS (Command Query Responsibility Segregation)</li>
+<li>ざっくり: WriteとReadを層として分けて責務を分離する</li>
+<li>一方通行のデータフロー</li>
+<li>FluxとかReduxでやっていることと同じ</li>
+</ul>
+<hr>
+<p><img src="./img/flux.png" alt="fit, flux"></p>
+<hr>
+<h1 id="read-stack">Read Stack</h1>
+<p><img src="./img/almin-architecture-simple-read.png" alt="left, fit, Simple Data Flow"></p>
+<ul>
+<li>Readはデータベースが読み込んでView用のデータを作って渡すだけ<a href="Storeは入れ物、Stateは中身という考え方">^図</a></li>
+<li>読み取り専用(保存したデータの変更はしない)ので色々簡略化できる</li>
+<li>縦に別れたので、テスト依存関係が簡略化できる！</li>
+</ul>
+<hr>
+<h2 id="read-stack">Read Stack</h2>
+<p><img src="./img/almin-architecture-simple-read.png" alt="left, fit, Simple Data Flow"></p>
+<ul>
+<li>Repository<ul>
+<li>Write Stackと同じものを参照するでも良い</li>
+</ul>
+</li>
+<li>Read Model<ul>
+<li>Writeのドメインから振るまいを消したモデルを作ってもよい</li>
+<li>ドメインモデル貧血症にわざとしても良い = Viewのためのモデルなので</li>
+</ul>
+</li>
+<li>Store<ul>
+<li>FluxのStoreと同じだけど、Read Stackでは一番重要</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="store">Store</h1>
+<p><img src="./img/almin-architecture-simple-store.png" alt="left, fit, Simple Data Flow"></p>
+<ul>
+<li>StoreはStateを持つオブジェクト<a href="Storeは入れ物、Stateは中身という考え方">^図</a></li>
+<li>StateをUIに渡してUIはそれを使って更新する(Context経由)</li>
+<li>StoreはStateが更新された事をUIに伝える(Context経由)</li>
+</ul>
+<hr>
+<h1 id="-warning-">クライアントサイドで多発する問題:warning:</h1>
+<hr>
+<h1 id="-">クライアントサイドで多発する問題</h1>
+<ul>
+<li>現在のアーキテクチャでは、永続化したデータしか使えない</li>
+<li>クライアントサイドではStateを直に更新して、UIにすぐ反映されて欲しいことがある<ul>
+<li>ローディング、モーダル、アニメーション</li>
+<li>「ほんのいっとき」が許されないケースはクライアントサイドにはある</li>
+<li>コンポーネントに閉じ込めるというのあり</li>
+</ul>
+</li>
+<li>そのため縦(Read/Writeの層)じゃなくて、横のルールも必要</li>
+</ul>
+<hr>
+<p><img src="./img/p299.png" alt="inline p299"></p>
+<p>via <a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版">.NETのエンタープライズアプリケーションアーキテクチャ　第2版</a> p299</p>
+<hr>
+<h1 id="usecase-store">UseCase -&gt; Store</h1>
+<p><img src="./img/almin-architecture-flux.png" alt="right, fit, almin-flux.png"></p>
+<ul>
+<li>UseCaseからdispatchしたイベントが、Storeに届く横のルート<ul>
+<li>抜け穴感があるので慎重に取り扱いたい</li>
+</ul>
+</li>
+<li>FluxやReduxはこのルートが基本的な流れ<ul>
+<li>図の上半分がよく見る流れ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="store-construction-">Storeの構造化 :construction:</h1>
+<ul>
+<li>Storeをまとめる<code>StoreGroup</code>という概念を追加した<ul>
+<li>一つのアプリはStoreはたくさん存在する</li>
+<li>Storeが同期的に一斉にemitChangeすると、何回もUIが更新されてしまう</li>
+<li>StoreGroupは同時に発生したemitChangeを一つにまとめる<ul>
+<li>Promiseや<code>requestAnimationFrame</code>などで間引く</li>
+<li>イベントを間引く役 = UI層に近い</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="store-">Storeの構造化</h2>
+<ul>
+<li>Storeはstateを持っている <ul>
+<li><code>getState(): State</code> を返す</li>
+</ul>
+</li>
+<li>Stateが更新されるパターンは2つある<ul>
+<li>UseCase -&gt; Store への直接(Fluxルート)</li>
+<li>Repositoryが更新 -&gt; Storeが検知(永続化ルート)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">そもそも構造化ってなに?</h1>
+<hr>
+<h1 id="-memo-">:memo: 構造化の考え方</h1>
+<hr>
+<h1 id="-">ものごとを構造化するための方法はたくさんある</h1>
+<h2 id="-p131-"><a href="[今日からはじめる情報設計](http://www.bnn.co.jp/dl/mess/" title="今日からはじめる情報設計&quot;">^今日からはじめる情報設計, p131</a></h2>
+<p><img src="./img/structure_information.jpg" alt="fit, right, structure_information.jpg"></p>
+<hr>
+<h1 id="-">分類法(タクソノミー)</h1>
+<ul>
+<li>分類法(タクソノミー) は構造化の手法</li>
+<li>分類法を組み合わせて形状を作る<ul>
+<li>UIに反映する形となったもの。 e.g.) ページ、Repositoryとか</li>
+</ul>
+</li>
+<li>曖昧な分類と正確な分類はそれぞれメリット、デメリットがある<ul>
+<li>曖昧さは明確性を犠牲にし、正確性は柔軟性を犠牲にする</li>
+</ul>
+</li>
+<li>ファセット = 主キーで分類する</li>
+</ul>
+<hr>
+<h2 id="-">分類の結果</h2>
+<p><img src="./img/structure-type.jpg" alt="right, structure-type.jpg"></p>
+<ul>
+<li>分類法は<ul>
+<li>並列的構造</li>
+<li>階層的構造</li>
+</ul>
+</li>
+<li>どちらかになる <a href="[今日からはじめる情報設計](http://www.bnn.co.jp/dl/mess/" title="今日からはじめる情報設計&quot;">^p143</a></li>
+</ul>
+<hr>
+<h2 id="store-">Storeの構造化</h2>
+<ul>
+<li>並列的構造<ul>
+<li>ReduxのReducerパターンなど</li>
+</ul>
+</li>
+<li>階層的構造<ul>
+<li>ドメインモデルの構造をそのままStateとして返すパターンなど</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="store-">Storeの構造化</h2>
+<ul>
+<li>どちらのパターンでもStateが更新されなかったら、前回のStateの参照をそのまま使い回す</li>
+<li>Viewの最適化したデータを返すためのStoreとStateなので妥協しては行けないのはここだけ<ul>
+<li>Reactの<a href="https://facebook.github.io/react/docs/component-specs.html" title="shouldComponentUpdate">shouldComponentUpdate</a>でShalloEqual比較して再描画も省略できる</li>
+<li>e.g.) <a href="http://azu.github.io/svg-feeling/">azu.github.io/svg-feeling/</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">コンポーネント設計の心得</h2>
+<p><img src="./img/ahomu.jpeg" alt="left, ahomu"></p>
+<blockquote>
+<p>shouldComponentUpdate を信じて細分化すること
+-- <a href="http://s.aho.mu/160405-node_school/#45">http://s.aho.mu/160405-node_school/#45</a></p>
+</blockquote>
+<hr>
+<h2 id="-">実装したもの</h2>
+<ul>
+<li><a href="https://github.com/almin/almin" title="Almin.js">Almin.js</a><ul>
+<li>このスライドで書いた内容大体そのまま実装</li>
+<li><a href="https://github.com/almin/almin/tree/master/docs/counter" title="Counter Example">Counter Example</a></li>
+<li><a href="https://github.com/almin/almin/tree/master/example/todomvc" title="TodoMVC">TodoMVC</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>Fluxと呼ばれてるものが、CQRSとどのような点で同じで異なるのかを示した</li>
+<li>イベントソーシングは抜いてCQRSについて考えAlminを実装した</li>
+<li>ドメイン/ビジネスロジックをちゃんと考えて実装できるような状況を作った</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>クライアントサイド/フロントエンドとサーバサイド/バックエンドでは、必ずしもベストなアーキテクチャが一致する訳ではない</li>
+<li>イベント駆動が根付いてるJavaScriptにおいて、CQRS+ESは一つの到達点かもしれないが次は考えないといけない</li>
+<li>次を考えられるような状態をつくるために、色々設計して考えないと行けない</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>JavaScriptにおいてCQRS + ESを管理するには優れたProcess Managerが不十分<ul>
+<li>DOMという副作用の塊との戦い方も色々必要</li>
+</ul>
+</li>
+<li>それがRedux-Sagaのようなfork + Generatorなのか、RxJSのようなStreamなのかはまだわからない</li>
+</ul>
+<h2 id="write-code-thinking-">Write Code Thinking :)</h2>
+<hr>
+<h2 id="-">参考書籍</h2>
+<ul>
+<li><a href="http://www.bnn.co.jp/dl/mess/" title="今日からはじめる情報設計">今日からはじめる情報設計</a></li>
+<li><a href="http://bpstore.nikkeibp.co.jp/item/books/P82370.html" title="オブジェクト開発の神髄">オブジェクト開発の神髄</a></li>
+<li><a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版">.NETのエンタープライズアプリケーションアーキテクチャ　第2版</a></li>
+</ul>
+<hr>
+<h2 id="-">参考</h2>
+<ul>
+<li>CQRS + ES<ul>
+<li><a href="http://www.slideshare.net/MatsushitaSatoshi/cqrsesakka-persistence">CQRS+ESをAkka Persistenceを使って実装してみる。</a></li>
+<li><a href="https://speakerdeck.com/j5ik2o/zui-xin-dddakitekutiyatoakkadefalseshi-zhuang-hintonituite">最新DDDアーキテクチャとAkkaでの実装ヒントについて // Speaker Deck</a></li>
+</ul>
+</li>
+<li>DDD クリーンアーキテクチャ<ul>
+<li><a href="https://speakerdeck.com/yoskhdia/ddd-plus-clean-architecture-plus-ucdom-essenceban">DDD + Clean Architecture + UCDOM Essence版 // Speaker Deck</a></li>
+<li><a href="https://speakerdeck.com/kimutyam/scaladexue-buhekisagonaruakitekutiyashi-jian-ru-men">Scalaで学ぶヘキサゴナルアーキテクチャ実践入門 // Speaker Deck</a></li>
+</ul>
+</li>
+<li><a href="http://mattun.hatenablog.com/entry/2014/07/19/135320">レイヤー設計とか、オブジェクト指向とか、DDDとか、その辺 - まっつんの日記</a></li>
+</ul>
+<hr>
+<h2 id="-">参考</h2>
+<ul>
+<li><a href="https://tech.recruit-mp.co.jp/mobile/android-architecture/">[ Android ] – これからの「設計」の話をしよう – NET BIZ DIV. TECH BLOG</a></li>
+<li><a href="http://blog.fukuchiharuki.me/entry/2016/02/20/173233">CQRSの小さな演習(1) 現実の問題 - 考える場所</a></li>
+</ul>
+<hr>
+<h2 id="-mvvm">参考 MVVM</h2>
+<ul>
+<li><a href="http://www.slideboom.com/presentations/381148">MVVMパターンとは？</a></li>
+<li><a href="http://www.slideshare.net/Posaune/livetmvvm">塹壕よりLivetとMVVM</a></li>
+<li><a href="http://ugaya40.hateblo.jp/entry/model-mistake">MVVMのModelにまつわる誤解 - the sea of fertility</a></li>
+<li><a href="http://www.atmarkit.co.jp/fdotnet/chushin/greatblogentry_02/greatblogentry_02_01.html">MVVMパターンの常識 ― 「M」「V」「VM」の役割とは？ － ＠IT</a></li>
+<li><a href="http://www.atmarkit.co.jp/fdotnet/chushin/greatblogentry_10/greatblogentry_10_01.html">開発者が知っておくべき、6つのUIアーキテクチャ・パターン － ＠IT</a></li>
+</ul>
+<hr>
+<h1 id="faq">FAQ</h1>
+<h2 id="cqr-cqrs-">CQRとCQRSの違い</h2>
+<ul>
+<li>CQRSはCQRの発展形</li>
+<li>CQRはRead/Writeの層に分けただけ</li>
+<li>CQRSは一貫性を結果整合性であることを許容してる</li>
+<li>CQRSはRead/WriteでDBを持っていい or ReadはView向けの非正規化したデータを扱っていい という理解</li>
+<li><a href="https://speakerdeck.com/j5ik2o/zui-xin-dddakitekutiyatoakkadefalseshi-zhuang-hintonituite" title="最新DDDアーキテクチャとAkkaでの実装ヒントについて // Speaker Deck">最新DDDアーキテクチャとAkkaでの実装ヒントについて // Speaker Deck</a></li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
