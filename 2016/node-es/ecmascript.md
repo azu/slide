@@ -19,10 +19,21 @@
 
 # 伝えたいこと
 
+- ECMAScriptの仕様策定は特別なプロセスではない
+- そこへ参加する/見ていくのはむずかしいものではない[^x]
+
+[^x]: 標準委員会に参加しないとできないことはあるが、何もできないわけではない
+
+----
+
+# 伝えたいこと
+
 - ECMAScriptの仕様策定はただの大きな(GitHub)プロジェクト
-- 普通のプロジェクトと大きな違いはない
+- 普通のプロジェクトと大きな違いはない [^y]
 - フォーマルに物事が進む分 普通より分かりやすい
-- どのように進めれば物事が進むかを学ぶ
+- どのように進めれば物事が進むかのパターンを学べる
+
+[^y]: Ecmaへの仕様提出などは特殊だけど、それ以外は大きく変わらない
 
 -----
 
@@ -442,7 +453,7 @@ class { /* body */ }
 
 -----
 
-# 開発者がプロセスに参加するため
+# 開発者がプロセスに参加する
 
 - (広い意味での)開発者にとって公開されたプロセスは有益
 - ECMAScriptはStage 3で2つのブラウザへの実装が必要
@@ -468,7 +479,7 @@ class { /* body */ }
 
 - 仕様があっても実装されなければ意味がない
 - 実装されても使われなければ意味がない
-- プロセスの理解とフィードバックが重要
+- 使う側もプロセスの理解とフィードバックが重要
 - フィードバックをまともに得ずに進んだものは壊れた歴史
 	- [ES4で消えた2年半](https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025)
 
@@ -485,21 +496,51 @@ class { /* body */ }
 	- [jQuery Standards Group](https://github.com/jquery-foundation/standards "jQuery Standards Group")
 	- [WICG](https://discourse.wicg.io/ "WICG")
 
------
-
-# 全体を眺めることで知ることができること
-
 ------
 
 # どこから情報を得るか
 
 
+------
 
+# 情報源
+
+- リリースノート
+	- [Releases · tc39/ecma262](https://github.com/tc39/ecma262/releases "Releases · tc39/ecma262")
+- ミーティングノート
+	- [tc39/tc39-notes](https://github.com/tc39/tc39-notes/ "tc39/tc39-notes")
+- ロードマップ/Proposal
+	- [tc39/proposals](https://github.com/tc39/proposals "tc39/proposals")
+
+
+-----
+
+# 情報源
+
+- Issue
+	- [Issues · tc39/ecma262](https://github.com/tc39/ecma262/issues "Issues · tc39/ecma262") and Proposal's issue
+- メーリングリスト/質問
+	- [ES Discuss](https://esdiscuss.org/ "ES Discuss")
+- テスト
+	- [tc39/test262](https://github.com/tc39/test262 "tc39/test262")
+- 実装
+	- 各ブラウザ、[anba/es6draft](https://github.com/anba/es6draft "anba/es6draft")
+
+-----
 
 # [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
 
+- ECMAScriptについてニュースサイト
+- [JSer.info](http://jser.info/ "JSer.info")のECMAScript版
 
-# [jquery-foundation/standards: Giving web developers a voice in the standards process](https://github.com/jquery-foundation/standards "jquery-foundation/standards: Giving web developers a voice in the standards process")
+
+------
+
+# 情報源
+
+- GitHubにリポジトリがあって、IssueやPull Requestでやり取りしていて、リリースノートがGitHub Releaseにあって、議論の結果が残っていて、未確定なロードマップみたいなものがあって、実装やテストがある
+- 各実装がGitHubの該当Issueへリンクを貼り[クロスリファレンス](http://jser.info/2016/05/23/msedgees6-modulesjquery-30-rcgoogle-io/)になっている
+- 普通のGitHubプロジェクトと大差ないのでは :question:
 
 ------
 
@@ -507,7 +548,7 @@ class { /* body */ }
 
 ------
 
-# まとめ
+# まとめ - ざっくり
 
 - :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
 - :memo: リリースノートはGitHub Releaseで公開している
@@ -519,7 +560,7 @@ class { /* body */ }
 
 ------
 
-# まとめ - Alt
+# まとめ - 細かく
 
 - :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
 	- コミットメッセージの規約を設けるなどして、整理しておく
@@ -528,19 +569,19 @@ class { /* body */ }
 
 ------
 
-# まとめ - Alt
+# まとめ - 細かく
 
 - :thought_balloon: 複雑な設計問題に対してはパターンを使う
 	- "maximally minimal"は意思決定のデットロックを壊すツール
 - :tophat: 慎重な意思決定が必要な部分は時間を取ってミーティングを行う
 	- Consensusが必要なものは話し合い意思決定をする
 - :pencil2: ミーティングの内容は透明性のために公開している
-	- 話し合った過程や内容を公開することで、部外者のなぜを解決できるようにする
+	- 話し合った過程や内容を公開することで、部外者の"なぜ?"を解決できるようにする
 
 
 -----
 
-# まとめ - Alt
+# まとめ - 細かく
 
 - :pushpin: Proposalの現在のステータスが分かるようにラベリングしている
 	- ずっと見ている人ばかりではないので、一発で分かるステータスを付ける
@@ -549,6 +590,9 @@ class { /* body */ }
 
 -----
 
+
+
+-----
 
 # 参考
 
