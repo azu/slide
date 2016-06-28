@@ -1,3 +1,5 @@
+ autoscale: true
+
 # ECMAScript
 
 -----
@@ -15,28 +17,85 @@
 
 ----
 
-
-
 # 伝えたいこと
 
-- ものごとをクリアにする！
-- ただのいろんな人が関わってるGitHubプロジェクトだよ
-	- よくできたコミュニケーションのルール
-	- [standpats-asianplop2016.pdf](http://wirfs-brock.com/allen/files/papers/standpats-asianplop2016.pdf "standpats-asianplop2016.pdf")
-- ECMAScript仕様の更新の追い方と大きなプロジェクトの運用方法について学びましょう
-
+- ECMAScriptの仕様策定はただの大きな(GitHub)プロジェクト
+- 普通のプロジェクトと大きな違いはない
+- フォーマルに物事が進む分 普通より分かりやすい
+- どのように進めれば物事が進むかを学ぶ
 
 -----
 
 # ES2016 リリース :tada:
 
+-----
+
+# その前にES2015では何があったんだっけ?
+
+
+-----
+
+![fit syntax](img/es2015-syntax.png)
+
+
+-----
+![fit, improve](img/es2015-improve.png)
+
+
+-----
+
+![fit, builtin](img/es2015-builtin.png)
+
+-----
+
+# 一番大きな変化
+
+
+- ES2015からは1年毎のリリースサイクルに変更される
+- ES2015はその早いリリースサイクルを適応できるだけの基盤
+	- だからまだまだ足りない機能はある
+- リリースサイクルと共に仕様策定のプロセスも変更された
+	- 早いサイクルと開発者/実装者からのフィードバックを得るためのプロセスへ
+
+
+-----
+
+
+> It’s the foundation for the next 10-20 years of JavaScript evolution
+> -- Allen Wirfs-Brock
+
+-----
+
+> ECMAScript as a Living Standard
+
+-----
+
+# Living Standard
+
+- ECMAScriptもLiving Standardへ
+- [tc39.github.io/ecma262/](https://tc39.github.io/ecma262/)では常に最新の仕様が公開されている
+- ES2015, 2016は1年毎のスナップショット
+
+-----
+
+# Living Writing :book:
+
+-----
+
+# ES2015以降のJavaScript入門本
+
+- ![GitHub](https://github.com/favicon.ico) [github.com/asciidwango/js-primer](https://github.com/asciidwango/js-primer "asciidwango/js-primer: JavaScriptの本")
+- ES2015以降をベースにしたJavaScript入門本を書いてる
+- 仕様書はLiving Standard
+- 書籍がスナップショットだけでは追いつけない
+- 書籍もLivingに更新できる仕組みを作る必要がある
+	- 出版は予定しているが開発中の段階から公開します
+
 ----
 
-# そもそもES2015ってどんなんだっけ?
 
+![fit, js-primer.png](img/js-primer.png)
 
-- [asciidwango/js-primer: JavaScriptの本](https://github.com/asciidwango/js-primer "asciidwango/js-primer: JavaScriptの本")
-- ES2015以降をベースにしたJavaScript入門本を書いてる
 
 
 ----
@@ -173,9 +232,9 @@ eval("1\u180E===1"); // throw exception in ES2016
 -----
 
 
-## 変更内容はどこから? => コミットから
+## 変更内容の種類はどこから?
 
-- [tc39/ecma262](https://github.com/tc39/ecma262/commits/master "tc39/ecma262")はコミットメッセージ規則を持っている [^1]
+- [tc39/ecma262](https://github.com/tc39/ecma262/commits/master "tc39/ecma262")はコミットメッセージの規則を持っている [^1]
 
 ![inline, TC39-ECMA-262-commit-message-conventions.png](img/TC39-ECMA-262-commit-message-conventions.png)
 
@@ -205,7 +264,7 @@ $ git log --grep "Normative:" es2016-draft-1...es2016-draft-20160215
 
 -----
 
-# そもそも誰が仕様書いているの?
+# そもそも誰が仕様決めているの?
 
 -----
 
@@ -225,6 +284,17 @@ $ git log --grep "Normative:" es2016-draft-1...es2016-draft-20160215
 	- 2ヶ月に1度の[ミーティング](https://github.com/rwaldron/tc39-notes)で合意を取る
 
 -----
+
+# Editor
+
+![Brian Terlson, left, fit](https://avatars3.githubusercontent.com/u/11236?v=3&s=400)
+
+- Brian Terlson @ Microsoft
+- [@bterlson](https://twitter.com/bterlson "@bterlson")
+- ES2016〜仕様書のEditor
+
+-----
+
 # Need Consensus :tophat:
 
 - 挙動を変更するものはConsensusが必要
@@ -316,21 +386,26 @@ class { /* body */ }
 # なぜ機能ごとの策定プロセスを取るのか?
 
 - 1年毎にリリースするため、リリース速度をあげる目的
-- 機能毎という小さなProposalをベースとした方が、細かくリリースできる
+- 機能毎という小さなProposalをベースにすることで、細かくリリースできる
 
 
 -----
-# 言語標準化のパターンランゲージ
 
-- [Programming Language Standardization: Patterns for Participation](http://wirfs-brock.com/allen/files/papers/standpats-asianplop2016.pdf) by Allen Wirfs-Brock(ES6のEditor) [^4]
 
-> "maximally minimal"
+> [プログラミング言語標準化の
+> パターンランゲージ](http://wirfs-brock.com/allen/files/papers/standpats-asianplop2016.pdf) [^4]
+> -- Allen Wirfs-Brock(ES2015 Editor) 
+
+[^4]: :memo: [プログラミング言語標準化のパターン](https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025 "プログラミング言語標準化のパターン")
+
+-----
+
+# "maximally minimal"
 
 - 言語デザインは複雑になるほどConsensusを取るのが難しくなる
 - "maximally minimal"とは反対意見がある原因やそう思える部分を最大限取り除いた最小のものを仕様にするという手法
 
 
-[^4]: :memo: [プログラミング言語標準化のパターン](https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025 "プログラミング言語標準化のパターン")
 
 ----
 
@@ -338,7 +413,7 @@ class { /* body */ }
 
 - ES6での`class`の事例
 - [strawman\:maximally_minimal_classes [ES Wiki]](http://wiki.ecmascript.org/doku.php?id=strawman:maximally_minimal_classes "strawman:maximally_minimal_classes [ES Wiki]")
--  全体として必要という合意があるにもかかわらず、詳細の同意が得られず進まなくない問題へのパターン
+-  全体として必要という合意があるにもかかわらず、詳細の同意が得られず進まない問題へのパターン
 - 全体として合意できる最大限最小のものをES6 Classesとした
 - 類似: Less is more
 
@@ -346,19 +421,19 @@ class { /* body */ }
 
 # なぜ策定プロセスが公開されているのか?
 
-----
+-----
 
-# 開発者がプロセスに参加するため
+# プロセスの透明性
 
-- 透明性の確保
-- Stage 3でブラウザの実装が必要
-- ユーザーはそこで試せる
-- さらにbabelのようなツールでもっと前に試せる
-
+- [tc39/tc39-notes](https://github.com/tc39/tc39-notes/ "tc39/tc39-notes")にミーティングノートが公開されている
+- どのような議論が行われ、どのような意思決定がされたのか
+	- なぜ、このProposalは必要なのか
+	- なぜ、このProposalはStage Xなのか
+	- なぜ、このProposalは廃止されたのか
 
 -----
 
-# これは一般のライブラリでも同じ
+## 一般のライブラリでも同じ
 
 - React: [React Core Meeting Notes](https://github.com/reactjs/core-notes "React Core Meeting Notes")
 - Ember.js: [Meeting minutes from the Ember.js core teams](https://github.com/emberjs/core-notes "emberjs/core-notes: Meeting minutes from the Ember.js core teams")
@@ -367,40 +442,48 @@ class { /* body */ }
 
 -----
 
-# なんとしてでもフィードバックが欲しい
+# 開発者がプロセスに参加するため
+
+- (広い意味での)開発者にとって公開されたプロセスは有益
+- ECMAScriptはStage 3で2つのブラウザへの実装が必要
+	- ブラウザはフラグ付きで実装できる
+	- 開発者はフラグをオンにして試せる
+- Babelのようなツールでもっと前に試せる
+
+-----
+
+# ブラウザとフラグ
+
+- 全てのブラウザはフラグ管理して実装する
+- WebKitもprefixではなくフラグで管理する宣言をした
+	- [Feature Policy | WebKit](https://webkit.org/feature-policy/ "Feature Policy | WebKit")
+- β/Nightly版を使えば簡単に利用できる
+	- [Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)
+	- [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
+	- [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
+
+-----
+
+# フィードバック
 
 - 仕様があっても実装されなければ意味がない
-- 結局使うのは開発者
-- 開発者が使わなければ、その仕様が実装されていても意味がない
-- ES4で消えた2年半の事例
-
-
------
-
-
-# 実装と利用
-
-- ブラウザで実装されるときはフラグ付き
-- Safariもフラグ付きで実装するようになると宣言した
-- 今後はフラグを外して試せるようになる
+- 実装されても使われなければ意味がない
+- プロセスの理解とフィードバックが重要
+- フィードバックをまともに得ずに進んだものは壊れた歴史
+	- [ES4で消えた2年半](https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025)
 
 -----
 
-# ECMAScriptと環境
+# フィードバックの方法
 
-- スクリプトの実行停止
-- un moduleの話など
-- 実行環境に依存する議論が増えた
-- より低レベルなAPIが表面として出てきたため
-- また実装における互換性の向上
-
------
-
-# ECMAScriptはベース
-
-- ものごとを考えるときにベースとなるものが存在すると、色々と捗る
-- ECMAScriptは明確なプロセスがあり、明確な目的がある仕様
-- ブラウザはこれを無視できないので、考える時の基準としていける
+- 仕様なら
+	- ProposalリポジトリへIssueを立てる
+	- [ES Discuss](https://esdiscuss.org/ "ES Discuss")に投げる
+- 実装なら
+	- [各ブラウザ/実装](https://github.com/azu/browser-javascript-resource)のIssueへ
+- 何がわからないのかわからないなら
+	- [jQuery Standards Group](https://github.com/jquery-foundation/standards "jQuery Standards Group")
+	- [WICG](https://discourse.wicg.io/ "WICG")
 
 -----
 
@@ -408,17 +491,69 @@ class { /* body */ }
 
 ------
 
-# まとめ
+# どこから情報を得るか
 
 
-- ECMAScriptを大きなGitHubプロジェクトとして捉える
-- リリースノートは普段からコミットの段階で整理しておく
-- リリースノートはGitHub Releaseに書く
-- 大きな仕様ではなく小さな仕様
-	- "maximally minimal"は意思決定のデットロックを壊すためのツール
-- 慎重な意思決定が必要な部分はF2Fなミーティングで決める
-- ミーティングの内容は透明性のために公開する
-- 仕様が確定する前に実装、開発者からフィードバックを得る方法/期間を提供する
 
+
+# [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
+
+
+# [jquery-foundation/standards: Giving web developers a voice in the standards process](https://github.com/jquery-foundation/standards "jquery-foundation/standards: Giving web developers a voice in the standards process")
 
 ------
+
+> ECMAScriptを大きなGitHubプロジェクトとして見る
+
+------
+
+# まとめ
+
+- :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
+- :memo: リリースノートはGitHub Releaseで公開している
+- :thought_balloon: 複雑な設計問題に対してはパターンを使う
+- :tophat: 慎重な意思決定が必要な部分は時間を取ってミーティングを行う
+- :pencil2: ミーティングの内容は透明性のために公開している
+- :pushpin: Proposalの現在のステータスが分かるようにラベリングしている
+- :clock12: 仕様として確定する前に開発者からフィードバックを得る方法/期間を提供している
+
+------
+
+# まとめ - Alt
+
+- :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
+	- コミットメッセージの規約を設けるなどして、整理しておく
+- :memo: リリースノートはGitHub Releaseで公開している
+	- リリースノートはアクセスしやすい/更新が分かりやすい場所に置く
+
+------
+
+# まとめ - Alt
+
+- :thought_balloon: 複雑な設計問題に対してはパターンを使う
+	- "maximally minimal"は意思決定のデットロックを壊すツール
+- :tophat: 慎重な意思決定が必要な部分は時間を取ってミーティングを行う
+	- Consensusが必要なものは話し合い意思決定をする
+- :pencil2: ミーティングの内容は透明性のために公開している
+	- 話し合った過程や内容を公開することで、部外者のなぜを解決できるようにする
+
+
+-----
+
+# まとめ - Alt
+
+- :pushpin: Proposalの現在のステータスが分かるようにラベリングしている
+	- ずっと見ている人ばかりではないので、一発で分かるステータスを付ける
+- :clock12: 仕様確定前に開発者からフィードバックを得る方法/期間を提供している
+	- 十分なフィードバックを得る方法や期間を開発者に提供する
+
+-----
+
+
+# 参考
+
+- [V8 JavaScript Engine: ES6, ES7, and beyond](http://v8project.blogspot.jp/2016/04/es6-es7-and-beyond.html)
+- [Previewing ES6 Modules and more from ES2015, ES2016 and beyond | Microsoft Edge Dev Blog](https://blogs.windows.com/msedgedev/2016/05/17/es6-modules-and-beyond/)
+- [azu/browser-javascript-resource: Browser JavaScript Resource.](https://github.com/azu/browser-javascript-resource)
+- [ECMAScript 6 compatibility table](http://kangax.github.io/compat-table/es6/)
+- [APIデザインの極意 Java/NetBeansアーキテクト探究ノート - インプレスブックス](http://book.impress.co.jp/books/1113101014 "APIデザインの極意 Java/NetBeansアーキテクト探究ノート - インプレスブックス")
