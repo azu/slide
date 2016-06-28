@@ -1,6 +1,6 @@
  autoscale: true
 
-# ECMAScript
+# ECMAScript as a Living Standard
 
 -----
 
