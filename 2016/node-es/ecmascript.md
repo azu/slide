@@ -101,7 +101,7 @@
 # ES2015以降のJavaScript入門本
 
 - ![GitHub](https://github.com/favicon.ico) [github.com/asciidwango/js-primer](https://github.com/asciidwango/js-primer "asciidwango/js-primer: JavaScriptの本")
-- ES2015以降をベースにしたJavaScript入門本を書いてる
+- ES2015以降ベースのJavaScript入門本をオープンソースで書いてる
 - 仕様書はLiving Standard
 - 書籍がスナップショットだけでは追いつけない
 - 書籍もLivingに更新できる仕組みを作る必要がある
@@ -109,6 +109,15 @@
 
 ----
 
+## for
+
+- プログラミングをやったことがある
+- 今のJavaScriptがよくわからないという人向け
+- 今のJavaScriptアプリケーションを読み書きできるようなるもの
+- ミーティングノートも公開している
+- [js-primer/meetings at master · asciidwango/js-primer](https://github.com/asciidwango/js-primer/tree/master/meetings "js-primer/meetings at master · asciidwango/js-primer")
+
+----
 
 ![fit, js-primer.png](img/js-primer.png)
 
@@ -337,8 +346,8 @@ $ git log --grep "Normative:" es2016-draft-1...es2016-draft-20160215
 - 0. Strawman - アイデア
 - 1. Proposal - 提案
 - 2. Draft    - ドラフト
-- 3. Candidate- 仕様書と同じ形式、実装が2つ
-- 4. Finished - 策定完了
+- 3. Candidate- 仕様書と同じ形式(実装のフィードバック期間)
+- 4. Finished - 実装が2つ、test262にテスト => 策定完了
 	- 次の年のECMAScript 201＊にマージされる
 
 -----
@@ -553,7 +562,39 @@ class { /* body */ }
 
 ------
 
-# まとめ - ざっくり
+
+# ECMAScriptがやっていること
+
+- :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
+	- コミットメッセージの規約を設けるなどして、整理しておく
+- :memo: リリースノートはGitHub Releaseで公開している
+	- リリースノートはアクセスしやすい/更新が分かりやすい場所へ
+
+------
+
+# ECMAScriptがやっていること
+
+- :thought_balloon: 複雑な設計問題に対してはパターンを使う
+	- "maximally minimal"は意思決定のデットロックを壊すツール
+- :tophat: Consensusが必要なものはミーティングで意思決定をする
+	- 慎重な意思決定が必要な部分は時間を取ってミーティングを行う
+- :pencil2: ミーティングの内容は透明性のために公開している
+	- 話し合った過程や内容を公開することで、部外者の"なぜ?"を解決できるようにする
+
+
+-----
+
+# ECMAScriptがやっていること
+
+- :pushpin: ProposalにはStage Xというラベリングをしている
+	- Proposalの現在のステータスが分かるようにラベリングしている
+- :clock12: Stage 3では開発者からフィードバックを得る方法/期間を提供している
+	- 仕様確定前に十分なフィードバックを得る方法や期間を開発者に提供する
+
+-----
+
+
+# まとめ
 
 - :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
 - :memo: リリースノートはGitHub Releaseで公開している
@@ -563,38 +604,7 @@ class { /* body */ }
 - :pushpin: Proposalの現在のステータスが分かるようにラベリングしている
 - :clock12: 仕様として確定する前に開発者からフィードバックを得る方法/期間を提供している
 
-------
-
-# まとめ - 細かく
-
-- :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
-	- コミットメッセージの規約を設けるなどして、整理しておく
-- :memo: リリースノートはGitHub Releaseで公開している
-	- リリースノートはアクセスしやすい/更新が分かりやすい場所へ
-
-------
-
-# まとめ - 細かく
-
-- :thought_balloon: 複雑な設計問題に対してはパターンを使う
-	- "maximally minimal"は意思決定のデットロックを壊すツール
-- :tophat: 慎重な意思決定が必要な部分は時間を取ってミーティングを行う
-	- Consensusが必要なものは話し合い意思決定をする
-- :pencil2: ミーティングの内容は透明性のために公開している
-	- 話し合った過程や内容を公開することで、部外者の"なぜ?"を解決できるようにする
-
-
------
-
-# まとめ - 細かく
-
-- :pushpin: Proposalの現在のステータスが分かるようにラベリングしている
-	- ずっと見ている人ばかりではないので、一発で分かるステータスを付ける
-- :clock12: 仕様確定前に開発者からフィードバックを得る方法/期間を提供している
-	- 十分なフィードバックを得る方法や期間を開発者に提供する
-
-
------
+----
 
 # おわり
 
