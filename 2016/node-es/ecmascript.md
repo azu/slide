@@ -411,8 +411,17 @@ class { /* body */ }
 # なぜ機能ごとの策定プロセスを取るのか?
 
 - 1年毎にリリースするため、リリース速度をあげる目的
+- できるだけ小さな単位で仕様を決めていくため
 - 機能毎という小さなProposalをベースにすることで、細かくリリースできる
+- 他の言語やフレームワークも似たような事をやっている
+	- [Python](https://www.python.org/dev/peps/ "Python")、[Swift](https://github.com/apple/swift-evolution "Swift")、[Rust](https://github.com/rust-lang/rfcs "Rust")、[Ember](https://github.com/emberjs/rfcs "Ember")
 
+
+-----
+
+# Avoid bikeshed
+
+![bikeshed.png](img/bikeshed.png)
 
 -----
 
@@ -464,6 +473,8 @@ class { /* body */ }
 - Ember.js: [Meeting minutes from the Ember.js core teams](https://github.com/emberjs/core-notes "emberjs/core-notes: Meeting minutes from the Ember.js core teams")
 - Node.js: [Technical Steering Committee meeting](https://nodejs.org/en/foundation/tsc/minutes/ "Technical Steering Committee meetings | Node.js")
 - jQuery: [jQuery Core Team | jQuery Meetings](https://meetings.jquery.org/category/core/ "jQuery Core Team | jQuery Meetings")
+
+^ 今書いてるJavaScriptの本もミーティングノートを公開しています。
 
 -----
 
@@ -547,10 +558,9 @@ class { /* body */ }
 - ECMAScriptについてニュースサイト
 - [JSer.info](http://jser.info/ "JSer.info")のECMAScript版
 
-
 ------
 
-# 情報源
+# 情報源を見てみると
 
 - GitHubにリポジトリがあって、IssueやPull Requestでやり取りしていて、リリースノートがGitHub Releaseにあって、議論の結果が残っていて、未確定なロードマップみたいなものがあって、実装やテストがある
 - 各実装がGitHubの該当Issueへリンクを貼り[クロスリファレンス](http://jser.info/2016/05/23/msedgees6-modulesjquery-30-rcgoogle-io/)になっている
@@ -594,7 +604,7 @@ class { /* body */ }
 -----
 
 
-# まとめ
+# 6行まとめ
 
 - :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
 - :memo: リリースノートはGitHub Releaseで公開している
@@ -604,7 +614,13 @@ class { /* body */ }
 - :pushpin: Proposalの現在のステータスが分かるようにラベリングしている
 - :clock12: 仕様として確定する前に開発者からフィードバックを得る方法/期間を提供している
 
-----
+-----
+
+# 1行まとめ
+
+## 大きなGitHubプロジェクトとそんなに変わらない
+
+-----
 
 # おわり
 
@@ -624,4 +640,4 @@ class { /* body */ }
 # 引用
 
 - p4 [ES6 in Practice](http://www.slideshare.net/teppeis/es6-in-practice "ES6 in Practice")
-- [ECMAScript 2015:  What Took It So Long?](http://wirfs-brock.com/allen/talks/viewsource-es2015.pdf  "viewsource-es2015.pdf")
+- [ECMAScript 2015: What Took It So Long?](http://wirfs-brock.com/allen/talks/viewsource-es2015.pdf  "viewsource-es2015.pdf")
