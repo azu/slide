@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>ECMAScript as a Living Standard</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="ECMAScript as a Living Standard"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/node-es/ecmascript.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-06-29" id="datePublished">
+            2016-06-29
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-06-29" id="dateModified">
+            2016-06-29
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/node-es/ecmascript.pdf" title="ECMAScript as a Living Standard">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p> autoscale: true</p>
+<h1 id="ecmascript-as-a-living-standard">ECMAScript as a Living Standard</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-">伝えたいこと</h1>
+<ul>
+<li>ECMAScriptの仕様策定は特別なプロセスではない</li>
+<li>そこへ参加する/見ていくのはむずかしいものではない<a href="標準委員会に参加しないとできないことはあるが、何もできないわけではない">^x</a></li>
+</ul>
+<hr>
+<h1 id="-">伝えたいこと</h1>
+<ul>
+<li>ECMAScriptの仕様策定はただの大きな(GitHub)プロジェクト</li>
+<li>普通のプロジェクトと大きな違いはない <a href="Ecmaへの仕様提出などは特殊だけど、それ以外は大きく変わらない">^y</a></li>
+<li>フォーマルに物事が進む分 普通より分かりやすい</li>
+<li>どのように進めれば物事が進むかのパターンを学べる</li>
+</ul>
+<hr>
+<h1 id="es2016-tada-">ES2016 リリース :tada:</h1>
+<hr>
+<h1 id="-es2015-">その前にES2015では何があったんだっけ?</h1>
+<hr>
+<p><img src="img/es2015-syntax.png" alt="fit syntax"></p>
+<hr>
+<p><img src="img/es2015-improve.png" alt="fit, improve"></p>
+<hr>
+<p><img src="img/es2015-builtin.png" alt="fit, builtin"></p>
+<hr>
+<h1 id="-">一番大きな変化</h1>
+<ul>
+<li>ES2015からは1年毎のリリースサイクルに変更される</li>
+<li>ES2015はその早いリリースサイクルを適応できるだけの基盤<ul>
+<li>だからまだまだ足りない機能はある</li>
+</ul>
+</li>
+<li>リリースサイクルと共に仕様策定のプロセスも変更された<ul>
+<li>早いサイクルと開発者/実装者からのフィードバックを得るためのプロセスへ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>It’s the foundation for the next 10-20 years of JavaScript evolution
+-- Allen Wirfs-Brock</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>ECMAScript as a Living Standard</p>
+</blockquote>
+<hr>
+<h1 id="living-standard">Living Standard</h1>
+<ul>
+<li>ECMAScriptもLiving Standardへ</li>
+<li><a href="https://tc39.github.io/ecma262/">tc39.github.io/ecma262/</a>では常に最新の仕様が公開されている</li>
+<li>ES2015, 2016は1年毎のスナップショット</li>
+</ul>
+<hr>
+<p><img src="img/es-timeline.png" alt="ECMAScript timeline"></p>
+<hr>
+<h1 id="living-writing-book-">Living Writing :book:</h1>
+<hr>
+<h1 id="es2015-javascript-">ES2015以降のJavaScript入門本</h1>
+<ul>
+<li><img src="https://github.com/favicon.ico" alt="GitHub"> <a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの本">github.com/asciidwango/js-primer</a></li>
+<li>ES2015以降ベースのJavaScript入門本をオープンソースで書いてる</li>
+<li>仕様書はLiving Standard</li>
+<li>書籍がスナップショットだけでは追いつけない</li>
+<li>書籍もLivingに更新できる仕組みを作る必要がある<ul>
+<li>出版は予定しているが開発中の段階から公開します</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="for">for</h2>
+<ul>
+<li>プログラミングをやったことがある</li>
+<li>今のJavaScriptがよくわからないという人向け</li>
+<li>今のJavaScriptアプリケーションを読み書きできるようなるもの</li>
+<li>ミーティングノートも公開している</li>
+<li><a href="https://github.com/asciidwango/js-primer/tree/master/meetings" title="js-primer/meetings at master · asciidwango/js-primer">js-primer/meetings at master · asciidwango/js-primer</a></li>
+</ul>
+<hr>
+<p><img src="img/js-primer.png" alt="fit, js-primer.png"></p>
+<hr>
+<h2 id="-github-">続きはGitHubで</h2>
+<h3 id="https-github-com-asciidwango-js-primer"><a href="https://github.com/asciidwango/js-primer">https://github.com/asciidwango/js-primer</a></h3>
+<ul>
+<li>興味ある人はWatchしておいてください</li>
+</ul>
+<p><img src="img/repo-actions-watch.png" alt="inline, repo-actions-watch.png"></p>
+<ul>
+<li>リリースだけを知りたい人は、フォームからメールアドレスを登録しておくと通知される予定です</li>
+</ul>
+<hr>
+<h1 id="-ecmascript-2015-2016-diff-points-https-gist-github-com-azu-3dc9295e97aee9a2706068caf65f0348-ecmascript-2015-2016-diff-points-"><a href="https://gist.github.com/azu/3dc9295e97aee9a2706068caf65f0348" title="ECMAScript 2015 - 2016 diff points">ECMAScript 2015 - 2016 diff points</a></h1>
+<hr>
+<h2 id="move-to-github">Move to GitHub</h2>
+<ul>
+<li><a href="https://github.com/tc39/ecma262" title="tc39/ecma262: Status, process, and documents for ECMA262">tc39/ecma262: Status, process, and documents for ECMA262</a></li>
+<li>GitHubで仕様書、Issue、Pull Requestで開発されるようになった</li>
+</ul>
+<hr>
+<h2 id="word-ecmarkup-https-bterlson-github-io-ecmarkup-ecmarkup-">Wordから<a href="https://bterlson.github.io/ecmarkup/" title="Ecmarkup">Ecmarkup</a>へ変更</h2>
+<hr>
+<p><img src="img/es6-word.png" alt="word ECMAScript 2015"></p>
+<hr>
+<p><img src="img/ECMAScript2016.png" alt="ECMAScript 2016"></p>
+<hr>
+<h2 id="word-ecmarkup-https-bterlson-github-io-ecmarkup-ecmarkup-">Wordから<a href="https://bterlson.github.io/ecmarkup/" title="Ecmarkup">Ecmarkup</a>へ変更</h2>
+<ul>
+<li>ECMAScriptの仕様を書くためのCustom Element + <a href="https://github.com/domenic/ecmarkdown" title="Ecmarkdown">Ecmarkdown</a><ul>
+<li>アルゴリズムのステップをMarkdown風に書ける</li>
+</ul>
+</li>
+<li>これによりクロスリファレンスリンクが充実し読みやすくなった<ul>
+<li>リンクをクリックすれば宣言元へ飛べる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="layering-unhandled-rejection">Layering: Unhandled Rejection</h2>
+<ul>
+<li><a href="https://github.com/domenic/unhandled-rejections-browser-spec" title="Unhandled Rejection Tracking Browser Events">Unhandled Rejection Tracking Browser Events</a></li>
+<li>実行環境が<code>rejectionHandled</code> / <code>onrejectionhandled</code>イベントを実装できるためのHookポイントの追加<ul>
+<li><a href="http://azu.github.io/slide/error-handling/promise-error-handling.html">Promise Error Handling</a></li>
+<li><a href="http://www.2ality.com/2016/04/unhandled-rejections.html">Tracking unhandled rejected Promises</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-fit-normative-remove-construct-from-generators">[fit] Normative: Remove <code>[[Construct]]</code> from generators</h2>
+<pre><code class="lang-js">function * G() { construtor(){} }
+new G(); // throw error
+</code></pre>
+<ul>
+<li>Generatorは<code>new</code>できなくなった<ul>
+<li><code>constructor</code>が<code>g.next()</code>されるまで呼ばれないという混乱を生む挙動になっていたため</li>
+<li><a href="https://tech.recruit-mp.co.jp/front-end/post-10358/" title="実例とともに学ぶECMAScript 2015 〜Generator〜 – NET BIZ DIV. TECH BLOG">実例とともに学ぶECMAScript 2015 〜Generator〜 – NET BIZ DIV. TECH BLOG</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="normative-add-array-prototype-includes-and-typedarray-prototype-includes-">Normative: Add <code>Array.prototype.includes</code> and <code>TypedArray.prototype.includes</code></h2>
+<ul>
+<li>ES2015で入らなかったのは<code>contains</code>がBreak the webであったため</li>
+<li><a href="https://github.com/tc39/Array.prototype.includes#why-includes-instead-of-has">tc39/Array.prototype.includes: Spec, tests, reference implementation, and docs for ESnext-track Array.prototype.includes</a></li>
+<li><a href="https://speakerdeck.com/constellation/introducing-break-the-web-array-extra-methods-case">Introducing Break the Web: Array extra methods case // Speaker Deck</a></li>
+</ul>
+<hr>
+<h2 id="normative-add-exponentiation-operator">Normative: Add <code>**</code> exponentiation operator</h2>
+<ul>
+<li>べき乗演算子</li>
+</ul>
+<pre><code class="lang-js">// 2の3乗算
+2 ** 3 == Math.pow(2, 3);
+</code></pre>
+<hr>
+<h2 id="normative-require-unicode-8">Normative: Require Unicode 8</h2>
+<ul>
+<li><code>U+180E</code>がホワイトスペースではなくなった<ul>
+<li><a href="http://okwave.jp/qa/q6085442.html">Unicode 5.2.0</a>では空白(Zs)の定義に<code>\u180E</code>が含まれていた</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-js">eval(&quot;1\u180E===1&quot;); // throw exception in ES2016
+// SyntaxError: illegal character in ES2016
+// `true` in ES2015
+</code></pre>
+<ul>
+<li><a href="https://ecmascript-daily.github.io/2016/03/28/es2016-require-unicode-8-0-0-by-littledan-pull-request-300-tc39-ecma262" title="[ES2016] Require Unicode 8.0.0 · Pull Request #300 · tc39/ecma262 | ECMAScript Daily">[ES2016] Require Unicode 8.0.0 · Pull Request #300 · tc39/ecma262 | ECMAScript Daily</a></li>
+</ul>
+<hr>
+<h2 id="normative-remove-proxy-enumerate-trap-and-reflect-enumerate-">Normative: Remove Proxy <code>enumerate</code> trap and <code>Reflect.enumerate</code></h2>
+<ul>
+<li><code>Reflect.enumerate</code>が実装上の複雑さなどの問題から削除された</li>
+<li><a href="https://github.com/tc39/ecma262/pull/367" title="Normative: Remove [[Enumerate]] and associated reflective capabilities by bterlson · Pull Request #367 · tc39/ecma262">Normative: Remove [[Enumerate]] and associated reflective capabilities by bterlson · Pull Request #367 · tc39/ecma262</a></li>
+<li><a href="https://ecmascript-daily.github.io/2016/02/10/why-remove-enumerate-and-reflect-enumerate" title="Why Remove Proxy [[Enumerate]] and Reflect.enumerate? | ECMAScript Daily">Why Remove Proxy [[Enumerate]] and Reflect.enumerate? | ECMAScript Daily</a></li>
+</ul>
+<hr>
+<h1 id="-">リリースノートはどこに?</h1>
+<hr>
+<h2 id="-">リリースノート</h2>
+<p><img src="img/Releases-ecma262.png" alt="GitHub Release, fit right"></p>
+<ul>
+<li><a href="https://github.com/tc39/ecma262/releases" title="Releases · tc39/ecma262">Releases · tc39/ecma262</a></li>
+<li>GitHub Releaseにリリースノートがある</li>
+<li>リリースノートには変更内容が書かれている</li>
+</ul>
+<hr>
+<h2 id="-">変更内容の種類</h2>
+<ul>
+<li>Normative<ul>
+<li>新しい機能の追加、仕様の変更など</li>
+</ul>
+</li>
+<li>Editorial<ul>
+<li>記述の修正、リファクタリング</li>
+</ul>
+</li>
+<li>Layering<ul>
+<li>ECMAScriptと連携するHTML仕様向けの機能追加、修正など</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">変更内容の種類はどこから?</h2>
+<ul>
+<li><a href="https://github.com/tc39/ecma262/commits/master" title="tc39/ecma262">tc39/ecma262</a>はコミットメッセージの規則を持っている <a href="https://ecmascript-daily.github.io/ecmascript/2016/06/25/ecma262-commit-message-conventions">^1</a></li>
+</ul>
+<p><img src="img/TC39-ECMA-262-commit-message-conventions.png" alt="inline, TC39-ECMA-262-commit-message-conventions.png"></p>
+<!--
+| Prefix     | Description                         |
+|------------|-------------------------------------|
+| Normative: | Nortable change and Add new feature |
+| Layering:  | Layering ECMAScript and Other(DOM)  |
+| Editorial: | Fix and Refactoring                 |
+| Meta:      | Meta                                |
+-->
+<hr>
+<h2 id="-">コミットメッセージ規則の利点</h2>
+<ul>
+<li>コミットメッセージの規則を持つことで検索が簡単になる</li>
+</ul>
+<pre><code class="lang-sh">$ git clone https://github.com/tc39/ecma262.git
+$ cd ecma262
+$ git log --grep &quot;Normative:&quot; es2016-draft-1...es2016-draft-20160215
+</code></pre>
+<hr>
+<h1 id="-">そもそも誰が仕様決めているの?</h1>
+<hr>
+<h1 id="-tc39-http-www-ecma-international-org-memento-tc39-htm-tc39-"><a href="http://www.ecma-international.org/memento/TC39.htm" title="TC39">TC39</a></h1>
+<p><img src="img/viewsource-es2015.png" alt="viewsource-es2015.png"></p>
+<hr>
+<h2 id="tc39-">TC39とは</h2>
+<ul>
+<li>ECMAScriptを策定してる専門委員会<ul>
+<li>言語仕様は法的な問題などに対処するため標準委員会で管理することが多い</li>
+</ul>
+</li>
+<li>重要な変更はTC39の中でConsensusを取ってから仕様へ反映<ul>
+<li>2ヶ月に1度の<a href="https://github.com/rwaldron/tc39-notes">ミーティング</a>で合意を取る</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="editor">Editor</h1>
+<p><img src="https://avatars3.githubusercontent.com/u/11236?v=3&amp;s=400" alt="Brian Terlson, left, fit"></p>
+<ul>
+<li>Brian Terlson @ Microsoft</li>
+<li><a href="https://twitter.com/bterlson" title="@bterlson">@bterlson</a></li>
+<li>ES2016〜仕様書のEditor</li>
+</ul>
+<hr>
+<h1 id="need-consensus-tophat-">Need Consensus :tophat:</h1>
+<ul>
+<li>挙動を変更するものはConsensusが必要<ul>
+<li>既存ウェブサイトに影響を与えるものはかなり難しい</li>
+<li><a href="https://www.chromestatus.com/metrics/feature/popularity" title="Chrome Platform Status">Chrome Platform Status</a>や<a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/usage/" title="API usage on the web platform - Microsoft Edge Development">API usage on the web platform</a>など実測値が参考に使われる</li>
+</ul>
+</li>
+<li>挙動を変更しないものは、その場でPull Requestがマージされる</li>
+</ul>
+<hr>
+<h1 id="-proposal">新しい機能 - Proposal</h1>
+<ul>
+<li>全く新しい機能も基本的には合意を得られないと追加されない</li>
+<li>ES2016からは機能ごとのProposalを出す</li>
+<li>つまり、機能ごとに仕様を決めていき毎年リリースする</li>
+<li>ProposalにはStage 0〜4の<strong>5段階</strong>のラベルがあり、Stage 4になったら仕様へマージされる [^2]<ul>
+<li>こちらも2ヶ月に1度のミーティングでStageが変動する</li>
+</ul>
+</li>
+</ul>
+<p>[^2]: <a href="https://tc39.github.io/process-document/" title="The TC39 Process">The TC39 Process</a></p>
+<hr>
+<h2 id="5-stage">5段階のStage</h2>
+<ul>
+<li><ol>
+<li>Strawman - アイデア</li>
+</ol>
+</li>
+<li><ol>
+<li>Proposal - 提案</li>
+</ol>
+</li>
+<li><ol>
+<li>Draft    - ドラフト</li>
+</ol>
+</li>
+<li><ol>
+<li>Candidate- 仕様書と同じ形式(実装のフィードバック期間)</li>
+</ol>
+</li>
+<li><ol>
+<li>Finished - 実装が2つ、test262にテスト =&gt; 策定完了<ul>
+<li>次の年のECMAScript 201＊にマージされる</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="proposal-">Proposalってどういうものがあるの?</h1>
+<hr>
+<h1 id="proposal-">Proposalの一覧</h1>
+<h2 id="-tc39-proposals-tracking-ecmascript-proposals-https-github-com-tc39-proposals-tc39-proposals-tracking-ecmascript-proposals-"><a href="https://github.com/tc39/proposals" title="tc39/proposals: Tracking ECMAScript Proposals">tc39/proposals: Tracking ECMAScript Proposals</a></h2>
+<hr>
+<h2 id="-async-functions-https-github-com-tc39-ecmascript-asyncawait-async-functions-"><a href="https://github.com/tc39/ecmascript-asyncawait" title="Async Functions">Async Functions</a></h2>
+<ul>
+<li><strong>Stage3</strong>: 2つ目の実装が出たらStage4へ</li>
+</ul>
+<pre><code class="lang-js">
+async function gets(aURL, bURL) {
+  const contentA = await getURLAsync(aURL);
+  const contentB = await getURLAsync(bURL);
+  console.log(contentA, contentB);
+}
+</code></pre>
+<hr>
+<h2 id="-function-prototype-tostring-revision-https-tc39-github-io-function-prototype-tostring-revision-function-prototype-tostring-revision-"><a href="https://tc39.github.io/Function-prototype-toString-revision/" title="Function.prototype.toString revision">Function.prototype.toString revision</a></h2>
+<p><img src="img/before-Function-toString.png" alt="before-Function-toString.png"></p>
+<hr>
+<p><img src="img/before-Function-toString.png" alt="before-Function-toString.png"></p>
+<hr>
+<h2 id="-function-prototype-tostring-revision-https-tc39-github-io-function-prototype-tostring-revision-function-prototype-tostring-revision-"><a href="https://tc39.github.io/Function-prototype-toString-revision/" title="Function.prototype.toString revision">Function.prototype.toString revision</a></h2>
+<ul>
+<li>Stage 3</li>
+<li><code>func.toString()</code>が返す文字列を規定 <a href="https://github.com/tc39/test262/pull/553">^3</a></li>
+<li>ネイティブな関数は <code>[native function]</code> を返すという事を規定</li>
+</ul>
+<pre><code class="lang-js">class { /* body */ }
+A.toString();
+/*
+class { /* body */ }
+*/
+</code></pre>
+<hr>
+<h1 id="-">なぜ機能ごとの策定プロセスを取るのか?</h1>
+<ul>
+<li>1年毎にリリースするため、リリース速度をあげる目的</li>
+<li>できるだけ小さな単位で仕様を決めていくため</li>
+<li>機能毎という小さなProposalをベースにすることで、細かくリリースできる</li>
+<li>他の言語やフレームワークも似たような事をやっている<ul>
+<li><a href="https://www.python.org/dev/peps/" title="Python">Python</a>、<a href="https://github.com/apple/swift-evolution" title="Swift">Swift</a>、<a href="https://github.com/rust-lang/rfcs" title="Rust">Rust</a>、<a href="https://github.com/emberjs/rfcs" title="Ember">Ember</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="avoid-bikeshed">Avoid bikeshed</h1>
+<p><img src="img/bikeshed.png" alt="bikeshed.png"></p>
+<hr>
+<blockquote>
+<p><a href="http://wirfs-brock.com/allen/files/papers/standpats-asianplop2016.pdf">プログラミング言語標準化の
+パターンランゲージ</a> [^4]
+-- Allen Wirfs-Brock(ES2015 Editor) </p>
+</blockquote>
+<p>[^4]: :memo: <a href="https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025" title="プログラミング言語標準化のパターン">プログラミング言語標準化のパターン</a></p>
+<hr>
+<h1 id="-maximally-minimal-">&quot;maximally minimal&quot;</h1>
+<ul>
+<li>言語デザインは複雑になるほどConsensusを取るのが難しくなる</li>
+<li>&quot;maximally minimal&quot;とは反対意見がある原因やそう思える部分を最大限取り除いた最小のものを仕様にするという手法</li>
+</ul>
+<hr>
+<h1 id="-maximally-minimal-classes">&quot;maximally minimal&quot; classes</h1>
+<ul>
+<li>ES6での<code>class</code>の事例</li>
+<li><a href="http://wiki.ecmascript.org/doku.php?id=strawman:maximally_minimal_classes" title="strawman:maximally_minimal_classes [ES Wiki]">strawman\:maximally_minimal_classes [ES Wiki]</a></li>
+<li>全体として必要という合意があるにもかかわらず、詳細の同意が得られず進まない問題へのパターン</li>
+<li>全体として合意できる最大限最小のものをES6 Classesとした</li>
+<li>類似: Less is more</li>
+</ul>
+<hr>
+<h1 id="-">なぜ策定プロセスが公開されているのか?</h1>
+<hr>
+<h1 id="-">プロセスの透明性</h1>
+<ul>
+<li><a href="https://github.com/tc39/tc39-notes/" title="tc39/tc39-notes">tc39/tc39-notes</a>にミーティングノートが公開されている</li>
+<li>どのような議論が行われ、どのような意思決定がされたのか<ul>
+<li>なぜ、このProposalは必要なのか</li>
+<li>なぜ、このProposalはStage Xなのか</li>
+<li>なぜ、このProposalは廃止されたのか</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">一般のライブラリでも同じ</h2>
+<ul>
+<li>React: <a href="https://github.com/reactjs/core-notes" title="React Core Meeting Notes">React Core Meeting Notes</a></li>
+<li>Ember.js: <a href="https://github.com/emberjs/core-notes" title="emberjs/core-notes: Meeting minutes from the Ember.js core teams">Meeting minutes from the Ember.js core teams</a></li>
+<li>Node.js: <a href="https://nodejs.org/en/foundation/tsc/minutes/" title="Technical Steering Committee meetings | Node.js">Technical Steering Committee meeting</a></li>
+<li>jQuery: <a href="https://meetings.jquery.org/category/core/" title="jQuery Core Team | jQuery Meetings">jQuery Core Team | jQuery Meetings</a></li>
+</ul>
+<p>^ 今書いてるJavaScriptの本もミーティングノートを公開しています。</p>
+<hr>
+<h1 id="-">開発者がプロセスに参加する</h1>
+<ul>
+<li>(広い意味での)開発者にとって公開されたプロセスは有益</li>
+<li>ECMAScriptはStage 3で2つのブラウザへの実装が必要<ul>
+<li>ブラウザはフラグ付きで実装できる</li>
+<li>開発者はフラグをオンにして試せる</li>
+</ul>
+</li>
+<li>Babelのようなツールでもっと前に試せる</li>
+</ul>
+<hr>
+<h1 id="-">ブラウザとフラグ</h1>
+<ul>
+<li>全てのブラウザはフラグ管理して実装する</li>
+<li>WebKitもprefixではなくフラグで管理する宣言をした<ul>
+<li><a href="https://webkit.org/feature-policy/" title="Feature Policy | WebKit">Feature Policy | WebKit</a></li>
+</ul>
+</li>
+<li>β/Nightly版を使えば簡単に利用できる<ul>
+<li><a href="https://www.google.co.jp/chrome/browser/canary.html">Chrome Canary</a></li>
+<li><a href="https://www.mozilla.org/ja/firefox/developer/">Firefox Developer Edition</a></li>
+<li><a href="https://developer.apple.com/safari/technology-preview/">Safari Technology Preview</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">フィードバック</h1>
+<ul>
+<li>仕様があっても実装されなければ意味がない</li>
+<li>実装されても使われなければ意味がない</li>
+<li>使う側もプロセスの理解とフィードバックが重要</li>
+<li>フィードバックをまともに得ずに進んだものは壊れた歴史<ul>
+<li><a href="https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025">ES4で消えた2年半</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">フィードバックの方法</h1>
+<ul>
+<li>仕様なら<ul>
+<li>ProposalリポジトリへIssueを立てる</li>
+<li><a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a>に投げる</li>
+</ul>
+</li>
+<li>実装なら<ul>
+<li><a href="https://github.com/azu/browser-javascript-resource">各ブラウザ/実装</a>のIssueへ</li>
+</ul>
+</li>
+<li>何がわからないのかわからないなら<ul>
+<li><a href="https://github.com/jquery-foundation/standards" title="jQuery Standards Group">jQuery Standards Group</a></li>
+<li><a href="https://discourse.wicg.io/" title="WICG">WICG</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">どこから情報を得るか</h1>
+<hr>
+<h1 id="-">情報源</h1>
+<ul>
+<li>リリースノート<ul>
+<li><a href="https://github.com/tc39/ecma262/releases" title="Releases · tc39/ecma262">Releases · tc39/ecma262</a></li>
+</ul>
+</li>
+<li>ミーティングノート<ul>
+<li><a href="https://github.com/tc39/tc39-notes/" title="tc39/tc39-notes">tc39/tc39-notes</a></li>
+</ul>
+</li>
+<li>ロードマップ/Proposal<ul>
+<li><a href="https://github.com/tc39/proposals" title="tc39/proposals">tc39/proposals</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">情報源</h1>
+<ul>
+<li>Issue<ul>
+<li><a href="https://github.com/tc39/ecma262/issues" title="Issues · tc39/ecma262">Issues · tc39/ecma262</a> and Proposal&#39;s issue</li>
+</ul>
+</li>
+<li>メーリングリスト/質問<ul>
+<li><a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a></li>
+</ul>
+</li>
+<li>テスト<ul>
+<li><a href="https://github.com/tc39/test262" title="tc39/test262">tc39/test262</a></li>
+</ul>
+</li>
+<li>実装<ul>
+<li>各ブラウザ、<a href="https://github.com/anba/es6draft" title="anba/es6draft">anba/es6draft</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-ecmascript-daily-https-ecmascript-daily-github-io-ecmascript-daily-"><a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a></h1>
+<ul>
+<li>ECMAScriptについてニュースサイト</li>
+<li><a href="http://jser.info/" title="JSer.info">JSer.info</a>のECMAScript版</li>
+</ul>
+<hr>
+<h1 id="-">情報源を見てみると</h1>
+<ul>
+<li>GitHubにリポジトリがあって、IssueやPull Requestでやり取りしていて、リリースノートがGitHub Releaseにあって、議論の結果が残っていて、未確定なロードマップみたいなものがあって、実装やテストがある</li>
+<li>各実装がGitHubの該当Issueへリンクを貼り<a href="http://jser.info/2016/05/23/msedgees6-modulesjquery-30-rcgoogle-io/">クロスリファレンス</a>になっている</li>
+<li>普通のGitHubプロジェクトと大差ないのでは :question:</li>
+</ul>
+<hr>
+<h2 id="ecmascript-br-github-">ECMAScriptを大きな<br>GitHubプロジェクトとして見る</h2>
+<hr>
+<h1 id="ecmascript-">ECMAScriptがやっていること</h1>
+<ul>
+<li>:heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく<ul>
+<li>コミットメッセージの規約を設けるなどして、整理しておく</li>
+</ul>
+</li>
+<li>:memo: リリースノートはGitHub Releaseで公開している<ul>
+<li>リリースノートはアクセスしやすい/更新が分かりやすい場所へ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="ecmascript-">ECMAScriptがやっていること</h1>
+<ul>
+<li>:thought_balloon: 複雑な設計問題に対してはパターンを使う<ul>
+<li>&quot;maximally minimal&quot;は意思決定のデットロックを壊すツール</li>
+</ul>
+</li>
+<li>:tophat: Consensusが必要なものはミーティングで意思決定をする<ul>
+<li>慎重な意思決定が必要な部分は時間を取ってミーティングを行う</li>
+</ul>
+</li>
+<li>:pencil2: ミーティングの内容は透明性のために公開している<ul>
+<li>話し合った過程や内容を公開することで、部外者の&quot;なぜ?&quot;を解決できるようにする</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="ecmascript-">ECMAScriptがやっていること</h1>
+<ul>
+<li>:pushpin: ProposalにはStage Xというラベリングをしている<ul>
+<li>Proposalの現在のステータスが分かるようにラベリングしている</li>
+</ul>
+</li>
+<li>:clock12: Stage 3では開発者からフィードバックを得る方法/期間を提供している<ul>
+<li>仕様確定前に十分なフィードバックを得る方法や期間を開発者に提供する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="6-">6行まとめ</h1>
+<ul>
+<li>:heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく</li>
+<li>:memo: リリースノートはGitHub Releaseで公開している</li>
+<li>:thought_balloon: 複雑な設計問題に対してはパターンを使う</li>
+<li>:tophat: 慎重な意思決定が必要な部分は時間を取ってミーティングを行う</li>
+<li>:pencil2: ミーティングの内容は透明性のために公開している</li>
+<li>:pushpin: Proposalの現在のステータスが分かるようにラベリングしている</li>
+<li>:clock12: 仕様として確定する前に開発者からフィードバックを得る方法/期間を提供している</li>
+</ul>
+<hr>
+<h1 id="1-">1行まとめ</h1>
+<h2 id="-github-">大きなGitHubプロジェクトとそんなに変わらない</h2>
+<hr>
+<h1 id="-">おわり</h1>
+<hr>
+<h1 id="-">参考</h1>
+<ul>
+<li><a href="http://v8project.blogspot.jp/2016/04/es6-es7-and-beyond.html">V8 JavaScript Engine: ES6, ES7, and beyond</a></li>
+<li><a href="https://blogs.windows.com/msedgedev/2016/05/17/es6-modules-and-beyond/">Previewing ES6 Modules and more from ES2015, ES2016 and beyond | Microsoft Edge Dev Blog</a></li>
+<li><a href="https://github.com/azu/browser-javascript-resource">azu/browser-javascript-resource: Browser JavaScript Resource.</a></li>
+<li><a href="http://kangax.github.io/compat-table/es6/">ECMAScript 6 compatibility table</a></li>
+<li><a href="http://book.impress.co.jp/books/1113101014" title="APIデザインの極意 Java/NetBeansアーキテクト探究ノート - インプレスブックス">APIデザインの極意 Java/NetBeansアーキテクト探究ノート - インプレスブックス</a></li>
+</ul>
+<hr>
+<h1 id="-">引用</h1>
+<ul>
+<li>p4 <a href="http://www.slideshare.net/teppeis/es6-in-practice" title="ES6 in Practice">ES6 in Practice</a></li>
+<li><a href="http://wirfs-brock.com/allen/talks/viewsource-es2015.pdf" title="viewsource-es2015.pdf">ECMAScript 2015: What Took It So Long?</a></li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
