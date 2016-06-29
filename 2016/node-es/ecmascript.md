@@ -122,8 +122,20 @@
 ![fit, js-primer.png](img/js-primer.png)
 
 
-
 ----
+
+## 続きはGitHubで
+
+### https://github.com/asciidwango/js-primer
+
+- 興味ある人はWatchしておいてください
+
+![inline, repo-actions-watch.png](img/repo-actions-watch.png)
+
+- リリースだけを知りたい人は、フォームからメールアドレスを登録しておくと通知される予定です
+
+
+-----
 
 # [ECMAScript 2015 - 2016 diff points](https://gist.github.com/azu/3dc9295e97aee9a2706068caf65f0348 "ECMAScript 2015 - 2016 diff points")
 
