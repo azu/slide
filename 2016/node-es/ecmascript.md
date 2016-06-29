@@ -79,13 +79,18 @@
 
 > ECMAScript as a Living Standard
 
------
+----
 
 # Living Standard
 
 - ECMAScriptもLiving Standardへ
 - [tc39.github.io/ecma262/](https://tc39.github.io/ecma262/)では常に最新の仕様が公開されている
 - ES2015, 2016は1年毎のスナップショット
+
+-----
+
+![ECMAScript timeline](img/es-timeline.png)
+
 
 -----
 
@@ -544,7 +549,7 @@ class { /* body */ }
 
 ------
 
-> ECMAScriptを大きなGitHubプロジェクトとして見る
+## ECMAScriptを大きな<br>GitHubプロジェクトとして見る
 
 ------
 
@@ -565,7 +570,7 @@ class { /* body */ }
 - :heavy_check_mark: 更新内容は普段からコミットの段階で整理しておく
 	- コミットメッセージの規約を設けるなどして、整理しておく
 - :memo: リリースノートはGitHub Releaseで公開している
-	- リリースノートはアクセスしやすい/更新が分かりやすい場所に置く
+	- リリースノートはアクセスしやすい/更新が分かりやすい場所へ
 
 ------
 
@@ -603,3 +608,10 @@ class { /* body */ }
 - [azu/browser-javascript-resource: Browser JavaScript Resource.](https://github.com/azu/browser-javascript-resource)
 - [ECMAScript 6 compatibility table](http://kangax.github.io/compat-table/es6/)
 - [APIデザインの極意 Java/NetBeansアーキテクト探究ノート - インプレスブックス](http://book.impress.co.jp/books/1113101014 "APIデザインの極意 Java/NetBeansアーキテクト探究ノート - インプレスブックス")
+
+-----
+
+# 引用
+
+- p4 [ES6 in Practice](http://www.slideshare.net/teppeis/es6-in-practice "ES6 in Practice")
+- [ECMAScript 2015:  What Took It So Long?](http://wirfs-brock.com/allen/talks/viewsource-es2015.pdf  "viewsource-es2015.pdf")
