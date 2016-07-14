@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>最近のtextlint !</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="最近のtextlint !"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/honbucho/textlint.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-07-14" id="datePublished">
+            2016-07-14
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-07-14" id="dateModified">
+            2016-07-14
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/honbucho/textlint.pdf" title="最近のtextlint !">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="-textlint-">最近のtextlint !</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-textlint">最近のtextlint</h1>
+<hr>
+<h1 id="-textlint-7-0-web-scratch-http-efcl-info-2016-06-30-textlint7-0-textlint-7-0-web-scratch-"><a href="http://efcl.info/2016/06/30/textlint7.0/" title="textlint 7.0リリース、フィルタールールの追加 | Web Scratch">textlint 7.0リリース、フィルタールールの追加 | Web Scratch</a></h1>
+<hr>
+<h1 id="-filter-rule-https-github-com-textlint-textlint-blob-master-docs-filter-rule-md-"><a href="https://github.com/textlint/textlint/blob/master/docs/filter-rule.md">Filter Rule</a></h1>
+<ul>
+<li>無視するためのルールを書けるようになった</li>
+<li><p><a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a></p>
+  <!-- textlint-disable -->
+<p>  この部分はtextlintのチェックでエラーがあっても無視される</p>
+  <!-- textlint-enable -->
+</li>
+</ul>
+<hr>
+<h1 id="filter-rule">Filter Rule</h1>
+<ul>
+<li>textlintは無視する領域を決めるAPIを提供するだけ<ul>
+<li><code>shouldInogre(range)</code></li>
+</ul>
+</li>
+<li>何を無視するのかはプラガブルなルールとして実装する<ul>
+<li><a href="https://github.com/textlint/textlint-filter-rule-node-types" title="textlint-filter-rule-node-types">textlint-filter-rule-node-types</a></li>
+<li><a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a><ul>
+<li>無視するためのコメント記法を提供する</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="https://raw.githubusercontent.com/textlint/textlint/master/docs/resources/ast-explorer.png" alt="fit, ast-explorer for textlint"></p>
+<hr>
+<h1 id="-ast-explorer-for-textlint-https-textlint-github-io-astexplorer-ast-explorer-for-textlint-"><a href="https://textlint.github.io/astexplorer/" title="AST explorer for textlint">AST explorer for textlint</a></h1>
+<ul>
+<li>AST explorerのtextlint版を作った</li>
+<li>textlint(がパースした結果)のASTを見たり、ルールをその場で作れる</li>
+<li>ルールを作りたい人はここみて書けばいい</li>
+</ul>
+<hr>
+<h1 id="-https-github-com-textlint-ja-textlint-rule-preset-ja-technical-writing-"><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing">技術書向けのルールセット</a></h1>
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>や<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>で使ってるルールをまとめたもの</li>
+<li>技術文書向けに簡潔に書くためのルールセット</li>
+<li><a href="http://efcl.info/2016/07/13/textlint-rule-preset-ja-technical-writing/" title="技術文書を書くためのtextlint校正ルールセット | Web Scratch">技術文書を書くためのtextlint校正ルールセット | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="-https-github-com-textlint-ja-textlint-rule-spacing-"><a href="https://github.com/textlint-ja/textlint-rule-spacing">スペース周りのルールセット</a></h1>
+<ul>
+<li>半角文字と全角文字の間にスペース入れない</li>
+<li>インラインコードの周りにスペースを入れる?</li>
+<li>カタカナ語間は全角スペース入れない</li>
+<li>かっこの外側、内側ともにスペースを入れない</li>
+<li>感嘆符、疑問符の後ろに続くスペース</li>
+<li>etc....</li>
+</ul>
+<hr>
+<h1 id="-">スペース周りのルールセット</h1>
+<ul>
+<li>こんなの人間が気にするのは時間の無駄</li>
+<li>=&gt; <a href="https://github.com/textlint-ja/textlint-rule-spacing" title="textlint-rule-preset-ja-spacing">textlint-rule-preset-ja-spacing</a></li>
+<li>ESLintにもスペース周りのルールがある<ul>
+<li>けど場所がバラバラで分かりにくい</li>
+</ul>
+</li>
+<li>プリセットにしてまとめた</li>
+</ul>
+<hr>
+<h1 id="textlint-ja">textlint-ja</h1>
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-ja" title="textlint-ja/textlint-ja: textlintの日本語コミュニティ">textlint-ja/textlint-ja: textlintの日本語コミュニティ</a></li>
+<li>日本語で話せるコミュニティ</li>
+</ul>
+<hr>
+<h1 id="gitter">Gitter</h1>
+<ul>
+<li><a href="https://gitter.im/textlint-ja/textlint-ja" title="textlint-ja/textlint-ja - Gitter">textlint-ja/textlint-ja - Gitter</a></li>
+</ul>
+<hr>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
