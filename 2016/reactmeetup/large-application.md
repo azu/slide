@@ -111,6 +111,10 @@ Storeはデータとロジックを持つ
 
 ----
 
+一旦ここまでの話をチームで考えてみる
+
+----
+
 # [How to work as a Team](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html "How to work as a Team") @ 2016/02/23 [#reject_sushi](http://efcl.info/2016/02/23/reject-sushi/)
 
 ----
@@ -135,9 +139,11 @@ Storeはデータとロジックを持つ
 
 ## ここまで
 
-- Fluxは一方通行のデータフローを定めている
+- Fluxは一方通行のデータフローを定めているのは分かった
+- 「ActionはUseCaseと呼んだ方が直感的だなー」
 - Storeの役割が直感的ではないという意見
-- ただのStateを持つObservableな箱とした方が分かりやすい
+  - 「StoreはただのStateを持つObservableな箱とした方が分かりやすい」
+- 「Actionを受け取りStoreで処理するときにドメインはどこに書くのか不安になる」
 
 -----
 
@@ -186,7 +192,7 @@ Storeはデータとロジックを持つ
 
 - FluxのStoreは2つの側面を持っている
 	- Actionを受け取りデータを更新(**Write**)
-	- Viewからの要求によりデータを返す(**Read**)
+	- Viewの要求に対してデータを返す(**Read**)
 - せっかく一方通行なので、Storeがやることも一つの方向にしたい
 - この2つを出来る限り切り離したい
 
@@ -264,14 +270,13 @@ Storeはデータとロジックを持つ
 
 -----
 
-#　問題の原因
+# 問題の原因
 
 - 1つのモデル(Storeのこと)で2つの方向の処理を行っているのが複雑な原因
-	- Actionを受け取り処理(ロジック) と Viewに対する状態の作成
 - **ロジックの処理**と**View向けの状態の作成**の両方を1つのStoreの中で処理している
-	- 複雑度が N × N になる
-- **ロジックの処理**と**View向けの状態の作成**向けに2つのモデルを用意すればもっと単純化できる?
-	- 複雑度が N + N になる
+	- 複雑度が **N × N** になる(Nはモデルの数)
+- **ロジックの処理**と**View向けの状態の作成**それぞれに1つづつのモデルを用意すればもっと単純化できる?
+	- 複雑度が **N + N** になる(モデルが2つになるけど)
 
 -----
 
@@ -287,7 +292,7 @@ Storeはデータとロジックを持つ
 
 - Command Query Responsibility Segregation
 - 構造をコマンド(**Write**)とクエリ(**Read**)で縦に割る
-- クエリ(**Read**)は読み取りのみなので単純化する
+- クエリ(**Read**)は読み取りのみなので単純化できる
 - 詳しくは[.NETのエンタープライズアプリケーションアーキテクチャ　第2版](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
 
 ----
@@ -295,8 +300,8 @@ Storeはデータとロジックを持つ
 # FluxのWriteとRead
 
 - Storeの中で構造化するため上手く割り切れない
-- Action(Command)がStoreに書き込む(Write)
-- ViewがStoreからState(Query)を読み取る(Read)
+- Action(Command)がStoreに書き込む
+- ViewがStoreからState(Query)を読み取る
 
 ![right, flux-layer-cqrs.png](./img/flux-layer-cqrs.png)
 
@@ -329,7 +334,8 @@ Storeはデータとロジックを持つ
 	- シングルトンがでてくる問題
 - Write StackとRead Stackを分離 = CQRS
 	- 複雑度の掛け算をなくす
-- ドメインモデルを書ける構造を作る
+  - **N × N** => **N + N** へ
+- ドメインモデルを扱える構造を作る
 
 ----
 
@@ -406,6 +412,8 @@ Storeはデータとロジックを持つ
 
 # UseCase
 
+## アクターがシステムに対して何をしたいかを書く場所
+
 -----
 
 ## UseCase
@@ -413,32 +421,17 @@ Storeはデータとロジックを持つ
 ![right,fit, Almin Layer](./img/almin-layer.png)
 
 
-- ViewからUseCaseを発行(ActionCreatorと類似) [^UseCase]
+- ViewからUseCaseを発行(ActionCreatorと類似)
 - ドメインを使った**処理の流れ**を記述する
 - ここに処理の内容を全部書くとトランザクションスクリプト
 - UseCaseと対になるFactoryを持ってる
 	- Factoryはテストのため(コンストラクタによる依存解決)
 
-[^UseCase]: アクターがシステムに対して何をしたいかを書く場所
-
------
-
-## トランザクションスクリプトとドメインモデル
-
-![inline, ビジネスロジックの複雑さ](http://image.itmedia.co.jp/im/articles/0702/21/r5extend08_04.gif)
-
-via [ドメイン層に最適なアーキテクチャを考える](http://www.itmedia.co.jp/im/articles/0702/21/news110_4.html "保守性・拡張性に優れたシステムを作る（8）：ドメイン層に最適なアーキテクチャを考える (4/4) - ITmedia エンタープライズ") 元はPoEAA
-
------
-
-> トランザクションスクリプトで始めた場合は、ドメインモデルの方向へためらわずにリファクタリングしてほしい   (中略)
-> これらの3つのパターンは相互に排他的な選択肢ではない。実際にドメインロジックの一部にトランザクションスクリプトを使用し、それ以外にテーブルモジュールまたはドメインモデルを使用することは珍しくない。[^PoEAA, p33]
-
 -----
 
 ## UseCaseの例
 
-Todoを追加する
+Todoを追加するというユースケース
 
 - `TodoRepository`から`TodoList`のインスタンスを取り出す
 - `TodoList`に`TodoItem`を追加する
@@ -446,7 +439,7 @@ Todoを追加する
 
 -----
 
-## AlminのUseCase例
+## AlminのUseCase
 
 ```js
 import {UseCase} from "almin";
@@ -474,7 +467,6 @@ export class AddTodoItemUseCase extends UseCase {
 - モデルクラス
 - ここでは、データと**振る舞い**を持ったクラス
 - できるだけPOJO(Plain Old JavaScript)である
-- [いまさらきけない「ドメインモデル」と「トランザクションスクリプト」](http://d.hatena.ne.jp/higayasuo/20080519/1211183826 "いまさらきけない「ドメインモデル」と「トランザクションスクリプト」")
 
 [^図]: 概念にすぎず、データや処理の流れを表すものではありません
 
@@ -494,10 +486,11 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 ![models](./img/models.png)
 
+^モデルとはー
 
 -----
 
-# モデル例: Todo
+# モデルの例: Todo
 
 - `TodoList`: TodoItemを管理する
 - `TodoItem`: TodoItemのオブジェクト
@@ -515,7 +508,7 @@ function addNewTodo(title){
 
 -----
 
-# TODOを追加するUseCase
+# TODOを追加するUseCaseをモデルを使って書く
 
 ```js
 import {UseCase} from "almin";
@@ -535,8 +528,11 @@ export class AddTodoItemUseCase extends UseCase {
 
 - モデルをPOJOで書けることは分かる
 - モデルはどこでだれが永続化するの?
-- => Repositoryが永続化を考える層
+  - どこでインスタンス化して、どうやってインスタンス化したものを再度取り出すのか
+- => **Repository**が永続化を考える層
 - モデルは自身の永続化の方法をしらない(関心がない)
+
+^ ここでいう永続化とは簡単に言えば、どこでインスタンス化して、どうやってインスタンスを取り出すかという技術的な問題についてです
 
 -----
 
@@ -561,13 +557,12 @@ export class AddTodoItemUseCase extends UseCase {
 - ドメインモデルのインタンスを永続化する場所 [^図r]
 	- Repositoryパターン
 - Repository自体はシングルトン！でインスタンス化する
-- `findById(id)`/`save(model)`/`delete(model)` などAPIからはコレクションっぽい
+- `findById(id)`/`save(model)`/`delete(model)` などのAPIを持つケースが多い
+
 
 [^図r]: 概念にすぎず、データや処理の流れを表すものではありません
 
 -----
-
-
 
 # Repositoryの保存先?
 
@@ -591,22 +586,22 @@ import {UseCase} from "almin";
 export class AddTodoItemUseCase extends UseCase {
     constructor({todoListRepository}) {
         super();
-        this.todoListRepository = todoListRepository;
-    }
-    execute(title) {
-        // RepositoryからTodoListのインスタンスを取得
-        const todoList = this.todoListRepository.findById(todoListId);
-        const todoItem = new TodoItem({title});
-        todoList.addItem(todoItem);
-        // RepositoryにTodoListを保存する
-        this.todoListRepository.save(todoList);
+            this.todoListRepository = todoListRepository;
+        }
+        execute(title) {
+            // RepositoryからTodoListのインスタンスを取得
+            const todoList = this.todoListRepository.findById(todoListId);
+            const todoItem = new TodoItem({title});
+            todoList.addItem(todoItem);
+            // RepositoryにTodoListを保存する
+            this.todoListRepository.save(todoList);
     }
 }
 ```
 
 -----
 
-# Repositoryのインスタンス化の問題
+# Repository自体のインスタンス化の問題
 
 ![right,fit, Almin database](./img/almin-layer-database.png)
 
@@ -710,7 +705,7 @@ export class AddTodoItemUseCase extends UseCase {
 
 - Repository
 	- Write Stackと同じものを参照するでも良い
-- Read Model(State)
+- State(Read Modelとか言われる)
 	- Writeのドメインから振るまいを消したモデルを作ってもよい
 	- ドメインモデル貧血症にわざとしても良い = Viewのためのモデルなので
 - Store
@@ -734,12 +729,12 @@ export class AddTodoItemUseCase extends UseCase {
 
 ----
 
-# クライアントサイドで多発する問題:warning:
+# :warning: クライアントサイド特有の問題 :warning:
 
 -----
-# クライアントサイドで多発する問題
+# クライアントサイド特有の問題
 
-- これはRepositoryを経由したStore/Stateの更新までの流れ
+- UseCase -> Repositoryを経由したStore/Stateの更新までの流れ
 - クライアントサイドではStateを直に更新して、UIにすぐ反映されて欲しいことがある
 	- 1F以内にアクションがViewに反映されて欲しいケース
 	- ローディング、モーダル、アニメーション
