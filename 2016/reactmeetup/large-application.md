@@ -18,11 +18,18 @@ theme: Plain Jane,5
 
 -----
 
+# [#jsprimer](https://asciidwango.github.io/js-primer/)書いています
+
+## JavaScriptの入門書に興味ある人はウォッチ
+
+
+----
+
 # :warning: 注意 :warning:
 
 - 作成するアプリケーションによって必要な構造は異なります
 - 今回の話はある程度の規模で複雑性を持つクライアントサイド
-	- ライブラリ抜きで数万LOC >= 
+	- ライブラリ抜きで数万LOC >=
 - 長期的にメンテンナンスや変更が発生するアプリケーション
 - サーバサイドレンダリングはしないクライアントアプリケーション
 
@@ -31,7 +38,7 @@ theme: Plain Jane,5
 
 - 複雑なJavaScriptアプリケーションを作るにあたり[ドメインモデルをどう実装するか悩んだ](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html)
 - [色々](http://azu.github.io/slide/2016/make-arch/js-css-architecture.html)と[試行錯誤](http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html "Read/Write Stack | JavaScriptアーキテクチャ")した[結果](http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html)として[Almin.js](https://github.com/almin/almin "Almin.js")を作った
-- まあ半年ぐらい議論しながら開発してできた[ガイドライン](TODO)とか[Reactらしい]()実装とか[CSSの実装ガイド]()とかの[参考資料](ここ)はここに置いてあるよ
+- まあ半年ぐらい議論しながら開発してできた[ガイドライン](TODO)、[Reactらしい]()実装、[CSSの実装ガイド]()とかの[参考資料](ここ)はここに置いてあるよ
 
 
 -----
@@ -47,8 +54,8 @@ theme: Plain Jane,5
 
 - 難しいものを簡単には作れない
 - 難しいものは考えて作るしかない
-- 考えて作っていくためには、議論できる言語化されたもの(コード)が必要
-- そのためにはルール、構造化されたものが必要
+- 考えて作っていくためには、議論できる言語化されたコードが必要
+- そのためには構造化が必要
 - ルールは明確に、でも最初から明確なワケではない
 - どうやってそれらを行っていったかについて
 
@@ -61,7 +68,7 @@ theme: Plain Jane,5
 - 最初から完成している設計はない
 	- 立ち上げ時は方向性を決めてコアドメインを作る
 	- [20151110 ドメイン駆動設計によるサービス開発](http://www.slideshare.net/maoohnishi3/20151110-54980095 "20151110 ドメイン駆動設計によるサービス開発")
-- ドメインモデルも時間で変化する、そのため考え続けないと行けない
+- ドメインモデルも時間で変化する、そのため考え続けないといけない
 
 ------
 
@@ -85,10 +92,11 @@ theme: Plain Jane,5
 # Fluxのデータフローはわかった
 
 - でも、ドメイン、ロジックはどこに書くの?
-- ActionCreatorに書くのか?
-- Storeは本当にただの入れものでViewModelのようなViewに対するStateのみでしかない
-- ではドメインモデルはどこにいるのか?
-- Reduxの中でもその答えがあるわけではない
+- ActionCreator or Store?
+- StoreはViewModelのようなViewに対するStateを管理する場所にも見える
+  - Reduxの中でもその答えがあるわけではない
+- ドメインモデルはどこにいるのか?
+  - ここでいうドメインモデルはデータと振る舞いを持ったモデル
 
 -----
 
@@ -96,12 +104,10 @@ theme: Plain Jane,5
 
 - ActionCreator or Store or Componnet?
 
-> Stores contain the application state and logic. 
+> Stores contain the application state and logic.
 > -- [Flux | Application Architecture for Building User Interfaces](https://facebook.github.io/flux/docs/overview.html "Flux | Application Architecture for Building User Interfaces")
 
 Storeはデータとロジックを持つ
-
-
 
 ----
 
@@ -144,8 +150,8 @@ Storeはデータとロジックを持つ
 - View(プレゼンテーション層)
 - ActionCreator(アプリケーション層)
 - Store(アプリケーション層)
-- Store???(ドメイン層)
-- WebAPI(インフラストラクチャ層)
+- Store？？？(ドメイン層)
+- Web API(インフラストラクチャ層)
 
 -----
 
@@ -254,7 +260,7 @@ Storeはデータとロジックを持つ
 	- 1つなので、CartはProductを知っている
 - Facebook/flux
 	- `waitFor` - dispatchされたActionの処理順を明示する
-- 他: [voronianski/flux-comparison](https://github.com/voronianski/flux-comparison "voronianski/flux-comparison") 
+- 他: [voronianski/flux-comparison](https://github.com/voronianski/flux-comparison "voronianski/flux-comparison")
 
 -----
 
@@ -280,7 +286,7 @@ Storeはデータとロジックを持つ
 # CQRS(コマンドクエリ責務分離)
 
 - Command Query Responsibility Segregation
-- 構造をコマンド(**Write**)とクエリ(**Read**)と縦に割る
+- 構造をコマンド(**Write**)とクエリ(**Read**)で縦に割る
 - クエリ(**Read**)は読み取りのみなので単純化する
 - 詳しくは[.NETのエンタープライズアプリケーションアーキテクチャ　第2版](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
 
@@ -382,7 +388,7 @@ Storeはデータとロジックを持つ
 # Write Stack(コマンド)
 
 -----
-# Write Stack 
+# Write Stack
 
 ![right,fit, Almin Layer](./img/almin-layer.png)
 
@@ -446,7 +452,7 @@ Todoを追加する
 import {UseCase} from "almin";
 export class AddTodoItemUseCase extends UseCase {
     execute(title) {
-	    // ユースケースの内容を書く
+        // ユースケースの内容を書く
         // TodoListにTodoItemを追加するというロジック
         // ここに全部書いちゃうとトランザクションスクリプトっぽい
     }
@@ -481,6 +487,9 @@ export class AddTodoItemUseCase extends UseCase {
 
 via [.NETのエンタープライズアプリケーションアーキテクチャ](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
 
+^ モデルは人やアーキテクチャによって多重定義された用語です。
+ここでは、データと**振る舞い**を持ったクラスのことをモデルと呼んでいます。
+
 -----
 
 ![models](./img/models.png)
@@ -497,10 +506,10 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 ```js
 function addNewTodo(title){
-	// TODO: 毎回TodoListを作ってるのはおかしいけど…
-	const todoList = new TodoList();
-	const todoItem = new TodoItem({title});
-	todoList.addItem(todoItem);
+    // TODO: 毎回TodoListを作ってるのはおかしいけど…
+    const todoList = new TodoList();
+    const todoItem = new TodoItem({title});
+    todoList.addItem(todoItem);
 }
 ```
 
@@ -512,9 +521,9 @@ function addNewTodo(title){
 import {UseCase} from "almin";
 export class AddTodoItemUseCase extends UseCase {
     execute(title) {
-		const todoList = new TodoList();
-		const todoItem = new TodoItem({title});
-		todoList.addItem(todoItem);
+        const todoList = new TodoList();
+        const todoItem = new TodoItem({title});
+        todoList.addItem(todoItem);
     }
 }
 ```
@@ -585,12 +594,12 @@ export class AddTodoItemUseCase extends UseCase {
         this.todoListRepository = todoListRepository;
     }
     execute(title) {
-		// RepositoryからTodoListのインスタンスを取得
-		const todoList = this.todoListRepository.findById(todoListId);
-		const todoItem = new TodoItem({title});
-		todoList.addItem(todoItem);
-		// RepositoryにTodoListを保存する
-		this.todoListRepository.save(todoList);
+        // RepositoryからTodoListのインスタンスを取得
+        const todoList = this.todoListRepository.findById(todoListId);
+        const todoItem = new TodoItem({title});
+        todoList.addItem(todoItem);
+        // RepositoryにTodoListを保存する
+        this.todoListRepository.save(todoList);
     }
 }
 ```
@@ -629,7 +638,7 @@ import {UseCase} from "almin";
 // シングルトンを渡すだけのFactoryクラス
 import todoListRepository from "../infra/TodoRepository"
 export class AddTodoItemUseCaseFactory {
-    static create() { 
+    static create() {
         return new AddTodoItemUseCase({ todoListRepository });
     }
 }
@@ -792,11 +801,17 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 # まとめ
 
 - アプリケーションの種類毎に適当なアーキテクチャは異なる
-	- アーキテクチャが良くできていても、DOMという巨大なモデルとの戦いは存在する
-	- DOMはステートフルなので、その状態をどう扱うかという問題にはぶつかる
-		- Reactでは吸収できない状態はある `<audio>`とか`<video>`とか`<canvas>`
+	- アーキテクチャが良くできていても、ステートフルなDOMという巨大なモデルとの戦いは存在する
+	- Reactでは吸収できない状態はある `<audio>`とか`<video>`とか`<canvas>`
 - 万能なアーキテクチャは存在しない
 
+-----
+
+# まとめ
+
+- 今回はイベントソーシングではなくステートソーシング
+	- 複雑なものをイベントソーシングで上手くやるイメージがまだない
+	- Entity自体はImmutableで実装した方が良い(Readでのモデルの共有とか考えるなら尚更)
 
 
 -----
