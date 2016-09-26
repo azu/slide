@@ -18,9 +18,9 @@ theme: Plain Jane,5
 
 -----
 
-# [#jsprimer](https://asciidwango.github.io/js-primer/)書いています
+# [#jsprimer](https://github.com/asciidwango/js-primer)を書いています
 
-## JavaScriptの入門書に興味ある人はウォッチ
+## JavaScript入門書に興味ある人はウォッチ :star:
 
 
 ----
@@ -38,7 +38,7 @@ theme: Plain Jane,5
 
 - 複雑なJavaScriptアプリケーションを作るにあたり[ドメインモデルをどう実装するか悩んだ](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html)
 - [色々](http://azu.github.io/slide/2016/make-arch/js-css-architecture.html)と[試行錯誤](http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html "Read/Write Stack | JavaScriptアーキテクチャ")した[結果](http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html)として[Almin.js](https://github.com/almin/almin "Almin.js")を作った
-- まあ半年ぐらい議論しながら開発してできた[ガイドライン](https://github.com/azu/large-scale-javascript/tree/master/docs)、[Reactらしい](https://github.com/azu/large-scale-javascript/tree/master/docs/component.md)実装、[CSSの実装ガイド](https://github.com/azu/large-scale-javascript/tree/master/docs/css.md)とかの[参考資料](https://github.com/azu/large-scale-javascript/blob/master/refs.md)はここに置いてある
+- 半年ぐらい議論しながら[開発してできたガイドライン](https://github.com/azu/large-scale-javascript/tree/master/docs)、[React Component実装ガイド](https://github.com/azu/large-scale-javascript/tree/master/docs/component.md)、[CSSの実装ガイド](https://github.com/azu/large-scale-javascript/tree/master/docs/css.md)とかの[参考資料](https://github.com/azu/large-scale-javascript/blob/master/refs.md)はここに置いてある
 	- [github.com/azu/large-scale-javascript](https://github.com/azu/large-scale-javascript)
 
 
@@ -94,16 +94,14 @@ theme: Plain Jane,5
 
 - でも、ドメイン、ロジックはどこに書くの?
 - ActionCreator or Store?
-- StoreはViewModelのようなViewに対するStateを管理する場所にも見える
-  - Reduxの中でもその答えがあるわけではない
+- StoreはViewに対するStateを管理する場所にも見える
+	  - Reduxの中にも明確な答えがあるわけではない
 - ドメインモデルはどこにいるのか?
   - ここでいうドメインモデルはデータと振る舞いを持ったモデル
 
 -----
 
 # Fluxの中でのロジック
-
-- ActionCreator or Store or Componnet?
 
 > Stores contain the application state and logic.
 > -- [Flux | Application Architecture for Building User Interfaces](https://facebook.github.io/flux/docs/overview.html "Flux | Application Architecture for Building User Interfaces")
@@ -112,7 +110,7 @@ Storeはデータとロジックを持つ
 
 ----
 
-一旦ここまでの話をチームで考えてみる
+## 一旦ここまでの話をチームで考えてみる
 
 ----
 
@@ -181,7 +179,8 @@ Storeはデータとロジックを持つ
 
 # Fluxのいいところ(確認)
 
-- データフローが一方通行になってる
+- データフローが一方通行になる
+	- それによりデータの流れが追いやすい
 
 ----
 # Fluxの曖昧なところ
@@ -277,17 +276,29 @@ Storeはデータとロジックを持つ
 
 -----
 
-# 問題の原因
+# 複雑な問題の一端
 
-- 1つのモデル(Storeのこと)で2つの方向の処理を行っているのが複雑な原因
-- **ロジックの処理**と**View向けの状態の作成**の両方を1つのStoreの中で処理している
-	- 複雑度が **N × N** になる(Nはモデルの数)
-- **ロジックの処理**と**View向けの状態の作成**それぞれに1つづつのモデルを用意すればもっと単純化できる?
-	- 複雑度が **N + N** になる(モデルが2つになるけど)
+- 次の2つを1つのモデル(Storeのこと)で行っているのが複雑な原因
+	- **N**: **Storeにデータを書き込む処理(ビジネスロジック)**
+	- **M**: **View向けの状態の作成**
+- 1つモデルで2つの事をやると複雑さは**掛け算**となる
+	- 複雑さが **N × M** になる
+- それぞれに1つづつのモデルを用意すれば複雑さは**足し算**になる
+	- 複雑さが **N + M** になる(代わりにモデルは2つになる)
 
 -----
 
-# CQRS
+# 複雑さの掛け算(N × M)をなくしたい
+
+- Storeにデータを書き込むときに次の2つ(WriteとRead)を同時に考えてしまってる
+	- 受け取ったActionをどうStoreで処理するか(ビジネスロジック)
+	- View(Component)向けにどういう形のオブジェクトを返すか
+- この2つを同時ではなく、一旦分けて考えられる状況を作ろう
+	- => **CQRS**という考え方
+
+-----
+
+# CQRS(コマンドクエリ責務分離)
 
 -----
 
@@ -299,8 +310,10 @@ Storeはデータとロジックを持つ
 
 - Command Query Responsibility Segregation
 - 構造をコマンド(**Write**)とクエリ(**Read**)で縦に割る
-- クエリ(**Read**)は読み取りのみなので単純化できる
-- 詳しくは[.NETのエンタープライズアプリケーションアーキテクチャ　第2版](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
+	- **Storeにデータを書き込む処理(ビジネスロジック)** = Write
+	- **View向けの状態の作成** = Read
+- クエリ(**Read**)は読み取りのみなので**Write**よりは単純
+- 詳しくは[.NETのエンタープライズアプリケーションアーキテクチャ](http://ec.nikkeibp.co.jp/item/books/P98480.html ".NETのエンタープライズアプリケーションアーキテクチャ　第2版")
 
 ----
 
@@ -340,9 +353,15 @@ Storeはデータとロジックを持つ
 - クライアントサイドで問題点となるのはオブジェクトの永続化
 	- シングルトンがでてくる問題
 - Write StackとRead Stackを分離 = CQRS
-	- 複雑度の掛け算をなくす
-  - **N × N** => **N + N** へ
+	- Write × Readの複雑さを掛け算ではなく足し算にする
+  - **Write × Read** => **Write + Read** へ [^注]
 - ドメインモデルを扱える構造を作る
+
+[^注]: Write と Readが共に複雑でなければ、掛け算の方が簡単なのは自明です
+
+
+^ N と Mが小さければ、掛け算の方が簡単なのは自明です。
+N + M にするということは、値が小さい間はボイラープレート的なコード量が増えるので、その分手間がかかります。
 
 ----
 
@@ -814,10 +833,10 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 -----
 
-# ココまでが半年前の内容
+# まとめのまとめ
 
 
-- 半年間この考えをベースに実装してみてのまとめ
+- 半年間この考えをベースに実装してみての知見のまとめてみた
 - [azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること](https://github.com/azu/large-scale-javascript "azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること")
 	- コーディングガイドライン
 	- 考え方

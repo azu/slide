@@ -66,8 +66,8 @@ theme: Plain Jane,5</p>
 <li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
 </ul>
 <hr>
-<h1 id="-jsprimer-https-asciidwango-github-io-js-primer-"><a href="https://asciidwango.github.io/js-primer/">#jsprimer</a>書いています</h1>
-<h2 id="javascript-">JavaScriptの入門書に興味ある人はウォッチ</h2>
+<h1 id="-jsprimer-https-github-com-asciidwango-js-primer-"><a href="https://github.com/asciidwango/js-primer">#jsprimer</a>を書いています</h1>
+<h2 id="javascript-star-">JavaScript入門書に興味ある人はウォッチ :star:</h2>
 <hr>
 <h1 id="-warning-warning-">:warning: 注意 :warning:</h1>
 <ul>
@@ -84,7 +84,7 @@ theme: Plain Jane,5</p>
 <ul>
 <li>複雑なJavaScriptアプリケーションを作るにあたり<a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html">ドメインモデルをどう実装するか悩んだ</a></li>
 <li><a href="http://azu.github.io/slide/2016/make-arch/js-css-architecture.html">色々</a>と<a href="http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html" title="Read/Write Stack | JavaScriptアーキテクチャ">試行錯誤</a>した<a href="http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html">結果</a>として<a href="https://github.com/almin/almin" title="Almin.js">Almin.js</a>を作った</li>
-<li>まあ半年ぐらい議論しながら開発してできた<a href="https://github.com/azu/large-scale-javascript/tree/master/docs">ガイドライン</a>、<a href="https://github.com/azu/large-scale-javascript/tree/master/docs/component.md">Reactらしい</a>実装、<a href="https://github.com/azu/large-scale-javascript/tree/master/docs/css.md">CSSの実装ガイド</a>とかの<a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md">参考資料</a>はここに置いてある<ul>
+<li>半年ぐらい議論しながら<a href="https://github.com/azu/large-scale-javascript/tree/master/docs">開発してできたガイドライン</a>、<a href="https://github.com/azu/large-scale-javascript/tree/master/docs/component.md">React Component実装ガイド</a>、<a href="https://github.com/azu/large-scale-javascript/tree/master/docs/css.md">CSSの実装ガイド</a>とかの<a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md">参考資料</a>はここに置いてある<ul>
 <li><a href="https://github.com/azu/large-scale-javascript">github.com/azu/large-scale-javascript</a></li>
 </ul>
 </li>
@@ -130,10 +130,8 @@ theme: Plain Jane,5</p>
 <ul>
 <li>でも、ドメイン、ロジックはどこに書くの?</li>
 <li>ActionCreator or Store?</li>
-<li>StoreはViewModelのようなViewに対するStateを管理する場所にも見える<ul>
-<li>Reduxの中でもその答えがあるわけではない</li>
-</ul>
-</li>
+<li>StoreはViewに対するStateを管理する場所にも見える<pre><code>- Reduxの中にも明確な答えがあるわけではない
+</code></pre></li>
 <li>ドメインモデルはどこにいるのか?<ul>
 <li>ここでいうドメインモデルはデータと振る舞いを持ったモデル</li>
 </ul>
@@ -141,16 +139,13 @@ theme: Plain Jane,5</p>
 </ul>
 <hr>
 <h1 id="flux-">Fluxの中でのロジック</h1>
-<ul>
-<li>ActionCreator or Store or Componnet?</li>
-</ul>
 <blockquote>
 <p>Stores contain the application state and logic.
 -- <a href="https://facebook.github.io/flux/docs/overview.html" title="Flux | Application Architecture for Building User Interfaces">Flux | Application Architecture for Building User Interfaces</a></p>
 </blockquote>
 <p>Storeはデータとロジックを持つ</p>
 <hr>
-<p>一旦ここまでの話をチームで考えてみる</p>
+<h2 id="-">一旦ここまでの話をチームで考えてみる</h2>
 <hr>
 <h1 id="-how-to-work-as-a-team-http-azu-github-io-slide-2016-reject-sushi-how-to-work-team-html-how-to-work-as-a-team-2016-02-23-reject_sushi-http-efcl-info-2016-02-23-reject-sushi-"><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a> @ 2016/02/23 <a href="http://efcl.info/2016/02/23/reject-sushi/">#reject_sushi</a></h1>
 <hr>
@@ -200,7 +195,10 @@ theme: Plain Jane,5</p>
 <hr>
 <h1 id="flux-">Fluxのいいところ(確認)</h1>
 <ul>
-<li>データフローが一方通行になってる</li>
+<li>データフローが一方通行になる<ul>
+<li>それによりデータの流れが追いやすい</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="flux-">Fluxの曖昧なところ</h1>
@@ -292,29 +290,50 @@ theme: Plain Jane,5</p>
 <li>他: <a href="https://github.com/voronianski/flux-comparison" title="voronianski/flux-comparison">voronianski/flux-comparison</a></li>
 </ul>
 <hr>
-<h1 id="-">問題の原因</h1>
+<h1 id="-">複雑な問題の一端</h1>
 <ul>
-<li>1つのモデル(Storeのこと)で2つの方向の処理を行っているのが複雑な原因</li>
-<li><strong>ロジックの処理</strong>と<strong>View向けの状態の作成</strong>の両方を1つのStoreの中で処理している<ul>
-<li>複雑度が <strong>N × N</strong> になる(Nはモデルの数)</li>
+<li>次の2つを1つのモデル(Storeのこと)で行っているのが複雑な原因<ul>
+<li><strong>N</strong>: <strong>Storeにデータを書き込む処理(ビジネスロジック)</strong></li>
+<li><strong>M</strong>: <strong>View向けの状態の作成</strong></li>
 </ul>
 </li>
-<li><strong>ロジックの処理</strong>と<strong>View向けの状態の作成</strong>それぞれに1つづつのモデルを用意すればもっと単純化できる?<ul>
-<li>複雑度が <strong>N + N</strong> になる(モデルが2つになるけど)</li>
+<li>1つモデルで2つの事をやると複雑さは<strong>掛け算</strong>となる<ul>
+<li>複雑さが <strong>N × M</strong> になる</li>
+</ul>
+</li>
+<li>それぞれに1つづつのモデルを用意すれば複雑さは<strong>足し算</strong>になる<ul>
+<li>複雑さが <strong>N + M</strong> になる(代わりにモデルは2つになる)</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h1 id="cqrs">CQRS</h1>
+<h1 id="-n-m-">複雑さの掛け算(N × M)をなくしたい</h1>
+<ul>
+<li>Storeにデータを書き込むときに次の2つ(WriteとRead)を同時に考えてしまってる<ul>
+<li>受け取ったActionをどうStoreで処理するか(ビジネスロジック)</li>
+<li>View(Component)向けにどういう形のオブジェクトを返すか</li>
+</ul>
+</li>
+<li>この2つを同時ではなく、一旦分けて考えられる状況を作ろう<ul>
+<li>=&gt; <strong>CQRS</strong>という考え方</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="cqrs-">CQRS(コマンドクエリ責務分離)</h1>
 <hr>
 <p><img src="./img/CQRS.png" alt="fit CQRS"></p>
 <hr>
 <h1 id="cqrs-">CQRS(コマンドクエリ責務分離)</h1>
 <ul>
 <li>Command Query Responsibility Segregation</li>
-<li>構造をコマンド(<strong>Write</strong>)とクエリ(<strong>Read</strong>)で縦に割る</li>
-<li>クエリ(<strong>Read</strong>)は読み取りのみなので単純化できる</li>
-<li>詳しくは<a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版">.NETのエンタープライズアプリケーションアーキテクチャ　第2版</a></li>
+<li>構造をコマンド(<strong>Write</strong>)とクエリ(<strong>Read</strong>)で縦に割る<ul>
+<li><strong>Storeにデータを書き込む処理(ビジネスロジック)</strong> = Write</li>
+<li><strong>View向けの状態の作成</strong> = Read</li>
+</ul>
+</li>
+<li>クエリ(<strong>Read</strong>)は読み取りのみなので<strong>Write</strong>よりは単純</li>
+<li>詳しくは<a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版">.NETのエンタープライズアプリケーションアーキテクチャ</a></li>
 </ul>
 <hr>
 <h1 id="flux-write-read">FluxのWriteとRead</h1>
@@ -350,14 +369,17 @@ theme: Plain Jane,5</p>
 </ul>
 </li>
 <li>Write StackとRead Stackを分離 = CQRS<ul>
-<li>複雑度の掛け算をなくす<ul>
-<li><strong>N × N</strong> =&gt; <strong>N + N</strong> へ</li>
+<li>Write × Readの複雑さを掛け算ではなく足し算にする<ul>
+<li><strong>Write × Read</strong> =&gt; <strong>Write + Read</strong> へ [^注]</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>ドメインモデルを扱える構造を作る</li>
 </ul>
+<p>[^注]: Write と Readが共に複雑でなければ、掛け算の方が簡単なのは自明です</p>
+<p>^ N と Mが小さければ、掛け算の方が簡単なのは自明です。
+N + M にするということは、値が小さい間はボイラープレート的なコード量が増えるので、その分手間がかかります。</p>
 <hr>
 <h1 id="-simple-">全体像(Simple版)</h1>
 <p><img src="./img/almin-layer.png" alt="right,fit, Simple Data Flow"></p>
@@ -738,9 +760,9 @@ export class AddTodoItemUseCase extends UseCase {
 </li>
 </ul>
 <hr>
-<h1 id="-">ココまでが半年前の内容</h1>
+<h1 id="-">まとめのまとめ</h1>
 <ul>
-<li>半年間この考えをベースに実装してみてのまとめ</li>
+<li>半年間この考えをベースに実装してみての知見のまとめてみた</li>
 <li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a><ul>
 <li>コーディングガイドライン</li>
 <li>考え方</li>
