@@ -111,44 +111,6 @@ Storeはデータとロジックを持つ
 
 -----
 
-
-## 一旦ここまでの話をチームで考えてみる
-
-----
-
-# [How to work as a Team](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html "How to work as a Team") @ 2016/02/23 [#reject_sushi](http://efcl.info/2016/02/23/reject-sushi/)
-
-----
-
-![inline How to work as as Team 1](./img/t1.png)
-
-----
-
-![inline How to work as as Team 2](./img/t2.png)
-
-----
-
-
-![inline How to work as as Team 3](./img/t3.png)
-
-----
-
-
-![inline How to work as as Team 4](./img/t4.png)
-
------
-
-## ここまで
-
-- Fluxは一方通行のデータフローを定めているのは分かった
-- 「ActionはUseCaseと呼んだ方が直感的だなー」
-- Storeの役割が直感的ではないという意見
-  - 「StoreはただのStateを持つObservableな箱とした方が分かりやすい」
-- 「Actionを受け取りStoreで処理するときにドメインはどこに書くのか不安になる」
-
------
-
-
 # 少しFluxの見方を変える
 
 -----
