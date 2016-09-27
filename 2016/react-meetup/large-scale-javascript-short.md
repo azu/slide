@@ -564,6 +564,9 @@ export class AddTodoItemUseCase extends UseCase {
 ![inline, fit,Term repository](./img/term-repository.png)
 
 
+^ 先ほどもRepositoryって言葉でてきたけど、ここでは永続化を実装する場所って意味です。
+簡単に言えば、インスタンスを保存して、インスタンスを取り出せるコレクションAPIを持つもの。
+
 -----
 
 # Repository
@@ -791,6 +794,7 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 - UseCaseからdispatchしたイベントが、Storeに届く横のルート
 	- 抜け穴感があるので慎重に取り扱いたい
 - FluxやReduxはこのルートが基本的な流れ
+- つまり同期的にUseCaseからUIの更新までを反映できるルートを持っておく必要がある
 
 -----
 
