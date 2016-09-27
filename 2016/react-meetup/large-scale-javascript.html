@@ -173,6 +173,21 @@ theme: Plain Jane,5</p>
 <h1 id="-">ドメインモデル</h1>
 <p><img src="img/ddd-cars-es.png" alt="inline,fit, ddd-cars-es.png"></p>
 <hr>
+<h1 id="-">ドメインモデルをなぜ作りたいの?</h1>
+<ul>
+<li>UIじゃなくてコードを読んで挙動がわかるようにするため</li>
+<li>レイヤーを分けて実装するためのパターンでしかない</li>
+<li>それぞれを適切に分解し、適切な注意を払って実装したいだけ<ul>
+<li>ロジックはロジックに集中しよう</li>
+<li>永続化やキャッシュは別レイヤーで考えられるように分けよう 等</li>
+</ul>
+</li>
+<li>そのユースケースに出てくる用語をドメインの振る舞いとして書くため<ul>
+<li><code>user.buy(productItem)</code></li>
+</ul>
+</li>
+</ul>
+<hr>
 <h1 id="flux-">Fluxをドメインモデルに置き直してみる</h1>
 <p><img src="img/flux-overview.png" alt="fit, right, overview"></p>
 <ul>
