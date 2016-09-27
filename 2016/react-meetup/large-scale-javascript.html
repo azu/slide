@@ -24,11 +24,11 @@
             style="border:0;">
     </iframe>
     <aside class="slide-controller">
-        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-09-26" id="datePublished">
-            2016-09-26
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-09-27" id="datePublished">
+            2016-09-27
         </time></span>
-        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-09-26" id="dateModified">
-            2016-09-26
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-09-27" id="dateModified">
+            2016-09-27
         </time></span>
         <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.pdf" title="複雑なJavaScriptアプリケーションを考えながら作る話">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +101,7 @@ theme: Plain Jane,5</p>
 <li>難しいものを簡単には作れない</li>
 <li>難しいものは考えて作るしかない</li>
 <li>考えて作っていくためには、議論できる言語化されたコードが必要</li>
-<li>そのためには構造化が必要</li>
+<li>また、構造化することでメンテナンス性を高める</li>
 <li>ルールは明確に、でも最初から明確なワケではない</li>
 <li>どうやってそれらを行っていったかについて</li>
 </ul>
@@ -129,13 +129,13 @@ theme: Plain Jane,5</p>
 <h1 id="flux-">Fluxのデータフローはわかった</h1>
 <ul>
 <li>でも、ドメイン、ロジックはどこに書くの?</li>
-<li>ActionCreator or Store?</li>
-<li>StoreはViewに対するStateを管理する場所にも見える<pre><code>- Reduxの中にも明確な答えがあるわけではない
-</code></pre></li>
 <li>ドメインモデルはどこにいるのか?<ul>
 <li>ここでいうドメインモデルはデータと振る舞いを持ったモデル</li>
 </ul>
 </li>
+<li>ActionCreator or Store?</li>
+<li>StoreはViewに対するStateを管理する場所にも見える<pre><code>- Reduxの中にも明確な答えがあるわけではない
+</code></pre></li>
 </ul>
 <hr>
 <h1 id="flux-">Fluxの中でのロジック</h1>
@@ -174,6 +174,7 @@ theme: Plain Jane,5</p>
 <p><img src="img/ddd-cars-es.png" alt="inline,fit, ddd-cars-es.png"></p>
 <hr>
 <h1 id="flux-">Fluxをドメインモデルに置き直してみる</h1>
+<p><img src="img/flux-overview.png" alt="fit, right, overview"></p>
 <ul>
 <li>View(プレゼンテーション層)</li>
 <li>ActionCreator(アプリケーション層)</li>
@@ -197,27 +198,29 @@ theme: Plain Jane,5</p>
 <ul>
 <li>データフローが一方通行になる<ul>
 <li>それによりデータの流れが追いやすい</li>
+<li>複雑さが減りバグを減らしやすい構造</li>
 </ul>
 </li>
 </ul>
+<p>^ コード量は増えるけど、複雑さは減るのでバグも少なくなるはず。</p>
 <hr>
 <h1 id="flux-">Fluxの曖昧なところ</h1>
 <ul>
 <li>Domain Layerが曖昧</li>
-<li>Storeがアプリケーションの状態とViewの状態とロジックを含んでいる</li>
+<li>Storeがシステムの状態とViewの状態とロジックを含んでいる</li>
 <li>Fluxのまま構造化をするなら、Storeの中で構造化が必要</li>
 <li>Storeを構造化する例: <a href="http://blog.j5ik2o.me/entry/2016/09/09/200643" title="FluxとDDDの統合方法 - かとじゅんの技術日誌">FluxとDDDの統合方法 - かとじゅんの技術日誌</a></li>
 </ul>
 <p><img src="img/flux-layer.png" alt="flux layer, right"></p>
 <hr>
-<h1 id="store-">Storeの曖昧さ</h1>
+<h1 id="store-">Storeの役割</h1>
 <ul>
 <li>FluxのStoreは2つの側面を持っている<ul>
 <li>Actionを受け取りデータを更新(<strong>Write</strong>)</li>
 <li>Viewの要求に対してデータを返す(<strong>Read</strong>)</li>
 </ul>
 </li>
-<li>せっかく一方通行なので、Storeがやることも一つにしたい</li>
+<li>せっかく一方通行なのに、Storeがやることが2つある</li>
 <li>この2つを出来る限り切り離したい</li>
 </ul>
 <hr>
@@ -229,7 +232,7 @@ theme: Plain Jane,5</p>
 <h1 id="-">ショッピングカート</h1>
 <p><img src="img/shopping.png" alt="right, fit, shopping cart"></p>
 <ul>
-<li>ショッピングカートはStoreの2つの側面を見るいい例</li>
+<li>ショッピングカートはStoreの2つの役割を見るいい例</li>
 <li>商品の在庫とカートの中身を同時に扱わないと行けない問題を含んでいる</li>
 </ul>
 <hr>
@@ -292,9 +295,9 @@ theme: Plain Jane,5</p>
 <hr>
 <h1 id="-">複雑な問題の一端</h1>
 <ul>
-<li>次の2つを1つのモデル(Storeのこと)で行っているのが複雑な原因<ul>
-<li><strong>N</strong>: <strong>Storeにデータを書き込む処理(ビジネスロジック)</strong></li>
-<li><strong>M</strong>: <strong>View向けの状態の作成</strong></li>
+<li>次の2つをことを1つのモデル(Storeのこと)で行っているのが複雑な原因<ul>
+<li><strong>N</strong>: <strong>Actionを受け取りデータを更新(Write)</strong></li>
+<li><strong>M</strong>: <strong>Viewの要求に対してデータを返す(Read)</strong></li>
 </ul>
 </li>
 <li>1つモデルで2つの事をやると複雑さは<strong>掛け算</strong>となる<ul>
@@ -323,13 +326,18 @@ theme: Plain Jane,5</p>
 <h1 id="cqrs-">CQRS(コマンドクエリ責務分離)</h1>
 <hr>
 <p><img src="./img/CQRS.png" alt="fit CQRS"></p>
+<p>^ 左側のDomain Modelは今まで見てきた内容。
+データフローは一方通行であるけど、<strong>Actionを受け取りデータを更新(Write)</strong>と<strong>Viewの要求に対してデータを返す(Read)</strong>が一つの層として存在していました。
+^ 一方、右側のCQRSは、層が縦にも分かれています。
+これは<strong>Actionを受け取りデータを更新(Write)</strong>と<strong>Viewの要求に対してデータを返す(Read)</strong>が別の層として分離されることを意味しています。
+^ CQRSとはコマンドがWrite、クエリがReadという分離をする原則のこと</p>
 <hr>
 <h1 id="cqrs-">CQRS(コマンドクエリ責務分離)</h1>
 <ul>
 <li>Command Query Responsibility Segregation</li>
 <li>構造をコマンド(<strong>Write</strong>)とクエリ(<strong>Read</strong>)で縦に割る<ul>
-<li><strong>Storeにデータを書き込む処理(ビジネスロジック)</strong> = Write</li>
-<li><strong>View向けの状態の作成</strong> = Read</li>
+<li>Actionを受け取りデータを更新(<strong>Write</strong>)</li>
+<li>Viewの要求に対してデータを返す(<strong>Read</strong>)</li>
 </ul>
 </li>
 <li>クエリ(<strong>Read</strong>)は読み取りのみなので<strong>Write</strong>よりは単純</li>
@@ -341,6 +349,7 @@ theme: Plain Jane,5</p>
 <li>Storeの中で構造化するため上手く割り切れない</li>
 <li>Action(Command)がStoreに書き込む</li>
 <li>ViewがStoreからState(Query)を読み取る</li>
+<li>=&gt; Storeの役割を変えないとやりにくい</li>
 </ul>
 <p><img src="./img/flux-layer-cqrs.png" alt="right, flux-layer-cqrs.png"></p>
 <hr>
@@ -364,10 +373,6 @@ theme: Plain Jane,5</p>
 <hr>
 <h1 id="-">考えるポイント</h1>
 <ul>
-<li>クライアントサイドで問題点となるのはオブジェクトの永続化<ul>
-<li>シングルトンがでてくる問題</li>
-</ul>
-</li>
 <li>Write StackとRead Stackを分離 = CQRS<ul>
 <li>Write × Readの複雑さを掛け算ではなく足し算にする<ul>
 <li><strong>Write × Read</strong> =&gt; <strong>Write + Read</strong> へ [^注]</li>
@@ -376,6 +381,10 @@ theme: Plain Jane,5</p>
 </ul>
 </li>
 <li>ドメインモデルを扱える構造を作る</li>
+<li>クライアントサイドで問題点となるのはオブジェクトの永続化<ul>
+<li>シングルトンがでてくる問題</li>
+</ul>
+</li>
 </ul>
 <p>[^注]: Write と Readが共に複雑でなければ、掛け算の方が簡単なのは自明です</p>
 <p>^ N と Mが小さければ、掛け算の方が簡単なのは自明です。
@@ -385,9 +394,8 @@ N + M にするということは、値が小さい間はボイラープレー�
 <p><img src="./img/almin-layer.png" alt="right,fit, Simple Data Flow"></p>
 <h2 id="-">画像は概念イメージ</h2>
 <hr>
-<p><img src="./img/almin-layer.png" alt="fit, Almin Layer"></p>
-<hr>
 <h2 id="-">登場人物</h2>
+<p><img src="./img/almin-layer.png" alt="right, fit, Almin Layer"></p>
 <ul>
 <li>View(React Component)</li>
 <li>Write Stack<ul>
@@ -416,7 +424,7 @@ N + M にするということは、値が小さい間はボイラープレー�
 <h2 id="view">View</h2>
 <ul>
 <li>Reactを使う</li>
-<li>PoastCSS使ってる</li>
+<li>PostCSS使ってる</li>
 <li>以上</li>
 </ul>
 <hr>
@@ -448,10 +456,10 @@ The best place to start when trying to understand a new domain is by mapping out
 </ul>
 <hr>
 <h2 id="usecase-">UseCaseの例</h2>
-<p>Todoを追加するというユースケース</p>
+<p>「TodoListに新しいTodoを追加する」というユースケース</p>
 <ul>
 <li><code>TodoRepository</code>から<code>TodoList</code>のインスタンスを取り出す</li>
-<li><code>TodoList</code>に<code>TodoItem</code>を追加する</li>
+<li><code>TodoList</code>に作った<code>TodoItem</code>を追加する</li>
 <li><code>TodoRepository</code>に<code>TodoList</code>を保存する</li>
 </ul>
 <hr>
@@ -474,7 +482,7 @@ export class AddTodoItemUseCase extends UseCase {
 <li>作ろうとしてるものを表現するオブジェクト<a href="Storeは入れ物、Stateは中身という考え方">^図</a></li>
 <li>モデルクラス</li>
 <li>ここでは、データと<strong>振る舞い</strong>を持ったクラス</li>
-<li>できるだけPOJO(Plain Old JavaScript)である</li>
+<li>できるだけPOJO(Plain Old JavaScript Object)である</li>
 </ul>
 <hr>
 <h2 id="-">モデルとは…</h2>
@@ -484,7 +492,8 @@ export class AddTodoItemUseCase extends UseCase {
 ここでは、データと<strong>振る舞い</strong>を持ったクラスのことをモデルと呼んでいます。</p>
 <hr>
 <p><img src="./img/models.png" alt="models"></p>
-<p>^モデルとはー</p>
+<p>^モデルとはー何か。分からない。
+ここではデータと振る舞いを持ったクラスのことを言っています。</p>
 <hr>
 <h1 id="-todo">モデルの例: Todo</h1>
 <ul>
@@ -528,7 +537,7 @@ export class AddTodoItemUseCase extends UseCase {
 <h1 id="repository">Repository</h1>
 <hr>
 <h2 id="repository-memo-">Repositoryとは :memo:</h2>
-<p>ここでは、ドメインモデルの永続化に対処する層のこと</p>
+<p>ここでは、ドメインモデルの永続化に対処する概念/実装のこと</p>
 <p><img src="./img/term-repository.png" alt="inline, fit,Term repository"></p>
 <hr>
 <h1 id="repository">Repository</h1>
@@ -547,12 +556,12 @@ export class AddTodoItemUseCase extends UseCase {
 <h1 id="database">Database</h1>
 <p><img src="./img/almin-layer-database.png" alt="right,fit, Almin database"></p>
 <ul>
-<li>Repositoryの実装毎に保存先は違う</li>
+<li>Repositoryの保存先は実装毎に違う</li>
 <li>メモリ上でいいならただの<code>Map</code>オブジェクトでいい<ul>
 <li>localStorageとかIndexedDBなど色々</li>
 </ul>
 </li>
-<li>Databaseが変更の検知はRepositoryでやる</li>
+<li>AlminのサンプルだとDatabaseが変更の検知はRepositoryでやったり</li>
 </ul>
 <hr>
 <pre><code class="lang-js">import {UseCase} from &quot;almin&quot;;
@@ -580,19 +589,16 @@ export class AddTodoItemUseCase extends UseCase {
 <li>それへの現実解としてシングルトンが出てくる</li>
 </ul>
 </li>
-<li>DomainはRepositoryに依存させない</li>
+<li>DomainはRepositoryに依存してはいけない</li>
 <li>=&gt; <strong>依存関係逆転の原則(DIP)</strong></li>
-<li>UseCaseのコンストラクタに引数(依存)としてrepositoryを渡す<ul>
-<li>ここではUseCaseのFactoryがそのための存在</li>
-</ul>
-</li>
 </ul>
 <hr>
 <h1 id="-dip-">依存関係逆転の原則(DIP)</h1>
 <blockquote>
 <p>上位のモジュールは下位のモジュールに依存してはならない。どちらのモジュールも「抽象」に依存すべきである。
 「抽象」は実装の詳細に依存してはならない。実装の詳細が「抽象」に依存すべきである。
--- <a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989" title="依存関係逆転の原則（DIP） - Strategic Choice">依存関係逆転の原則（DIP） - Strategic Choice</a></p>
+-- <a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989" title="依存関係逆転の原則（DIP） - Strategic Choice">依存関係逆転の原則（DIP） - Strategic Choice</a>
+DIP:the Dependency Inversion Principle</p>
 </blockquote>
 <hr>
 <p><img src="./img/almin-layer-dip.png" alt="fit, Almin DIP"></p>
@@ -633,15 +639,16 @@ export class AddTodoItemUseCase extends UseCase {
 <hr>
 <p><img src="./img/domain-model-vs-cqrs.png" alt="fit CQRS"></p>
 <hr>
-<h1 id="write-command-read-query-">Write(Command)とRead(Query)</h1>
+<h1 id="write-command-read-query-">Write(Command)とRead(Query)の復習</h1>
 <ul>
 <li>CQRS (Command Query Responsibility Segregation)</li>
 <li>ざっくり: WriteとReadを層として分けて責務を分離する</li>
-<li>一方通行のデータフロー</li>
-<li>FluxとかReduxでやっていることと同じ</li>
+<li>一方通行のデータフロー<ul>
+<li>UseCaseでドメインを使ってデータ更新(<strong>Write</strong>)</li>
+<li>Viewの要求に対してデータを返す(<strong>Read</strong>)</li>
 </ul>
-<hr>
-<p><img src="./img/flux.png" alt="fit, flux"></p>
+</li>
+</ul>
 <hr>
 <h1 id="read-stack">Read Stack</h1>
 <p><img src="./img/almin-layer-state.png" alt="left, fit, Almin Layer State"></p>
@@ -650,6 +657,9 @@ export class AddTodoItemUseCase extends UseCase {
 <li>読み取り専用(保存したデータの変更はしない)ので色々簡略化できる</li>
 <li>縦に別れたので、テスト依存関係が簡略化できる！</li>
 </ul>
+<p>^ 例えば、StateのテストはReducerと同じような入力に対してどういうStateが作成できるかをテストするだけ。
+StoreのテストはRepositoryを渡して、どういうStateを返してくるなどをチェックするだけ。
+基本的に外から依存を差し込めるのでテストがしやすい。</p>
 <hr>
 <p><img src="./img/almin-layer-state.png" alt="left, fit, Almin Layer State"></p>
 <ul>
@@ -678,13 +688,17 @@ export class AddTodoItemUseCase extends UseCase {
 </ul>
 <hr>
 <h1 id="-warning-warning-">:warning: クライアントサイドの問題 :warning:</h1>
+<h3 id="-">永続化するパターン</h3>
+<p>View -&gt; UseCase -&gt; Domain -&gt; Repository -&gt; State -&gt; View -&gt; ...</p>
+<h3 id="state-">Stateを直接更新するパターン</h3>
+<p>View -&gt; UseCase -&gt; State -&gt; View -&gt; ...</p>
 <hr>
 <h1 id="-">クライアントサイドで多い問題</h1>
 <ul>
 <li>UseCase -&gt; Repositoryを経由したStore/Stateの更新までの流れ</li>
 <li>クライアントサイドではStateを直に更新して、UIにすぐ反映されて欲しいことがある<ul>
 <li>1F以内にアクションがViewに反映されて欲しいケース</li>
-<li>ローディング、モーダル、アニメーション</li>
+<li>ローディング、モーダル、アニメーション、停止ボタン</li>
 <li>「ほんのいっとき」が許されないケースはクライアントサイドにはある</li>
 <li>コンポーネントに閉じ込めるというのあり</li>
 </ul>
@@ -694,6 +708,8 @@ export class AddTodoItemUseCase extends UseCase {
 <hr>
 <p><img src="./img/p299.png" alt="inline p299"></p>
 <p>via <a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版">.NETのエンタープライズアプリケーションアーキテクチャ　第2版</a> p299</p>
+<p>^ CQRSは結果統合性とした方が扱いやすい構造。
+.NETの本には「ほんのいっときが古いデータが表示されるのは許容されるでしょ」とあるが、クライアントサイドでは先ほど言ったようにすぐに更新されて欲しいパターンがある。</p>
 <hr>
 <h1 id="usecase-store">UseCase -&gt; Store</h1>
 <p><img src="./img/almin-layer-usecase-store.png" alt="right, fit, almin-flux.png"></p>
@@ -722,7 +738,7 @@ export class AddTodoItemUseCase extends UseCase {
 <hr>
 <h2 id="-">実装したもの</h2>
 <ul>
-<li><a href="https://github.com/almin/almin" title="Almin.js">Almin.js</a><ul>
+<li><a href="https://github.com/almin/almin" title="Almin.js">Almin.js</a> = almin.js.org :link:<ul>
 <li>このスライドで書いた内容大体そのまま実装</li>
 <li><a href="https://github.com/almin/almin/tree/master/docs/counter" title="Counter Example">Counter</a></li>
 <li><a href="https://github.com/almin/almin/tree/master/example/todomvc" title="TodoMVC">TodoMVC</a></li>
@@ -762,7 +778,7 @@ export class AddTodoItemUseCase extends UseCase {
 <hr>
 <h1 id="-">まとめのまとめ</h1>
 <ul>
-<li>半年間この考えをベースに実装してみての知見のまとめてみた</li>
+<li>半年間この考えをベースを実践してみての知見まとめ</li>
 <li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a><ul>
 <li>コーディングガイドライン</li>
 <li>考え方</li>
