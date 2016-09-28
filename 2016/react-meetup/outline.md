@@ -57,3 +57,5 @@ Flux: 同じものをRead/Writeで使う -> Read/Writeで異なるモデルを�
 CQRS: 最初からRead/Writeで異なるものとして -> Read/Writeで簡略化のために同じモデルを共有しても良い
 
 とした方が分割統治できるんじゃないかという話
+
+=> あとは http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html
