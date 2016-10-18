@@ -177,15 +177,16 @@ module.exports.create = (event, context, cb) => {
 };
 ```
 
+------
+
 # デプロイ
 
-CloudFormationががちゃがちゃやってくれる
+CloudFormation経由でがちゃがちゃやってくれる
 
 ```
 $ serverless deploy
-# prod
-# slsというのはalias
-$ sls deploy -s prod
+# prod profileでデプロイ
+$ serverless deploy -s prod
 ```
 
 -----

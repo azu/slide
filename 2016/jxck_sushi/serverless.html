@@ -24,11 +24,11 @@
             style="border:0;">
     </iframe>
     <aside class="slide-controller">
-        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-10-18" id="datePublished">
-            2016-10-18
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-10-19" id="datePublished">
+            2016-10-19
         </time></span>
-        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-10-18" id="dateModified">
-            2016-10-18
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-10-19" id="dateModified">
+            2016-10-19
         </time></span>
         <a href="http://azu.github.io/slide/2016/jxck_sushi/serverless.pdf" title="Serverlessを使った匿名でGitHub Issueを立てるAPIを作った">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -193,12 +193,12 @@ module.exports.create = (event, context, cb) =&gt; {
     // デフォルトはJSONを受け取るので オブジェクト が入ってる
 };
 </code></pre>
+<hr>
 <h1 id="-">デプロイ</h1>
-<p>CloudFormationががちゃがちゃやってくれる</p>
+<p>CloudFormation経由でがちゃがちゃやってくれる</p>
 <pre><code>$ serverless deploy
-# prod
-# slsというのはalias
-$ sls deploy -s prod
+# prod profileでデプロイ
+$ serverless deploy -s prod
 </code></pre><hr>
 <h1 id="-api-gateway-lambda-">デプロイする API Gatewayやlambdaができる</h1>
 <p>手動でAPI Gatewayのスロットリングは設定した方が良い</p>
