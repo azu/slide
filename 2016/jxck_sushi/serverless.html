@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Serverlessを使った匿名でGitHub Issueを立てるAPIを作った</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="Serverlessを使った匿名でGitHub Issueを立てるAPIを作った"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2016/jxck_sushi/serverless.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2016-10-18" id="datePublished">
+            2016-10-18
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2016-10-18" id="dateModified">
+            2016-10-18
+        </time></span>
+        <a href="http://azu.github.io/slide/2016/jxck_sushi/serverless.pdf" title="Serverlessを使った匿名でGitHub Issueを立てるAPIを作った">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="serverless-github-issue-api-">Serverlessを使った匿名でGitHub Issueを立てるAPIを作った</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-api-gateway-lambda">やりたいこと: API Gateway &amp;&amp; Lambda</h1>
+<ul>
+<li>API Gatewayで POST リクエストを受け取る</li>
+<li>lambdaに POSTの body を渡す</li>
+<li>... 何かのバリデーション ...</li>
+<li>lambdaで GitHub APIを叩きIssueの作成を代行する</li>
+</ul>
+<hr>
+<h1 id="-serverless-framework-https-github-com-serverless-serverless-serverless-framework-"><a href="https://github.com/serverless/serverless" title="Serverless Framework">Serverless Framework</a></h1>
+<hr>
+<p><img src="https://serverless.com/_/src/assets/images/home_framework_v1_1.9bed0e9cce1abd8545b54ef3814e8541.png" alt="fit, Serverless"></p>
+<hr>
+<h1 id="-serverless-framework-https-github-com-serverless-serverless-serverless-framework-"><a href="https://github.com/serverless/serverless" title="Serverless Framework">Serverless Framework</a></h1>
+<ul>
+<li>API Gatewayとlambdaを管理するツール<ul>
+<li>AWS以外も対応してる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-serverless-framework-https-github-com-serverless-serverless-serverless-framework-"><a href="https://github.com/serverless/serverless" title="Serverless Framework">Serverless Framework</a>セットアップ</h1>
+<blockquote>
+<p><a href="https://github.com/serverless/serverless/blob/master/docs/02-providers/aws/01-setup.md">https://github.com/serverless/serverless/blob/master/docs/02-providers/aws/01-setup.md</a></p>
+</blockquote>
+<ol>
+<li><code>serverless-admin</code>のIAM Userを作る<ol>
+<li>Serverlesss FrameworkはCloudFormationを使ってすべてやる</li>
+</ol>
+</li>
+<li>IAM UserのAPIkeyをダウンロード</li>
+<li><code>~/.aws/credentials</code>に profile(ここでは<code>serverless</code>)の設定を置く</li>
+</ol>
+<pre><code>[serverless]
+aws_access_key_id = ADFGHJKFGHJKFGHJ
+aws_secret_access_key = FGAHJSJKDHAJKHDJKHSDJHASDH
+`
+</code></pre><hr>
+<h1 id="service-ping-">Service: <code>ping</code> を作る例</h1>
+<ul>
+<li>ServerlessではAPI Gatewayとlambdaなどをまとめたserviceという単位でプロジェクトを作る<ul>
+<li>1 serviceに1ディレクトリ作るイメージ</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-sh">$ serverless create --template aws-nodejs --name ping --path ping
+# ping/ に 設定が作られる
+$ ls ping
+event.json     handler.js     serverless.yml
+</code></pre>
+<hr>
+<h1 id="service-profile-">Serviceにprofileの設定</h1>
+<ul>
+<li>まずDeployできるように <code>serverless-admin</code> のAPIキーを設定する<ul>
+<li>AWSでは複数のIAM Userを扱うことがよくあるので profile 単位で管理</li>
+</ul>
+</li>
+<li>先ほどの <code>serverless</code> を profile として設定する<ul>
+<li>prodとdevの２環境つくり <code>-s prod</code>とかで分けられるようにしておく</li>
+</ul>
+</li>
+</ul>
+<hr>
+<pre><code class="lang-yaml">service: ping
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: ap-northeast-1
+  profile: ${self:custom.profiles.${self:provider.stage}}
+custom:
+  defaultStage: dev # デフォルトはdev
+  profiles:
+    dev: serverless # -s dev
+    prod: serverless # -s prod
+
+functions:
+  create:
+    handler: handler.create
+</code></pre>
+<hr>
+<h1 id="service-function-path-api-gateway-">Serviceのfunctionとpath(API Gateway)を関連づけ</h1>
+<pre><code class="lang-yaml">service: ping
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: ap-northeast-1
+  profile: ${self:custom.profiles.${self:provider.stage}}
+custom:
+  defaultStage: dev
+  profiles:
+    dev: serverless
+    prod: serverless
+
+functions:
+  create:
+    handler: handler.create # lambda
+    events:
+      - http:
+          path: ping/create # API Gateway
+          method: post
+          cors: true
+</code></pre>
+<hr>
+<h1 id="post-ping-create-">POST <code>/ping/create</code> が完成！</h1>
+<pre><code class="lang-yaml">functions:
+  create:
+    handler: handler.create # lambda
+    events:
+      - http:
+          path: ping/create # API Gateway
+          method: post
+          cors: true
+</code></pre>
+<hr>
+<h1 id="lambda-post-body-">lambdaでPost <code>body</code> を受け取る</h1>
+<pre><code class="lang-js">// handler.create
+module.exports.create = (event, context, cb) =&gt; {
+    const body = event.body;
+    if (!body) {
+        return cb(new Error(&quot;No body&quot;));
+    }
+    // bodyを使った処理
+    // デフォルトはJSONを受け取るので オブジェクト が入ってる
+};
+</code></pre>
+<h1 id="-">デプロイ</h1>
+<p>CloudFormationががちゃがちゃやってくれる</p>
+<pre><code>$ serverless deploy
+# prod
+# slsというのはalias
+$ sls deploy -s prod
+</code></pre><hr>
+<h1 id="-api-gateway-lambda-">デプロイする API Gatewayやlambdaができる</h1>
+<p>手動でAPI Gatewayのスロットリングは設定した方が良い</p>
+<pre><code>✈ sls deploy
+Serverless: Packaging service...
+Serverless: Removing old service versions...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading service .zip file to S3...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+..........
+Serverless: Stack update finished...
+
+Service Information
+service: ping
+stage: dev
+region: ap-northeast-1
+api keys:
+  None
+endpoints:
+  POST - https://example.execute-api.ap-northeast-1.amazonaws.com/dev/ping/create
+functions:
+  ping-dev-create: arn:aws:lambda:ap-northeast-1:122233:function:ping-dev-create
+`
+</code></pre><hr>
+<h1 id="-">作ったもの</h1>
+<ul>
+<li><a href="https://jser.info/2016/10/10/300posts/" title="JSer.info 300回目 &amp;&amp; https化 &amp;&amp; ユーザー投稿機能 - JSer.info">JSer.info 300回目 &amp;&amp; https化 &amp;&amp; ユーザー投稿機能 - JSer.info</a></li>
+<li><a href="https://github.com/jser/serverless" title="jser/serverless: JSer.info serverless side">jser/serverless: JSer.info serverless side</a> ソースコード</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>Serverless 1.0(RC)は結構簡単になった</li>
+<li>CORSとかPOST APIが簡単</li>
+<li>手動でやる場合は異常な面倒くさかった<ul>
+<li>CORSの設定とか手動でやってた</li>
+</ul>
+</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
