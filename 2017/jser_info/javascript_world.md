@@ -509,6 +509,14 @@ yarn --pure-lockfile # no-lock file
 
 ----
 
+# あなたもJSer.infoをつくってみませんか?
+
+- [jser/ping](https://github.com/jser/ping "jser/ping: Ping! your issue")にURLを紹介する
+- [jser/report](https://github.com/jser/report/issues "jser/report")にアイデアを提案する
+- [jser/jser.info - Gitter](https://gitter.im/jser/jser.info "jser/jser.info - Gitter")で議論をする
+
+----
+
 # 参考 1
 
 
