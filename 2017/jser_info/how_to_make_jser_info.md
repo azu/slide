@@ -147,7 +147,7 @@ theme: Plain Jane,5
 
 ----
 
-## 見逃したくない情報は何重にも出す
+## 見逃したくない情報は何重にも出す :warning:
 
 - RSSリーダーでキャッチする
 - リポジトリのリリース情報はRSSにもTwitterにも流す
@@ -181,10 +181,15 @@ theme: Plain Jane,5
 
 # 調べる(Search)
 
-- 調べるは能動的
+-----
+
+# 調べる(Search)
+
+- 調べるは能動的な行動
 - とりあえずググる
 - とりあえずGitHub検索する
 - とりあえずTwitter検索する
+- とりあえず専門サイトを探す
 
 ----
 
@@ -214,7 +219,7 @@ theme: Plain Jane,5
 - URLで検索するというのは結構大事
   - 関連する/参照している情報にたどり着きやすい
 - あるもの見つけて利用している「単語」を見つけてもう一度検索
-  - 検索できる語彙を増やすい
+  - 検索できる語彙をふやせる
 
 ----
 
@@ -230,11 +235,11 @@ theme: Plain Jane,5
 - ちょっと辞書が古そう(2005年 ~ 2008年)
 - Word2Vecとか関係あるのでは(既存の知識から)
 	- [最近の研究](http://repo.lib.hosei.ac.jp/bitstream/10114/12427/1/14R4103%E5%B8%82%E5%B7%9D%E7%A5%90%E5%A4%AA.pd)でも同様の辞書が採用されてた
-- 現役っぽい
+- 現役っぽいことがわかった
 
 ----
 
-## 相対は関連を検索してみる
+## 相対は関連を検索して知る
 
 - 見つけたものが古いものなのか(もっと新しいものがあるか)を知りたい場合
 - "<見つけたもの> compare related alternative migrate move to insteadof"とかで検索する
@@ -302,16 +307,24 @@ theme: Plain Jane,5
 
 -----
 
-# なぜ検証する必要があるのか
 
 > The Mechanism is not the Mental Model
 > -- [Dave Herman]
 
-- 必ずしも直感は正しくない(規模が大きくなるほど直感は正しくなくなる)
-- 作者により主張(説明)が必ずしも正しいとは限らない
-- 例) 「jQuery互換のAPI」と書かれている
+
+^ 直感と仕組みは必ずしも一致しない
+
+-----
+
+
+# なぜ検証する必要があるのか
+
+- 必ずしも直感は正しくない
+	- 規模が大きくなるほど、直感は正しくなくなる
+- 作者により説明(主張)が正しいとは限らない
+- 例) 「jQuery互換のAPI」と書かれている
   - 検証するとjQueryのテストを通るわけではなかった
-  - 正しくは「jQueryライクなAPI」
+  - 正しくは「jQueryのようなAPI」
 
 -----
 
@@ -320,23 +333,24 @@ theme: Plain Jane,5
 - ソースコードやIssueを読む
   - テストやサンプルコードを読む/動かす
 - 実際に動かしてみると分かることもある
-  - [JavaScriptのトレンドを素振りして確認する方法 - Qiita](http://qiita.com/azu/items/bacd146ed2e26980b9b0 "JavaScriptのトレンドを素振りして確認する方法 - Qiita")
+	  - [JavaScriptのトレンドを素振りして確認する方法 - Qiita](http://qiita.com/azu/items/bacd146ed2e26980b9b0 "JavaScriptのトレンドを素振りして確認する方法 - Qiita")
 - パフォーマンス系は数値のマジックが多いので、必ずチェック
-  - 検証すると多くのは特定のエッジケースにおいての改善
+	  - 検証すると多くのは特定のエッジケースにおいての改善
 
 ----
 
 # ソースコードをCloneして動かすSnippet
-
-- [motemen/ghq](https://github.com/motemen/ghq)を使ってclone
-- [Yarn](https://yarnpkg.com/ "Yarn")使ってインストール[^shell]
-- これで大体のプロジェクトは動く
 
 ```zsh
 ghq get "https://github.com/jser/jser.info.git" --update
 ghq look "https://github.com/jser/jser.info.git"
 yarn --pure-lockfile # no-lock file
 ```
+
+
+- [motemen/ghq](https://github.com/motemen/ghq)を使ってclone
+- [Yarn](https://yarnpkg.com/ "Yarn")使ってインストール[^shell]
+- これで大体のプロジェクトは動く
 
 [^shell]: [ghq+ghs](https://gist.github.com/azu/d526e212ca764b3dd029 "ghq+ghs")のzsh
 
@@ -348,7 +362,7 @@ yarn --pure-lockfile # no-lock file
 - 不確実性が含まれるならJSer.infoにおいてはスルーする
   - JSer.infoの目的に反してしまうため諦める
 - 諦めて後回しにしておくことで誰かが解決してくれるかもしれない
-  - 苦痛を感じるならやるべきではない
+	  - 苦痛を感じるならやるべきではない
 
 -----
 
@@ -446,7 +460,34 @@ yarn --pure-lockfile # no-lock file
 - あるものを貶すような発言はぐっと抑えましょう
 - 写真の撮影/アップロードなどは写ってる人に許可を貰ってから行いましょう
 
-:arrow_heading_up: 上記に反しないような主張や議論は歓迎される
+:arrow_heading_up: 上記に反しないような主張や議論は歓迎
+
+
+----
+
+
+# 「言葉」の難しさ
+
+- 言及は正しく事を行なっても正しくは伝わないことがある
+	- 正しいこと != 正しく伝える
+- 正しく伝えることのほうが大事
+	- 障壁を下げるには機械的なチェックの方がいい
+
+----
+
+# 「言葉」の難しさ
+
+> 人手による文書のレビューはコードのレビュー以上に人間関係を悪くしてしまう恐れがあります。これに対して、自動検査ツールで結果を返すのは人ではなくツールですので執筆者は嫌がらせを疑う必要はありません。
+> -- http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237
+
+
+
+----
+
+# 「説明」のまとめ
+
+- [ ] TODO
+
 
 
 ----
