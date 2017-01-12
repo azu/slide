@@ -54,9 +54,10 @@ theme: Plain Jane,5
 # JSer.infoのゴール
 
 - JSer.infoのゴール = 方向
-- 「JavaScriptに興味がある人にもっとJavaScriptを知ってもらう」
+- 「JavaScriptに興味がある人にもっとJSを知ってもらう」
 - 「JavaScriptの情報を整理して伝える」
 - 「JavaScriptの現状を正確に伝える」
+- 「更新コストを小さくして、継続できる形を作る」
 
 ----
 
@@ -466,21 +467,35 @@ yarn --pure-lockfile # no-lock file
 1. [JSer.infoのアーカイブ](https://jser.info/jser.info/ "JSer.infoのアーカイブ")から記事を選ぶ
 2. [jser/jser.github.io](https://github.com/jser/jser.github.io "jser/jser.github.io")に記事を書く
   - Jekyllで動いてるので、Markdownを追加してヘッドラインを書く
+3. 記事が公開される
 
 ----
+
+# ---- ここまで ------
+
+## これを繰り返せば JSer.info の完成
+
+----
+
+# 継続性
+
+- JSer.infoの目標 :triangular_flag_on_post:
+  - 「更新コストを小さくして、継続できる形を作る」
+
+-----
 
 # ゴール(Goal)
 
 ![status-of-posts, right, fit](./resources/status-of-posts.png)
 
 - 継続的に行動するには、ゴールはできるだけ短く連続的に設定する
-  - 「JSer.info の場合は１週間に1度投稿する」というのがゴール
+  - 「JSer.infoは１週間に1度ぐらい投稿する」というのがゴール
 - ゴールと進捗は同じぐらい大事な指標
 - [jser.info/status-of-post/](https://jser.info/status-of-post/)で現在の進捗を見られる
 
 ----
 
-# 短い連続性のあるゴール
+# 短く連続性のあるゴール
 
 - 一度に遠くのゴールを目指すより、短い目標をちょっとづつクリアした方が継続する
 
@@ -488,17 +503,72 @@ yarn --pure-lockfile # no-lock file
 
 ----
 
-# イテレーション
+# 長すぎるゴールの問題
 
-- 不確実性のコーン
-- 直感に頼りすぎるのも問題がある
-- イテレーションの期間も長すぎない方がブレにくい
-- イテレーションを改善するために色々やる
-  - textlint、CI、bot、API、投稿アプリ
-- これによりワークフローを逆戻りしないようしてる
-  - 一方通行にしたほうが簡単
+- 解決するのが難しい
+- どれくらいの期間で終わるのか予想しにくい
+  - 直感的な見積もりは大体間違ってる
 
 -----
+
+## 不確実性のコーン [^見]
+
+![korn, inline](./resources/korn.png)
+
+[^見]: [ソフトウェア見積り　人月の暗黙知を解き明かす](https://www.amazon.co.jp/dp/B00KR96M6K/ "ソフトウェア見積り　人月の暗黙知を解き明かす")
+
+-----
+
+# 直感と予想は一致しない
+
+- 長期的なものを直感で予想するのは難しい
+- 短い反復の方が、予想と実際の結果のバラつきは小さくなる
+  - 計画実行の不確実性が減る
+- 一度上手くいかなくても、失敗の誤差も小さいため取り戻しやすい
+
+----
+
+# 再開のコスト
+
+- 人は一度やめると再開するコストが大きい
+  - 上手く達成できなかったタイミングで停止してしまうことが多い
+- 継続的にやるなら、完全な停止は避けるような作りにしたほうがいい
+- 小さくコミットして小さく続ける
+
+----
+
+![azu_contributes.png, inline, fit](./resources/azu_contributes.png)
+
+![jser_contributes.png, inline, fit](./resources/jser_contributes.png)
+
+----
+
+# 共有の位置づけ
+
+![overview, right 50%](resources/workflow-jser.png)
+
+- 情報収集は元からの趣味
+- 共有をするのはおまけ
+- JSer.infoの更新(共有)を停止しても、情報収集自体は継続される
+  - 完全に停止はしないので、再開はしやすい
+
+----
+
+# イテレーションのコスト
+
+![overview, right 50%](resources/workflow-jser.png)
+
+- 無コストではないけど、そのコストは小さくするように努力する
+- ワークフローはできるだけ一方通行で完了するようにする
+  - Unidirection workflow
+- [textlint](https://github.com/textlint/textlint "textlint")、CI、bot、API、投稿アプリ
+  - その場その場で投稿の処理を行い、一つ一つのコストを小さくする
+
+----
+
+![JSer.infoの全体像](./resources/workflow_around_jser.png)
+
+----
 
 # まとめ
 
