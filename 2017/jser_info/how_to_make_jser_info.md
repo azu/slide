@@ -43,11 +43,11 @@ theme: Plain Jane,5
 ## JSer.infoの目的
 
 > なぜこのようなサイトを始めたのかというと、現在のインターネットは
-> JavaScriptの情報が溢れていて自分の周りだけの情報で全てだと錯覚してしまうほど情報量だと思います
-> そのようなキャパシティをオーバーしてしまう状況はあまり好ましくないため、ある程度の内容に絞った情報を提供する場所が必要ではないかと考えました。
+> JavaScriptの情報が溢れていて自分の周りだけの情報で全てだと錯覚してしまうほど情報量だと思います。
+> ...ある程度の内容に絞った情報を提供する場所が必要ではないかと考えました。
 > 幸いにも私は情報を集めることが好きなので、そのような人間が少し整理した情報を提供することでより良い流れが作れるのではないかと思っています。
-
 > 改めて、このサイトは言語問わないJavaScriptの情報を紹介するサイトです。しかし、真の目的はJavaScriptの情報を”紹介”ではなく”知ってもらう”事にあるため、継続的な活動が必要となるでしょう。
+> -- https://jser.info/about/
 
 ---
 
@@ -82,7 +82,7 @@ theme: Plain Jane,5
 
 # 見る(Watch)、調べる(Search)
 
-![workflow, right, fit](./resources/workflow-know-search.png)
+![workflow, right, fit](./resources/workflow_watch_search.png)
 
 - どのプログラミング言語でも大体同じやり方が通じ
 - どちらも"情報収集"
@@ -292,7 +292,7 @@ theme: Plain Jane,5
 
 # 行動
 
-![workflow-jser.png, fit](./resources/workflow-jser.png)
+![right, fit, workflow_verify_explain.png](./resources/workflow_verify_explain.png)
 
 ^ JSer.infoにおける行動として、検証とその説明をすることがメインとなっています。
 
@@ -356,12 +356,33 @@ yarn --pure-lockfile # no-lock file
 
 -----
 
+# 変更点を見つける
+
+![changelog.png, right, fit](./resources/changelog.png)
+
+- 更新に対して一から見つけるのは時間の無駄
+- 実際の**変更点**を見つけるのが時間短縮に繋がる
+- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+- CHANGELOG/ISSUE/PR/Commitsから実際のソースコードを探す
+
+-----
+
+## 変更点を見つける(要約)
+
+![changelog_summary.png, right, fit](./resources/changelog_summary.png)
+
+1. CHANGELOG/リリースノートを見る
+2. Issue/Pull Requestを見る
+3. コミットを見る
+
+-----
+
 # すべては検証できない
 
 - 時間的な制約、コスト的な問題がある
 - 不確実性が含まれるならJSer.infoにおいてはスルーする
   - JSer.infoの目的に反してしまうため諦める
-- 諦めて後回しにしておくことで誰かが解決してくれるかもしれない
+- 諦めて後回しにしておくことで、誰かが解決してくれるかもしれない
 	  - 苦痛を感じるならやるべきではない
 
 -----
@@ -446,18 +467,25 @@ yarn --pure-lockfile # no-lock file
 ## CODE OF CONDUCT
 
 - CODE OF CONDUCTはその場所をどう扱ってほしいかの表明
-  - 利用者に強制力はない
-  - しかし、ヒントとして表明は出せる
+  - 利用者に強制力はないが、ヒントとして表明できる
   - 関連: [契約プログラミング](https://ja.wikipedia.org/wiki/%E5%A5%91%E7%B4%84%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0 "契約プログラミング")
 - [jser.info/CODE_OF_CONDUCT.md](https://github.com/jser/jser.info/blob/gh-pages/CODE_OF_CONDUCT.md "jser.info/CODE_OF_CONDUCT.md")
-  - [Contributor Covenant: A Code of Conduct for Open Source Projects](http://contributor-covenant.org/ "Contributor Covenant: A Code of Conduct for Open Source Projects")も基本的にそういう意図を表明しているもの
+  - [Contributor Covenant](http://contributor-covenant.org/ "Contributor Covenant: A Code of Conduct for Open Source Projects")や[Open Code of Conduct](http://todogroup.org/opencodeofconduct/ "Open Code of Conduct")も基本的にそういう意図を表明しているもの
+- [Introducing GitHub Community Guidelines](https://github.com/blog/2267-introducing-github-community-guidelines "Introducing GitHub Community Guidelines")
+
+^ A Code of Conduct for Open Source Projectsも
+
+----
+
+> We recommend projects consider adopting a code of conduct that fits their community.
+> -- [Followup: Open Code of Conduct // TODO: Talk openly, develop openly](http://todogroup.org/blog/followup-open-code-of-conduct/ "Followup: Open Code of Conduct // TODO: Talk openly, develop openly")
 
 ----
 
 ## このイベントのCODE OF CONDUCT
 
 - 公平な心をもって参加しましょう
-- あるものを貶すような発言はぐっと抑えましょう
+- あるものをけなすような発言はぐっと抑えましょう
 - 写真の撮影/アップロードなどは写ってる人に許可を貰ってから行いましょう
 
 :arrow_heading_up: 上記に反しないような主張や議論は歓迎
@@ -469,26 +497,61 @@ yarn --pure-lockfile # no-lock file
 # 「言葉」の難しさ
 
 - 正しいことを言っても、正しくは伝わないことがある
-	- 正しいこと != 正しく伝える
-- 正しく伝えることのほうが大事
-	- 障壁を下げるには機械的なチェックの方がいい
+	- 正しいことを言う != 正しく伝える
+- 正しい事実だけではなく、正しく伝えることも大事
+- 「使わない言葉」であげていたものは、正しく伝えるのが難しい言葉
+  - 事実と意見が混ざりやすい言葉
+
+^ [「正しい意見や指摘こそ、優しい言葉で伝えることが大事」結城浩さんの連ツイ - Togetterまとめ](https://togetter.com/li/1069037 "「正しい意見や指摘こそ、優しい言葉で伝えることが大事」結城浩さんの連ツイ - Togetterまとめ")
 
 ----
 
-# 「言葉」の難しさ
+# 事実を指摘する難しさ
 
-> 人手による文書のレビューはコードのレビュー以上に人間関係を悪くしてしまう恐れがあります。これに対して、自動検査ツールで結果を返すのは人ではなくツールですので執筆者は嫌がらせを疑う必要はありません。
+> 人手による文書のレビューはコードのレビュー以上に人間関係を悪くしてしまう恐れがあります。
+> これに対して、自動検査ツールで結果を返すのは人ではなくツールですので執筆者は嫌がらせを疑う必要はありません。
 > -- http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237
 
+----
 
+## 事実を指摘する難しさ
+
+- 事実を正しく伝えるのは難しい
+  - そこにはコミュニケーションが存在する
+- 障壁を下げるには機械的なチェックの方がいい
+  - いわゆるLint的な機械が伝える事実
+- 例) [textlint](https://github.com/textlint/textlint "textlint")で事実を伝える
+  - 機械が事実を事実として伝える
+
+----
+
+```
+- expected: "使うべきではない言葉なので修正してください"
+  patterns:
+    - 最強
+    - 常識的
+    - 最も優れた
+    - 知らなさそう
+    - 酷い
+```
+
+----
+
+# JSer.infoにおいての機械的なチェック
+
+- [textlint](https://github.com/textlint/textlint "textlint")で機械的なチェックが走ってる
+- 機械的なチェックに引っかかったものは修正するか諦める
+- 機械的に判断できるようにして、余計な時間を使わないようにしてる
 
 ----
 
 # 「説明」のまとめ
 
-- [ ] TODO
-
-
+- 説明は場所/対象により正しさが異なる
+- 注目を集めることは簡単だけど、事実を伝えることはより難しい
+- JSer.infoでは 正しく説明 >= 正しい事実
+  - 正しく説明できなさそうなら諦める(正しい事実が分かっていて説明できないのは稀だけど)
+- 機械的なチェックを導入することで時間的に省略
 
 ----
 
@@ -515,6 +578,10 @@ yarn --pure-lockfile # no-lock file
 # ---- ここまで ------
 
 ## これを繰り返せば JSer.info の完成
+
+----
+
+![jserinfo.png, fit](./resources/jserinfo.png)
 
 ----
 
@@ -571,9 +638,16 @@ yarn --pure-lockfile # no-lock file
 
 # 再開のコスト
 
-- 人は一度やめると再開するコストが大きい
+- 一度やめると再開するコストが大きい
   - 上手く達成できなかったタイミングで停止してしまうことが多い
+- 1週間区切りなら上手く行かない週は、次の週で取り戻せる(リセットできる)
 - 継続的にやるなら、完全な停止は避けるような作りにしたほうがいい
+
+-----
+
+# 小さく作って小さく更新
+
+- 一日で一週間分をまとめるのは無理
 - 小さくコミットして小さく続ける
 
 ----
@@ -586,7 +660,7 @@ yarn --pure-lockfile # no-lock file
 
 # 共有の位置づけ
 
-![overview, right 50%](resources/workflow-jser.png)
+![overview, right 50%](resources/workflow_before_jser.png)
 
 - 情報収集は元からの趣味
 - 共有をするのはおまけ
@@ -617,6 +691,7 @@ yarn --pure-lockfile # no-lock file
 - 自分の動けるスコープを決めて動くことが大事
 - JSer.infoは1週間で小さな目標を達成出来るように動かしてる
   - 1つずつの紹介はもっと小さな単位で回すようにしてる
+- 見るものは見る場所に集める
 
 ----
 
