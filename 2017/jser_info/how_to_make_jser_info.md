@@ -13,6 +13,14 @@ theme: Plain Jane,5
 
 ----
 
+# アジェンダ
+
+- JSer.infoの作り方
+- 記事公開までのワークフロー
+- 継続的にやるために考えること
+
+----
+
 # テーマ
 
 - 見る(Watch)
@@ -67,6 +75,20 @@ theme: Plain Jane,5
 
 ----
 
+# JSer.infoのワークフロー
+
+![workflow-jser.png, right, fit](./resources/workflow-jser.png)
+
+- 1つ1つの記事ごとに次のワークフローを通す
+	1. 見る
+	1. 調べる(省略可能)
+	1. 検証(省略可能)
+	1. 説明
+	1. 共有
+
+
+----
+
 ## 目的を満たすために
 
 - JavaScriptの情報を整理して正確に伝えるために
@@ -84,7 +106,7 @@ theme: Plain Jane,5
 
 ![workflow, right, fit](./resources/workflow_watch_search.png)
 
-- どのプログラミング言語でも大体同じやり方が通じ
+- どのプログラミング言語でも大体同じやり方が通じる
 - どちらも"情報収集"
 - 調べるは能動的、見るは受動的な情報収集
 - [情報化社会を この先生きのこるためには / Layzie@Frontrend in Kanazawa // Speaker Deck](https://speakerdeck.com/layzie/layzie-at-frontrend-in-kanazawa "情報化社会を この先生きのこるためには / Layzie@Frontrend in Kanazawa // Speaker Deck")
@@ -103,13 +125,15 @@ theme: Plain Jane,5
 
 ## GitHubを見る
 
-![ホスト別の紹介数 GitHubは突出, right](./resources/item-per-domain-and-year.png)
+![ホスト別の紹介数 GitHubは突出, right, fit](./resources/item-per-domain-and-year.png)
 
 - GitHubは開発の基盤なので重要
 - JSer.infoでも紹介数は年々増えている
 - 新しいライブラリ、ドキュメント、リリース情報など
 - Issue/Pull Request
 - ECMAScriptの仕様策定の議論など
+
+^ GitHubは紹介数をみても飛び抜けている = 重要
 
 -----
 
@@ -118,7 +142,7 @@ theme: Plain Jane,5
 ![github-notification.png, right, fit](./resources/github-notification.png)
 
 - しかし、GitHubのタイムライン(通知)は破綻してる
-- そのため色々なツールやアプリなどを書いてる
+- そのため色々なツールやアプリなどを書いたり/使ったり
 - [GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch](http://efcl.info/2014/07/30/find-github-release/)
 - [Githubのタイムラインや通知を見るアプリをnode-webkitで作った | Web Scratch](http://efcl.info/2014/0430/res3872/)
 
@@ -163,7 +187,7 @@ theme: Plain Jane,5
 
 - [LDR](http://reader.livedoor.com/reader/)を使ってる
 - 現在の購読フィード数は 3212
-- 購読するフィードを気にせず増やしていく
+- 購読するフィードは気にせず追加する
 - 更新されなくなるフィードも多いため、結果的に帳尻は合う
 
 ----
@@ -173,7 +197,7 @@ theme: Plain Jane,5
 - 人によってやり方は様々
   - 自分が最も見る所に集約するのが簡単
 - 情報は少なくても、多くても混乱する
-  - 自分のニーズにあったやり方を設計することが一番
+  - 自分のニーズにあったやり方を作ることが大事
 - [JavaScript情報ってなんだっけ?](http://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")に書いた
 - JSer.infoの目的の一つは多すぎる情報を整理することにある
 
@@ -202,6 +226,12 @@ theme: Plain Jane,5
 - URLを検索
 - [Fix Google Search Options](https://greasyfork.org/ja/scripts/9230-fix-google-search-options "Fix Google Search Options")
 - [情報化社会を この先生きのこるためには / Layzie@Frontrend in Kanazawa // Speaker Deck](https://speakerdeck.com/layzie/layzie-at-frontrend-in-kanazawa "情報化社会を この先生きのこるためには / Layzie@Frontrend in Kanazawa // Speaker Deck")
+
+
+^ まあ普通に新しい情報は英語圏の方が多いので適当な英単語でググる方がヒットしやすい。
+また、新しい情報は日付でフィルターした方がノイズが少なく探しすい。
+同じ理由でTwitterを良く検索する。
+URLで検索は関連を検索する手法なのであとで。
 
 ----
 
@@ -520,8 +550,7 @@ yarn --pure-lockfile # no-lock file
   - そこにはコミュニケーションが存在する
 - 障壁を下げるには機械的なチェックの方がいい
   - いわゆるLint的な機械が伝える事実
-- 例) [textlint](https://github.com/textlint/textlint "textlint")で事実を伝える
-  - 機械が事実を事実として伝える
+- 例) [textlint](https://github.com/textlint/textlint "textlint")で説明をチェックする
 
 ----
 
@@ -542,6 +571,14 @@ yarn --pure-lockfile # no-lock file
 - [textlint](https://github.com/textlint/textlint "textlint")で機械的なチェックが走ってる
 - 機械的なチェックに引っかかったものは修正するか諦める
 - 機械的に判断できるようにして、余計な時間を使わないようにしてる
+
+
+----
+
+# JSer.infoにおける感情の言及について
+
+
+- [ ] TODO
 
 ----
 
@@ -630,13 +667,13 @@ yarn --pure-lockfile # no-lock file
 # 直感と予想は一致しない
 
 - 長期的なものを直感で予想するのは難しい
-- 短い反復の方が、予想と実際の結果のバラつきは小さくなる
+- 短い反復の方が、予想と実際の結果のバラつきは小さくなる
   - 計画実行の不確実性が減る
 - 一度上手くいかなくても、失敗の誤差も小さいため取り戻しやすい
 
 ----
 
-# 再開のコスト
+# 再開に必要なコストは大きい
 
 - 一度やめると再開するコストが大きい
   - 上手く達成できなかったタイミングで停止してしまうことが多い
@@ -649,6 +686,8 @@ yarn --pure-lockfile # no-lock file
 
 - 一日で一週間分をまとめるのは無理
 - 小さくコミットして小さく続ける
+- 1紹介記事 = 1コミット
+- 一度にまとめてやるのは心理的コストが高い
 
 ----
 
