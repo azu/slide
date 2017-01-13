@@ -154,7 +154,7 @@ autoscale: true
 
 ----
 
-# JSer.infoに見てもらいたい情報を投げる場所
+# JSer.infoへの情報を投げる場所
 
 
 ----
@@ -266,19 +266,24 @@ autoscale: true
 	- [Realtime JSer.info](https://realtime.jser.info/ "Realtime JSer.info")ではリアルタイムに見られる
 	- 投稿時に詳細を設計してしまうのは、継続性のボトルネックになりやすい
 - 記事化するときに結果統合性が成り立つように集約する
-
+- => 詳しくは次のスライドで
 
 ----
 
 # 今後
 
 - トピックベースのレポートを書く方法を検証してる
+	- 中期的な課題を解決したい
 	- https://github.com/jser/report/issues
 - 一番大事なのは時間的なコスト
 	- 継続的にやるためにはどうやっても必要
-- GitHub Issueでやってるコミュニティ
-	- [Issues · dyweb/weekly](https://github.com/dyweb/weekly/issues "Issues · dyweb/weekly")
 - 今年何かを検証したい
 
-
 -----
+
+## 参考
+
+- [JSer.infoの遊び方 - JSer.info](https://jser.info/2016/01/15/how-to-play-jser-info/)
+- [JSer.info 300回目 && https化 && ユーザー投稿機能 - JSer.info](https://jser.info/2016/10/10/300posts/)
+- GitHub Issueでやってるコミュニティ
+	- [Issues · dyweb/weekly](https://github.com/dyweb/weekly/issues "Issues · dyweb/weekly")

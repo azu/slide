@@ -142,7 +142,7 @@ theme: Plain Jane,5
 ![github-notification.png, right, fit](./resources/github-notification.png)
 
 - しかし、GitHubのタイムライン(通知)は破綻してる
-- そのため色々なツールやアプリなどを書いたり/使ったり
+- そのため色々なツールやアプリなどを書いたり
 - [GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch](http://efcl.info/2014/07/30/find-github-release/)
 - [Githubのタイムラインや通知を見るアプリをnode-webkitで作った | Web Scratch](http://efcl.info/2014/0430/res3872/)
 
@@ -229,7 +229,7 @@ theme: Plain Jane,5
 
 
 ^ まあ普通に新しい情報は英語圏の方が多いので適当な英単語でググる方がヒットしやすい。
-また、新しい情報は日付でフィルターした方がノイズが少なく探しすい。
+また、新しい情報は日付でフィルターするとノイズが少なく探しすい。
 同じ理由でTwitterを良く検索する。
 URLで検索は関連を検索する手法なのであとで。
 
@@ -437,7 +437,7 @@ yarn --pure-lockfile # no-lock file
 
 - 言葉とは意図を表明するもの
 - JSer.infoにおいては次の意図を持たせる言葉を優先する
-  - 「整理」「正確」「現状」「関連性」「客観的」
+  - 「整理」「正確」「現状」「中立」「関連性」「客観的」
 - 逆を言えば使わない言葉を決める
   - 実際に使わない言葉の方が役立つ(機械的に落とせるため)
 
@@ -533,6 +533,7 @@ yarn --pure-lockfile # no-lock file
   - 事実と意見が混ざりやすい言葉
 
 ^ [「正しい意見や指摘こそ、優しい言葉で伝えることが大事」結城浩さんの連ツイ - Togetterまとめ](https://togetter.com/li/1069037 "「正しい意見や指摘こそ、優しい言葉で伝えることが大事」結城浩さんの連ツイ - Togetterまとめ")
+特に文字だと部分で読むことができちゃうのでより難しい。
 
 ----
 
@@ -548,14 +549,14 @@ yarn --pure-lockfile # no-lock file
 
 - 事実を正しく伝えるのは難しい
   - そこにはコミュニケーションが存在する
-- 障壁を下げるには機械的なチェックの方がいい
+- 障壁を下げるには機械を通すなど
   - いわゆるLint的な機械が伝える事実
 - 例) [textlint](https://github.com/textlint/textlint "textlint")で説明をチェックする
 
 ----
 
 ```
-- expected: "使うべきではない言葉なので修正してください"
+- expected: "JSer.infoはでは使うべきではない"
   patterns:
     - 最強
     - 常識的
@@ -575,10 +576,23 @@ yarn --pure-lockfile # no-lock file
 
 ----
 
-# JSer.infoにおける感情の言及について
+# JSer.infoの[感情極性値](http://www.lr.pi.titech.ac.jp/~takamura/pndic_ja.html "感情極性値")
+
+- JSer.infoの説明に感情的な単語がどれぐらい使われてるか
+- [単語感情極性対応表](http://www.lr.pi.titech.ac.jp/~takamura/pndic_ja.html "単語感情極性対応表")
+  - 単語ごと`-1`から`+1`までの値がつけられたデータ
+  - ネガティブに近いかポジティブに近いかを書かれてる
+- JSer.infoの意図は「中立」なので、0に近いほど目的に沿ってそう
+  - 記事ごとの説明の感情極性値の平均を出してみる
+
+----
+
+![feeling, fit](./resources/feeling-words.png)
 
 
-- [ ] TODO
+^ 平均は大体 -0.216 なので大体 0 に近い。
+けど、ネガティブな方が単語数の有利があるので補正をかけている。
+なのであんまり参考にはならない図
 
 ----
 
@@ -727,10 +741,10 @@ yarn --pure-lockfile # no-lock file
 # まとめ
 
 - その場における知識はそこまで重要じゃない
+- 見るものは見る場所に集める
 - 自分の動けるスコープを決めて動くことが大事
 - JSer.infoは1週間で小さな目標を達成出来るように動かしてる
   - 1つずつの紹介はもっと小さな単位で回すようにしてる
-- 見るものは見る場所に集める
 
 ----
 
