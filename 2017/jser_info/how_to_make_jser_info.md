@@ -5,10 +5,24 @@ theme: Plain Jane,5
 
 ----
 
+# 去年のまとめ
+
+![right, fit, last-year.png](./resources/last-year.png)
+
+- [JavaScript情報ってなんだっけ?](http://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")
+- 未来に関する悩みが増えた
+- 情報の安定性を見る方法について
+- コミュニティの問題が表面化
+- 1つだけではなく複数の情報から判断しよう
+
+
+----
+
 # はじめに
 
 - このスライドには再現性がありません
-- 技術的な面白さはありません
+  - JSer.info 特有の考え方が多く含まれます
+- 技術的な内容ではありません
 - 各自、適当に見てね
 
 ----
@@ -23,12 +37,13 @@ theme: Plain Jane,5
 
 # テーマ
 
-- 見る(Watch)
-- 調べる(Search)
-- 学ぶ(Learn)
-- 考える(Think)
-- 作る(Create)
-- 共有(Share)
+- 何か作る上で次のようなワークフローを辿る
+  - 見る(Watch)
+  - 調べる(Search)
+  - 学ぶ(Learn)
+  - 考える(Think)
+  - 作る(Create)
+  - 共有(Share)
 
 ----
 
@@ -44,7 +59,7 @@ theme: Plain Jane,5
 
 ----
 
-# JSer.infoの例
+# JSer.infoの場合
 
 -----
 
@@ -56,6 +71,11 @@ theme: Plain Jane,5
 > 幸いにも私は情報を集めることが好きなので、そのような人間が少し整理した情報を提供することでより良い流れが作れるのではないかと思っています。
 > 改めて、このサイトは言語問わないJavaScriptの情報を紹介するサイトです。しかし、真の目的はJavaScriptの情報を”紹介”ではなく”知ってもらう”事にあるため、継続的な活動が必要となるでしょう。
 > -- https://jser.info/about/
+
+^ 要約
+- 情報が溢れてる
+- 整理して発信しよう
+- 真の目的はJavaScriptの情報を”紹介”ではなく”知ってもらう”事にあるため、継続的な活動が必要となる
 
 ---
 
@@ -94,11 +114,14 @@ theme: Plain Jane,5
 - JavaScriptの情報を整理して正確に伝えるために
 - 誇張や誤った情報は避ける必要がある(Verify)
 - また伝えるには言葉(文字)を使うので、嘘をつかないように説明する必要がある(Explain)
-  - 人にとって「良い」という言葉の意味すら異なるので難しい
+  - 人にとって「良い」という言葉の解釈が異なるので難しい
+  - この問題に対してどのようなアプローチをとっているかについて
 
 ----
 
 # 具体的にどう行動するか
+
+## まずは情報がないと始まらない
 
 ----
 
@@ -111,6 +134,10 @@ theme: Plain Jane,5
 - 調べるは能動的、見るは受動的な情報収集
 - [情報化社会を この先生きのこるためには / Layzie@Frontrend in Kanazawa // Speaker Deck](https://speakerdeck.com/layzie/layzie-at-frontrend-in-kanazawa "情報化社会を この先生きのこるためには / Layzie@Frontrend in Kanazawa // Speaker Deck")
 
+^ 基本的に調べるは検索するので能動的な行動です。
+見るが受動的なのは、どこかにアンテナを貼って受動的に集める行為であるからです。
+見るためには調べるアンテナを貼る必要があるので、基本的に片方だけというのは実は難しいのかも。
+
 ----
 
 # 見る(Watch)
@@ -119,6 +146,7 @@ theme: Plain Jane,5
 - 気づくために色々なアンテナを貼る
 - 「見る」で重要なのは、自分が見る所に集約すること
   - 見ない所に集めても結局見ない
+  - 情報不足、情報過多は混乱を生む = 自分に合うバランスが必要
 - @azu がもっと見るのはRSSリーダーとTwitter
 
 ----
@@ -253,7 +281,7 @@ URLで検索は関連を検索する手法なのであとで。
 
 ----
 
-## 例) 関連を検索
+## 例) テキストから感情を検出したい
 
 1. テキストがポジティブ or ネガティブかを判定したい
 2. `感情 判定` で検索
@@ -349,10 +377,10 @@ URLで検索は関連を検索する手法なのであとで。
 
 - 必ずしも直感は正しくない
 	- 未知の分野、規模が大きい場合など、直感は間違っていることがある
-- 作者により説明(主張)が正しいとは限らない
-- 例) 「jQuery互換のAPI」と書かれている
-  - 検証するとjQueryのテストを通るわけではなかった
-  - 正しくは「jQueryのようなAPI」
+- 作者による説明(主張)が正しいとは限らない
+- 例) 「jQuery-compatible API」と書かれている
+  - 検証するとjQueryと同じような機能を持っているだけだった
+  - 正しくは「jQuery-like API」
 
 -----
 
@@ -363,7 +391,7 @@ URLで検索は関連を検索する手法なのであとで。
 - 実際に動かしてみると分かることもある
 	  - [JavaScriptのトレンドを素振りして確認する方法 - Qiita](http://qiita.com/azu/items/bacd146ed2e26980b9b0 "JavaScriptのトレンドを素振りして確認する方法 - Qiita")
 - パフォーマンス系は数値のマジックが多いので、必ずチェック
-	  - 検証すると多くのは特定のエッジケースにおいての改善
+	  - 検証すると多くはエッジケースにおいての改善
 
 ----
 
@@ -401,6 +429,7 @@ yarn --pure-lockfile # no-lock file
 1. CHANGELOG/リリースノートを見る
 2. Issue/Pull Requestを見る
 3. コミットを見る
+4. ソースコードを見る
 
 -----
 
@@ -427,13 +456,14 @@ yarn --pure-lockfile # no-lock file
   - [jser/jser.info](https://github.com/jser/jser.info "jser/jser.info")にpushされる
 - 「説明」には「言葉」を使うけど…
   - 「言葉」は人によって認識が異なる
+  - 言葉の使い方によっても受け取り方はことなる
 
 ----
 
 ## 言葉は意図
 
 - 言葉とは意図を表明するもの
-- JSer.infoにおいては次の意図を持たせる言葉を優先する
+- JSer.infoにおいては次の意図を持たせる言葉(遣い)を優先する
   - 「整理」「正確」「現状」「中立」「関連性」「客観的」
 - 逆を言えば使わない言葉を決める
   - 実際に使わない言葉の方が役立つ(機械的に落とせるため)
@@ -454,6 +484,8 @@ yarn --pure-lockfile # no-lock file
 
 ## JSer.infoで具体的に使いたくない言葉
 
+単語そのものというよりは言葉遣いという視点から捉え方が難しいことば
+
 - is Dead
 - 最強
 - 熱い
@@ -464,7 +496,16 @@ yarn --pure-lockfile # no-lock file
 
 ----
 
-## :memo: Note: Actual case
+## Actual case
+
+- [Javascript Fatigue – Medium](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4 "Javascript Fatigue – Medium")
+- [Promise Cancellation Is Dead — Long Live Promise Cancellation! – Medium](https://medium.com/@benlesh/promise-cancellation-is-dead-long-live-promise-cancellation-c6601f1f5082 "Promise Cancellation Is Dead — Long Live Promise Cancellation! – Medium")
+- [なぜ仮想DOMという概念が俺達の魂を震えさせるのか - Qiita](http://qiita.com/mizchi/items/4d25bc26def1719d52e6 "なぜ仮想DOMという概念が俺達の魂を震えさせるのか - Qiita")
+- [Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita](http://qiita.com/cognitom/items/fb1295f3f93911e9e92d "Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita")
+
+----
+
+## :memo: Note: Actual problem
 
 > We apologize to everyone we upset with the JSAwards idea. It was a poor idea and has ended. Let's promote new stuff and ideas instead! ❤️🎉
 > -- [twitter.com/JavaScriptDaily](https://twitter.com/JavaScriptDaily/status/807338775009431558)
@@ -498,7 +539,7 @@ yarn --pure-lockfile # no-lock file
   - 関連: [契約プログラミング](https://ja.wikipedia.org/wiki/%E5%A5%91%E7%B4%84%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0 "契約プログラミング")
 - [jser.info/CODE_OF_CONDUCT.md](https://github.com/jser/jser.info/blob/gh-pages/CODE_OF_CONDUCT.md "jser.info/CODE_OF_CONDUCT.md")
   - [Contributor Covenant](http://contributor-covenant.org/ "Contributor Covenant: A Code of Conduct for Open Source Projects")や[Open Code of Conduct](http://todogroup.org/opencodeofconduct/ "Open Code of Conduct")も基本的にそういう意図を表明しているもの
-- [Introducing GitHub Community Guidelines](https://github.com/blog/2267-introducing-github-community-guidelines "Introducing GitHub Community Guidelines")
+  - [Introducing GitHub Community Guidelines](https://github.com/blog/2267-introducing-github-community-guidelines "Introducing GitHub Community Guidelines")
 
 ^ 先ほどの避けたい言葉はあるいのCoCとも言えます。
 JSer.infoはそのような中立的な場所として扱いたいという意志を表明しています。
@@ -507,6 +548,15 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 
 > We recommend projects consider adopting a code of conduct that fits their community.
 > -- [Followup: Open Code of Conduct // TODO: Talk openly, develop openly](http://todogroup.org/blog/followup-open-code-of-conduct/ "Followup: Open Code of Conduct // TODO: Talk openly, develop openly")
+
+^ 基本的にCoCとかは場所などによって異なるものがあり、
+一般化した概念というものはそこまでは多くありません。
+コーディング規約みたいなものです。
+
+----
+
+> オープンソースプロジェクトに興味のあるひとは、自分の居心地のよいプロジェクトを探してみよう。
+> -- [オープンソースプロジェクトとの距離のとりかた](https://www.allbsd.org/~hrs/blog/2017-01-13-how-to-join.html "オープンソースプロジェクトとの距離のとりかた")
 
 ----
 
@@ -535,7 +585,7 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 
 ----
 
-## 事実を指摘する難しさ
+## 言葉とツール
 
 - 事実を正しく伝えるのは難しい
   - そこにはコミュニケーションが存在する
@@ -544,6 +594,10 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
   - 文字通り機械的にやり取りできる
 - 例) [textlint](https://github.com/textlint/textlint "textlint")で説明をチェックする
 
+^ 言葉を伝える場合にもコミュニケーションという問題が別途存在しています。
+人 + 人 のやり取りなので、言葉遣いだけではなく誰かというコンテキストが存在したり変数が多い。
+そういう部分は機械的にチェックすることで、受け取り側も機械的に受け取れるという結果もあります。
+つまり、問題が人ではなく機械に向きやすいので扱いやすいデザインとなる。
 
 ----
 
@@ -557,26 +611,12 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 
 ----
 
-# JSer.infoで使わない単語辞書
-
-```
-- expected: "JSer.infoはでは使うべきではない"
-  patterns:
-    - 最強
-    - 常識的
-    - 最も優れた
-    - 知らなさそう
-    - 酷い
-    - ...
-```
-
-----
-
 # JSer.infoにおいての機械的なチェック
 
 - [textlint](https://github.com/textlint/textlint "textlint")で機械的なチェックが走ってる
 - 機械的なチェックに引っかかったものは修正するか諦める
 - 機械的に判断できるようにして、余計な時間を使わないように
+  - 時間的なコストを削減するためにも、機械的なチェックは効果的
 
 
 ----
@@ -585,8 +625,8 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 
 - JSer.infoの説明に感情的な単語がどれぐらい使われてるか
 - [単語感情極性対応表](http://www.lr.pi.titech.ac.jp/~takamura/pndic_ja.html "単語感情極性対応表")
-  - 単語ごと`-1`から`+1`までの値がつけられたデータ
-  - ネガティブに近いかポジティブに近いかを書かれてる
+  - 単語ごと`-1`から`+1`までの値がつけられた辞書データ
+  - ネガティブに近いかポジティブに近いか
 - JSer.infoの意図は「中立」なので、0に近いほど目的に沿ってそう
   - 記事ごとの説明の感情極性値の平均を出してみる
 
@@ -624,7 +664,11 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 - 一定数、紹介サイトが溜まったら共有する
 - 一定数はBotが教えてくれる
 
-![jser-archives, inline](./resources/gitter-bot.png)
+----
+
+## [jser/jser.info - Gitter](https://gitter.im/textlint-ja/textlint-ja "jser/jser.info - Gitter")の様子
+
+![jser-archives, fit, inline](./resources/gitter-bot.png)
 
 
 ----
@@ -665,6 +709,7 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
   - 「JSer.infoは１週間に1度ぐらい投稿する」というのがゴール
 - ゴールと進捗は同じぐらい大事な指標
 - [jser.info/status-of-post/](https://jser.info/status-of-post/)で現在の進捗を見られる
+  - 記事の紹介文書きまでは分散して行われる(まとめる = 記事化は週一)
 
 ----
 
@@ -706,7 +751,12 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 - 一度やめると再開するコストが大きい
   - 上手く達成できなかったタイミングで停止してしまうことが多い
 - 1週間区切りなら上手く行かない週は、次の週で取り戻せる(リセットできる)
-- 継続的にやるなら、完全な停止は避けるような作りにしたほうがいい
+  - 止まることは想定し、復旧することを前提にする
+- 関連: [let it crashが生んだ誤解 - Qiita](http://qiita.com/soranoba/items/fce095f25c851dd34a6b "let it crashが生んだ誤解 - Qiita")
+
+^ ごちゃごちゃ書いていますが、一度止めると再開が大変。
+Let's it crash
+> 「常にバグは起きうるのだから, その前提で復旧する為の方法を最初に考える思想」
 
 -----
 
@@ -715,7 +765,8 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 - 一日で一週間分をまとめるのは無理
 - 小さくコミットして小さく続ける(VCS)
 - 1紹介記事 = 1コミット
-- 一度にまとめてやるのは心理的コストが高い
+  - 一度にまとめてやるのは心理的コストが高い
+  - 分散的に更新したものが、結果的にマージされていればいい
 
 ----
 
@@ -746,6 +797,8 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 - [textlint](https://github.com/textlint/textlint "textlint")、CI、bot、API、投稿アプリ
   - その場その場で投稿の処理を行い、一つ一つのコストを小さくする
 
+^ 先ほどからFluxで出てくる図形を使っているのは一方通行であるという暗喩してます。
+
 ----
 
 ![JSer.infoの全体像](./resources/workflow_around_jser.png)
@@ -754,9 +807,12 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 
 # あなたもJSer.infoをつくってみませんか?
 
-- [jser/ping](https://github.com/jser/ping "jser/ping: Ping! your issue")にURLを紹介する
+- [jser/ping](https://github.com/jser/ping "jser/ping: Ping! your issue")にURLを投げる
+  - 紹介するかは別として、とりあえず見ます。
 - [jser/report](https://github.com/jser/report/issues "jser/report")にアイデアを提案する
+  - より密度が高いレポート形式でやる方法を考えています。
 - [jser/jser.github.io](https://github.com/jser/jser.github.io "jser/jser.github.io")に寄稿する
+  - 寄稿する仕組みはないですが、それがJSer.infoらしいならやるべきです。
 - [jser/jser.info - Gitter](https://gitter.im/jser/jser.info "jser/jser.info - Gitter")で議論をする
 
 ----
@@ -765,9 +821,16 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 
 - その場における知識はそこまで重要じゃない
 - 見るものは見る場所に集める
+- 直感が正しくないときに、それを推し量る方法を持つ
 - 自分の動けるスコープを決めて動くことが大事
 - JSer.infoは1週間で小さな目標を達成出来るように動かしてる
-  - 1つずつの紹介はもっと小さな単位で回すようにしてる
+  - 1つずつの紹介についてのタスクは細分化されている
+
+^ 直感は正しくないことがあることを認めるべき。
+見積もりにおいては、アートな見積もりとサイエンスな見積もりがある。
+直感が正しくない場合に、数学的にその正しさを検証できるかは一つの壁。
+短い距離を測るときはアートの方が短い時間で大体正確なものがでやすい。
+
 
 ----
 
@@ -789,3 +852,4 @@ JSer.infoはそのような中立的な場所として扱いたいという意�
 - [textlint - pluggable linting tool for text and markdown](https://textlint.github.io/ "textlint - pluggable linting tool for text and markdown")
 - [行動規範マナー動画 in ScalaMatsuri 2016 - YouTube](https://www.youtube.com/watch?v=lIfOQNTWdxI "行動規範マナー動画 in ScalaMatsuri 2016 - YouTube")
 - [Open Resources/Japanese Sentiment Polarity Dictionary - 東北大学 乾・岡﨑研究室 / Communication Science Lab, Tohoku University](http://www.cl.ecei.tohoku.ac.jp/index.php?Open%20Resources%2FJapanese%20Sentiment%20Polarity%20Dictionary "Open Resources/Japanese Sentiment Polarity Dictionary - 東北大学 乾・岡﨑研究室 / Communication Science Lab, Tohoku University")
+- [let it crashが生んだ誤解 - Qiita](http://qiita.com/soranoba/items/fce095f25c851dd34a6b "let it crashが生んだ誤解 - Qiita")
