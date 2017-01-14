@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "get-html-title": "0.0.2",
-    "handlebars": "^2.0.0-alpha.4",
+    "handlebars": "^4.0.6",
     "q": "^1.0.1",
     "q-io": "^1.11.2",
-    "release-it": "0.0.15"
+    "release-it": "^2.5.3"
   }
 }
