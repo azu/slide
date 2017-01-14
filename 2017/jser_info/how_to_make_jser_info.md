@@ -93,8 +93,8 @@ theme: Plain Jane,5
 
 - JavaScriptの情報を整理して正確に伝えるために
 - 誇張や誤った情報は避ける必要がある(Verify)
-- また伝えるには言葉(文字)を使うので、人によって言葉の捉え方は色々(Explain)
-- 人にとって「良い」という言葉の意味すら異なる
+- また伝えるには言葉(文字)を使うので、嘘をつかないように説明する必要がある(Explain)
+  - 人にとって「良い」という言葉の意味すら異なるので難しい
 
 ----
 
@@ -198,7 +198,7 @@ theme: Plain Jane,5
   - 自分が最も見る所に集約するのが簡単
 - 情報は少なくても、多くても混乱する
   - 自分のニーズにあったやり方を作ることが大事
-- [JavaScript情報ってなんだっけ?](http://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")に書いた
+- 情報の意味については[JavaScript情報ってなんだっけ?](http://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")を参照
 - JSer.infoの目的の一つは多すぎる情報を整理することにある
 
 ----
@@ -257,15 +257,13 @@ URLで検索は関連を検索する手法なのであとで。
 
 1. テキストがポジティブ or ネガティブかを判定したい
 2. `感情 判定` で検索
-	- [ネガポジ判定を行うGem作ってみた - Qiita](http://qiita.com/moroku0519/items/e6352d31311418f38227 "ネガポジ判定を行うGem作ってみた - Qiita")を見つける
 	- [単語感情極性対応表](http://www.lr.pi.titech.ac.jp/~takamura/pndic_ja.html "単語感情極性対応表")の辞書の存在を知る
 3. URLでググる
   - [類似研究](http://www.cl.ecei.tohoku.ac.jp/index.php?Open%20Resources%2FJapanese%20Sentiment%20Polarity%20Dictionary)を見つける
 - `感情極性` というキーワードがあるらしい
 - ちょっと辞書が古そう(2005年 ~ 2008年)
 - Word2Vecとか関係あるのでは(既存の知識から)
-	- [最近の研究](http://repo.lib.hosei.ac.jp/bitstream/10114/12427/1/14R4103%E5%B8%82%E5%B7%9D%E7%A5%90%E5%A4%AA.pd)でも同様の辞書が採用されてた
-- 現役っぽいことがわかった
+	- [最近の研究](http://repo.lib.hosei.ac.jp/bitstream/10114/12427/1/14R4103%E5%B8%82%E5%B7%9D%E7%A5%90%E5%A4%AA.pd)でも同様の辞書が採用されてた。現役っぽいことがわかった
 
 ----
 
@@ -350,7 +348,7 @@ URLで検索は関連を検索する手法なのであとで。
 # なぜ検証する必要があるのか
 
 - 必ずしも直感は正しくない
-	- 規模が大きくなるほど、直感は正しくなくなる
+	- 未知の分野、規模が大きい場合など、直感は間違っていることがある
 - 作者により説明(主張)が正しいとは限らない
 - 例) 「jQuery互換のAPI」と書かれている
   - 検証するとjQueryのテストを通るわけではなかった
@@ -377,10 +375,9 @@ ghq look "https://github.com/jser/jser.info.git"
 yarn --pure-lockfile # no-lock file
 ```
 
-
 - [motemen/ghq](https://github.com/motemen/ghq)を使ってclone
 - [Yarn](https://yarnpkg.com/ "Yarn")使ってインストール[^shell]
-- これで大体のプロジェクトは動く
+  - 大体使われるライブラリは偏るのでキャッシュが効くYarnは効果的
 
 [^shell]: [ghq+ghs](https://gist.github.com/azu/d526e212ca764b3dd029 "ghq+ghs")のzsh
 
@@ -445,7 +442,7 @@ yarn --pure-lockfile # no-lock file
 
 ## JSer.infoで使わない言葉
 
-紹介するサイトもこの方針に則るものを紹介する
+紹介するサイトもこの内容が強すぎるのは避ける
 
 - 煽りすぎている言葉
 - 貶める言葉
@@ -494,7 +491,7 @@ yarn --pure-lockfile # no-lock file
 
 ----
 
-## CODE OF CONDUCT
+## 意図としてのCODE OF CONDUCT
 
 - CODE OF CONDUCTはその場所をどう扱ってほしいかの表明
   - 利用者に強制力はないが、ヒントとして表明できる
@@ -503,7 +500,8 @@ yarn --pure-lockfile # no-lock file
   - [Contributor Covenant](http://contributor-covenant.org/ "Contributor Covenant: A Code of Conduct for Open Source Projects")や[Open Code of Conduct](http://todogroup.org/opencodeofconduct/ "Open Code of Conduct")も基本的にそういう意図を表明しているもの
 - [Introducing GitHub Community Guidelines](https://github.com/blog/2267-introducing-github-community-guidelines "Introducing GitHub Community Guidelines")
 
-^ A Code of Conduct for Open Source Projectsも
+^ 先ほどの避けたい言葉はあるいのCoCとも言えます。
+JSer.infoはそのような中立的な場所として扱いたいという意志を表明しています。
 
 ----
 
@@ -530,18 +528,10 @@ yarn --pure-lockfile # no-lock file
 	- 正しいことを言う != 正しく伝える
 - 正しい事実だけではなく、正しく伝えることも大事
 - 「使わない言葉」であげていたものは、正しく伝えるのが難しい言葉
-  - 事実と意見が混ざりやすい言葉
+  - 主観的な言葉とも言い換えることができる
 
 ^ [「正しい意見や指摘こそ、優しい言葉で伝えることが大事」結城浩さんの連ツイ - Togetterまとめ](https://togetter.com/li/1069037 "「正しい意見や指摘こそ、優しい言葉で伝えることが大事」結城浩さんの連ツイ - Togetterまとめ")
 特に文字だと部分で読むことができちゃうのでより難しい。
-
-----
-
-# 事実を指摘する難しさ
-
-> 人手による文書のレビューはコードのレビュー以上に人間関係を悪くしてしまう恐れがあります。
-> これに対して、自動検査ツールで結果を返すのは人ではなくツールですので執筆者は嫌がらせを疑う必要はありません。
-> -- http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237
 
 ----
 
@@ -550,10 +540,24 @@ yarn --pure-lockfile # no-lock file
 - 事実を正しく伝えるのは難しい
   - そこにはコミュニケーションが存在する
 - 障壁を下げるには機械を通すなど
-  - いわゆるLint的な機械が伝える事実
+  - いわゆるLintを通す場合はそこには人間関係が介在しにくい
+  - 文字通り機械的にやり取りできる
 - 例) [textlint](https://github.com/textlint/textlint "textlint")で説明をチェックする
 
+
 ----
+
+# ツールによる検査の利点
+
+> 人手による文書のレビューはコードのレビュー以上に人間関係を悪くしてしまう恐れがあります。
+> これに対して、自動検査ツールで結果を返すのは人ではなくツールですので執筆者は嫌がらせを疑う必要はありません。
+> -- Takahiko Ito [^RedPen]
+
+[^RedPen]: [文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita](http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237 "文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita")
+
+----
+
+# JSer.infoで使わない単語辞書
 
 ```
 - expected: "JSer.infoはでは使うべきではない"
@@ -563,6 +567,7 @@ yarn --pure-lockfile # no-lock file
     - 最も優れた
     - 知らなさそう
     - 酷い
+    - ...
 ```
 
 ----
@@ -571,7 +576,7 @@ yarn --pure-lockfile # no-lock file
 
 - [textlint](https://github.com/textlint/textlint "textlint")で機械的なチェックが走ってる
 - 機械的なチェックに引っかかったものは修正するか諦める
-- 機械的に判断できるようにして、余計な時間を使わないようにしてる
+- 機械的に判断できるようにして、余計な時間を使わないように
 
 
 ----
@@ -601,14 +606,23 @@ yarn --pure-lockfile # no-lock file
 - 説明は場所/対象により正しさが異なる
 - 注目を集めることは簡単だけど、事実を伝えることはより難しい
 - JSer.infoでは 正しく説明 >= 正しい事実
-  - 正しく説明できなさそうなら諦める(正しい事実が分かっていて説明できないのは稀だけど)
+  - 正しく説明できなさそうなら諦める[^1]
 - 機械的なチェックを導入することで時間的に省略
+
+[^1]: 正しい事実が分かっていて説明できないことは、専門外に多いので専門家に聞くのが良い
 
 ----
 
 # 共有(Share)
 
-- 一定数記事が溜まったら共有する
+![right, fit, workflow_share.png](./resources/workflow_share.png)
+
+----
+
+# 共有(Share)
+
+- 一定数、紹介サイトが溜まったら共有する
+- 一定数はBotが教えてくれる
 
 ![jser-archives, inline](./resources/gitter-bot.png)
 
@@ -626,7 +640,7 @@ yarn --pure-lockfile # no-lock file
 
 ----
 
-# ---- ここまで ------
+# ----- ここまで -----
 
 ## これを繰り返せば JSer.info の完成
 
@@ -664,7 +678,7 @@ yarn --pure-lockfile # no-lock file
 
 # 長すぎるゴールの問題
 
-- 解決するのが難しい
+- そもそも解決するのが難しい
 - どれくらいの期間で終わるのか予想しにくい
   - 直感的な見積もりは大体間違ってる
 
@@ -699,7 +713,7 @@ yarn --pure-lockfile # no-lock file
 # 小さく作って小さく更新
 
 - 一日で一週間分をまとめるのは無理
-- 小さくコミットして小さく続ける
+- 小さくコミットして小さく続ける(VCS)
 - 1紹介記事 = 1コミット
 - 一度にまとめてやるのは心理的コストが高い
 
@@ -738,6 +752,15 @@ yarn --pure-lockfile # no-lock file
 
 ----
 
+# あなたもJSer.infoをつくってみませんか?
+
+- [jser/ping](https://github.com/jser/ping "jser/ping: Ping! your issue")にURLを紹介する
+- [jser/report](https://github.com/jser/report/issues "jser/report")にアイデアを提案する
+- [jser/jser.github.io](https://github.com/jser/jser.github.io "jser/jser.github.io")に寄稿する
+- [jser/jser.info - Gitter](https://gitter.im/jser/jser.info "jser/jser.info - Gitter")で議論をする
+
+----
+
 # まとめ
 
 - その場における知識はそこまで重要じゃない
@@ -745,14 +768,6 @@ yarn --pure-lockfile # no-lock file
 - 自分の動けるスコープを決めて動くことが大事
 - JSer.infoは1週間で小さな目標を達成出来るように動かしてる
   - 1つずつの紹介はもっと小さな単位で回すようにしてる
-
-----
-
-# あなたもJSer.infoをつくってみませんか?
-
-- [jser/ping](https://github.com/jser/ping "jser/ping: Ping! your issue")にURLを紹介する
-- [jser/report](https://github.com/jser/report/issues "jser/report")にアイデアを提案する
-- [jser/jser.info - Gitter](https://gitter.im/jser/jser.info "jser/jser.info - Gitter")で議論をする
 
 ----
 

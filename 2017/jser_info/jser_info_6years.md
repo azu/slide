@@ -29,15 +29,21 @@ autoscale: true
 
 -----
 
-# 紹介アイテム数の推移
+# 紹介アイテム数
+
+## 今まで紹介した記事
+
+
+![合計の紹介アイテム数, right, fit](./resources/total-item-count.png)
 
 ----
 
-![年ごとの紹介アイテム数, inline](./resources/items-per-year.png)
+![年ごとの紹介アイテム数, fit](./resources/items-per-year.png)
 
-----
 
-![合計の紹介アイテム数. fit](./resources/total-item-count.png)
+-----
+
+# JSer.infoで紹介してる記事の傾向の変化
 
 -----
 
@@ -57,7 +63,7 @@ autoscale: true
 # [JSer.info Data Dashboard](https://jser.info/data-dashboard/ "JSer.info Data Dashboard")
 
 
-![JSer.info Data Dashboard, fit](./resources/dashboard.png)
+![JSer.info Data Dashboard, fit](./resources/jser-info-data-dashboard.png)
 
 -----
 
@@ -133,6 +139,7 @@ autoscale: true
 	- [Contributionの算定基準も変わります - Qiita Blog](http://blog.qiita.com/post/153200849029/qiita-like-button "投稿記事やコメントに「いいね」できるようになりました（Contributionの算定基準も変わります）... - Qiita Blog")
 
 -----
+
 ## プラットフォームのメリット・デメリット
 
 - タグやグループと行った"個人"ではない単位でWatchできる
@@ -146,7 +153,6 @@ autoscale: true
 
 ## プラットフォーム以外のWatch
 
-
 - プラットフォーム以外の利用者が周知する場合に利用する場所
 	- SNS(Twitter)、SBM(はてなブックマーク)、HN系([Echo JS](http://www.echojs.com/ "Echo JS"))
 - 個人のブログ/RSS/GitHub/動画サイト...
@@ -156,6 +162,7 @@ autoscale: true
 
 # JSer.infoへの情報を投げる場所
 
+^ 去年から自分が見に行く以外の方法として、JSer.infoに対して情報を投げる場所を用意しました。
 
 ----
 
@@ -201,32 +208,6 @@ autoscale: true
 
 ----
 
-
-
-# [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
-
-----
-
-# [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
-
-- ECMAScript情報サイト
-- 去年開始したECMAScriptについて扱う情報サイト
-- [ECMAScriptの情報サイトを始めて1年経った | Web Scratch](http://efcl.info/2016/12/31/ecmascript-daily/ "ECMAScriptの情報サイトを始めて1年経った | Web Scratch")
-
-
-![right,fit, ecmascript-dialy](./resources/ecmascript-dialy.png)
-
-
-----
-
-# [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
-
-- [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")もECMAScriptの情報を見ていてメモする場所が欲しかったのでサイト化した
-- 習慣 => サイト化
-- 恐らく唯一のECMAScript専門サイト…
-
------
-
 # 投稿フロー
 
 ![right fit, postem](./resources/postem.png)
@@ -237,7 +218,7 @@ autoscale: true
 3. 一週間ぐらい1、2を繰り返して紹介記事のデータを貯める
    - [編集用アプリ](https://github.com/jser/jser.info-editor)利用、[Gitterでbot](https://gitter.im/jser/jser.info)が投稿タイミングを通知
 4. 貯めたアーカイブを整形
-5. 整形した記事をコピペ、ヘッドラインを書く
+5. 整形した記事 + ヘッドラインを書く
    - Pull Request駆動 => CIが自動チェック
    - Atom+[linter-textlint](https://github.com/1000ch/linter-textlint "linter-textlint")でリアルタイムLint
 6. 記事の完成
@@ -270,14 +251,58 @@ autoscale: true
 
 ----
 
+
+# JSer.info 以外の変化
+
+----
+
+# [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
+
+----
+
+# [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
+
+- ECMAScript情報サイト
+- 去年開始したECMAScriptについて扱う情報サイト
+- [ECMAScriptの情報サイトを始めて1年経った | Web Scratch](http://efcl.info/2016/12/31/ecmascript-daily/ "ECMAScriptの情報サイトを始めて1年経った | Web Scratch")
+
+
+![right,fit, ecmascript-dialy](./resources/ecmascript-dialy.png)
+
+
+----
+
+# [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")
+
+- [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")もECMAScriptの情報を見ていてメモする場所が欲しかったのでサイト化した
+- 習慣 => サイト化
+- 恐らく唯一のECMAScript専門サイト…
+
+-----
+
 # 今後
+
+![right,fit, jser-report.png](./resources/jser-report.png)
 
 - トピックベースのレポートを書く方法を検証してる
 	- 中期的な課題を解決したい
-	- https://github.com/jser/report/issues
+	- [github.com/jser/report/issues](https://github.com/jser/report/issues)
 - 一番大事なのは時間的なコスト
 	- 継続的にやるためにはどうやっても必要
-- 今年何かを検証したい
+- 今年は何かを検証したい
+
+-----
+
+# まとめ
+
+- HTTPS化した
+- [jser/ping](https://github.com/jser/ping "jser/ping: Ping! your issue")作った
+- 投稿フローはあまり変わってない
+- [ECMAScript Daily](https://ecmascript-daily.github.io/ "ECMAScript Daily")続けてる
+
+-----
+
+# Next: JSer.infoの作り方 :arrow_right:
 
 -----
 
