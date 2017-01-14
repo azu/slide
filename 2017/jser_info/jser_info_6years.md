@@ -302,7 +302,7 @@ autoscale: true
 
 -----
 
-# Next: JSer.infoの作り方 :arrow_right:
+# Next: [JSer.infoの作り方](http://azu.github.io/slide/2017/jser_info/how_to_make_jser_info.html "JSer.infoの作り方") :arrow_right:
 
 -----
 
