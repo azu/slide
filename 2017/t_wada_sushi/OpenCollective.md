@@ -13,12 +13,29 @@ autoscale: true
 
 ----
 
+# What is Open Collective?
+
+- 会費や寄付を募るページを作成できる
+- コミュニティでそのお金を管理できる
+- メンバーはbudgetから経費精算できる
+- budgetは公開され、お金の動きは公開される
+
+----
+
+## 誰がどのように?
+
+- オープンソースプロジェクトの寄付管理
+- オープンソースプロジェクトの開発費用管理
+- ミートアップの費用管理
+
+----
+
 # Donate
 
-- 利用者は*backer*となってdonateすることができる
+- *backer*となってdonateすることができる
   - 月額:$2, $5, $10, $25, $50
   - 月額/年額/単発: 任意の金額
-- 利用者は*sponsor*になることができる
+- *sponsor*になることができる
   - 月額: $100~
   - sponsorはREADMEなどに掲載されリンクを張ってもらえる
 
@@ -31,6 +48,47 @@ autoscale: true
 ![fit, inline, badge.png](img/badge.png)
 
 ----
+
+## オープンソースとお金の問題
+
+- 現状のOSSプロジェクトは、お金を扱うのは避ける傾向がある
+  - 法人格を作るのが面倒
+  - オーバーヘッド大きい
+- ずっとボランティアでサポートを続ける
+  - あまり健全とはいえないエコシステム
+
+----
+
+# Open Collectiveの目的
+
+> No legal entity, no bank account, no budget
+
+----
+
+# Definition of an Open Collective
+
+> I define an Open Collective as a lightweight association that can collect and disperse money transparently without creating a legal entity.
+> -- [A New Form of Association for the Internet Generation — part 2 – Open Collective – Medium](https://medium.com/open-collective/a-new-form-of-association-for-the-internet-generation-part-2-fe6d8415f444 "A New Form of Association for the Internet Generation — part 2 – Open Collective – Medium")
+
+----
+
+# Open Collectiveのゴール
+
+- コミュニティが自立出来るようなインフラを作ること
+- 誰もがcontributors, backers, sponsorsになれるように
+- [Moving beyond the charity framework – Open Collective – Medium](https://medium.com/open-collective/moving-beyond-the-charity-framework-b1191c33141 "Moving beyond the charity framework – Open Collective – Medium")
+
+-----
+
+# クラウドファンディングとの違い
+
+- 定期的な資金の調達ができる
+  - デフォルトは月額のdonate(単発の寄付もできる)
+- お金のやり取りの透明性を確保する(推奨する)
+  - お金を取り出す際には、どのようにお金を使ったかを提出
+  - その経費精算は公開される
+
+---
 
 # 透明性
 
@@ -52,42 +110,9 @@ autoscale: true
 > Yet, once there is money involved, there is still no good solution. As a result, those communities tend to avoid dealing with money or just have one sponsor at a time to cover immediate expenses.
 > -- [github.com/opencollective/opencollective](https://github.com/opencollective/opencollective "OpenCollective/OpenCollective")
 
-----
-
-## コミュニティとお金の問題
-
-- 現状のコミュニティでお金を扱うのは避ける傾向がある
-  - 法人格を作るのが面倒
-  - オーバーヘッド大きい
 
 ----
 
-# Open Collectiveの目的
-
-> No legal entity, no bank account, no budget
-
-> The emergence of cross-governments global services
-
-----
-
-# Definition of an Open Collective
-
-> I define an Open Collective as a lightweight association that can collect and disperse money transparently without creating a legal entity.
-> -- [A New Form of Association for the Internet Generation — part 2 – Open Collective – Medium](https://medium.com/open-collective/a-new-form-of-association-for-the-internet-generation-part-2-fe6d8415f444 "A New Form of Association for the Internet Generation — part 2 – Open Collective – Medium")
-
-----
-
-# ゴール
-
-- コミュニティが自立出来るようなインフラを作ること
-- 誰もがcontributors, backers, sponsorsになれるように
-- [Moving beyond the charity framework – Open Collective – Medium](https://medium.com/open-collective/moving-beyond-the-charity-framework-b1191c33141 "Moving beyond the charity framework – Open Collective – Medium")
-
------
-
-# クラウドファンディングとの違い
-
-----
 
 # 採用してるプロジェクト
 
@@ -142,8 +167,9 @@ autoscale: true
 
 ----
 
-## コミュニティはお金を手に入れることで何ができるか?
+# Collectiveの作り方
 
-- 具体例
+- Needs 2 contributor && 100 start
 
-----
+
+![right, fit, create-collaective.png](./img/create-collaective.png)
