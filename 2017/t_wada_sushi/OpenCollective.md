@@ -4,6 +4,19 @@ autoscale: true
 
 ----
 
+# 自己紹介
+
+![アイコン right](https://github.com/azu.png)
+
+- Name : **azu**
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- Website: [Web scratch], [JSer.info]
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+----
+
 ![OpenCollective.png](./img/OpenCollective.png)
 
 ----
@@ -61,7 +74,7 @@ autoscale: true
 
 # Open Collectiveの目的
 
-> No legal entity, no bank account, no budget
+## No legal entity, no bank account, no budget
 
 ----
 
@@ -103,32 +116,26 @@ autoscale: true
 
 ## 透明性の仕組み
 
-----
+- bucketからお金を引き出すには、費用の利用用途を提出する
+  - いくら
+  - 用途のカテゴリ
+  - 請求書の画像(optional)
+  - 説明
 
-## Why open collective?
-
-> Yet, once there is money involved, there is still no good solution. As a result, those communities tend to avoid dealing with money or just have one sponsor at a time to cover immediate expenses.
-> -- [github.com/opencollective/opencollective](https://github.com/opencollective/opencollective "OpenCollective/OpenCollective")
-
+![fit,right, submit](./img/submit.png)
 
 ----
 
 
 # 採用してるプロジェクト
 
-- webpack
-- preact
-- cyclejs
-- babel(maybe)
+- [webpack](https://opencollective.com/webpack "webpack")
+- [preact](https://opencollective.com/preact "preact")
+- [Cycle.js](https://opencollective.com/cyclejs "Cycle.js")
+- [MochaJS](https://opencollective.com/mochajs "MochaJS is on Open Collective")
+- babel([maybe](https://github.com/babel/notes/blob/master/2017-01/jan-06.md#open-collective))
 - [Women Who Code (WWCode)](https://www.womenwhocode.com/ "Women Who Code (WWCode)")
-- Apex
-  - https://medium.com/@tjholowaychuk/150-m-for-me-d-haha-f7af946d2ee7
-
-----
-
-## webpack
-
-- どういう仕組み
+- [APEX](https://opencollective.com/apex "APEX")([See also](https://medium.com/@tjholowaychuk/150-m-for-me-d-haha-f7af946d2ee7))
 
 ----
 
@@ -153,23 +160,55 @@ autoscale: true
 
 -----
 
-## badge
+# Backerになる方法
+
+![inline, fit, become.png](img/become.png)
 
 ----
 
 # Backerになる方法
 
-----
-
-# Open Collective利用費用
-
-> 10% + credit card fees (usually 3% + $0.30/transaction)
+- ログイン(メールアドレスだけいい)
+- StripeかPaypayでお金は払う
+- おわり
 
 ----
 
 # Collectiveの作り方
 
-- Needs 2 contributor && 100 start
-
+- [opencollective.com/opensource/apply](https://opencollective.com/opensource/apply)
+- 条件:
+- 2 contributor以上
+- 100 star以上
 
 ![right, fit, create-collaective.png](./img/create-collaective.png)
+
+----
+
+
+# Open Collective利用費用
+
+> 10% + credit card fees (usually 3% + $0.30/transaction)
+
+-----
+
+# デザインとして面白いところ
+
+- ログインにパスワード不要
+  - メールアドレスでのワンタイムのみ
+- [Open Collective](https://github.com/OpenCollective "Open Collective") is also [Open Source](https://github.com/OpenCollective)
+
+-----
+
+# まとめ
+
+- Open CollectiveはOSS開発のエコシステムを改善しようとしてる
+- (小さな)コミュニティが法人を持たなくてもいいような環境
+
+
+------
+
+# 参考
+
+- [Open Collective · Issue #4 · jser/report](https://github.com/jser/report/issues/4 "Open Collective · Issue #4 · jser/report")
+- [UglifyJS 3.0 changes (breaking changes only) · Issue #1411 · mishoo/UglifyJS2](https://github.com/mishoo/UglifyJS2/issues/1411#issuecomment-269659099 "UglifyJS 3.0 changes (breaking changes only) · Issue #1411 · mishoo/UglifyJS2")
