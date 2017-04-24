@@ -22,18 +22,19 @@ autoscale: true
 # ECMAScriptと国際標準
 
 - デファクトスタンダード: 事実上の標準のこと
-  - 普通に"ECMAScript"と呼ばれるやつ。開発者はこっちを見ることが殆ど
+  - [ECMA-262](http://www.ecma-international.org/publications/standards/Ecma-262.htm "ECMA-262")("ECMAScript"と呼ばれるやつ)のこと。開発者はこっちを見る
 - デジュールスタンダード(国際標準): ISO/IEC/ITUが標準化したもの
-  - ISO/IEC 16262:2011のこと
+  - [ISO/IEC 16262](http://www.iso.org/iso/catalogue_detail.htm?csnumber=55755 "ISO/IEC 16262")のこと
   - 政府調達などの要件に国際標準化されたものを利用することが多い
   - 日本だと国際標準はJIS規格として翻訳されていることが多い
 
 ----
 
-例: Ruby
+## 例: Unicode
 
-- デファクトスタンダード: C Rubyの実装
-- デジュールスタンダード: JIS X 3017 「プログラム言語Ruby」
+- デファクトスタンダード: Unicode
+- デジュールスタンダード: ISO/IEC 10646
+- [FAQ - Unicode and ISO 10646](http://unicode.org/faq/unicode_iso.html "FAQ - Unicode and ISO 10646")
 
 ----
 
@@ -62,7 +63,7 @@ WTO/GP協定
   - Ecmaの決めた標準化プロセスで標準化
   - 詳しくは[ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch](http://efcl.info/2015/10/18/ecmascript-paper/ "ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch")
 - デジュールスタンダード: ECMAScriptをISO/IECで国際標準化したもの
-  - 実際の中身はほぼ同じ
+  - ECMAScriptの場合は実際の中身はほぼ同じ
   - ISO/IECの標準化プロセスで標準化
   - 詳しくは[SC22 ECMAScript Ad hoc委員会](http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
 
@@ -130,9 +131,20 @@ WTO/GP協定
 
 ----
 
+# まとめ
+
+- ECMAScript(Ecma)は新しい国際標準の形を模索してる
+- 背景にWeb標準の高速化がある = Living Standards化
+- 本当の最新版は常に[tc39/ecma262](https://github.com/tc39/ecma262 "tc39/ecma262")にある
+	- 一年ごとに出しているECMAScript 201Xもスナップショットにすぎない
+
+
+----
+
 ## 参考
 
 - [ECMA-414 ECMAScript Specification Suiteについて | Web Scratch](http://efcl.info/2017/02/27/ecma-414/ "ECMA-414 ECMAScript Specification Suiteについて | Web Scratch")
 - <https://github.com/rwaldron/tc39-notes/blob/master/es7/2016-05/may-23.md>
 - [SC22 ECMAScript Ad hoc委員会](http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
 - [標準化戦略としてのデファクトスタンダードとデジュールスタンダードとの使い分け](http://www.y-adagio.com/public/confs/mags/std_qualt/draft_ver6.htm "標準化戦略としてのデファクトスタンダードとデジュールスタンダードとの使い分け")
+- [インターネット技術の標準化](https://www.w3.org/2007/Talks/0611-naist-fs/ "インターネット技術の標準化")
