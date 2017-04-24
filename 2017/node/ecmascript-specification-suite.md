@@ -38,6 +38,19 @@ autoscale: true
 
 ----
 
+
+# ECMAScriptと国際標準
+
+- デファクトスタンダード: Ecmaが決めるECMAScript
+  - Ecmaの決めた標準化プロセスで標準化
+  - 詳しくは[ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch](http://efcl.info/2015/10/18/ecmascript-paper/ "ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch")
+- デジュールスタンダード: ECMAScriptをISO/IECで国際標準化したもの
+  - ECMAScriptの場合は実際の中身はほぼ同じ
+  - ISO/IECの標準化プロセスで標準化
+  - 詳しくは[SC22 ECMAScript Ad hoc委員会](http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
+
+-----
+
 # 国際標準
 
 WTO/TBT協定
@@ -57,15 +70,8 @@ WTO/GP協定
 
 -----
 
-# ECMAScriptと国際標準
 
-- デファクトスタンダード: Ecmaが決めるECMAScript
-  - Ecmaの決めた標準化プロセスで標準化
-  - 詳しくは[ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch](http://efcl.info/2015/10/18/ecmascript-paper/ "ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch")
-- デジュールスタンダード: ECMAScriptをISO/IECで国際標準化したもの
-  - ECMAScriptの場合は実際の中身はほぼ同じ
-  - ISO/IECの標準化プロセスで標準化
-  - 詳しくは[SC22 ECMAScript Ad hoc委員会](http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
+# ECMAScript Specification Suite
 
 -----
 
