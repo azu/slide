@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>ECMAScript Specification Suite</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="ECMAScript Specification Suite"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2017/node/ecmascript-specification-suite.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2017-04-24" id="datePublished">
+            2017-04-24
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2017-04-24" id="dateModified">
+            2017-04-24
+        </time></span>
+        <a href="http://azu.github.io/slide/2017/node/ecmascript-specification-suite.pdf" title="ECMAScript Specification Suite">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="ecmascript-specification-suite">ECMAScript Specification Suite</h1>
+<h2 id="ecmascript-">ECMAScriptの国際標準化</h2>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="ecmascript-">ECMAScriptと国際標準</h1>
+<ul>
+<li>デファクトスタンダード: 事実上の標準のこと<ul>
+<li><a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm" title="ECMA-262">ECMA-262</a>(&quot;ECMAScript&quot;と呼ばれるやつ)のこと。開発者はこっちを見る</li>
+</ul>
+</li>
+<li>デジュールスタンダード(国際標準): ISO/IEC/ITUが標準化したもの<ul>
+<li><a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=55755" title="ISO/IEC 16262">ISO/IEC 16262</a>のこと</li>
+<li>政府調達などの要件に国際標準化されたものを利用することが多い</li>
+<li>日本だと国際標準はJIS規格として翻訳されていることが多い</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-unicode">例: Unicode</h2>
+<ul>
+<li>デファクトスタンダード: Unicode</li>
+<li>デジュールスタンダード: ISO/IEC 10646</li>
+<li><a href="http://unicode.org/faq/unicode_iso.html" title="FAQ - Unicode and ISO 10646">FAQ - Unicode and ISO 10646</a></li>
+</ul>
+<hr>
+<h1 id="ecmascript-">ECMAScriptと国際標準</h1>
+<ul>
+<li>デファクトスタンダード: Ecmaが決めるECMAScript<ul>
+<li>Ecmaの決めた標準化プロセスで標準化</li>
+<li>詳しくは<a href="http://efcl.info/2015/10/18/ecmascript-paper/" title="ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch">ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch</a></li>
+</ul>
+</li>
+<li>デジュールスタンダード: ECMAScriptをISO/IECで国際標準化したもの<ul>
+<li>ECMAScriptの場合は実際の中身はほぼ同じ</li>
+<li>ISO/IECの標準化プロセスで標準化</li>
+<li>詳しくは<a href="http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html" title="SC22 ECMAScript Ad hoc委員会">SC22 ECMAScript Ad hoc委員会</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">国際標準</h1>
+<p>WTO/TBT協定</p>
+<blockquote>
+<p>国家規格(法規)には、既に存在する国際標準を使うことを推奨する</p>
+</blockquote>
+<p>WTO/GP協定</p>
+<blockquote>
+<p>(政府およびその関連機関が調達する物品の)性能に関する技術仕様については、既にそれが存在する場合、国際標準に基づいていなければならない</p>
+</blockquote>
+<hr>
+<h1 id="-">国際標準とは?</h1>
+<blockquote>
+<p>WTOの協定で求められている「国際標準」とは、何なのでしょうか。実は、何も定義されていません。ISO(国際標準化機構)、IEC(国際電気標準会議)、およびITU(国際電気通信連合)の3つの国際組織が制定するものは、とりあえず「国際標準」と言ってよいであろうと、世界的に考えられています
+-- <a href="https://www.itscj.ipsj.or.jp">標準化について | IPSJ/ITSCJ</a></p>
+</blockquote>
+<hr>
+<h1 id="ecmascript-specification-suite">ECMAScript Specification Suite</h1>
+<hr>
+<h1 id="ecmascript-specification-suite-">ECMAScript Specification Suiteとは</h1>
+<ul>
+<li><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a></li>
+<li>ECMAScript言語に関する仕様スイート</li>
+<li>広義のECMAScriptはいくつかの仕様から構成される<ul>
+<li>ECMAScriptの言語仕様、JSONの仕様、i18n APIの仕様など</li>
+</ul>
+</li>
+<li>それぞれの仕様をコンポーネントと呼んでいる</li>
+</ul>
+<hr>
+<h1 id="ecmascript-specification-suite">ECMAScript Specification Suite</h1>
+<ul>
+<li>次のコンポーネントから構成される<ul>
+<li>ECMA-262 - ECMAScript</li>
+<li>ECMA-402 - Internationalization API Specification</li>
+<li>ECMA-404 - JSON</li>
+<li>[Informative] TR-104 - ECMAScript Test Suite</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/ECMAScript-Specification-Suite.png" alt="ECMAScript-Specification-Suite"></p>
+<hr>
+<h1 id="ecmascript-specification-suite-3-">ECMAScript Specification Suiteを3行で</h1>
+<ul>
+<li>ECMAScriptプログラミング言語の仕様とその仕様に関する必須または任意の組み込みライブラリを含んだ仕様スイート</li>
+<li>この仕様スイートはECMA-262、ECMA-402、ECMA-404の最新のバージョンを参照する</li>
+<li>2011年に策定されたISO/IEC 16262:2011を置き換えるものとして、ISO/IECによる国際標準化を行なうこととなった(まだ決まってない)</li>
+</ul>
+<hr>
+<h2 id="-">目的</h2>
+<ul>
+<li>年次の更新をしていくにあたり、毎年ISO標準も更新していくのは現実的でない</li>
+<li>ECMAScriptの仕様そのものは、デファクトスタンダードの最新版を常に参照する<ul>
+<li>デファクトスタンダードを更新するたびに、ISO標準を毎回同期するのはコストが合わない</li>
+</ul>
+</li>
+<li><a href="https://www.iso.org/standard/55755.html">今のISO標準</a>の代わりに、これをISO標準化(したい)<ul>
+<li><a href="https://www.iso.org/standard/55755.html" title="ISO/IEC 16262:2011 - Information technology -- Programming languages, their environments and system software interfaces -- ECMAScript language specification">ISO/IEC 16262:2011</a> =&gt; <a href="https://www.iso.org/standard/73002.html" title="ISO/IEC DIS 22275 - Information Technology -- Programming languages, their environments, and system software interfaces -- ECMAScript® Specification Suite">ISO/IEC DIS 22275</a>(予定は未定)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="ecmascript-specification-suite-">ECMAScript Specification Suiteの国際標準化の効果</h2>
+<ul>
+<li>構成されるコンポーネントの<strong>最新版</strong>を参照する仕様スイート</li>
+<li>コンポーネントが追加または削除されない限り仕様スイートのバージョンは変化しない</li>
+<li>例)<ul>
+<li>ECMA-262が更新された場合、ECMAScript Specification Suite自体は更新されない</li>
+<li>コンポーネントにECMA-XXXが追加された場合、ECMAScript Specification Suiteは更新される</li>
+<li>コンポーネントからECMA-404が削除された場合、ECMAScript Specification Suiteは更新される</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="iso-iec-dis-22275">ISO/IEC DIS 22275</h2>
+<ul>
+<li>国際標準もRapid Releaseに対応させるDRYな仕様<ul>
+<li>国際標準はデファクトスタンダード(ECMAScript)を参照するという仕様</li>
+</ul>
+</li>
+<li>:warning: この国際標準はまだ審議中なので未確定な内容です<ul>
+<li><a href="https://www.iso.org/standard/73002.html" title="ISO/IEC DIS 22275 - Information Technology -- Programming languages, their environments, and system software interfaces -- ECMAScript® Specification Suite">ISO/IEC DIS 22275 - Information Technology -- Programming languages, their environments, and system software interfaces -- ECMAScript® Specification Suite</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>ECMAScript(Ecma)は新しい国際標準の形を模索してる</li>
+<li>背景にWeb標準の高速化がある = Living Standards化</li>
+<li>本当の最新版は常に<a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>にある<ul>
+<li>一年ごとに出しているECMAScript 201Xもスナップショットにすぎない</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">参考</h2>
+<ul>
+<li><a href="http://efcl.info/2017/02/27/ecma-414/" title="ECMA-414 ECMAScript Specification Suiteについて | Web Scratch">ECMA-414 ECMAScript Specification Suiteについて | Web Scratch</a></li>
+<li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es7/2016-05/may-23.md">https://github.com/rwaldron/tc39-notes/blob/master/es7/2016-05/may-23.md</a></li>
+<li><a href="http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html" title="SC22 ECMAScript Ad hoc委員会">SC22 ECMAScript Ad hoc委員会</a></li>
+<li><a href="http://www.y-adagio.com/public/confs/mags/std_qualt/draft_ver6.htm" title="標準化戦略としてのデファクトスタンダードとデジュールスタンダードとの使い分け">標準化戦略としてのデファクトスタンダードとデジュールスタンダードとの使い分け</a></li>
+<li><a href="https://www.w3.org/2007/Talks/0611-naist-fs/" title="インターネット技術の標準化">インターネット技術の標準化</a></li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
