@@ -2,7 +2,7 @@ autoscale: true
 
 # Faao
 
-## GitHub Issue Client
+## ドメイン駆動設計で作るGitHub Issue Client
 
 ----
 
@@ -64,7 +64,9 @@ autoscale: true
 
 - OOSでGitHub Issueをちゃんと扱うものがない
 - 技術的目的
-    - Almin + TypeScript + DDDである程度の規模のアプリケーションを作りたかった
+    - Almin + TypeScript + DDD[^ドメイン駆動設計]である程度の規模のアプリケーションを作りたかった
+
+[^ドメイン駆動設計]: レイヤー化とドメインモデル層を持つ設計や開発思想
 
 -----
 
@@ -432,7 +434,8 @@ KnowledgeにはGenericなものとSpecificなものがある。
 
 - 最も良いドキュメントはno document
 - 必要となった時(ツールがエラーと言った時)に初めて見ることができればいい
-- [eslint](https://github.com/eslint/eslint "eslint"), [prettier](https://github.com/prettier/prettier "prettier"), [stylelint](https://github.com/stylelint/stylelint "stylelint")
+	- ESLintがよくできている理由
+- [eslint](https://github.com/eslint/eslint "eslint"), [prettier](https://github.com/prettier/prettier "prettier"), [stylelint](https://github.com/stylelint/stylelint "stylelint"), webpack([case-sensitive-paths-webpack-plugin](https://www.npmjs.com/package/case-sensitive-paths-webpack-plugin "case-sensitive-paths-webpack-plugin"))などなど
 
 -----
 
@@ -646,7 +649,7 @@ KnowledgeにはGenericなものとSpecificなものがある。
 
 -----
 
-# Debuggablity
+# Debuggablity - 状態
 
 - アプリケーションには様々な状態が存在する
 - 全てはどこからでも現在の状態を見れるようになってないと不便
@@ -657,13 +660,28 @@ KnowledgeにはGenericなものとSpecificなものがある。
 
 -----
 
-# Debuggablity
+# Debuggablity - データ
 
 - 永続化したデータはいつでもメモリデータベースに切り替えできた方が良い
 - テストの度に永続化したデータが消えるとテストしにくい
 - Faaoでは[Storage.ts](https://github.com/azu/faao/blob/master/src/infra/repository/Storage.ts "Storage.ts")でいつでもメモリデータモードに入ることができる
 	- [localForage](https://github.com/localForage/localForage "localForage")を使って動的にdriverを切り返す
 	- データは元からメモリ上に載っていて、書き込み時にデータベースへアクセスする作りにしたため
+
+----
+
+
+# Debuggability - イベント
+
+![right, fit, debug](./img/debug.png)
+
+- Stateとイベントを見比べる
+- [almin-logger](https://github.com/almin/almin/tree/master/packages/almin-logger "almin-logger")や[almin-devtools](https://github.com/almin/almin-devtools "almin-devtools")でUseCaseの実行を確認する
+- イベントを見ることは大事
+	- Webの世界はイベント駆動
+	- DOMには色々なイベントがそれはブラウザによっても違う
+	- [video-events-debugger](https://github.com/azu/video-events-debugger "video-events-debugger")
+
 
 ----
 
