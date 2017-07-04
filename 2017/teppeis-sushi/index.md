@@ -6,6 +6,20 @@ autoscale: true
 
 ----
 
+# 自己紹介
+
+![アイコン right](https://github.com/azu.png)
+
+- Name : **azu**
+- Twitter : @[azu_re](https://twitter.com/azu_re)
+- Website: [Web scratch], [JSer.info]
+
+[Web scratch]: http://efcl.info/ "Web scratch"
+[JSer.info]: http://jser.info/ "JSer.info"
+
+
+----
+
 # 過去に作ったやつ
 
 - [azu/GithubReader: Github Notifications Client for OS X](https://github.com/azu/GithubReader "azu/GithubReader: Github Notifications Client for OS X")
