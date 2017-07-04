@@ -36,10 +36,10 @@ autoscale: true
 - Support Modern browser/mobile/Electron(recommenced)
 - Support GitHub.com and GitHub Enterprise(GHE)
 - Search Issue/Pull Request
-    - [Search Syntax](https://help.github.com/articles/search-syntax/ "Search Syntax") is same with GitHub Search
+      - [Search Syntax](https://help.github.com/articles/search-syntax/ "Search Syntax") is same with GitHub Search
 - Mixed the result of search
-    - e.g.) You can see the results of [Created](https://github.com/issues), [assigned](https://github.com/issues/assigned), [mentioned](https://github.com/issues/mentioned) as a single result
-    - e.g.) You can see the results of `repo:azu/todo` on `github.com` and `repo:azu-ghe/todo` on GHE as a single result
+      - e.g.) You can see the results of [Created](https://github.com/issues), [assigned](https://github.com/issues/assigned), [mentioned](https://github.com/issues/mentioned) as a single result
+      - e.g.) You can see the results of `repo:azu/todo` on `github.com` and `repo:azu-ghe/todo` on GHE as a single result
 - Support GitHub User Activity
 - Quick to create issue
 - Import/Export profile data
@@ -50,7 +50,7 @@ autoscale: true
 
 - OOSでGitHub Issueをちゃんと扱うものがない
 - 技術的目的
-  - Almin + TypeScript + DDDである程度の規模のアプリケーションを作りたかった
+    - Almin + TypeScript + DDDである程度の規模のアプリケーションを作りたかった
 
 -----
 
@@ -58,9 +58,9 @@ autoscale: true
 
 ```
 ✈ cloc src
-     212 text files.
-     208 unique files.
-       4 files ignored.
+       212 text files.
+       208 unique files.
+         4 files ignored.
 
 github.com/AlDanial/cloc v 1.72  T=1.31 s (159.3 files/s, 12962.9 lines/s)
 -------------------------------------------------------------------------------
@@ -81,15 +81,17 @@ SUM:                           208            983            538          15410
 
 - 「ちゃんと考えてちゃんとやる」
 - 技術的ショーケースとしての意味合いを持つ
-  - ちゃんとモデリングする
-  - ちゃんとテストを書く
-  - ちゃんとドキュメントを作る
+    - ちゃんとモデリングする
+    - ちゃんとテストを書く
+    - ちゃんとドキュメントを作る
 
 ----
 
 # DDD
 
-## ちゃんとモデリングをやる
+## ちゃんとモデリング[^モデル]をやる
+
+[^モデル]: ここでいうモデルはEntityとかValue Objectを含めたドメイン上のモデルクラス
 
 ----
 
@@ -97,11 +99,12 @@ SUM:                           208            983            538          15410
 
 - [faao/domain.md at master · azu/faao](https://github.com/azu/faao/blob/master/docs/domain.md "faao/domain.md at master · azu/faao")
 - ドメインモデルの寿命が長い
-  - 特にこういうクライアントアプリはずっと立ち上げっぱなし
+    - 特にこういうクライアントアプリはずっと立ち上げっぱなし
 - サーバ側の概念とクライアント側の概念は一致しないことがある
-  - サーバ(GitHub)的にアカウントに対してGitHub APIのトークンが複数紐づく
-  - クライアントからはTokenがあり、そのTokenに紐づくアカウントがいるように見える
-    - Tokenがなければアカウントは分からない、アカウントだけ分かってもトークンがないと何もできない
+    - サーバ(GitHub)的にアカウントに対してGitHub APIのトークンが複数紐づく
+    - クライアントからはTokenがあり、そのTokenに紐づくアカウントがいるように見える
+      - Tokenがなければアカウントは分からない、アカウントだけ分かってもトークンがないと何もできない
+
 
 ----
 
@@ -122,9 +125,9 @@ SUM:                           208            983            538          15410
 ## 遠回りのモデリング
 
 - 実際モデリングをしっかりやると進みが遅く感じる
-  - 一つのモデルが大きくなりすぎないように気を配ったり
+    - 一つのモデルが大きくなりすぎないように気を配ったり
 - 遠回りしてよかった場合もある
-  - 安易なUI起因の値がドメインに流れてくるのを防げる
+    - 安易なUI起因の値がドメインに流れてくるのを防げる
 
 -----
 
@@ -138,12 +141,12 @@ SUM:                           208            983            538          15410
 
 ```ts
 interface GitHubSetting {
-    id: Identifier<GitHubSetting>;
-    token: string;
-    apiHost: string;
-    webHost: string;
-    // ADD?
-    avatarImageURL?: string;
+      id: Identifier<GitHubSetting>;
+      token: string;
+      apiHost: string;
+      webHost: string;
+      // ADD?
+      avatarImageURL?: string;
 }
 ```
 
@@ -159,12 +162,12 @@ interface GitHubSetting {
 
 ```ts
 interface GitHubSetting {
-    id: Identifier<GitHubSetting>;
-    token: string;
-    apiHost: string;
-    webHost: string;
-    // Relationship
-    gitHubUserId?: Identifier<GitHubUser>;
+      id: Identifier<GitHubSetting>;
+      token: string;
+      apiHost: string;
+      webHost: string;
+      // Relationship
+      gitHubUserId?: Identifier<GitHubUser>;
 }
 ```
 
@@ -172,7 +175,22 @@ interface GitHubSetting {
 
 ----
 
-# Domain model -> 永続層
+# 遠回りのモデリング
+
+![right,fit, GitHubSetting.png](./img/GitHubSetting.png)
+
+- `GitHubSetting`と`GitHubUser`は想定するライフサイクルが異なった
+- `GitHubSetting`で入力されたTokenを使って、`/user` APIを叩いて`GitHubUser`を作る
+- 異なるライフサイクルを一つのモデルにまとめると破綻する未来が見えていた
+
+----
+
+# ドメインモデル -> 永続化
+
+---
+
+
+# Hard repository
 
 ----
 
@@ -195,7 +213,7 @@ interface GitHubSetting {
 
 ----
 
-##[fit] 永続化はRepositoryの仕事だけど
+## [fit] 永続化はRepositoryの仕事だけど
 
 ![fit, right, toJSON, fromJSON](img/static-json.png)
 
@@ -205,7 +223,97 @@ interface GitHubSetting {
 
 ----
 
+# [fit] ドメインモデルは永続化(技術的制約)を知らずに済むか
+
+[Patterns, Principles, and Practices of Domain-Driven Design](https://www.amazon.com/dp/1118714709/ "Patterns, Principles, and Practices of Domain-Driven Design")より
+
+- 妥協なしで行う
+    - NHibernate[^読]やEntity Frameworkなどのデータモデルとのマッピングできるものを使う
+    - モデルをそのままJSONなどにシリアライズして保存できるデータストアを使う
+- 妥協ありで行う
+    - リポジトリからデータを引くときに、Entityに対して外から値を指しながら復元させる
+    - Mementoパターン - Entityのスナップショットとデータモデルをマッピング(今これ)
+
+[^読]: えぬはいばーねいと
+
+-----
+
+![fit PPPDDDから引用](./img/without-compromise.png)
+
+^ マッピングできるタイプ
+
+-----
+
+![fit PPDDDから引用](./img/with-compromise.png)
+
+^ JSONをそのまま保存できるもの + 妥協あり(ドメインが知っている)
+
+-----
+
+![fit PPPDDDから引用](./img/mement-pattern.png)
+
+^ Mementoパターンでのスナップショット
+
+----
+
+# 妥協あり/なしの永続化
+
+- ドメインは軽く永続化されることを意識する必要はある
+- constructorでincrement idをしていると不整合を生むので駄目
+	- constructorでちゃんと`{ id }` なども受け取れるようにする
+	- モデルの初期化は面倒になっていくのでFactoryが初期化を担当する
+
+
+```js
+// 駄目なケース
+let id = 0;
+class User {
+   constructor(){
+      this.id = id++
+   }
+}
+```
+
+
+----
+# スナップショットからの復元
+
+
+![right,fit, GitHubSetting.png](./img/GitHubSetting.png)
+
+- 今採用してるパターン
+- 妥協ありパターンの一種である[TypeScript: Working with JSON · Choly's Blog](http://choly.ca/post/typescript-json/ "TypeScript: Working with JSON · Choly&#39;s Blog")(Entityに対して外から値を指しながら復元させる)に比べると少し安全で何とか手で書いていけるレベル
+- しかしスナップショットが現在のモデルと一致してるとは限らない
+- スナップショットのバージョニングなどが必要となっていく
+	- フレームワークになってないとそろそろ面倒
+
+----
+
+# Repository
+
+- インメモリで終わる or データが常にサーバにある場合のRepositoryは単純なMap
+- モデルの永続化を考えだしたときに大変になるのは、Repository
+- モデルも永続化は全く意識はしてない場合、後から概念/構造に変更が出て大変となる
+	- 影響度: 概念 > 構造 > 実装...
+- ついでに永続化するとIndexedDBなどを使うの非同期処理がやってくる
+	- [Faaoの実装](https://github.com/azu/faao/tree/master/src/infra/repository)では初期化と保存のみを非同期にして、Readは同期にした
+	- Readを非同期にするとStoreも非同期にする必要がでてきて面倒そうだった
+
+----
+
 # UseCase
+
+----
+
+# UseCase
+
+- アプリケーションのドメインを使った、やりたいことの流れを書くところ
+- このアプリのユースケースは
+	- GitHub APIを使ってSearch
+	- GitHubSettingの作成、保存 などなど
+- ユースケースの再利用性
+	- 基本的にはしない、拡張ユースケースは使う
+	- [UseCaseの再利用性 - yoskhdia’s diary](http://yoskhdia.hatenablog.com/entry/2016/10/18/152624 "UseCaseの再利用性 - yoskhdia’s diary")
 
 ----
 
@@ -215,9 +323,6 @@ interface GitHubSetting {
 
 # Living Documentation
 
------
-
-# Hard repository
 
 -----
 
