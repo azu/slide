@@ -319,52 +319,302 @@ class User {
 
 # ユースケース図
 
+- [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture")
+
 ----
 
-# Living Documentation
+# [Living Documentation](https://leanpub.com/livingdocumentation "Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]")
+
+![right, cover](https://s3.amazonaws.com/titlepages.leanpub.com/livingdocumentation/hero?1490662949)
+
+- Living Documentation by design, with Domain-Driven Design
+- <https://leanpub.com/livingdocumentation> $0〜$40で購入
 
 
 -----
 
-# Almin
+
+# 知識の共有
+
+KnowledgeにはGenericなものとSpecificなものがある。
+会社やチーム、プロダクトにおけるSpecificな知識には次のような問題が生まれやすい
+
+- アクセスできない
+- 古すぎる
+- フラグメント化してる
+- 暗黙的になってる
+- 理解できない
+- 書かれてない
+
+
+-----
+
+## Living Documentation
+
+- これらの問題をLivingなドキュメントで解決するアプローチ
+- ドキュメントもコードと同じ速度で成長する
+- 良いドキュメントには良い設計が必要
+- 良いドキュメントには自動化が必要
+- 推測、憶測をドキュメント化しない
+
+-----
+
+#LivingDocumentationのコア原則
+
+- Reliable - 信頼性の高いドキュメント
+	- single source of truth
+	- reconciliation mechanism
+		- ソースが複数の場所にあることを認め、それをテストする
+- Low-Effort
+- Collaborative
+	- Conversations over Documentations
+	- アクセスできる場所に知識は置く
+- Insightful
+	- 意図を残す
+
+
+-----
+
+## 具体的な問題と対策
+
+- ガイドラインを決めてもそれを自動で守れないと意味がない
+	- ツールで検証する
+	- コードで検証する
+- 更新されない構成図
+	- Living Diagram
+- 更新されないユビキタス言語
+- etc..
+
+
+-----
+
+# Living Documentationの4つのステップ
+
+1. 何処かに保存されたデータの範囲を選択
+2. データをドキュメントの目的に沿ってフィルター
+3. フィルターした結果、各データのサブセットを抽出
+4. ドキュメントを生成するためのフォーマットへ変換
+
+-----
+
+
+## 例
+
+- ユースケース図の自動生成
+- レイヤーのバイオレーション検知
+- Lint
+- メタテスト
+
+-----
+
+# 守られないルールは価値がない
+
+-----
+
+# 守られないルールは価値がない
+
+- 最も良いドキュメントはno document
+- 必要となった時(ツールがエラーと言った時)に初めて見ることができればいい
+- [eslint](https://github.com/eslint/eslint "eslint"), [prettier](https://github.com/prettier/prettier "prettier"), [stylelint](https://github.com/stylelint/stylelint "stylelint")
+
+-----
+
+# [fit] 例) ルール: ドメインはインフラ(repository)を参照してはいけない
+
+[dependency-cruiser](https://github.com/sverweij/dependency-cruiser "dependency-cruiser")を使ってルールをコード化し[自動チェック](https://github.com/azu/faao/pull/62)する
+
+
+```json
+{
+  "forbidden": [
+    {
+      "name": "domain-not-to-depend-on-infra",
+      "comment": "Don't allow dependencies from domain to infra",
+      "severity": "error",
+      "from": { "path": "^src/domain" },
+      "to":   { "path": "^src/infra"  }
+	}
+}
+```
+
+
+-----
+
+
+# 破れないルールは価値を鈍化させる
+
+-----
+
+
+- ルールには例外がつきもの
+- そのため、原則が守れないと崩壊してしまうルールよりは、例外を規定することで原則を守れるルールの方がよい。
+- 厳密に守りたいルールはホワイトリストで管理できた方がいい
+
+-----
+
+# ユースケース図のLiving Diagram
+
+![fit, right, usecase of faao](img/faao-usecase.png)
+
+- [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture") に全てのユースケース図が自動生成される
+- Faaoの[ソースコード](https://github.com/azu/faao/tree/master/src/use-case)から自動生成
+- ファイルからuse-caseを抽出、Text to UMLの[nomnoml](https://github.com/skanaar/nomnoml "nomnoml")が食べられる書式にして変換
+- [almin](https://github.com/almin/almin "almin")のUseCaseは拡張ユースケースを表現できる
+	- ユースケースが別のユースケースを呼び出す
+	- [UseCaseの再利用性 - yoskhdia’s diary](http://yoskhdia.hatenablog.com/entry/2016/10/18/152624 "UseCaseの再利用性 - yoskhdia’s diary")
+
+-----
+
+# Living Diagramの使いみち
+
+- おかしなアクターを見つけることができる
+	- 「名詞（主語） - 動詞 - 名詞（目的語）」(en)
+	- 誰? がおかしいときがある。システムである場合など
+- おかしなユースケースを見つけることができる
+- 例外処理が抜けているかを見ることができる
+	- ユースケースは処理の流れを書く
+	- そのため、省かれた処理を見つけ適切にキャッチすると多くのバグが解決できる
+
+-----
+
+# 2/3のバグはカバレッジを上げると見つかる
+
+- 適切なエラーハンドリングが行われるか、例外を無視してないかをテストしていくことで、全体の2/3のバグが発見できる(データ集約型分散システムの論文)
+
+
+>  A majority of the production failures (77%) can be reproduced by a unit test.
+> -- [Simple testing can prevent most critical failures | the morning paper](https://blog.acolyer.org/2016/10/06/simple-testing-can-prevent-most-critical-failures/ "Simple testing can prevent most critical failures | the morning paper")
+
+-----
+
+# Living Documentationはドキュメンテーションをコード化する
+
+詳しくは本を読んで
+
+- [Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]](https://leanpub.com/livingdocumentation)
+- [Living Documentation by design, with Domain-Driven Designを読んだ | Web Scratch](http://efcl.info/2017/05/12/Living-Documentation-DDD/)
+
+
+-----
+
+# [Almin](https://github.com/almin/almin "Almin")
+
+![inline, Almin.js](https://almin.github.io/media/logo/logo.png)
+
+-----
+
+# [Almin](https://github.com/almin/almin "Almin")
+
+- TypeScriptで書き直した
+- Alminはフレームワークだが、今回のドメインやRepositoryは自分で書くところなので手出しはしない
+- あくまで思考を手助けする(そういう風にかけるというドキュメントがある)
+
+-----
+
+![fit, inline saikyo-framework.png](img/saikyo-framework.png)
+
+
+[ぼくのかんがえたさいきょうのうぇぶあぷりけーしょんふれーむわーく - YAPC Asia 2011](https://www.slideshare.net/cho45/yapc-asia-2011 "ぼくのかんがえたさいきょうのうぇぶあぷりけーしょんふれーむわーく - YAPC Asia 2011")
 
 -----
 
 # TypeScript
 
+- まあ普通
+- ツールのエコシステムに問題があったけどBabylon@7.0.0-beta.16でTypeScriptのパースができるようになった
+	- [Release v7.0.0-beta.16 · babel/babylon](https://github.com/babel/babylon/releases/tag/v7.0.0-beta.16 "Release v7.0.0-beta.16 · babel/babylon")
+
 -----
 
 # Jest
 
-- expect
-- assert
-- mock
+- TypeScriptとの使い勝手がいいテストフレームワーク
+	- [ts-jest](https://github.com/kulshekhar/ts-jest "ts-jest")がよく出来てる
+	- TypeScript -> js -> babelなどもできる
+- Assertion
+	- expect 今回こっち
+	- assert 後から気づいたけど普通にassertでもかける
+		- power-assertもbabel変換とかでできる
 
 -----
+
+# Jest
+
+- mock
+	- Jestに依存したくないので[typemoq](https://github.com/florinn/typemoq "typemoq")
+	- 実際のJSONや関数を使うので、anyを作るnullmock程度にしか使ってない
+	- [Almin](https://github.com/almin/almin "Almin")的に基本的にコンストラクタDIとかできるように書けるので使う部分はあんまりなかった
+- AutoMockはいらない
+	- Painfulな機能
+
+----
+
+# Jest色々
+
+- CLIは良く出来てる
+- 機能が多すぎる
+- デフォルトでJSDomが入ってるのでNodeでも`window`がデフォルトで存在
+	- `"testEnvironment": "node"`で回避
+	- [I found `window` is `global` in jest from StackOverflow, but not mention in docs? · Issue #3692 · facebook/jest](https://github.com/facebook/jest/issues/3692#issuecomment-308622804 "I found `window` is `global` in jest from StackOverflow, but not mention in docs? · Issue #3692 · facebook/jest")
+- 感想: [Javascript unit testing tools](http://mo.github.io/2017/06/05/javascript-unit-testing.html "Javascript unit testing tools")
+- Mochaはライブラリ向け、Jestはアプリ向け
+
+----
+
+# メタテスト
+
+- [azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること](https://github.com/azu/large-scale-javascript "azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること")
+- 特定のクラスやディレクトリに対してルールを守ってるかのテスト
+- StoreがちゃんとStoreGroupに登録されてるか、初期Stateを返せてるかなど
+- コードを書くと勝手にテストが増えて便利 :star:
+
+
+----
 
 # Work on everything
 
 -----
 
+# Faaoの対応環境
+
 - Browser
-- Mobile
+- Mobile(iOS Safari)
 - Electron
+- 最初はElectron向けに書いていたけど、これどこでも動くなと気づいてスイッチした
 
 -----
 
 # GitHub API
 
-- octokat
+- [octokat.js](https://github.com/philschatz/octokat.js/ "octokat.js")を使ってる
+	- 0.9 Fetch APIベースになって壊れてる
+- スキーマからAPIの対応を自動生成してるクライアント
+- GitHubの[desktop](https://github.com/desktop/desktop "desktop")も使ってたが
+	- [There can be only one API layer by joshaber · Pull Request #2080 · desktop/desktop](https://github.com/desktop/desktop/pull/2080 "There can be only one API layer by joshaber · Pull Request #2080 · desktop/desktop") 辞めた
+- TypeScriptから扱いやすいやつ欲しい
+	- レスポンスの型が面倒
 
 -----
 
 # GraphQL
 
-- events?
+- GraphQLは[GitHub Enterprise 2.10](https://github.com/blog/2373-introducing-github-enterprise-2-10-build-tools-with-the-new-github-graphql-api-organize-with-topics-and-level-up-your-project-management "GitHub Enterprise 2.10")にも入った
+- `/users/:user/event`に相当するもののとり方がわからない
+- <https://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user>
 
 -----
 
 # GitHub API trap
+
+- GHEだと[Rate Limit](https://developer.github.com/v3/rate_limit/ "Rate Limit")の機能が無効化されてるケースがある
+	- 常に404を返す
+	- どう見ても叩いたら壊れる
+- GitHubのURLをパースするやつ
+	- [github-url-to-object](https://github.com/zeke/github-url-to-object "github-url-to-object")を利用
+	- GHEも対応してる
+- GitHubのeventsをフォーマットするやつ
+	- ダッシュボードの "pivotal-brian-croom opened issue on pivotal/cedar" みたいなメッセージを作るやつ
+	- [parse-github-event](https://github.com/azu/parse-github-event "parse-github-event")を書いた
 
 ------
 
@@ -374,16 +624,37 @@ class User {
 
 # Debuggablity
 
+- アプリケーションには様々な状態が存在する
+- 全てはどこからでも現在の状態を見れるようになってないと不便
+	- 簡単に `window.faao` に参照突き刺しておけばいい
 - Repository
 - Store/State
-- View
+- ViewのState
 
 -----
 
-# Hard testing
+# Debuggablity
 
+- 永続化したデータはいつでもメモリデータベースに切り替えできた方が良い
+- テストの度に永続化したデータが消えるとテストしにくい
+- Faaoでは[Storage.ts](https://github.com/azu/faao/blob/master/src/infra/repository/Storage.ts "Storage.ts")でいつでもメモリデータモードに入ることができる
+	- [localForage](https://github.com/localForage/localForage "localForage")を使って動的にdriverを切り返す
+	- データは元からメモリ上に載っていて、書き込み時にデータベースへアクセスする作りにしたため
 
-------
+----
 
-- PPPDDD
-- Living Documentation
+# まとめ
+
+- ちゃんとやるにはちゃんとやる必要がある
+- コードと共にテストやドキュメントも成長する
+- それらは自動化されている部分もあればルール化されている部分もある
+- モデリングをちゃんと行い、モデルから自動的にドキュメントが生成され、ドキュメントとしてみた時のモデルとしての不整合を検証する
+
+----
+
+# 参考
+
+- [azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること](https://github.com/azu/large-scale-javascript "azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること")
+- [Patterns, Principles, and Practices of Domain-Driven Design 1st Edition](https://www.amazon.com/Professional-Domain-Driven-Design-Patterns/dp/1118714709/ "Patterns, Principles, and Practices of Domain-Driven Design 1st Edition")
+- [ユースケース駆動開発実践ガイド](http://www.shoeisha.co.jp/book/detail/9784798114453 "ユースケース駆動開発実践ガイド")
+- [Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]](https://leanpub.com/livingdocumentation)
