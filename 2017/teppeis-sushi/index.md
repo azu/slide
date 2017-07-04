@@ -333,7 +333,10 @@ class User {
 
 # ユースケース図
 
-- [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture")
+- Faaoのユースケース: [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture")
+
+> 一点、注意が必要なのは、ユースケース記述とユースケース図は異なるということです。 このガイドラインはユースケース記述のガイドラインです。
+> [UseCaseの再利用性 - yoskhdia’s diary](http://yoskhdia.hatenablog.com/entry/2016/10/18/152624 "UseCaseの再利用性 - yoskhdia’s diary")
 
 ----
 
@@ -463,6 +466,13 @@ KnowledgeにはGenericなものとSpecificなものがある。
 - ルールには例外がつきもの
 - そのため、原則が守れないと崩壊してしまうルールよりは、例外を規定することで原則を守れるルールの方がよい。
 - 厳密に守りたいルールはホワイトリストで管理できた方がいい
+
+-----
+
+# Living Documentation
+
+# Living Diagram
+
 
 -----
 
