@@ -1,8 +1,6 @@
 autoscale: true
 
-# Faao
-
-## ドメイン駆動設計で作るGitHub Issue Client
+# Faao - ドメイン駆動設計で作るGitHub Issue Client -
 
 ----
 
