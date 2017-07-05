@@ -196,6 +196,7 @@ interface GitHubSetting {
 - `GitHubSetting`と`GitHubUser`は想定するライフサイクルが異なった
 - `GitHubSetting`で入力されたTokenを使って、`/user` APIを叩いて`GitHubUser`を作る
 - 異なるライフサイクルを一つのモデルにまとめると破綻する未来が見えていた
+- そのため、UIのためにいきなりモデルを変更するよりちゃんと必要なモデルを考える
 
 ----
 
@@ -289,6 +290,24 @@ class User {
 ```
 
 
+-----
+
+## どちらにしてもドメインは軽くは永続化を意識する
+
+- `{id}`をconstructorで受け取れるようにする
+- 永続化を考える場合は、constructor(初期化)に副作用を持たせてはいけない
+
+
+```js
+// OKなケース
+class User {
+   constructor({ id }){
+      this.id = id;
+   }
+}
+```
+
+
 ----
 # スナップショットからの復元
 
@@ -323,7 +342,7 @@ class User {
 
 - アプリケーションのドメインを使った、やりたいことの流れを書くところ
 - このアプリのユースケースは
-	- GitHub APIを使ってSearch
+	- GitHubSettingのtoken情報とGitHub APIを使って検索
 	- GitHubSettingの作成、保存 などなど
 - ユースケースの再利用性
 	- 基本的にはしない、拡張ユースケースは使う
@@ -334,6 +353,7 @@ class User {
 # ユースケース図
 
 - Faaoのユースケース: [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture")
+- このユースケース図はアプリの全てを表すわけではないけどモデルの整合性の参考にできる
 
 > 一点、注意が必要なのは、ユースケース記述とユースケース図は異なるということです。 このガイドラインはユースケース記述のガイドラインです。
 > [UseCaseの再利用性 - yoskhdia’s diary](http://yoskhdia.hatenablog.com/entry/2016/10/18/152624 "UseCaseの再利用性 - yoskhdia’s diary")
@@ -464,9 +484,13 @@ KnowledgeにはGenericなものとSpecificなものがある。
 -----
 
 
+# 破れないルールは価値を鈍化させる
+
+
 - ルールには例外がつきもの
 - そのため、原則が守れないと崩壊してしまうルールよりは、例外を規定することで原則を守れるルールの方がよい。
-- 厳密に守りたいルールはホワイトリストで管理できた方がいい
+- 厳密に守りたいルールは、ホワイトリストで例外ルールを管理できた方がいい
+	- 例) `eslint-disable`で指定した部分だけ原則を無視できるようにする
 
 -----
 
@@ -512,7 +536,9 @@ KnowledgeにはGenericなものとSpecificなものがある。
 
 -----
 
-# Living Documentationはドキュメンテーションをコード化する
+# [fit] Living Documentationはドキュメンテーションをコード化する
+
+- Living Documentationとはドキュメントがコードと共に成長できるようにする戦略
 
 詳しくは本を読んで
 

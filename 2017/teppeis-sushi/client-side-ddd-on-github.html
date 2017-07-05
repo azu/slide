@@ -16,7 +16,7 @@
 <div class="main-content">
     <meta itemprop="name headline" content="Faao - ドメイン駆動設計で作るGitHub Issue Client -"/>
     <iframe id="main-slide"
-            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2017/teppeis-sushi/client-side-ddd-on-github.pdf"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.pdf"
             scrolling="no"
             allowtransparency="true"
             width="100%"
@@ -24,13 +24,13 @@
             style="border:0;">
     </iframe>
     <aside class="slide-controller">
-        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2017-07-04" id="datePublished">
-            2017-07-04
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2017-07-05" id="datePublished">
+            2017-07-05
         </time></span>
-        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2017-07-04" id="dateModified">
-            2017-07-04
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2017-07-05" id="dateModified">
+            2017-07-05
         </time></span>
-        <a href="http://azu.github.io/slide//2017/teppeis-sushi/client-side-ddd-on-github.pdf" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">
+        <a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.pdf" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">
             <svg xmlns="http://www.w3.org/2000/svg"
                  version="1.1"
                  class="svg-icon"
@@ -219,6 +219,7 @@ SUM:                           208            983            538          15410
 <li><code>GitHubSetting</code>と<code>GitHubUser</code>は想定するライフサイクルが異なった</li>
 <li><code>GitHubSetting</code>で入力されたTokenを使って、<code>/user</code> APIを叩いて<code>GitHubUser</code>を作る</li>
 <li>異なるライフサイクルを一つのモデルにまとめると破綻する未来が見えていた</li>
+<li>そのため、UIのためにいきなりモデルを変更するよりちゃんと必要なモデルを考える</li>
 </ul>
 <hr>
 <h1 id="-">ドメインモデル -&gt; 永続化</h1>
@@ -289,6 +290,19 @@ class User {
 }
 </code></pre>
 <hr>
+<h2 id="-">どちらにしてもドメインは軽くは永続化を意識する</h2>
+<ul>
+<li><code>{id}</code>をconstructorで受け取れるようにする</li>
+<li>永続化を考える場合は、constructor(初期化)に副作用を持たせてはいけない</li>
+</ul>
+<pre><code class="lang-js">// OKなケース
+class User {
+   constructor({ id }){
+      this.id = id;
+   }
+}
+</code></pre>
+<hr>
 <h1 id="-">スナップショットからの復元</h1>
 <p><img src="./img/GitHubSetting.png" alt="right,fit, GitHubSetting.png"></p>
 <ul>
@@ -322,7 +336,7 @@ class User {
 <ul>
 <li>アプリケーションのドメインを使った、やりたいことの流れを書くところ</li>
 <li>このアプリのユースケースは<ul>
-<li>GitHub APIを使ってSearch</li>
+<li>GitHubSettingのtoken情報とGitHub APIを使って検索</li>
 <li>GitHubSettingの作成、保存 などなど</li>
 </ul>
 </li>
@@ -336,6 +350,7 @@ class User {
 <h1 id="-">ユースケース図</h1>
 <ul>
 <li>Faaoのユースケース: <a href="https://azu.github.io/faao/meta/use-case.html" title="Faao - UseCase architecture">Faao - UseCase architecture</a></li>
+<li>このユースケース図はアプリの全てを表すわけではないけどモデルの整合性の参考にできる</li>
 </ul>
 <blockquote>
 <p>一点、注意が必要なのは、ユースケース記述とユースケース図は異なるということです。 このガイドラインはユースケース記述のガイドラインです。
@@ -451,10 +466,14 @@ class User {
 <hr>
 <h1 id="-">破れないルールは価値を鈍化させる</h1>
 <hr>
+<h1 id="-">破れないルールは価値を鈍化させる</h1>
 <ul>
 <li>ルールには例外がつきもの</li>
 <li>そのため、原則が守れないと崩壊してしまうルールよりは、例外を規定することで原則を守れるルールの方がよい。</li>
-<li>厳密に守りたいルールはホワイトリストで管理できた方がいい</li>
+<li>厳密に守りたいルールは、ホワイトリストで例外ルールを管理できた方がいい<ul>
+<li>例) <code>eslint-disable</code>で指定した部分だけ原則を無視できるようにする</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="living-documentation">Living Documentation</h1>
@@ -497,7 +516,10 @@ class User {
 -- <a href="https://blog.acolyer.org/2016/10/06/simple-testing-can-prevent-most-critical-failures/" title="Simple testing can prevent most critical failures | the morning paper">Simple testing can prevent most critical failures | the morning paper</a></p>
 </blockquote>
 <hr>
-<h1 id="living-documentation-">Living Documentationはドキュメンテーションをコード化する</h1>
+<h1 id="-fit-living-documentation-">[fit] Living Documentationはドキュメンテーションをコード化する</h1>
+<ul>
+<li>Living Documentationとはドキュメントがコードと共に成長できるようにする戦略</li>
+</ul>
 <p>詳しくは本を読んで</p>
 <ul>
 <li><a href="https://leanpub.com/livingdocumentation">Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]</a></li>
