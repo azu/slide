@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>The Concept of Almin</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="The Concept of Almin"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2017/almin/concept-of-almin.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2017-09-29" id="datePublished">
+            2017-09-29
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2017-09-29" id="dateModified">
+            2017-09-29
+        </time></span>
+        <a href="http://azu.github.io/slide/2017/almin/concept-of-almin.pdf" title="The Concept of Almin">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="the-concept-of-almin">The Concept of Almin</h1>
+<p><img src="https://almin.github.io/media/logo/logo.png" alt="fit Almin.js"></p>
+<hr>
+<h2 id="-almin-https-github-com-almin-almin-almin-is-a-state-management-library-for-javascript"><a href="https://github.com/almin/almin" title="Almin">Almin</a> is a State management library for JavaScript</h2>
+<p><img src="https://almin.github.io/media/logo/logo.png" alt="fit Almin.js"></p>
+<hr>
+<h2 id="almin-features">Almin features</h2>
+<ul>
+<li>Scalable<ul>
+<li>Semi-middle(1,000LOC) – Large(100,000LOC)</li>
+</ul>
+</li>
+<li>Testable<ul>
+<li>Implement UseCase/Store/Domain as component</li>
+</ul>
+</li>
+<li>Debuggable<ul>
+<li>Logger/DevTools/Performance monitoring</li>
+</ul>
+</li>
+<li>Layered Architecture<ul>
+<li>DDD/CQRS</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>Different team structures imply different architectural decisions.
+-- Clean Architecture Robert C. Martin</p>
+</blockquote>
+<hr>
+<h2 id="the-concept-of-almin">The Concept of Almin</h2>
+<ul>
+<li>Write <strong>Your domain</strong> in <strong>Your code</strong></li>
+<li>Split up <strong>Read stack</strong> and <strong>Write stack</strong></li>
+<li><strong>Unidirectional</strong> data flow</li>
+<li>Prefer <strong>Readable code</strong> to <strong>Writable code</strong></li>
+<li><strong>Monitor everything</strong></li>
+</ul>
+<hr>
+<h2 id="write-your-domain-in-your-code-">Write <strong>Your domain</strong> in <strong>Your code</strong></h2>
+<ul>
+<li>You can control domain layer<ul>
+<li>You can write <strong>your domain</strong> mode with <strong>Pure JavaScript</strong></li>
+<li>You domain <strong>not need</strong> to subclass of Almin things</li>
+</ul>
+</li>
+<li>Almin support application layer<ul>
+<li>Application layer use your domain model</li>
+</ul>
+</li>
+<li>If you drop to use almin, <strong>not need to rewrite</strong> your domain</li>
+</ul>
+<hr>
+<h3 id="example-usecase">Example: UseCase</h3>
+<p>Almin provice <code>UseCase</code> class that is a pert of application layer</p>
+<pre><code class="lang-js">import { UseCase } from &quot;almin&quot;;
+import yourDomain from &quot;./your-domain&quot;;
+export ApplicationUseCase extends UseCase {
+    execute(){
+        // Application Layer use your domain
+        yourDomain.doSomething();
+    }
+}
+</code></pre>
+<hr>
+<h2 id="split-up-read-stack-and-write-stack-">Split up <strong>Read stack</strong> and <strong>Write stack</strong></h2>
+<ul>
+<li>In Flux/Redux<ul>
+<li><strong>Store</strong> has <strong>Application logic/state</strong>(M) and <strong>View state</strong>(N)</li>
+<li>The Complexity: <strong>N × M</strong> (multiplication)</li>
+</ul>
+</li>
+<li>In Almin<ul>
+<li><strong>Domain</strong> has <strong>Application logic/state</strong>(M) – Write state</li>
+<li><strong>Store</strong> has <strong>View state</strong>(N) - Read state</li>
+<li>The Complexity: <strong>N + M</strong> (addition)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Related topic: Command Query Responsibility Segregation(CQRS)</p>
+</blockquote>
+<hr>
+<h3 id="example-repository">Example: Repository</h3>
+<ul>
+<li>Almin help to support <strong>Repository</strong> pattern<ul>
+<li>You can save your domain(application state) into the repository</li>
+</ul>
+</li>
+<li><strong>Store</strong> read <strong>application state</strong> from the <strong>repository</strong></li>
+<li><strong>Store</strong> convert the <strong>application state</strong> to <strong>view state</strong></li>
+</ul>
+<blockquote>
+<p>Realted topic: Model View ViewModel(MVVM), ViewModel</p>
+</blockquote>
+<hr>
+<h2 id="-unidirectional-data-flow"><strong>Unidirectional</strong> data flow</h2>
+<blockquote>
+<p>View -&gt; UseCase -&gt; Store ... -&gt; View -&gt; UseCase -&gt; Store</p>
+</blockquote>
+<ul>
+<li><strong>UseCase</strong> only report <strong>success or failure</strong> that is <strong>Promise<void></strong></li>
+<li><strong>UseCase</strong> can write to <strong>Store</strong>, But can not read from Store</li>
+<li><strong>Store</strong> does&#39;t know any <strong>UseCase</strong></li>
+<li><strong>View</strong> can not write state to <strong>Store</strong> directly</li>
+<li><strong>View</strong> can execute any <strong>UseCase</strong></li>
+<li><strong>View</strong> can observe the change of <strong>Store</strong></li>
+</ul>
+<p>Related topic: Flux</p>
+<hr>
+<p><img src="/Users/azu/.ghq/github.com/almin/almin/docs/resources/almin-architecture.png" alt="fit, Almin Architecture"></p>
+<hr>
+<h2 id="prefer-readable-code-to-writable-code-">Prefer <strong>Readable code</strong> to <strong>Writable code</strong></h2>
+<ul>
+<li>Almin prefer <strong>Explicit</strong>/<strong>Readable</strong> code to <strong>Implicit</strong>/<strong>Writable</strong> code</li>
+<li>Almin support <strong>TypeScript</strong> language and Almin is <strong>type-safe</strong></li>
+<li>Props<ul>
+<li>No magic code</li>
+<li>Just write and Just work</li>
+</ul>
+</li>
+<li>Cons<ul>
+<li>Redundancy</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-monitor-everything-"><strong>Monitor everything</strong></h2>
+<ul>
+<li>You can observe <a href="https://almin.js.org/docs/tips/usecase-lifecycle.html">life-cyle events</a> of almin</li>
+<li><a href="https://github.com/almin/almin/tree/master/packages/almin-logger">logging</a> events that are changing of state etc..</li>
+<li>Integrate almin into <a href="https://github.com/almin/almin-devtools" title="almin-devtools">DevTools</a></li>
+<li><a href="https://almin.js.org/docs/tips/performance-profile.html">Profiling performance</a> of almin with other library</li>
+<li><a href="https://github.com/almin/almin-usecase-map-generator">Illustrate</a> your UseCase diagram</li>
+</ul>
+<hr>
+<p><img src="./performance-timeline.png" alt="inline fill, performance">
+<img src="./devtools.png" alt="inline, fill, DevTools"> </p>
+<hr>
+<h1 id="-almin-js-icon-https-almin-github-io-media-icon-icon-png-conclusion"><img src="https://almin.github.io/media/icon/icon.png" alt="Almin.js Icon"> Conclusion</h1>
+<ul>
+<li>:package: Repo: <a href="https://github.com/almin/almin" title="almin/almin">almin/almin</a></li>
+<li>:memo: Document: <a href="https://almin.js.org" title="Almin documentation">https://almin.js.org</a></li>
+<li>:scroll: Examples: <a href="https://github.com/almin/almin/tree/master/examples" title="almin/examples">almin/examples</a></li>
+<li>:link: Work with <a href="https://reactjs.org/">React</a>, <a href="http://vuejs.org/">Vue</a> etc...</li>
+</ul>
+<p><img src="https://almin.github.io/media/logo/logo.png" alt="fit Almin.js"></p>
+<hr>
+<h1 id="-fit-almin-https-github-com-almin-almin-almin-is-for-thinking-code">[fit] <a href="https://github.com/almin/almin" title="Almin">Almin</a> is for thinking code</h1>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
