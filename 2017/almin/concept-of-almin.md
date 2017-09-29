@@ -58,7 +58,7 @@ autoscale: true
 
 ### Example: UseCase
 
-Almin provice `UseCase` class that is a pert of application layer
+Almin provice `UseCase` class that is a part of application layer
 
 
 ```js
