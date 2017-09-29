@@ -48,11 +48,11 @@ autoscale: true
 ## Write **Your domain** in **Your code**
 
 - You can control domain layer
-	- You can write **your domain** mode with **Pure JavaScript**
-	- You domain **not need** to subclass of Almin things
+	- You can write **your domain** with **Pure JavaScript**
+	- Your domain is **not need** to subclass of Almin things
 - Almin support application layer
 	- Application layer use your domain model
-- If you drop to use almin, **not need to rewrite** your domain
+- If you stop to use almin, you **don't need to rewrite** your domain
 
 -----
 
