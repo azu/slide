@@ -128,7 +128,7 @@ Related topic: Flux
 
 - Almin prefer **Explicit**/**Readable** code to **Implicit**/**Writable** code
 - Almin support **TypeScript** language and Almin is **type-safe**
-- Props
+- Pros
 	- No magic code
 	- Just write and Just work
 - Cons
