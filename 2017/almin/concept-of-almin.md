@@ -138,7 +138,7 @@ Related topic: Flux
 
 ##  **Monitor everything**
 
-- You can observe [life-cyle events](https://almin.js.org/docs/tips/usecase-lifecycle.html) of almin
+- You can observe [life-cycle events](https://almin.js.org/docs/tips/usecase-lifecycle.html) of almin
 - [logging](https://github.com/almin/almin/tree/master/packages/almin-logger) events that are changing of state etc..
 - Integrate almin into [DevTools](https://github.com/almin/almin-devtools "almin-devtools")
 - [Profiling performance](https://almin.js.org/docs/tips/performance-profile.html) of almin with other library
