@@ -18,7 +18,7 @@ autoscale: true
 
 
 - Scalable
-	- Semi-middle(1,000LOC) – Large(100,000LOC)
+	- Medium-small(1,000LOC) – Large(100,000LOC)
 - Testable
 	- Implement UseCase/Store/Domain as component
 - Debuggable
