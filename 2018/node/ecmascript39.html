@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>ECMAScriptの使い方</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="ECMAScriptの使い方"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2018/node/ecmascript39.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2018-02-22" id="datePublished">
+            2018-02-22
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2018-02-22" id="dateModified">
+            2018-02-22
+        </time></span>
+        <a href="http://azu.github.io/slide//2018/node/ecmascript39.pdf" title="ECMAScriptの使い方">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="ecmascript-">ECMAScriptの使い方</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+<li>:zap: <a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a></li>
+</ul>
+<hr>
+<h1 id="-">目的</h1>
+<ul>
+<li>ECMAScriptを使えるようになる</li>
+<li>自律的なECMAScriptについての情報を検索できるようになる</li>
+</ul>
+<hr>
+<h1 id="-">以前の話したもの</h1>
+<ul>
+<li><a href="http://azu.github.io/slide/2016/node-es/ecmascript.html" title="ECMAScript as a Living Standard">ECMAScript as a Living Standard</a></li>
+<li>ECMAScriptは毎年更新されるし、最新版はGitHubで毎日更新されてる</li>
+<li>Living Standardになってるよ</li>
+</ul>
+<p>という話</p>
+<hr>
+<h1 id="ecmascript-">ECMAScriptとは</h1>
+<ul>
+<li>ECMAScriptは<a href="http://www.ecma-international.org/" title="Ecma International">Ecma International</a>という団体によって標準化されている仕様</li>
+<li>Ecma内のTC39という技術委員会によって、どのような機能を仕様へ入れるかを議論、決定</li>
+<li>TC39はMicroSoft、Mozilla、Google、AppleといったブラウザベンダーやECMAScriptに関心のある企業などによって構成</li>
+</ul>
+<hr>
+<h1 id="ecmascript-">ECMAScriptのバージョン</h1>
+<table>
+<thead>
+<tr>
+<th>バージョン</th>
+<th>日付</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1997年6月</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1998年6月</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1999年12月</td>
+</tr>
+<tr>
+<td>4</td>
+<td>策定されずに破棄(ES4)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2009年12月</td>
+</tr>
+<tr>
+<td>5.1</td>
+<td>2011年6月</td>
+</tr>
+<tr>
+<td>2015</td>
+<td>2015年6月</td>
+</tr>
+<tr>
+<td>2016</td>
+<td>2016年6月</td>
+</tr>
+<tr>
+<td>2017</td>
+<td>2017年6月</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="ecmascript-">ECMAScriptのバージョンの歴史</h1>
+<p><img src="img/ecmascript-versions.png" alt="right, ecmascript-versions.png"></p>
+<ul>
+<li>ES5.1からES2015がでるまで4年もかかってる</li>
+<li>ES2015以降は毎年リリースされている</li>
+</ul>
+<hr>
+<p><img src="img/es-timeline.png" alt="fit, es-timeline.png"></p>
+<hr>
+<h1 id="-">仕様策定のプロセスの変化</h1>
+<ul>
+<li>ES2015以前<ul>
+<li>すべての仕様の合意がとれてから一括リリース</li>
+</ul>
+</li>
+<li>ES2016以降<ul>
+<li>合意がとれた仕様から順次リリース</li>
+</ul>
+</li>
+<li>ECMAScriptを毎年リリースするために策定プロセスを変更</li>
+</ul>
+<hr>
+<h2 id="es2016-">ES2016以降の仕様策定プロセス</h2>
+<ul>
+<li>仕様に追加する機能（API、構文など）をそれぞれ個別の<strong>プロポーザル</strong>（提案書）として進める</li>
+<li>現在策定中のプロポーザルは<img src="icons/github.png" alt="GitHUb" title="GitHub"> <a href="https://github.com/tc39/proposals" title="tc39/proposals: Tracking ECMAScript Proposals">tc39/proposals</a>にて公開</li>
+<li>各プロポーザルは責任者である<strong>チャンピオン</strong>と<strong>ステージ</strong>（Stage）と呼ばれる<code>0</code>から<code>4</code>の5段階の状態をもつ<ul>
+<li>チャンピオンが責任持ってプロポーザルを進める</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">プロポーザルのステージ</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ステージ</th>
+<th>名前</th>
+<th>ステージの概要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td>Strawman</td>
+<td>アイデアの段階</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td>Proposal</td>
+<td>機能提案の段階</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td>Draft</td>
+<td>機能の仕様書ドラフトを作成した段階</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td>Candidate</td>
+<td>仕様としては完成しており、ブラウザの実装やフィードバックを求める段階</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td>Finished</td>
+<td>仕様策定が完了し、2つ以上の実装が存在している。<a href="https://github.com/tc39/test262" title="tc39/test262">テスト</a>がある。<br />正式にECMAScriptにマージできる段階</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="-">プロポーザルのステージの進み方</h2>
+<ul>
+<li>2ヶ月に1度行われるTC39のミーティングでプロポーザルのステージを更新</li>
+<li>ミーティングの議事録は<img src="icons/github.png" alt="GitHUb" title="GitHub"> <a href="https://github.com/tc39/tc39-notes" title="tc39/tc39-notes: TC39 Meeting Notes">tc39/tc39-notes</a>で公開</li>
+<li>毎年のECMAScriptをリリースするタイミング(6月)で、Stage 4のプロポーザルをマージ</li>
+<li><code>ECMAScript 20XX</code>としてリリース</li>
+</ul>
+<hr>
+<h2 id="-">なぜ仕様策定プロセスが変わったのか</h2>
+<ul>
+<li>ES2015以前: すべての仕様の合意が取れてからリリース</li>
+<li>ES2016以降: 合意が取れた仕様からリリース</li>
+<li>変更理由: ECMAScriptのリリースに長い歳月がかかり言語の進化が停滞した</li>
+<li>歴史的失敗: ES4では多くの変更を入れることを試みたが、TC39内でも意見が分かれ最終的に合意できなかった<ul>
+<li>これにより言語の発展が数年間停滞した[^1]</li>
+</ul>
+</li>
+</ul>
+<p>[^1]: <a href="http://wirfs-brock.com/allen/files/papers/standpats-asianplop2016.pdf">Programming Language Standardization: Patterns for Participation</a>を参照</p>
+<hr>
+<h2 id="-">仕様策定プロセス変更の影響</h2>
+<ul>
+<li>ECMAScriptに入れようとする機能（プロポーザル）の形も変化した<ul>
+<li>最大限最小(maximally minimal)のプロポーザル</li>
+<li>最初からすべて入れることは無理なので、最小限の形から入れる提案が増えた[^2]</li>
+</ul>
+</li>
+<li>すべてのプロポーザルが入るわけではない<ul>
+<li>代替のプロポーザルや後方互換性、ユースケースの問題で取り下げたプロポーザルも多い</li>
+</ul>
+</li>
+<li>これはモジュール化されたプロポーザルは交換可能な事を表してる</li>
+</ul>
+<p>[^2]: クラス、mixinなどがこのようなmaximally minimalで進んでいる</p>
+<hr>
+<h2 id="-">プロポーザルをエミュレート</h2>
+<ul>
+<li>Stage 4に「2つ以上の実装が存在している」という必須要件がある</li>
+<li>正式なECMAScriptになる前にはブラウザには実装される[^flag]</li>
+<li>TranspilerやPolyfillを使ってエミュレートできる</li>
+<li>Transpiler: 新しい構文を既存の機能で再現できるようにソースコードを変換するツール<ul>
+<li>TypeScript、Babelなど</li>
+</ul>
+</li>
+<li>Polyfill: プロポーザルで追加された新しいメソッドや関数などを実装を提供するライブラリ<ul>
+<li>core-js、babel-polyfillなど</li>
+</ul>
+</li>
+</ul>
+<p>[^flag]: 多くはフラグ付き実装。一度Stableに入れると外せなくなるため。Stage 4の要件はあえて曖昧性を持たせている</p>
+<hr>
+<h2 id="-warning-transpiler-polyfill-warning-">:warning: TranspilerやPolyfillの注意 :warning:</h2>
+<ul>
+<li>TranspilerやPolyfillはあくまで既存の機能で新しい機能を再現を試みているだけ</li>
+<li>原理的に全く新しい機能は既存の機能では再現できない<ul>
+<li>コストの問題で再現してないこともある</li>
+</ul>
+</li>
+<li>TranspilerやPolyfillをそのプロポーザルを学ぶために使うべきではない</li>
+<li>先行して試せるようになったというのが大きい、プロポーザルへのフィードバックができる</li>
+</ul>
+<hr>
+<h2 id="living-standard-ecmascript">Living StandardとなるECMAScript</h2>
+<ul>
+<li>ECMAScriptの仕様書のドラフトはGitHub上の<a href="https://github.com/tc39/ecma262" title="tc39/ecma262: Status, process, and documents for ECMA262">tc39/ecma262</a>で管理されている</li>
+<li>本当の意味での最新のECMAScript仕様は<a href="https://tc39.github.io/ecma262/">https://tc39.github.io/ecma262/</a></li>
+<li>バージョン番号を付けずに、常に最新版を公開する仕様のことを<strong>Living Standard</strong>と呼ぶ</li>
+<li>加えて、ECMAScript 2017のようにバージョン番号をつけたものも公開<ul>
+<li>バージョン付きECMAScriptは、スナップショットのようなもの </li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-fit-">[fit] 仕様や策定プロセスを知る意味</h1>
+<hr>
+<h1 id="-">仕様や策定プロセスを知る意味</h1>
+<ul>
+<li>言語を学ぶため</li>
+<li>言語が進化しているため</li>
+<li>情報の正しい状態を調べるため</li>
+</ul>
+<hr>
+<h2 id="-">言語を学ぶため</h2>
+<ul>
+<li>JavaScriptという言語そのものを学ぶため</li>
+<li>言語の詳細を知りたい場合にはECMAScriptという仕様を参照する</li>
+<li>JavaScriptにおいては言語機能に関しては<a href="https://developer.mozilla.org/ja/" title="MDN Web Docs">MDN Web Docs</a>などで大抵は十分</li>
+</ul>
+<hr>
+<h3 id="-">言語が進化しているため</h3>
+<ul>
+<li>言語が進化しているのは何かの問題を解決するため</li>
+<li>ECMAScriptはLiving Standardであり、言語仕様に新しい機能や修正などが日々行われている<ul>
+<li>ECMAScriptは後方互換性を尊重するため、今学んでいることが無駄になるわけではない</li>
+</ul>
+</li>
+<li>この仕様はどのような経緯で入ったのかを調べる手段として策定プロセスを知る<ul>
+<li>特にES2015以降はGitHubに殆どの情報があるので探しやすい</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="-">情報の正しい状態を調べるため</h3>
+<ul>
+<li>JavaScriptは幅広く使われている言語であるため、世の中には膨大な情報がある</li>
+<li>検索して見つかる情報には正しいものや間違ったものが混在する<ul>
+<li><a href="https://jser.info/" title="JSer.info">JSer.info</a>はこの問題を解決するために作った</li>
+</ul>
+</li>
+<li>検索できる情報と比較: 仕様やプロポーザルに関する情報は状態が明確<ul>
+<li>仕様は安定。プロポーザルはステージという明示された状態があり、ステージ4未満の場合はまだ安定してない</li>
+</ul>
+</li>
+<li>問題を見つけた際に該当する仕様やプロポーザルなどよりオリジンに近いものを調べる手段を知る</li>
+</ul>
+<p>^ これはECMAScriptにかぎらず、ウェブやブラウザに関する情報に関してはほぼおなじことがいえます。
+ブラウザ関してはHTML、DOM API、CSS、IEFTなどもオープンな仕様とそれぞれ策定プロセスが存在しています。
+これは今風の書き方といった煽りを避けるために必要な考え方。
+先ほども書いたように新しい構文や機能が増えるのは何か問題があって解決したいから。
+言語レベルで解決する必要ないなら言語に載せることはないし、何事もバランスが大事になる</p>
+<hr>
+<h1 id="-">具体例</h1>
+<hr>
+<h1 id="-beginner-">:beginner: 実装が仕様に準拠しているかを調べたい</h1>
+<h2 id="-javascript-">この挙動って仕様なの?というのをすべてのJavaScriptエンジンで比較する</h2>
+<hr>
+<h2 id="eshost"><code>eshost</code></h2>
+<ul>
+<li><a href="https://github.com/GoogleChromeLabs/jsvu">GoogleChromeLabs/jsvu: JavaScript (engine) Version Updater</a><ul>
+<li>主要なJavaScriptエンジンをまとめてインストール</li>
+<li>macOSならChakraを含めてほぼ対応できる</li>
+</ul>
+</li>
+<li><a href="https://github.com/bterlson/eshost-cli">bterlson/eshost-cli: Run ECMAScript code uniformly across any ECMAScript host</a><ul>
+<li>指定したJavaScriptエンジンでコードを実行できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="eshost-"><code>eshost</code> の実行例</h2>
+<pre><code>$ eshost -e &#39;new RegExp(&quot;\n&quot;).toString()&#39;
+#### Chakra
+/\n/
+
+#### SpiderMonkey
+/\n/
+
+#### JavaScriptCore
+/\n/
+
+#### V8
+/
+/
+</code></pre><hr>
+<h1 id="-beginner-ecmascript-">:beginner: ECMAScriptの仕様を読む</h1>
+<hr>
+<h2 id="-babel-typescript-">例: BabelとTypeScriptのクラス</h2>
+<p>BabelとTypeScriptでES5相当への変換と実行結果が異なる</p>
+<p><img src="img/class.png" alt="inline, class"></p>
+<hr>
+<h2 id="babel-preset-env-">Babel(preset-envのデフォルト)</h2>
+<p><img src="img/babel-class.png" alt="inline, babel"></p>
+<hr>
+<h2 id="typescript-target-es5-">TypeScript(target:es5)</h2>
+<p><img src="img/typescript-class.png" alt="inline, typescript"></p>
+<hr>
+<h2 id="-babel-typescript-">例: BabelとTypeScriptのメソッドの列挙</h2>
+<ul>
+<li>Babelはメソッド（プロパティ）は列挙されないので <code>[]</code> </li>
+<li>TypeSdriptはメソッド（プロパティ）が列挙されるので <code>[&quot;method&quot;]</code></li>
+<li>どっちが正しいのかを仕様を調べてみる<ul>
+<li>＊ネイティブで実行するのが最速の調べ方だけど、まあたまにバグってるので…</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">仕様の調べ方</h2>
+<ul>
+<li>理由がなければ最新版を使う <a href="https://tc39.github.io/ecma262/">https://tc39.github.io/ecma262/</a></li>
+<li><code>class</code>構文のメソッド定義の仕方を調べたい</li>
+</ul>
+<p>大きな流れ</p>
+<ol>
+<li><code>class</code> というSyntaxの定義を探す</li>
+<li><code>class</code>のRuntime Semantics(Syntaxにはそれぞれ実行時に何をするかという定義がある)</li>
+<li>Runtime Semanticsでそれぞれの <code>method(){}</code> がどのように定義されているかを見ていく</li>
+<li>今回は列挙されているかなので <code>enumerable</code> を調べる</li>
+</ol>
+<hr>
+<p><img src="img/class-definition.mp4" alt="fit, class-definition.mp4"></p>
+<hr>
+<h2 id="-">仕様を読んだまとめ</h2>
+<ul>
+<li><a href="https://youtu.be/xT8GupiJIio">動画</a>で紹介したように仕様では<code>enumerable</code>を<code>false</code>にしてメソッドを定義している</li>
+<li>Babelは仕様に準拠するたびにdefinePropertyで列挙しないように(<code>enumerable</code>を<code>false</code>)定義してる</li>
+<li>TypeScriptは単純にプロトタイプオブジェクトのメソッドを追加してるだけなので列挙される<ul>
+<li>単純なプロパティ定義は<code>enumerable</code>を<code>true</code>で定義される</li>
+<li><code>Object.keys</code>で列挙されるのはその違い</li>
+</ul>
+</li>
+<li><a href="https://github.com/Microsoft/TypeScript/issues/15038" title="Method class enumerable · Issue #15038 · Microsoft/TypeScript">Method class enumerable · Issue #15038 · Microsoft/TypeScript</a></li>
+</ul>
+<hr>
+<h2 id="-">補助資料</h2>
+<ul>
+<li><a href="https://timothygu.me/es-howto/" title="How to Read the ECMAScript Specification">How to Read the ECMAScript Specification</a><ul>
+<li>ECMAScriptの読み方について解説してる</li>
+<li><code>[[内部プロパティ]]</code>やAbstract Operator、Runtime semanticsなど仕様書に出てくる記号や読み方を解説してる</li>
+</ul>
+</li>
+<li><a href="https://github.com/anba/es6draft" title="anba/es6draft: ECMAScript 2015 (ECMA-262 6th Edition) compiler and runtime">anba/es6draft: ECMAScript 2015 (ECMA-262 6th Edition) compiler and runtime</a><ul>
+<li>ECMAScriptのJava実装</li>
+<li>リファレンス実装的に仕様書と対応したアルゴリズムステップで実装されているので読みやすい</li>
+<li><a href="https://github.com/anba/es6draft/blob/7e196e8a1482384ca83946998f5fbd22068b47c6/src/main/java/com/github/anba/es6draft/compiler/DefaultCodeGenerator.java#L1609-L1825" title="ClassDefinitionEvaluation">ClassDefinitionEvaluation</a>の実装もそのままある</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-js-primer-">例: <a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>の場合</h1>
+<hr>
+<h2 id="js-primer-"><a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>とは</h2>
+<p><img src="img/js-primer.png" alt="right, fit "></p>
+<ul>
+<li>ES21015以降を基本としたJavaScriptの入門書</li>
+<li>Living StandardであるECMAScriptに追従するように書いてる</li>
+<li><a href="https://github.com/asciidwango/js-primer">github.com/asciidwango/js-primer</a></li>
+<li>興味ある人はWatchしておいてください</li>
+</ul>
+<p><img src="img/repo-actions-watch.png" alt="inline, repo-actions-watch.png"></p>
+<hr>
+<h1 id="-js-primer-">例: <a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>の場合</h1>
+<ul>
+<li>迷った場合はECMAScriptを参照する</li>
+<li>用語、表現、動作の説明など</li>
+</ul>
+<hr>
+<h2 id="-1-this-arrow-function">例1: <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis</a>の表現 – Arrow Function</h2>
+<blockquote>
+<p><code>function</code>キーワードで定義した関数は呼び出し時に、ベースオブジェクトが暗黙的な引数のように<code>this</code>の値として渡されます。<br>一方、Arrow Functionの関数は呼び出し時に<code>this</code>を受け取らないため、定義時のArrow Functionにおける<code>this</code>の参照先が静的に決定されます。<br>-- <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis · JavaScriptの入門書 #jsprimer</a></p>
+</blockquote>
+<hr>
+<h2 id="-1-this-arrow-function">例1: <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis</a>の表現 – Arrow Function</h2>
+<ul>
+<li>「Arrow Functionは<code>this</code>をbindする」という説明だと仕様に即していないため避けた</li>
+<li>仕様ではArrowFunctionは<code>[[ThisValue]]</code>を持たないLexicalEnvironmentという定義<ul>
+<li>つまり原理的に<code>this</code>そのものを持っていない</li>
+</ul>
+</li>
+<li>Arrow Functionは<code>this</code>の値を受け取らないから<code>this</code>の値が静的に決まるという話にした<ul>
+<li>詳細は<a href="http://efcl.info/2018/01/04/what-is-this/" title="ECMAScript 2015以降のJavaScriptの`this`を理解する | Web Scratch">ECMAScript 2015以降のJavaScriptの<code>this</code>を理解する | Web Scratch</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-2-this-this-">例2: <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis</a>の表現 – <code>this</code>の値</h2>
+<hr>
+<h2 id="-2-this-this-">例2: <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis</a>の表現 – <code>this</code>の値</h2>
+<ul>
+<li><code>this</code>の解説をするためにあらゆる場所の<code>this</code>の挙動を調べていた</li>
+<li>次の&quot;Module&quot;の挙動がブラウザによって違った<ul>
+<li>V8は<code>Window</code>、 その他は<code>undefined</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-html">&lt;script type=&quot;module&quot;&gt;
+const fn = () =&gt; this;
+console.log(fn());
+&lt;/script&gt;
+`
+</code></pre>
+<hr>
+<h2 id="-2-this-this-">例2: <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis</a>の表現 – <code>this</code>の値</h2>
+<ul>
+<li>Arrow Functionにおける<code>this</code>は外側のスコープの<code>this</code>を参照する</li>
+<li>トップレベルの<code>this</code>とトップレベルのArrow Functionにおける<code>this</code>は同じ<ul>
+<li>以下のコードは全ブラウザ同じ挙動だった</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-html">&lt;script type=&quot;module&quot;&gt;
+    const fn = () =&gt; this;
+    console.log(fn() === this); // =&gt; true
+&lt;/script&gt;
+`
+</code></pre>
+<hr>
+<h2 id="-2-this-this-">例2: <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis</a>の表現 – <code>this</code>の値の仕様</h2>
+<ul>
+<li>トップレベルの<code>this</code>の値は実行コンテキストによって違う</li>
+<li>実行コンテキストは&quot;Script&quot;と&quot;Module&quot;(いわゆるES moduleのコンテキスト)</li>
+<li>仕様では&quot;Module&quot;コンテキストのトップレベル<code>this</code>は常に<code>undefined</code><ul>
+<li><a href="http://efcl.info/2015/05/06/this-is-es6-module/" title="ES6 moduleのtop levelにある`this`の値は何になるのか? | Web Scratch">ES6 moduleのtop levelにある<code>this</code>の値は何になるのか?</a></li>
+</ul>
+</li>
+<li>つまりはChrome/V8のバグ :bug:</li>
+</ul>
+<hr>
+<h2 id="-2-this-this-">例2: <a href="https://asciidwango.github.io/js-primer/basic/function-this/" title="関数とthis · JavaScriptの入門書 #jsprimer">関数とthis</a>の表現 – <code>this</code>の値</h2>
+<p><img src="./img/what-is-this.png" alt="fit, right"></p>
+<ul>
+<li><code>this</code>のテーブル: <a href="https://azu.github.io/what-is-this/">azu.github.io/what-is-this</a></li>
+<li>:bug: 報告: <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=791334" title="791334 - `this` in top level Arrow Function in Module Context should be `undefined` - chromium - Monorail">791334 - <code>this</code> in top level Arrow Function in Module Context should be <code>undefined</code> - chromium - Monorail</a></li>
+<li>Chrome 65で直る</li>
+</ul>
+<hr>
+<h1 id="-beginner-">:beginner: プロポーザルのステータスを知りたい</h1>
+<h2 id="-">このプロポーザルの今のステータスは?</h2>
+<hr>
+<h1 id="tc39-proposals-tracking-ecmascript-proposals"><a href="https://github.com/tc39/proposals" title="tc39/proposals: Tracking ECMAScript Proposals">tc39/proposals: Tracking ECMAScript Proposals</a></h1>
+<p><img src="img/proposals.png" alt="proposals"></p>
+<hr>
+<h1 id="babel-proposals-tracking-the-status-of-babel-s-implementation-of-tc39-proposals"><a href="https://github.com/babel/proposals" title="babel/proposals: ✍️ Tracking the status of Babel&#39;s implementation of TC39 proposals">babel/proposals: ✍️ Tracking the status of Babel&#39;s implementation of TC39 proposals</a></h1>
+<ul>
+<li>Babelの実装との対応表</li>
+</ul>
+<p><img src="img/babel-proposals.png" alt="right, fit, babel-proposals.png"></p>
+<hr>
+<h1 id="-">このプロポーザルって進んでるの?</h1>
+<ul>
+<li>ECMAScriptのプロポーザルにはそれぞれチャンピオンがいる</li>
+<li>チャンピオンがステージを進めたい :rocket: という意志が必要<ul>
+<li>プロポーザルは勝手には進まない</li>
+</ul>
+</li>
+<li>何が課題で止まっているかプロポーザルリポジトリのIssueかミーティングノートを見る</li>
+</ul>
+<hr>
+<h1 id="-tc39-proposal-global">例: <a href="https://github.com/tc39/proposal-global" title="tc39/proposal-global">tc39/proposal-global</a></h1>
+<h2 id="global-"><code>global</code>でグローバルオブジェクトを取得するプロポーザル</h2>
+<hr>
+<h1 id="-tc39-proposal-global">例: <a href="https://github.com/tc39/proposal-global" title="tc39/proposal-global">tc39/proposal-global</a></h1>
+<ul>
+<li>2018年2月の段階ではStage 3で止まっている</li>
+<li>理由はREADMEに書いてある</li>
+<li><a href="https://github.com/tc39/proposal-global/issues/20" title="global breaks flickr.com · Issue #20 · tc39/proposal-global">global breaks flickr.com · Issue #20 · tc39/proposal-global</a>では<code>global</code>という名前によって壊れるサイトがいる問題がありこれを理由に止まっている</li>
+</ul>
+<blockquote>
+<p>however, due to <a href="https://github.com/tc39/proposal-global/issues/20">web compatibility concerns</a>, it is on hold pending a new global identifier name.</p>
+</blockquote>
+<hr>
+<h2 id="tips-star-">Tips :star:</h2>
+<ul>
+<li>プロポーザルはそれぞれGitHubリポジトリを持っている</li>
+<li>プロポーザルのIssueには課題が書かれている</li>
+<li>ウェブ互換性の問題については基本的にメトリクスデータを元に話を進める<ul>
+<li>壊れるウェブサイトはn%あるか</li>
+<li><a href="https://www.chromestatus.com/metrics/feature/popularity" title="Chrome Platform Status">Chrome Platform Status</a>、<a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/data/" title="Microsoft Edge Platform Data - Microsoft Edge Development">Microsoft Edge Platform Data</a>、<a href="https://blog.mozilla.org/data/" title="Firefox Data">Firefox Data</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-tc39-proposal-decorators">例: <a href="https://github.com/tc39/proposal-decorators" title="tc39/proposal-decorators">tc39/proposal-decorators</a></h1>
+<h2 id="-">@デコレーター</h2>
+<hr>
+<h1 id="-tc39-proposal-decorators">例: <a href="https://github.com/tc39/proposal-decorators" title="tc39/proposal-decorators">tc39/proposal-decorators</a></h1>
+<ul>
+<li>2018年2月の段階ではStage 2</li>
+<li><a href="https://ecmascript-daily.github.io/2016/07/30/last-minutes-proposals-changes" title="ECMAScript proposal updates @ 2016-07 | ECMAScript Daily">ECMAScript proposal updates @ 2016-07 | ECMAScript Daily</a>によると2016年からずっとStage 2のまま</li>
+<li>何が原因で進んでないのかを調べる</li>
+<li>=&gt; TC39のミーティングでどのような議論が行われてるのかを調べる</li>
+<li>=&gt; 何が課題となっているかが話し合われているはず</li>
+</ul>
+<hr>
+<h1 id="-tc39-proposal-decorators-stage-2">例: <a href="https://github.com/tc39/proposal-decorators" title="tc39/proposal-decorators">tc39/proposal-decorators</a> Stage 2</h1>
+<ul>
+<li><a href="https://github.com/tc39/agendas" title="tc39/agendas">tc39/agendas</a>（議事録のアジェンダ）を&quot;<a href="https://github.com/tc39/agendas/search?o=desc&amp;q=Decorators&amp;s=indexed&amp;type=&amp;utf8=%E2%9C%93" title="Search · Decorators">Decorators</a>&quot;で検索</li>
+<li>定期的に議論されているので何か課題があり進んでいない<ul>
+<li>Stage 3に進むには仕様としてひとまず完成した状態が求められる</li>
+</ul>
+</li>
+<li>アジェンダと同じ月のミーティングノートを見る<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es8/2018-01/summary.md" title="2018-01/summary.md">2018-01/summary.md</a> サマリを見るのが簡単</li>
+</ul>
+</li>
+</ul>
+<p><img src="img/decorators-agenda.png" alt="right, decorators-agenda.png"></p>
+<hr>
+<p><img src="img/summary-decorator.png" alt="inline, summary-decorator.png"></p>
+<hr>
+<h1 id="-tc39-proposal-decorators-stage-3-">例: <a href="https://github.com/tc39/proposal-decorators" title="tc39/proposal-decorators">tc39/proposal-decorators</a> Stage 3に向けて</h1>
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es8/2018-01/jan-25.md#13vc-decorators-towards-stage-3" title="13.v.c Decorators: towards Stage 3">13.v.c Decorators: towards Stage 3</a>という議論が2018年1月に行われている</li>
+<li><a href="https://docs.google.com/presentation/d/1g6hrJp_nk_OeapuPXlkE4D_31OZbz4wQbXuIagsyoUI/edit#slide=id.p" title="Decorators: Towards Stage 3 - Google スライド">Decorators: Towards Stage 3 - Google スライド</a><ul>
+<li>Stage 3に向けて何をサポートし、何をサポートしないかをはっきりさせる</li>
+<li>他のクラスのプロポーザル(hard private)との協調性についての課題があり調整している</li>
+<li>実装者、テスト作成者、ライブラリ作者に対しても意見を求めてる</li>
+<li>次のミーティング(3月)までにステークホルダーにアプローチする</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="tips-star-">Tips :star:</h2>
+<ul>
+<li>Stage 1はまでアイデアや実験なのでプロポーザル間でも重複する</li>
+<li>Stage 2+あたりからプロポーザル間での協調的な仕様を検討する[^note]</li>
+<li>Decoratorはclass field、privateなど色々関係する</li>
+<li>最近のDecoratorの変更は他のプロポーザルとの協調性やDecoratorが目指す範囲を確定する作業<ul>
+<li>今まで雰囲気で動いてた部分を明示的に例外を投げるようにするなど</li>
+</ul>
+</li>
+</ul>
+<p>[^note]: <a href="https://github.com/rwaldron/tc39-notes/blob/master/es8/2018-01/jan-24.md#revisiting-mixins-vs-protocols-proposal" title="Revisiting mixins-vs-protocols proposal">Revisiting mixins-vs-protocols proposal</a>を参照</p>
+<hr>
+<p>:rocket: はプロポーザルのStageをChampionが進める意志がある状態か(参考程度)
+まだそのStageで議論するべき課題があるかどうかを示している</p>
+<p><img src="img/rockets.png" alt="inline, rockets.png"></p>
+<hr>
+<h1 id="-beginner-">:beginner: プロポーザルのステータスの変化を知りたい</h1>
+<h2 id="-">プロポーザルのステータスの変更のタイミングを知りたい。通知欲しい</h2>
+<hr>
+<h2 id="-">プロポーザルのステータスの変化を知りたい</h2>
+<ul>
+<li><a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a><ul>
+<li>ECMAScript関係のニュースブログ(@azu)</li>
+</ul>
+</li>
+<li><a href="http://ecmascript.in/" title="EcmaScript.in | Stay updated about EcmaScript proposal changes">EcmaScript.in | Stay updated about EcmaScript proposal changes</a><ul>
+<li>プロポーザルのStage変化の通知メール</li>
+</ul>
+</li>
+<li><a href="http://2ality.com/index.html" title="2ality – JavaScript and more">2ality – JavaScript and more</a><ul>
+<li>プロポーザルの解説</li>
+</ul>
+</li>
+<li><a href="https://github.com/bevacqua/prop-tc39" title="bevacqua/prop-tc39: Scraping microservice for TC39 proposals 😸">bevacqua/prop-tc39: Scraping microservice for TC39 proposals 😸</a><ul>
+<li>API</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">今日話したこと　</h2>
+<ul>
+<li><a href="https://asciidwango.github.io/js-primer/basic/ecmascript/" title="ECMAScript · JavaScriptの入門書 #jsprimer">ECMAScript · JavaScriptの入門書 #jsprimer</a><ul>
+<li>js-primerに文章版があるよ</li>
+</ul>
+</li>
+<li><a href="https://twitter.com/ecmascriptdaily" title="@EcmascriptDaily">@EcmascriptDaily</a>をフォローしておけばとりあえず流れてくる</li>
+<li>ECMAScriptのプロポーザルは<a href="https://github.com/tc39/tc39-notes" title="tc39/tc39-notes: TC39 Meeting Notes">tc39/tc39-notes</a>、<a href="https://github.com/tc39/proposals" title="tc39/proposals: Tracking ECMAScript Proposals">tc39/proposals</a>、各リポジトリを見れば殆どの情報があるよ<ul>
+<li>必要になったときに自分で探してみてください</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>:boom: JavaScript is ECMAScript、Browser、Node.js、WebAssembly、WebGL、WebRTC... </li>
+<li>:beginner: すべてのことを知る必要はなく、すべてを知っている人もいない</li>
+<li>:mag: 知りたいと思ったときに調べる方法を持っていることが大切</li>
+<li>:alien: なにごとも突然に新しい概念は増えない – 過程がある</li>
+<li>:star2: 日々変化するソフトウェアにおいては、自身に適切な調べ方をもつ</li>
+</ul>
+<hr>
+<h1 id="-house-">宿題 :house:</h1>
+<ul>
+<li>ES2018で何が入るかを<a href="https://github.com/tc39/proposals" title="tc39/proposals: Tracking ECMAScript Proposals">tc39/proposals</a>から探してみよう<ul>
+<li>Hint: ES2018入るのはStage 4(Finished Proposals)</li>
+</ul>
+</li>
+<li>気になっているプロポーザルのリポジトリをWatchしよう<ul>
+<li>Hint: プロポーザルの一覧は<a href="https://github.com/tc39/proposals" title="tc39/proposals: Tracking ECMAScript Proposals">tc39/proposals</a>を見る</li>
+</ul>
+</li>
+<li>ミーティングのサマリを読んでみよう<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es8/2018-01/summary.md" title="2018-01/summary.md">2018-01/summary.md</a>から読めます</li>
+</ul>
+</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
