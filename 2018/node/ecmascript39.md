@@ -18,10 +18,11 @@ autoscale: true
 
 ----
 
-# 目的
+# アジェンダ
 
-- ECMAScriptを使えるようになる
-- 自律的なECMAScriptについての情報を検索できるようになる
+- ECMAScriptとは何か
+- ECMAScriptの使い方の事例
+	- 自律的にECMAScriptについての情報を検索できるようになる
 
 -----
 
@@ -65,7 +66,7 @@ autoscale: true
 
 # ECMAScriptのバージョンの歴史
 
-![right, ecmascript-versions.png](img/ecmascript-versions.png)
+![right, fit, ecmascript-versions.png](img/ecmascript-versions.png)
 
 - ES5.1からES2015がでるまで4年もかかってる
 - ES2015以降は毎年リリースされている
