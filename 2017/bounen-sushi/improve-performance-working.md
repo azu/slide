@@ -123,11 +123,6 @@ autoscale: true
 	- どのViewが更新され
 	- FPSに対してどのような影響があるか
 
-
------
-
-![fit ](/Users/azu/Dropbox/Memo/quiver/Work.qvnotebook/5FF85EF1-843E-4EA6-9AB7-4D6A78335ACA.qvnote/resources/33495595725FF9D22DDA191D37E05E75.jpg)
-
 -----
 
 ## すべてのイベントを認識できない
