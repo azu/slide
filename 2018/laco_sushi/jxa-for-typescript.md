@@ -126,6 +126,35 @@ end tell
 
 
 
+----
+
+
+
+
+
+## AppleScriptは英語
+
+次の3行はAppleScriptでは同じ意味(`it`はtellで指定したオブジェクトなどを表す)
+
+```
+handlerX() of it
+it's handlerX()
+its handlerX()
+```
+
+次の2行はAppleScriptでは同じ意味(`count`関数に直接引数`"abc"`を渡して呼ぶ。前後どちらも対応)
+
+```
+count "abc"
+"abc" count
+```
+
+
+
+> [鳶嶋工房 / AppleScript / Tips / 用語の同義語](http://tonbi.jp/AppleScript/Tips/MISC/Synonym.html) より
+
+
+
 -----
 
 ## JXAでChromeでGoogleを開く

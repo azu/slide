@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>JXA for TypeScript&#x2F;Node.js</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="JXA for TypeScript&#x2F;Node.js"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2018/laco_sushi/jxa-for-typescript.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2018-06-27" id="datePublished">
+            2018-06-27
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2018-06-27" id="dateModified">
+            2018-06-27
+        </time></span>
+        <a href="http://azu.github.io/slide/2018/laco_sushi/jxa-for-typescript.pdf" title="JXA for TypeScript&#x2F;Node.js">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="jxa-for-typescript-node-js">JXA for TypeScript/Node.js</h1>
+<hr>
+<h1 id="jxa-javascript-for-automation-">JXA(JavaScript for Automation)</h1>
+<ul>
+<li>AppleScriptのJavaScript版(WebKit)</li>
+<li>macOSにはビルトインされているので何もしなくても使える<ul>
+<li><code>osascript</code>という実行エンジンがある</li>
+</ul>
+</li>
+<li><a href="https://github.com/JXA-Cookbook/JXA-Cookbook/wiki" title="Home · JXA-Cookbook/JXA-Cookbook Wiki">Home · JXA-Cookbook/JXA-Cookbook Wiki</a></li>
+<li><a href="https://apple-dev.groups.io/g/jxa/wiki/JXA-Resources" title="jxa@apple-dev.groups.io | Wiki">jxa@apple-dev.groups.io | Wiki</a></li>
+</ul>
+<hr>
+<h1 id="jxa-">JXAの問題</h1>
+<ul>
+<li>クラッシュする</li>
+<li>リファレンスがまともにない</li>
+<li>実行環境がまともではない – 落ちまくる</li>
+<li>エディタ環境もまともになり</li>
+<li>デバッグが難しい</li>
+<li>macOSのみ対応</li>
+</ul>
+<hr>
+<h1 id="jxa-">JXAのいいところ</h1>
+<ul>
+<li>(JXA)スクリプトファイルでmacOSの自動化ができる</li>
+<li>Objective-Cと同等の表現ができる</li>
+<li>mac向けにネイティブアプリはなんか操作できる</li>
+<li>mac向けのアプリでは一部便利な関数が用意されている</li>
+</ul>
+<hr>
+<h1 id="jxa-">JXAのできること</h1>
+<ul>
+<li>Automatorでできること全部</li>
+<li>アプリへのキー入力、開く閉じるなどの操作<ul>
+<li>ラベルを見つけて操作など無理やりなんとかできる</li>
+</ul>
+</li>
+<li>対応アプリはアプリから情報を取得できる<ul>
+<li>omnifocusはTodoデータをデータベースから引っ張れるとか</li>
+</ul>
+</li>
+<li>ダイアログとかでインタラクティブなものを簡単につくれる<ul>
+<li>しょぼいGUIアプリみたいのが作りやすい</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="jxa-">JXAの用途</h1>
+<ul>
+<li>アプリ作るほどじゃないけど自動化したいときに使う<ul>
+<li>シェルスクリプトのアプリ向け処理みたいな感じで使う</li>
+</ul>
+</li>
+<li>macOSネイティブなので、Alfredなど対応アプリも多い<ul>
+<li><code>osascript</code> コマンドで実行できるのでシェル叩けるならどこからでも</li>
+<li>メニューバーからも実行できるようにもなってる</li>
+<li><a href="https://rcmdnk.com/blog/2015/07/26/computer-mac/">AppleScriptをメニューバーから実行するための設定</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-jxa">スクリプト言語としてのJXA</h1>
+<ul>
+<li><p>JavaScriptエンジンはmacOsに依存(WebKit/JavaScriptCore)</p>
+</li>
+<li><p>癖のあるJavaScriptフレームワーク上のJavaScriptという印象</p>
+<ul>
+<li>プロパティがgetterじゃなくて <code>name()</code> のような関数呼び出し</li>
+</ul>
+</li>
+<li><p>AppleScriptより扱いやすい</p>
+<ul>
+<li>非英語圏の人間にとってはAppleScriptの構文が難しすぎる</li>
+<li>Objective-Cよりはるかに英語的な構文</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="applescript-chrome-google-">AppleScriptでChromeでGoogleを開く</h2>
+<pre><code>set myLink to &quot;https://google.com/&quot;
+tell application &quot;Google Chrome&quot;
+    tell its window 1
+        set theTabs to count of tabs
+        set URL of tab 1 to myLink
+    end tell
+end tell
+</code></pre><hr>
+<h2 id="applescript-">AppleScriptは英語</h2>
+<p>次の3行はAppleScriptでは同じ意味(<code>it</code>はtellで指定したオブジェクトなどを表す)</p>
+<pre><code>handlerX() of it
+it&#39;s handlerX()
+its handlerX()
+</code></pre><p>次の2行はAppleScriptでは同じ意味(<code>count</code>関数に直接引数<code>&quot;abc&quot;</code>を渡して呼ぶ。前後どちらも対応)</p>
+<pre><code>count &quot;abc&quot;
+&quot;abc&quot; count
+</code></pre><blockquote>
+<p><a href="http://tonbi.jp/AppleScript/Tips/MISC/Synonym.html">鳶嶋工房 / AppleScript / Tips / 用語の同義語</a> より</p>
+</blockquote>
+<hr>
+<h2 id="jxa-chrome-google-">JXAでChromeでGoogleを開く</h2>
+<pre><code class="lang-js">const myLink = &quot;https://google.com/&quot;
+const chrome = Application(&quot;Google Chrome&quot;);
+const window = chrome.windows[0];
+const theTab = window.tabs[0];
+theTab.url = myLink;
+</code></pre>
+<hr>
+<h1 id="apple-">Apple想定の使い方</h1>
+<p><img src="./img/script-editor.png" alt="right, スクリプトエディタ"></p>
+<ul>
+<li>スクリプトエディタ<ul>
+<li>エディタ かつ 実行環境</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="apple-">Apple想定の使い方 - リファレンス</h1>
+<ul>
+<li><p>スクリプトエディタから&quot;用語説明&quot;でインストールしてるアプリのリファレンスが見られる</p>
+</li>
+<li><p><a href="http://tonbi.jp/AppleScript/Introduction/04/column.html" title="鳶嶋工房 / AppleScript / 入門 / 用語説明の読み方(命令編)">鳶嶋工房 / AppleScript / 入門 / 用語説明の読み方(命令編)</a></p>
+</li>
+<li><a href="http://tonbi.jp/AppleScript/Introduction/05/column.html" title="鳶嶋工房 / AppleScript / 入門 / 用語説明の読み方(オブジェクト編)">鳶嶋工房 / AppleScript / 入門 / 用語説明の読み方(オブジェクト編)</a></li>
+<li><a href="http://tonbi.jp/AppleScript/Introduction/06/column.html" title="鳶嶋工房 / AppleScript / 入門 / 用語説明の読み方(値編)">鳶嶋工房 / AppleScript / 入門 / 用語説明の読み方(値編)</a></li>
+</ul>
+<hr>
+<p><img src="./img/reference-window.png" alt="fit, left"></p>
+<p><img src="./img/reference.png" alt="fit, right"></p>
+<hr>
+<h1 id="jxa-">JXAのデバッグ</h1>
+<ul>
+<li>Safariを開く</li>
+<li>JXAで<code>debugger;</code>をいれて実行する</li>
+<li>Safariでデバッグできる</li>
+<li>コンソールが使えるのでREPLライク</li>
+</ul>
+<pre><code>debugger;
+</code></pre><ul>
+<li><a href="http://blog.s0014.com/posts/2016-08-04-osxjs1/">JavaScriptによるMacの自動操作入門の情報まとめ | 大石制作ブログ</a></li>
+</ul>
+<hr>
+<h1 id="jxa-">JXAの問題</h1>
+<ul>
+<li>リファレンスが読めない<ul>
+<li>リファレンスに載ってないものが多すぎる</li>
+</ul>
+</li>
+<li>まともなエディタ環境がない<ul>
+<li>コードの補完が効く環境がないに等しい</li>
+</ul>
+</li>
+<li>デバッグが難しすぎる<ul>
+<li>落ちる、クラッシュ、リファレンスない</li>
+</ul>
+</li>
+<li>Node.jsでできるところはNode.jsでやりたい<ul>
+<li><code>path</code>とか文字列処理とか、JXAはライブラリの仕組みはあるけどnpmは使えない</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">リファレンス</h1>
+<p><img src="./img/reference.png" alt="fit, right"></p>
+<ul>
+<li>リファレンス自体の読み方が難しい<ul>
+<li><code>Tab</code>というクラスは定義されているが、<code>Tab</code>を得る方法が載ってない…</li>
+<li>すべてのプロパティやコマンドなどが載っているわけじゃない(自動生成されているレベル)</li>
+</ul>
+</li>
+<li>リファレンスは<code>.sdef</code>という複雑なXMLで書かれている<ul>
+<li>クラスの定義、enumの定義、定数、interfaceなどやたら高度な定義ができるXML</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">リファレンスから型定義を生成する</h1>
+<ul>
+<li>TypeScriptの型定義ファイルがあれば今どきのエディタは補完が効く</li>
+<li>リファレンス(<code>.sdef</code>)はある種の型定義XMLに見えた</li>
+<li>パースしてXMLから<code>.d.ts</code>を作ればいい</li>
+<li>作った: =&gt;  <a href="https://github.com/JXA-userland/JXA/tree/master/packages/@jxa/sdef-to-dts">@jxa/sdef-to-dts</a></li>
+</ul>
+<hr>
+<p><img src="./img/sdef-to-ts.png" alt="sdef-to-ts.png"></p>
+<hr>
+<h1 id="jxa-">JXAの型定義ファイルを使ってコード補完する</h1>
+<ul>
+<li>macOSに入ってるアプリなどのリファレンスからTypeScriptの型定義を生成<ul>
+<li><a href="https://github.com/JXA-userland/JXA/tree/master/packages/@jxa/types">@jxa/types</a>と<a href="https://github.com/JXA-userland/JXA/tree/master/packages/@jxa/global-type">@jxa/global-type</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/JXA-userland/JXA/tree/master/packages/@jxa/global-type">@jxa/global-type</a>は<code>global</code>にJXAのグローバルオブジェクトの定義を追加するモジュール</li>
+<li>読み込めば、ざっくりとした補完 + 型チェックが効くようになる<ul>
+<li>リファレンス自体に載ってないものが多いため<code>any</code>で逃げている…</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-typescript">import &quot;@jxa/global-type&quot;;
+// your JXA application
+var userName = Application(&quot;System Events&quot;).currentUser().name();
+</code></pre>
+<hr>
+<p><img src="./img/example.mp4" alt="fit, example JXA"></p>
+<p>^ VSCodeやWebStormなどではある程度まともになる</p>
+<hr>
+<h1 id="jxa-">JXAのデバッグ</h1>
+<ul>
+<li><code>console.log</code>するとスクリプトエディタが落ちる</li>
+<li>SafariにつないでもSafariごと落ちる</li>
+<li>CLIのREPLから叩くと落ちても安全</li>
+<li>公式のREPLが <code>osascript</code> にビルトインされている</li>
+</ul>
+<p><strong>REPLを起動する</strong></p>
+<pre><code>$ osascript -il JavaScript
+</code></pre><hr>
+<h1 id="jxa-repl">JXAの自作REPL</h1>
+<ul>
+<li><code>osascript</code> にREPLがあるのをしらなくてNode.jsで動くREPLを書いた</li>
+<li><code>const repl = require(&#39;repl&#39;);</code><ul>
+<li><a href="https://nodejs.org/api/repl.html">REPL | Node.js v10.5.0 Documentation</a></li>
+</ul>
+</li>
+<li>作ったREPL:  <a href="https://github.com/JXA-userland/JXA/tree/master/packages/@jxa/repl">@jxa/repl</a></li>
+</ul>
+<pre><code class="lang-shell">$ npx @jxa/repl
+&gt; Application(&quot;System Events&quot;).currentUser().name();
+&#39;azu&#39;
+</code></pre>
+<hr>
+<h1 id="jxa-">JXAのデバッグ</h1>
+<ul>
+<li>JXAはとにかくデバッグしにくい</li>
+<li>JXAで書かなければ解決する</li>
+<li>JXAがいらない部分はNode.jsで書こう</li>
+<li>=&gt; Node.jsの中でJXAを実行すればいい</li>
+</ul>
+<hr>
+<h1 id="jxa-in-node-js">JXA in Node.js</h1>
+<ul>
+<li><p><a href="https://github.com/JXA-userland/JXA/tree/master/packages/@jxa/run">@jxa/run</a></p>
+<ul>
+<li>Node.jsからJXAを実行して結果を取得するモジュール</li>
+</ul>
+</li>
+<li><p>先駆者</p>
+<ul>
+<li><a href="https://github.com/sindresorhus/run-jxa" title="sindresorhus/run-jxa: Run JXA code and get the result">sindresorhus/run-jxa: Run JXA code and get the result</a></li>
+<li><a href="https://github.com/wtfaremyinitials/osa2" title="wtfaremyinitials/osa2: Interact with Apple&#39;s Open Scripting Architecture in node.js">wtfaremyinitials/osa2: Interact with Apple&#39;s Open Scripting Architecture in node.js</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-jxa-run"><a href="https://github.com/JXA-userland/JXA/tree/master/packages/@jxa/run"><code>@jxa/run</code></a></h1>
+<pre><code class="lang-ts">import &quot;@jxa/global-type&quot;;
+import { run } from &quot;@jxa/run&quot;;
+export const currentUserName = () =&gt; {
+    // このコールバック関数内はJXAとしてosascriptで実行される
+    return run(() =&gt; {
+        const sys = Application(&quot;System Events&quot;);
+        return sys.currentUser().name();
+    });
+};
+
+// メインとかは普通にNode.js
+export const example = async () =&gt; {
+    const userName = await currentUserName();
+    return `User: ${userName}`;
+};
+</code></pre>
+<hr>
+<h1 id="jxa-in-node-js">JXA in Node.js</h1>
+<ul>
+<li>JXAが最小限になる<ul>
+<li>最小限のJXAは書かないといけないのは同じだけど…</li>
+</ul>
+</li>
+<li>メインがNode.jsになってデバッグしやすい</li>
+<li>npmを簡単に組み合わせることができてエコシステムが拡張できる</li>
+<li>JXAで書いたものをモジュール化できる(npmで配れる)<ul>
+<li>つかえるのはmacOSだけなのは同じだけど</li>
+</ul>
+</li>
+</ul>
+<hr>
+<pre><code class="lang-ts">export type ModifierOption = {
+    shift?: boolean;
+    control?: boolean;
+    option?: boolean;
+    command?: boolean;
+};
+function createModifier(modifierOption: ModifierOption) {
+    const modifiers = [];
+    if (modifierOption.shift)
+        modifiers.push(&quot;shift down&quot;);
+    if (modifierOption.command)
+        modifiers.push(&quot;command down&quot;);
+    if (modifierOption.control)
+        modifiers.push(&quot;control down&quot;);
+    if (modifierOption.option)
+        modifiers.push(&quot;option down&quot;);
+    return modifiers;
+}
+// キーストロークを送信する関数 from JXA in Node.js
+export function sendKeyStroke(key: string, modifierOption: ModifierOption) {
+    const modifiers = createModifier(modifierOption);
+    return run((key, modifiers) =&gt; {
+        const SystemEvents = Application(&quot;System Events&quot;);
+        SystemEvents.keystroke(key, { using: modifiers });
+    }, key, modifiers);
+}
+
+</code></pre>
+<hr>
+<h1 id="-">ユースケース</h1>
+<ul>
+<li>Firefoxで開発者ツールを開いた状態でのスクリーンショットを撮って保存する<ul>
+<li>Seleniumだと開発者ツールを開けない?</li>
+<li><a href="https://github.com/asciidwango/js-primer/blob/master/tools/applescript/src/screenshot-dev-tools.ts">screenshot-dev-tools.ts</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>JXA in Node.jsをやるためにいろいろ書いた</li>
+<li><p><a href="https://github.com/JXA-userland/JXA">JXA-userland/JXA</a>のmonorepoで公開</p>
+</li>
+<li><p>Integration JXA with <a href="https://www.typescriptlang.org/index.html">TypeScript</a></p>
+</li>
+<li>Run JXA from <a href="https://nodejs.org/">Node.js</a><ul>
+<li>See <a href="./packages/@jxa/run">@jxa/run</a> and <a href="./packages/@jxa/repl">@jxa/repl</a></li>
+</ul>
+</li>
+<li>Support Auto complete for editor/IDE via <a href="https://www.typescriptlang.org/index.html">TypeScript</a> definition file(<code>.d.ts</code>)<ul>
+<li>See <a href="./packages/@jxa/types">@jxa/types</a> and <a href="./packages/@jxa/global-type">@jxa/global-type</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">似た概念</h1>
+<ul>
+<li><a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a><ul>
+<li>WindowsでSpiderMonkeyを使ったもの</li>
+<li>とても良くできていて便利だった</li>
+</ul>
+</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
