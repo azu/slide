@@ -322,6 +322,23 @@ debugger;
 
 
 
+# リファレンス to 型定義のテスト
+
+
+
+- 型定義(TypeScript)への変換が上手くいってるのかをテストする必要がある
+  - でもこれがJXA触ったの初めて全くわからない
+- 既存のJXAで書かれたコードに型を適応すればOK
+- [Mac : JavaScript for Automation (JXA) 例文辞典](http://www.openspc2.org/reibun/JXA/Yosemite/)のサンプルコードを全部ダウンロードして、型チェックして通すテストを書きながら開発した
+
+
+
+----
+
+
+
+
+
 # JXAの型定義ファイルを使ってコード補完する
 
 
