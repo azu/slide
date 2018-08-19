@@ -31,7 +31,8 @@ autoscale: true
   - しかしそれは**高性能な開発者端末**で**安定したネットワーク**での結果の1つに過ぎない
 - 手元で図った結果より悪い結果となる人も多い
 - 定性的な値じゃないので比較できない
-- 継続的に改善するには比較できる値が必要 => パフォーマンス計測
+- 継続的に改善するには比較できる値が必要
+- パフォーマンス計測もしよう
 
 ---
 
@@ -161,10 +162,11 @@ autoscale: true
 - モバイルでも動作が安定してほしい
     - ネットワーク帯域に気を配る
 
------
 
-- 今回の例
-    - ページの表示速度を改善したい
+
+----
+
+
 
 ## 目的で取る意味も異なる
 
@@ -175,12 +177,16 @@ autoscale: true
 
 
 
+----
+
+
+
 -----
 
 # 計測する指標
 
 - FFFB
-- LoadTim
+- LoadTime
 - First Content Paint
 
 ----
@@ -226,6 +232,8 @@ autoscale: true
 ## サービスによって計測できるものは違う
 
 - サービスによって計測する対象、仕方が違うので比較はしにくい
+- Webpagetestなどのデータは丸め込まれたデータなので分析用途ではない(Real Dataとしては捉えない)
+- スコアは人間にとってわかりやすい値であるだけど、実データとは異なる
 - [WebPagetest](https://www.webpagetest.org/)は計測するだけで継続的に変化を見るダッシュボードはない
   - 計測したデータは1ヶ月だけ保持される
 - [SpeedCurve](https://speedcurve.com)、[Calibre](https://calibreapp.com/)は計測 + ダッシュボード + 通知など
@@ -233,8 +241,24 @@ autoscale: true
   - <https://www.webpagetest.org/getLocations.php?f=html&k=A>
   - <http://support.speedcurve.com/synthetic-settings/test-agent-locationsregions>
   - <https://calibreapp.com/docs/site/agent-locations>
-- CatchPointはISPとかネットワークの経路も細かい = グローバルサービス向け
+- CatchPointはISPとかネットワーク周りが詳細にとれる
   - [Synthetic Monitoring を活用したグローバルサービスのネットワークレイテンシの測定と改善 - クックパッド開発者ブログ](https://techlife.cookpad.com/entry/2017/09/21/080000)
+  - 統計的に扱いやすいデータが集めやすい
+
+
+
+----
+
+
+
+- システムは複合的なものなので、計測したもので分析できるとは限らない
+
+
+
+> A system is never the sum of its parts. It is the product of the interactions of itsparts.
+> -- Dr. Russel Ackof
+
+
 
 
 
@@ -246,8 +270,86 @@ autoscale: true
 
 
 
-- [WebPagetest](https://www.webpagetest.org/)自体にはダッシュボード(可視化やデータを保存する仕組みがあるわけない)
+- [WebPagetest](https://www.webpagetest.org/)は一度計測してその結果を返すだけのサービス
+- WebPagetest自体には連続的なデータを見られる仕組みはない(比較はあるけど)
+- そのため、WebPagetestを計測方法を管理したり、結果を見るダッシュボードや通知を提供するサービスがある
 - gas-webpagetestで無料で結果をためて、Google DataStudioで可視化しよう
+
+
+
+----
+
+
+
+# [SpeedTracker](https://speedtracker.org/)
+
+
+
+- WebPagetestで計測して、その結果をGitHubリポジトリに保存する
+  - GitHubアカウントだけあれば計測して記録できる
+
+- 計測の柔軟性や計測回数は少ない(2回/1日)
+- 個人で公開してるサイトを計測するにはお手軽
+
+
+
+![right, fit, speedtracker.png](./img/speedtracker.png)
+
+----
+
+
+
+# [gas-webpagetest](https://github.com/uknmr/gas-webpagetest)
+
+
+- WebPagetestで計測しその結果をGoogle SpreadSheetに記録する[Google Apps Scripts](https://developers.google.com/apps-script/)
+  - [clasp](https://github.com/google/clasp) + [TypeScript](https://www.typescriptlang.org/)で書き直された
+  - [Google Apps Scripts](https://developers.google.com/apps-script/)はCronや、Webサーバ、SpreadSheetの操作などいろいろできる
+- コードで書かれてるのでWebPagetestでできる範囲のことは大抵できる
+
+
+
+-----
+
+
+
+## [gas-webpagetest](https://github.com/uknmr/gas-webpagetest) + [Google データスタジオ](https://datastudio.google.com/)
+
+
+
+- [Google Data Studio](https://datastudio.google.com)は任意のリソースをもとにしたダッシュボードを作れるサービス
+  - Google SpreadSheet、MySQL、、GitHubなど。
+  - いわゆるBI(Business Intelligence)ツールで無料で利用できる
+  - 最近複数のデータリソースを混ぜることもできるようになった
+    - Google AnalyticsとSpreadSheetを一緒に扱うなども可能
+
+- Spreadsheetに蓄積したデータのビジュアライズを[Google Data Studio](https://datastudio.google.com)で行う
+
+
+
+----
+
+
+
+# [SpeedCurve](https://speedcurve.com/)
+
+
+
+- SpeedCurveの合成モニタリングはWebPagetestをベースにしている
+  - [SpeedCurve | Synthetic: WebPageTest](https://speedcurve.com/features/synthetic/)でWebPagetest自体には計測の追跡や分析がないのでSpeedCurveが登場したという話が書かれている
+
+
+
+----
+
+
+
+## [Sitespeed.io - Welcome to the wonderful world of Web Performance](https://www.sitespeed.io/)
+
+
+
+- 自前でSpeedCurveみたいなことをするツールキット
+- WikiPedia(WikiMedia)が利用している
 
 
 
@@ -428,6 +530,8 @@ autoscale: true
 
 
 
+
+
 ---
 
 
@@ -507,10 +611,77 @@ autoscale: true
 
 
 
-# CIで防ごう
+# パフォーマンスのリグレッションを検知する
 
-- size-limit
-- stagingでチェック
+
+
+- 人間は慣れてしまうので0.1秒とかの変化には気づきにくい
+- 新しい機能を追加したときにパフォーマンスがリグレッションを起こしてもすぐには体感できない
+- 合成モニタリングでパフォーマンスリグレッションを検知する
+
+
+
+----
+
+
+
+# 例) サイトC: 新しい機能を追加したらサイズが増えた
+
+
+
+![inline, fit, regression](img/alert-regression.png)
+
+
+
+----
+
+## 新しい機能を追加したらサイズが増えた
+
+
+
+- 新しい機能をリリースしたらjsのbundleサイズが200kbも増えた
+  - 原因: ライブラリの依存してるライブラリがでかかった
+- Wifiなどだとあまり違いを感じないがモバイルなどが影響が大きい
+  - 開発者端末などだと気づきにくい
+- このようなリグレッションに気づくのにも継続的にパフォーマンス計測が必要
+
+
+
+-----
+
+
+
+# サイズの問題を予防する
+
+
+
+![right,fit ](img/bundlephobia.png)
+
+
+
+- ライブラリを入れる時にファイルサイズを気にする
+  - npmなら[BundlePhobia](https://bundlephobia.com/)が便利
+- bundleを分析するなら[webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)など
+  - [Build Analysis](https://survivejs.com/webpack/optimizing/build-analysis/)を参照
+
+
+
+
+
+----
+
+
+
+
+
+# サイズの問題に気づく
+
+- パフォーマンスモニタリングと[アラート](http://support.speedcurve.com/get-the-most-out-of-speedcurve/create-performance-budgets-and-set-alerts)
+  - [Monitor your performance budgets | SpeedCurve Support](http://support.speedcurve.com/get-the-most-out-of-speedcurve/monitor-your-performance-budgets)
+  - SaaSは大体アラート機能を持っている
+
+- webpackの[performance.hints](https://webpack.js.org/configuration/performance/)オプション
+- [size-limit](https://github.com/ai/size-limit)でファイルサイズをCIで計測する
 
 
 
@@ -552,17 +723,13 @@ autoscale: true
 
 
 
-- 改善するために計測
-
+- 改善するために計測していく
 - 継続的に改善するためには指標をちゃんと持つ
-
 - 速くするのではなく遅くしない
 
   - システム全体で見ればパフォーマンスは1因子
-
 - 基準値(Performance Budget)を決めてそこより遅くならないことをベースラインにする
-
-  
+- 計測方法も徐々に改善していく
 
 ----
 
@@ -579,3 +746,40 @@ autoscale: true
 - [Webサイトパフォーマンス管理の基礎知識](https://www.slideshare.net/takehora/web-59093011)
 - [Synthetic vs Real User Monitoring : What to use when? | Tezify Blog](https://www.tezify.com/post/synthetic_vs_rum/)
 - [最近の Web パフォーマンス改善について知っておきたいコト -HTML5 Conference 2017- - YouTube](https://www.youtube.com/watch?v=gJvOWw-l-gc)
+
+- [Web クライアントサイドのパフォーマンスメトリクス — Speed Index、Paint Timing、TTI etc... ::ハブろぐ](https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html)
+
+
+
+----
+
+
+
+## メモ
+
+
+
+- まずは計測を始めよう
+  - gas-webpagetest + 好きなSaaSで2種類でやってみる
+  - 残念ながらウェブパフォーマンス計測の標準フォーマットはない
+- ある程度の数を計測した現状を把握しよう
+  - ネットワーク系だとセンシティブだけど、ランタイムのパフォーマンスを考えるならそこまで
+- 多くの計測データにはバイアスがかかっているので、分析には気をつけよう
+  - 信頼区間とか統計的な手法をちゃんと考えよう
+  - パフォーマンスは様々な因子がでてくる総合的なもの
+  - 多くのモニタリングツールではすべての因子を見ることができない
+- パフォーマンス計測を継続することは偉いこと
+  - 決してその行為自体は否定はしてはいけない
+  - パフォーマンス計測も徐々に改善していけばいい
+
+
+
+-----
+
+
+
+- CatchPointは明らかに他のサービスより広い範囲のデータを取っている
+- その分明らかに値段も突出している
+- CDNがakamai中心だった時代が終わるように、モニタリングも多様化して変化していく
+  - [国内CDNシェア(2018年4月) | J-Stream CDN情報サイト](https://tech.jstream.jp/blog/cdn/cdn_share_apl_2018/)
+- 必要性に応じてモニタリングも変化していく
