@@ -731,10 +731,14 @@ autoscale: true
 ## 改善項目
 
 - Babel 7 -> ランタイムコストが小さくなる
-- webpack 4 + "module"フィールドの対応 -> TreeShaking/Hoistingでサイズとランタイムコストの減少
+- babel-plugin-external-helpers -> helper関数がまとまってファイルサイズが小さくなる
+- webpack 4 + "module"フィールドの対応
+  - TreeShaking/Scope Hoistingでサイズとランタイムコストの減少
   - `es-lodash`の対応 - Tree Shakingで最終的にはファイルサイズが小さくなる
-- 初期表示に不要なコンポーネントを遅延ロード -> `import()`で動的にロードする
+- 初期表示に不要なコンポーネントをCode Splitting
+  - `import()`で動的にロードすることで、初期表示のbundleファイルサイズが小さくなる
 - React 16へのアップデート -> ファイルサイズの減少
+- サードパーティのCSSやJSの非同期ロード -> 初期表示には不要なので画面に表示されたタイミングでロード
 
 
 
