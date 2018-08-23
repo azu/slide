@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Webpagetestから始める継続的&lt;br&gt;パフォーマンス改善</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="Webpagetestから始める継続的&lt;br&gt;パフォーマンス改善"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2018/roppongijs/webpagetest-performance.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2018-08-23" id="datePublished">
+            2018-08-23
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2018-08-23" id="dateModified">
+            2018-08-23
+        </time></span>
+        <a href="http://azu.github.io/slide//2018/roppongijs/webpagetest-performance.pdf" title="Webpagetestから始める継続的&lt;br&gt;パフォーマンス改善">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="webpagetest-br-">Webpagetestから始める継続的<br>パフォーマンス改善</h1>
+<h2 id="-hourglass-">ページロードタイム編 :hourglass:</h2>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+<li>Create:  <a href="https://textlint.github.io/" title="textlint">textlint</a>, <a href="https://almin.js.org/" title="Almin">Almin</a></li>
+</ul>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<ul>
+<li>パフォーマンス改善は指標を決めて行わないと迷子になる</li>
+<li>パフォーマンス改善を行うには継続的な計測を行う<ul>
+<li>今回はページロードについて、ランタイムは範囲外</li>
+</ul>
+</li>
+<li>パフォーマンス改善のアプローチ</li>
+<li>継続的なパフォーマンス計測とリグレッションの検知</li>
+</ul>
+<p>^ 目的はパフォーマンス改善には計測が必要という事実を知ること</p>
+<p>^ パフォーマンス計測は継続的に行う必要がある</p>
+<p>^ パフォーマンス改善は何を目的、指標にして改善するかを決めないと迷子になる</p>
+<p>^ 目的をもって継続的にパフォーマンス改善を行い、パフォーマンス計測を改善する</p>
+<hr>
+<h1 id="-">「パフォーマンス」の定義</h1>
+<ul>
+<li>今回は「ページロードタイム」についての「パフォーマンス」の話<ul>
+<li>「ページロード」 = URLにアクセスしてページが表示されるまで</li>
+</ul>
+</li>
+<li>「ランタイム」の話ではありません<ul>
+<li>「ランタイム」= ページ表示後のUI操作やアニメーションなど</li>
+</ul>
+</li>
+<li>「パフォーマンス」と言った場合は大体「ページロードタイムにおけるパフォーマンス」と解釈</li>
+</ul>
+<hr>
+<h1 id="-">「ページロードのパフォーマンスが良い」の定義</h1>
+<ul>
+<li>ページが表示されるまでに時間を早くするのが目的</li>
+<li>真っ白のページじゃなくて意味あるコンテンツをユーザー(ブラウザ)に早く表示させる<ul>
+<li>=&gt; 「ページロードのパフォーマンス」を良くする</li>
+</ul>
+</li>
+<li><code>onLoad</code> is not 表示速度<ul>
+<li><code>onLoad</code>の速さは表示速度とは直接関係ない</li>
+<li>間接的には<code>onLoad</code>が早いのはいいことだけど、これが目的ではない</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="img/progressive-rendering.png" alt="fit, inline"></p>
+<p>^ 目指すのはOptimizedな徐々にレンダリングされるサイト
+^ できるだけ真っ白を避ける</p>
+<hr>
+<h2 id="-">継続的に改善するために、計測も継続的に行う</h2>
+<ul>
+<li>継続的にパフォーマンスを改善するには、パフォーマンス計測も継続的に</li>
+<li>パフォーマンスはいつのまにかリグレッションが起きやすい</li>
+<li>人間は0.1秒の変化は勝手に補完するので変化に鈍感</li>
+<li>パフォーマンスを数値化して問題に気づけるようにする</li>
+<li>=&gt; 定期的に計測を行うためにも自動化が必要</li>
+</ul>
+<hr>
+<h2 id="-">なぜ計測を自動化するの？</h2>
+<ul>
+<li>継続的に改善するには、<strong>同じ条件で計測した比較できる値</strong>が必要<ul>
+<li>仮想環境で同じ条件を作って定期的に計測を行う</li>
+</ul>
+</li>
+<li>手元のDevToolsで図ることもできる<ul>
+<li>ただし、高性能な開発者端末での結果の1つに過ぎない</li>
+<li>ただし、他の作業を並行しがちなので結果が安定しない</li>
+<li>同じ条件で計測した値じゃないので比較しにくい</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">改善には指標が必要</h2>
+<ul>
+<li>改善する方向 = 指標（メトリクス）がないと迷子になる</li>
+<li>アプリケーションにはパフォーマンスだけじゃなくて様々に要素が混在する</li>
+<li>他の機能を改善したつもりがパフォーマンスが低下することもある</li>
+<li>感覚ではなくて数値として改善を確認する手段が必要</li>
+</ul>
+<hr>
+<h1 id="-">ページロードに関する指標</h1>
+<p><img src="./img/perf-metrics-load-timeline.png" alt="inline, 指標のタイムライン"></p>
+<hr>
+<p><img src="./img/perf-metrics-load-timeline.png" alt="right,fit, 指標のタイムライン"></p>
+<ul>
+<li>First Paint(FP)<ul>
+<li>最初の1pxが描画されるまでの時間</li>
+</ul>
+</li>
+<li>First Contentful Paint(FCP)<ul>
+<li>コンテンツっぽいものが描画されるまでの時間</li>
+</ul>
+</li>
+<li>First Meaningful Paint(FMP)<ul>
+<li>意味のあるものが描画されるまでの時間</li>
+</ul>
+</li>
+<li>Time to Interactive(TTI)<ul>
+<li>ユーザーの操作に反応できるまでにかかった時間</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">ページロードに関する指標</h2>
+<ul>
+<li>ブラウザが提供するイベントの値を指標として利用できる</li>
+<li><a href="https://github.com/t32k/webpagetest-doc-ja/blob/master/using-webpagetest/metrics/speed-index/index.md">Speed Index</a>も定番<ul>
+<li>ファーストビューが見えるまでにかかった時間</li>
+</ul>
+</li>
+<li><a href="https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics">User-centric Performance Metrics  |  Web Fundamentals  |  Google Developers</a></li>
+<li><a href="https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html">Web クライアントサイドのパフォーマンスメトリクス — Speed Index、Paint Timing、TTI etc... ::ハブろぐ</a></li>
+</ul>
+<hr>
+<h2 id="-">アプリケーションによって使うべき指標は異なる</h2>
+<ul>
+<li>アプリよってページロードの仕組みも違うため指標の選択肢も異なる<ul>
+<li>例) CSR(クライアントサイトレンダリング): 真っ白な時間が長いのでFMPを指標に</li>
+<li>例) SSR(サーバサイドレンダリング): 真っ白な時間は短いが、操作できるまで(JSを読む)の時間を測るためTTIを指標に</li>
+</ul>
+</li>
+<li>コンテンツによって<strong>意味のある表示</strong>(FMP)が本当に意味のあるものかは別<ul>
+<li><code>performance.mark</code> APIを使いプロダクトごとに指標を作るのがベスト</li>
+</ul>
+</li>
+<li>これらの値をパフォーマンス計測サービスで記録する</li>
+</ul>
+<hr>
+<h1 id="-">どうやって計測するか</h1>
+<h2 id="-">どうやって指標となる値を記録するか</h2>
+<hr>
+<h1 id="-fit-">[fit] 合成モニタリングとリアルユーザーモニタリング</h1>
+<ul>
+<li>合成モニタリング(Synthetic Monitoring)<ul>
+<li>計測用の仮想環境などから、同じ条件で定期的に繰り返し計測</li>
+<li>環境が同じ条件なら計測結果のゆらぎが少ない</li>
+</ul>
+</li>
+<li>リアルユーザーモニタリング(RUM)<ul>
+<li>ユーザーがページを開いたときに記録を取ってログとして送る</li>
+<li>ユーザー環境はバラバラなので計測結果のゆらぎは大きい</li>
+<li>一方でリアルなデータなので、KPIと値を組み合わせて分析といった用途に使える</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">表示速度と指標</h1>
+<ul>
+<li>表示速度を改善したいので、指標は合成モニタリングで集める</li>
+<li>合成モニタリングなら同じ環境で継続的に計測できる</li>
+<li>=&gt; 値同士を比較して差分を見られる</li>
+<li>=&gt; パフォーマンスは相対で見たほうがわかりやすい</li>
+</ul>
+<hr>
+<h1 id="-">合成モニタリングを行えるサービス</h1>
+<blockquote>
+<p>Priceは2018年8月時の参考値、プランによりPriceは異なります。</p>
+</blockquote>
+<ul>
+<li><a href="https://www.webpagetest.org/">WebPagetest</a>(無料 - 制限200チェック/day)<ul>
+<li>OSSなのでSelf Hoistingもできる</li>
+</ul>
+</li>
+<li><a href="https://speedcurve.com">SpeedCurve</a>(有料 - $20+/month)</li>
+<li><a href="https://calibreapp.com/">Calibre</a>(有料 – $29+/month)</li>
+<li><a href="https://newrelic.com/products/synthetics">New Relic Synthetics</a>(有料 – $69/month)</li>
+<li><a href="https://www.catchpoint.com/">CatchPoint</a>(有料 – $899/month)</li>
+</ul>
+<hr>
+<p>##[fit] サービスによって計測できるものは違う（読まなくていい）</p>
+<ul>
+<li>サービスによって計測する対象、仕方が違うので比較はしにくい</li>
+<li>Webpagetestなどのデータは丸め込まれたデータなので分析用途ではない(Real Dataとしては捉えない)</li>
+<li>スコアは人間にとってわかりやすい値であるだけど、実データとは異なる</li>
+<li><a href="https://www.webpagetest.org/">WebPagetest</a>は計測するだけで継続的に変化を見るダッシュボードはない<ul>
+<li>計測したデータは1ヶ月だけ保持される</li>
+</ul>
+</li>
+<li><a href="https://speedcurve.com">SpeedCurve</a>、<a href="https://calibreapp.com/">Calibre</a>は計測 + ダッシュボード + 通知など<ul>
+<li>計測は大体AWS EC2のリージョン/マシン</li>
+<li><a href="https://www.webpagetest.org/getLocations.php?f=html&amp;k=A">https://www.webpagetest.org/getLocations.php?f=html&amp;k=A</a></li>
+<li><a href="http://support.speedcurve.com/synthetic-settings/test-agent-locationsregions">http://support.speedcurve.com/synthetic-settings/test-agent-locationsregions</a></li>
+<li><a href="https://calibreapp.com/docs/site/agent-locations">https://calibreapp.com/docs/site/agent-locations</a></li>
+</ul>
+</li>
+<li>CatchPointはISPとかネットワーク周りが詳細にとれる<ul>
+<li><a href="https://techlife.cookpad.com/entry/2017/09/21/080000">Synthetic Monitoring を活用したグローバルサービスのネットワークレイテンシの測定と改善 - クックパッド開発者ブログ</a></li>
+<li>統計的に扱いやすいデータが集めやすい</li>
+</ul>
+</li>
+<li>ユーザー行動と紐づけて分析するならRUMも必要</li>
+</ul>
+<hr>
+<h2 id="-">システムは複雑系なので、計測したもので分析できるとは限らない</h2>
+<blockquote>
+<p>A system is never the sum of its parts. It is the product of the interactions of itsparts.
+-- Dr. Russel Ackof</p>
+</blockquote>
+<ul>
+<li>確かに色々な値を取れるけど、システムのすべての値が取れるとは限らないということは覚えておく</li>
+<li><a href="https://ja.wikipedia.org/wiki/%E5%AE%9F%E9%A8%93%E8%A8%88%E7%94%BB%E6%B3%95">実験計画法</a>などを参照</li>
+</ul>
+<hr>
+<h1 id="webpagetest">WebPagetest</h1>
+<p><img src="./img/webpagetest.png" alt="webpagetest"></p>
+<hr>
+<h1 id="webpagetest">WebPagetest</h1>
+<ul>
+<li><a href="https://www.webpagetest.org/">WebPagetest</a>は一度計測してその結果を返すだけサービス<ul>
+<li>無料で200回/日利用でき、OSSなのでSelf Hostもできる</li>
+</ul>
+</li>
+<li>WebPagetest自体には定期的に計測したりそのデータをグループ管理する仕組みはない<ul>
+<li>これを補ってくれるサービスやツールが多く存在する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="webpagetest-">WebPagetest単体では足りないとところ</h2>
+<ul>
+<li>WebPagetestで継続的に計測するには次のことが必要<ul>
+<li>計測頻度や計測を行うタイミングの管理</li>
+<li>計測結果を保存</li>
+<li>結果をグラフなどにして可視化できるダッシュボード</li>
+<li>結果をもとにアラートを行う</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="speedtracker"><a href="https://speedtracker.org/">SpeedTracker</a></h1>
+<ul>
+<li>WebPagetestで計測して、その結果をGitHubリポジトリに保存する<ul>
+<li>GitHubアカウントだけが必要</li>
+</ul>
+</li>
+<li>計測の柔軟性や計測回数は少ない(2回/1日)<ul>
+<li>具体的には認証があるサイトなどは扱えない</li>
+</ul>
+</li>
+<li>個人で公開してるサイトを計測するにはお手軽</li>
+</ul>
+<p><img src="./img/speedtracker.png" alt="right, fit, speedtracker.png"></p>
+<hr>
+<h1 id="gas-webpagetest"><a href="https://github.com/uknmr/gas-webpagetest">gas-webpagetest</a></h1>
+<p><img src="./img/gas-spreadsheet.png" alt="right,fit,  gas-spreadsheet.png"></p>
+<ul>
+<li>WebPagetestで計測しその結果をGoogle SpreadSheetに記録する<a href="https://developers.google.com/apps-script/">Google Apps Scripts</a><ul>
+<li><a href="https://github.com/google/clasp">clasp</a> + <a href="https://www.typescriptlang.org/">TypeScript</a>で書き直された</li>
+<li><a href="https://developers.google.com/apps-script/">Google Apps Scripts</a>はCronや、Webサーバ、SpreadSheetの操作などいろいろできる</li>
+</ul>
+</li>
+<li>コードで書かれてるのでWebPagetestでできる範囲のことは大抵できる</li>
+</ul>
+<hr>
+<h2 id="gas-webpagetest-google-data-studio"><a href="https://github.com/uknmr/gas-webpagetest">gas-webpagetest</a> + <a href="https://datastudio.google.com/">Google Data Studio</a></h2>
+<p><img src="./img/gas-data-studio.png" alt="right,fit, gas-data-studio.png"></p>
+<ul>
+<li><a href="https://datastudio.google.com">Google Data Studio</a>は任意のリソースをもとにしたダッシュボードを作れるサービス<ul>
+<li>いわゆるBI(Business Intelligence)ツールで無料で利用できる</li>
+<li>Google SpreadSheet、MySQL、GitHubなどをデータソースにできる</li>
+<li>最近複数のデータリソースを混ぜることもできるようになった</li>
+</ul>
+</li>
+<li>Spreadsheetに蓄積したデータのビジュアライズを<a href="https://datastudio.google.com">Google Data Studio</a>で行う</li>
+</ul>
+<p>^ 複数のリソース - Google AnalyticsとSpreadSheetを一緒に扱える</p>
+<hr>
+<h1 id="speedcurve"><a href="https://speedcurve.com/">SpeedCurve</a></h1>
+<ul>
+<li>SpeedCurveの合成モニタリングはWebPagetestをベースにしている<ul>
+<li><a href="https://speedcurve.com/features/synthetic/">SpeedCurve | Synthetic: WebPageTest</a>でWebPagetest自体には計測の追跡や分析がないのでSpeedCurveが登場したという話が書かれている</li>
+<li>WebPagetestのいいUIという感じの有償サービス</li>
+</ul>
+</li>
+<li>RUMも計測できるサービスもやってる</li>
+</ul>
+<hr>
+<h2 id="sitespeed-io"><a href="https://www.sitespeed.io/">Sitespeed.io</a></h2>
+<p><img src="./img/wikipedia.png" alt="right, fit, wikipedia"></p>
+<ul>
+<li>自前でSpeedCurveみたいなものを作るツールキット<ul>
+<li>Docker(Private HostingのWebPagetest含む) + AWSで運用</li>
+<li><a href="https://www.sitespeed.io/documentation/sitespeed.io/performance-dashboard/">Web Performance Dashboards with sitespeed.io</a></li>
+</ul>
+</li>
+<li>WikiPedia(WikiMedia)の人が開発している<ul>
+<li><a href="https://wikitech.wikimedia.org/wiki/Performance/WebPageTest">Performance/WebPageTest - Wikitech</a></li>
+<li><a href="https://grafana.wikimedia.org/dashboard/db/webpagetest">https://grafana.wikimedia.org/dashboard/db/webpagetest</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">好きなものを使ってとりあえず計測を始める</h1>
+<ul>
+<li>まずは計測を始めよう<ul>
+<li><a href="https://github.com/uknmr/gas-webpagetest">gas-webpagetest</a> + 好きなSaaSの2種類で計測を開始しよう</li>
+</ul>
+</li>
+<li>1-2週間ぐらい計測をしながら現状を把握しよう<ul>
+<li>「ブラウザの開発者ツールのパフォーマンス計測を自動化」から初めてみよう</li>
+</ul>
+</li>
+<li>多くの計測データにはバイアスがかかっているので、分析には気をつけよう<ul>
+<li>どんなに優れたモニタリングツールではすべての因子を見ることができない</li>
+</ul>
+</li>
+<li>パフォーマンス計測を継続することは偉いこと<ul>
+<li>パフォーマンス計測自体も徐々に改善していけばいい</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">計測してどうする?</h1>
+<hr>
+<h1 id="-">改善する</h1>
+<hr>
+<h1 id="-">改善するために計測する</h1>
+<ul>
+<li>ただ単に計測したデータを貯めてるだけではしょぼい死活監視にしかならない</li>
+<li>貯めたデータはパフォーマンス改善の指標に使える</li>
+<li>ダッシュボードから問題を見つけることは難しい<ul>
+<li>Lighthouseとかを使ったほうが具体的な指示がでる</li>
+<li>その指示とデータを照らし合わせてみる</li>
+</ul>
+</li>
+<li>比較対象をもつことが大事<ul>
+<li>似た機能を持つサイトと比較してみる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まずは大きな改善から始めよう</h1>
+<ul>
+<li>局所的な改善はページロードには小さな影響しかない<ul>
+<li>遅いサイトは秒単位の遅い問題を持っている</li>
+<li>まずは秒単位の問題を解決してから、ミリ秒単位の問題を解決していく</li>
+</ul>
+</li>
+<li>ウェブページのロードはウォータフォール<ul>
+<li>一つでも重たいものがあるとそこで詰まる = クリティカル</li>
+<li>重たいものを減らしていく = パフォーマンス改善</li>
+<li>既にあるものを早くするのではなく、ブロッカーを取り除く</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-"><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/?hl=ja">クリティカルレンダリングパス</a>の改善</h1>
+<ul>
+<li>ページロードから表示までの一連の流れ = <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/?hl=ja">クリティカルレンダリングパス</a><ul>
+<li>これを改善することがページロードタイムの改善につながる</li>
+</ul>
+</li>
+<li>クリティカルパスの改善の考え方<ul>
+<li>ファイルサイズを小さくする</li>
+<li>リクエスト数を減らす</li>
+<li>待機時間が長いリソース取得の改善</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">改善のパターン（読まなくていい）</h2>
+<ul>
+<li>ファイルサイズを小さくする<ul>
+<li><a href="https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4">The Cost Of JavaScript In 2018 – Addy Osmani – Medium</a></li>
+<li>ページロードに不要なリソースの分解、削除</li>
+</ul>
+</li>
+<li>リクエスト数を減らす<ul>
+<li><a href="https://speakerdeck.com/benschwarz/the-critical-request">The Critical Request - Speaker Deck</a></li>
+<li>HTTP/2だと並列リクエストができるのでアプリケーション次第</li>
+<li>リクエストごとに表示がプログレッシブに進むならキャッシュを考えて分けたほうがいい</li>
+<li>結局全部取ってからじゃないないと何もできないなら細かく刻む必要はあまりない<ul>
+<li>リソース間の依存関係を把握する必要があるということ</li>
+</ul>
+</li>
+<li>リソースの依存関係をみてボトルネックを発見し解決する<ul>
+<li>LightHouseの<a href="https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains?hl=ja">クリティカルリクエストチェーン</a>を減らす</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>待機時間が長いリソースの改善<ul>
+<li>リソースを返すのに時間がかかってる配信するサーバ側の問題</li>
+<li>サードパーティスクリプトなど直接改善できないものは、遅延ロードさせるなどクリティカルパスから外す</li>
+<li><a href="https://www.w3.org/TR/resource-hints/">Resource Hints</a>を使って先に読んでおく</li>
+</ul>
+</li>
+<li>メインコンテンツに必要ないリソースは後で読む<ul>
+<li>サードパーティスクリプト</li>
+<li>script async属性</li>
+<li>lazy load</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">改善のセオリー</h2>
+<ul>
+<li>大きなボトルネックのパフォーマンス改善にはある程度セオリーがある<ul>
+<li>HTTP/2みたいにセオリーが変わる場合もあるけど、その場合も継続的な計測が役立つ</li>
+</ul>
+</li>
+<li>以下を読んで<ul>
+<li><a href="https://developers.google.com/speed/">Make the Web Faster  |  Google Developers</a></li>
+<li><a href="https://webperf.guide/">超速! Webページ速度改善ガイド (WEB+DB PRESS plus)</a></li>
+<li><a href="https://hpbn.co/">High Performance Browser Networking (O&#39;Reilly)</a></li>
+<li><a href="http://gihyo.jp/book/2017/978-4-7741-8967-3">Webフロントエンド ハイパフォーマンス チューニング｜技術評論社</a></li>
+<li><a href="https://calendar.perfplanet.com">Performance Calendar</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">細かくなっていく改善</h1>
+<hr>
+<h2 id="-">何を改善するのかが難しい問題</h2>
+<ul>
+<li>ダッシュボードを見ても何が問題がわからずに何もできない<ul>
+<li>Note: SpeedCurveはいろんなヒントを出してくれる</li>
+</ul>
+</li>
+<li>速くするのではなく遅くしないことの方が重要<ul>
+<li>ボトルネックを取り除いていく =&gt; パフォーマンス改善</li>
+<li>と考えたほうが行動しやすい</li>
+</ul>
+</li>
+<li>ボトルネックはいろいろなツールで見つけられる<ul>
+<li><a href="https://developers.google.com/web/fundamentals/performance/speed-tools/">How To Think About Speed Tools  |  Web Fundamentals  |  Google Developers</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">改善していく例</h1>
+<hr>
+<h2 id="-a-">サイトA: 比較して問題を見つける例</h2>
+<ul>
+<li>とりあえず計測してとりあえず可視化してみた</li>
+<li>ダッシュボードを見てもいまいち何が問題がわからない</li>
+</ul>
+<hr>
+<p><img src="img/site-a-page-load-time.png" alt="fit, site A page load times"></p>
+<hr>
+<p><img src="img/site-a-rendering-time.png" alt="fit, site A rendering times"></p>
+<hr>
+<p><img src="img/site-a-content-size.png" alt="fit, site A content size"></p>
+<hr>
+<h2 id="-a-">サイトA: 何が問題化を比較して見つける</h2>
+<ul>
+<li>比較対象があると問題が見つけやすい</li>
+</ul>
+<hr>
+<h1 id="competitor-">Competitorと比較して計測</h1>
+<ul>
+<li>WebPagetestでは、結果の<code>testId</code>同士を比較できる</li>
+<li>SpeedCurveでは、登録する時に&quot;比較対象のURL&quot;を入力する</li>
+</ul>
+<p><img src="img/speedcurve.png" alt="right"></p>
+<hr>
+<h2 id="-a-css-">サイトA: サイトを比較してみるとCSSのサイズに問題</h2>
+<p>下記はgzipしたCSSのファイルサイズ</p>
+<ul>
+<li><strong>サイトA: 230kb</strong> – 明らかにでかい！</li>
+<li>サイトX: 20kb</li>
+<li>サイトY: 33kb</li>
+<li>サイトZ: 37kb</li>
+</ul>
+<hr>
+<h2 id="-">一般的なサイトと比較する</h2>
+<ul>
+<li><a href="https://httparchive.org/">HTTP Archive</a>で<a href="https://httparchive.org/reports/page-weight">Page Weight</a>で有名なサイトのHTML, CSS, JSなどのファイルサイズを調査</li>
+<li>CSSは<strong>50Kb</strong>弱が一般的なサイズ</li>
+</ul>
+<p><img src="img/css-bytes.png" alt="right,fit css byte"></p>
+<hr>
+<h1 id="-a-css-">サイトA: CSSの問題を分析する</h1>
+<ul>
+<li><a href="http://www.testmycss.com/">TestMyCSS</a>というサービスではCSSに含まれるBase64のサイズやセレクタの複雑度、重複、空のルールなどを一覧できる</li>
+<li>サイトAのCSSはBase 64が<strong>150kb</strong>ぐらいあり異常に大きかった</li>
+<li>CSSにフォントがBase64化したものが含まれていた</li>
+</ul>
+<hr>
+<h2 id="-a-css-">サイトA: CSSからフォントを取り除く</h2>
+<ul>
+<li>CSSからフォントを取り除いた: <strong>230kb</strong> -&gt; <strong>80kb</strong></li>
+</ul>
+<p><img src="img/site-a-css-size.png" alt="inline, fill, CSSサイズの変化"></p>
+<hr>
+<h1 id="1-">1つの改善がパフォーマンスに与える影響は大きくない</h1>
+<ul>
+<li>普通のウェブアプリの機能はそこまで極端なボトルネックを持っていない</li>
+<li>ページロードに関係する機能を一つだけ早くしても、全体への影響は小さい<ul>
+<li>リソースのロードなどは影響範囲が広め</li>
+</ul>
+</li>
+<li>継続的に計測し改善を続ける必要がある</li>
+</ul>
+<hr>
+<h2 id="-b-speedindex-">例) サイトB: SpeedIndexを指標にちょっとづつ改善した</h2>
+<ul>
+<li>サイトA:  Reactで作られたサイト</li>
+<li>クライアントサイドレンダリングのみ<ul>
+<li>JavaScriptが実行されるまで真っ白なのでファイルサイズをへらすことが、そのままページロードタイムへ影響</li>
+</ul>
+</li>
+<li>どれだけ初期表示に必要なJavaScriptを小さくしていくか</li>
+</ul>
+<hr>
+<h2 id="-">改善項目の一部</h2>
+<ul>
+<li>Babel 7 -&gt; ランタイムコストが小さくなる</li>
+<li>babel-plugin-external-helpers -&gt; helper関数がまとまってファイルサイズが小さくなる</li>
+<li>webpack 4 + &quot;module&quot;フィールドの対応<ul>
+<li>TreeShaking/Scope Hoistingでサイズとランタイムコストの減少</li>
+<li><code>es-lodash</code>の対応 - Tree Shakingで最終的にはファイルサイズが小さくなる</li>
+</ul>
+</li>
+<li>初期表示に不要なコンポーネントをCode Splitting<ul>
+<li><code>import()</code>で動的にロードすることで、初期表示のbundleファイルサイズが小さくなる</li>
+</ul>
+</li>
+<li>React 16へのアップデート -&gt; ファイルサイズの減少</li>
+<li>サードパーティのCSSやJSの非同期ロード -&gt; 初期表示には不要なので画面に表示されたタイミングでロード</li>
+</ul>
+<hr>
+<p><img src="img/example-speed-index.png" alt="fit, speed index"></p>
+<hr>
+<p><img src="img/example-content-size.png" alt="fit, file size"></p>
+<hr>
+<h2 id="-">劇的な変化を望む場合はアーキテクチャも変化を</h2>
+<ul>
+<li>劇的な変化を得るには全体的/根本的な変化が必要になる</li>
+</ul>
+<blockquote>
+<p>例) クライアントサイドレンダリング(CSR)だけだったのをサーバサイドレンダリング(SSR)もするように変更</p>
+</blockquote>
+<ul>
+<li><a href="https://www.cyberagent.co.jp/news/detail/id=21679">インターネットテレビ局「AbemaTV」の表示速度が従来比3倍にアップ | 株式会社サイバーエージェント</a></li>
+<li><a href="https://speakerdeck.com/ktknest/abematvhatadafalsessr-ziyaneendayo">AbemaTVはただのSSR じゃねぇんだよ - Speaker Deck</a></li>
+</ul>
+<hr>
+<h2 id="-">アーキテクチャを変化できるような土壌を持つ</h2>
+<ul>
+<li>泥団子<a href="密結合でリファクタリングできないようなアーキテクチャの比喩。[大きな泥だんご](https://ja.wikipedia.org/wiki/%E5%A4%A7%E3%81%8D%E3%81%AA%E6%B3%A5%E3%81%A0%E3%82%93%E3%81%94)ともいわれる">^Big ball of mud</a>のアーキテクチャは変更することが難しい<ul>
+<li>計測は続けつつも、まずは泥団子を解体して正常な形にする</li>
+<li>正常な形にしていくと大抵リソースの扱いも正常できるため、結果的にはパフォーマンスが改善される</li>
+</ul>
+</li>
+<li>アーキテクチャについては以前書いた<ul>
+<li><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">改善したら確認する</h1>
+<ul>
+<li>改善をするリリースをしたら、計測を実行して確認するという習慣は重要<ul>
+<li>習慣化する = リリースしたらslackに通知をするとか、</li>
+<li>数値を出して興味を引く</li>
+</ul>
+</li>
+<li>パフォーマンスに興味を持たないと徐々に悪化しやすい<ul>
+<li>パフォーマンスに関心を持つチームは必然的にパフォーマンスを改善する傾向</li>
+<li>パフォーマンスに関心を持たないチームはパフォーマンスのリグレッションを起こしやすい</li>
+</ul>
+</li>
+<li>かっこいいダッシュボードはモチベーションの維持のためという側面もある</li>
+</ul>
+<hr>
+<h2 id="-">リリースにラベルをつけてわかりやすく表示してる例</h2>
+<p><img src="./img/ameba-news.png" alt="inline, ameba news + speed curve"></p>
+<blockquote>
+<p><a href="https://developers.cyberagent.co.jp/blog/archives/16818/">Optimized Server-Side Web Application In 2018</a></p>
+</blockquote>
+<p>^ アメーバニュースの改善結果のブログより引用</p>
+<hr>
+<h1 id="-">パフォーマンスのリグレッションを検知する</h1>
+<ul>
+<li>人間は慣れてしまうので0.1秒とかの変化には気づきにくい</li>
+<li>新しい機能を追加したときにパフォーマンスがリグレッションを起こしてもすぐには体感できない</li>
+<li>合成モニタリングでパフォーマンスリグレッションを検知する<ul>
+<li>結果が値として比較できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-c-">例) サイトC: 新しい機能を追加したらサイズが増えた</h1>
+<p><img src="img/alert-regression.png" alt="inline, fit, regression"></p>
+<hr>
+<h2 id="-">新しい機能を追加したらサイズが増えた</h2>
+<ul>
+<li>新しい機能をリリースしたらjsのbundleサイズが200kbも増えた<ul>
+<li>原因: ライブラリの依存してるライブラリがでかかった</li>
+</ul>
+</li>
+<li>Wifiだと違いを体感できないが、モバイルなどでは影響が大きい<ul>
+<li>開発者の環境だと気づくのが難しい</li>
+</ul>
+</li>
+<li>このようなリグレッションに気づくのにも継続的にパフォーマンス計測が必要</li>
+</ul>
+<hr>
+<h1 id="-">パフォーマンスの予算を決めて維持する</h1>
+<ul>
+<li>パフォーマンスの予算(Performance Budget)を決めてその<strong>水準を維持</strong>する<ul>
+<li>プロダクトごとに決める必要がある(アプリによって指標は異なるため)</li>
+<li>基準値を決めるには常時計測して現状を把握する必要がある</li>
+<li>少なくても1週間ぐらいは計測結果を貯めてから基準値を決める</li>
+<li>例) 画像サイズの合計1200KBというPerformance Budgetを決める、そのしきい値を超えたらslackに通知する</li>
+<li><a href="http://support.speedcurve.com/get-the-most-out-of-speedcurve/monitor-your-performance-budgets">Monitor your performance budgets | SpeedCurve Support</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/speed-curve-perfomance-budget.png" alt="fit, speed-curve-perfomance-budget"></p>
+<hr>
+<h1 id="-">サイズの問題を予防する</h1>
+<p><img src="img/bundlephobia.png" alt="right,　fit"></p>
+<ul>
+<li>ライブラリを導入時にファイルサイズを気にする<ul>
+<li>npmなら<a href="https://bundlephobia.com/">BundlePhobia</a>が便利</li>
+</ul>
+</li>
+<li>bundleを分析するなら<a href="https://github.com/webpack-contrib/webpack-bundle-analyzer">webpack-bundle-analyzer</a>など<ul>
+<li>webpackは<a href="https://survivejs.com/webpack/optimizing/build-analysis/">Build Analysis</a>などを参照</li>
+</ul>
+</li>
+<li>ビルド時に検知する<ul>
+<li>webpackの<a href="https://webpack.js.org/configuration/performance/">performance.hints</a>オプション</li>
+<li><a href="https://github.com/ai/size-limit">size-limit</a>でファイルサイズをCIで計測する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">新しく作るときの予算</h2>
+<ul>
+<li><a href="https://developers.google.com/web/fundamentals/performance/rail?hl=ja">RAIL モデル</a><ul>
+<li>ページを使用する準備が整うまで 1,000 ミリ秒以内</li>
+</ul>
+</li>
+<li><a href="http://www.performancebudget.io/">Performance Budget Calculator</a><ul>
+<li>期待するロード時間から許容できるHTML,JS,CSSなどのファイルサイズを計算してくれる</li>
+</ul>
+</li>
+<li>が、現実的にRAILモデルなどは予算としては厳しいアプリケーションも多いので柔軟にやりましょう<ul>
+<li><a href="https://havelog.ayumusato.com/develop/others/e751-scratch_memo_4.html">アーキテクチャ編: SSR と CDN ( Fastly ) とユーザー依存情報の分離（新規開発のメモ書きシリーズ4） ::ハブろぐ</a></li>
+</ul>
+</li>
+</ul>
+<p>^ このスライドも10分という予算で作り始めましたが、できたスライドのページ数が80ページぐらい超えてました
+^ いらないものを削っていってもまだ50ページもあることから、パフォーマンス改善の難しさがわかりますね</p>
+<hr>
+<h1 id="-">パフォーマンス</h1>
+<ul>
+<li>パフォーマンスは相対的な指標を扱う<ul>
+<li>年々ウェブのサイズは大きくなっている</li>
+<li>平均サイズ: 2011年は500KB、2018年は1500KB</li>
+<li><a href="https://httparchive.org/reports/state-of-the-web">State of the Web</a></li>
+</ul>
+</li>
+<li>決めた水準以下を維持することを目標にする<ul>
+<li>水準を変えたいとなったとき、計測した値は役立つ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>改善するために計測していく</li>
+<li>継続的に改善するためには指標をちゃんと持つ</li>
+<li>速くするのではなく遅くしない<a href="システム全体で見ればパフォーマンスは1因子でしかない。問題の正常化にまず取り組む">^not-slow</a></li>
+<li>基準値(Performance Budget)を決めてそこより遅くならないことをベースにする</li>
+<li>計測方法も徐々に改善していく</li>
+</ul>
+<hr>
+<h2 id="-">参考</h2>
+<ul>
+<li><a href="https://github.com/thedaviddias/Front-End-Performance-Checklist">thedaviddias/Front-End-Performance-Checklist: 🎮 The only Front-End Performance Checklist that runs faster than the others</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/loading-third-party-javascript/">Loading Third-Party JavaScript  |  Web Fundamentals  |  Google Developers</a></li>
+<li><a href="http://gihyo.jp/book/2017/978-4-7741-9400-4">超速！ Webページ速度改善ガイド ──使いやすさは「速さ」から始まる：書籍案内｜技術評論社</a></li>
+<li><a href="https://developers.cyberagent.co.jp/blog/archives/9540/">WebパフォーマンスとプロダクトKPIの相関を可視化する話</a></li>
+<li><a href="https://wikitech.wikimedia.org/wiki/Performance/WebPageTest">Performance/WebPageTest - Wikitech</a></li>
+<li><a href="http://shop.oreilly.com/product/0636920033592.do">Using WebPageTest - O&#39;Reilly Media</a></li>
+<li><a href="https://github.com/speedtracker/speedtracker">speedtracker/speedtracker: 📉 Visualisation layer and data store for SpeedTracker</a></li>
+<li><a href="https://www.slideshare.net/takehora/web-59093011">Webサイトパフォーマンス管理の基礎知識</a></li>
+<li><a href="https://www.tezify.com/post/synthetic_vs_rum/">Synthetic vs Real User Monitoring : What to use when? | Tezify Blog</a></li>
+<li><a href="https://www.youtube.com/watch?v=gJvOWw-l-gc">最近の Web パフォーマンス改善について知っておきたいコト -HTML5 Conference 2017- - YouTube</a></li>
+<li><a href="https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html">Web クライアントサイドのパフォーマンスメトリクス — Speed Index、Paint Timing、TTI etc... ::ハブろぐ</a></li>
+<li><a href="https://speakerdeck.com/sisidovski/nikkei-high-performance-pwa">日経電子版 サイト高速化とPWA対応 / nikkei-high-performance-pwa - Speaker Deck</a></li>
+<li><a href="https://wildlyinaccurate.com/introducing-a-faster-bbc-news-front-page/">Introducing a faster BBC News front page | Wildly Inaccurate</a></li>
+</ul>
+<hr>
+<h2 id="faq">FAQ</h2>
+<ul>
+<li>Lighthouseとかではダメなの?<ul>
+<li>WebPagetestはLighthouseの結果も含んでいる</li>
+<li>パフォーマンス改善に必要なのは連続的値</li>
+<li>スコアじゃなくて時間を計測する(スコアはルールが変わることがある)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">個人的なパフォーマンス計測のスタートポイント</h2>
+<ul>
+<li>まずは計測を始めよう<ul>
+<li><a href="https://github.com/uknmr/gas-webpagetest">gas-webpagetest</a> + 好きなSaaSの2種類で計測を開始しよう</li>
+<li>WebPageTestは無料で使えてすごい、有料の計測サービスも一緒に体験しよう(Trialがある)</li>
+</ul>
+</li>
+<li>1-2週間ぐらい計測をしながら現状を把握しよう<ul>
+<li>ブラウザの開発者ツールのパフォーマンス計測を自動化すると考えるならある程度でも形がでてくる</li>
+</ul>
+</li>
+<li>多くの計測データにはバイアスがかかっているので、分析には気をつけよう<ul>
+<li>パフォーマンスは様々な因子がでてくる総合的なもの</li>
+<li>どんなに優れたモニタリングツールではすべての因子を見ることができない</li>
+<li>スコアやグラフは丸められたデータであることは意識しよう</li>
+</ul>
+</li>
+<li>パフォーマンス計測を継続することは偉いこと<ul>
+<li>その行為自体は否定はされるものではない</li>
+<li>パフォーマンス計測自体も徐々に改善していけばいい</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">メモ</h2>
+<ul>
+<li>CatchPointは明らかに他のサービスより広い範囲のデータを取っている</li>
+<li>その分明らかに値段も高めの設定になってる</li>
+<li>CDNがakamai中心だった時代が終わるように、モニタリングも多様化して変化していく<ul>
+<li><a href="https://tech.jstream.jp/blog/cdn/cdn_share_apl_2018/">国内CDNシェア(2018年4月) | J-Stream CDN情報サイト</a></li>
+</ul>
+</li>
+<li>必要性に応じてモニタリングも変化していくと考えられる<ul>
+<li>まだまだ敷居の高さがある</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">使わなかったスライド</h2>
+<hr>
+<h2 id="-">ウェブアプリには様々な要素が混在する</h2>
+<ul>
+<li>ウェブアプリのアーキテクチャはさまざまな要素からできてる<ul>
+<li>メンテナンス性、パフォーマンス、セキュリティ、スケーラビリティ、</li>
+</ul>
+</li>
+<li>すべてを実現することはできない</li>
+<li>例) 高パフォーマンスと高スケールの両方を実現することは簡単ではない</li>
+<li>そのようなアーキテクチャを決めるときにも指標をちゃんと数値として決める</li>
+<li>指標や方向を持って変化して、それを確認するすべを持つ</li>
+</ul>
+<blockquote>
+<p>システムは決して部分の総和ではない。システムは部分の相互作用の成果だ。</p>
+</blockquote>
+<blockquote>
+<p>-- <a href="http://shop.oreilly.com/product/0636920080237.do">Building Evolutionary Architectures</a>(<a href="https://www.oreilly.co.jp/books/9784873118567/">進化的アーキテクチャ</a>)</p>
+</blockquote>
+<hr>
+<h2 id="-">システムはバランス</h2>
+<ul>
+<li>フロントが遅いかバックエンドが遅いかネットワークが遅いか</li>
+<li>結局はバランスの問題になる</li>
+<li>システムはそれぞれのコンポーネントの足し算じゃなくて、相互作用で成り立っている<ul>
+<li>フロントが遅いのを直せば、バックエンドへアクセスが増え負荷がかかるといったように</li>
+</ul>
+</li>
+<li>それぞれをちゃんと計測しておいて、(あらゆる)修正ごとに何が変化したのを見られるような状態が正常</li>
+</ul>
+<hr>
+<h2 id="-">ページロードに関するパフォーマンスはフロントの裁量が大きい</h2>
+<ul>
+<li>フロント側だけをいくら早くしてもバックエンド側が遅いとダメ(逆も同じ)</li>
+<li>しかし、バックエンドの役割のほとんどはリソース配信</li>
+<li>特にSPAなどのJavaScriptでUIを作る場合はフロント側の比率が高くなる傾向</li>
+</ul>
+<hr>
+<h1 id="-80-90-web-">エンドユーザーに対するレスポンスタイムのうち80％〜90％はWebフロントエンドで発生する</h1>
+<p><img src="./img/golden-waterfall.png" alt="right, fit, golden-waterfall.png"></p>
+<blockquote>
+<p>80-90% of the end-user response time is spent on the frontend. 
+Start there. <a href="この分類はフロントエンドがコントロールできる領域が80-90%という意味で考えている">^note</a></p>
+<p>-- <a href="http://www.stevesouders.com/blog/2012/02/10/the-performance-golden-rule/">the Performance Golden Rule | High Performance Web Sites</a></p>
+</blockquote>
+<hr>
+<h1 id="-">+ ネットワーク</h1>
+<ul>
+<li><p>フロントが8-9割は言い過ぎなので、
+もうすこし細かく見ると次の分類</p>
+<ul>
+<li>フロントエンド</li>
+<li>バックエンド </li>
+<li><strong>ネットワーク</strong></li>
+</ul>
+</li>
+<li><p><a href="http://blog.catchpoint.com/2016/11/03/naming-conventions/">Front-end vs Back-end vs Network Performance | Web Performance</a></p>
+</li>
+</ul>
+<p><img src="./img/catchpoint-waterfall.png" alt="right, fit"></p>
+<hr>
+<p><img src="./img/MetricClassification.png" alt="fit, img"></p>
+<hr>
+<h1 id="-">フロントエンドのコントロール領域は広い</h1>
+<ul>
+<li>Network<ul>
+<li><a href="https://www.w3.org/TR/resource-hints/">Resource Hints</a>での投機的取得</li>
+</ul>
+</li>
+<li>Content Download<ul>
+<li>不要なものを取捨選択、遅延ロード、Service Workerでのキャッシュ</li>
+</ul>
+</li>
+<li><p>フロントエンドはどんなリソースを必要とするか知っていて、それをコントロールできる</p>
+</li>
+<li><p>ページロードにおいてフロントエンドがコントロールできる領域が8割から9割と考える<a href="もちろんバックエンドやネットワークが絶望的に遅いとかだとこの比率は変わってしまう">^ex</a></p>
+</li>
+</ul>
+<hr>
+<h1 id="-">パフォーマンス改善のセオリーも変わる</h1>
+<ul>
+<li>パフォーマンス改善の&quot;いい方法&quot;というのもどんどん変わってる<ul>
+<li>パフォーマンス計測サービスも新しい機能が次々と増えている</li>
+<li><a href="https://speedcurve.com">SpeedCurve</a>や<a href="https://calibreapp.com/">Calibre</a>などは機能追従が早い</li>
+<li>Chrome自体にも新しいメトリクスが増えている</li>
+</ul>
+</li>
+<li>HTTP/1とHTTP/2でセオリーも違う</li>
+</ul>
+<hr>
+<h2 id="-">使うべき指標</h2>
+<ul>
+<li>使うべき指標を決めたらパフォーマンス予算を決めてそれを超えないようにする</li>
+<li>その予算を決めるためにも、ある程度の量(少なくても1週間分ぐらい)は計測して傾向を掴む必要がある</li>
+</ul>
+<hr>
+<ul>
+<li>ページの表示速度を改善したい(ページロード)<ul>
+<li>URLにアクセスしてからできるだけコンテンツを早く表示したい =&gt; First MeaningFul Paint</li>
+<li>URLにアクセスしてからできるだけ早くコンテンツを操作できるようにしたい =&gt; TTI</li>
+</ul>
+</li>
+<li>動作を高速にしたい(ランタイム)<ul>
+<li>重たい操作があるのを軽くしたい -&gt; FPSをチェックする</li>
+<li>レスポンスのいい検索、メニューがすぐ切り替わる、ページ移動が早い</li>
+</ul>
+</li>
+<li>安定した動作をしてほしい<ul>
+<li>ストリーミング再生が安定して行える -&gt; Long Taskが発生してないか</li>
+<li>いきなりクラッシュしないで -&gt; エラーハンドリングをちゃんと</li>
+</ul>
+</li>
+<li>モバイルでも動作が安定してほしい<ul>
+<li>ネットワーク帯域に気を配る -&gt; ファイルサイズのコスト</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">計測結果のかたよりをへらすために</h2>
+<ul>
+<li>計測結果のかたよりをへらすために<ul>
+<li>環境などコントロールできるところはコントロール</li>
+<li>無作為に選んだ条件で繰り返し計測する</li>
+<li>反復回数はできるだけ多く</li>
+<li>1日2回とかではなく、30分前後に1回とか、1度の計測で3回リトライするとか</li>
+</ul>
+</li>
+<li><a href="https://ja.wikipedia.org/wiki/%E5%AE%9F%E9%A8%93%E8%A8%88%E7%94%BB%E6%B3%95">実験計画法 - Wikipedia</a></li>
+<li><a href="https://github.com/uknmr/gas-webpagetest">gas-webpagetest</a>は30分に1度、3回のリトライをしている</li>
+</ul>
+<hr>
+<h1 id="-">ブラウザとパフォーマンス</h1>
+<ul>
+<li>ブラウザ自体のパフォーマンスについて</li>
+<li>WebKitはパフォーマンスリグレッションはrevertする<ul>
+<li><a href="https://webkit.org/performance/">Performance Testing | WebKit</a></li>
+</ul>
+</li>
+<li>JavaScriptエンジンのベンチマークを比較するサイトをMozillaが管理している<ul>
+<li><a href="https://arewefastyet.com/">ARE WE FAST YET?</a></li>
+</ul>
+</li>
+<li>パフォーマンスリグレッションはバグ扱い</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>

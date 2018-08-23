@@ -424,12 +424,16 @@ autoscale: true
 
 - 大きなボトルネックのパフォーマンス改善にはある程度セオリーがある
   - HTTP/2みたいにセオリーが変わる場合もあるけど、その場合も継続的な計測が役立つ
-- 読んで
+- 以下を読んで
   - [Make the Web Faster  |  Google Developers](https://developers.google.com/speed/)
   - [超速! Webページ速度改善ガイド (WEB+DB PRESS plus)](https://webperf.guide/)
   - [High Performance Browser Networking (O'Reilly)](https://hpbn.co/)
   - [Webフロントエンド ハイパフォーマンス チューニング｜技術評論社](http://gihyo.jp/book/2017/978-4-7741-8967-3)
   - [Performance Calendar](https://calendar.perfplanet.com)
+
+----
+
+# 細かくなっていく改善
 
 ----
 
@@ -566,9 +570,9 @@ autoscale: true
 
 # 1つの改善がパフォーマンスに与える影響は大きくない
 
-
-
+- 普通のウェブアプリの機能はそこまで極端なボトルネックを持っていない
 - ページロードに関係する機能を一つだけ早くしても、全体への影響は小さい
+  - リソースのロードなどは影響範囲が広め
 - 継続的に計測し改善を続ける必要がある
 
 
@@ -680,7 +684,7 @@ autoscale: true
 - 人間は慣れてしまうので0.1秒とかの変化には気づきにくい
 - 新しい機能を追加したときにパフォーマンスがリグレッションを起こしてもすぐには体感できない
 - 合成モニタリングでパフォーマンスリグレッションを検知する
-
+  - 結果が値として比較できる
 
 
 ----
@@ -713,7 +717,7 @@ autoscale: true
   - プロダクトごとに決める必要がある(アプリによって指標は異なるため)
   - 基準値を決めるには常時計測して現状を把握する必要がある
   - 少なくても1週間ぐらいは計測結果を貯めてから基準値を決める
-  - 例) First Paintが2秒以内というPerformance Budgetを決める、そのしきい値を超えたらslackに通知する
+  - 例) 画像サイズの合計1200KBというPerformance Budgetを決める、そのしきい値を超えたらslackに通知する
   - [Monitor your performance budgets | SpeedCurve Support](http://support.speedcurve.com/get-the-most-out-of-speedcurve/monitor-your-performance-budgets)
 
 ----
@@ -967,17 +971,15 @@ autoscale: true
 
 ----
 
-例
-
 - ページの表示速度を改善したい(ページロード)
     - URLにアクセスしてからできるだけコンテンツを早く表示したい => First MeaningFul Paint
     - URLにアクセスしてからできるだけ早くコンテンツを操作できるようにしたい => TTI
 - 動作を高速にしたい(ランタイム)
-    - 重たい操作があるのを軽くしたい
+    - 重たい操作があるのを軽くしたい -> FPSをチェックする
     - レスポンスのいい検索、メニューがすぐ切り替わる、ページ移動が早い
 - 安定した動作をしてほしい
     - ストリーミング再生が安定して行える -> Long Taskが発生してないか
-    - いきなりクラッシュしないで
+    - いきなりクラッシュしないで -> エラーハンドリングをちゃんと
 - モバイルでも動作が安定してほしい
     - ネットワーク帯域に気を配る -> ファイルサイズのコスト
 
@@ -991,7 +993,9 @@ autoscale: true
   - 反復回数はできるだけ多く
   - 1日2回とかではなく、30分前後に1回とか、1度の計測で3回リトライするとか
 - [実験計画法 - Wikipedia](https://ja.wikipedia.org/wiki/%E5%AE%9F%E9%A8%93%E8%A8%88%E7%94%BB%E6%B3%95)
+- [gas-webpagetest](https://github.com/uknmr/gas-webpagetest)は30分に1度、3回のリトライをしている
 
+----
 
 # ブラウザとパフォーマンス
 
