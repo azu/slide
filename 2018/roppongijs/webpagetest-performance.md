@@ -64,18 +64,11 @@ autoscale: true
 
 -----
 
-
-
-
-
-
-
 # 「ページロードのパフォーマンスが良い」の定義
 
 - ページが表示されるまでに時間を早くするのが目的
-- 真っ白のページじゃなくて意味あるコンテンツをユーザー(ブラウザ)に表示させるか
+- 真っ白のページじゃなくて意味あるコンテンツをユーザー(ブラウザ)に早く表示させる
   - => 「ページロードのパフォーマンス」を良くする
-  - 指標: First (Content/Meaningful) Paintの値を小さくする(lower is better)
 - `onLoad` is not 表示速度
   - `onLoad`の速さは表示速度とは直接関係ない
   - 間接的には`onLoad`が早いのはいいことだけど、これが目的ではない
@@ -107,7 +100,7 @@ autoscale: true
   - 仮想環境で同じ条件を作って定期的に計測を行う
 - 手元のDevToolsで図ることもできる
   - ただし、高性能な開発者端末での結果の1つに過ぎない
-  - ただし、開発中に計測すると他の作業を並行するため結果が安定しない
+  - ただし、他の作業を並行しがちなので結果が安定しない
   - 同じ条件で計測した値じゃないので比較しにくい
 
 ----
@@ -116,9 +109,10 @@ autoscale: true
 
 ## 改善には指標が必要
 
-- 改善する方向 = 指標がないと迷子になる
+- 改善する方向 = 指標（メトリクス）がないと迷子になる
 - アプリケーションにはパフォーマンスだけじゃなくて様々に要素が混在する
 - 他の機能を改善したつもりがパフォーマンスが低下することもある
+- 感覚ではなくて数値として改善を確認する手段が必要
 
 
 ----
@@ -127,36 +121,40 @@ autoscale: true
 
 ![inline, 指標のタイムライン](./img/perf-metrics-load-timeline.png)
 
-- [User-centric Performance Metrics  |  Web Fundamentals  |  Google Developers](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)
-- [Web クライアントサイドのパフォーマンスメトリクス — Speed Index、Paint Timing、TTI etc... ::ハブろぐ](https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html)
+----
+
+![right,fit, 指標のタイムライン](./img/perf-metrics-load-timeline.png)
+
+- First Paint(FP)
+  - 最初の1pxが描画されるまでの時間
+- First Contentful Paint(FCP)
+  - コンテンツっぽいものが描画されるまでの時間
+- First Meaningful Paint(FMP)
+  - 意味のあるものが描画されるまでの時間
+- Time to Interactive(TTI)
+  - ユーザーの操作に反応できるまでにかかった時間
 
 ----
 
 ## ページロードに関する指標
 
+- ブラウザが提供するイベントの値を指標として利用できる
+- [Speed Index](https://github.com/t32k/webpagetest-doc-ja/blob/master/using-webpagetest/metrics/speed-index/index.md)も定番
+  - ファーストビューが見えるまでにかかった時間
+- [User-centric Performance Metrics  |  Web Fundamentals  |  Google Developers](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)
+- [Web クライアントサイドのパフォーマンスメトリクス — Speed Index、Paint Timing、TTI etc... ::ハブろぐ](https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html)
 
-![right,fit, 指標のタイムライン](./img/perf-metrics-load-timeline.png)
-
-- First Paint(FP)
-  - 1pxでも描画されたまでにかかった時間
-- First Contentful Paint(FCP)
-  -　コンテンツっぽいなにかが描画されるまでにかかった時間
-- First Meaningful Paint(FMP)
-  - ユーザーにとって意味のあるものが描画されるまでにかかった時間
-- Time to Interactive(TTI)
-  - ユーザーの操作に反応できるまでにかかった時間
-- [Speed Index](https://github.com/t32k/webpagetest-doc-ja/blob/master/using-webpagetest/metrics/speed-index/index.md)
-  - ファーストビューが見えるまでにかかった時間(ブラウザ側のイベントじゃないけど広く使われてる)
-- これらの値はパフォーマンス計測サービスで記録できる
 
 ----
 
 ## アプリケーションによって使うべき指標は異なる
 
-- CSR(クライアントサイトレンダリング)とSSR（サーバサイドレンダリング）でも異なる場合がある
-  - 動的な部分を計測したいのか、静的な部分を計測したいのか
+- アプリよってページロードの仕組みも違うため指標の選択肢も異なる
+  - 例) CSR(クライアントサイトレンダリング): 真っ白な時間が長いのでFMPを指標に
+  - 例) SSR(サーバサイドレンダリング): 真っ白な時間は短いが、操作できるまで(JSを読む)の時間を測るためTTIを指標に
 - コンテンツによって**意味のある表示**(FMP)が本当に意味のあるものかは別
-  - `performance.mark` APIを使ってプロダクトごとに指標をマーキングするのがベスト
+  - `performance.mark` APIを使いプロダクトごとに指標を作るのがベスト
+- これらの値をパフォーマンス計測サービスで記録する
 
 ----
 
@@ -166,7 +164,7 @@ autoscale: true
 
 ----
 
-# 合成モニタリングとリアルユーザーモニタリング
+# [fit] 合成モニタリングとリアルユーザーモニタリング
 
 - 合成モニタリング(Synthetic Monitoring)
     - 計測用の仮想環境などから、同じ条件で定期的に繰り返し計測
@@ -200,7 +198,7 @@ autoscale: true
 
 ----
 
-## サービスによって計測できるものは違う
+##[fit] サービスによって計測できるものは違う（読まなくていい）
 
 - サービスによって計測する対象、仕方が違うので比較はしにくい
 - Webpagetestなどのデータは丸め込まれたデータなので分析用途ではない(Real Dataとしては捉えない)
@@ -215,6 +213,7 @@ autoscale: true
 - CatchPointはISPとかネットワーク周りが詳細にとれる
   - [Synthetic Monitoring を活用したグローバルサービスのネットワークレイテンシの測定と改善 - クックパッド開発者ブログ](https://techlife.cookpad.com/entry/2017/09/21/080000)
   - 統計的に扱いやすいデータが集めやすい
+- ユーザー行動と紐づけて分析するならRUMも必要
 
 
 
@@ -226,15 +225,29 @@ autoscale: true
 > A system is never the sum of its parts. It is the product of the interactions of itsparts.
 > -- Dr. Russel Ackof
 
+- 確かに色々な値を取れるけど、システムのすべての値が取れるとは限らないということは覚えておく
+- [実験計画法](https://ja.wikipedia.org/wiki/%E5%AE%9F%E9%A8%93%E8%A8%88%E7%94%BB%E6%B3%95)などを参照
 
 ----
 
+# WebPagetest
+
+![webpagetest](./img/webpagetest.png)
+
+----
 
 # WebPagetest
 
 
-- [WebPagetest](https://www.webpagetest.org/)は一度計測してその結果を返すだけのサービス
+- [WebPagetest](https://www.webpagetest.org/)は一度計測してその結果を返すだけサービス
+  - 無料で200回/日利用でき、OSSなのでSelf Hostもできる
 - WebPagetest自体には定期的に計測したりそのデータをグループ管理する仕組みはない
+  - これを補ってくれるサービスやツールが多く存在する
+
+-----
+
+## WebPagetest単体では足りないとところ
+
 - WebPagetestで継続的に計測するには次のことが必要
   - 計測頻度や計測を行うタイミングの管理
   - 計測結果を保存
@@ -282,13 +295,12 @@ autoscale: true
 ![right,fit, gas-data-studio.png](./img/gas-data-studio.png)
 
 - [Google Data Studio](https://datastudio.google.com)は任意のリソースをもとにしたダッシュボードを作れるサービス
-  - Google SpreadSheet、MySQL、GitHubなど。
   - いわゆるBI(Business Intelligence)ツールで無料で利用できる
+  - Google SpreadSheet、MySQL、GitHubなどをデータソースにできる
   - 最近複数のデータリソースを混ぜることもできるようになった
-    - Google AnalyticsとSpreadSheetを一緒に扱える
 - Spreadsheetに蓄積したデータのビジュアライズを[Google Data Studio](https://datastudio.google.com)で行う
 
-
+^ 複数のリソース - Google AnalyticsとSpreadSheetを一緒に扱える
 
 ----
 
@@ -323,12 +335,10 @@ autoscale: true
 
 - まずは計測を始めよう
   - [gas-webpagetest](https://github.com/uknmr/gas-webpagetest) + 好きなSaaSの2種類で計測を開始しよう
-  - WebPageTestは無料で使えてすごい、有料の計測サービスも一緒に体験しよう(Trialがある)
 - 1-2週間ぐらい計測をしながら現状を把握しよう
-  - ブラウザの開発者ツールのパフォーマンス計測を自動化すると考えるならある程度でも形がでてくる
+  - 「ブラウザの開発者ツールのパフォーマンス計測を自動化」から初めてみよう
 - 多くの計測データにはバイアスがかかっているので、分析には気をつけよう
   - どんなに優れたモニタリングツールではすべての因子を見ることができない
-  - スコアやグラフは丸められたデータであることは意識しよう
 - パフォーマンス計測を継続することは偉いこと
   - パフォーマンス計測自体も徐々に改善していけばいい
 
@@ -519,12 +529,7 @@ autoscale: true
 - [HTTP Archive](https://httparchive.org/)で[Page Weight](https://httparchive.org/reports/page-weight)で有名なサイトのHTML, CSS, JSなどのファイルサイズを調査
 - CSSは**50Kb**弱が一般的なサイズ
 
-
-
-![inline, css byte](img/css-bytes.png)
-
-
-
+![right,fit css byte](img/css-bytes.png)
 
 
 -----
@@ -559,7 +564,7 @@ autoscale: true
 
 
 
-# 一つの改善がパフォーマンスに与える影響は大きくない
+# 1つの改善がパフォーマンスに与える影響は大きくない
 
 
 
@@ -696,7 +701,7 @@ autoscale: true
 
 - 新しい機能をリリースしたらjsのbundleサイズが200kbも増えた
   - 原因: ライブラリの依存してるライブラリがでかかった
-- Wifiだとあまり違いを体感できないが、モバイルなどでは影響が大きい
+- Wifiだと違いを体感できないが、モバイルなどでは影響が大きい
   - 開発者の環境だと気づくのが難しい
 - このようなリグレッションに気づくのにも継続的にパフォーマンス計測が必要
 
@@ -704,12 +709,17 @@ autoscale: true
 
 # パフォーマンスの予算を決めて維持する
 
-- パフォーマンスの予算(Performance Budget)を決めてその水準を維持する
+- パフォーマンスの予算(Performance Budget)を決めてその**水準を維持**する
   - プロダクトごとに決める必要がある(アプリによって指標は異なるため)
   - 基準値を決めるには常時計測して現状を把握する必要がある
   - 少なくても1週間ぐらいは計測結果を貯めてから基準値を決める
   - 例) First Paintが2秒以内というPerformance Budgetを決める、そのしきい値を超えたらslackに通知する
   - [Monitor your performance budgets | SpeedCurve Support](http://support.speedcurve.com/get-the-most-out-of-speedcurve/monitor-your-performance-budgets)
+
+----
+
+
+![fit, speed-curve-perfomance-budget](./img/speed-curve-perfomance-budget.png)
 
 ----
 
@@ -745,6 +755,7 @@ autoscale: true
 
 - パフォーマンスは相対的な指標を扱う
   - 年々ウェブのサイズは大きくなっている
+  - 平均サイズ: 2011年は500KB、2018年は1500KB
   - [State of the Web](https://httparchive.org/reports/state-of-the-web)
 - 決めた水準以下を維持することを目標にする
   - 水準を変えたいとなったとき、計測した値は役立つ
@@ -756,11 +767,11 @@ autoscale: true
 
 - 改善するために計測していく
 - 継続的に改善するためには指標をちゃんと持つ
-- 速くするのではなく遅くしない
-  - システム全体で見ればパフォーマンスは1因子でしかない
-  - 問題を正常化していけば、パフォーマンスは改善していく(特にサイズ)
+- 速くするのではなく遅くしない[^not-slow]
 - 基準値(Performance Budget)を決めてそこより遅くならないことをベースにする
 - 計測方法も徐々に改善していく
+
+[^not-slow]: システム全体で見ればパフォーマンスは1因子でしかない。問題の正常化にまず取り組む
 
 ----
 
