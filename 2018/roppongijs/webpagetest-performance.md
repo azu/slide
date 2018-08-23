@@ -220,42 +220,43 @@ autoscale: true
 
 ----
 
-
-
-- システムは複合的なものなので、計測したもので分析できるとは限らない
-
+## システムは複雑系なので、計測したもので分析できるとは限らない
 
 
 > A system is never the sum of its parts. It is the product of the interactions of itsparts.
 > -- Dr. Russel Ackof
 
 
-
-
-
 -----
 
+##  計測結果のかたよりをへらすために
+
+- 計測結果のかたよりをへらすために
+  - 環境などコントロールできるところはコントロール
+  - 無作為に選んだ条件で繰り返し計測する
+  - 反復回数はできるだけ多く
+  - 1日2回とかではなく、30分前後に1回とか、1度の計測で3回リトライするとか
+- [実験計画法 - Wikipedia](https://ja.wikipedia.org/wiki/%E5%AE%9F%E9%A8%93%E8%A8%88%E7%94%BB%E6%B3%95)
+
+----
 
 
 # WebPagetest
 
 
-
 - [WebPagetest](https://www.webpagetest.org/)は一度計測してその結果を返すだけのサービス
-- WebPagetest自体には定期的に計測したりそのデータをグループとして管理する仕組みはない
-- 継続的に計測するには
-  - 計測頻度やタイミングを管理
+- WebPagetest自体には定期的に計測したりそのデータをグループ管理する仕組みはない
+- WebPagetestで継続的に計測するには次のことが必要
+  - 計測頻度や計測を行うタイミングの管理
   - 計測結果を保存
-  - 結果をグラフにして可視化できるダッシュボード
+  - 結果をグラフなどにして可視化できるダッシュボード
   - 結果をもとにアラートを行う
-
 
 ----
 
 
 
 # [SpeedTracker](https://speedtracker.org/)
-
 
 
 - WebPagetestで計測して、その結果をGitHubリポジトリに保存する
@@ -559,7 +560,7 @@ autoscale: true
 
 - CSSからフォントを取り除いた: **230kb** -> **80kb**
 
-![inline, CSSサイズの変化](img/site-a-css-size.png)
+![inline, fill, CSSサイズの変化](img/site-a-css-size.png)
 
 
 
@@ -756,6 +757,8 @@ autoscale: true
 - パフォーマンスは相対的な指標を扱う
   - 年々ウェブのサイズは大きくなっている
   - [State of the Web](https://httparchive.org/reports/state-of-the-web)
+- 決めた水準以下を維持することを目標にする
+  - 水準を変えたいとなったとき、計測した値は役立つ
 
 ---
 
