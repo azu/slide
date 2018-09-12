@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Firefoxのトラッキングブロックについて</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="Firefoxのトラッキングブロックについて"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2018/javascript-meeting/firefox-anti-tracking.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2018-09-12" id="datePublished">
+            2018-09-12
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2018-09-12" id="dateModified">
+            2018-09-12
+        </time></span>
+        <a href="http://azu.github.io/slide//2018/javascript-meeting/firefox-anti-tracking.pdf" title="Firefoxのトラッキングブロックについて">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="firefox-">Firefoxのトラッキングブロックについて</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="firefox-">Firefoxのトラッキングブロックについて</h1>
+<ul>
+<li>今日の情報は2018-09-10書かれたものです。</li>
+<li>最新の内容は以下を参照してください</li>
+<li><a href="https://blog.mozilla.org/security/" title="Mozilla Security Blog">Mozilla Security Blog</a></li>
+<li><a href="https://wiki.mozilla.org/Security/Tracking_protection#Tracking_annotations" title="Security/Tracking protection - MozillaWiki">Security/Tracking protection - MozillaWiki</a></li>
+</ul>
+<hr>
+<h1 id="anti-tracking">Anti-tracking</h1>
+<ul>
+<li>FirefoxがAnti-trackingな実装を始めた</li>
+<li>将来的にデフォルトでトラッカーをブロックしたいという方針を掲げた</li>
+<li><a href="https://blog.mozilla.org/futurereleases/2018/08/30/changing-our-approach-to-anti-tracking/">Changing Our Approach to Anti-tracking - Future Releases</a></li>
+</ul>
+<hr>
+<h1 id="anti-tracking">Anti-tracking</h1>
+<ul>
+<li>Improve page load performance<ul>
+<li><a href="https://support.mozilla.org/en-US/kb/shield">SHIELD Studies</a>の一環として<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=FastBlock">FastBlock</a>をテストする</li>
+</ul>
+</li>
+<li>Remove Cross-site tracking<ul>
+<li>トラッキングクッキー</li>
+<li>localStorageへのアクセスを防止する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="why">Why</h1>
+<ul>
+<li><a href="https://blog.mozilla.org/security/2018/09/05/why-we-need-better-tracking-protection/">Why we need better tracking protection | Mozilla Security Blog</a></li>
+<li>人々はウェブ上でトラッキングによってデータ収集されるの対して不快感がある</li>
+<li>Opt-inのDNTはサイトが無視するため不十分<ul>
+<li><a href="https://marketingland.com/hulu-joined-list-major-platforms-ignore-not-track-requests-185610">Hulu has joined this list of major platforms that ignore Do Not Track requests - Marketing Land</a></li>
+</ul>
+</li>
+<li>また過去の研究から<ul>
+<li>DNTを理解している人は少ない</li>
+<li>デフォルト設定を変更する人は少ない</li>
+</ul>
+</li>
+<li>トラッキングの高度化<ul>
+<li>クッキー以外の方法でもトラッキングがおこなわれるようになった</li>
+<li>evercookie、cookie syncingなど</li>
+</ul>
+</li>
+<li>=&gt; ユーザーが選択ではなく、デフォルト値を変更することにした</li>
+</ul>
+<hr>
+<h1 id="-">仮説と目的</h1>
+<ul>
+<li><a href="https://docs.google.com/document/d/1LQdOFIZeoiD38NNMxvpm32bX6Urnv0KbEsGfgAuw5L8/edit">FastBlock - PHD - Google ドキュメント</a></li>
+<li>TB(Tracking Block)についての仮説<ul>
+<li>TBはFirefoxの&quot;Speed&quot;にプラスの影響を与える可能性がある</li>
+<li>TBはページロードのパフォーマンスを改善する可能性がある</li>
+<li>TBはページの破損(breakage)といった悪影響を及ぼさないだろう</li>
+</ul>
+</li>
+<li>まとめ: Improve speed without breakage</li>
+</ul>
+<hr>
+<h1 id="slow-tracking-script">Slow Tracking Script</h1>
+<ul>
+<li>ウェブサイトの合計ロード時間の55.4%がサードパーティトラッカーによって行われている<ul>
+<li>(合計なので、表示にかかるロード時間が50%という意味ではなくその後なども含んでいる)</li>
+<li><a href="https://www.digitaltrends.com/computing/ghostery-web-tracker-study/">Ghostery Tracker Tax Report Shows How Fast the Web Could Be | Digital Trends</a></li>
+<li>今は更に増えてる <a href="https://www.ghostery.com/lp/trackertax/">The Tracker Tax - Ghostery</a> </li>
+</ul>
+</li>
+<li>Fast Blockは遅い(5秒以上ロードにかかる)トラッキングスクリプトをブロックする</li>
+</ul>
+<hr>
+<h1 id="firefox-nightly">Firefox Nightly</h1>
+<p><img src="resources/A9E2C2120F0E612E1D60526BF854102E.jpg" alt="right 設定"></p>
+<ul>
+<li>[x] Fast Block</li>
+<li>ルールベースのブロッキング(disconnectの2種類のルール)<ul>
+<li>[x] Private mode</li>
+<li>[ ] デフォルト</li>
+</ul>
+</li>
+<li>[ ] サードパーティトラッキングCookieのブロック</li>
+</ul>
+<hr>
+<h2 id="-cookie-same-site-cookie-">ファーストパーティCookie(Same-site cookie)</h2>
+<ul>
+<li>見ているドメインと同じドメインに紐づくもの</li>
+</ul>
+<h2 id="-cookie">サードパーティCookie</h2>
+<ul>
+<li>見ているドメインとは異なるドメインに紐づくもの</li>
+</ul>
+<hr>
+<h2 id="-">トラッキング</h2>
+<blockquote>
+<p>トラッキング (行動追跡) は一般的に、ユーザーの複数のサイトにまたがる閲覧データを収集することを指します。
+-- <a href="https://support.mozilla.org/ja/kb/tracking-protection">https://support.mozilla.org/ja/kb/tracking-protection</a></p>
+</blockquote>
+<ul>
+<li>ただし動作については未定義</li>
+<li>Firefoxではサードパーティ + リストに入っているものをトラッキングスクリプトとして扱う</li>
+<li><a href="https://disconnect.me/">Disconnect</a>をベースにした<a href="https://github.com/mozilla-services/shavar-prod-lists">トラッキングリスト</a>を利用する</li>
+</ul>
+<hr>
+<h2 id="-">トラッカー</h2>
+<p>トラッキングをするもの</p>
+<hr>
+<h1 id="firefox-">Firefoxの実装</h1>
+<hr>
+<h1 id="necko">Necko</h1>
+<blockquote>
+<p>Necko is a network library that provides a platform-independent API for several layers of networking, ranging from transport to presentation layers
+-- <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Necko">Necko - Mozilla | MDN</a></p>
+</blockquote>
+<hr>
+<h1 id="necko">Necko</h1>
+<ul>
+<li>FirefoxのネットワークにおけるセキュリティチェックはNecko(<code>network</code>)で行われる<ul>
+<li><a href="https://mozsec-jp.hatenablog.jp/entry/2016/12/10/183822" title="【翻訳】コンテンツセキュリティのデフォルト適用技術 - Mozilla Security Blog 日本語版">【翻訳】コンテンツセキュリティのデフォルト適用技術 - Mozilla Security Blog 日本語版</a></li>
+<li><a href="https://blog.mozilla.org/security/files/2016/11/5589a101.pdf" title="5589a101.pdf - 5589a101.pdf">Enforcing Content Security By Default within Web Browsers</a></li>
+</ul>
+</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Mozilla/Gecko">Gecko</a>はレンダリング/レイアウトエンジン</li>
+</ul>
+<hr>
+<p><img src="resources/3F6D2FE1AE875443CCE8BDC0F115863F.jpg" alt="fit necko"></p>
+<hr>
+<h1 id="-">&quot;トラッキング&quot;の判定</h1>
+<ul>
+<li>Firefoxにおける&quot;トラッキング&quot;スクリプトとは何かを実装から見ていく<ul>
+<li>コンテンツブロックで&quot;トラッカー&quot;をブロックするとあるが、何をブロックするのかは載ってない</li>
+</ul>
+</li>
+<li><a href="https://wiki.mozilla.org/Security/Safe_Browsing">Security/Safe Browsing - MozillaWiki</a><ul>
+<li>Safe Browsingなどを扱うURLClassifierあたりで実装されている</li>
+</ul>
+</li>
+<li>ソースコードは<a href="https://dxr.mozilla.org">https://dxr.mozilla.org</a>や<a href="https://github.com/mozilla">mozilla/gecko-dev</a>を見る<ul>
+<li><code>git clone --depth 1 https://github.com/mozilla/gecko-dev.git</code></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Tools/Contributing/Contribute_on_nightly">Nightly を使ってコントリビュートする - 開発ツール | MDN</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://dxr.mozilla.org/mozilla-central/source/netwerk/base/nsChannelClassifier.cpp?q=TrackingURICallback%3A%3AOnClassifyComplete&amp;redirect_type=single#987">TrackingURICallback::OnClassifyComplete</a><ul>
+<li>チェックを開始する</li>
+<li>トラッキングテーブルにマッチするURLなら<code>TrackingURICallback::OnBlacklistResult</code>へ</li>
+</ul>
+</li>
+</ul>
+<pre><code>    if ((shouldEnableTrackingProtection &amp;&amp; inTrackingTable) ||
+        (shouldEnableTrackingAnnotation &amp;&amp; inAnnotationTable)) {
+      // Valid blacklist result, need to check the whitelist(s) next
+      return OnBlacklistResult(NS_ERROR_MAYBE_TRACKING_URI, inTrackingTable,
+                               inAnnotationTable);
+    }
+</code></pre><hr>
+<ul>
+<li><code>TrackingURICallback::OnBlacklistResult</code><ul>
+<li>blacklistにマッチしたら</li>
+<li>このうちwhitelistにマッチしない =&gt; tracking<ul>
+<li>次の2種類のURLがtrackingになっている</li>
+<li><code>NS_ERROR_TRACKING_ANNOTATION_URI</code></li>
+<li><code>NS_ERROR_TRACKING_URI</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>:memo: trackingの違い</p>
+<ul>
+<li><code>NS_ERROR_TRACKING_URI</code> テーブルに入ってる純粋なトラッカー</li>
+<li><code>NS_ERROR_TRACKING_ANNOTATION_URI</code> テーブル外のトラッカー</li>
+</ul>
+<pre><code class="lang-cpp">  // The lookup failed to match at least one of the active whitelists
+  // (tracking protection takes precedence over tracking annotations)
+  return OnWhitelistResult(isTracker ? NS_ERROR_TRACKING_URI :
+                           NS_ERROR_TRACKING_ANNOTATION_URI);
+</code></pre>
+<hr>
+<ul>
+<li>TrackingURICallback::OnTrackerFound<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/mozIThirdPartyUtil">https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/mozIThirdPartyUtil</a> で3rd party判定</li>
+</ul>
+</li>
+<li>HttpBaseChannel::SetIsTrackingResource</li>
+</ul>
+<pre><code class="lang-cpp">
+void
+HttpBaseChannel::SetIsTrackingResource(bool aIsThirdParty)
+{
+  LOG((&quot;HttpBaseChannel::SetIsTrackingResource thirdparty=%d %p&quot;,
+       static_cast&lt;int&gt;(aIsThirdParty), this));
+
+  if (aIsThirdParty) {
+    MOZ_ASSERT(!mIsFirstPartyTrackingResource);
+    mIsThirdPartyTrackingResource = true;
+  } else {
+    MOZ_ASSERT(!mIsThirdPartyTrackingResource);
+    mIsFirstPartyTrackingResource = true;
+  }
+
+  if (mLoadInfo) {
+    MOZ_ALWAYS_SUCCEEDS(mLoadInfo-&gt;SetIsTracker(true));
+  }
+}
+</code></pre>
+<hr>
+<h1 id="-is">トラッキング is</h1>
+<ul>
+<li>TrackingResource は <code>(third party or first party) and リストマッチ</code> したもの</li>
+</ul>
+<pre><code class="lang-cpp">NS_IMETHODIMP
+HttpBaseChannel::GetIsTrackingResource(bool* aIsTrackingResource)
+{
+  MOZ_ASSERT(!(mIsFirstPartyTrackingResource &amp;&amp; mIsThirdPartyTrackingResource));
+  *aIsTrackingResource =
+    mIsThirdPartyTrackingResource || mIsFirstPartyTrackingResource;
+  return NS_OK;
+}
+</code></pre>
+<hr>
+<h2 id="-">サードパーティかどうか</h2>
+<ul>
+<li><a href="https://dxr.mozilla.org/mozilla-central/source/dom/base/ThirdPartyUtil.cpp#46">ThirdPartyUtil::IsThirdPartyInternal</a></li>
+<li>BaseDomain同士を一致するか比較するだけ<ul>
+<li><code>&quot;www.bbc.co.uk&quot;</code> のBaseDomainは <code>&quot;bbc.co.uk&quot;</code></li>
+<li>ドメイン名 + <a href="https://publicsuffix.org/">public suffix</a>のこと</li>
+</ul>
+</li>
+<li>例) <ul>
+<li>a.example.com === b.example.com // 同じベースドメイン</li>
+<li>a.example.com !== c.ex.com      // 異なるベースドメイン = aから見てcはサードパーティ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<pre><code class="lang-cpp">nsresult
+ThirdPartyUtil::IsThirdPartyInternal(const nsCString&amp; aFirstDomain,
+                                     nsIURI* aSecondURI,
+                                     bool* aResult)
+{
+  if (!aSecondURI) {
+    return NS_ERROR_INVALID_ARG;
+  }
+
+  // Get the base domain for aSecondURI.
+  nsCString secondDomain;
+  nsresult rv = GetBaseDomain(aSecondURI, secondDomain);
+  LOG((&quot;ThirdPartyUtil::IsThirdPartyInternal %s =? %s&quot;, aFirstDomain.get(), secondDomain.get()));
+  if (NS_FAILED(rv))
+    return rv;
+
+  // Check strict equality.
+  *aResult = aFirstDomain != secondDomain;
+  return NS_OK;
+}
+</code></pre>
+<hr>
+<h2 id="-">そのほかのトラッキングスクリプトに対する変更</h2>
+<ul>
+<li><a href="https://wiki.mozilla.org/Security/Tracking_protection#Tracking_annotations">Security/Tracking protection - MozillaWiki</a><ul>
+<li>トラッキングスクリプトのload priorityの低下<ul>
+<li>トラッキングスクリプトからのリクエストも対象: <code>fetch</code>やXHRが見てる</li>
+</ul>
+</li>
+<li>トラッキングスクリプトのリクエストをスロットリング</li>
+<li>トラッキングスクリプトを&quot;tailling&quot;<ul>
+<li><a href="https://www.janbambas.cz/firefox-57-delays-requests-tracking-domains/">Firefox 57 delays requests to tracking domains - mayhemer&#39;s blog</a></li>
+</ul>
+</li>
+<li>FastBlock: 遅いトラッキングスクリプトのリクスエストをキャンセル</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="itp-storage-access-api">ITPとStorage Access API</h2>
+<ul>
+<li>Safari ITP<ul>
+<li><a href="https://www.mm-lab.jp/report/itp_specification_and_behavior/">ITPの仕様と挙動について、あまり知られていないことを簡単に整理する – マーケティングメトリックス研究所/MARKETING METRICS Lab.</a></li>
+<li><a href="http://inchom.hatenadiary.jp/entry/2018/06/17/012526">ITP 2.0の機能の検証 - NO AD NO LIFE</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="storage-access-api">Storage Access API</h2>
+<blockquote>
+<p>Summary: Storage Access API is used to grant first-party storage access to
+third-party embedded content under some browser controlled conditions.</p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/whatwg/html/issues/3338">Proposal: Storage Access API · Issue #3338 · whatwg/html</a><ul>
+<li>Safari: 実装済み</li>
+<li>Firefox : <a href="https://groups.google.com/forum/#!msg/mozilla.dev.platform/l8bV4RFgAc4/MKl9jbJpBQAJ">Intent to Implement: Storage Access API - Google グループ</a></li>
+<li>iframeでのクロスドメインからCookieやStorageのアクセスを制限する</li>
+<li>Youtubeの埋め込み、SNSボタンの埋め込みによるトラッキングの防止<ul>
+<li>YoutubeはR18の反映などをするためにCookieを使う =&gt; UIが変わる</li>
+</ul>
+</li>
+<li>embed iframe -&gt; 埋め込みサイトに許可を得ないでトラッキングできる -&gt; 問題(いいねボタン問題)</li>
+<li>embed iframe + postmessage -&gt; 埋め込みサイトにも連携が必要 -&gt; まああり</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="sandbox-iframe-vs-sop">Sandbox iframe vs. SOP</h2>
+<ul>
+<li>Opt-inでSame Origin Policy(SOP)のドメインを拡張する提案</li>
+<li><a href="https://twitter.com/johnwilander/status/1038556125073879040">https://twitter.com/johnwilander/status/1038556125073879040</a></li>
+<li><a href="https://lists.w3.org/Archives/Public/public-webappsec/2017Mar/0034.html">Single Trust and Same-Origin Policy v2 from John Wilander on 2017-03-24 (public-webappsec@w3.org from March 2017)</a></li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
