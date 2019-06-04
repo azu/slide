@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>asocial-bookmark</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="asocial-bookmark"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2019/tech-link/asocial-bookmark.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2019-06-04" id="datePublished">
+            2019-06-04
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2019-06-04" id="dateModified">
+            2019-06-04
+        </time></span>
+        <a href="http://azu.github.io/slide//2019/tech-link/asocial-bookmark.pdf" title="asocial-bookmark">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="asocial-bookmark">asocial-bookmark</h1>
+<h2 id="-">ブックマーク管理システムをとにかく動くアプリを早く安く作ろう</h2>
+<hr>
+<h1 id="asocial-bookmark">asocial-bookmark</h1>
+<ul>
+<li><a href="https://github.com/azu/asocial-bookmark">https://github.com/azu/asocial-bookmark</a></li>
+<li><strong>モチベーション:</strong> はてなブックマーク APIが壊れた =&gt; 困った</li>
+<li>金曜にAPIが500 Internal Server Error返すという報告した<ul>
+<li>CloudFrontがエラーを返してるので何かを設定ミス?</li>
+</ul>
+</li>
+</ul>
+<hr>
+<pre><code class="lang-json">{
+  body: &#39;403 Forbidden Insufficient scope&#39;,
+  headers: {
+    &#39;content-type&#39;: &#39;text/plain&#39;,
+    &#39;content-length&#39;: &#39;32&#39;,
+    connection: &#39;close&#39;,
+    date: &#39;Fri, 31 May 2019 05:24:36 GMT&#39;,
+    server: &#39;nginx&#39;,
+    &#39;set-cookie&#39;: [
+      &#39;b=$1$bTQbd484$ss/; expires=Thu, &#39; +
+        &#39;26-May-2039 05:24:36 GMT; domain=hatena.ne.jp; &#39; +
+        &#39;path=/&#39;
+    ],
+    &#39;x-dispatch&#39;: &#39;Boston::Web::Public::API::Legacy::Rest::My#tags&#39;,
+    &#39;x-varnish&#39;: &#39;5020019&#39;,
+    age: &#39;0&#39;,
+    via: &#39;1.1 varnish-v4, 1.1 &#39; +
+      &#39;f5ea107910388dd712f11441721cd0ae.cloudfront.net &#39; +
+      &#39;(CloudFront)&#39;,
+    &#39;x-cache&#39;: &#39;Error from cloudfront&#39;,
+    &#39;x-amz-cf-id&#39;: &#39;hTBsI8X7-i6igkv8SvdaghasbJXXXXsh7YpqUXP7qNflVFQ==&#39;
+  },
+  statusCode: 403
+}
+</code></pre>
+<hr>
+<h1 id="asocial-bookmark">asocial-bookmark</h1>
+<ul>
+<li>日曜の朝起きてもまだエラーおきてた</li>
+<li>=&gt; ブックマークできないのでブックマークサービス作る</li>
+<li>=&gt; 1日かけて作った</li>
+</ul>
+<hr>
+<h1 id="asocial-bookmark-">asocial-bookmarkのコンセプト</h1>
+<ul>
+<li>とにかく早く動かないとブラウザのタブが貯まるので早く作りたい</li>
+<li><a href="https://pinboard.in/">Pinboard</a>で良さそうと思ったけど、<a href="https://twitter.com/pinboard">Twitterアカウント</a>が活発過ぎて不安になった</li>
+<li>とりあえず自分で動くものを作ってみよう</li>
+<li>維持費がかかるのは維持できなくなるので、維持コストはできるだけ低く設定する</li>
+<li>=&gt; 実はブックマークって大体静的なデータでいいのでは</li>
+</ul>
+<hr>
+<h1 id="asocial-bookmark-">asocial-bookmarkの全体像</h1>
+<hr>
+<p><img src="./img2/asocial-bookmark.png" alt="right, fit, asocial-bookmark-dataflow"></p>
+<ul>
+<li>postemでブックマークを登録/更新<ul>
+<li>削除は手動で！</li>
+</ul>
+</li>
+<li>ブックマークデータはGitHubにコミットされる</li>
+<li>GitHubにコミットされるとNetlifyにデプロイされる<ul>
+<li>デプロイ時にビルドしたインデックスを作成する</li>
+</ul>
+</li>
+<li>Netlifyからデータを取ってきて&quot;はてなブックマーク検索PWA&quot;で検索する</li>
+</ul>
+<hr>
+<h1 id="asocial-bookmark-">asocial-bookmarkの全体像</h1>
+<ul>
+<li>GitHub: データソース</li>
+<li>Netlify: CI/CD</li>
+<li>Client: postem(自作)</li>
+<li>Search: はてなブックマーク検索PWA(自作)</li>
+</ul>
+<hr>
+<h1 id="-">設計(作る前)</h1>
+<p><img src="./img2/architecture.png" alt="right, asocial-bookmarkの設計"></p>
+<hr>
+<h1 id="-">設計(作る前)</h1>
+<h2 id="-">データ構造だけしか書いてなかった</h2>
+<hr>
+<h2 id="-">実装</h2>
+<ul>
+<li>慣れた道具を使う</li>
+<li>雑な実装をしていいが、モジュールは必ず守る<ul>
+<li>泥団子はリファクタリングができない</li>
+</ul>
+</li>
+<li>必要なものはどんどん流用する<ul>
+<li>流用して節約した時間で品質をあげる</li>
+<li>質が悪くなる流用は避ける</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">技術選定</h2>
+<ul>
+<li>早く作る場合に冒険心を抑える</li>
+<li>普段から素振りしているものを使う<ul>
+<li><a href="https://qiita.com/azu/items/bacd146ed2e26980b9b0">JavaScriptのトレンドを素振りして確認する方法 - Qiita</a></li>
+<li><a href="http://azu.github.io/slide/2015/year-end/javascript-swing.html">JavaScriptの素振りする技術</a></li>
+</ul>
+</li>
+<li>ボトムアップに必要なものを手を止めずに作っていく</li>
+</ul>
+<hr>
+<h2 id="-">今回作ったもの/いじったもの</h2>
+<ul>
+<li><a href="https://github.com/azu/korefile">https://github.com/azu/korefile</a></li>
+<li><a href="https://github.com/azu/asocial-bookmark">https://github.com/azu/asocial-bookmark</a></li>
+<li><a href="https://github.com/azu/postem">https://github.com/azu/postem</a></li>
+<li><a href="https://github.com/azu/hatebupwa">https://github.com/azu/hatebupwa</a></li>
+</ul>
+<hr>
+<h2 id="-">技術選定</h2>
+<ul>
+<li>TypeScript<ul>
+<li>型</li>
+</ul>
+</li>
+<li>なんかブラウザでも動きそうなものは動くように書く<ul>
+<li>GitHubのAPIを叩くところはどっちでもいいはす</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="korefile"><a href="https://github.com/azu/korefile">korefile</a></h1>
+<ul>
+<li>GitHubまたはLocalに対してRead/Write/Deleteを行うライブラリ<ul>
+<li>Writeは <a href="https://github.com/azu/git-commit-push-via-github-api">https://github.com/azu/git-commit-push-via-github-api</a> の流用</li>
+<li>AWS LambdaからGitHubでGit APIを使ってコミットpushする</li>
+<li>Deleteは <a href="https://github.com/jser/probot-jser-info/">https://github.com/jser/probot-jser-info/</a> の流用</li>
+<li>Pull Requestに来たファイルのファイル名を変更するProbot(ファイルを消すコードがある)</li>
+</ul>
+</li>
+<li>Read/Write/Deleteをそれぞれ実装した</li>
+<li>GitHubを叩くテストはexample.tsを作って実際にリポジトリで読み書きするものを書いた</li>
+</ul>
+<hr>
+<h1 id="asocial-bookmark"><a href="https://github.com/azu/asocial-bookmark">asocial-bookmark</a></h1>
+<ul>
+<li><a href="https://github.com/azu/korefile">korefile</a>を使ってGitHubリポジトリに対してブックマークデータを読み書きするライブラリ<ul>
+<li>ブックマークのデータ構造の定義を持っている</li>
+<li><a href="https://github.com/azu/korefile">korefile</a>が動くだろうと信じて想像で書く</li>
+</ul>
+</li>
+<li>テストは以下同文<ul>
+<li>テストはexample.tsを作って実際にリポジトリで読み書きするものを書いた</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="migration-hatebu-to-asocial-bookmark">Migration Hatebu to asocial-bookmark</h1>
+<ul>
+<li>はてなブックマークのデータをasocial-bookmarkに移行する</li>
+<li><a href="https://github.com/azu/korefile">korefile</a>を作るときにfs adaptorを作っていた<ul>
+<li>GitHubを<code>fs</code>のように扱うというコンセプトだったので</li>
+</ul>
+</li>
+<li>fsadaptorを使ってローカルのディレクトリに変換結果を作ってコミット！<ul>
+<li>Adaptorという抽象実装を変えるだけで読み書きの先を変更できた</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-memo-">:memo: モジュールの意識</h2>
+<ul>
+<li>モジュールを分けることを意識するということは、どこで面を切るかを想像して書くこと</li>
+<li>泥団子はすべて捨てるしかなくなるので、ここだけはちゃんと意識する</li>
+<li>ずっとコード読んだり書いたりしてると、切るパターンは見えてくる</li>
+<li>Node.js、ブラウザどちらでも動くモジュールを書こうとするとこれは常に意識する</li>
+</ul>
+<hr>
+<h2 id="-memo-node-js-">:memo: ブラウザとNode.jsでのモジュールの境界</h2>
+<ul>
+<li>ブラウザとNode.js<ul>
+<li><code>fs</code> は一つの切れ目<ul>
+<li><code>fs</code> に依存するところは外から差込可能なように作る　or</li>
+<li><code>fs</code> に依存するところはコアから切り離す</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>そうしないとブラウザでは動かないモジュールができる</li>
+<li>今回はfsをadaptorとして外から差し込めるようにした</li>
+</ul>
+<hr>
+<h1 id="github-url-">GitHubのブックマークデータをURLとして取得できるように</h1>
+<ul>
+<li><a href="https://www.netlify.com/">Netlify</a>を使った</li>
+<li>デプロイ時にブックマークのインデックスデータ(全部を1つのJSONにしただけ！高速！)を作成</li>
+<li>Netlifyで配信すると自動的にCDNに乗るの<ul>
+<li>gh-pagesでも対しても問題ない(GitHub Actionを使えば大体手間は同じになる気がする)</li>
+<li>冒険より普段慣れているツールを使うことを優先</li>
+</ul>
+</li>
+<li>ブックマークデータが <code>https://&lt;your-domain&gt;/index.json</code> で取得できるようになる</li>
+</ul>
+<hr>
+<h1 id="postem"><a href="https://github.com/azu/postem">postem</a></h1>
+<p><img src="./img2/postem.png" alt="right, fit, postem"></p>
+<ul>
+<li>pluginモデルではてなブックマークのプラグインがあった</li>
+<li>コピペしてURLを書き換えればほぼおわり</li>
+<li>ここでなんとなく投稿できるようになる</li>
+<li>適当に投稿して試す<ul>
+<li>GitHubへポストするロジックは<a href="https://github.com/azu/asocial-bookmark">asocial-bookmark</a>に実装してたので意外とすんなり通る</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-pwa"><a href="https://hatebupwa.netlify.com/">はてなブックマーク検索PWA</a></h1>
+<p><img src="./img2/hatebusearch.png" alt="right,fit,hatebusearch.png"></p>
+<ul>
+<li>ブックマークは検索したい</li>
+<li>インクリメンタルサーチをしたい</li>
+<li>=&gt; 以前からはてブ向けのPWAを使って使ってた <a href="https://efcl.info/2018/04/16/hatebupwa/">モバイル/オフラインでも動作するはてなブックマーク検索のPWAを作った | Web Scratch</a></li>
+<li>これが<a href="https://github.com/azu/asocial-bookmark">asocial-bookmark</a>にも対応すればいい</li>
+</ul>
+<hr>
+<h1 id="-pwa-asocial-bookmark-"><a href="https://hatebupwa.netlify.com/">はてなブックマーク検索PWA</a>の<a href="https://github.com/azu/asocial-bookmark">asocial-bookmark</a>の対応</h1>
+<p><img src="./img2/diff.png" alt="right, fit, diff"></p>
+<ul>
+<li>10行ぐらいで完了！</li>
+<li>ユーザー名に<code>https://&lt;your-bookmark&gt;/index.json</code>のURLを入れるとそのまま取得するように変更した！<ul>
+<li>ウェブサービスではやっちゃダメだよ！(攻撃に使われることもあるので！)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="memo">memo</h1>
+<ul>
+<li>普通のウェブサービスだと、任意のURLを読み込ませることができるといろいろリスクがある</li>
+</ul>
+<pre><code>&lt;script src=&quot;https://example.com/secret.json&quot;&gt;
+</code></pre><ul>
+<li>src先が利用できるかは関係なくブラウザはとりあえずロードするため、メモリ上にはデータが乗る(実行時にエラー)</li>
+<li>メモリにその(ログイン)ユーザーが読み込める秘密の情報を読み込ませる =&gt; Spectreでメモリにサイドチャネル攻撃して秘密の情報を取り出す</li>
+</ul>
+<hr>
+<h1 id="memo-">memo: そもそも意味ないロードは弾きたい</h1>
+<ul>
+<li><a href="https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md">Cross-Origin Read Blocking (CORB)</a>という仕組みがあります</li>
+<li><code>&lt;script src=&quot;https://example.com/secret.json&quot;&gt;</code> みたいな意味ないロードをそもそもブロックしてくれる</li>
+<li>CORBはサイドチャネル攻撃にとても有効<ul>
+<li>Chrome, Firefox, Safariが実装</li>
+<li><a href="https://www.chromestatus.com/feature/5629709824032768">https://www.chromestatus.com/feature/5629709824032768</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">ブックマークシステムの完成</h1>
+<ul>
+<li><a href="https://github.com/azu/postem">postem</a>でブックマークを投稿</li>
+<li><a href="https://github.com">GitHub</a>にブックマークデータをコミット</li>
+<li><a href="https://www.netlify.com/">Netlify</a>でブックマークのインデックスデータを配信</li>
+<li><a href="https://hatebupwa.netlify.com/">はてなブックマーク検索PWA</a>でブックマークを検索</li>
+</ul>
+<hr>
+<h1 id="-">おわりに</h1>
+<ul>
+<li>はてなブックマーク APIは月曜日に治りました！</li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>

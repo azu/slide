@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>考えながらクライアントサイドのウェブアプリケーションを作る話</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="考えながらクライアントサイドのウェブアプリケーションを作る話"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2019/tech-link/develop-app-with-thinking.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2019-06-04" id="datePublished">
+            2019-06-04
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2019-06-04" id="dateModified">
+            2019-06-04
+        </time></span>
+        <a href="http://azu.github.io/slide//2019/tech-link/develop-app-with-thinking.pdf" title="考えながらクライアントサイドのウェブアプリケーションを作る話">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="-">考えながらクライアントサイドのウェブアプリケーションを作る話</h1>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="https://efcl.info/" title="Web scratch">Web scratch</a>, <a href="https://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h2 id="-br-faao-github-issue-client-br-">このスライドは<br><a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a><br>を改定したものです。</h2>
+<hr>
+<h1 id="-">過去に作ったやつ</h1>
+<ul>
+<li><a href="https://github.com/azu/GithubReader" title="azu/GithubReader: Github Notifications Client for OS X">azu/GithubReader: Github Notifications Client for OS X</a></li>
+<li><a href="https://github.com/azu/github-reader" title="azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.">azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.</a></li>
+<li><a href="https://github.com/azu/github-issue-teev" title="azu/github-issue-teev: [NW.js] GitHub Issue Manager(Viewer)">azu/github-issue-teev: [NW.js] GitHub Issue Manager(Viewer)</a></li>
+</ul>
+<hr>
+<p><img src="img/github-reader.gif" alt="github-reader fit">
+<img src="img/GitHubReader.gif" alt="GitHubReader fit"></p>
+<hr>
+<p><img src="img/github-issue-teev.png" alt="github-issue-teev fit"></p>
+<hr>
+<h1 id="faao"><a href="https://github.com/azu/faao">Faao</a></h1>
+<hr>
+<p><img src="./img/faao.mp4" alt="fit, movie faao"></p>
+<hr>
+<h1 id="faao-feature">Faao - Feature</h1>
+<ul>
+<li>Support Modern browser/mobile/Electron(recommenced)</li>
+<li>Support GitHub.com and GitHub Enterprise(GHE)</li>
+<li>Search Issue/Pull Request<pre><code>- [Search Syntax](https://help.github.com/articles/search-syntax/ &quot;Search Syntax&quot;) is same with GitHub Search
+</code></pre></li>
+<li>Mixed the result of search<pre><code>- e.g.) You can see the results of [Created](https://github.com/issues), [assigned](https://github.com/issues/assigned), [mentioned](https://github.com/issues/mentioned) as a single result
+- e.g.) You can see the results of `repo:azu/todo` on `github.com` and `repo:azu-ghe/todo` on GHE as a single result
+</code></pre></li>
+<li>Support GitHub User Activity</li>
+<li>Quick to create issue</li>
+<li>Import/Export profile data</li>
+</ul>
+<hr>
+<h1 id="-">目的</h1>
+<ul>
+<li>OOSでGitHub Issueをちゃんと扱うものがない</li>
+<li>技術的目的<ul>
+<li>Almin + TypeScript + DDD<a href="レイヤー化とドメインモデル層を持つ設計や開発思想">^ドメイン駆動設計</a>である程度の規模のアプリケーションを作りたかった</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-2019-06-04-">規模感(2019-06-04現在)</h1>
+<pre><code>✈  cloc src
+     239 text files.
+     234 unique files.
+       6 files ignored.
+
+github.com/AlDanial/cloc v 1.80  T=1.06 s (219.4 files/s, 18371.8 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+TypeScript                     186           1009            584          10147
+JSON                             9              1              0           6795
+CSS                             36            135             61            769
+Markdown                         2              3              0              6
+-------------------------------------------------------------------------------
+SUM:                           233           1148            645          17717
+-------------------------------------------------------------------------------
+`
+</code></pre><hr>
+<h1 id="-">作戦</h1>
+<ul>
+<li>「ちゃんと考えてちゃんとやる」</li>
+<li>技術的ショーケースとしての意味合いを持つ<ul>
+<li>ちゃんとモデリングする</li>
+<li>ちゃんとテストを書く</li>
+<li>ちゃんとドキュメントを作る</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<ul>
+<li>前半: ドメインの関心事</li>
+<li>後半: 技術的な関心事</li>
+</ul>
+<hr>
+<h1 id="ddd-">DDD（ドメイン駆動開発）</h1>
+<h2 id="-">ちゃんとモデリング[^モデル]をやる</h2>
+<p>[^モデル]: ここでいうモデルはEntityとかValue Objectを含めたドメイン上のモデルクラス</p>
+<hr>
+<h1 id="disclaimer">Disclaimer</h1>
+<ul>
+<li>DDD は答えではありません<ul>
+<li>ただしドメインの関心事は言語に依存しにくいという特徴がある</li>
+<li>設計で困ったときに考えること/実装が言語に依存しにくい</li>
+<li>C#、Java、F#、Scalaなど別の言語での取り組みも参考にしやすい</li>
+<li>永続層は技術的な関心事なので言語によって結構違う(Repository)</li>
+</ul>
+</li>
+<li>このスライドはクライアントサイドのアプリについてです<ul>
+<li>サーバにおけるDDDとは少し関心が異なる部分があります</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-ddd">クライアントサイドでのDDD</h1>
+<ul>
+<li><a href="https://github.com/azu/faao/blob/master/docs/domain.md" title="faao/domain.md at master · azu/faao">faao/domain.md at master · azu/faao</a></li>
+<li>ドメインモデルの寿命が長い<ul>
+<li>特に何かのサービスに対するクライアントアプリはずっと立ち上げっぱなし</li>
+<li>ウェブサイトと異なりリロードしなくても動くように作る</li>
+</ul>
+</li>
+<li>サーバ側の概念とクライアント側の概念は一致しないことがある<ul>
+<li>サーバ(GitHub)的にアカウントに対してGitHub APIのトークンが複数紐づく</li>
+<li>クライアントからはTokenがあり、そのTokenに紐づくアカウントがいるように見える<ul>
+<li>クライアントからは、トークンがなければアカウントは分からない、アカウントだけ分かってもトークンがないと何もできない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">モデリング</h2>
+<ul>
+<li>AppUser: アプリケーションのユーザー</li>
+<li>GitHubSetting: TokenやAPI hostなどを含んだセッション情報</li>
+<li>GitHubUser: GitHubのAPIを叩いた結果取得できるGitHubユーザー情報</li>
+</ul>
+<p>多くの処理(ユースケース)は</p>
+<blockquote>
+<p><strong>AppUser</strong>が<strong>GitHubSetting</strong>を使って 〜〜 する</p>
+</blockquote>
+<p>のようになることが分かってくる</p>
+<hr>
+<h2 id="-">遠回りのモデリング</h2>
+<ul>
+<li>実際モデリングをしっかりやると進みが遅く感じる<ul>
+<li>一つのモデルが大きくなりすぎないように気を配ったり</li>
+</ul>
+</li>
+<li>遠回りしてよかった場合もある<ul>
+<li>安易なUI起因の値がドメインに流れてくるのを防げる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">遠回りの例</h2>
+<p><img src="./img/user-image-issue.png" alt="fit right, User Profile Image"></p>
+<ul>
+<li>GitHubSetting(Account)にアイコン画像を設定したいというIssue</li>
+<li>安直にやるなら <code>GitHubSetting</code> へ <code>avatarImageURL</code> などを追加すれば終わり</li>
+</ul>
+<pre><code class="lang-ts">interface GitHubSetting {
+      id: Identifier&lt;GitHubSetting&gt;;
+      token: string;
+      apiHost: string;
+      webHost: string;
+      // ADD?
+      avatarImageURL?: string;
+}
+</code></pre>
+<hr>
+<h2 id="-githubuser">遠回りの例 -&gt; GitHubUser</h2>
+<p><img src="./img/relationship.png" alt="fit right, Relationship"></p>
+<ul>
+<li>後回しにしていて、GitHubUserの<a href="https://github.com/azu/faao/issues/53" title="Activity">Activity</a>を表示したいと思った</li>
+<li>このときに、<code>GitHubUser</code>というモデルが必要で、<code>avatarImageURL</code>はこの<code>GitHubUser</code>の<code>profile</code>に属するデータであると分かった</li>
+<li>結果的に<code>GitHubSetting</code>に追加されたのは<code>GitHubUser</code>へのRelationship Id</li>
+</ul>
+<pre><code class="lang-ts">interface GitHubSetting {
+      id: Identifier&lt;GitHubSetting&gt;;
+      token: string;
+      apiHost: string;
+      webHost: string;
+      // Relationship
+      gitHubUserId?: Identifier&lt;GitHubUser&gt;;
+}
+</code></pre>
+<p>^ &lt;<a href="http://www.nomnoml.com.s3-website-eu-west-1.amazonaws.com/#view/%0A%23direction%3A">http://www.nomnoml.com.s3-website-eu-west-1.amazonaws.com/#view/%0A%23direction%3A</a> right%0A%23spacing%3A 50%0A%23padding%3A 20%0A[GitHubSetting|%0A [id]%0A [token]%0A [apiHost]%0A [gitHubUserId%3F] %0A]%0A[GitHubSetting] --&gt; [GitHubUser]%0A[GitHubUser|%0A%09[id]%0A [profile| %0A %09[avatarImageURL]%0A ]%0A %0A]%0A&gt;</p>
+<hr>
+<h1 id="-">遠回りのモデリング</h1>
+<p><img src="./img/GitHubSetting.png" alt="right,fit, GitHubSetting.png"></p>
+<ul>
+<li><code>GitHubSetting</code>と<code>GitHubUser</code>は想定するライフサイクルが異なった</li>
+<li><code>GitHubSetting</code>で入力されたTokenを使って、<code>/user</code> APIを叩いて<code>GitHubUser</code>を作る</li>
+<li>異なるライフサイクルを一つのモデルにまとめると破綻する未来が見えていた</li>
+<li>そのため、UIのためにいきなりモデルを変更するよりちゃんと必要なモデルを考える</li>
+</ul>
+<hr>
+<h1 id="star-">Star機能のモデリング</h1>
+<ul>
+<li>表示しているIssue/PRを :star: Starできる機能を実装しようとした<ul>
+<li>目的: 今日作業するIssueをストックしてまとめて表示できる機能をつけたい！</li>
+</ul>
+</li>
+<li>表示しているIssueのデータは<code>GitHubSearchResultItem</code>を元にしている<ul>
+<li>正確に言うと<code>GitHubSearchResultItem</code>がViewModelを作りそれを元に表示を作る</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/GitHubSearchResultItem.png" alt="GitHubSearchResultItem"></p>
+<hr>
+<h1 id="star-">Star機能のモデリング</h1>
+<ul>
+<li><code>GitHubSearchResultItem</code> (Value Object) に <code>isStared</code> を追加すればOK?</li>
+</ul>
+<pre><code class="lang-diff">export class GitHubSearchResultItem {
+    id: Identifier&lt;GitHubSearchResultItem&gt;;
+    body: string;
+    html_url: string;
+    number: number;
+    title: string;
+    // ...
++   isStared: boolean;
+}
+</code></pre>
+<hr>
+<h1 id="star-">Star機能のモデリング</h1>
+<blockquote>
+<p><code>GitHubSearchResultItem</code> に <code>isStared</code> を追加すればOK?</p>
+</blockquote>
+<ul>
+<li>No<ul>
+<li>User が <code>GitHubSearchResultItem</code> を Star する ということは</li>
+<li>Faaoには複数のSearchResultがあり、特定のSearchResultItemをStarしたいわけじゃない</li>
+<li>ユーザーはそのGitHubSearchResultItemに対応するIssue/PRをStarしたい</li>
+<li>=&gt; つまり GitHubSearchResultItemのidなりを記憶しておきたい</li>
+<li>さらにいえば、GitHubSearchResultItemをスナップショットとして保存するのではなく、そのGitHubSearchResultItemに相当するItemの最新の状態を一覧したい</li>
+<li>=&gt; これは保存したStarのIDをまとめて検索したいと言い換えできる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="star-">Star機能のモデリング</h1>
+<ul>
+<li><a href="https://github.com/azu/faao/pull/91">Add Faao Query by azu · Pull Request #91 · azu/faao</a></li>
+<li>新しい種類のQueryとしてモデルを作り実装した<ul>
+<li>Starすると、そのQueryの検索パラメータにIssueのIDを追加する</li>
+<li>UnStarすると、そのQueryの検索パラメータにIssueのIDを削除する</li>
+</ul>
+</li>
+<li>Star済み一覧を表示する = StarのQueryで検索する<ul>
+<li>常にStarしたIssueの最新の状態が表示できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/faao-query.png" alt="Faao Query"></p>
+<hr>
+<h1 id="-">ドメインモデル -&gt; 永続化</h1>
+<hr>
+<h1 id="faao-">Faaoで永続化してる部分</h1>
+<hr>
+<p><img src="./img/eizokuka.png" alt="fill eizokuka.png"></p>
+<hr>
+<h1 id="-">永続化</h1>
+<ul>
+<li>検索履歴</li>
+<li>検索クエリ</li>
+<li>検索結果など</li>
+<li>大体のモデルが永続化可能な形になってる<ul>
+<li>オフラインでも表示できるため</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-fit-">[fit] ドメインモデルは永続化(技術的制約)を知らずに済むか</h1>
+<p><a href="https://www.amazon.com/dp/1118714709/" title="Patterns, Principles, and Practices of Domain-Driven Design">Patterns, Principles, and Practices of Domain-Driven Design</a>より</p>
+<ul>
+<li>妥協なしで行う<ul>
+<li>NHibernate<a href="えぬはいばーねいと">^読</a>やEntity Frameworkなどのデータモデルとのマッピングできるものを使う</li>
+<li>モデルをそのままJSONなどにシリアライズして保存できるデータストアを使う</li>
+</ul>
+</li>
+<li>妥協ありで行う<ul>
+<li>リポジトリからデータを引くときに、Entityに対して外から値を指しながら復元させる</li>
+<li>Mementoパターン - Entityのスナップショットとデータモデルをマッピング(今これ)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/without-compromise.png" alt="fit PPPDDDから引用"></p>
+<p>^ マッピングできるタイプ</p>
+<hr>
+<p><img src="./img/with-compromise.png" alt="fit PPDDDから引用"></p>
+<p>^ JSONをそのまま保存できるもの + 妥協あり(ドメインが知っている)</p>
+<hr>
+<p><img src="./img/mement-pattern.png" alt="fit PPPDDDから引用"></p>
+<p>^ Mementoパターンでのスナップショット</p>
+<hr>
+<h1 id="-">妥協あり/なしの永続化</h1>
+<ul>
+<li>ドメインは軽く永続化されることを意識する必要はある</li>
+<li>constructorでincrement idをしていると不整合を生むので駄目<ul>
+<li>constructorでちゃんと<code>{ id }</code> なども受け取れるようにする</li>
+<li>モデルの初期化は面倒になっていくのでFactoryが初期化を担当する</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-js">// 駄目なケース
+let id = 0;
+class User {
+   constructor(){
+      this.id = id++
+   }
+}
+</code></pre>
+<hr>
+<h2 id="-">どちらにしてもドメインは軽くは永続化を意識する</h2>
+<ul>
+<li><code>{id}</code>をconstructorで受け取れるようにする</li>
+<li>永続化を考える場合は、constructor(初期化)に副作用を持たせてはいけない<ul>
+<li>初期化処理に副作用をもたせると、初期化フローごとに別々の実装が必要</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-js">// OKなケース
+class User {
+   constructor({ id }){
+      this.id = id;
+   }
+}
+</code></pre>
+<hr>
+<h1 id="-">スナップショットからの復元</h1>
+<p><img src="./img/GitHubSetting.png" alt="right,fit, GitHubSetting.png"></p>
+<ul>
+<li>今採用してるパターン</li>
+<li>妥協ありパターンの一種である<a href="http://choly.ca/post/typescript-json/" title="TypeScript: Working with JSON · Choly&#39;s Blog">TypeScript: Working with JSON · Choly&#39;s Blog</a>(Entityに対して外から値を指しながら復元させる)に比べると少し安全で何とか手で書いていけるレベル</li>
+<li>しかしスナップショットが現在のモデルと一致してるとは限らない</li>
+<li>スナップショットのバージョニングなどが必要となっていく<ul>
+<li>フレームワークになってないとそろそろ面倒</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="repository">Repository</h1>
+<ul>
+<li>インメモリで終わる or データが常にサーバにある場合のRepositoryは単純なMap</li>
+<li>モデルの永続化を考えだしたときに大変になるのは、Repository</li>
+<li>モデルも永続化は全く意識はしてない場合、後から概念/構造に変更が出て大変となる<ul>
+<li>影響度: 概念 &gt; 構造 &gt; 実装...</li>
+</ul>
+</li>
+<li>ついでに永続化するとIndexedDBなどを使うの非同期処理がやってくる<ul>
+<li><a href="https://github.com/azu/faao/tree/master/src/infra/repository">Faaoの実装</a>では初期化と保存のみを非同期にして、Readは同期にした</li>
+<li>Readを非同期にするとStoreも非同期にする必要がでてきて面倒そうだった</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="usecase">UseCase</h1>
+<hr>
+<h1 id="usecase">UseCase</h1>
+<ul>
+<li>アプリケーションのドメインを使い、やりたい処理の流れを書くところ</li>
+<li>このアプリのユースケースは<ul>
+<li>GitHubSettingのtoken情報とGitHub APIを使って検索</li>
+<li>GitHubSettingの作成、保存 などなど</li>
+</ul>
+</li>
+<li>ユースケースの再利用性<ul>
+<li>基本的にはしない、拡張ユースケースは使う</li>
+<li><a href="http://yoskhdia.hatenablog.com/entry/2016/10/18/152624" title="UseCaseの再利用性 - yoskhdia’s diary">UseCaseの再利用性 - yoskhdia’s diary</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">ユースケース図</h1>
+<p><img src="img/use-case-pic.png" alt="right, fit"></p>
+<ul>
+<li>Faaoのユースケースはコードから自動生成される<ul>
+<li><a href="https://azu.github.io/faao/meta/use-case.html" title="Faao - UseCase architecture">Faao - UseCase architecture</a></li>
+</ul>
+</li>
+<li>このユースケース図はアプリの全てを表すわけではないけどモデルの整合性の参考にできる</li>
+</ul>
+<blockquote>
+<p>一点、注意が必要なのは、ユースケース記述とユースケース図は異なるということです。 このガイドラインはユースケース記述のガイドラインです。
+<a href="http://yoskhdia.hatenablog.com/entry/2016/10/18/152624" title="UseCaseの再利用性 - yoskhdia’s diary">UseCaseの再利用性 - yoskhdia’s diary</a></p>
+</blockquote>
+<hr>
+<h1 id="-">ルールとドキュメント</h1>
+<hr>
+<h1 id="living-documentation"><a href="https://leanpub.com/livingdocumentation" title="Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]">Living Documentation</a></h1>
+<p><img src="https://s3.amazonaws.com/titlepages.leanpub.com/livingdocumentation/hero?1490662949" alt="right, cover"></p>
+<ul>
+<li>Living Documentation by design, with Domain-Driven Design</li>
+<li><a href="https://leanpub.com/livingdocumentation">https://leanpub.com/livingdocumentation</a> $0〜$40で購入</li>
+</ul>
+<hr>
+<h1 id="-">知識の共有</h1>
+<p>KnowledgeにはGenericなものとSpecificなものがある。
+会社やチーム、プロダクトにおけるSpecificな知識には次のような問題が生まれやすい</p>
+<ul>
+<li>アクセスできない</li>
+<li>古すぎる</li>
+<li>フラグメント化してる</li>
+<li>暗黙的になってる</li>
+<li>理解できない</li>
+<li>書かれてない</li>
+</ul>
+<hr>
+<h2 id="living-documentation">Living Documentation</h2>
+<ul>
+<li>これらの問題をLivingなドキュメントで解決するアプローチ</li>
+<li>ドキュメントもコードと同じ速度で成長する</li>
+<li>良いドキュメントには良い設計が必要</li>
+<li>良いドキュメントには自動化が必要</li>
+<li>推測、憶測をドキュメント化しない</li>
+</ul>
+<hr>
+<p>#LivingDocumentationのコア原則</p>
+<ul>
+<li>Reliable - 信頼性の高いドキュメント<ul>
+<li>single source of truth</li>
+<li>reconciliation mechanism - ソースが複数の場所にありテストで保証す</li>
+</ul>
+</li>
+<li>Low-Effort</li>
+<li>Collaborative<ul>
+<li>Conversations over Documentations</li>
+<li>アクセスできる場所に知識は置く</li>
+</ul>
+</li>
+<li>Insightful<ul>
+<li>意図を残す</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">具体的な問題と対策</h2>
+<ul>
+<li>ガイドラインを決めてもそれを自動で守れないと意味がない<ul>
+<li>ツールで検証する</li>
+<li>コードで検証する</li>
+</ul>
+</li>
+<li>更新されない構成図<ul>
+<li>Living Diagram - コードから図を生成するなど</li>
+</ul>
+</li>
+<li>更新されないユビキタス言語</li>
+</ul>
+<hr>
+<h1 id="-">守られないルールは価値がない</h1>
+<hr>
+<h1 id="-">守られないルールは価値がない</h1>
+<ul>
+<li>最も良いドキュメントはno document</li>
+<li>必要となった時(ツールがエラーと言った時)に初めて見ることができればいい<ul>
+<li>ESLintがよくできている理由</li>
+</ul>
+</li>
+<li><a href="https://github.com/eslint/eslint" title="eslint">eslint</a>, <a href="https://github.com/prettier/prettier" title="prettier">prettier</a>, <a href="https://github.com/stylelint/stylelint" title="stylelint">stylelint</a>, webpack(<a href="https://www.npmjs.com/package/case-sensitive-paths-webpack-plugin" title="case-sensitive-paths-webpack-plugin">case-sensitive-paths-webpack-plugin</a>)などなど</li>
+</ul>
+<hr>
+<h1 id="-fit-repository-">[fit] 例) ルール: ドメインのコードはインフラ(repository)を参照してはいけない</h1>
+<p><a href="https://github.com/sverweij/dependency-cruiser" title="dependency-cruiser">dependency-cruiser</a>を使ってルールをコード化し<a href="https://github.com/azu/faao/pull/62">依存関係を自動チェック</a>する</p>
+<pre><code class="lang-json">{
+  &quot;forbidden&quot;: [
+    {
+      &quot;name&quot;: &quot;domain-not-to-depend-on-infra&quot;,
+      &quot;comment&quot;: &quot;Don&#39;t allow dependencies from domain to infra&quot;,
+      &quot;severity&quot;: &quot;error&quot;,
+      &quot;from&quot;: { &quot;path&quot;: &quot;^src/domain&quot; },
+      &quot;to&quot;:   { &quot;path&quot;: &quot;^src/infra&quot;  }
+    }
+}
+</code></pre>
+<hr>
+<h2 id="-">補足: オニオンアーキテクチャ</h2>
+<p><img src="./img/onion.png" alt="fix, inline, onion"></p>
+<p><a href="https://qiita.com/little_hand_s/items/2040fba15d90b93fc124">[DDD]ドメイン駆動 + オニオンアーキテクチャ概略 - Qiita</a>より引用</p>
+<hr>
+<h1 id="-">破れないルールは価値を鈍化させる</h1>
+<hr>
+<h1 id="-">破れないルールは価値を鈍化させる</h1>
+<ul>
+<li>ルールには例外がつきもの</li>
+<li>そのため、原則が守れないと崩壊してしまうルールよりは、例外を規定することで原則を守れるルールの方がよい。</li>
+<li>厳密に守りたいルールは、ホワイトリストで例外ルールを管理できた方がいい<ul>
+<li>例) <code>eslint-disable</code>で指定した部分だけ原則を無視できるようにする</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="living-documentation">Living Documentation</h1>
+<h1 id="living-diagram">Living Diagram</h1>
+<hr>
+<h1 id="-living-diagram">ユースケース図のLiving Diagram</h1>
+<p><img src="img/faao-usecase.png" alt="fit, right, usecase of faao"></p>
+<ul>
+<li><a href="https://azu.github.io/faao/meta/use-case.html" title="Faao - UseCase architecture">Faao - UseCase architecture</a> に全てのユースケース図が自動生成される</li>
+<li>Faaoの<a href="https://github.com/azu/faao/tree/master/src/use-case">ソースコード</a>から自動生成</li>
+<li>ファイルからuse-caseを抽出、Text to UMLの<a href="https://github.com/skanaar/nomnoml" title="nomnoml">nomnoml</a>が食べられる書式にして変換</li>
+<li><a href="https://github.com/almin/almin" title="almin">almin</a>のUseCaseは拡張ユースケースを表現できる<ul>
+<li>ユースケースが別のユースケースを呼び出す</li>
+<li><a href="http://yoskhdia.hatenablog.com/entry/2016/10/18/152624" title="UseCaseの再利用性 - yoskhdia’s diary">UseCaseの再利用性 - yoskhdia’s diary</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="living-diagram-">Living Diagramの使いみち</h1>
+<ul>
+<li>おかしなアクターを見つけることができる<ul>
+<li>「名詞（主語） - 動詞 - 名詞（目的語）」(en)</li>
+<li>誰? がおかしいときがある。システムである場合など</li>
+</ul>
+</li>
+<li>おかしなユースケースを見つけることができる</li>
+<li>例外処理が抜けているかを見ることができる<ul>
+<li>ユースケースは処理の流れを書く</li>
+<li>そのため、省かれた処理を見つけ適切にキャッチすると多くのバグが解決できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="2-3-">2/3のバグはカバレッジを上げると見つかる</h1>
+<ul>
+<li>適切なエラーハンドリングが行われるか、例外を無視してないかをテストしていくことで、全体の2/3のバグが発見できる(データ集約型分散システムの論文)</li>
+</ul>
+<blockquote>
+<p> A majority of the production failures (77%) can be reproduced by a unit test.
+-- <a href="https://blog.acolyer.org/2016/10/06/simple-testing-can-prevent-most-critical-failures/" title="Simple testing can prevent most critical failures | the morning paper">Simple testing can prevent most critical failures | the morning paper</a></p>
+</blockquote>
+<hr>
+<h1 id="-fit-living-documentation-">[fit] Living Documentationはドキュメンテーションをコード化する</h1>
+<ul>
+<li>Living Documentationとはドキュメントがコードと共に成長できるようにする戦略</li>
+</ul>
+<p>詳しくは本を読んで</p>
+<ul>
+<li><a href="https://leanpub.com/livingdocumentation">Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]</a></li>
+<li><a href="http://efcl.info/2017/05/12/Living-Documentation-DDD/">Living Documentation by design, with Domain-Driven Designを読んだ | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="-">技術的な関心事</h1>
+<hr>
+<h1 id="almin"><a href="https://github.com/almin/almin" title="Almin">Almin</a></h1>
+<p><img src="https://almin.github.io/media/logo/logo.png" alt="inline, Almin.js"></p>
+<hr>
+<h1 id="almin"><a href="https://github.com/almin/almin" title="Almin">Almin</a></h1>
+<ul>
+<li>TypeScriptで書き直した</li>
+<li>Alminはフレームワークだが、今回のドメインやRepositoryは自分で書くところなので手出しはしない</li>
+<li>あくまで思考を手助けする(そういう風にかけるというドキュメントがある)</li>
+</ul>
+<hr>
+<p><img src="img/saikyo-framework.png" alt="fit, inline saikyo-framework.png"></p>
+<p><a href="https://www.slideshare.net/cho45/yapc-asia-2011" title="ぼくのかんがえたさいきょうのうぇぶあぷりけーしょんふれーむわーく - YAPC Asia 2011">ぼくのかんがえたさいきょうのうぇぶあぷりけーしょんふれーむわーく - YAPC Asia 2011</a></p>
+<hr>
+<h1 id="typescript">TypeScript</h1>
+<ul>
+<li>まあ普通</li>
+<li>DDDみたいにドメインちゃんと書くなら型ないとつらいよ<ul>
+<li>型あってもつらいけど</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="electron-">Electronでウェブサイトを先読み</h1>
+<ul>
+<li>Electronの<code>&lt;webview&gt;</code>は先読みができない</li>
+<li><code>BrowserView</code>を複数作り非表示にして内容だけ先読みする<ul>
+<li>表示するタイミングになったら表にだす<code></code>BrowserView`を変更する</li>
+<li>Electron 5から1つの<code>BrowserWindow</code>が複数の<code>BrowserView</code>を表示できるようになった</li>
+<li><a href="https://electronjs.org/docs/api/browser-window#winaddbrowserviewbrowserview-experimental">https://electronjs.org/docs/api/browser-window#winaddbrowserviewbrowserview-experimental</a></li>
+<li>Slackアプリも<code>&lt;webview&gt;</code>ではなく<code>BrowserView</code>を使ってる</li>
+<li>参考: <a href="https://www.infoq.com/jp/news/2017/12/slack-browser-view-3/">Slackデスクトップは3.0でBrowserViewに移行した</a></li>
+</ul>
+</li>
+<li>実装: <a href="https://github.com/azu/faao/blob/master/main-src/ViewPool.ts">ViewPool.ts</a></li>
+</ul>
+<hr>
+<p><img src="./img/pool.mp4" alt="fit, pool"></p>
+<hr>
+<h1 id="-">メタテスト</h1>
+<ul>
+<li>テストケースを生成するテストコード</li>
+<li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+<li>特定のクラスやディレクトリに対してルールを守ってるかのテスト</li>
+<li>StoreがちゃんとStoreGroupに登録されてるか、初期Stateを返せてるかなど</li>
+<li>コードを書くと勝手にテストが増えて便利 :star:</li>
+</ul>
+<hr>
+<pre><code class="lang-js">import assert from &#39;assert&#39;;
+import glob from &#39;glob&#39;;
+import path from &#39;path&#39;;
+import interopRequire from &#39;interop-require&#39;;
+const srcDir = path.join(__dirname, &#39;../src/&#39;);
+const useCaseFiles = glob.sync(`${srcDir}/js/use-case/**/*UseCase.js`);
+describe(&#39;MetaUseCase testing&#39;, () =&gt; {
+  useCaseFiles.forEach((filePath) =&gt; {
+    // UseCaseはファイル名と同じUseCaseクラスを定義している
+    const UseCaseName = path.basename(filePath, &#39;.js&#39;);
+    // ES6 modules と CommonJSどちらでも読めるように
+    const UseCaseModule = interopRequire(filePath) || require(filePath);
+    describe(`${UseCaseName}`, () =&gt; {
+      it(&#39;UseCaseファイルはクラスをexportsしてる&#39;, () =&gt; {
+        assert(UseCaseModule, `UseCaseファイルはexportsしてる: ${filePath}`);
+      });
+      it(&#39;UseCaseファイルはファイル名と同名のUseCaseを持つ&#39;, () =&gt; {
+        const UseCase = UseCaseModule[UseCaseName];
+        assert(typeof UseCase === &#39;function&#39;, &#39;UseCaseクラスが存在する&#39;);
+      });
+    });
+  });
+});
+</code></pre>
+<hr>
+<h1 id="graphql">GraphQL</h1>
+<p><img src="./img/graphql.png" alt="right,fit, GrahQL"></p>
+<ul>
+<li>GitHub API v4はGraphQL</li>
+<li>Star機能の実装にはGraphQLを使った</li>
+<li>GraphQLを使うことで、A,B,C,Dなど複数のissueの詳細情報をまとめて取得できる<ul>
+<li>REST APIではIssueの数だけAPIを叩かないといけない(n+1)</li>
+<li>検索結果は通常の検索結果と同じ <code>GitHubSearchResultItem</code>(value obejct)として保存される</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="philosophy">Philosophy</h1>
+<hr>
+<h1 id="debuggablity-">Debuggablity - 状態</h1>
+<p><img src="./img/console.png" alt="right,fit, console"></p>
+<ul>
+<li>アプリケーションには様々な状態が存在する</li>
+<li>全てはどこからでも現在の状態を見れるようになってないと不便<ul>
+<li>簡単に <code>window.faao</code> に参照突き刺しておけばいい(逆にそうではないものは<code>window</code>にいるべきじゃない)</li>
+</ul>
+</li>
+<li>Repository</li>
+<li>Store/State</li>
+<li>ViewのState</li>
+</ul>
+<hr>
+<h1 id="debuggablity-">Debuggablity - データ</h1>
+<ul>
+<li>永続化したデータはいつでもメモリデータベースに切り替えできた方が良い</li>
+<li>テストの度に永続化したデータが消えるとテストしにくい</li>
+<li>Faaoでは<a href="https://github.com/azu/faao/blob/master/src/infra/repository/Storage.ts" title="Storage.ts">Storage.ts</a>でいつでもメモリデータモードに入ることができる<ul>
+<li><a href="https://github.com/localForage/localForage" title="localForage">localForage</a>を使って動的にdriverを切り返す</li>
+<li>データは元からメモリ上に載っていて、書き込み時にデータベースへアクセスする作りにしたため</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="debuggability-">Debuggability - イベント</h1>
+<p><img src="./img/debug.png" alt="right, fit, debug"></p>
+<ul>
+<li>Stateとイベントを見比べる</li>
+<li><a href="https://github.com/almin/almin/tree/master/packages/almin-logger" title="almin-logger">almin-logger</a>や<a href="https://github.com/almin/almin-devtools" title="almin-devtools">almin-devtools</a>でUseCaseの実行を確認する</li>
+<li>イベントを見ることは大事<ul>
+<li>Webの世界はイベント駆動</li>
+<li>DOMには色々なイベントがそれはブラウザによっても違う</li>
+<li><a href="https://github.com/azu/video-events-debugger" title="video-events-debugger">video-events-debugger</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">死んでも復活できるようにする</h1>
+<ul>
+<li>デスクトップアプリやモバイルアプリはクライアントにDBがある<ul>
+<li>オフラインでも動くようにするため</li>
+</ul>
+</li>
+<li>マイグレーションが抜けてたりデータがおかしくなると真っ白になって死ぬ</li>
+<li>SPA時代にはよくあることなので、消えてもいいキャッシュを消す仕組みを備える</li>
+<li>緊急脱出装置: ウェブサイトなら<a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Clear-Site-Data">Clear-Site-Data</a></li>
+<li>クッキーbombやストレージが壊れてLocalStorageにアクセスできなくて例外が発生するといった問題解決に役立つ(実際壊れる)</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>ちゃんとやるにはちゃんとやる必要がある</li>
+<li>コードと共にテストやドキュメントも成長する</li>
+<li>それらは自動化されている部分もあればルール化されている部分もある</li>
+<li>モデリングをちゃんと行い、モデルから自動的にドキュメントが生成され、ドキュメントとしてみた時のモデルとしての不整合を検証する</li>
+</ul>
+<hr>
+<h1 id="-">参考</h1>
+<ul>
+<li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+<li><a href="https://www.amazon.com/Professional-Domain-Driven-Design-Patterns/dp/1118714709/" title="Patterns, Principles, and Practices of Domain-Driven Design 1st Edition">Patterns, Principles, and Practices of Domain-Driven Design 1st Edition</a></li>
+<li><a href="http://www.shoeisha.co.jp/book/detail/9784798114453" title="ユースケース駆動開発実践ガイド">ユースケース駆動開発実践ガイド</a></li>
+<li><a href="https://leanpub.com/livingdocumentation">Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]</a></li>
+<li><a href="https://nrslib.com/bottomup-ddd/">ボトムアップドメイン駆動設計 │ nrslib</a></li>
+<li><a href="http://gihyo.jp/book/genre?g=%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%BB%E3%83%9E%E3%83%8D%E3%83%BC">ビジネス・マネー</a></li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
