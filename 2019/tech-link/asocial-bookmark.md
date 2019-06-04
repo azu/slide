@@ -1,8 +1,6 @@
 autoscale: true
 
-# asocial-bookmark
-
-## ブックマーク管理システムをとにかく動くアプリを早く安く作ろう
+# asocial-bookmark <br> ブックマーク管理システムをとにかく動くアプリを早く安く作ろう
 
 ---
 
