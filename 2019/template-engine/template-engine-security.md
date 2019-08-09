@@ -434,7 +434,7 @@ module.exports = app;
     - サーバサイドで意図せず ユーザー入力を元に テンプレートを作成してしまった
     - ユーザー入力は データモデル(パラメータ) として扱うように統一すればいい
 - サーバでは初期Stateをデータモデルとしてクライアントに伝える
-    - 要はJSONとしてHTMLに書き込み、クライアント側でテンプレートとデータモデルを使ってレンダリングする
+    - 要はJSONとしてHTML data属性に書き込み、クライアント側でテンプレートとデータモデルを使ってレンダリングする
     - [fix(server): separate initial state for vue by azu · Pull Request #1 · azu/vue-client-side-template-injection-example](https://github.com/azu/vue-client-side-template-injection-example/pull/1)
 
 ----
@@ -449,15 +449,7 @@ const app = express();
 app.get('/', (req, res) => {
   res.set('Content-Type', 'text/html');
   const name = req.query.name
-  res.status(200).send(`const express = require('express');
-const escapeHTML = require('escape-html');
-const app = express();
-app.get('/', (req, res) => {
-  res.set('Content-Type', 'text/html');
-  const name = req.query.name
-  res.status(200).send(`<!DOCTYPE html>
-<html>
-<body>
+  res.status(200).send(`
   <div id="app">
     <h1>Hello {{name}}</h1>
   </div>
@@ -470,8 +462,7 @@ app.get('/', (req, res) => {
         data: JSON.parse(document.querySelector("[data-initial-state]").dataset.initialState)
       });
   </script>
-</body>
-</html>`);
+  `);
 });
 module.exports = app;
 ```
