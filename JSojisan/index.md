@@ -385,7 +385,7 @@ IsNaN
 
 ## 参考
 
-* [JavaScript AST Walker](http://azu.github.io/slide/tkbjs/js-ast-walker.html "JavaScript AST Walker")
+* [JavaScript AST Walker](https://azu.github.io/slide/tkbjs/js-ast-walker.html "JavaScript AST Walker")
 * [JavaScript Parser Infrastructure for Code Quality Analysis](http://www.slideshare.net/ariyahidayat/javascript-parser-infrastructure-for-code-quality-analysis# "JavaScript Parser Infrastructure for Code Quality Analysis")
 * [SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck](https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations "SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck")
 * [Building JavaScript Tools](http://gregfranko.com/building-javascript-tools-talk/ "Building JavaScript Tools")

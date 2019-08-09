@@ -111,7 +111,7 @@ JSer.infoのように定期的に更新されるブログやメールマガジ�
 
 > 更新コストを小さくして、継続できる形を作る
 > 開始するときにまず2年間は続けると決めた
--- [JSer.info 1年を迎えて](http://azu.github.io/slide/offline_study/jser_info.html#slide5 "JSer.info 1年を迎えて")
+-- [JSer.info 1年を迎えて](https://azu.github.io/slide/offline_study/jser_info.html#slide5 "JSer.info 1年を迎えて")
 
 ----
 
@@ -144,7 +144,7 @@ JSer.infoのように定期的に更新されるブログやメールマガジ�
 
 # 更新ワークフロー
 
-## [2年前](http://azu.github.io/slide/offline_study/jser_info.html#slide8)と基本は変わってない
+## [2年前](https://azu.github.io/slide/offline_study/jser_info.html#slide8)と基本は変わってない
 
 ----
 
@@ -157,7 +157,7 @@ JSer.infoのように定期的に更新されるブログやメールマガジ�
 ^ RSSで購読してるのは今までどおり。
 LDRが終了の撤回してよかった。
 去年あたりからGitHubのリリースをどう追うべきかを色々考えて、色々Watchする仕組みを作ってきた。
-詳細は[次のスライド](http://azu.github.io/slide/jser200/javascript-2014.html)ではなします。
+詳細は[次のスライド](https://azu.github.io/slide/jser200/javascript-2014.html)ではなします。
 
 -----
 
@@ -268,4 +268,4 @@ LDRが終了の撤回してよかった。
 
 # つづく
 
-## [世界のJavaScriptを読もう @ 2014](http://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
+## [世界のJavaScriptを読もう @ 2014](https://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")

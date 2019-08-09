@@ -357,7 +357,7 @@
 # UILocalNotificationのテスト
 
 * **UI**LocalNotification / UIApplication
-	* => ロジックテストから触れない - ref. [iOS Unit Test](http://azu.github.io/slide/OCStudy/ios_unit_test.html#slide1 "iOS Unit Test")
+	* => ロジックテストから触れない - ref. [iOS Unit Test](https://azu.github.io/slide/OCStudy/ios_unit_test.html#slide1 "iOS Unit Test")
 	* モックを作る必要がある
 * ``LocalNotificationManager`` のサブクラスを作る
 	* **UI-** は ``-[LocalNotificationManager schedule:alertBody:userInfo:]`` のhelperに閉じ込めてある

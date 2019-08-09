@@ -328,10 +328,10 @@ CSSでは[PostCSS](https://github.com/postcss/postcss "PostCSS")などがある�
 
 Babelの作者である@[sebmck](https://github.com/sebmck "sebmck")もTranspilerだけで新しい言語機能を学ぶべきではないと言っている。
 
-![slide](http://azu.github.io/slide/nodejs-es6/img/JavaScript_transformation.png)
+![slide](https://azu.github.io/slide/nodejs-es6/img/JavaScript_transformation.png)
 
 - [JavaScript Transformation - JSConf 2015 // Speaker Deck](https://speakerdeck.com/sebmck/javascript-transformation-jsconf-2015)
-- [どうやってECMAScript 6を学び始めるか](http://azu.github.io/slide/nodejs-es6/how-to-learn.html)
+- [どうやってECMAScript 6を学び始めるか](https://azu.github.io/slide/nodejs-es6/how-to-learn.html)
 
 
 ----
@@ -394,7 +394,7 @@ Transpilerがあると、策定中の仕様をウェブ開発者が試すこと�
 
 > フィードバック側は最新の情報に気づかないとフィードバックする機会を失う
 
-- [世界のJavaScriptを読もう @ 2014](http://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
+- [世界のJavaScriptを読もう @ 2014](https://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
 
 ES.nextでも _Stage 1: Proposal_ あたりで、TranspilerやPolyfillを仕様と共に提供して、より多くの人が試せるようにしているケースが多い。(TranspilerやPolyfillはStage 4となるのに必要な実装数にはカウントされない)
 

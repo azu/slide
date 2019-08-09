@@ -130,7 +130,7 @@
 
 - テキストファイルだから検索しやすい
 - Gitを使った変更履歴の検索パターンが応用できる
-	- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+	- [われわれは、いかにして変更点を追うか](https://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
 - ドラフトのどのバージョンで変更があったのかが追いやすい
 	- 関連するログを調べて何故そういう変更があったのかを調べるのに役立つ
 
@@ -198,7 +198,7 @@
 
 # 参考
 
-- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+- [われわれは、いかにして変更点を追うか](https://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
 - [インデントコミットで真犯人がわからなくなった場合の git blame - Qiita](http://qiita.com/sonots/items/b6852db6638cda233bc8 "インデントコミットで真犯人がわからなくなった場合の git blame - Qiita")
 - [git logでコミットの差分の中身で絞り込む - Qiita](http://qiita.com/yuichielectric/items/cce64b5b5e0eacc02e64 "git logでコミットの差分の中身で絞り込む - Qiita")
 

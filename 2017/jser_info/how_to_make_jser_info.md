@@ -9,7 +9,7 @@ theme: Plain Jane,5
 
 ![right, fit, last-year.png](./resources/last-year.png)
 
-- [JavaScript情報ってなんだっけ?](http://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")
+- [JavaScript情報ってなんだっけ?](https://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")
 - 未来に関する悩みが増えた
 - 情報の安定性を見る方法について
 - コミュニティの問題が表面化
@@ -226,7 +226,7 @@ theme: Plain Jane,5
   - 自分が最も見る所に集約するのが簡単
 - 情報は少なくても、多くても混乱する
   - 自分のニーズにあったやり方を作ることが大事
-- 情報の意味については[JavaScript情報ってなんだっけ?](http://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")を参照
+- 情報の意味については[JavaScript情報ってなんだっけ?](https://azu.github.io/slide/2016/jser5years/javascript-information.html "JavaScript情報ってなんだっけ?")を参照
 - JSer.infoの目的の一つは多すぎる情報を整理することにある
 
 ----
@@ -417,7 +417,7 @@ yarn --pure-lockfile # no-lock file
 
 - 更新に対して一から見つけるのは時間の無駄
 - 実際の**変更点**を見つけるのが時間短縮に繋がる
-- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+- [われわれは、いかにして変更点を追うか](https://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
 - CHANGELOG/ISSUE/PR/Commitsから実際のソースコードを探す
 
 -----
@@ -845,8 +845,8 @@ Let's it crash
 # 参考 1
 
 
-- [JSer.info 1年を迎えて](http://azu.github.io/slide/offline_study/jser_info.html#slide1)
-- [世界のJavaScriptを読もう @ 2012](http://azu.github.io/slide/offline_study/javascript_world.html#slide1)
+- [JSer.info 1年を迎えて](https://azu.github.io/slide/offline_study/jser_info.html#slide1)
+- [世界のJavaScriptを読もう @ 2012](https://azu.github.io/slide/offline_study/javascript_world.html#slide1)
 - [The Mechanism is not the Mental Model](https://thefeedbackloop.xyz/the-mechanism-is-not-the-mental-model/ "The Mechanism is not the Mental Model")
 - [プログラミング言語標準化のパターン](https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025 "プログラミング言語標準化のパターン")
 - [今日からはじめる情報設計](https://www.amazon.co.jp/dp/4802510012/ "今日からはじめる情報設計")

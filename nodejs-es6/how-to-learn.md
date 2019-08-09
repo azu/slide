@@ -307,7 +307,7 @@ NW.jsやElectronといったJavaScriptでアプリを書ける仕組みを使え
 
 ----
 
-# [明日には使えなくなるES7トーク](http://azu.github.io/slide/es6talks/ "明日には使えなくなるES7トーク")
+# [明日には使えなくなるES7トーク](https://azu.github.io/slide/es6talks/ "明日には使えなくなるES7トーク")
 
 - 賞味期限 まで 後
 - ES7以降の仕様策定の流れ

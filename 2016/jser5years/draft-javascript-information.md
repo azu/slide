@@ -47,7 +47,7 @@
 
 -----
 
-# 2012年 - [世界のJavaScriptを読もう @ 2012](http://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
+# 2012年 - [世界のJavaScriptを読もう @ 2012](https://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
 
 - 古いものと最近のものがまざってる
 - 最近のものを整理するWeekly、ニュースサイトが増えた
@@ -60,7 +60,7 @@
 
 -----
 
-# 2014年 - [世界のJavaScriptを読もう @ 2014](http://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
+# 2014年 - [世界のJavaScriptを読もう @ 2014](https://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
 
 - 急速にライブラリの数が増えてきた
 - ユーザーがライブラリの選択で悩むようになってきた
@@ -310,7 +310,7 @@ Transpilerを使ってフィードバックをしやすくなったのは重要�
 
 - Rapid Release
 - [Evergreen Browsers](http://eisenbergeffect.bluespire.com/evergreen-browsers/ "Evergreen Browsers")
-- [世界のJavaScriptを読もう @ 2014](http://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")を見て
+- [世界のJavaScriptを読もう @ 2014](https://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")を見て
 
 -----
 
@@ -372,7 +372,7 @@ var Version = 1;
 ## ライブラリのリリースの問題
 
 - ライブラリのコミュニティによって方針は様々
-	- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+	- [われわれは、いかにして変更点を追うか](https://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
 - リリースされたものだけを見ても安定なのかどうかが分かりにくい
 	- 毎回素振りする? [JavaScriptのトレンドを素振りして確認する方法 - Qiita](http://qiita.com/azu/items/bacd146ed2e26980b9b0 "JavaScriptのトレンドを素振りして確認する方法 - Qiita")
 - 小さなライブラリは別としてフレームワークと呼ばれるものは気をつける

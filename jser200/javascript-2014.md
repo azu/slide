@@ -11,7 +11,7 @@
 
 # アジェンダ
 
-[世界のJavaScriptを読もう @ 2012](http://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012") の続編的なものです
+[世界のJavaScriptを読もう @ 2012](https://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012") の続編的なものです
 
 1. ブラウザやJavaScriptのリリースは変化してきている
 2. 私たちはどのように変化を知り見ていくのか
@@ -251,7 +251,7 @@
 	- feature-model release
 - 理由としてはもっとリリース速度をあげるため
 
--- [明日には使えなくなるES7トーク](http://azu.github.io/slide/es6talks/ "明日には使えなくなるES7トーク")
+-- [明日には使えなくなるES7トーク](https://azu.github.io/slide/es6talks/ "明日には使えなくなるES7トーク")
 
 ^ ES7は機能レベルの仕様それぞれに策定のstageを設けていて、それが一定の段階になったらES7として取り込むようになっている。
 このような事をする理由の一つがリリース速度の改善！

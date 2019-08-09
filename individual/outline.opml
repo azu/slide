@@ -32,7 +32,7 @@
     <outline text="Github Issue">
       <outline text="自分自身にPull Request駆動"/>
       <outline text="細かい修正はTiDD"/>
-      <outline text="http://azu.github.io/slide/udonjs/github-issue.html"/>
+      <outline text="https://azu.github.io/slide/udonjs/github-issue.html"/>
     </outline>
     <outline text="Travis CI">
       <outline text="ビルド"/>

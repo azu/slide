@@ -131,7 +131,7 @@ output: index.html
 - 自分自身にPull Request駆動 `feature/id/1`
     - セクションを書く時等大きいコミットはPR駆動
 - 小さいチケットはPRしないで、コミットメッセージでIssueを閉じる `#fixes 1`
-- 詳しくは [一人で使えるGithub Issue](http://azu.github.io/slide/udonjs/github-issue.html "一人で使えるGithub Issue")
+- 詳しくは [一人で使えるGithub Issue](https://azu.github.io/slide/udonjs/github-issue.html "一人で使えるGithub Issue")
 
 --
 

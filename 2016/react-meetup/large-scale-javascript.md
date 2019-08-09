@@ -36,8 +36,8 @@ theme: Plain Jane,5
 -----
 # 3行でOK
 
-- 複雑なJavaScriptアプリケーションを作るにあたり[ドメインモデルをどう実装するか悩んだ](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html)
-- [色々](http://azu.github.io/slide/2016/make-arch/js-css-architecture.html)と[試行錯誤](http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html "Read/Write Stack | JavaScriptアーキテクチャ")した[結果](http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html)として[Almin.js](https://github.com/almin/almin "Almin.js")を作った
+- 複雑なJavaScriptアプリケーションを作るにあたり[ドメインモデルをどう実装するか悩んだ](https://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html)
+- [色々](https://azu.github.io/slide/2016/make-arch/js-css-architecture.html)と[試行錯誤](https://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html "Read/Write Stack | JavaScriptアーキテクチャ")した[結果](https://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html)として[Almin.js](https://github.com/almin/almin "Almin.js")を作った
 - 半年ぐらい議論しながら[開発してできたガイドライン](https://github.com/azu/large-scale-javascript/tree/master/docs)、[React Component実装ガイド](https://github.com/azu/large-scale-javascript/tree/master/docs/component.md)、[CSSの実装ガイド](https://github.com/azu/large-scale-javascript/tree/master/docs/css.md)とかの[参考資料](https://github.com/azu/large-scale-javascript/blob/master/refs.md)はここに置いてある
 	- [github.com/azu/large-scale-javascript](https://github.com/azu/large-scale-javascript)
 
@@ -86,7 +86,7 @@ theme: Plain Jane,5
 
 ![10min-flux, inline](./img/10min-flux.png)
 
-## [azu.github.io/slide/react-meetup/flux.html](http://azu.github.io/slide/react-meetup/flux.html "10分で実装するFlux")
+## [azu.github.io/slide/react-meetup/flux.html](https://azu.github.io/slide/react-meetup/flux.html "10分で実装するFlux")
 
 ----
 
@@ -116,7 +116,7 @@ Storeはデータとロジックを持つ
 
 ----
 
-# [How to work as a Team](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html "How to work as a Team") @ 2016/02/23 [#reject_sushi](http://efcl.info/2016/02/23/reject-sushi/)
+# [How to work as a Team](https://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html "How to work as a Team") @ 2016/02/23 [#reject_sushi](http://efcl.info/2016/02/23/reject-sushi/)
 
 ----
 
@@ -890,11 +890,11 @@ via [.NETのエンタープライズアプリケーションアーキテクチ�
 
 ## 時系列
 
-- [10分で実装するFlux](http://azu.github.io/slide/react-meetup/flux.html)
-- [How to work as a Team](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html)
-- [JavaScriptのアーキテクチャ](http://azu.github.io/slide/2016/make-arch/js-css-architecture.html)
-- [Read/Write Stack | JavaScriptアーキテクチャ](http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html)
-- [Almin.js | JavaScriptアーキテクチャ](http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html)
+- [10分で実装するFlux](https://azu.github.io/slide/react-meetup/flux.html)
+- [How to work as a Team](https://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html)
+- [JavaScriptのアーキテクチャ](https://azu.github.io/slide/2016/make-arch/js-css-architecture.html)
+- [Read/Write Stack | JavaScriptアーキテクチャ](https://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html)
+- [Almin.js | JavaScriptアーキテクチャ](https://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html)
 
 -----
 
