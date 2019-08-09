@@ -84,7 +84,7 @@ autoscale: true
 
 ----
 
-# from [JSer.info 1年を迎えて](http://azu.github.io/slide/offline_study/jser_info.html#slide1 "JSer.info 1年を迎えて")
+# from [JSer.info 1年を迎えて](https://azu.github.io/slide/offline_study/jser_info.html#slide1 "JSer.info 1年を迎えて")
 
 
 
@@ -96,7 +96,7 @@ autoscale: true
 
 ----
 
-# from [世界のJavaScriptを読もう @ 2012](http://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
+# from [世界のJavaScriptを読もう @ 2012](https://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
 
 > テーマ
 > 
@@ -114,7 +114,7 @@ autoscale: true
 
 -----
 
-# from [世界のJavaScriptを読もう @ 2012](http://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
+# from [世界のJavaScriptを読もう @ 2012](https://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
 
 
 
@@ -158,7 +158,7 @@ autoscale: true
 
 -----
 
-## 従来の[ワークフロー](http://azu.github.io/slide/jser200/)
+## 従来の[ワークフロー](https://azu.github.io/slide/jser200/)
 
 
 1. 記事を読む
@@ -169,7 +169,7 @@ autoscale: true
 
 -----
 
-## [ワークフロー](http://azu.github.io/slide/jser200/)の改善1
+## [ワークフロー](https://azu.github.io/slide/jser200/)の改善1
 
 ![right](http://efcl.info/wp-content/uploads/2014/10/20-1413800739.png)
 

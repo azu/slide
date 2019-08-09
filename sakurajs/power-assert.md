@@ -132,4 +132,4 @@ node.jsをブラウザ向けのコードに変換するツール
 
 * [▶ 新しいテストライブラリのご提案 #tng10 @t_wada - YouTube](https://www.youtube.com/watch?v=aDoQxqO_6rI "▶ 新しいテストライブラリのご提案 #tng10 @t_wada - YouTube")
 * [power-assert in JavaScript](http://www.slideshare.net/t_wada/powerassert-in-javascript "power-assert in JavaScript")
-* [カジュアルJavaScript AST](http://azu.github.io/slide/JSojisan/ "カジュアルJavaScript AST")
+* [カジュアルJavaScript AST](https://azu.github.io/slide/JSojisan/ "カジュアルJavaScript AST")

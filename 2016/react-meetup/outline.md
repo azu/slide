@@ -58,4 +58,4 @@ CQRS: 最初からRead/Writeで異なるものとして -> Read/Writeで簡略�
 
 とした方が分割統治できるんじゃないかという話
 
-=> あとは http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html
+=> あとは https://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html

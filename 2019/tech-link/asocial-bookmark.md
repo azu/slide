@@ -112,7 +112,7 @@ autoscale: true
 - 早く作る場合に冒険心を抑える
 - 普段から素振りしているものを使う
     - [JavaScriptのトレンドを素振りして確認する方法 - Qiita](https://qiita.com/azu/items/bacd146ed2e26980b9b0)
-    - [JavaScriptの素振りする技術](http://azu.github.io/slide/2015/year-end/javascript-swing.html)
+    - [JavaScriptの素振りする技術](https://azu.github.io/slide/2015/year-end/javascript-swing.html)
 - ボトムアップに必要なものを手を止めずに作っていく
 
 ----

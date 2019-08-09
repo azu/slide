@@ -2,7 +2,7 @@
 
 Github Pagesで公開しているスライドが置いてあります
 
-<http://azu.github.io/slide/>
+<https://azu.github.io/slide/>
 
 - [azu/pdf-slide-html: Generator cli for azu/slide-pdf.js.](https://github.com/azu/pdf-slide-html)
 - [azu/slide-pdf.js: Presentation tools for pdf file in browser.](https://github.com/azu/slide-pdf.js)

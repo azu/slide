@@ -70,7 +70,7 @@
 
 more …
 
-* [Git+Redmine+チケット駆動開発のワークフロー](http://azu.github.io/slide/workflow/git-redmine-tidd.html#slide1 "Git+Redmine+チケット駆動開発のワークフロー")
+* [Git+Redmine+チケット駆動開発のワークフロー](https://azu.github.io/slide/workflow/git-redmine-tidd.html#slide1 "Git+Redmine+チケット駆動開発のワークフロー")
 
 ---
 

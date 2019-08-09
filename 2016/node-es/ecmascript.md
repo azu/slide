@@ -179,7 +179,7 @@
 
 - [Unhandled Rejection Tracking Browser Events](https://github.com/domenic/unhandled-rejections-browser-spec "Unhandled Rejection Tracking Browser Events")
 - 実行環境が`rejectionHandled` / `onrejectionhandled`イベントを実装できるためのHookポイントの追加
-	- [Promise Error Handling](http://azu.github.io/slide/error-handling/promise-error-handling.html)
+	- [Promise Error Handling](https://azu.github.io/slide/error-handling/promise-error-handling.html)
 	- [Tracking unhandled rejected Promises](http://www.2ality.com/2016/04/unhandled-rejections.html)
 
 -----

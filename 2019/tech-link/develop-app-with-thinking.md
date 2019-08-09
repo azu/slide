@@ -18,7 +18,7 @@ autoscale: true
 
 ----
 
-## このスライドは<br>[Faao - ドメイン駆動設計で作るGitHub Issue Client -](http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html)<br>を改定したものです。
+## このスライドは<br>[Faao - ドメイン駆動設計で作るGitHub Issue Client -](https://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html)<br>を改定したものです。
 
 ----
 

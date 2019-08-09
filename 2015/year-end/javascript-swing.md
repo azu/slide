@@ -56,7 +56,7 @@
 
 - ライブラリで新しい機能追加された
 - リリースノートに細かいことが書かれてない
-- 関連: [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+- 関連: [われわれは、いかにして変更点を追うか](https://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
 - ちょっと探しても見つからなかったら実際に試す
 
 -----
@@ -228,7 +228,7 @@ git pushup
 - [azu/audio-node-flow](https://github.com/azu/audio-node-flow "azu/audio-node-flow")
 	- Web Audio APIに触りたくて書いた
 	- => Web Audio APIの標準に同様のものが追加されてた [Web Audio Method Chaining Sample](https://googlechrome.github.io/samples/webaudio-method-chaining/index.html "Web Audio Method Chaining Sample")
-	- [JavaScriptとWeb Audio事始め](http://azu.github.io/slide/webaudioapi/web-audio.html "JavaScriptとWeb Audio事始め")
+	- [JavaScriptとWeb Audio事始め](https://azu.github.io/slide/webaudioapi/web-audio.html "JavaScriptとWeb Audio事始め")
 
 ------
 

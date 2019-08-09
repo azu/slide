@@ -102,7 +102,7 @@ autoscale: true
 
 - GitHubは圧倒的に増えている
 - リリースノートを書くドメインは紹介されやすい傾向
-	- [われわれは、いかにして変更点を追うか](http://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
+	- [われわれは、いかにして変更点を追うか](https://azu.github.io/slide/cto/changelog.html "われわれは、いかにして変更点を追うか")
 - ブログ系のソースとなるドメインは少し変化している
 	- Qiita、Mediumなど
 
@@ -229,7 +229,7 @@ autoscale: true
 
 ![right fit, Gitter botの様子](./resources/gitter-bot.png)
 
-- 基本的に[最初の頃](http://azu.github.io/slide/offline_study/jser_info.html#slide8)と大きくは変わってない
+- 基本的に[最初の頃](https://azu.github.io/slide/offline_study/jser_info.html#slide8)と大きくは変わってない
 - ブクマ時に説明文を考える、関連を探す
 - LintやCIなど自動チェック系
 - 更新タイミングの通知
@@ -310,7 +310,7 @@ autoscale: true
 
 -----
 
-# Next: [JSer.infoの作り方](http://azu.github.io/slide/2017/jser_info/how_to_make_jser_info.html "JSer.infoの作り方") :arrow_right:
+# Next: [JSer.infoの作り方](https://azu.github.io/slide/2017/jser_info/how_to_make_jser_info.html "JSer.infoの作り方") :arrow_right:
 
 -----
 

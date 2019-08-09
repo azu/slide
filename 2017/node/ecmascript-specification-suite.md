@@ -47,7 +47,7 @@ autoscale: true
 - デジュールスタンダード: ECMAScriptをISO/IECで国際標準化したもの
   - ECMAScriptの場合は実際の中身はほぼ同じ
   - ISO/IECの標準化プロセスで標準化
-  - 詳しくは[SC22 ECMAScript Ad hoc委員会](http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
+  - 詳しくは[SC22 ECMAScript Ad hoc委員会](https://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
 
 -----
 
@@ -151,6 +151,6 @@ WTO/GP協定
 
 - [ECMA-414 ECMAScript Specification Suiteについて | Web Scratch](http://efcl.info/2017/02/27/ecma-414/ "ECMA-414 ECMAScript Specification Suiteについて | Web Scratch")
 - <https://github.com/rwaldron/tc39-notes/blob/master/es7/2016-05/may-23.md>
-- [SC22 ECMAScript Ad hoc委員会](http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
+- [SC22 ECMAScript Ad hoc委員会](https://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html "SC22 ECMAScript Ad hoc委員会")
 - [標準化戦略としてのデファクトスタンダードとデジュールスタンダードとの使い分け](http://www.y-adagio.com/public/confs/mags/std_qualt/draft_ver6.htm "標準化戦略としてのデファクトスタンダードとデジュールスタンダードとの使い分け")
 - [インターネット技術の標準化](https://www.w3.org/2007/Talks/0611-naist-fs/ "インターネット技術の標準化")

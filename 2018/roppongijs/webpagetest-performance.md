@@ -645,7 +645,7 @@ autoscale: true
   - 計測は続けつつも、まずは泥団子を解体して正常な形にする
   - 正常な形にしていくと大抵リソースの扱いも正常できるため、結果的にはパフォーマンスが改善される
 - アーキテクチャについては以前書いた
-  - [複雑なJavaScriptアプリケーションを考えながら作る話](http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html)
+  - [複雑なJavaScriptアプリケーションを考えながら作る話](https://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html)
 
 
 [^Big ball of mud]: 密結合でリファクタリングできないようなアーキテクチャの比喩。[大きな泥だんご](https://ja.wikipedia.org/wiki/%E5%A4%A7%E3%81%8D%E3%81%AA%E6%B3%A5%E3%81%A0%E3%82%93%E3%81%94)ともいわれる

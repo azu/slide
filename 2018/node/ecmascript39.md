@@ -29,7 +29,7 @@ autoscale: true
 
 # 以前の話したもの
 
-- [ECMAScript as a Living Standard](http://azu.github.io/slide/2016/node-es/ecmascript.html "ECMAScript as a Living Standard")
+- [ECMAScript as a Living Standard](https://azu.github.io/slide/2016/node-es/ecmascript.html "ECMAScript as a Living Standard")
 - ECMAScriptは毎年更新されるし、最新版はGitHubで毎日更新されてる
 - Living Standardになってるよ
 

@@ -136,7 +136,7 @@ JavaScriptの場合よっぽどエッジな事じゃない限り、基本的に�
 
 # 2012年
 
-> [世界のJavaScriptを読もう @ 2012](http://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
+> [世界のJavaScriptを読もう @ 2012](https://azu.github.io/slide/offline_study/javascript_world.html#slide1 "世界のJavaScriptを読もう @ 2012")
 
 - 古いものと最近のものが混ざってる
 - 最近のものを整理するWeekly、ニュースサイトが増えた
@@ -172,7 +172,7 @@ JavaScriptの場合よっぽどエッジな事じゃない限り、基本的に�
 
 # 2014年
 
-> [世界のJavaScriptを読もう @ 2014](http://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
+> [世界のJavaScriptを読もう @ 2014](https://azu.github.io/slide/jser200/javascript-2014.html "世界のJavaScriptを読もう @ 2014")
 
 - 急速にライブラリの数が増えてきた
 - ユーザーがライブラリの選択で悩むようになってきた

@@ -23,8 +23,8 @@ autoscale: true
 - 正しい設計はない [Bikeshed.js](http://connpass.com/event/29019/ "Bikeshed.js") :bike:
 	- 人、目的、何を作るかによってアーキテクチャは異なる
 - 前回の続き?
-	- [How to work as a Team](http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html "How to work as a Team")
-	- [Read/Write Stack | JavaScriptアーキテクチャ](http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html "Read/Write Stack | JavaScriptアーキテクチャ")
+	- [How to work as a Team](https://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html "How to work as a Team")
+	- [Read/Write Stack | JavaScriptアーキテクチャ](https://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html "Read/Write Stack | JavaScriptアーキテクチャ")
 
 
 -----
