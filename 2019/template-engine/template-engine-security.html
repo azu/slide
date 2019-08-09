@@ -10,16 +10,13 @@
             }
         </style>
     </noscript>
-    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
-
-<link rel="canonical" href="https://azu.github.io/slide/2019/template-engine/template-engine-security.html">
-<link rel="author" href="http://www.hatena.ne.jp/efcl/" />
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
 </head>
 <body itemscope itemtype="http://schema.org/Article">
 <div class="main-content">
     <meta itemprop="name headline" content="クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策"/>
     <iframe id="main-slide"
-            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide//2019/template-engine/template-engine-security.pdf"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2019/template-engine/template-engine-security.pdf"
             scrolling="no"
             allowtransparency="true"
             width="100%"
@@ -33,7 +30,7 @@
         <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2019-08-09" id="dateModified">
             2019-08-09
         </time></span>
-        <a href="https://azu.github.io/slide//2019/template-engine/template-engine-security.pdf" title="クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策">
+        <a href="http://azu.github.io/slide//2019/template-engine/template-engine-security.pdf" title="クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策">
             <svg xmlns="http://www.w3.org/2000/svg"
                  version="1.1"
                  class="svg-icon"
@@ -514,28 +511,34 @@ module.exports = app;
 </ul>
 <hr>
 <h1 id="fix-vue-client-side-template-injection">Fix: Vue + Client Side Template Injection</h1>
-<pre><code class="lang-js">const express = require(&#39;express&#39;);
+<pre><code class="lang-js">const escapeHTML = require(&#39;escape-html&#39;);
 const app = express();
 app.get(&#39;/&#39;, (req, res) =&gt; {
   res.set(&#39;Content-Type&#39;, &#39;text/html&#39;);
   const name = req.query.name
-  res.status(200).send(`
+  res.status(200).send(`const express = require(&#39;express&#39;);
+const escapeHTML = require(&#39;escape-html&#39;);
+const app = express();
+app.get(&#39;/&#39;, (req, res) =&gt; {
+  res.set(&#39;Content-Type&#39;, &#39;text/html&#39;);
+  const name = req.query.name
+  res.status(200).send(`&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
   &lt;div id=&quot;app&quot;&gt;
     &lt;h1&gt;Hello {{name}}&lt;/h1&gt;
   &lt;/div&gt;
   &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js&quot;&gt;&lt;/script&gt;
-  &lt;script&gt;
-    window.__INITIAL_STATE__ = ${JSON.stringify({ name })};
+  &lt;script data-initial-state=&quot;${escapeHTML(JSON.stringify({ name }))}&quot;&gt;
   &lt;/script&gt;
   &lt;script&gt;
       new Vue({
         el: &#39;#app&#39;,
-        data: window.__INITIAL_STATE__ || {}
+        data: JSON.parse(document.querySelector(&quot;[data-initial-state]&quot;).dataset.initialState)
       });
   &lt;/script&gt;
-`);
-});
-module.exports = app;
+&lt;/body&gt;
+&lt;/html&gt;`);
 </code></pre>
 <hr>
 <h1 id="demog-client-side-template-injection">DEMOG: Client Side Template Injection</h1>
