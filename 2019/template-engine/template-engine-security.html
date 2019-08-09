@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="//azu.github.io/pdf-slide-html/index.css"/>
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策"/>
+    <iframe id="main-slide"
+            src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide//2019/template-engine/template-engine-security.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2019-08-09" id="datePublished">
+            2019-08-09
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2019-08-09" id="dateModified">
+            2019-08-09
+        </time></span>
+        <a href="http://azu.github.io/slide//2019/template-engine/template-engine-security.pdf" title="クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>autoscale: true</p>
+<h1 id="-">クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策</h1>
+<h2 id="-3-">- 3つのテンプレート -</h2>
+<hr>
+<h1 id="-">自己紹介</h1>
+<p><img src="https://github.com/azu.png" alt="アイコン right"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/" title="Web scratch">Web scratch</a>, <a href="http://jser.info/" title="JSer.info">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="-">アジェンダ</h1>
+<ul>
+<li>テンプレートとは</li>
+<li>テンプレートの種類(レベル)</li>
+<li>テンプレートをコンパイルする場所と問題</li>
+<li>信頼できない入力ソース: テンプレート or データモデル</li>
+<li>Programming Language Templateの危険性</li>
+</ul>
+<hr>
+<h1 id="-">今日覚えること</h1>
+<ul>
+<li>テンプレートエンジンには3つのレベルがある</li>
+<li>テンプレートエンジンのレベルとテンプレートをコンパイルする場所によって必要なセキュリティ対策は異なる</li>
+<li>テンプレートファイルはプログラムファイルである</li>
+</ul>
+<hr>
+<h1 id="demo-server-side-template-injection">DEMO: Server Side Template Injection</h1>
+<p>^ Server Side Template Injectionを使って、ローカルに立ち上げたサービスをブラウザから落とすデモ</p>
+<hr>
+<h1 id="-">テンプレートエンジン</h1>
+<ul>
+<li>テンプレートとデータモデル(パラメータ)を組み合わせてViewを作る処理を行うものをテンプレートエンジンと呼ぶ</li>
+<li>テンプレートの種類が多いが、今回は<a href="https://en.wikipedia.org/wiki/Web_template_system">Web template system</a>(HTML)を中心に扱う</li>
+</ul>
+<p><img src="img/view-datamodel.png" alt="right, fit, template"></p>
+<hr>
+<h1 id="3-">3種類のテンプレートエンジン</h1>
+<ul>
+<li>表示とビジネスロジックを分けるのがテンプレートの目的</li>
+<li>テンプレートエンジンには3種類のレベル分けがあると考えられる<ul>
+<li><a href="https://www.cs.usfca.edu/~parrt/papers/mvc.templates.pdf">Enforcing Strict Model-View Separation inTemplate Engines</a> by <a href="https://en.wikipedia.org/wiki/Terence_Parr">Terence Parr</a><a href="[StringTemplate](https://www.stringtemplate.org/)や[ANTLR](https://github.com/antlr/antlr4)の作者。30年以上パースについての研究をしている">^1</a></li>
+<li><a href="http://shop.oreilly.com/product/0636920034186.do">Web Content Management - O&#39;Reilly Media</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="3-">3種類(レベル)のテンプレートエンジン</h1>
+<ul>
+<li>Simple Token Replacement<ul>
+<li>単純な置換: <code>This is {{ name }}.</code> =&gt; <code>This is pen.</code></li>
+</ul>
+</li>
+<li>Limited Control Structures<ul>
+<li>if文やfor文など制御構文が付いたもの</li>
+</ul>
+</li>
+<li>Programming Language<ul>
+<li>プログラミング言語みたいなもの</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="simple-token-replacement">Simple Token Replacement</h1>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #1C8EDA]</p>
+<hr>
+<h1 id="simple-token-replacement">Simple Token Replacement</h1>
+<ul>
+<li>テンプレートとデータモデルが完全に分離されている状態</li>
+<li>単純な文字列を置換をするだけのテンプレート</li>
+<li>特定の用途にしか使えないように厳しく制限されている</li>
+<li>任意のコードは実行できないように制限されている状態</li>
+</ul>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #1C8EDA]</p>
+<hr>
+<h1 id="limited-control-structures">Limited Control Structures</h1>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #107B02]</p>
+<hr>
+<h1 id="limited-control-structures">Limited Control Structures</h1>
+<ul>
+<li>テンプレートにも表示に関する制御構文を持つ</li>
+<li>if文やfor文などの制限されたコントールフロー(構造)をもつテンプレート<ul>
+<li>logic less templateとも呼ばれる(持っているのは表示に関するロジックのみであるため)</li>
+</ul>
+</li>
+<li>任意のコードは実行できないように制限されている状態<ul>
+<li>evalを全く使ってないもの or evalを使っていても実行できるものをホワイリスト制限</li>
+</ul>
+</li>
+</ul>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #107B02]</p>
+<hr>
+<h1 id="programming-language-template">Programming Language Template</h1>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #8F001C]</p>
+<hr>
+<h1 id="programming-language-template">Programming Language Template</h1>
+<ul>
+<li>テンプレートにはビジネスロジックが書ける</li>
+<li>チューリング完全な言語</li>
+<li>何でもできる</li>
+<li>Evalを使っていてかつなにも制限していない</li>
+</ul>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #8F001C]</p>
+<hr>
+<h1 id="-">テンプレートが言語になることもある</h1>
+<blockquote>
+<p>I would argue that PHP is a templating syntax that grew into a programming language.
+-- <a href="https://en.wikipedia.org/wiki/Web_template_system">Web template system</a></p>
+</blockquote>
+<ul>
+<li>PHPは言語に進化したテンプレートエンジンとも考えられる</li>
+</ul>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #8F001C]</p>
+<hr>
+<p><img src="./img/template-type.png" alt="fit, three levels templates"></p>
+<hr>
+<h1 id="-">テンプレートと実装</h1>
+<ul>
+<li>Simple Token Replacement<ul>
+<li>単純な文字列置換</li>
+</ul>
+</li>
+<li>Limited Control Structures<ul>
+<li>テンプレートエンジンっぽいテンプレートエンジン</li>
+<li>HandlebarsやLiquidなど制限を意識して作られたもの</li>
+<li>Sandboxモードが有効状態のSmartyやTwigなど(SandboxなしならProgramming Language)</li>
+</ul>
+</li>
+<li>Programming Language<ul>
+<li>柔軟なテンプレートエンジン、言語、UIフレームワーク</li>
+<li>HTMLやPHP、各種UIフレームワークなど</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/implementaions.png" alt="fit, テンプレートと実装ライブラリ"></p>
+<hr>
+<h1 id="-">テンプレートのレベル</h1>
+<ul>
+<li>↑ほど厳密</li>
+<li>Simple Token Replace<ul>
+<li>replace関数など単純な置換に近いもの</li>
+</ul>
+</li>
+<li>Limited control structures<ul>
+<li>Liquid, Handlebars, StringsTemplate</li>
+</ul>
+</li>
+<li>Programming Language Template<ul>
+<li>Nunjucks, Lodash, template, Pug, React, Angular, Vue...</li>
+</ul>
+</li>
+<li>↓ほど柔軟</li>
+</ul>
+<hr>
+<h1 id="-">テンプレートエンジンって言っても…</h1>
+<ul>
+<li>一言にテンプレートエンジンって言っても機能の幅が広い</li>
+<li>テンプレートエンジンのレベルごとにできることとできないことがある</li>
+<li>テンプレートエンジンのレベルごとにセキュリティの考え方も異なる<ul>
+<li>攻撃するときにもできること、できないことが変わってくるため</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/view-datamodel.png" alt="fit, view-datamodel.png"></p>
+<hr>
+<h1 id="-">テンプレートをコンパイルする場所と入力ソース</h1>
+<hr>
+<h1 id="-">テンプレートをどこでコンパイルするか</h1>
+<p>コンテキスト: ウェブテンプレートなので、どこかでテンプレートをHTMLにコンパイルして、ブラウザでレンダリングするのは同じ</p>
+<ul>
+<li>ローカル<ul>
+<li>手元でテンプレートをHTMLにコンパイルして、その結果を使う</li>
+<li>事前にコンパイルしてその結果を使うので、オフラインコンパイルやAOT(Ahead Of Time)コンパイルと呼ばれる</li>
+</ul>
+</li>
+<li>ブラウザ<ul>
+<li>テンプレートとデータモデルを受け取りブラウザでコンパイルしてレンダリングする</li>
+<li>クライアントサイドレンダリング</li>
+</ul>
+</li>
+<li>サーバ<ul>
+<li>テンプレートとデータモデルを使ってサーバでコンパイルしたHTMLをレスポンスとして返す</li>
+<li>サーバサイドレンダリング</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="./img/compile-render.png" alt="fit, Compile Type"></p>
+<p>^ 一番上は、ローカルでコンパイルして、pushして使う方法
+^ 真ん中は、サーバなどからテンプレートとデータを取得して、ブラウザ上でコンパイルする方法
+^ 一番下は、サーバでコンパイルして、HTMLをレスポンスとしてブラウザに返す方法</p>
+<hr>
+<h1 id="-fit-x-x-">[fit] 入力ソース x コンパイルする場所 x テンプレートのレベル = 安全性</h1>
+<hr>
+<h1 id="-">入力ソース</h1>
+<ul>
+<li>テンプレートエンジンは次の２つの入力から結果を出力する<ul>
+<li>View = テンプレート + データモデル</li>
+</ul>
+</li>
+<li>入力として テンプレートそのもの と データモデル(パラメータ) がある<ul>
+<li>ユーザー入力(つまり任意のもの)として受け取る入力ソースによって安全レベルは変わる</li>
+</ul>
+</li>
+</ul>
+<p><img src="./img/view-datamodel.png" alt="right,fit, view-datamodel.png"></p>
+<hr>
+<h1 id="-">入力ソース: データモデル</h1>
+<p><img src="img/view-datamodel-datamodel-waku.png" alt="inline,fit, view-datamodel-datamodel-waku.png"></p>
+<hr>
+<h1 id="-">入力ソース: データモデル</h1>
+<ul>
+<li>ユーザー入力(信用できない)として<strong>データモデル</strong>を受け取るケース<ul>
+<li><strong>テンプレート</strong>は信用できるという前提</li>
+</ul>
+</li>
+<li>多くのテンプレートエンジンはデータモデルを安全に扱う方法を持っている<ul>
+<li>簡単に言えばHTMLタグにはならないようにエスケープする方法を持ってる</li>
+</ul>
+</li>
+<li>そのため、データモデルに悪意あるものがあっても、結果のViewは安全を担保できる</li>
+</ul>
+<p><img src="./img/view-datamodel.png" alt="right,fit, view-datamodel.png"></p>
+<hr>
+<h1 id="-">ユーザー入力としてデータモデルを受け取って、テンプレートをコンパイルするケース</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ローカル</th>
+<th>ブラウザ</th>
+<th>サーバ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple Token Replace</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>Limited control structures</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>Programming Language Template</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>✔: エスケープすれば問題ない</p>
+</blockquote>
+<hr>
+<h1 id="-">データモデルのエスケープ</h1>
+<p>Template:</p>
+<pre><code class="lang-html">Hello {{ name }}!
+</code></pre>
+<p>DataModel:</p>
+<pre><code class="lang-js">{
+    &quot;name&quot;: &quot;&lt;script&gt;alert(1)&lt;/script&gt;&quot;
+}
+</code></pre>
+<p>View(結果):</p>
+<pre><code class="lang-html">Hello &amp;lt;script&amp;gt;alert(&amp;#39;1&amp;#39;)&amp;lt;/script&amp;gt;!
+</code></pre>
+<hr>
+<h1 id="-">テンプレートエンジンのエスケープ</h1>
+<ul>
+<li>多くのテンプレートエンジンはデータモデル(パラメータ)の展開はデフォルトで安全<ul>
+<li><code>{{ name }}</code> で <code>name</code> にHTMLが入ってもエスケープして出力する</li>
+<li>=&gt; データモデルにHTMLが入ってても、HTMLではなくただの文字列として扱われる</li>
+</ul>
+</li>
+<li>細かく言うと、パラメータが入る場所によってエスケープ方法は異なる<ul>
+<li>そのため、Contextual Escaping(href属性はjavascript:もエスケープするなど)をサポートしているかによって安全性に多少のブレがある</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">入力ソース: テンプレート</h1>
+<p><img src="img/view-datamodel-template-waku.png" alt="inline,fit, view-datamodel-template-waku.png"></p>
+<hr>
+<h1 id="-">入力ソース: テンプレート</h1>
+<ul>
+<li>入力ソースがテンプレートそのもの場合<ul>
+<li>ユーザーにテンプレートの構文を書かせて、それを扱う場合</li>
+<li>ブログのテーマなど</li>
+</ul>
+</li>
+<li>テンプレートそのものが安全にコンパイルできるかが安全性に影響する</li>
+</ul>
+<hr>
+<h1 id="-">ユーザー入力がテンプレート</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ローカル</th>
+<th>ブラウザ</th>
+<th>サーバ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple Token Replace</td>
+<td>Safe</td>
+<td>Safe</td>
+<td>Safe</td>
+</tr>
+<tr>
+<td>Limited control structures</td>
+<td>Safe</td>
+<td>Safe</td>
+<td>Safe</td>
+</tr>
+<tr>
+<td>Programming Language Template</td>
+<td>⚠Danger</td>
+<td>⚠Danger</td>
+<td>⚠Danger</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="-">ユーザー入力として受け取ったテンプレートをコンパイル</h1>
+<ul>
+<li>テンプレートレベルがProgramming Language Templateは安全にコンパイルするのが難しい<ul>
+<li>高度なテンプレートはプログラミング言語そのもの</li>
+<li>コンパイル時に任意のコードが実行できてしまう =&gt; ⚠Danger</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="programming-language-template-">Programming Language Templateをコンパイルする危険例: ローカル</h1>
+<p><img src="./img/macro.jpg" alt="right, fit, macro"></p>
+<ul>
+<li>メールでマクロ付きのWordファイルを開いて、ローカルで任意のプログラムが実行されてしまうケース<ul>
+<li>マクロはプログラムそのもの</li>
+<li><a href="https://www.atmarkit.co.jp/ait/articles/1510/28/news060.html">偽装メールが再び拡散、不正マクロを仕込んだ添付ファイルでマルウエア感染：マクロウイルスの再来？ - ＠IT</a></li>
+</ul>
+</li>
+<li>デフォルトではマクロは無効化されており、オプトインで有効化になっている<ul>
+<li><a href="https://support.office.com/ja-jp/article/office-%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E3%81%AE%E3%83%9E%E3%82%AF%E3%83%AD%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%BE%E3%81%9F%E3%81%AF%E7%84%A1%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B-12b036fd-d140-4e74-b45e-16fed1a7e5c6">Office ドキュメントのマクロを有効または無効にする - Office サポート</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="programming-language-template-">Programming Language Templateをコンパイルする危険例: ブラウザ</h1>
+<ul>
+<li>意図的にサーバサイドでテンプレートを作成して、クライアントサイドでレンダリングするケースは多くない<ul>
+<li>最初からサーバサイドでコンパイルしてHTMLを返せばいいだけであるため</li>
+</ul>
+</li>
+<li>Vue.js や AngularJS(1.x) と 古典的なサーバサイドレンダリングの組み合わせでこの問題が発生しやすい<ul>
+<li>一部だけサーバサイドでレンダリングして、クライアントサイドでレンダリング済みのHTMLを元にSPAするケース</li>
+</ul>
+</li>
+<li>検索ワード: <em>Client side Template Injection</em></li>
+</ul>
+<hr>
+<h1 id="vue-client-side-template-injection">Vue + Client Side Template Injection</h1>
+<ul>
+<li><a href="https://vue-client-side-template-injection-example.azu.now.sh/?name=xxx">https://vue-client-side-template-injection-example.azu.now.sh/?name=xxx</a></li>
+<li>クエリの<code>name</code>をサーバサイドレンダリングして、クライアントサイドはVueでアプリを作るイメージ</li>
+</ul>
+<hr>
+<pre><code class="lang-js">const express = require(&#39;express&#39;);
+const escapeHTML = require(&#39;escape-html&#39;);
+const app = express();
+app.get(&#39;/&#39;, (req, res) =&gt; {
+  res.set(&#39;Content-Type&#39;, &#39;text/html&#39;);
+  const name = req.query.name
+  res.status(200).send(`
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello ${escapeHTML(name)}&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;/footer&gt;
+  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+      new Vue({
+        el: &#39;#app&#39;
+      });
+  &lt;/script&gt;
+`);
+});
+module.exports = app;
+</code></pre>
+<hr>
+<h1 id="vue-client-side-template-injection">Vue + Client Side Template Injection</h1>
+<ul>
+<li>ユーザー入力(<code>?name</code>)HTMLエスケープはされているのでサーバサイドレンダリングとしては問題ない<ul>
+<li><a href="https://vue-client-side-template-injection-example.azu.now.sh/?name=%3Cscript%3Ealert(1)%3C/script%3E">https://vue-client-side-template-injection-example.azu.now.sh/?name=%3Cscript%3Ealert(1)%3C/script%3E</a></li>
+</ul>
+</li>
+<li>サーバサイドがレンダリングした結果をVueがクライアントサイドレンダリングしている<ul>
+<li><a href="https://vue-client-side-template-injection-example.azu.now.sh/?name=%7B%7Bthis.constructor.constructor(%27alert(%22foo%22)%27)()%7D%7D">https://vue-client-side-template-injection-example.azu.now.sh/?name=%7B%7Bthis.constructor.constructor(%27alert(%22foo%22)%27)()%7D%7D</a></li>
+<li>Vueをmountするときにテンプレート構文<code>{{ expression }}</code> が入ってると、それをテンプレートとして評価してしまう！</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="img/vue-client-side-template-injection.png" alt="inline, fit, vue-client-side-template-injection.png"></p>
+<blockquote>
+<p> <a href="https://vue-client-side-template-injection-example.azu.now.sh/?name=%7B%7Bthis.constructor.constructor(%27alert(%22foo%22)%27)()%7D%7D">https://vue-client-side-template-injection-example.azu.now.sh/?name=%7B%7Bthis.constructor.constructor(%27alert(%22foo%22)%27)()%7D%7D</a></p>
+</blockquote>
+<hr>
+<h1 id="client-side-template-injection-">Client Side Template Injectionの原因</h1>
+<ul>
+<li><code>?name={{ this.constructor.constructor(&#39;alert(1)&#39;)() }}</code> のようにテンプレート構文を入れてる</li>
+<li>サーバサイドでレンダリングすると <code>{{</code>, <code>(</code>,  <code>)</code>, <code>}}</code> などはHTMLタグではないエスケープされない<ul>
+<li>次のようなVueのテンプレートが生成され、Vueによってテンプレートとして評価され、任意のJavaScriptが実行される</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-html">  &lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello {{this.constructor.constructor(&amp;#39;alert(&amp;quot;foo&amp;quot;)&amp;#39;)()}}&lt;/h1&gt;
+  &lt;/div&gt;
+</code></pre>
+<hr>
+<h1 id="client-side-template-injection-">Client Side Template Injectionの対処</h1>
+<ul>
+<li>テンプレート と データモデル が混在してしまったのが原因<ul>
+<li>サーバサイドで意図せず ユーザー入力を元に テンプレートを作成してしまった</li>
+<li>ユーザー入力は データモデル(パラメータ) として扱うように統一すればいい</li>
+</ul>
+</li>
+<li>サーバでは初期Stateをデータモデルとしてクライアントに伝える<ul>
+<li>要はJSONとしてHTMLに書き込み、クライアント側でテンプレートとデータモデルを使ってレンダリングする</li>
+<li><a href="https://github.com/azu/vue-client-side-template-injection-example/pull/1">fix(server): separate initial state for vue by azu · Pull Request #1 · azu/vue-client-side-template-injection-example</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="fix-vue-client-side-template-injection">Fix: Vue + Client Side Template Injection</h1>
+<pre><code class="lang-js">const express = require(&#39;express&#39;);
+const app = express();
+app.get(&#39;/&#39;, (req, res) =&gt; {
+  res.set(&#39;Content-Type&#39;, &#39;text/html&#39;);
+  const name = req.query.name
+  res.status(200).send(`
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello {{name}}&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    window.__INITIAL_STATE__ = ${JSON.stringify({ name })};
+  &lt;/script&gt;
+  &lt;script&gt;
+      new Vue({
+        el: &#39;#app&#39;,
+        data: window.__INITIAL_STATE__ || {}
+      });
+  &lt;/script&gt;
+`);
+});
+module.exports = app;
+</code></pre>
+<hr>
+<h1 id="demog-client-side-template-injection">DEMOG: Client Side Template Injection</h1>
+<p>^ Vue + SSRのサイト上でClient Side Template Injectionを使ってXSSを行うデモ</p>
+<hr>
+<h1 id="programming-language-template-">Programming Language Templateをコンパイルする危険例: サーバ</h1>
+<hr>
+<h1 id="programming-language-template-">Programming Language Templateをコンパイルする危険例: サーバ</h1>
+<ul>
+<li>一番ヤバい</li>
+<li>信頼できないテンプレートをコンパイルするだけで、サーバで任意のコード実行(Remote Code Execution)ができてしまう</li>
+<li>検索ワード: <em>Server side Template Injection</em><ul>
+<li><a href="https://portswigger.net/blog/server-side-template-injection">Server-Side Template Injection | Blog - PortSwigger</a></li>
+<li><a href="https://io.cyberdefense.jp/entry/2017/06/12/Server-Side_Template_Injection">Server-Side Template Injection - DARK MATTER</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="lodash-template-server-side-template-injection">lodash.template + Server Side Template Injection</h1>
+<ul>
+<li><a href="https://server-side-lodash-template-injection.azu.now.sh/?name=xxx">https://server-side-lodash-template-injection.azu.now.sh/?name=xxx</a></li>
+<li>クエリの<code>name</code>をサーバサイドレンダリングしてHTMLを返すシンプルなアプリ<ul>
+<li>テンプレートエンジンに<code>lodash.template</code>を使ってる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<pre><code class="lang-js">const express = require(&#39;express&#39;);
+const _ = require(&#39;lodash&#39;);
+const escapeHTML = require(&#39;escape-html&#39;);
+const app = express();
+app.get(&#39;/&#39;, (req, res) =&gt; {
+  res.set(&#39;Content-Type&#39;, &#39;text/html&#39;);
+  const name = req.query.name
+  // Create a template from user input
+  const compiled = _.template(&quot;Hello &quot; + escapeHTML(name) + &quot;.&quot;);
+  res.status(200).send(compiled());
+});
+
+module.exports = app;
+</code></pre>
+<hr>
+<h1 id="lodash-template-server-side-template-injection">lodash.template + Server Side Template Injection</h1>
+<ul>
+<li>色々使い方がおかしい</li>
+<li>ユーザー入力からテンプレートを作成してしまってる</li>
+<li>lodash.templateは任意のJavaScriptコードを実行できる<ul>
+<li>Remote Code Executionが可能</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="img/server-side-template-injection.png" alt="inline, fit, server-side-template-injection.png"></p>
+<blockquote>
+<p><a href="https://server-side-lodash-template-injection.azu.now.sh/?name=${JSON.stringify(process.env)}">https://server-side-lodash-template-injection.azu.now.sh/?name=${JSON.stringify(process.env)}</a>
+注意: 今は修正されたものをデプロイしてあります</p>
+</blockquote>
+<hr>
+<h1 id="lodash-template-server-side-template-injection">lodash.template + Server Side Template Injection</h1>
+<ul>
+<li><code>_.template(&quot;Hello ${JSON.stringify(process.env)}.&quot;);</code><ul>
+<li><code>process.env</code> を返してくれる</li>
+</ul>
+</li>
+<li>Fix: ユーザー入力からテンプレートを作成しない<ul>
+<li><a href="https://github.com/azu/server-side-lodash-template-injection/pull/1">fix: fix server side template injection by azu · Pull Request #1 · azu/server-side-lodash-template-injection</a></li>
+<li>テンプレートとデータモデルは分ける</li>
+<li>ユーザー入力はデータモデル(パラメータ)に移動する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="fix-lodash-template-server-side-template-injection">FIX: lodash.template + Server Side Template Injection</h1>
+<pre><code class="lang-js">const express = require(&#39;express&#39;);
+const _ = require(&#39;lodash&#39;);
+const app = express();
+app.get(&#39;/&#39;, (req, res) =&gt; {
+  res.set(&#39;Content-Type&#39;, &#39;text/html&#39;);
+  const name = req.query.name
+  const compiled = _.template(&quot;Hello &lt;%- name %&gt;.&quot;);
+  res.status(200).send(compiled({ name }));
+});
+
+module.exports = app;
+</code></pre>
+<hr>
+<h1 id="server-side-template-injection">Server Side Template Injection</h1>
+<ul>
+<li>ユーザー入力からテンプレートを作ってしまうと問題が起きる<ul>
+<li>SQL Injectionとよく似ている</li>
+<li>基本的な対策はユーザー入力をテンプレートにわたすときにプレースホルダーを使う！</li>
+</ul>
+</li>
+<li>事例: 有名なサイトでも結構やらかしている. $10,000 &gt; ぐらいの報奨金がでる<ul>
+<li><a href="https://hawkinsecurity.com/2017/12/13/rce-via-spring-engine-ssti/">Yahoo! RCE via Spring Engine SSTI – ∞ Growing Web Security Blog</a></li>
+<li><a href="https://artsploit.blogspot.com/2016/08/pprce2.html">Artsploit: [demo.paypal.com] Node.js code injection (RCE)</a></li>
+<li><a href="https://hackerone.com/reports/125980">#125980 uber.com may RCE by Flask Jinja2 Template Injection</a></li>
+<li><a href="https://hackerone.com/reports/423541">#423541 H1514 Server Side Template Injection in Return Magic email templates?</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="template-injection">Template Injection</h1>
+<ul>
+<li>多くのProgramming Language Templateの攻撃方法が確立されている</li>
+<li><a href="https://github.com/epinna/tplmap">Tplmap</a>などの検査ツールもある(テンプレート構文っぽい文字列をクエリに入れまくる)</li>
+<li>参考: <a href="https://github.com/DiogoMRSilva/websitesVulnerableToSSTI">DiogoMRSilva/websitesVulnerableToSSTI: Simple websites vulnerable to Server Side Template Injections(SSTI)</a></li>
+</ul>
+<hr>
+<p><a href="https://ejs.co/">EJS</a></p>
+<pre><code>&lt;%% global.process.mainModule.require(&#39;fs&#39;).readFileSync(&#39;/etc/passwd&#39;).toString() %%&gt;
+</code></pre><p><a href="https://mozilla.github.io/nunjucks/">Nunjucks</a></p>
+<pre><code>{% global.process.mainModule.require(&#39;fs&#39;).readFileSync(&#39;/etc/passwd&#39;).toString() }
+</code></pre><p><a href="http://slim-lang.com/">Slim</a></p>
+<pre><code>#{ File.open(&#39;/etc/passwd&#39;).read %&gt;}
+</code></pre><p><a href="https://ruby-doc.org/stdlib-2.6.2/libdoc/erb/rdoc/ERB.html">erb</a></p>
+<pre><code>&lt;%= File.open(&#39;/etc/passwd&#39;).read %&gt;
+</code></pre><p><a href="https://vuejs.org/">Vue(SSR)</a></p>
+<pre><code>{{ global.process.mainModule.require(&#39;fs&#39;).readFileSync(&#39;/etc/passwd&#39;).toString() }}
+</code></pre><hr>
+<h1 id="user-defined-template-server-side-template-injection">User Defined Template と Server Side Template Injection</h1>
+<ul>
+<li>ユーザーがテンプレートを書ける機能を提供している場合<ul>
+<li>ブログのテーマ機能</li>
+<li>管理画面でテンプレート構文自体を入力させているようなケース</li>
+</ul>
+</li>
+<li>ユーザーに定義させるテンプレートをUser Defined Templateと呼ぶ</li>
+<li>検索キーワード: <em>User Defined Template</em></li>
+</ul>
+<hr>
+<h1 id="user-defined-template-server-side-template-injection">User Defined Template と Server Side Template Injection</h1>
+<ul>
+<li>User Defined Template が Programming Language Template ならアウト<ul>
+<li>ユーザーがサーバで任意のコード実行ができる</li>
+<li>サーバ自体を乗っ取ることが可能</li>
+</ul>
+</li>
+<li>テンプレートのレベルをちゃんと選択することが重要</li>
+</ul>
+<hr>
+<h1 id="demo-user-defined-template-server-side-template-injection">DEMO: User Defined Template と Server Side Template Injection</h1>
+<p>^ デモサイト上でブラウザからサーバで任意のコード実行を行って、<code>process.env</code>に含まれている秘密の情報を抜き取るデモ</p>
+<hr>
+<h1 id="user-defined-template-">User Defined Template として書けるテンプレートの事例</h1>
+<ul>
+<li><a href="https://www.shopify.jp/">Shopify</a>: <a href="https://shopify.github.io/liquid/basics/introduction/">Liquid</a><ul>
+<li><a href="https://github.com/harttle/liquidjs">liquidjs</a>: JS実装</li>
+</ul>
+</li>
+<li><a href="https://www.drupal.org/">Drupal</a>: <a href="https://twig.symfony.com/doc/1.x/">Twig</a><ul>
+<li><a href="https://www.drupal.org/docs/8/theming/twig">Twig in Drupal 8 | Drupal 8 guide on Drupal.org</a></li>
+</ul>
+</li>
+<li>どちらもLimited control structuresなテンプレート</li>
+</ul>
+<hr>
+<h1 id="user-defined-template-">User Defined Template として書けるテンプレートで安全を保証する手法</h1>
+<ul>
+<li>セキュリティレビュー</li>
+<li>ホワイトリストでの機能制限</li>
+<li>隔離環境での実行</li>
+</ul>
+<hr>
+<h2 id="-">セキュリティレビュー方式</h2>
+<ul>
+<li><a href="https://wordpress.com/">Wordpress</a>: テーマは独自のProgramming Language Template<ul>
+<li>テーマにPHPのコードも普通に書ける</li>
+<li><a href="https://developer.wordpress.org/themes/theme-security/">Theme Security | Theme Developer Handbook | WordPress Developer Resources</a></li>
+<li>ホスティング版では、利用できるテーマが審査済みのサードパーティに限定される</li>
+<li><a href="https://en.blog.wordpress.com/2017/08/07/wordpress-com-business-now-supports-plugins-and-third-party-themes/">The WordPress.com Business Plan Now Supports Plugins and Third-Party Themes — The WordPress.com Blog</a></li>
+<li>レビューによって安全を保証してる</li>
+</ul>
+</li>
+<li>OSS版Wordpressにおいてはテーマのインストール = 任意のPHPプログラム実行</li>
+</ul>
+<hr>
+<h2 id="-">ホワイトリスト/バリデーション方式</h2>
+<ul>
+<li>利用できる機能をホワイトリストで制限する<ul>
+<li>ブラックリストは抜け道が出やすいのでセキュリティでは避ける</li>
+</ul>
+</li>
+<li>Twig、Smarty、<a href="https://jinja.readthedocs.io/en/2.10.x/sandbox/">Jinja</a>のSandboxはこの方式<ul>
+<li>Sandboxと言うけど、実際にはホワイトリストでの機能制限 + アクセスエラー(実行させないようにしてる)</li>
+<li>Programming Language TemplateからLimited control structuresにレベルダウン⬇</li>
+</ul>
+</li>
+</ul>
+<p><img src="img/validation.png" alt="fit, right, validation"></p>
+<hr>
+<h2 id="-">ホワイトリスト/バリデーション方式の問題</h2>
+<ul>
+<li>Validationによる制限はレベルを下げる道具<ul>
+<li>全てを網羅してないとレベルを下げることができないため、結構難しい</li>
+<li>抜け穴一つでもあれば、レベルは下がらない = Programming Language Templateのまま</li>
+</ul>
+</li>
+<li>バリデーションで後から制限より、最初からLimited control structuresを選ぶべき<ul>
+<li>最初に適切なレベルを選択して、不必要にレベルを上げないようにする</li>
+</ul>
+</li>
+<li>レベルを下げるのは、レベルを上げることよりも難しい<ul>
+<li><a href="https://twitter.com/k2wanko/status/1158656749794054144">生活水準</a>と同じ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">隔離環境での実行</h2>
+<blockquote>
+<p>Containers are not a sandbox
+-- <a href="https://github.com/google/gvisor">gVisor</a></p>
+</blockquote>
+<ul>
+<li>VM、Serverlessなど隔離した環境を用意しそこでテンプレートをコンパイルする</li>
+<li>悪意あるテンプレートをコンパイルしてもできることを制限する</li>
+<li>オーバーヘッドがある</li>
+</ul>
+<hr>
+<h1 id="-">入力ソース: テンプレートのまとめ</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ローカル</th>
+<th>ブラウザ</th>
+<th>サーバ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple Token Replace</td>
+<td>Safe</td>
+<td>Safe</td>
+<td>Safe</td>
+</tr>
+<tr>
+<td>Limited control structures</td>
+<td>Safe</td>
+<td>Safe</td>
+<td>Safe</td>
+</tr>
+<tr>
+<td>Programming Language Template</td>
+<td>⚠Danger</td>
+<td>⚠Danger</td>
+<td>⚠Danger</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><img src="img/security.png" alt="fit, security"></p>
+<hr>
+<h1 id="limited-control-structures-programming-language-template">Limited control structuresとProgramming Language Template</h1>
+<ul>
+<li>Limited control structuresは機能として提供しやすい</li>
+<li>Programming Language Templateは機能として提供しにくい</li>
+</ul>
+<hr>
+<h1 id="limited-control-structures-programming-language-template-">Limited control structuresとProgramming Language Templateの見分け方</h1>
+<ul>
+<li>それがプログラムに見えるならプログラム<ul>
+<li>テンプレート内で言語のネイティブコードが呼べるならProgramming Language Template</li>
+<li><code>{{ new Date().getTime() }}</code></li>
+<li>Evalを使ってるならProgramming Language Templateになる可能性がある</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="limited-control-structures-programming-language-template-">Limited control structuresとProgramming Language Templateの見分け方</h1>
+<ul>
+<li>細かいところまで見ないと区別はつきにくい
+  -　実装に依存してしまう</li>
+<li>検索キーワード<ul>
+<li><code>{{テンプレート名}} Untrusted template</code></li>
+<li><code>{{テンプレート名}} User Defeined template</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">考え方: テンプレートと実行</h1>
+<ul>
+<li>自分のマシンでテンプレートをコンパイルして、その結果を提供するのはOK<ul>
+<li>デプロイ時にコンパイルしてから提供するのはOK</li>
+</ul>
+</li>
+<li>他人が書いたテンプレートを、自分のマシン/ブラウザ/サーバでコンパイルするのはNG<ul>
+<li>Programming Language Templateの場合は任意のコードが実行できる</li>
+<li>ユーザー入力としてテンプレートを受け取ってコンパイルする時はプログラムを実行するのと同じ気持ち</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="-">考え方: ユーザー入力とテンプレート</h1>
+<ul>
+<li>ユーザー入力は全てUntrustedなデータ<ul>
+<li>ユーザー入力からテンプレートは作成しない</li>
+<li>ユーザー入力はデータモデル(パラメータ)として渡す</li>
+</ul>
+</li>
+<li>テンプレート機能をユーザーに提供する場合<ul>
+<li>Programming Language Templateを避ける</li>
+<li>ユーザーにプログラムを書かせない</li>
+</ul>
+</li>
+</ul>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #8F001C]</p>
+<hr>
+<h1 id="-">考え方: テンプレートと複雑性</h1>
+<ul>
+<li>厳密にデータとロジックを分離するのはセキュリティと同じ</li>
+<li>無制限なテンプレートはテンプレートがデータモデルに影響を与えることができる</li>
+<li>複雑な問題に対処するなら複雑な機能を持ったテンプレートが必要になる</li>
+<li>逆に複雑ではない問題に対して複雑なテンプレートはオーバースペック</li>
+</ul>
+<hr>
+<h1 id="-">まとめ</h1>
+<ul>
+<li>テンプレートは3つのレベルがあると考えられる</li>
+<li>テンプレートのレベルとコンパイルする場所によって影響度は異なる</li>
+<li>ローカルコンパイルとサーバコンパイルを同じものとして扱わない</li>
+<li>レベルを下げるのは難しいため、必要なレベルのものを最初に選択する</li>
+<li>Untrustedなテンプレートをコンパイルするときには制限がある状態で行う<ul>
+<li>Sandbox、ホワイリスト、マニュアルレビュー</li>
+</ul>
+</li>
+<li>テンプレートファイルはプログラムファイル</li>
+</ul>
+<hr>
+<h1 id="simple-token-replacement">Simple Token Replacement</h1>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #1C8EDA]</p>
+<hr>
+<h1 id="limited-control-structures">Limited Control Structures</h1>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #107B02]</p>
+<hr>
+<h1 id="programming-language">Programming Language</h1>
+<p>[.text: #FFFFFF]
+[.header: #FFFFFF]
+[.background-color: #8F001C]</p>
+<hr>
+<h1 id="-">より良いテンプレートライフを！</h1>
+<hr>
+<h2 id="-">参考文献</h2>
+<ul>
+<li><a href="https://www.cs.usfca.edu/~parrt/papers/mvc.templates.pdf">Enforcing Strict Model-View Separation inTemplate Engines</a></li>
+<li><a href="http://shop.oreilly.com/product/0636920034186.do">Web Content Management - O&#39;Reilly Media</a></li>
+<li><a href="https://www.youtube.com/watch?v=VDAAGm_HUQU">Client-side Template Injection - YouTube</a></li>
+<li><a href="https://www.slideshare.net/x00mario/jsmvcomfg-to-sternly-look-at-javascript-mvc-and-templating-frameworks">JSMVCOMFG - To sternly look at JavaScript MVC and Templating Frameworks</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection">PayloadsAllTheThings/Server Side Template Injection at master · swisskyrepo/PayloadsAllTheThings</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Web_template_system">Web template system - Wikipedia</a></li>
+</ul>
+</article>
+<script async src="//azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
