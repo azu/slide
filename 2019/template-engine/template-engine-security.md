@@ -444,25 +444,34 @@ module.exports = app;
 
 ```js
 const express = require('express');
+const escapeHTML = require('escape-html');
 const app = express();
 app.get('/', (req, res) => {
   res.set('Content-Type', 'text/html');
   const name = req.query.name
-  res.status(200).send(`
+  res.status(200).send(`const express = require('express');
+const escapeHTML = require('escape-html');
+const app = express();
+app.get('/', (req, res) => {
+  res.set('Content-Type', 'text/html');
+  const name = req.query.name
+  res.status(200).send(`<!DOCTYPE html>
+<html>
+<body>
   <div id="app">
     <h1>Hello {{name}}</h1>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-  <script>
-    window.__INITIAL_STATE__ = ${JSON.stringify({ name })};
+  <script data-initial-state="${escapeHTML(JSON.stringify({ name }))}">
   </script>
   <script>
       new Vue({
         el: '#app',
-        data: window.__INITIAL_STATE__ || {}
+        data: JSON.parse(document.querySelector("[data-initial-state]").dataset.initialState)
       });
   </script>
-`);
+</body>
+</html>`);
 });
 module.exports = app;
 ```
