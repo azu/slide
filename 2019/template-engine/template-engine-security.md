@@ -596,7 +596,7 @@ module.exports = app;
 [Slim](http://slim-lang.com/)
 
 ```
-#{ File.open('/etc/passwd').read %>}
+#{ File.open('/etc/passwd').read }
 ```
 
 [erb](https://ruby-doc.org/stdlib-2.6.2/libdoc/erb/rdoc/ERB.html)
