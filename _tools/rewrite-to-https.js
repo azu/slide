@@ -41,7 +41,7 @@ var concatPromise = FS.listTree(rootDir, function isIndexHTML(filePath, stat) {
         const content = fs.readFileSync(filePath, "utf-8");
         const rewriteContent = content.replace("</head>", `
 <link rel="canonical" href="${url}">
-<link rel="author" href="http://www.hatena.ne.jp/efcl/" />
+<link rel="author" href="https://www.hatena.ne.jp/efcl/" />
 </head>`);
         fs.writeFileSync(filePath, rewriteContent, "utf-8");
     })
