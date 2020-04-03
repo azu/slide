@@ -1,6 +1,6 @@
 autoscale: true
 
-# Secretlint
+# Introduce to Secretlint 🔑
 
 ----
 
