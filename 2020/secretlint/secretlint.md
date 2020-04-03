@@ -55,12 +55,8 @@ autoscale: true
     - Git 2.9+の`core.hooksPath`を設定するとGitコミット時に常にチェックできる
     - <https://github.com/secretlint/secretlint#pre-commit-hook-globally>
 
-----
-
-# DEMO
 
 ----
-
 
 # 検知できるもの
 
@@ -70,7 +66,13 @@ autoscale: true
 - [SSHの秘密鍵](https://www.npmjs.com/package/@secretlint/secretlint-rule-privatekey)
 - [ベーシック認証のパスワード](https://www.npmjs.com/package/@secretlint/secretlint-rule-basicauth)
 - [SlackのトークンやWebhook](https://www.npmjs.com/package/@secretlint/secretlint-rule-slack)
-- add your rules
+- and Your Rules!
+
+----
+
+# DEMO
+
+Video: <https://twitter.com/azu_re/status/1245946972252463106>
 
 -----
 
