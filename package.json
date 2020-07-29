@@ -1,5 +1,6 @@
 {
-  "name": "slide",
+  "private": true,
+  "name": "@azu/slide",
   "description": "azu's slide repogitory",
   "version": "0.0.59",
   "repository": {
