@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js",
-    "release": "node ./_tools/indexing.js && release-it"
+    "release": "node ./_tools/indexing.js && npm version patch"
   },
   "directories": {
     "test": "test/"
@@ -23,7 +23,6 @@
     "get-html-title": "0.0.2",
     "handlebars": "^4.0.6",
     "q": "^1.0.1",
-    "q-io": "^1.11.2",
-    "release-it": "^13.6.6"
+    "q-io": "^1.11.2"
   }
 }
