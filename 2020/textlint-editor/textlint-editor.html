@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>textlint editor - ブラウザでも動くPrivacy Firstの文章校正ツールを作る話</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2020/textlint-editor/textlint-editor.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="textlint editor - ブラウザでも動くPrivacy Firstの文章校正ツールを作る話"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2020/textlint-editor/textlint-editor.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2020-07-29" id="datePublished">
+            2020-07-29
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2020-07-29" id="dateModified">
+            2020-07-29
+        </time></span>
+        <a href="https://azu.github.io/slide/2020/textlint-editor/textlint-editor.pdf" title="textlint editor - ブラウザでも動くPrivacy Firstの文章校正ツールを作る話">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="textlint-editor---ブラウザでも動くprivacy-firstの文章校正ツールを作る話">textlint editor - ブラウザでも動くPrivacy Firstの文章校正ツールを作る話</h1>
+<hr>
+<h1 id="自己紹介">自己紹介</h1>
+<p><img alt="アイコン right" src="https://github.com/azu.png"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a title="Web scratch" href="http://efcl.info/">Web scratch</a>, <a title="JSer.info" href="http://jser.info/">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="テーマ">テーマ</h1>
+<ul>
+<li><a href="https://github.com/textlint/textlint">textlint</a></li>
+<li>Privacy Firstな校正ツールを作る</li>
+<li>サーバにデータを送らずに、ローカルで文章のチェックをする</li>
+</ul>
+<hr>
+<h1 id="textlintとは">textlintとは?</h1>
+<hr>
+<h1 id="textlint"><a href="https://github.com/textlint/textlint">textlint</a></h1>
+<ul>
+<li><a href="https://github.com/textlint/textlint">textlint</a>JavaScriptで書かれた文章のLintツール<ul>
+<li>ESLintの文章版</li>
+</ul>
+</li>
+<li>Markdown、Re:View、HTMLなど文章構造をパースしてからチェックする<ul>
+<li>一般的なスペルチェッカーは構造を見ないので誤検知する</li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/search?q=textlint-rule">200弱ぐらいのルール</a>がある<ul>
+<li><a href="https://www.npmjs.com/package/textlint-rule-ng-word">Collection of textlint rule · textlint/textlint Wiki</a></li>
+<li>日本語、英語、言語に依存しないルールなど</li>
+<li><a href="https://dotinstall.com/lessons/basic_textlint">textlint入門 (全11回) - プログラミングならドットインストール</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img alt="fit" src="img/textlint-demo.png"></p>
+<hr>
+<h2 id="textlintのユースケース">textlintのユースケース</h2>
+<ul>
+<li><a href="https://github.com/angular/angular-ja">Angular</a>、<a href="https://github.com/reactjs/ja.reactjs.org">React</a>、<a href="https://github.com/vuejs/jp.vuejs.org">Vue</a>、<a href="https://github.com/vuejs-jp/ja.docs.nuxtjs">Nuxt.js</a>, <a href="https://github.com/Nextjs-ja-translation/Nextjs-ja-translation-docs">Next.js</a>、<a href="https://github.com/gatsbyjs/gatsby-ja">Gatsby</a>の公式ドキュメントの翻訳など</li>
+<li>書籍: <a href="https://github.com/asciidwango/js-primer">JavaScript Primer</a>、<a href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EC%A5%A4%A5%D4%A5%F3%A5%B0">Pythonクローリング&amp;スクレイピング</a>、<a href="https://github.com/rustcc/RustPrimer">RustPrimer</a>、<a href="https://github.com/survivejs/webpack-book">SurviveJS - Webpack</a></li>
+<li><a href="https://github.com/vuejs/vuepress">VuePress</a>、<a href="https://github.com/cypress-io/cypress-documentation">Cypress</a>、<a href="https://github.com/jpazureid/blog">日本マイクロソフト Azure Identity</a>、<a href="https://github.com/OWASP/CheatSheetSeries">OWASP Cheat Sheet Series</a></li>
+</ul>
+<hr>
+<h1 id="文章に対するci">文章に対するCI</h1>
+<ul>
+<li>文章に対するContinuous Integration(CI)を持ち込む<ul>
+<li>Continuous Writingするためのツール</li>
+<li><a href="https://github.com/asciidwango/js-primer">asciidwango/js-primer: JavaScript Primer - 迷わないための入門書</a>とかで使ってる</li>
+<li>長期間書いていると人間のほうが変わってるので質が一定に保てない</li>
+<li>jsprimerは5年ぐらい書いている</li>
+</ul>
+</li>
+<li>そのためどちらかというと技術的な用途がメイン</li>
+</ul>
+<hr>
+<h1 id="easy的な使い方">Easy的な使い方</h1>
+<ul>
+<li>今までもtextlintをラップしたものはあった</li>
+<li><a href="http://io-monad.hatenablog.com/entry/2016/03/14/225800">文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ICS.japanese-proofreading">テキスト校正くん - Visual Studio Marketplace</a></li>
+</ul>
+<hr>
+<h1 id="textlinteditor"><a href="https://github.com/textlint/editor">textlint/editor</a></h1>
+<hr>
+<h1 id="目的">目的</h1>
+<ul>
+<li>Privacy Firstな<a href="https://grammarly.com/">grammarly</a>を作る</li>
+<li>grammarlyのブラウザ拡張が便利だった</li>
+<li>→ 今回作ったもの: <a href="https://github.com/textlint/editor">textlint/editor: textlint editor project.</a></li>
+</ul>
+<hr>
+<h1 id="grammarly"><a href="https://grammarly.com/">grammarly</a></h1>
+<p><img alt="inline, fit" src="img/grammarly.png"></p>
+<hr>
+<h1 id="grammarlyの問題">grammarlyの問題</h1>
+<ul>
+<li>textareaに入力した文字が全てサーバに送られる仕組み </li>
+</ul>
+<p><img alt="inline, fit" src="img/grammarly-websockets.png"></p>
+<hr>
+<h1 id="類似するツール">類似するツール</h1>
+<ul>
+<li><a href="https://grammarly.com/">grammarly</a></li>
+<li><a href="https://www.microsoft.com/ja-jp/microsoft-365/microsoft-editor">Microsoft エディター</a></li>
+<li>どちらもオフラインでは動かない、サーバに通信してその結果を表示する</li>
+</ul>
+<hr>
+<h1 id="サーバに入力文字を送ることで起きる問題">サーバに入力文字を送ることで起きる問題</h1>
+<ul>
+<li><a href="https://twitter.com/_mi_co_n_/status/1283078591568216065">DeepLでNetflix?の字幕を学習してる問題</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/Baidu_IME#%E3%83%AD%E3%82%B0%E6%83%85%E5%A0%B1%E9%80%81%E4%BF%A1">Baisu IME ログ情報送信</a>問題</li>
+</ul>
+<hr>
+<h2 id="deeplの学習">DeepLの学習</h2>
+<p><img alt="right, fit DeepL" src="img/deepl.png"></p>
+<ul>
+<li><code>-Now,</code>を翻訳するとNetflixっぽい字幕がでてくる</li>
+<li><a href="https://www.deepl.com/ja/pro-license#free">DeepL利用規約(無料版)</a>は入力データは全てDeepLのものとなる<ul>
+<li>無料版のデータは学習に使うため保持することが記載されていた</li>
+<li><a href="https://www.science.co.jp/nmt/blog/21127/">DeepL翻訳で機密は保持される？セキュリティは？ | ブログ | 株式会社ヒューマンサイエンス</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="privacy-firstな校正ツールを作る">Privacy Firstな校正ツールを作る</h1>
+<ul>
+<li><a href="https://github.com/textlint/textlint">textlint</a>はJavaScriptで書かれている</li>
+<li>基本的にルールもJavaScriptで書かれている</li>
+<li>そのため、オフラインでも動作する</li>
+<li>サーバにデータを送る必要がない</li>
+</ul>
+<hr>
+<h1 id="textlintをブラウザで動かす">textlintをブラウザで動かす</h1>
+<ul>
+<li>目標: <a href="https://grammarly.com/">grammarly</a>のtextlint版を作る</li>
+<li>textlintは基本的にはNode.jsで動かしている</li>
+<li>ブラウザで動かすには依存を色々解決するものが立ち</li>
+</ul>
+<hr>
+<h1 id="5日でプロトタイピング">5日でプロトタイピング</h1>
+<ul>
+<li>ここから本題 20min</li>
+<li>5日でtextlint editorを作る</li>
+<li>ブラウザでtextlintを動かす</li>
+<li>ブラウザ拡張であらゆるサイトでtextlintでのチェックを使えるようにする</li>
+</ul>
+<hr>
+<h1 id="1日目">1日目</h1>
+<hr>
+<h1 id="1日目-1">1日目</h1>
+<p><img alt="right,fit" src="img/grammarly-underline.png"></p>
+<ul>
+<li>grammery的なUIを作るプロトタイピング</li>
+<li>あらゆるサイトで動かないと行けないのでWeb Componentsでコンポーネント作成</li>
+<li>→ textareaに重ねるようにして要素を置くことで、一部に下線が出るようにするコンポーネント作る</li>
+</ul>
+<hr>
+<h1 id="demo-httpstwittercomazu_restatus1286309148758482945">DEMO: <a href="https://twitter.com/azu_re/status/1286309148758482945">https://twitter.com/azu_re/status/1286309148758482945</a></h1>
+<hr>
+<p><img alt="fit" src="img/1day-textlint-editor.mp4"></p>
+<hr>
+<p><img alt="fit" src="img/textlint-editor-3d.png"></p>
+<hr>
+<h1 id="2日目">2日目</h1>
+<hr>
+<h1 id="2日目-1">2日目</h1>
+<ul>
+<li>作ったUIにtextlintを組み込んでまずは実証</li>
+<li>既存の<a href="https://github.com/mobilusoss/textlint-browser-runner">textlint-browser-runner</a>を使ってintegration</li>
+<li>→ あらゆるtextlintルールをどうbundleをどうするか考える</li>
+<li>→ 動いた</li>
+</ul>
+<hr>
+<h1 id="textlintのbrowser版はなんでビルドが必要">textlintのbrowser版はなんでビルドが必要?</h1>
+<ul>
+<li>textlintはすべてがpluggable</li>
+<li>textlintのルールを個人に合わせる仕組みが必要</li>
+<li>同じ人でもルールは文章によって違う</li>
+</ul>
+<hr>
+<h1 id="2日目-textlintのbundleをどうするか">2日目: textlintのbundleをどうするか?</h1>
+<ul>
+<li>方法<ul>
+<li>全部入りのbundleを作る</li>
+<li>全部オンラインロード</li>
+<li>ルールだけをパッケージするか</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="2日目-bundle-prototype">2日目: bundle prototype</h1>
+<ul>
+<li>全部入りのbundleを作る<ul>
+<li><a href="https://www.npmjs.com/package/@zeit/ncc">@zeit/ncc</a>でbundle</li>
+<li>→ うごいた</li>
+<li>webpackでも動くのは過去からわかってる</li>
+</ul>
+</li>
+<li>全部オンラインロード<ul>
+<li>PikaCDN, Skypackを使ってルールを読み込む</li>
+<li>→ ローカルでのビルドが不要というのが大きなメリット</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="textlintのbrowser版はなんでビルドが必要-1">textlintのbrowser版はなんでビルドが必要?</h1>
+<ul>
+<li><a href="https://www.skypack.dev/">Skypack</a>との格闘</li>
+<li>CDNでのビルド済みファイルの利用<ul>
+<li><a href="https://github.com/mizchi/uniroll">mizchi/uniroll</a>でのビルド<ul>
+<li>importしたモジュールをCDNからロードするようにしてビルドする</li>
+</ul>
+</li>
+<li><a href="https://github.com/mizchi/uniroll/pull/10">Rename Pika to skypack by azu · Pull Request #10 · mizchi/uniroll</a></li>
+<li><a href="https://github.com/textlint/textlint/pull/690">Support "module" field by azu · Pull Request #690 · textlint/textlint</a></li>
+</ul>
+</li>
+<li>いくつか対応してunirollでtextlintが動いた！<ul>
+<li><a href="https://twitter.com/azu_re/status/1286657627032678400">https://twitter.com/azu_re/status/1286657627032678400</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="3日目">3日目</h1>
+<hr>
+<h1 id="npm-cdnの問題">npm CDNの問題</h1>
+<ul>
+<li>skypackでは<code>require("pkg/file")</code>がtranspileされない仕様<ul>
+<li><code>pkg</code>モジュールの相対パスの<code>file.js</code>を読み込む仕組み</li>
+</ul>
+</li>
+<li><a href="https://docs.skypack.dev/lookup-urls/lookup-urls#lookup-a-package-file">Lookup a Package File</a><ul>
+<li>そのため direct requireしてるライブラリがどこかにあると動かない</li>
+<li>回避するためにはライブラリガワがbundleファイルを配布してくれないとできない</li>
+<li><a href="https://github.com/textlint/textlint-util-to-string/pull/15">feat: use microbundle for distribution by azu · Pull Request #15 · textlint/textlint-util-to-string</a></li>
+</ul>
+</li>
+<li>→ 現実的にあらゆるルールで担保するのは難しい<ul>
+<li>断念</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="webpack-as-a-service">webpack as a service</h1>
+<ul>
+<li>nccやwebpackでtextlintはビルドできる</li>
+<li>→ webpack as a serviceを考える<ul>
+<li><a href="https://codesandbox.io/">codesandbox</a>を使えば、webpackでビルドしたファイルをブラウザだけで取得できそうな予感がした</li>
+<li>どちらにしてもだいたいの人は配布されたファイルを使うだけでいい</li>
+<li>高度な使い方をする人は自分のtextlintrcを持っているはず → node環境がある</li>
+<li>→ つまり textlint + textlintrcからbundleを作成できるコンパイラーを書けば解決できそう</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="textlintcompiler"><a href="https://github.com/textlint/editor/tree/master/packages/%40textlint/compiler">@textlint/compiler</a></h1>
+<ul>
+<li>textlintのルールは仕組み的にdynamic requireで解決している(textlintが依存を知らないため)<ul>
+<li>ESLintなど多くのルールをもつツールはだいたい同じ仕組み</li>
+<li>dllみたいなもの = ルール</li>
+</ul>
+</li>
+<li><a href="https://github.com/textlint/editor/tree/master/packages/%40textlint/compiler">@textlint/compiler</a>を作成する<ul>
+<li>webpackに優しいコードを出力する</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="textlintcompiler-1"><a href="https://github.com/textlint/editor/tree/master/packages/%40textlint/compiler">@textlint/compiler</a></h1>
+<ul>
+<li>このルールをcompilerがコンパイルしやすいように、静的な形に整形するlinkerを書く</li>
+<li><code>.textlintrc</code>(設定ファイル) → staticな<code>require</code>に変換するlinker<ul>
+<li>実体は<a href="https://twitter.com/azu_re/status/1286952957754273793">config loader</a> + code generator</li>
+<li><a href="https://twitter.com/azu_re/status/1286952957754273793">https://twitter.com/azu_re/status/1286952957754273793</a></li>
+</ul>
+</li>
+<li>コンパイルの処理自体ははwebpackに生成したコードを投げる</li>
+</ul>
+<hr>
+<h1 id="4日目">4日目</h1>
+<hr>
+<h1 id="リアルタイムlint">リアルタイムLint</h1>
+<ul>
+<li>ブラウザで動くなら入力ごとのLintしたい</li>
+<li>web workerの対応<ul>
+<li>入力文字における処理はWebWorkerなど別スレッドで行うのが基本</li>
+<li>コメント入力はレイテンシーに弱い 許されるのは 5ms以内ぐらい</li>
+<li>webworkerに対応したtextlintを作成する</li>
+<li><code>@textlint/kernel</code>(コア)はpure jsで書かれているので、postmessageのラッパーを書くだけで解決</li>
+<li><a href="https://twitter.com/azu_re/status/1287015063870562305"><code>target: self</code>で解決</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="kuromojijsの辞書解決">kuromoji.jsの辞書解決</h1>
+<ul>
+<li>textlintのルールでは一部のルールがkuromoji.jsでの形態素解析を使ってる</li>
+<li>この辞書が圧縮して20mbぐらいある(無圧縮は100mb)</li>
+<li>この辞書を毎回ロードしててる大変</li>
+<li>worker内でキャッシュ、同時に取得した時に1回の取得にまとめる必要がる</li>
+</ul>
+<hr>
+<h1 id="kuromojijsの辞書ハック">kuromoji.jsの辞書ハック</h1>
+<pre><code class="language-js">// InMemory Cache
+const dictionaryDeferred = new Deferred();
+const urlMap = new Map();
+BrowserDictionaryLoader.prototype.loadArrayBuffer = async function (url, callback) {
+    // https://github.com/takuyaa/kuromoji.js/issues/37
+    const fixedURL = url.replace("https:/", "https://");
+    const cachedDictBuffer = await dictionaryStorage.get(fixedURL);
+    if (cachedDictBuffer) {
+        // console.log("return cache", cachedDictBuffer);
+        return callback(null, cachedDictBuffer);
+    }
+    // Suppress multiple request to same url at same time
+    if (urlMap.has(fixedURL)) {
+        return urlMap.get(fixedURL).promise.then(result =&gt; {
+            callback(null, result);
+        }).catch(error =&gt; {
+            callback(error);
+        });
+    }
+    const deferred = new Deferred();
+    urlMap.set(fixedURL, deferred);
+    fetch(fixedURL).then(function (response) {
+        if (!response.ok){
+            return callback(response.statusText, null);
+        }
+        response.arrayBuffer().then(function (arraybuffer) {
+            var gz = new zlib.Zlib.Gunzip(new Uint8Array(arraybuffer));
+            var typed_array = gz.decompress();
+            return dictionaryStorage.set(fixedURL, typed_array.buffer).then(() =&gt; {
+                // console.log("cached", fixedURL);
+                deferred.resolve(typed_array.buffer);
+                callback(null, typed_array.buffer);
+            });
+        });
+    }).catch(function (exception) {
+        deferred.reject(exception);
+        callback(exception, null);
+    });
+};</code></pre>
+<hr>
+<h1 id="辞書ハック">辞書ハック</h1>
+<ul>
+<li><a href="https://github.com/textlint/editor/blob/master/packages/%40textlint/compiler/src/CodeGenerator/worker-codegen.ts">prototype hackをしてる</a></li>
+<li>ちゃんと解決するにはkuromoji.js自体をイジる必要がありそう</li>
+<li>dictionary loaderを外から使えるようにしないとダメそう</li>
+<li>forkしかないのかも</li>
+</ul>
+<hr>
+<h1 id="ここまで">ここまで</h1>
+<p><img alt="right,fit, 5day" src="img/5day.png"></p>
+<ul>
+<li>ブラウザでIntegrations<ul>
+<li>1日目に作ったUI</li>
+<li>2日目は仮説検証 → 断念</li>
+<li>3-4日目に<a href="https://github.com/textlint/editor/tree/master/packages/%40textlint/compiler">@textlint/compiler</a>で生成したtextlint bundleを読み込む</li>
+<li><a href="https://twitter.com/azu_re/status/1287332379422420993">統合して動かすデモ</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="5日目">5日目</h1>
+<ul>
+<li>ブラウザ拡張を作る</li>
+<li>web extension firefox + chromeとかに対応する</li>
+<li><a href="https://github.com/webextension-toolbox/webextension-toolbox">WebExtension Toolbox</a>を採用</li>
+<li>メンテにちょっと不安感あるけど、configを減らして運用でカバー ejectable</li>
+</ul>
+<hr>
+<h1 id="chrome拡張での検証">Chrome拡張での検証</h1>
+<ul>
+<li><input type="checkbox" disabled="" checked=""> WebWorkerをBackground Pageで動かす</li>
+<li><input type="checkbox" disabled="" checked=""> Content Scriptsで1日目のUIをあらゆるサイトにInject<ul>
+<li>Content ScriptsでWeb Componentがうごかない！！！</li>
+<li>これ絶対Chromeおかしい！！！</li>
+<li><a href="https://bugs.chromium.org/p/chromium/issues/detail?id=390807">390807 - Content scripts can't define custom elements - chromium</a></li>
+<li><a href="https://github.com/textlint/editor/blob/f730051ca2e1237947100ec62072b4ae39a2d8e0/packages/webextension/app/scripts/contentScript.ts#L1-L2"><code>import '@webcomponents/custom-elements'</code>を使うことで回避</a></li>
+<li>WebComponentをWebComponentのpolyfillで動かすことで回避</li>
+</ul>
+</li>
+<li>UI → Content Scripts → Background Pages → WebWorker(textlit)<ul>
+<li>Lintに成功</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="デザインを書く">デザインを書く</h1>
+<p><img alt="right,fit, figma" src="img/figma.png"></p>
+<ul>
+<li>デザインを描いていく</li>
+<li>figmaでいくかデザインのパターンを書く</li>
+<li><a href="https://www.figma.com/file/9kRm0Cr869zbdACytRE74R/textlint-editor?node-id=0%3A1">https://www.figma.com/file/9kRm0Cr869zbdACytRE74R/textlint-editor?node-id=0%3A1</a></li>
+</ul>
+<hr>
+<p><img alt="img" src="img/figma-prototype.png"></p>
+<hr>
+<h1 id="デザインを実装する">デザインを実装する</h1>
+<ul>
+<li>Figmaで書いたデザインを実装する</li>
+<li><a href="https://github.com/textlint/editor/tree/f730051ca2e1237947100ec62072b4ae39a2d8e0/packages/textchecker-element">textchecker-element</a></li>
+<li>ひとまず完成！</li>
+</ul>
+<hr>
+<h1 id="textlint-editor">textlint editor</h1>
+<h2 id="httpstextlint-editornetlifyapp"><a href="https://textlint-editor.netlify.app/">https://textlint-editor.netlify.app/</a></h2>
+<hr>
+<h1 id="デモ-httpstwittercomazu_restatus1288038759192174593">デモ: <a href="https://twitter.com/azu_re/status/1288038759192174593">https://twitter.com/azu_re/status/1288038759192174593</a></h1>
+<hr>
+<p><img alt="fit" src="img/textlint-editor.mp4"></p>
+<hr>
+<h1 id="まとめ">まとめ</h1>
+<ul>
+<li>UIはWebComponents</li>
+<li>コアは最初からPure JavaScriptで書いておく<ul>
+<li>ちょっとしたNodeライブラリならwebpackでなんとかできる</li>
+</ul>
+</li>
+<li>skypackのCDNはRollup系なのできれいなビルドができる<ul>
+<li>キレイじゃないライブラリは使えない</li>
+<li>Node.js exportsとかがこれからくるので、きれいな方法がまだ定義されていない</li>
+</ul>
+</li>
+<li>textlint + ルールを一つにbundleしてオフライン校正ツールが動いた!</li>
+</ul>
+<hr>
+<h1 id="これから">これから</h1>
+<ul>
+<li>Collaboratorを募集！<ul>
+<li>Repository: <a href="https://github.com/textlint/editor">textlint/editor: textlint editor project.</a></li>
+<li>Gitter: <a href="https://gitter.im/textlint-ja/textlint-ja">https://gitter.im/textlint-ja/textlint-ja</a></li>
+</ul>
+</li>
+<li>ブラウザで動けば大体のところで動く<ul>
+<li>サイトに組み込みしやすい、サーバ側に遅れたデータを管理しなくていい単語</li>
+<li>→ 同じ仕組みでウェブサイトに組み込みができる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="これから-1">これから</h1>
+<ul>
+<li>frontend<ul>
+<li>suggest対応</li>
+<li>ignore対応</li>
+<li>see document対応</li>
+</ul>
+</li>
+<li>compiler<ul>
+<li>codesandboxでコンパイルしたものを配布するテンプレート</li>
+</ul>
+</li>
+<li>performance<ul>
+<li>今はlintが10msぐらい、文字数に応じて線形的に処理が増える</li>
+<li>ちゃんと考えるなら差分処理が必要だけど、文章にはコンテキストがあるので制限がある</li>
+<li>WebWorkerのおかげでUIにはlatencyは少ないので、1sぐらいならOK</li>
+<li>現実的にtextareで10kbレベルの文章を書く人は少なくて、ファイルを分けるからなんとかなる</li>
+<li>DOMの最適化が必要。表示してるエリア飲みに情報を表示するなどの最適化が必須</li>
+</ul>
+</li>
+<li>拡張<ul>
+<li>Chrome拡張にtextlint bundleを更新する仕組みを作る</li>
+<li>textlint.jsをダウンロードしてChrome拡張で使うものを切り替え → Workerを再起動</li>
+<li>storeの公開がめんどうくさいのでどうする?</li>
+</ul>
+</li>
+<li>ルール: まだ動かないルールもあるはず</li>
+</ul>
+<hr>
+<h1 id="おわり">おわり</h1>
+<ul>
+<li>現在はprototypeができた段階、ちゃんと使えるものにする必要がある</li>
+<li>興味がある人はCollaboratorとして参加してください。</li>
+<li>Summary Issue: <a href="https://github.com/textlint/editor/issues/4">https://github.com/textlint/editor/issues/4</a></li>
+<li><a href="https://github.com/textlint/editor">textlint/editor: textlint editor project.</a></li>
+</ul>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
