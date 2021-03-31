@@ -114,7 +114,7 @@ autoscale:true
 ## Philanthropyとオープンソース
 
 - 継続性の問題
-  - オープンソースは属人性がある [^GitHub, 2015]
+  - オープンソース(ソフトウェア)は属人性がある [^GitHub, 2015]
   - 寄付のみではなく、助成金や事業収益で継続している慈善団体が多い [^NPO, 2017]
 - お金が神聖視されていた
   - 近年では{慈善活動,オープンソース}でも利益を得る事自体は問題ないという意見を見ることが増えた[^要出典]
@@ -141,7 +141,7 @@ NPOは、助成金などのフローであるお金に制限されている部�
 ![fit,right, オープンソースとPhilanthropy](./img/open-source-philanthropy.png)
 
 - 寄付とコミュニティ
-  - オープンソースに寄付する人は開発者が中心[^要出典]
+  - オープンソースに寄付する人は開発者が中心[^要出典2]
   - 慈善活動する動機は個人的な経験と紐付いていることが多い [^Miller＆Ratner、1998]
   - 一方で、個人的な経験と紐付かないことに対しての慈善活動や寄付は躊躇する[^Ratner＆Miller、2001]
   - → 特定のカテゴリの慈善活動に関連する人は特定のカテゴリに関係する人が中心となる傾向
@@ -151,6 +151,8 @@ NPOは、助成金などのフローであるお金に制限されている部�
 [^Miller＆Ratner、1998]: [Self-interest is overestimated](https://www.researchgate.net/publication/344629108_Self-interest_is_overestimated_Two_successful_pre-registered_replications_and_extensions_of_Miller_and_Ratner_1998)
 
 [^Ratner＆Miller、2001]: [The norm of self-interest and its effects on social action](https://pubmed.ncbi.nlm.nih.gov/11474725/)
+
+[^要出典2]: 出典なし。ソフトウェアが主なのでそれを開発する人が中心だろうという予想。
 
 ----
 
