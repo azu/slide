@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>🌕 moonでのmonorepo管理とpackemonでのCJS&#x2F;ESMのdual package</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2022/moa/moon-packemon.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="🌕 moonでのmonorepo管理とpackemonでのCJS&#x2F;ESMのdual package"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2022/moa/moon-packemon.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2022-07-31" id="datePublished">
+            2022-07-31
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2022-07-31" id="dateModified">
+            2022-07-31
+        </time></span>
+        <a href="https://azu.github.io/slide/2022/moa/moon-packemon.pdf" title="🌕 moonでのmonorepo管理とpackemonでのCJS&#x2F;ESMのdual package">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="🌕-moonでのmonorepo管理とpackemonでのcjsesmのdual-package">🌕 moonでのmonorepo管理とpackemonでのCJS/ESMのdual package</h1>
+<hr>
+<h1 id="🌕-moon">🌕 <a href="https://moonrepo.dev/">moon</a></h1>
+<ul>
+<li>一貫性を持ったmonorepo管理ツール for JavaScript</li>
+<li>ハッシュを使ったファイルキャッシュ</li>
+<li>プロジェクトのパッケージ間の依存関係の分析とタスク実行</li>
+<li>Node.js/npmパッケージマネージャーのバージョン管理と一貫性</li>
+<li>TypeScriptのProject Referendcesの一貫性</li>
+</ul>
+<hr>
+<h2 id="比較">比較</h2>
+<ul>
+<li><a href="https://nx.dev/">Nx</a>: The Framework + Pluginで拡張する<ul>
+<li><a href="https://github.com/lerna/lerna">Lerna</a>: Nx傘下、ライブラリ公開向け</li>
+</ul>
+</li>
+<li><a href="https://turborepo.org/">Turborepo</a>: タスク実行の最適化をする</li>
+<li><a href="https://moonrepo.dev/">moon</a>: monorepoでの一貫性を提供する<ul>
+<li><a href="https://packemon.dev/">Packemon</a>: moonと同じ作者。ESM/CJSのライブラリ公開向け</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="比較言語">比較(言語)</h2>
+<ul>
+<li><a href="https://nx.dev/">Nx</a>: TypeScript + C++[^1]</li>
+<li><a href="https://turborepo.org/">Turborepo</a>: GoLang</li>
+<li><a href="https://moonrepo.dev/">moon</a>: Rust 🦀</li>
+</ul>
+<p>[^1]: Ref <a href="https://github.com/nrwl/nx/blob/master/docs/shared/guides/turbo-and-nx.md">Nx and Turborepo</a></p>
+<hr>
+<h1 id="🌕-moon-1">🌕 <a href="https://moonrepo.dev/">moon</a></h1>
+<ul>
+<li>将来的なカバー範囲の予想<ul>
+<li>Nx &gt;= 🌕 <a href="https://moonrepo.dev/">moon</a> &gt; Turborepo</li>
+</ul>
+</li>
+<li>Moonでは、Remote caching/分散ビルドはこれから</li>
+<li>Moonは、プラグインというよりはコマンドなので、拡張性はNxの方が高そう</li>
+</ul>
+<hr>
+<h1 id="🌕-moonの特徴">🌕 <a href="https://moonrepo.dev/">moon</a>の特徴</h1>
+<ul>
+<li>一貫性</li>
+<li>Node.jsやnpmといった実行環境に関してもmoonで管理できる<ul>
+<li><a href="https://volta.sh/">Volta</a>に近い仕組み</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="🌕-moonのstructure">🌕 <a href="https://moonrepo.dev/">moon</a>のStructure</h1>
+<ul>
+<li>Workspace: monorepoのルートのこと<ul>
+<li>チーム開発なら1つのチームがいるスペース</li>
+<li>WorkspaceのNodeやパッケージマネージャーの環境を統一できる</li>
+</ul>
+</li>
+<li>Project: 各Packagesのこと<ul>
+<li>client/server/commonみたいなパッケージなど</li>
+<li>Project間の依存関係を管理して、常に同期できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img alt="fit, moon structure" src="./moon-structure.jpg"></p>
+
+
+<hr>
+<h1 id="🌕-moon-使い方のイメージ-1">🌕 <a href="https://moonrepo.dev/">moon</a> 使い方のイメージ 1</h1>
+<ul>
+<li><a href="https://moonrepo.dev/docs/config/workspace">.moon/workspace.yml</a>にワークスペースの設定を定義する<ul>
+<li>どのディレクトリをProjectにするか</li>
+<li>Node/npm/TypeScript/VSC(git)などの共通設定</li>
+</ul>
+</li>
+<li><a href="https://moonrepo.dev/docs/config/global-project">.moon/project.yml</a>にプロジェクトの共通タスクを定義する<ul>
+<li><a href="https://moonrepo.dev/docs/commands/migrate/from-package-json">npm run-scriptからmigrate</a>もできる</li>
+</ul>
+</li>
+<li><code>&lt;プロジェクト&gt;/project.yml</code>にプロジェクト固有のタスクを設定する</li>
+</ul>
+<hr>
+<h1 id="🌕-moon-使い方のイメージ-2">🌕 <a href="https://moonrepo.dev/">moon</a> 使い方のイメージ 2</h1>
+<ul>
+<li><code>moon run &lt;プロジェクト名&gt;:&lt;タスク名&gt;</code> でタスクを実行できる<ul>
+<li><code>client</code>の<code>build</code>を実行するなら<code>moon run client:build</code></li>
+<li><code>moon run :build</code> で全てのプロジェクトの<code>build</code>を実行できる(<code>lerna run &lt;script&gt;</code>相当)</li>
+</ul>
+</li>
+<li>実行するタスクとそのプロジェクトがものは自動で実行される<ul>
+<li>プロジェクト(<a href="https://moonrepo.dev/docs/config/project#dependson">dependsOn</a>)とタスク(<a href="https://moonrepo.dev/docs/config/project#deps">deps</a>)に依存を定義できる</li>
+<li>タスクの入力ファイルと出力ファイルに関しても依存を定義できる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="🌕-moon-使い方のイメージ-3">🌕 <a href="https://moonrepo.dev/">moon</a> 使い方のイメージ 3</h1>
+<ul>
+<li><code>moon run</code> でタスクを実行する前に、workspaceの定義と実行してる環境が一致するかをチェックしてる<ul>
+<li>一致してないなら環境を一致させる<a href="https://moonrepo.dev/docs/commands/sync">moon sync</a>が自動的に叩かれる</li>
+<li>Node/npmのバージョン、TSの<a href="https://www.typescriptlang.org/docs/handbook/project-references.html">Project References</a>の依存関係、ローカルのキャッシュの状態などが意識せずに合うように同期される</li>
+<li>チーム開発での環境のばらつきが抑えられて一貫性が保てる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="🌕-moonの特徴-1">🌕 <a href="https://moonrepo.dev/">moon</a>の特徴</h1>
+<ul>
+<li>意識しなくても常に<code>moon sync</code>が行われている<ul>
+<li>workspaceのNode.jsやnpmのバージョンを変更したら、自動的にバイナリがダウンロードされるし<code>.nvmrc</code>とかに同期される(<a href="https://moonrepo.dev/docs/config/workspace#syncversionmanagerconfig">syncVersionManagerConfig</a>)</li>
+<li>workspaceにprojectを増やしたら、TSの<a href="https://www.typescriptlang.org/docs/handbook/project-references.html">Project References</a>が自動的に更新される(<a href="https://moonrepo.dev/docs/config/workspace#syncprojectworkspacedependencies">syncProjectWorkspaceDependencies</a>)</li>
+<li>Project間の依存は、package.jsonにも反映される(<a href="https://moonrepo.dev/docs/config/workspace#syncprojectreferences">syncProjectReferences</a>)</li>
+</ul>
+</li>
+<li>チーム開発で「変更入れたので、ローカルでこのコマンド実行しておいてください」みたいのが減る</li>
+</ul>
+<hr>
+<h1 id="🌕-moonの面白いポイント">🌕 <a href="https://moonrepo.dev/">moon</a>の面白いポイント</h1>
+<ul>
+<li><code>moon ci</code>というCI向けのコマンドが用意されている<ul>
+<li><a href="https://moonrepo.dev/docs/guides/ci">Continuous integration | moon</a></li>
+</ul>
+</li>
+<li>project.ymlのタスクの定義に基づき、自動的にタスクが実行される<ul>
+<li>タスク側に <code>runInCI: false</code> となければとりあえず実行される</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="比較-1">比較</h2>
+<ul>
+<li><a href="https://nx.dev/">Nx</a>: 全部入り、プラグインで拡張</li>
+<li><a href="https://turborepo.org/">Turborepo</a>: シンプル、npm run-scriptの拡張レイヤー</li>
+<li>🌕 <a href="https://moonrepo.dev/">moon</a>: 体験の一貫性</li>
+</ul>
+<hr>
+<h1 id="🔥-packemon">🔥 <a href="https://packemon.dev/">Packemon</a></h1>
+<hr>
+<h1 id="packemon"><a href="https://packemon.dev/">Packemon</a></h1>
+<ul>
+<li>🌕 <a href="https://moonrepo.dev/">moon</a>と作者は同じ</li>
+<li>ESM/CJSのdual packageに対応したライブラリを公開する用途のbundler/build tool<ul>
+<li>Babel/rollupをいい感じにまとめて、package.jsonの設定も自動的に修正される</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="packemonの特徴"><a href="https://packemon.dev/">Packemon</a>の特徴</h1>
+<ul>
+<li><code>package.json</code>の<code>packemon</code>フィールドに出力形式を設定する と</li>
+<li>→ 自動的に <code>main</code>/<code>exports</code>/<code>types</code>/<code>type</code>/<code>engines</code>など公開するための設定が追加される</li>
+</ul>
+<hr>
+<pre><code class="language-json">  "packemon": [
+    {
+      "inputs": {
+        "index": "./src/index.ts"
+      },
+      "platform": "node",
+      "format": "cjs"
+    },
+    {
+      "inputs": {
+        "node": "./src/index.ts"
+      },
+      "platform": "node",
+      "format": "mjs"
+    }
+  ],
+</code></pre>
+<hr>
+<pre><code class="language-json">  "types": "./dts/index.d.ts",
+  "main": "./cjs/index.cjs",
+  "engines": {
+    "node": "&gt;=14.15.0",
+    "npm": "&gt;=6.14.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./dts/*.d.ts",
+      "node": {
+        "import": "./mjs/*.mjs",
+        "require": "./cjs/*.cjs"
+      }
+    },
+    ".": {
+      "types": "./dts/index.d.ts",
+      "node": {
+        "import": "./mjs/index.mjs",
+        "require": "./cjs/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "cjs/**/*.{cjs,mjs,map}",
+    "dts/**/*.d.ts",
+    "mjs/**/*.{mjs,map}",
+    "src/**/*.{ts,tsx,json}"
+  ]
+</code></pre>
+<hr>
+<p><img alt="packemon" src="packemon.png"></p>
+<hr>
+<h2 id="packemon-その他">Packemon: その他</h2>
+<ul>
+<li>Babelを使ったCJS &lt;-&gt; MJSのinterop変換が実装されている<ul>
+<li><a href="https://packemon.dev/docs/features#automatic-mjs-wrappers-for-cjs-inputs">Features &amp; optimizations | Packemon</a></li>
+</ul>
+</li>
+<li><a href="https://packemon.dev/docs/features#presets">index-wrapper.mjs</a>というCJSをMJSとしてラップして、<a href="https://nodejs.org/api/packages.html#dual-package-hazard">Dual package hazard</a>を回避時する実装も持っている<ul>
+<li>requireとimportで別のファイルを読み込むと、insteanceofがコケる問題の回避</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="作ったもの">作ったもの</h1>
+<ul>
+<li><a href="https://github.com/azu/file-cache">azu/file-cache: Node.js library that provide a cache for file metadata or file content.</a><ul>
+<li>🌕 <a href="https://moonrepo.dev/">moon</a>と<a href="https://packemon.dev/">Packemon</a>を使い、MJSとCJSのdual packageとして公開している</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="まとめ">まとめ</h1>
+<ul>
+<li>🌕 <a href="https://moonrepo.dev/">moon</a>と<a href="https://packemon.dev/">Packemon</a><ul>
+<li>どちらもあまり意識せずにtsconfig.jsonやpackage.jsonと設定の一貫性を保ち、間違いを減らしてくれる</li>
+<li>一方で、抜け穴的な回避策が狭くなるので、理想と現実のギャップをどこまで埋められるかが体験に響きやすい</li>
+<li>どちらもかなり現実のユースケースから作られていて、違和感がある動作は少ない(ただ、バグはまだある)</li>
+</ul>
+</li>
+</ul>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
