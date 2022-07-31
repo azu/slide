@@ -2,7 +2,7 @@
   "private": true,
   "name": "@azu/slide",
   "description": "azu's slide repogitory",
-  "version": "0.0.62",
+  "version": "0.0.63",
   "repository": {
     "url": "git://github.com/azu/slide.git"
   },
