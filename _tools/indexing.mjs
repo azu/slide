@@ -81,10 +81,10 @@ async function groupingFileList(fileList) {
             }).reverse().map(([eventName, items]) => {
                 return {
                     name: eventName,
-                    items: items.sort((a, b) => {
-                        return a.createDate > b.createDate ? -1 : 1;
-                    })
+                    items: items
                 }
+            }).sort((a, b) => {
+                return a.items[0].createDate > b.items[0].createDate ? -1 : 1;
             })
         }]
     })
