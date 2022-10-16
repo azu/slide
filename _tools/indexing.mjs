@@ -81,7 +81,9 @@ async function groupingFileList(fileList) {
             }).reverse().map(([eventName, items]) => {
                 return {
                     name: eventName,
-                    items
+                    items: items.sort((a, b) => {
+                        return a.createDate > b.createDate ? -1 : 1;
+                    })
                 }
             })
         }]
@@ -109,6 +111,5 @@ const htmlFiles = await globby([
     "!**/landslide-theme/**",
 ]);
 const results = await groupingFileList(htmlFiles);
-console.log(results)
 const generatedHTML = await compileToHTML(results);
 await fs.writeFile(path.resolve(rootDir, "./index.html"), generatedHTML);
