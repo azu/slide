@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>[fit] inline, textlint textlint - Linterの作り方</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2022/lint-night/textlint.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="[fit] inline, textlint textlint - Linterの作り方"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2022/lint-night/textlint.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2022-11-18" id="datePublished">
+            2022-11-18
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2022-11-18" id="dateModified">
+            2022-11-18
+        </time></span>
+        <a href="https://azu.github.io/slide/2022/lint-night/textlint.pdf" title="[fit] inline, textlint textlint - Linterの作り方">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="fit-inline-textlint-textlint---linterの作り方">[fit] <img alt="inline, textlint" src="https://raw.githubusercontent.com/textlint/media/gh-pages/icon/colored/textlint-icon_256x256.png"> textlint - Linterの作り方</h1>
+<hr>
+<h1 id="自己紹介">自己紹介</h1>
+<p><img alt="right, https://github.com/azu.png" src="https://github.com/azu.png"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a href="http://efcl.info/">Web scratch</a>, <a href="http://jser.info/">JSer.info</a></li>
+<li>Book: <a href="https://jsprimer.net/">JavaScript Primer</a></li>
+</ul>
+<hr>
+<h1 id="アジェンダ">アジェンダ</h1>
+<ul>
+<li>Linterを作る人向けの話</li>
+<li>Linterの考え方とアーキテクチャを一致させる</li>
+<li>使うものを作ろう、作るために使おう</li>
+</ul>
+<hr>
+<p><img alt="fit" src="https://github.com/textlint/media/raw/gh-pages/logo/spaced/textlint-logo.png"></p>
+<hr>
+<h1 id="textlint-とは"><a href="https://textlint.github.io/">textlint</a> とは</h1>
+<ul>
+<li>自然言語(日本語や英語など)に対するLinter</li>
+<li>MarkdownやHTMLなどのマークアップ言語に対応している</li>
+<li>ビルトインのルールは0</li>
+<li>利用できるルールは<a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule">100以上</a>ある</li>
+<li>多くのルールはオフラインで動くので、外部に入力してる内容を送信しない</li>
+<li>CI/CDに組み込める自然言語のチェッカー(表記揺れ、スペルチェック、誤用、読みやすさのチェックなど)</li>
+</ul>
+<hr>
+<p><img alt="fit textlint vscode" src="img/textlint-vscode.png"></p>
+<hr>
+<p><img alt="fit textlint terminal" src="img/textlint-terminal.png"></p>
+<hr>
+<h1 id="textlint-users">textlint users</h1>
+<ul>
+<li>Translation:
+<a href="https://github.com/angular/angular-ja">Angular</a>、<a href="https://github.com/reactjs/ja.reactjs.org">React</a>、<a href="https://github.com/vuejs/jp.vuejs.org">Vue</a>、<a href="https://github.com/vuejs-jp/ja.docs.nuxtjs">Nuxt.js</a>,　<a href="https://github.com/Nextjs-ja-translation/Nextjs-ja-translation-docs">Next.js</a>、<a href="https://github.com/gatsbyjs/gatsby-ja">Gatsby</a></li>
+<li>Book:
+<a href="https://github.com/asciidwango/js-primer">JavaScript Primer</a>、<a href="https://github.com/survivejs/webpack-book">SurviveJS - Webpack</a>、<a href="https://www.amazon.co.jp/dp/4297107384/">Pythonクローリング&amp;スクレイピング</a></li>
+<li>Documentaion:
+<a href="https://github.com/vuejs/vuepress">VuePress</a>、<a href="https://github.com/cypress-io/cypress-documentation">Cypress</a>、<a href="https://github.com/jpazureid/blog">Microsoft Azure Identity(ja)</a>、<a href="https://github.com/OWASP/CheatSheetSeries">OWASP Cheat Sheet Series</a></li>
+<li>小説:
+<a href="https://logmi.jp/tech/articles/325715">「Visual Studio Code」で執筆するSF作家　藤井太洋氏が作る物書きのための拡張機能</a></li>
+<li>Company:
+<a href="https://www.bengo4.com/">弁護士ドットコム</a>、<a href="https://soracom.jp/">ソラコム</a>、<a href="https://www.velc.co.jp/">ヴェルク</a>、<a href="https://smarthr.jp/">SmartHR</a>、<a href="https://retty.me/">Retty</a><ul>
+<li><a href="https://zenn.dev/kgsi/articles/a88273d293abe07c5acb">textlintを使っている企業の事例・ルールをまとめてみた</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="editorの連携">Editorの連携</h1>
+<ul>
+<li>VScode<ul>
+<li><a href="https://github.com/taichi/vscode-textlint">vscode-textlint</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ICS.japanese-proofreading">テキスト校正くん - Visual Studio Marketplace</a></li>
+</ul>
+</li>
+<li>Vim</li>
+<li>秀丸エディタ<ul>
+<li><a href="https://hide.maruo.co.jp/lib/macro/textlint001.html">秀まるおのホームページ(サイトー企画)－textlintを処理するマクロサンプル</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="textlintをなぜ作ったか">textlintをなぜ作ったか</h1>
+<ul>
+<li><a href="https://azu.github.io/promises-book/">JavaScript Promiseの本</a>や<a href="https://jser.info/">JSer.info</a>などを書いていて表記ゆれが気になることがあった</li>
+<li>汎用的な自然言語をチェックできるものが欲しくなった</li>
+<li>CIで走らせることが前提の自然言語のLinterがなかった</li>
+<li>詳細:
+<a href="https://efcl.info/2022/06/29/why-create-textlint/">Maintainer Month: なぜtextlintを作ったか | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="自然言語は常に変化する言語">自然言語は常に変化する言語</h1>
+<ul>
+<li>言語の違い、文章のフォーマット、コンテキストで文章は変わる</li>
+<li>日本語と英語でそもそも文法のルールが異なる</li>
+<li>自然言語は、毎日新しい単語が増えるし<a href="%5Bmecab-ipadic-NEologd%5D(https://github.com/neologd/mecab-ipadic-neologd)%E3%80%81%5BSudachiDict%5D(https://github.com/WorksApplications/SudachiDict)">^1</a>、文法も変わることあるし[^2]、同じ文の意味がコンテキストや時間で変わることもある<a href="%5B%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%B7%AE%E5%88%A5%E8%AA%9E%E6%A6%82%E5%BF%B5%E3%81%AE%E5%A4%89%E9%81%B7%5D(https://core.ac.uk/download/pdf/236078037.pdf)%E3%80%81%5B%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%AB%E3%82%88%E3%82%8A%E6%84%8F%E5%91%B3%E3%81%8C%E5%A4%89%E5%8C%96%E3%81%99%E3%82%8B%E5%8D%98%E8%AA%9E%E3%81%AE%E6%8A%BD%E5%87%BA%5D(https://hatenablog-parts.com/embed?url=https%3A%2F%2Fgithub.com%2FGINK03%2FDomainDependencyMemeJsai2017)">^3</a></li>
+<li>そのため、あらゆる自然言語を包含するAST(抽象構文木)を作ることは難しい</li>
+</ul>
+<p>[^2]: <a href="https://nj.alc-nihongo.jp/entry/20210606-nihongo-henka">変化する日本語 - 日本語ジャーナル</a></p>
+<p>^ 新しい単語は本当によく増えるし、それをメンテできてる辞書はあんまりない。
+^ ら抜き言葉とか、感覚的に通じるものは、通じるようになってそれが間違いとは言わなくなったりしている。特に書き文字は変化がある
+^ <a href="https://tug.org/tug2013/jp/followup/tug13fur-ebook.pdf">https://tug.org/tug2013/jp/followup/tug13fur-ebook.pdf</a>
+^ 言葉の意味の上書きというのは結構起きる。WhiteやBlackがAllowやDenyに変化したり、逆にクィアとか、全然大丈夫とか肯定的な意味に変化した言葉もある
+^ 全然 ~ は元々は、「全然 ~ ない」という否定の使われ方。けど最近は肯定でも使われる。</p>
+<hr>
+<h1 id="fit-文字列のチェックでは、誤検知を避けられない">[fit] 文字列のチェックでは、誤検知を避けられない</h1>
+<ul>
+<li>多くの場合、MarkdownやLaTexやWordといった装飾をしながら書いている</li>
+<li>何もパースせずにそのまま文字列として扱うと誤検知が生まれる<ul>
+<li>“文字数” をみるのもMarkdownとプレーンテキストでは異なる</li>
+<li><code>@</code> とか特定の記号が特別な意味を持つことがある</li>
+<li>文章の中でも、コードと引用文とは異なる扱いにしたい</li>
+</ul>
+</li>
+<li>マークアップはパースして扱わないと、それ自体が誤検知となる<ul>
+<li>マークアップはパースするが、その中のテキスト(自然言語)はパースできない</li>
+</ul>
+</li>
+<li>Grep以上、人間未満のツールが必要だった</li>
+</ul>
+<p>^ 文字列検索ではマークアップ言語を扱うには限界がある
+^ マークアップ言語は仕様がある程度決まっているのでパースできる
+^ なのでそこはパースする。これによってGrep以上人間未満(自然言語は扱えない)が作れそう</p>
+<hr>
+<h1 id="textlintの目標とアーキテクチャ">textlintの目標とアーキテクチャ</h1>
+<ul>
+<li>あらゆるマークアップ、あらゆる自然言語を扱えることを目標にした</li>
+<li>そのために、次のようなアーキテクチャを選択した<ul>
+<li>すべてがプラガブル → マークアップ言語が増えても対応できる</li>
+<li>ビルトインルールは持たない →　ルールはオプトイン</li>
+</ul>
+</li>
+<li>コアはどのマークアップ、自然言語でも動く</li>
+</ul>
+<hr>
+<h1 id="textlintのアーキテクチャ">textlintのアーキテクチャ</h1>
+<p><img alt="inline fit, textlint architecture" src="./img/textlint-process.excalidraw.png"></p>
+
+
+<p>^ ESLintと大体同じです。</p>
+<hr>
+<p><img alt="inline fit, textlint architecture" src="./img/textlint-process-note.excalidraw.png"></p>
+<hr>
+<h1 id="input">Input</h1>
+<pre><code class="language-markdown"># Header
+
+THIS IS TODO.
+</code></pre>
+<hr>
+<h1 id="asttxtast">AST<a href="https://textlint.github.io/astexplorer/">^TxtAST</a></h1>
+<pre><code class="language-json">{
+  "type": "Document",
+  "children": [
+    {
+      "type": "Header",
+      "depth": 1,
+      "children": [
+        {
+          "type": "Str",
+          "value": "Header",
+        }
+      ],
+    ...
+    }
+  ]
+}
+</code></pre>
+<hr>
+<h1 id="rule">Rule</h1>
+<pre><code class="language-js">export deafult (context, options = {}) =&gt; {
+    const { Syntax, RuleError, report, getSource, fixer } = context;
+    return {
+        [Syntax.Code](node) {
+            const text = getSource(node);
+            const match = text.match(/TODO/);
+            if(match){
+               report(node, new RuleError("Found TODO")); // ⇨ Messsage
+            }
+        }
+    };
+};
+</code></pre>
+<hr>
+<h1 id="message">Message</h1>
+<pre><code class="language-json">[
+  {
+    "messages": [
+      {
+        "type": "lint",
+        "ruleId": "example",
+        "message": "Found TODO",
+        "range": [19, 24],
+        "severity": 2
+      }
+    ],
+    "filePath": "/path/to/A.md"
+  }
+]
+</code></pre>
+<hr>
+<h1 id="output">Output</h1>
+<pre><code>Found TODO
+
+ (at 3:1)
+   THIS IS TODO
+|          ^^^^
+</code></pre>
+<hr>
+<p><img alt="fit textlint is pluggable" src="img/textlint-process-plugin.png"></p>
+
+<hr>
+<h1 id="fit-プラガブルアーキテクチャのメリット">[fit] プラガブルアーキテクチャのメリット</h1>
+<ul>
+<li>コアがマークアップ言語や自然言語の依存から切り離せる<ul>
+<li>新しいマークアップ言語に対応する → Parserプラグインを実装する</li>
+<li>検出するルールを増やしたい →　ルールを実装する</li>
+<li>新しい自然言語を扱いたい → ルール内で扱えば問題ない</li>
+<li>新しい出力に対応したい → Formatterを実装する</li>
+</ul>
+</li>
+<li>ParserとRuleとFormatterは全部プラグインとしてかける<ul>
+<li>textlintが決めているのはASTとMessageのフォーマットだけ</li>
+</ul>
+</li>
+<li>これによって、マークアップ/自然言語が増えても対応できる<ul>
+<li>🚀🌟絵文字言語が登場しても対応できるように作るというのが目的</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="fit-プラガブルアーキテクチャのデメリット">[fit] プラガブルアーキテクチャのデメリット</h1>
+<ul>
+<li>アーキテクチャ視点<ul>
+<li>レイヤーが増える分、パフォーマンスは良くない</li>
+<li>実装が分散するため、まとめてアップデートはしにくい</li>
+</ul>
+</li>
+<li>ユーザー視点<ul>
+<li>セットアップに手間がかかる</li>
+<li>何を使えばいいのかわからない問題</li>
+<li>textlintもpresetは提供してる</li>
+<li>がそのpresetもコンテキストが多いので、これ使えばいいというのは難しい</li>
+</ul>
+</li>
+</ul>
+<p>^ 小説と技術書で必要なルールは違うし、翻訳の文章の場合も異なる。
+日本語でもいろんな文章の形式があるのでルールが違う。
+同じ人でも読む対象が違えば違う文章を書く。ブログと書籍では別だし、Twitterなら別。</p>
+<hr>
+<h1 id="fit-プラガブルなアーキテクチャで生まれる余白">[fit] プラガブルなアーキテクチャで生まれる余白</h1>
+<ul>
+<li>極めて自由度が高めで作ると想定してない使い方も増える<ul>
+<li>プロダクトの表記揺れ統一</li>
+<li><a href="https://speakerdeck.com/kuny/usage-status-and-effects-of-the-textlint">textlintを導入してみて / Usage status and effects of the textlint - Speaker Deck</a></li>
+<li>UX ライティング</li>
+<li><a href="https://note.com/base_designteam/n/n12f9b3a0d0e1">入力支援ツール・textlintを導入したら、テキストコミュニケーションを磨く時間をたくさんかけられるようになった話｜BASE DESIGNER｜note</a></li>
+<li>コミュニケーションの補助ツールとして</li>
+<li><a href="https://tamukai.blog.velc.jp/entry/2021/07/27/114510">boardのカスタマーサポート返信時にtextlintでチェックする - ヴェルク - IT起業の記録</a></li>
+</ul>
+</li>
+</ul>
+<p>^ 元々は自分が欲しくて作ったので技術書とかブログとかのチェック用。
+けど、さいきんはプロダクトの表記揺れ(RubyとかJSXとかのソースコードに対してチェックしてる)だったり、プロダクトに組み込んだしてるケースもある。</p>
+<hr>
+<h1 id="ブラウザで動くtextlint">ブラウザで動くtextlint</h1>
+<ul>
+<li>textlintは、ブラウザでも動かせるように意識はしてる</li>
+<li>これはクライアントサイドで動かして、サーバサイドにテキストデータを送らなくても動くようにするため</li>
+<li><a href="https://azu.github.io/slide/2020/textlint-editor/textlint-editor.html">textlint editor - ブラウザでも動くPrivacy Firstの文章校正ツールを作る話</a></li>
+<li>既に<a href="https://github.com/textlint/editor/tree/master/packages/%40textlint/script-compiler">@textlint/script-compiler</a>を使うと、ブラウザで動くようにtextlint+ルールをコンパイルできる</li>
+<li>ESM + Import Mapsへネイティブ対応すれば、コンパイルなしでもルールが動く未来は見えてきた</li>
+<li>かなり大掛かりなことやらないと互換性が保てないし大変なので、Contributing Welcome！</li>
+<li><a href="https://github.com/textlint/textlint/issues/902">https://github.com/textlint/textlint/issues/902</a> </li>
+</ul>
+<hr>
+<h1 id="プラグインと責務の分離">プラグインと責務の分離</h1>
+<hr>
+<h1 id="責務の分離">責務の分離</h1>
+<ul>
+<li>あらゆる点をプラグインにすることは責務の分離にもつながる</li>
+<li>textlintはコアにルールを持たないのがルール</li>
+<li>そのため、ルールはコアとは別のOrganizationで公開してる</li>
+<li>ルールの要望への対応は時間を使うので、コアに来ても単純にIssueを閉じられるというメリットがある</li>
+</ul>
+<hr>
+<h1 id="コアとルールの分離">コアとルールの分離</h1>
+<ul>
+<li><a href="https://eslint.org/">ESLint</a>などはコアにpresetが紐づいているため、コアの時間がそこに使われる問題がある</li>
+<li><a href="https://github.com/rome/tools">Rome</a>とか<a href="https://github.com/denoland/deno_lint">Deno</a>とかもコアにLintを持ってるので、それぞれ同じものを労力かけて開発</li>
+<li>これはパフォーマンスを最適化するには必要だけど、時間は最適化できない</li>
+<li>自然言語のLintがbuilt-inされたものは前例があったけど、この辺をプラグインでやりきってるものはない。textlintはパフォーマンスより時間を最適化を意識してる</li>
+<li>自分も大量にオープンソースプロダクト持ってるので、そこまで時間を使えない</li>
+<li>コアではやらないことをはっきりさせることで、責務が分離できる</li>
+</ul>
+<hr>
+<h1 id="責務の分離とメンテナンスの分離">責務の分離とメンテナンスの分離</h1>
+<ul>
+<li>責務が分散すると、メンテナンスも分散される</li>
+<li>これはトレードオフ<ul>
+<li>コアから切り離せると、ルールの追加とかはやりやすくなる</li>
+<li>一方で、ルールが個人に紐づくとメンテナンスが止まる確率は高くなる</li>
+</ul>
+</li>
+<li>→　ルールをorganizationに集めるなど、緩いまとまりを持ったコミュニティを作ることでバランスをとっている</li>
+</ul>
+<hr>
+<h1 id="コミュニティと責務の統合">コミュニティと責務の統合</h1>
+<ul>
+<li>textlintのコミュニティと責務</li>
+<li>プラグイン = パーサはコアに近い(新しいマークアップ言語の対応)なので、<a href="https://github.com/textlint">textlint organization</a>内でプラグインコミュニティを作ってメンテナンスをサポートしてる<ul>
+<li><a href="https://github.com/orgs/textlint/discussions/1">textlint plugin ownership · Discussion #1 · textlint</a></li>
+<li>プラグインはコアに近いものなので、コアの近くに置いている(権限は工夫すればなんとかなる)</li>
+<li>コアにあることによって、プラグインの開発メンバーもコアと同じ恩恵を受けられる</li>
+<li><code>textlint</code> memebrは1password🔑を無料で利用できるなど</li>
+<li><a href="https://efcl.info/2022/09/23/1password-teams-open-source/">1Password for Open Source Projectsの申請をした | Web Scratch</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="textlintルールのコミュニティ">textlintルールのコミュニティ</h1>
+<ul>
+<li><a href="https://github.com/textlint-rule">textlint-rule</a>と<a href="https://github.com/textlint-ja">textlint-ja</a><ul>
+<li>自然言語を扱うルールはかなり言語に依存してるので、Universalなものと日本語で分けている</li>
+<li>日本語じゃないとIssueが書きにくい問題も多いというのもあるため</li>
+<li>コミュニティを作って、メンテナンスできる人を増やす意図がある</li>
+<li>ルールを開発する時間がなくなったら権限を委譲することで、アップデートは継続できるようにする</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="linter開発のコツ">Linter開発のコツ</h1>
+<hr>
+<h1 id="開発を続けるコツ">開発を続けるコツ</h1>
+<ul>
+<li>使うものを作ろう</li>
+<li>作るために使おう</li>
+<li>使わないものは使われない</li>
+<li>自分が使ってないものはそこまで時間を使えない<ul>
+<li>HTMLのパーサは最初コアにあったけど、自分は使うユースケースを持ってなかった切り離してプラグインにした</li>
+</ul>
+</li>
+<li><a href="https://efcl.info/2022/06/27/maintenance-open-source/">Maintainer Month: オープンソースをメンテナンスするコツ | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="使うと開発は進む">使うと開発は進む</h1>
+<ul>
+<li>ユースケースがないと、なかなか進まない</li>
+<li>ユースケースを作ったり持ってきたりする<ul>
+<li><a href="https://jsprimer.net/">JavaScript Primer</a>を書いてる時はtextlintの開発も進む</li>
+<li><a href="https://jsprimer.net/">JavaScript Primer</a>の第2版を書いているが、textlintがなかったら文章のリファクタリングは難しかった</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="secretlint🔑🛡️の事例"><a href="https://secretlint.github.io/">Secretlint</a>🔑🛡️の事例</h1>
+<ul>
+<li><a href="https://secretlint.github.io/">Secretlint</a>はファイルに含まれてる機密情報をチェックするLintルール</li>
+<li>構造はtextlintとかなり似ていて全部プラグインになってる</li>
+<li>機密情報は共通知識があるので、presetは別途用意してる</li>
+<li>開発するために、常に使う状況を作る<ul>
+<li><a href="https://github.com/secretlint/secretlint#pre-commit-hook-globally">global pre-commit hooks</a>でどのリポジトリのコミットでも使ってる</li>
+<li>常にLintを使うようにすることで、新しいルールを追加するモチベーションになる</li>
+</ul>
+</li>
+<li>すぐ使える状況を作る<ul>
+<li><a href="https://secretlint.github.io/">https://secretlint.github.io/</a></li>
+</ul>
+</li>
+<li>使うものじゃないとクオリティが上がらない</li>
+</ul>
+<hr>
+<h1 id="リアルなデータでlintをチェックする">リアルなデータでLintをチェックする</h1>
+<ul>
+<li>新しいルールを書いたときに、想定してないケースに遭遇することはよくある</li>
+<li>実際のリアルデータを使って、誤検知していないかを確認する</li>
+<li>textlintで技術文書向けのルールを書くときは、技術書を集めたコーパスを使ってチェックできる<ul>
+<li><a href="https://github.com/textlint-ja/technological-book-corpus-ja">textlint-ja/technological-book-corpus-ja: 日本語で書かれた技術書を収集した生コーパス/ツール</a></li>
+</ul>
+</li>
+<li>プログラミング言語なら、GitHubなどでコーパスを作って持っておくとチェックの負荷が下がる</li>
+</ul>
+<p>^ コーパスには<a href="https://jsprimer.net/">JavaScript Primer</a>も入ってる。</p>
+<hr>
+<h1 id="まとめ">まとめ</h1>
+<ul>
+<li>textlintは自然言語を扱うLint<ul>
+<li>自然言語の解釈はとても変化しやすいので、”公式のルール”は作るのが難しい</li>
+<li>textlintでは、この考えを反映してプラガブルなアーキテクチャを選んだ</li>
+</ul>
+</li>
+<li>プラガブルを基本とすることで、責務の分離や想定外の使い方も生まれる<ul>
+<li>責務を分離するとコードも分離し、メンテナンス性が悪くなることもある</li>
+<li>textlintでは、コードは分離するがコミュニティで集める方式をとっている</li>
+<li>pluginはコアに近いコミュニティとして管理、ruleは言語ごとにコミュニティを作って管理</li>
+</ul>
+</li>
+<li>人間が作るものにはモチベーションの問題がある<ul>
+<li>長く続けるには、使うものを作ること/使うために作ること</li>
+<li>積極的に使うパターンを増やすと、開発は継続しやすい</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://humanwhocodes.com/blog/2016/02/reflections-on-eslints-success/">Reflections on ESLint's success - Human Who Codes</a></li>
+<li><a href="https://eslint.org/blog/2021/11/the-inception-of-eslint/">The inception of ESLint - ESLint - Pluggable JavaScript Linter</a></li>
+<li><a href="https://r2c.dev/blog/2021/semgrep-a-static-analysis-journey/">r2c blog — Semgrep: a static analysis journey</a></li>
+<li><a href="https://efcl.info/2022/06/29/why-create-textlint/">Maintainer Month: なぜtextlintを作ったか | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="余り">余り</h1>
+<hr>
+<h1 id="分散と集約はどちらか良いのか">分散と集約はどちらか良いのか</h1>
+<ul>
+<li>どちらもいい時がある</li>
+<li>ESLintは分散で、Deno/RSLint/Romeなどは集約してる</li>
+<li>集約することでパフォーマンスのメリットはあるけど、どちらかという機能じゃなくて組織的/マーケティング的な方向も入ってくる</li>
+<li>集約して勢いがあるうちは早くていいが、量が増えると問題ができてきて分散/Forkに向かっていく</li>
+<li>また分散すると維持コストは高くなり、労力的な問題が出てくるため、集約していくというのを繰り返す</li>
+<li>バランスの問題</li>
+<li>維持コストをみて、常に方向を決めている</li>
+</ul>
+<hr>
+<h1 id="世の中のlint">世の中のLint</h1>
+<p><a href="https://github.com/github/super-linter">https://github.com/github/super-linter</a></p>
+<p><img alt="right, Super Lint" src="img/super-lint.png"></p>
+<hr>
+<h1 id="lintの幅">Lintの幅</h1>
+<p><img alt="inline lint" src="img/lint.png"></p>
+<ul>
+<li>動的な言語などは、LintがType Checkなども扱ってることがある</li>
+<li>Style(Formatter)とLinterの役割分担は曖昧になりやすい(実装的に仕組みが違うので本当は別)<ul>
+<li><a href="https://prettier.io/docs/en/technical-details.html">Technical Details · Prettier</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="false-positiveはopt-in">false positiveはopt-in</h1>
+<ul>
+<li>過剰なエラーを出すツールは、過剰に終わって避けられる<ul>
+<li>怪しいものを全部Warnで表示すれば、デフォルトを増やせるという考え方もある</li>
+<li>これは、全てが無視される<ul>
+<li>回避方法として常にユーザーに選択させるという方法がある。スペルチェッカーやgrammerlyはこれを選んでいる</li>
+<li>ただし、CIで回すツールとは相性が悪い(インタラティブにして回避できないため)</li>
+</ul>
+</li>
+<li>textlintやSecretlintがopt-inを選択したのはこれが理由</li>
+<li>一方でopt-inはonionatedとは逆になる<ul>
+<li>ルールはたくさんあるけど、あくまでユーザーが選択して入れる</li>
+</ul>
+</li>
+<li>使えるセキュリティツールがかなり少ないのもこれが理由</li>
+<li>CodeQLとかCode Scannningレベルのことやらないと担保できない</li>
+</ul>
+</li>
+</ul>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>

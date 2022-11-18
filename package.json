@@ -24,6 +24,8 @@
     "globby": "^13.1.2",
     "handlebars": "^4.7.7",
     "q": "^1.0.1",
-    "q-io": "^1.11.2"
+    "q-io": "^1.11.2",
+    "textlint": "^12.2.3",
+    "textlint-rule-preset-ja-technical-writing": "^7.0.0"
   }
 }
