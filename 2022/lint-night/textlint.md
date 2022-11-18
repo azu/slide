@@ -21,6 +21,9 @@ autoscale: true
 - Linterの考え方とアーキテクチャを一致させる
 - 使うものを作ろう、作るために使おう
 
+^ Lintの教養を得て、RobocopというLintの実装例を知れたので、Lintを作りたくなったと思います
+^ なのでLinterの作り方の話をします。
+
 ---
 
 
@@ -91,6 +94,7 @@ autoscale: true
 - 日本語と英語でそもそも文法のルールが異なる
 - 自然言語は、毎日新しい単語が増えるし[^1]、文法も変わることあるし[^2]、同じ文の意味がコンテキストや時間で変わることもある[^3]
 - そのため、あらゆる自然言語を包含するAST(抽象構文木)を作ることは難しい
+- 自然言語はバージョン管理されていない
 
 [^1]: [mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd)、[SudachiDict](https://github.com/WorksApplications/SudachiDict)
 
@@ -274,7 +278,7 @@ Found TODO
 
 # [fit] プラガブルなアーキテクチャで生まれる余白
 
-- 極めて自由度が高めで作ると想定してない使い方も増える
+- 自由度が高めで作ると想定してない使い方も増える
     - プロダクトの表記揺れ統一
     - [textlintを導入してみて / Usage status and effects of the textlint - Speaker Deck](https://speakerdeck.com/kuny/usage-status-and-effects-of-the-textlint)
     - UX ライティング
@@ -318,7 +322,6 @@ Found TODO
 - [Rome](https://github.com/rome/tools)とか[Deno](https://github.com/denoland/deno_lint)とかもコアにLintを持ってるので、それぞれ同じものを労力かけて開発
 - これはパフォーマンスを最適化するには必要だけど、時間は最適化できない
 - 自然言語のLintがbuilt-inされたものは前例があったけど、この辺をプラグインでやりきってるものはない。textlintはパフォーマンスより時間を最適化を意識してる
-- 自分も大量にオープンソースプロダクト持ってるので、そこまで時間を使えない
 - コアではやらないことをはっきりさせることで、責務が分離できる
 
 ---
@@ -339,9 +342,10 @@ Found TODO
 - プラグイン = パーサはコアに近い(新しいマークアップ言語の対応)なので、[textlint organization](https://github.com/textlint)内でプラグインコミュニティを作ってメンテナンスをサポートしてる
   - [textlint plugin ownership · Discussion #1 · textlint](https://github.com/orgs/textlint/discussions/1)
   - プラグインはコアに近いものなので、コアの近くに置いている(権限は工夫すればなんとかなる)
-  - コアにあることによって、プラグインの開発メンバーもコアと同じ恩恵を受けられる
-  - `textlint` memebrは1password🔑を無料で利用できるなど
-  - [1Password for Open Source Projectsの申請をした | Web Scratch](https://efcl.info/2022/09/23/1password-teams-open-source/)
+  - コアにあることによって、プラグインの開発メンバーもコアメンバーと同じ恩恵を受けられる
+  - `textlint` memebrは 1password🔑 を無料で利用できるなど[^opensource]
+
+[^opensource]: [1Password for Open Source Projectsの申請をした | Web Scratch](https://efcl.info/2022/09/23/1password-teams-open-source/)
 
 ---
 
@@ -405,15 +409,26 @@ Found TODO
 
 ---
 
-# まとめ
+# まとめ 1
 
 - textlintは自然言語を扱うLint
   - 自然言語の解釈はとても変化しやすいので、”公式のルール”は作るのが難しい
   - textlintでは、この考えを反映してプラガブルなアーキテクチャを選んだ
+
+---
+
+# まとめ 2
+
+
 - プラガブルを基本とすることで、責務の分離や想定外の使い方も生まれる
   - 責務を分離するとコードも分離し、メンテナンス性が悪くなることもある
   - textlintでは、コードは分離するがコミュニティで集める方式をとっている
   - pluginはコアに近いコミュニティとして管理、ruleは言語ごとにコミュニティを作って管理
+
+---
+
+# まとめ 3
+
 - 人間が作るものにはモチベーションの問題がある
   - 長く続けるには、使うものを作ること/使うために作ること
   - 積極的に使うパターンを増やすと、開発は継続しやすい
