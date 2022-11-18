@@ -26,11 +26,11 @@
             style="border:0;">
     </iframe>
     <aside class="slide-controller">
-        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2022-11-17" id="datePublished">
-            2022-11-17
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2022-11-18" id="datePublished">
+            2022-11-18
         </time></span>
-        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2022-11-17" id="dateModified">
-            2022-11-17
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2022-11-18" id="dateModified">
+            2022-11-18
         </time></span>
         <a href="https://azu.github.io/slide/2022/lint-night/textlint.pdf" title="[fit] inline, textlint textlint - Linterの作り方">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +71,7 @@
 <li>Book: <a href="https://jsprimer.net/">JavaScript Primer</a></li>
 </ul>
 <hr>
-<h1 id="目的">目的</h1>
+<h1 id="アジェンダ">アジェンダ</h1>
 <ul>
 <li>Linterを作る人向けの話</li>
 <li>Linterの考え方とアーキテクチャを一致させる</li>
@@ -142,6 +142,11 @@
 <li>そのため、あらゆる自然言語を包含するAST(抽象構文木)を作ることは難しい</li>
 </ul>
 <p>[^2]: <a href="https://nj.alc-nihongo.jp/entry/20210606-nihongo-henka">変化する日本語 - 日本語ジャーナル</a></p>
+<p>^ 新しい単語は本当によく増えるし、それをメンテできてる辞書はあんまりない。
+^ ら抜き言葉とか、感覚的に通じるものは、通じるようになってそれが間違いとは言わなくなったりしている。特に書き文字は変化がある
+^ <a href="https://tug.org/tug2013/jp/followup/tug13fur-ebook.pdf">https://tug.org/tug2013/jp/followup/tug13fur-ebook.pdf</a>
+^ 言葉の意味の上書きというのは結構起きる。WhiteやBlackがAllowやDenyに変化したり、逆にクィアとか、全然大丈夫とか肯定的な意味に変化した言葉もある
+^ 全然 ~ は元々は、「全然 ~ ない」という否定の使われ方。けど最近は肯定でも使われる。</p>
 <hr>
 <h1 id="fit-文字列のチェックでは、誤検知を避けられない">[fit] 文字列のチェックでは、誤検知を避けられない</h1>
 <ul>
@@ -158,6 +163,9 @@
 </li>
 <li>Grep以上、人間未満のツールが必要だった</li>
 </ul>
+<p>^ 文字列検索ではマークアップ言語を扱うには限界がある
+^ マークアップ言語は仕様がある程度決まっているのでパースできる
+^ なのでそこはパースする。これによってGrep以上人間未満(自然言語は扱えない)が作れそう</p>
 <hr>
 <h1 id="textlintの目標とアーキテクチャ">textlintの目標とアーキテクチャ</h1>
 <ul>
