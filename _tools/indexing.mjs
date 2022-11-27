@@ -17,8 +17,25 @@ async function getTitleFromHTMLPath(filePath) {
     return getTitle(content);
 }
 
+
 // http://stackoverflow.com/questions/2390199/finding-the-date-time-a-file-was-first-added-to-a-git-repository
 async function getCreatedDateFromHTMLPath(filePath) {
+    const metaJSON = await (async () => {
+        try {
+            // {originak}.meta.json があった読み込む
+            const metaJsonFilePath = path.join(path.dirname(filePath), path.basename(filePath, ".html") + ".meta.json");
+            await fs.access(metaJsonFilePath);
+            /**
+             * @type {{ created: string }}
+             */
+            return JSON.parse(await fs.readFile(metaJsonFilePath, "utf-8"));
+        } catch {
+            return null;
+        }
+    })();
+    if (metaJSON) {
+        return new Date(metaJSON.created);
+    }
     const log = await execFile("git", ["log", "--diff-filter=A", "--follow", "--format=%aD", "-1", "--", filePath]);
     if (log == null || log.error || Buffer.isBuffer(log.stdout)) {
         return new Date();

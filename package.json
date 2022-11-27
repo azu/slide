@@ -9,7 +9,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js",
-    "release": "node ./_tools/indexing.mjs && git add index.html && git commit -m 'update index' && npm version patch && git push --follow-tags"
+    "release": "npm run update-index && git add index.html && git commit -m 'update index' && npm version patch && git push --follow-tags",
+    "update-index": "node ./_tools/indexing.mjs"
   },
   "directories": {
     "test": "test/"
