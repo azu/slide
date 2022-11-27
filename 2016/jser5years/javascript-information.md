@@ -123,7 +123,7 @@ JavaScriptの場合よっぽどエッジな事じゃない限り、基本的に�
 
 # 2011年 
 
-> [世界のJavaScript情報を読もう](http://www.slideshare.net/efcl/javascript-6580879 "世界のJavaScript情報を読もう")
+> [世界のJavaScript情報を読もう](https://azu.github.io/slide/2011/mozilla-5th/jserinfo.html "世界のJavaScript情報を読もう")
 
   - 古いものと最近のものが混ざって見つけにくい
 

@@ -33,7 +33,7 @@ autoscale: true
 
 ----
 
-# from [世界のJavaScript情報を読もう](http://www.slideshare.net/efcl/javascript-6580879 "世界のJavaScript情報を読もう")
+# from [世界のJavaScript情報を読もう](https://azu.github.io/slide/2011/mozilla-5th/jserinfo.html "世界のJavaScript情報を読もう")
 
 
 ![0-survey, inline](./img/0-survey.png)
@@ -43,13 +43,13 @@ autoscale: true
 -----
 
 
-# from [世界のJavaScript情報を読もう](http://www.slideshare.net/efcl/javascript-6580879 "世界のJavaScript情報を読もう")
+# from [世界のJavaScript情報を読もう](https://azu.github.io/slide/2011/mozilla-5th/jserinfo.html "世界のJavaScript情報を読もう")
 
 ![0-change, inline](./img/0-change.png)
 
 -----
 
-# from [世界のJavaScript情報を読もう](http://www.slideshare.net/efcl/javascript-6580879 "世界のJavaScript情報を読もう")
+# from [世界のJavaScript情報を読もう](https://azu.github.io/slide/2011/mozilla-5th/jserinfo.html "世界のJavaScript情報を読もう")
 
 > 現実的な問題
 > 古い情報が混じっている
@@ -57,14 +57,14 @@ autoscale: true
 
 -----
 
-# from [世界のJavaScript情報を読もう](http://www.slideshare.net/efcl/javascript-6580879 "世界のJavaScript情報を読もう")
+# from [世界のJavaScript情報を読もう](https://azu.github.io/slide/2011/mozilla-5th/jserinfo.html "世界のJavaScript情報を読もう")
 
 ![inline](./img/0-launch.png)
 
 
 -----
 
-# from [世界のJavaScript情報を読もう](http://www.slideshare.net/efcl/javascript-6580879 "世界のJavaScript情報を読もう")
+# from [世界のJavaScript情報を読もう](https://azu.github.io/slide/2011/mozilla-5th/jserinfo.html "世界のJavaScript情報を読もう")
 
 
 
