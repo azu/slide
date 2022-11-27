@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>世界のJavaScript情報を読もう</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2011/mozilla-5th/jserinfo.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="世界のJavaScript情報を読もう"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2011/mozilla-5th/jserinfo.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2022-11-27" id="datePublished">
+            2022-11-27
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2022-11-27" id="dateModified">
+            2022-11-27
+        </time></span>
+        <a href="https://azu.github.io/slide/2011/mozilla-5th/jserinfo.pdf" title="世界のJavaScript情報を読もう">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="世界のjavascript情報を読もう">世界のJavaScript情報を読もう</h1>
+<h1 id="過去と現在のjavascript">過去と現在のJavaScript</h1>
+<h1 id="自己紹介">自己紹介</h1>
+<ul>
+<li>Name : Azu(アズ)</li>
+<li>Twitter : @ <span style="color:#0000FF"> <em><a href="https://twitter.com/azu_re">azu_re</a></em> </span></li>
+<li>Website:  <span style="color:#0000FF"> <em><a href="http://efcl.info/">http://efcl.info</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://efcl.info/">/</a></em> </span></li>
+<li>Mail :  <span style="color:#0000FF"> <em><a href="mailto:efcl@efcl.info">info</a></em> </span>  <span style="color:#0000FF"> <em><a href="mailto:efcl@efcl.info">＠</a></em> </span>  <span style="color:#0000FF"> <em><a href="mailto:efcl@efcl.info">efcl.info</a></em> </span><ul>
+<li>名刺あるよ!</li>
+</ul>
+</li>
+<li>JavaScript, Greasemonkey, NILScript,Firefox, software sommelier</li>
+</ul>
+<p><img alt="" src="img/jserinfo0.png"></p>
+<h1 id="javascriptは変化が早い--スクリプト実行環境の例-">JavaScriptは変化が早い-スクリプト実行環境の例-</h1>
+<p><span style="color:#0000FF"> <em><a href="http://dailyjs.com/2010/12/13/javascript-survey-results/">2010</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://dailyjs.com/2010/12/13/javascript-survey-results/">年のアンケート</a></em> </span></p>
+<p><span style="color:#0000FF"> <em><a href="http://dailyjs.com/2009/12/02/survey-results/">2009</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://dailyjs.com/2009/12/02/survey-results/">年のアンケート</a></em> </span></p>
+<p><img alt="" src="img/jserinfo1.png"></p>
+<p><img alt="" src="img/jserinfo2.png"></p>
+<p>Via  <span style="color:#0000FF"> <em><a href="http://dailyjs.com/">DailyJS</a></em> </span>  Server-Side/Desktop Scripting - What is your preferred interpreter?</p>
+<p>たった一年で大きな変化が</p>
+<p>起きるのが今のWeb</p>
+<h1 id="変化とは">変化とは?</h1>
+<ul>
+<li>去年は無かった項目が増えている(Node.js)<ul>
+<li>Server-Side JSの躍進</li>
+</ul>
+</li>
+<li>さらに最近になって…</li>
+<li>Interpreter/compiler環境の変化<ul>
+<li>→ <span style="color:#0000FF"> <em><a href="http://dailyjs.com/2011/01/14/arbor-mug-i-ristretto/">Mug</a></em> </span> (マグ)といった新しい実行環境</li>
+<li>→ <span style="color:#0000FF"> <em><a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a></em> </span> の流行</li>
+</ul>
+</li>
+</ul>
+<p>Webでは10年前の知識で語るより10年間の知識で語った方が有効</p>
+<h1 id="変化に置き去りにされない">変化に置き去りにされない</h1>
+<p>Web標準の進化はゆっくりであるべきだが、Web開発の進化は激しい</p>
+<p>全ての事を知る必要はない</p>
+<p>しかし、知るべき事は知っておく</p>
+<p>未来は一部の人にしか分からない→現在を知ろう</p>
+<h1 id="過去と現在のjavascript-1">過去と現在のJavaScript</h1>
+<p>過去の JavaScript は現在の JavaScript と違う</p>
+<p>Q&amp;Aサイトで例えるならば</p>
+<p>OKWave → 過去</p>
+<p>Quora     → 現在</p>
+<p>???　       → 未来</p>
+<h1 id="現在を知るためには">現在を知るためには…</h1>
+<ul>
+<li>現実的な問題<ul>
+<li>JavaScript情報が溢れすぎ</li>
+<li>古い情報が混じっている</li>
+<li>jQuery語がじわじわと</li>
+</ul>
+</li>
+<li>ごちゃごちゃしてる中から見つける必要性</li>
+</ul>
+<h1 id="jsmentor">JSMentor</h1>
+<ul>
+<li><span style="color:#0000FF"> <em><a href="http://jsmentors.com/">http://jsmentors.com/</a></em> </span><ul>
+<li>ECMAやJSについて議論する場所</li>
+</ul>
+</li>
+<li>JavaScript + Mentors（先生）<ul>
+<li>Nicholas C. Zakas(High Performance JavaScript)</li>
+<li>Juriy "kangax" Zaytsev( <span style="color:#0000FF"> <em><a href="http://perfectionkills.com/">Perfection kills</a></em> </span> )</li>
+<li>David Flanagan(サイ本)</li>
+<li>Etc…</li>
+</ul>
+</li>
+</ul>
+<h1 id="ソーシャルサービスを利用">ソーシャルサービスを利用</h1>
+<ul>
+<li>はてなブックマーク<ul>
+<li>お気に入りユーザーの利用</li>
+<li><span style="color:#0000FF"> <em><a href="http://b.hatena.ne.jp/vantguarde/">id:vantguarde</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://b.hatena.ne.jp/vantguarde/">    </a></em> </span></li>
+</ul>
+</li>
+<li>Del.icio.us<ul>
+<li>世界とつながるSBM</li>
+</ul>
+</li>
+<li>Twitter</li>
+</ul>
+<p>スライドは見せることを意識して作られるためよい情報となることが多い</p>
+<h1 id="いろいろなサービス">いろいろなサービス</h1>
+<p><span style="color:#0000FF"> <em><a href="http://www.slideshare.net/">SlideShare</a></em> </span>  – スライド</p>
+<p><span style="color:#0000FF"> <em><a href="http://www.reddit.com/r/javascript/">Reddit</a></em> </span>  – news+SBM</p>
+<p><span style="color:#0000FF"> <em><a href="http://www.quora.com/JavaScript">Quora</a></em> </span>  – Q&amp;A</p>
+<p><span style="color:#0000FF"> <em><a href="http://coder.io/home">coder.io</a></em> </span>  – アグリゲート</p>
+<p><span style="color:#0000FF"> <em><a href="http://www.dzone.com/links/tag/javascript.html">dzone.com</a></em> </span>  – アグリゲート</p>
+<p>効率的にJavaScript情報を取得できる!!→日本にも欲しい</p>
+<h1 id="javascript情報配信サイト">JavaScript情報配信サイト</h1>
+<p><span style="color:#0000FF"> <em><a href="http://javascriptweekly.com/">JavaScript Weekly</a></em> </span></p>
+<p><span style="color:#0000FF"> <em><a href="http://badassjs.com/">Badass JavaScript</a></em> </span></p>
+<p><span style="color:#0000FF"> <em><a href="http://www.jsmag.com/">JsMag</a></em> </span></p>
+<p><span style="color:#0000FF"> <em><a href="http://www.aminutewithbrendan.com/">A Minute With Brendan</a></em> </span></p>
+<p><span style="color:#0000FF"> <em><a href="http://thechangelog.com/">The </a></em> </span>  <span style="color:#0000FF"> <em><a href="http://thechangelog.com/">Changelog</a></em> </span></p>
+<p><img alt="" src="img/jserinfo3.png"></p>
+<p>世界中言語問わずJavaScriptの情報を紹介してサイト</p>
+<h1 id="jserinfoを立ち上げました">JSer.infoを立ち上げました</h1>
+<p>世界中言語問わずJavaScriptの情報を紹介</p>
+<p>リンクと数行の説明文</p>
+<p>Tumblrで運用</p>
+<p><span style="color:#0000FF"> <em><a href="http://jser.info/">http://jser.info/</a></em> </span></p>
+<p>目標はJavaScriptの情報を”紹介する”ではなく”知ってもらう”事</p>
+<h1 id="jserinfo立ち上げの背景">JSer.info立ち上げの背景</h1>
+<ul>
+<li>JavaScriptの情報が溢れすぎ<ul>
+<li>自分の周りだけの情報で全てと錯覚?</li>
+<li>整理した情報を配信</li>
+</ul>
+</li>
+<li>Tumblrは共同編集も可能</li>
+<li>継続が当面の目標</li>
+</ul>
+<h1 id="関連記事とサイト">関連記事とサイト</h1>
+<ul>
+<li>海外のJavaScript情報を見つけよう<ul>
+<li><span style="color:#0000FF"> <em><a href="http://efcl.info/2011/0116/res2185/">http://efcl.info/2011/0116/res2185</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://efcl.info/2011/0116/res2185/">/</a></em> </span></li>
+</ul>
+</li>
+<li>今からRSS購読すべきタグと検索結果<ul>
+<li><span style="color:#0000FF"> <em><a href="http://efcl.info/2010/1025/res2018/">http://efcl.info/2010/1025/res2018</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://efcl.info/2010/1025/res2018/">/</a></em> </span></li>
+</ul>
+</li>
+<li>Tumblrをブログとして使うためにやるべき事<ul>
+<li><span style="color:#0000FF"> <em><a href="http://efcl.info/2011/0112/res2211/">http</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://efcl.info/2011/0112/res2211/">://efcl.info/2011/0112/res2211</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://efcl.info/2011/0112/res2211/">/</a></em> </span></li>
+</ul>
+</li>
+<li>JSer.info<ul>
+<li><span style="color:#0000FF"> <em><a href="http://jser.info/">http://jser.info</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://jser.info/">/</a></em> </span></li>
+</ul>
+</li>
+</ul>
+<p>END….</p>
+<h1 id="ご静聴ありがとうございました。">ご静聴ありがとうございました。</h1>
+<p>元々行っていた行為を拡張している</p>
+<h1 id="jserinfo">JSer.info</h1>
+<ul>
+<li>主な情報源<ul>
+<li>RSS(いろいろなサービスの集約), Twitter</li>
+</ul>
+</li>
+<li>記事作成<ul>
+<li>Tomblooでテンプレートのリンクを作っていく</li>
+</ul>
+</li>
+<li>Tumblrな理由<ul>
+<li>お金がない、サーバー高い、Tumblrの可能性</li>
+</ul>
+</li>
+</ul>
+<h1 id="tumblrノウハウ">Tumblrノウハウ</h1>
+<ul>
+<li>費用<ul>
+<li>独自ドメイン代 50円</li>
+</ul>
+</li>
+<li>Autopagerize対応<ul>
+<li><span style="color:#0000FF"> <em><a href="http://otsune.tumblr.com/post/334387549/autopagerize-tumblr">Autopagerize</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://otsune.tumblr.com/post/334387549/autopagerize-tumblr">が動かない</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://otsune.tumblr.com/post/334387549/autopagerize-tumblr">tumblr</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://otsune.tumblr.com/post/334387549/autopagerize-tumblr">なんて</a></em> </span> …</li>
+</ul>
+</li>
+<li>サイト内全文検索<ul>
+<li><span style="color:#0000FF"> <em><a href="http://trunk.ly/jser/">Trunk.ly</a></em> </span> を利用</li>
+</ul>
+</li>
+</ul>
+<h1 id="プレゼン関係">プレゼン関係</h1>
+<ul>
+<li><span style="color:#0000FF"> <em><a href="http://peer2.net/sjdojo/?p=5331">効果的なプレゼンテーション </a></em> </span>  <span style="color:#0000FF"> <em><a href="http://peer2.net/sjdojo/?p=5331">ー</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://peer2.net/sjdojo/?p=5331"> スライド作成キーポイント </a></em> </span>  <span style="color:#0000FF"> <em><a href="http://peer2.net/sjdojo/?p=5331">| </a></em> </span>  <span style="color:#0000FF"> <em><a href="http://peer2.net/sjdojo/?p=5331">をぢの</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://peer2.net/sjdojo/?p=5331">日記</a></em> </span><ul>
+<li>目標:JSer.infoというサイトを知ってもらう</li>
+</ul>
+</li>
+<li><span style="color:#0000FF"> <em><a href="http://tsutawarudesign.web.fc2.com/index.html">伝わるデザイン｜研究発表の</a></em> </span>  <span style="color:#0000FF"> <em><a href="http://tsutawarudesign.web.fc2.com/index.html">ユニバーサルデザイン</a></em> </span><ul>
+<li>見ただけ</li>
+</ul>
+</li>
+<li>作成中にPowerPoint落ちまくる<ul>
+<li>プライスレス</li>
+</ul>
+</li>
+</ul>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
