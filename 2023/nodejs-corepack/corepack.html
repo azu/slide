@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>Corepackを使ってNode.jsをアップデートする ⬆️⬆️</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2023/nodejs-corepack/corepack.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="Corepackを使ってNode.jsをアップデートする ⬆️⬆️"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2023/nodejs-corepack/corepack.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2023-04-28" id="datePublished">
+            2023-04-28
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2023-04-28" id="dateModified">
+            2023-04-28
+        </time></span>
+        <a href="https://azu.github.io/slide/2023/nodejs-corepack/corepack.pdf" title="Corepackを使ってNode.jsをアップデートする ⬆️⬆️">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="corepackを使ってnodejsをアップデートする-⬆️⬆️">Corepackを使ってNode.jsをアップデートする ⬆️⬆️</h1>
+<hr>
+<h1 id="自己紹介">自己紹介</h1>
+<p><img alt="アイコン right" src="https://github.com/azu.png"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>Website: <a title="Web scratch" href="http://efcl.info/">Web scratch</a>, <a title="JSer.info" href="http://jser.info/">JSer.info</a></li>
+</ul>
+<hr>
+<h1 id="サマリ">サマリ</h1>
+<ul>
+<li>Node.jsのバージョンアップは面倒だけど<ul>
+<li>ほとんどのBREAKING CHANGEはライブラリにある</li>
+</ul>
+</li>
+<li>npmのバージョンアップは面倒<ul>
+<li>npm 6とnpm 7とnpm 9では<code>package-lock.json</code>のフォーマットが異なる</li>
+<li>npm 6とnpm 8(8.6.0)では<code>peerDependencies</code>の扱いが異なる</li>
+</ul>
+</li>
+<li>corepackはnpmパッケージ管理ツールのバージョン管理ツール<ul>
+<li>現代はnpm 6,7,8,9、yarn 1,2,3、 pnpmが混在する時代</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img alt="fit Node.js npm versions" src="./img//node-js-npm-version.png"></p>
+<hr>
+<h1 id="どうやってnodejsのバージョンを上げるか">どうやって"Node.js"のバージョンを上げるか</h1>
+<ul>
+<li>まとめてあげるには、アプリケーションは大きくなりすぎた</li>
+<li>問題を分解する</li>
+<li>Node.js / パッケージマネージャー(npm) / ライブラリの問題を分解して考える</li>
+<li>これに役立つのがcorepack</li>
+</ul>
+<hr>
+<h1 id="nodejsとパッケージマネージャーとライブラリの問題を分解する">Node.jsとパッケージマネージャーとライブラリの問題を分解する</h1>
+<hr>
+<h1 id="まずは問題を洗い出す">まずは問題を洗い出す</h1>
+<ul>
+<li>何も考えずにNode 18に上げる</li>
+<li>ライブラリの問題の9割ぐらいはインストール時にわかる<ul>
+<li>Runtimeレベルの問題は、Node.jsの問題</li>
+<li>ここは基本的には問題が起きにくい(DeprecatedなAPIの削除やFetch APIの追加などが主)</li>
+</ul>
+</li>
+<li>大量にハマるので、インストールしてテストが動くまでごちゃごちゃする</li>
+<li>見つかった問題を分解していく</li>
+</ul>
+<hr>
+<h1 id="問題の分解">問題の分解</h1>
+<ul>
+<li>OSの問題</li>
+<li>Native Addonの問題</li>
+<li><code>peerDependencies</code>の問題</li>
+<li>Node.js Runtimeの問題</li>
+</ul>
+<hr>
+<h1 id="osの問題">OSの問題</h1>
+<hr>
+<h1 id="osの問題-1">OSの問題</h1>
+<ul>
+<li>Node.js 18はglibc 2.28+を利用する</li>
+<li>Ubuntu 18.04では動かないため、Ubuntu 20.04+が必要</li>
+<li>そのため、Node.js 18にアップデートする場合はUbuntu 18.04は避ける</li>
+</ul>
+<hr>
+<h2 id="ciとos">CIとOS</h2>
+<ul>
+<li>CIサービスが提供する環境で、Node.js 18を含むバージョンを使う<ul>
+<li>Circle CI: <a href="https://discuss.circleci.com/t/linux-machine-executor-2023-q1/47191">ubuntu-2004:2023.02.1 or ubuntu-2204:2023.02.1</a></li>
+<li>GitHub Actions: <a href="https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md">Ubuntu 22.04</a> or <a href="https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2004-Readme.md">Ubuntu 20.04</a></li>
+</ul>
+</li>
+<li>より良い方法は、Node.jsバージョンを指定して使うこと<ul>
+<li>Circle CI: <a href="https://circleci.com/developer/ja/images/image/cimg/node">cimg/node</a></li>
+<li>GitHub Actions: <a href="https://github.com/actions/setup-node">setup-node</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="dockerとos">DockerとOS</h2>
+<ul>
+<li>公式のイメージがあるのでそれを利用するだけ問題ない</li>
+<li><a href="https://hub.docker.com/_/node">node - Official Image | Docker Hub</a></li>
+</ul>
+<hr>
+<h1 id="osの問題まとめ">OSの問題まとめ</h1>
+<ul>
+<li>UbuntuならUbuntu 20.04+が必要</li>
+<li>CIではできるだけNode.jsバージョンを指定できる方法を使う</li>
+<li>Dockerでは<a href="https://hub.docker.com/_/node">node - Official Image</a>を使う</li>
+</ul>
+<hr>
+<h1 id="native-addonの問題">Native Addonの問題</h1>
+<hr>
+<h1 id="nodejsとpythongyp">Node.jsとPython(gyp)</h1>
+<ul>
+<li>Node.jsには<a href="https://nodejs.org/api/addons.html">C++ addons</a>(native addon)という仕組みがある</li>
+<li><a href="https://github.com/fsevents/fsevents">fsevents</a>や<a href="https://www.npmjs.com/package/node-sass">node-sass</a>など著名なライブラリが使ってる</li>
+<li>C++で書いてNode.jsにバインディングを提供できるので、高速な処理に使われる</li>
+<li>Node.js &lt;-&gt; C++ は Node-API という抽象レイヤーがある</li>
+<li>Node.jsをアップデートすると問題が起きやすい</li>
+</ul>
+<hr>
+<h1 id="gyp-err">gyp ERR!</h1>
+<pre><code>gyp ERR! 
+gyp ERR! 
+gyp ERR! 
+gyp ERR! 
+gyp ERR! 
+gyp ERR! 
+gyp ERR! 
+gyp ERR! 
+gyp ERR!
+</code></pre>
+<hr>
+<h1 id="gyp-err-1">gyp ERR!</h1>
+<ul>
+<li>Node.jsではNative Addonのrebuildには<a href="https://github.com/nodejs/node-gyp">node-gyp</a>というツールを使う</li>
+<li><a href="https://github.com/nodejs/node-gyp">node-gyp</a>はPythonに依存しており、Native AddonのrebuildにはPythonが必要</li>
+<li>Node.js 14まではPython 2が利用可能で、Python 16以降はPython 3が必要になる</li>
+</ul>
+<hr>
+<p><img alt="fit Node.js Python" src="./img//node-js-npm-version-python.png"></p>
+<hr>
+<h1 id="apk-add-python">apk add python</h1>
+<ul>
+<li>つまり、Node.jsでは、OS内にPythonをインストールする場合は、Python 3が必要</li>
+<li><code>apk add python</code>ではPython 2がインストールされるので、<code>python3</code>へと変更がいる</li>
+</ul>
+<pre><code>RUN apk --no-cache add python3 make g++
+</code></pre>
+<hr>
+<h1 id="gyp-err-の対応">gyp ERR! の対応</h1>
+<ul>
+<li>基本的には古いバージョンのライブラリだと起きやすい問題</li>
+<li>(ライブラリが更新されていれば)ライブラリのバージョンを上げることで、大体修正されている</li>
+</ul>
+<hr>
+<h1 id="gcpライブラリとgrpc">GCPライブラリとgRPC</h1>
+<ul>
+<li>古いGCPのクライアントライブラリは<a href="https://www.npmjs.com/package/grpc"><code>grpc</code></a>を利用していた<ul>
+<li><a href="https://github.com/googleapis/nodejs-pubsub">@google-cloud/pubsub</a>、<a href="https://github.com/googleapis/nodejs-spanner">@google-cloud/spanner</a>など</li>
+</ul>
+</li>
+<li><code>grpc</code>はNative Addonのパッケージ<ul>
+<li>インストール時にNode.jsバージョンに合わせたプレビルドのバイナリをダウンロード(当然Node.js 18用は存在しない)</li>
+<li>なければ、ローカルでgypを使ってrebuildする</li>
+</ul>
+</li>
+<li>最近のバージョンでは<a href="https://www.npmjs.com/package/@grpc/grpc-js">@grpc/grpc-js</a>を利用している<ul>
+<li>JSの実装なので、gypの問題は起きない!</li>
+</ul>
+</li>
+<li>→ Node.js 18では、GCPライブラリは<a href="https://www.npmjs.com/package/@grpc/grpc-js">@grpc/grpc-js</a>を使ってるバージョンまでアップデートが必要</li>
+</ul>
+<hr>
+<h1 id="バイナリを利用するライブラリoptional-depencies">バイナリを利用するライブラリ(Optional Depencies)</h1>
+<ul>
+<li><a href="https://esbuild.github.io/">esbuild</a>や<a href="https://github.com/rome/tools">Rome</a>などバイナリを使うツールも増えている</li>
+<li>これらはOptional Dependenciesで、アーキテクチャ別のプレビルドしたバイナリをパッケージとして用意している</li>
+<li>パッケージインストール時にバイナリをインストールしている[^napi-rs]</li>
+<li>インストール時にビルドをしなくて済むのがメリット</li>
+<li>問題が起きた時は、ライブラリのバージョンを上げることで、大体修正されている</li>
+</ul>
+<p>[^napi-rs]: <a href="https://shisama.hatenablog.com/entry/2021/12/03/054437">Rust + Node-APIでクロスプラットフォーム向けnpmパッケージを公開する - 別にしんどくないブログ</a></p>
+<hr>
+<h1 id="native-addonの問題のまとめ">Native Addonの問題のまとめ</h1>
+<ul>
+<li>残念ながら対応方法は、Native Addonを使うパッケージをアップデートすることがほとんど</li>
+<li>マイナーなNative Addonは回避方法がなくなるので、避けるべき</li>
+<li>gyp ERR! が出た場合は、大体古いパッケージを使っていることが多い</li>
+<li>最近のライブラリは、アーキテクチャ別にプレビルドしたバイナリを配ってることが多い</li>
+<li>ライブラリのREADMEなどに対応してるNode.jsのバージョンが書かれているのでよく読む</li>
+</ul>
+<hr>
+<h1 id="peerdependenciesの問題"><code>peerDependencies</code>の問題</h1>
+<hr>
+<h1 id="peerdependenciesの問題-1"><code>peerDependencies</code>の問題</h1>
+<ul>
+<li><a href="https://nodejs.org/en/blog/release/v18.0.0">Node v18.0.0</a>では、<a href="https://github.com/npm/cli/releases/tag/v8.6.0">npm v8.6.0</a>が同梱された</li>
+<li><a href="https://github.com/npm/cli/releases/tag/v8.6.0">npm v8.6.0</a>には、<code>peerDependencies</code>に指定されたライブラリとバージョンが一致していない場合に、インストールエラーになるBREAKING CHANGEが含まれる</li>
+<li><a href="https://github.com/npm/cli/issues/4664">[BUG] non-previosly seen peer-dependency errors popping up in 8.6.0 · Issue #4664 · npm/cli</a></li>
+</ul>
+<hr>
+<pre><code>$ npm i
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE could not resolve
+npm ERR! 
+npm ERR! While resolving: @shiftcoders/dynamo-easy@7.1.0
+npm ERR! Found: tslib@2.3.0
+npm ERR! node_modules/tslib
+npm ERR!   tslib@"^2.1.0" from the root project
+npm ERR!   tslib@"^2.0.0" from @aws-sdk/abort-controller@3.20.0
+npm ERR!   node_modules/@aws-sdk/abort-controller
+npm ERR!     @aws-sdk/abort-controller@"3.20.0" from @aws-sdk/node-http-handler@3.21.0
+npm ERR!     node_modules/@aws-sdk/node-http-handler
+npm ERR!       @aws-sdk/node-http-handler@"3.21.0" from @aws-sdk/client-sso@3.21.0
+npm ERR!       node_modules/@aws-sdk/client-sso
+npm ERR!         @aws-sdk/client-sso@"3.21.0" from @aws-sdk/credential-provider-sso@3.21.0
+npm ERR!         node_modules/@aws-sdk/credential-provider-sso
+npm ERR!       1 more (@aws-sdk/client-sts)
+npm ERR!   46 more (@aws-sdk/client-sso, @aws-sdk/client-sts, ...)
+npm ERR! 
+npm ERR! Could not resolve dependency:
+npm ERR! peer tslib@"^1.10.0" from @shiftcoders/dynamo-easy@7.1.0
+npm ERR! node_modules/@shiftcoders/dynamo-easy
+npm ERR!   dev @shiftcoders/dynamo-easy@"^7.1.0" from the root project
+npm ERR! 
+npm ERR! Conflicting peer dependency: tslib@1.14.1
+npm ERR! node_modules/tslib
+npm ERR!   peer tslib@"^1.10.0" from @shiftcoders/dynamo-easy@7.1.0
+npm ERR!   node_modules/@shiftcoders/dynamo-easy
+npm ERR!     dev @shiftcoders/dynamo-easy@"^7.1.0" from the root project
+npm ERR! 
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force, or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR! 
+</code></pre>
+<hr>
+<h1 id="peerdependenciesの問題の対応方法"><code>peerDependencies</code>の問題の対応方法</h1>
+<ol>
+<li>ライブラりをアップデートする</li>
+</ol>
+<ul>
+<li>ライブラリ側の<code>peerDependencies</code>のバージョン指定が間違っていることがほとんど</li>
+</ul>
+<ol start="2">
+<li><code>npm i --legacy-peer-deps</code> で古いnpmの挙動を再現する</li>
+</ol>
+<ul>
+<li><a href="https://docs.npmjs.com/cli/v8/using-npm/config?v=true#legacy-peer-deps"><code>--legacy-peer-deps</code></a>というワークアラウンド用のオプションがある</li>
+</ul>
+<ol start="3">
+<li>npm 8.3+ の<a href="https://docs.npmjs.com/cli/v8/configuring-npm/package-json#overrides">overrides</a>で無理やり上書きする</li>
+</ol>
+<ul>
+<li>使う側からライブラリが依存してるパッケージバージョンを書き換える<a href="%5Bcolors%E3%81%AA%E3%81%A9%E3%81%AEnpm%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E6%82%AA%E6%84%8F%E3%81%82%E3%82%8B%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E5%95%8F%E9%A1%8C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D(https://zenn.dev/azu/articles/d56615b2e11ad1)">^参考</a></li>
+</ul>
+<ol start="4">
+<li><a href="https://nodejs.org/api/corepack.html">Corepack</a>を使って、Node.jsとnpmのアップデートを分ける</li>
+</ol>
+<hr>
+<h1 id="corepack"><a href="https://nodejs.org/api/corepack.html">Corepack</a></h1>
+<ul>
+<li><a href="https://nodejs.org/api/corepack.html">Corepack</a>を使うと、プロジェクト(<code>package.json</code>)ごとに利用するパッケージマネージャーとバージョンを指定できる</li>
+<li><code>package.json</code>の<code>packageManager</code>に パッケージマネージャーとバージョンを指定する<ul>
+<li>npm と yarn と pnpm に対応している</li>
+</ul>
+</li>
+</ul>
+<pre><code>├── a/ ここでは npm i で npm@6.5.0 が使われる
+|   └── package.json (`"packageManager": "npm@6.5.0"`)
+│    
+└── b/ ここでは npm i で npm@8.6.0 が使われる
+    └── package.json (`"packageManager": "npm@8.6.0"`)
+</code></pre>
+<hr>
+<h1 id="corepackで何が嬉しいか"><a href="https://nodejs.org/api/corepack.html">Corepack</a>で何が嬉しいか</h1>
+<p><img alt="fit right node" src="./img/node-js-npm-version.png"></p>
+<ul>
+<li><code>npm</code>はNode.jsに同梱されているため、Node.jsバージョンアップで<code>npm</code>のバージョンも上がる</li>
+<li>Corepackを使うことで、Node.jsのバージョンアップと<code>npm</code>のバージョンアップを切り離せる</li>
+<li>プロジェクト(<code>package.json</code>)ごとに、パッケージマネージャーを指定できるので、複数のバージョンが混在できる</li>
+<li>チーム内で、それぞれのnpmバージョンが違うと、installするだけで<code>package-lock.json</code>が更新されてしまう</li>
+</ul>
+<hr>
+<p><img alt="fit corepack" src="./img/node-js-npm-version-corepack.png"></p>
+<hr>
+<h1 id="corepackでpeerdependenciesの問題を回避"><a href="https://nodejs.org/api/corepack.html">Corepack</a>で<code>peerDependencies</code>の問題を回避</h1>
+<ul>
+<li><code>peerDependencies</code>が厳密にチェックされるのは npm 8.6.0+</li>
+<li>Corepackを使うと、Node.js 18に上げても、npm 6のままにできる</li>
+<li>npmの問題は、npmのアップデートだけに絞ってできる </li>
+<li>→ 一度に解決しないといけない問題を減らせる</li>
+</ul>
+<hr>
+<h1 id="corepackの使い方"><a href="https://nodejs.org/api/corepack.html">Corepack</a>の使い方</h1>
+<ul>
+<li><a href="https://nodejs.org/en/blog/release/v14.19.0">Node v14.19.0</a>、16.x, 18.x に <code>corepack</code> コマンドが含まれる</li>
+<li>まだExperimentalという扱いなので、デフォルトは無効になっている</li>
+<li>有効化する方法は <code>cprepack enable</code> するだけ</li>
+<li><code>npm</code>を叩いた時に、インストールされてない<code>npm</code>バージョンなら自動的にダウンロードもしてくれるのでバージョンを意識しなくなる</li>
+</ul>
+<pre><code class="language-shell">$ corepack enable npm yarn pnpm # npm, yarn, pnpmのバイナリをcorepackのラッパーに差し替える
+</code></pre>
+<hr>
+<h1 id="corepackの罠"><a href="https://nodejs.org/api/corepack.html">Corepack</a>の罠</h1>
+<ul>
+<li>デフォルトで有効ではない</li>
+<li>Node.jsのバージョンアップでデフォルト値(無効)に戻ってしまう<ul>
+<li><code>make install</code>などで <code>corepack enable</code> を実行するなどが必要</li>
+<li>Dockerfileで有効化する必要がある</li>
+<li><code>RUN corepack enable npm yarn pnpm</code> を足す必要がある</li>
+</ul>
+</li>
+<li>Node.jsバージョン管理ツールが対応してない場合がある<ul>
+<li><a href="https://github.com/volta-cli/volta/issues/987">voltaは<code>packageManager</code>フィールドを無視する</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="corepack-in-dockerfile-example">Corepack in Dockerfile example</h1>
+<pre><code class="language-Dockerfile"># --------------&gt; build stage
+FROM node:18.16.0-alpine AS builder
+WORKDIR /usr/src/app
+COPY ./ ./
+RUN corepack enable npm yarn pnpm # corepackを有効化
+RUN npm ci &amp;&amp; npm run build
+# --------------&gt; production stage
+FROM node:18.16.0-alpine
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/dist ./dist
+COPY ./package*.json ./
+RUN corepack enable npm yarn pnpm # corepackを有効化
+RUN npm ci --production
+USER node
+EXPOSE 8080
+CMD npm start
+</code></pre>
+<hr>
+<h1 id="peerdependenciesの問題-2"><code>peerDependencies</code>の問題</h1>
+<ul>
+<li><code>peerDependencies</code>の根本的な問題解決は、ライブラリをアップデートするしかない</li>
+<li><a href="https://docs.npmjs.com/cli/v8/using-npm/config?v=true#legacy-peer-deps"><code>--legacy-peer-deps</code></a>、<a href="https://docs.npmjs.com/cli/v8/configuring-npm/package-json#overrides">overrides</a>のワークアラウンドがある</li>
+<li><a href="https://nodejs.org/api/corepack.html">Corepack</a>はNode.jsのバージョンとnpmのバージョンを切り離せる<ul>
+<li>各自のnpmバージョンのずれを防ぐ意味でも<a href="https://nodejs.org/api/corepack.html">Corepack</a>に価値がある</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="nodejs-runtimeの問題">Node.js Runtimeの問題</h1>
+<hr>
+<h1 id="nodejs-runtimeの問題-1">Node.js Runtimeの問題</h1>
+<ul>
+<li>Node.jsのアップデートでNode.jsのAPIが変更されることがある</li>
+<li>が、基本的にこれが問題になるケースは、ライブラリに比べると少ない</li>
+<li>Node.jsのリリースノートを読んで、該当するものがあるかをチェックしていくだけ</li>
+</ul>
+<hr>
+<h2 id="nodejs-16のbreaking-changes">Node.js 16のBREAKING CHANGES</h2>
+<ul>
+<li><a href="https://nodejs.org/en/blog/release/v16.0.0">Node v16.0.0 (Current) | Node.js</a>で削除されたAPI</li>
+<li><input type="checkbox" disabled="" checked=""> <code>process.binding</code> の削除</li>
+<li><input type="checkbox" disabled="" checked=""> <code>process.config</code> の削除</li>
+<li><input type="checkbox" disabled="" checked=""> <code>fs.rmdir(dir, { recursive: true })</code>の削除</li>
+</ul>
+<hr>
+<h2 id="unhandledrejectionの挙動変更">UnhandledRejectionの挙動変更</h2>
+<ul>
+<li>Node.js 15+からUnahanded Rejectionが発生するとプロセスが終了する</li>
+<li>Node.js 14ではプロセスは終了せずに <code>(node:1660) UnhandledPromiseRejectionWarning</code> のワーニングが出るだけ</li>
+<li><a href="https://zenn.dev/kimamula/articles/b32d11d52c2b7a733119">Node.js v15ではunhandled rejectionでプロセスがエラー終了する</a></li>
+<li><a href="https://efcl.info/2020/03/20/node-unhandled-rejections-exit-status/">Node.jsでUnhandled Rejectionsのときにexis statusが0となる問題を回避する | Web Scratch</a></li>
+<li>e.g <a href="https://github.com/azu/test-unhandled/actions/runs/4794774814">https://github.com/azu/test-unhandled/actions/runs/4794774814</a></li>
+</ul>
+<hr>
+<h2 id="unhandledrejection">UnhandledRejection</h2>
+<pre><code class="language-js">// =&gt; キャッチしてないので、Unahanded Rejectionが発生する
+new Promise(() =&gt; {
+    throw new Error("tttthrow"); 
+});
+
+setTimeout(() =&gt; console.log("こんにちは!!!!"), 1000);
+</code></pre>
+<hr>
+<h2 id="unhandledrejection-の結果-in-nodejs-14">UnhandledRejection の結果 in Node.js 14</h2>
+<pre><code class="language-shell">$ node index.js
+(node:1660) UnhandledPromiseRejectionWarning: Error: tttthrow
+    at /home/runner/work/test-unhandled/test-unhandled/index.js:2:8
+    at new Promise (&lt;anonymous&gt;)
+    at Object.&lt;anonymous&gt; (/home/runner/work/test-unhandled/test-unhandled/index.js:1:1)
+    at Module._compile (internal/modules/cjs/loader.js:1114:14)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1143:10)
+    at Module.load (internal/modules/cjs/loader.js:979:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:819:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:75:12)
+    at internal/main/run_main_module.js:17:47
+こんにちは!!!! # &lt;-- プロセスはエラーで終了しないので、最後まで処理が実行される
+$ echo $?
+0
+</code></pre>
+<hr>
+<h2 id="unhandledrejection-の結果-in-nodejs-16">UnhandledRejection の結果 in Node.js 16+</h2>
+<pre><code class="language-shell">$ node index.js
+/home/runner/work/test-unhandled/test-unhandled/index.js:2
+    throw new Error("tttthrow")
+          ^
+
+Error: tttthrow
+    at /home/runner/work/test-unhandled/test-unhandled/index.js:2:8
+    at new Promise (&lt;anonymous&gt;)
+    at Object.&lt;anonymous&gt; (/home/runner/work/test-unhandled/test-unhandled/index.js:1:1)
+    at Module._compile (node:internal/modules/cjs/loader:1196:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1250:10)
+    at Module.load (node:internal/modules/cjs/loader:1074:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:909:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:22:47
+Error: Process completed with exit code 1.
+$ echo $?
+1 # エラーで途中で処理が止まる
+</code></pre>
+<hr>
+<h2 id="unhandledrejectionの挙動の変更の対応">UnhandledRejectionの挙動の変更の対応</h2>
+<ul>
+<li><a href="https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode">node --unhandled-rejections=warn</a>を指定して14の挙動に戻す</li>
+<li>Promiseのキャッチ忘れがあるので、ちゃんとキャッチするように修正する</li>
+<li>GlobalにUnhandledRejectionをキャッチする処理を追加する</li>
+</ul>
+<pre><code class="language-js">process.on('unhandledRejection', (reason, p) =&gt; {
+  console.log('Unhandled Rejection at:', p, 'reason:', reason); 
+  // process.exitを呼ばなければ、Node 14と同じくログが出るだけ済む
+});
+</code></pre>
+<hr>
+<h2 id="nodejs-18のbreaking-changes">Node.js 18のBREAKING CHANGES</h2>
+<ul>
+<li><a href="https://nodejs.org/en/blog/release/v18.0.0">Node v18.0.0 (Current) | Node.js</a>で変更されたAPI</li>
+<li><input type="checkbox" disabled="" checked=""> <code>dns.lookup</code>の削除</li>
+<li><input type="checkbox" disabled="" checked=""> <code>tls.parseCertString</code>の削除</li>
+<li><input type="checkbox" disabled="" checked=""> Fetch APIの追加</li>
+<li><input type="checkbox" disabled="" checked=""> <code>server.headersTimeout</code>が60秒に変更<ul>
+<li><a href="https://github.com/nodejs/node/pull/41263">http: refactor headersTimeout and requestTimeout logic by ShogunPanda · Pull Request #41263 · nodejs/node</a></li>
+</ul>
+</li>
+<li><input type="checkbox" disabled="" checked=""> <code>server.requestTimeout</code>が5分に変更<ul>
+<li>元々は <code>0</code> で無限</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="追加されたapiで壊れることもある">追加されたAPIで壊れることもある</h1>
+<ul>
+<li><a href="https://nodejs.org/en/blog/release/v18.0.0">Node v18.0.0 (Current) | Node.js</a>でFetch APIが追加された</li>
+<li><code>ReferenceError: AbortSignal is not defined</code> というエラーがJestで発生するようになる<ul>
+<li>おそらくFeature Detectのコードが誤検知を起こすようになった</li>
+</ul>
+</li>
+<li><a href="https://github.com/nodejs/undici/issues/1557">"ReferenceError: AbortSignal is not defined" during jest execution · Issue #1557 · nodejs/undici</a></li>
+<li>これはJestを29までアップデートすると治る</li>
+</ul>
+<hr>
+<h1 id="nodejs-runtimeの問題のまとめ">Node.js Runtimeの問題のまとめ</h1>
+<ul>
+<li>あんまり多くはないので、リリースノートを読んで、コードを検索</li>
+<li>Fetch APIの追加で壊れるライブラリはあるのでアップデートが必要なこともある</li>
+</ul>
+<hr>
+<h1 id="まとめ">まとめ</h1>
+<hr>
+<h1 id="まとめ---分解した問題">まとめ - 分解した問題</h1>
+<ul>
+<li>OSの問題 → コントロールできる</li>
+<li>Native Addonの問題 → コントロールできない</li>
+<li><code>peerDependencies</code>の問題 → コントロールが難しい</li>
+<li>Node.js Runtimeの問題 → コントロールできる</li>
+</ul>
+<hr>
+<h1 id="まとめ---問題の対応">まとめ - 問題の対応</h1>
+<ul>
+<li>OSの問題 → 修正しよう</li>
+<li>Native Addonの問題 → ライブラリをアップデートしよう</li>
+<li><code>peerDependencies</code>の問題 →<ul>
+<li>ライブラリをアップデート or <a href="https://nodejs.org/api/corepack.html">Corepack</a>を使おう</li>
+</ul>
+</li>
+<li>Node.js Runtimeの問題 → 修正しよう</li>
+</ul>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
