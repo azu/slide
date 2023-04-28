@@ -150,7 +150,7 @@ gyp ERR!
 
 - Node.jsではNative Addonのrebuildには[node-gyp](https://github.com/nodejs/node-gyp)というツールを使う
 - [node-gyp](https://github.com/nodejs/node-gyp)はPythonに依存しており、Native AddonのrebuildにはPythonが必要
-- Node.js 14まではPython 2が利用可能で、Python 16以降はPython 3が必要になる
+- Node.js 14まではPython 2が利用可能で、Node.js 16以降はPython 3が必要になる
 
 ---
 
