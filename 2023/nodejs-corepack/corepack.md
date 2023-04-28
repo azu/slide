@@ -17,6 +17,18 @@ autoscale: true
 
 ----
 
+[.background-color: #FFFFFFF]
+
+# Node.js 14は2023年4月でEOL
+
+![right, fit, node releases](img/2023-04-28-10-22-10.png)
+
+- Node.js 14.xは2023-04-30、Node.js 16.xは2023-09-11でEOL(End Of Life)
+- 2023年10月からはNode.js 18と20のみがLTSとしてサポートされるバージョンとなる
+- <https://github.com/nodejs/release#release-schedule>
+
+----
+
 # サマリ
 
 - Node.jsのバージョンアップは面倒だけど
