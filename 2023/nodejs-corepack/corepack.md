@@ -536,5 +536,6 @@ process.on('unhandledRejection', (reason, p) => {
 - Q. Docker内でcorepackを有効化する理由?
   - A. monorepoだと複数のパッケージがあり、それぞれでnpmのバージョンを切り分けできるため
   - Node.jsに同梱されているnpmとは別のバージョンを使いたい場合にも便利
+  - npmのmajor update != Node.jsのmajor update
 - Q. overrideは壊れやすそう
   - パッチを当てる感じなので壊れやすいです
