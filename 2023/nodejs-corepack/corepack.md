@@ -529,4 +529,12 @@ process.on('unhandledRejection', (reason, p) => {
   -  ライブラリをアップデート or [Corepack](https://nodejs.org/api/corepack.html)を使おう
 - Node.js Runtimeの問題 → 修正しよう
 
+----
 
+# FAQ
+
+- Q. Docker内でcorepackを有効化する理由?
+  - A. monorepoだと複数のパッケージがあり、それぞれでnpmのバージョンを切り分けできるため
+  - Node.jsに同梱されているnpmとは別のバージョンを使いたい場合にも便利
+- Q. overrideは壊れやすそう
+  - パッチを当てる感じなので壊れやすいです
