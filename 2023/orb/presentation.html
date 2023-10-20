@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>🔮</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2023/orb/presentation.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="🔮"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2023/orb/presentation.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2023-10-20" id="datePublished">
+            2023-10-20
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2023-10-20" id="dateModified">
+            2023-10-20
+        </time></span>
+        <a href="https://azu.github.io/slide/2023/orb/presentation.pdf" title="🔮">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><h1 id="🔮">🔮</h1>
+<hr>
+<h1 id="自己紹介">自己紹介</h1>
+<p><img alt="@azuアイコン right" src="https://github.com/azu.png"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>🐦 Twitter : @<a href="https://twitter.com/azu_re">azu_re</a></li>
+<li>📝 Blog: <a title="Web scratch" href="http://efcl.info/">Web scratch</a>, <a title="JSer.info" href="http://jser.info/">JSer.info</a></li>
+<li>📚 Book: <a href="https://jsprimer.net/">JavaScript Primer</a></li>
+<li>🏗️ Develop: <a href="https://textlint.github.io/">textlint</a>, <a href="https://secretlint.github.io/">secretlint</a>, <a href="https://honkit.netlify.app/">HonKit</a></li>
+</ul>
+<hr>
+<h1 id="orbstack">OrbStack</h1>
+<ul>
+<li><a href="https://orbstack.dev/">OrbStack · Fast, light, simple Docker &amp; Linux on macOS</a></li>
+<li>Drop in replace Docker for mac </li>
+<li>早い、ファンを回さない、便利</li>
+<li>GUIがまとも</li>
+</ul>
+<hr>
+<h1 id="orbstackの特徴">OrbStackの特徴</h1>
+<ul>
+<li>Portを開けなくてもContainerに直接アクセスできる<ul>
+<li>Container側portをexposeしなくても、macOS側からアクセスできる</li>
+<li><code>node --inspector</code>のようなデバッガーを外から接続するのに便利</li>
+</ul>
+</li>
+<li>macOS側にOrbStackのContainer/ImageがNFSとしてマウントされる<ul>
+<li>Finderで普通にImageの中身などを確認できる</li>
+</ul>
+</li>
+<li>See <a href="https://orbstack.dev/blog/orbstack-1.0">OrbStack 1.0: Fast, light, easy way to run Docker containers and Linux</a></li>
+</ul>
+<hr>
+<h1 id="docker-for-macos-to-orbstack">Docker for macOS to OrbStack</h1>
+<ul>
+<li><a href="https://docs.orbstack.dev/release-notes#v0-15-0">v0.15.0</a>からDocker for MacのImageをまるっと移行できるようになった<ul>
+<li>"Migrate"ボタン押すだけで終わる</li>
+<li>事前にDocker for macは最新にしておく方が良い</li>
+<li><a href="https://zenn.dev/verde/articles/cfcaccdd46efe7">Docker Desktop使いがOrbStackでハマったところ</a></li>
+</ul>
+</li>
+<li><code>/var/run/docker.sock</code>の参照先を切り替えることでDocker for Macとは共存可能(一応戻れる)</li>
+</ul>
+<hr>
+<h1 id="orbstackとspeed">OrbStackとSpeed</h1>
+<ul>
+<li><a href="https://docs.orbstack.dev/release-notes#v0-5-1-mar-26">Public Beta</a>あたりから触って、<a href="https://docs.orbstack.dev/release-notes#v0-5-1-mar-26">v0.13.0 (6月25日) </a>あたりでDocker for Macを使うのをやめた</li>
+<li>バグ報告をすると、素早く反応して修正してくれる<ul>
+<li>主にRosetta側のバグにぶつかったことが多かったけど、なんとか回避する修正をしてくれていた</li>
+</ul>
+</li>
+<li>素早い反応ができるプロダクトは、期待値が高くなりやすい</li>
+</ul>
+<hr>
+<h1 id="fast-first-response">Fast First Response</h1>
+<hr>
+<h1 id="bun"><a href="https://bun.sh/">Bun</a></h1>
+<ul>
+<li>Drop-in replacement for Node.js</li>
+<li>コアメンテナーの<a href="https://github.com/Jarred-Sumner">Jarred Sumner</a>は、反応から修正までが早い</li>
+<li>書いてるコード量も多い</li>
+</ul>
+<hr>
+<h2 id="bunに報告したissue">Bunに報告したIssue</h2>
+<ul>
+<li><a href="https://github.com/oven-sh/bun/issues/3764"><code>bun build --compile</code> cause segmentation fault · Issue #3764 · oven-sh/bun</a><ul>
+<li>2分で反応、15分で修正</li>
+</ul>
+</li>
+<li><a href="https://github.com/oven-sh/bun/issues/4029">v0.7.2+ regression: TypeError: undefined is not an object (evaluating '__classPrivateFieldGet(this, _Client_fetch).call') · Issue #4029 · oven-sh/bun</a><ul>
+<li>1分で反応、2時間で修正</li>
+</ul>
+</li>
+<li><a href="https://github.com/oven-sh/bun/issues/4011"><code>bun run &lt;missing.ts&gt;</code> should exits with non-0 · Issue #4011 · oven-sh/bun</a><ul>
+<li>10分で反応、1日で修正</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="バグと素早い反応">バグと素早い反応</h2>
+<ul>
+<li>Bunのバグはリグレッション的なものが多かった</li>
+<li>何度も起きると困るけど、ちゃんと報告するとちゃんと直してくれるのでバグ報告がしやすい</li>
+<li>オープンソースでは多いが、素早くレスポンス返せるプロダクトは成長しやすい</li>
+</ul>
+<hr>
+<h1 id="6to5">6to5</h1>
+<ul>
+<li>6to5: <a href="https://babeljs.io/">Babel</a>の元の名前</li>
+<li>最初に6to5が公開された時にバグを見つけたので、報告したらすぐ修正された<ul>
+<li><a href="https://github.com/babel/babel/issues/9">6to5-node throw error · Issue #9 · babel/babel</a></li>
+</ul>
+</li>
+<li>当時のメンテナーである<a href="https://github.com/sebmck">sebmck</a>は、素早いレスポンスと異常なコード量を書いていた</li>
+</ul>
+<hr>
+<h1 id="fast-first-response-1">Fast First Response</h1>
+<ul>
+<li>素早いレスポンスができると、期待値が上がる、成長しやすい</li>
+<li>一方で成長すると、素早いレスポンスが難しくなる</li>
+</ul>
+<hr>
+<h1 id="なぜ">なぜ?</h1>
+<ul>
+<li>スタジアムモデル[^working in public]</li>
+<li>多くのプロダクトはユーザーは増えても、Contributorは線形には増えない</li>
+</ul>
+<p><img alt="スタジアムモデル" src="image.png"></p>
+<p>[^working in public]: <a href="https://press.stripe.com/working-in-public">Stripe Press — Working in Public</a></p>
+<hr>
+<h1 id="メンテナーが利用可能なattentionを管理するパターン">メンテナーが利用可能なAttentionを管理するパターン</h1>
+<ul>
+<li>初期費用を減らす: CI/Bot/Lint/Check List</li>
+<li>利用可能なAttentionを制限する: Issueを閉じる</li>
+<li>コストの分配: モデレーション、ユーザーサポートを任せる</li>
+<li>利用可能なAttentionの総量を増やす: コントリビューターを増やす、収益を増やす</li>
+</ul>
+<hr>
+<h1 id="内発的動機と外発的動機">内発的動機と外発的動機</h1>
+<ul>
+<li>多くのプロダクトのスタートは内発的動機から始まる</li>
+<li>また、成長中は評判や認識という形で外因性の報酬を受け取ることある</li>
+<li>一方でプロダクトが成熟すると、評判のメリットがなくなっていき(増えなくなる)、義務感やコミュニティの側面が強くなっていく</li>
+<li>内部と外部のバランスが変わっていく</li>
+</ul>
+<hr>
+<h1 id="🔥-burnout">🔥　BurnOut</h1>
+<ul>
+<li>バランスが崩れていくと、BurnOutしてしまいやすい
+  ー <a href="https://medium.com/@sebmck/2015-in-review-51ac7035e272">~2015 in review. This started off as a generic year in… | by Sebastian McKenzie | Medium</a></li>
+</ul>
+<hr>
+<h2 id="まとめ">まとめ</h2>
+<ul>
+<li>素早いレスポンスは、期待値を上げる</li>
+<li>成長により鈍化して見えるのは、バランスの変化</li>
+<li>バランスの変化を無視すると、BurnOutに繋がりやすい</li>
+</ul>
+<hr>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://press.stripe.com/working-in-public">Stripe Press — Working in Public</a></li>
+<li><a href="https://github.com/bradfitz/issue-tracker-behaviors">bradfitz/issue-tracker-behaviors</a></li>
+<li><a href="https://github.com/CMUSTRUDEL/toxicity-detector">CMUSTRUDEL/toxicity-detector</a></li>
+</ul>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
