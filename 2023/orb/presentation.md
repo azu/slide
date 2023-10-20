@@ -112,6 +112,7 @@ autoscale:true
 # なぜ?
 
 - スタジアムモデル[^working in public]
+    - Contributorは少数で、ユーザーが膨大な状態
 - 多くのプロダクトはユーザーは増えても、Contributorは線形には増えない
 
 ![スタジアムモデル](image.png)
