@@ -263,12 +263,13 @@ https://2025.tskaigi.org/talks/makky12
 
 ---
 
-# 既知から道へ
+# 既知から未知へ
 
 具体的な例をいくつか挙げてみます。
 
-- jsprimer という書籍は前から後ろに順番に読んでいく構造です。そのため、未知の言葉がいきなり出てこないように、既知 -> 未知の順となるように説明している
-- コードを書いていくときに、関数の定義をしてから利用する
+- jsprimer という書籍は前から後ろに順番に読んでいく構造
+- 未知の言葉がいきなり出てこないように、既知 -> 未知の順となるように説明
+- コードを書いていくときに、関数の定義をしてから利用
   - JSはhoistingがあるので、実行的にはこれは回避できしまう
   - 一方でファイルが膨れたといにメインが下にあるのが嫌という人もいるが、それはエントリーを分ければいい
   - これが問題になるのはReactコンポーネントみたいな、同じファイルに
@@ -363,11 +364,25 @@ function sumNumStrings(a, b) {
 
 ---
 
-- [ ] textlint の話
+# [textlint](https://textlint.org/)
+
+- [textlint](https://textlint.org/)は、自然言語の文章を校正するためのツール
+- ESLintの自然言語向けのLinter
+- 技術書むけのルールをベースに、辞書や書籍独自のルールを実装している
+  - <https://github.com/asciidwango/js-primer/blob/master/.textlintrc.js>
+- [Maintainer Month: なぜtextlintを作ったか | Web Scratch](https://efcl.info/2022/06/29/why-create-textlint/)
 
 ^ textlintは機械学習のツールが来ても結局はプロフェッショナルルールが消えることはないという前提で書かれている。
 ^ これは機械学習の結果は確率的な話なので９9%の精度だと問題があって、Lintに求められるのは確率とはことなるものがある
 ^ AIを使ってても、ESLintなどを併用しているように、AIを使ってても、textlintは併用していくと思う
+
+---
+
+# 書籍独自のルール
+
+- [fix: prototypeを表すのに # を使わないようにする](https://github.com/asciidwango/js-primer/pull/1382)
+- [静的メソッドの表記統一 と textlintルールの追加 #1797](https://github.com/asciidwango/js-primer/pull/1797)
+- 表記揺れなどもtextlintのルールとして書いて吸収している
 
 ---
 
@@ -447,25 +462,56 @@ let 123; // NG: 数字のみで構成されている
 
 ![es2025 issue right, fit](./img//es2025-issue.png)
 
-- Issue でタスク管理し計画的に対応
+- Issue でタスク管理し対応していく
   - [ES2025 の対応 · Issue #1778 · asciidwango/js-primer](https://github.com/asciidwango/js-primer/issues/1778)
-- **大きな変更への対応:** Design Doc (OUTLINE.md) で設計・議論
-  - 例: Iterator Helpers 対応
-    ([#1782](https://github.com/asciidwango/js-primer/issues/1782), [OUTLINE](https://github.com/asciidwango/js-primer/blob/master/source/basic/iterator-generator/OUTLINE.md))
+- ECMAScript は毎年のリリーススケジュールが決まっているので合わせたサイクル
 
 ---
 
-- [ ] このプロセスの話はもっと詳しく
+# ES2025 の対応の流れ
+
+1. Issue を立てる
+2. どのProposalを対応するかを決める
+2. リポジトリでES2025が動くかをツールのアップデート
+  -  eslint, power-doctestなどはパーサがE2025の構文に対応してるかをチェック
+3. 改めて読み直して何を削るかを決める(ここで読み直してる)
+4. 書く
+
+---
+
+# ES2025で対応するIssue
+
+- [import attributes](https://github.com/asciidwango/js-primer/issues/1783)
+- [ES2020: Dynamic Import](https://github.com/asciidwango/js-primer/issues/1792) (読み直していて増えた)
+- [`RegExp.escape`](https://github.com/asciidwango/js-primer/issues/1781)
+- [Set Methods for JavaScript)](https://github.com/asciidwango/js-primer/issues/1784)
+- [Iterator Helpers](https://github.com/asciidwango/js-primer/issues/1782)
+
+---
+
+# 大きな変更への対応
+
+![right, fit, iterator and generator](./img//iterator-and-generator.png)
+
+- ドキュメントに対する Design Doc (OUTLINE.md) を書く
+  - 例: Iterator Helpers 対応
+    ([#1782](https://github.com/asciidwango/js-primer/issues/1782), [OUTLINE](https://github.com/asciidwango/js-primer/blob/master/source/basic/iterator-generator/OUTLINE.md))
+- 大きな変更は与える影響範囲が広い、または書く量が多い
+  - 書いているうちに目的がずれてくる
+  - 最初に目的、目的ではないこと、アウトラインを決めておいてずれにくくする
+
+^ この OUTLINE.md は実際のページを書いた後は更新しない。
+^ スナップショット的なものなので、記録して残しておく。RFC, Proposal, Design Docと言われてるものと性質は大体同じ
 
 ---
 
 # 5. オープンソースとしての開発
 
-- **オープンソースとしての開発:**
 - 書籍として出版予定のものとして書いていた
 - ただし、最初からオープンソースとして公開しながら開発した
 - すべての意思決定が GitHub 上にある
 - すべての議事録が GitHub 上にある
+- すべての文章/コードが GitHub 上にある
 
 ---
 
@@ -483,6 +529,24 @@ let 123; // NG: 数字のみで構成されている
   - 明確な [Contribution Guide](https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING.md)
   - 初めて GitHub 使う人も多いので、ブラウザだけで修正できる方法の案内をする
   - 繰り返す
+
+---
+
+# 誰でもContributeできるようにContributeする
+
+- CONTRIBUTING.md は誰もが読むわけじゃない
+- 読まなくてもContributeできるようにする
+- 右下のボタンから、今見てるページのIssueを立てられる
+- ここからコミュニーケーションを初めて、PRを作ってもらうところまでサポートする
+
+---
+
+# 目的: へんかに対応できるようにする
+
+- なんでこんなことをしているのか
+- jsprimer は変化に対応できるようにするために、jsprimer を変化させ続ける
+- 現在のソフトウェアの変化の中心にはオープンソースがある
+- そのため、オープンソースに関わってもらうことで変化に対応できるようにする
 
 ---
 
