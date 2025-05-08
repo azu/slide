@@ -439,7 +439,7 @@ let 123; // NG: 数字のみで構成されている
 
 ---
 
-![fix, jsprimer 依存のSankeyダイアグラム](./img/jsprimer-sankey.png)
+![fit, jsprimer 依存のSankeyダイアグラム](./img/jsprimer-sankey.png)
 
 ---
 
