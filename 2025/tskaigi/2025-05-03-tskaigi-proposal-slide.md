@@ -1,3 +1,9 @@
+\
+pbox/obsidian/azu/scraps/2025-05-03-tskaigi-proposal-slide.md -->
+<!-- スライド設定 (任意) -->
+<!-- theme: Default -->
+<!-- footer: tskaigi / @azu -->
+<!-- autoscale: true -->
 
 # 技術書をソフトウェア開発する
 ## jsprimer の 10 年から学ぶ継続的メンテナンスの技術
