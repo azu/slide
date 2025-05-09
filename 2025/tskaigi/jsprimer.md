@@ -565,19 +565,46 @@ let 123; // NG: 数字のみで構成されている
 
 # 7. 経済的支援モデル
 
-- 書籍販売、[GitHub Sponsors](https://github.com/sponsors/azu)、[Open Collective](https://opencollective.com/jsprimer)
+- 書籍: [JavaScript Primer 改訂2版 迷わないための入門書](https://www.amazon.co.jp/dp/4048931105)
+- [GitHub Sponsors @ azu](https://github.com/sponsors/azu)
+- [Open Collective - jsprimer](https://opencollective.com/jsprimer)
 
 ---
 
 # Open Collective
 
-- [ ] Open Colllective の話
+- 継続的な更新を支えるための資金調達プラットフォーム
+- 個人や企業がプロジェクトを支援可能
+- 支援金は透明性を持って管理され、プロジェクトの維持や貢献者への還元に使用
+
+---
+
+# 支援の方法
+
+1. **単発寄付**: 自由な金額で支援
+2. **定期支援**: 毎月または毎年の定額支援
+3. **企業スポンサー**: ロゴ掲載や特典付きの支援プラン
+
+---
+
+# 支援のメリット
+
+- **透明性**: 資金の使途が公開され、信頼性が高い
+- **コミュニティ貢献**: 貢献者への還元やプロジェクトの成長を直接支援
+- **特典**: スポンサーとしての認知やプロモーション効果
+
+---
+
+# 詳細情報
+
+- [Open Collectiveページ](https://opencollective.com/jsprimer)
+- [支援ガイド](https://opencollective.com/jsprimer/contribute)
 
 ---
 
 # Thanks to Sponsors
 
-- [ ] Open Collective の画像
+![Open Collective](./img/open-collective.png)
 
 ---
 
