@@ -93,13 +93,14 @@ https://2025.tskaigi.org/talks/makky12
 
 ---
 
-# [fit] `$ tskaigi --experimental-strip-types`
-
----
-
 # TSKaigi 2025
 
 ## TypeScript から 型(の話)を<br>取り除けば JavaScript(の話)が<br>できるカンファレンス
+
+
+---
+
+# [fit] `$ tskaigi --experimental-strip-types`
 
 ---
 
@@ -211,9 +212,16 @@ https://2025.tskaigi.org/talks/makky12
 
 ---
 
-# アクティブなものと静的なものの関係を分ける
+# ECMAScriptのアクティブな状態と静的な状態
 
-- [ ] 静的とアクティブを使い分けているという話
+- ECMAScriptではアクティブな状態と静的な状態を使い分けている
+- アクティブな仕様:
+  - https://tc39.es/ecma262 で常に最新のものとして公開される
+  - Living Standard
+- 静的な仕様:
+  - TODO* <ECMAのサイト>
+  - ECMAのサイトで毎年スナップショット公開される
+  - 1年に一度更新される
 
 ---
 
@@ -228,6 +236,15 @@ https://2025.tskaigi.org/talks/makky12
   - 読みやすさに特化した最適化
 
 ---
+
+# Why: なぜ静的なスナップショットを作るか
+
+- 読みやすさ
+- 読んでいる途中で内容が変わらないようにするため
+
+
+---
+
 
 # How: どうやって更新を実現しているのか？
 
@@ -384,7 +401,14 @@ function sumNumStrings(a, b) {
 
 ---
 
-- [ ] ここもう少しtextlintの工夫の話
+# textlintを使うことで書きやすくする
+
+- textlintは読みやすさのためのルールが色々とある
+- 一方でルール決めることで書きやすさが上がる
+- 特にLLMなど、全ての単語を人間が書いてるわけじゃない
+- こういった統一性を担保するのがLinterの役割であるので、読みやすさと書きやすさをあげてくれる
+
+^ 一般的にいうならガードレール的なもの。慣れてくるとLintにかからないように人間は描けるようになってくる
 
 --- 
 
@@ -586,6 +610,33 @@ let 123; // NG: 数字のみで構成されている
 - 書籍: [JavaScript Primer 改訂2版 迷わないための入門書](https://www.amazon.co.jp/dp/4048931105)
 - [GitHub Sponsors @ azu](https://github.com/sponsors/azu)
 - [Open Collective - jsprimer](https://opencollective.com/jsprimer)
+
+---
+
+# 書籍
+
+![jsprimer cover, right, fit](./img/cover-optimized.jpg)
+
+- 書籍版 ([amazon.co.jp/dp/4048931105](https://www.amazon.co.jp/dp/4048931105/)) も販売中
+
+---
+
+# GitHub Sponsors
+
+- [github.com/azu](https://github.com/azu) でスポンサーを募集している
+
+---
+
+# プロジェクトの経済モデル
+
+---
+
+# JavaScript Primerのコスト
+
+- 1年ごとに1度改定している
+- 改定には大体 n 日 ぐらいかかっている
+- このコストは n x m で xxxx 円ぐらい
+- このコストを補う仕組みをOpen Collectiveで作る
 
 ---
 
