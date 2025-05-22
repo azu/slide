@@ -14,6 +14,7 @@ slidenumbers: true
 - Name : **azu**
 - Twitter : @[azu_re](https://x.com/azu_re)
 - Website: [Web scratch](https://efcl.info/), [JSer.info](https://jser.info/)
+- Open Source: textlint, secretlint, HontKit
 
 ---
 
@@ -97,7 +98,6 @@ https://2025.tskaigi.org/talks/makky12
 
 ## TypeScript から 型(の話)を<br>取り除けば JavaScript(の話)が<br>できるカンファレンス
 
-
 ---
 
 # [fit] `$ tskaigi --experimental-strip-types`
@@ -148,7 +148,7 @@ https://2025.tskaigi.org/talks/makky12
 
 > 依存がない静的なコードは時間で変化はしにくい、依存があるアクティブなコードは、コードが変わらなくても依存関係である周りが変化します。そのため 5 年間触っていないコードが、最新の環境ではそのままは動かないのはこれが理由です。
 >
-> -- Working in Public
+> -- [Working in Public](https://press.stripe.com/working-in-public)
 
 ---
 
@@ -156,38 +156,6 @@ https://2025.tskaigi.org/talks/makky12
 
 - JavaScript 周りのエコシステムは変化し続ける
 - エコシステムを扱った書籍は、ものすごい速さで古くなる
-
----
-
-# Working in Public
-
-> 「The key insight that Jacob Thornton identified is that code has two different states that are worth paying attention to: static state and active state.」¹
-
-(Jacob Thornton が特定した重要な洞察は、コードには注目すべき二つの異なる状態があるということ、それは静的な状態とアクティブな状態です。)
-
-> 「Code in static state is like a commodity. A piece of code published on GitHub today would look exactly the same fifty years from now, even if its author never touches it.」¹
-
-(静的な状態のコードは商品のようなものです。今日 GitHub に公開されたコードは、作者がそれに全く触れなくても、50 年後も全く同じに見えるでしょう。)
-
----
-
-> 「Active code depends on other things, and other things depend on it for their survival.」¹
-
-(アクティブなコードは他のものに依存し、他のものもそのコードに依存して存続します。)
-
-> 「The problem with active code is that even if your code never changes, everything else around it does.」¹
-
-(アクティブなコードの問題は、たとえあなたのコードが全く変わらなくても、その周囲のすべてが変化することです。)
-
----
-
-> 「Over time, the code becomes out of sync with its dependencies, and will become incompatible with new versions.」¹
-
-(時間とともに、コードはその依存関係と同期がずれていき、新しいバージョンとの互換性がなくなります。)
-
-> 「This is why code that hasn’t been touched for five years may not run on a current machine without some updates」¹
-
-(これが、5 年間触られていないコードが、最新のマシンではいくつかのアップデートなしには実行できない可能性がある理由です。)
 
 ---
 
@@ -212,16 +180,16 @@ https://2025.tskaigi.org/talks/makky12
 
 ---
 
-# ECMAScriptのアクティブな状態と静的な状態
+# ECMAScript のアクティブな状態と静的な状態
 
-- ECMAScriptではアクティブな状態と静的な状態を使い分けている
+- ECMAScript ではアクティブな状態と静的な状態を使い分けている
 - アクティブな仕様:
-  - https://tc39.es/ecma262 で常に最新のものとして公開される
+  - <https://tc39.es/ecma262> 常に最新のものとして公開される
   - Living Standard
 - 静的な仕様:
-  - TODO* <ECMAのサイト>
-  - ECMAのサイトで毎年スナップショット公開される
-  - 1年に一度更新される
+  - <https://ecma-international.org/technical-committees/tc39/>
+  - ECMA のサイトで毎年スナップショット公開される
+  - 1 年に一度更新される
 
 ---
 
@@ -242,9 +210,7 @@ https://2025.tskaigi.org/talks/makky12
 - 読みやすさ
 - 読んでいる途中で内容が変わらないようにするため
 
-
 ---
-
 
 # How: どうやって更新を実現しているのか？
 
@@ -293,9 +259,9 @@ https://2025.tskaigi.org/talks/makky12
 - jsprimer という書籍は前から後ろに順番に読んでいく構造
 - 未知の言葉がいきなり出てこないように、既知 -> 未知の順となるように説明
 - コードを書いていくときに、関数の定義をしてから利用
-  - JSはhoistingがあるので、実行的にはこれは回避できしまう
+  - JS は hoisting があるので、実行的にはこれは回避できしまう
   - 一方でファイルが膨れたといにメインが下にあるのが嫌という人もいるが、それはエントリーを分ければいい
-  - これが問題になるのはReactコンポーネントみたいな、同じファイルに
+  - これが問題になるのは React コンポーネントみたいな、同じファイルに
 
 ```js
 // 数字の文字列を二つ受け取り、合計を返す関数
@@ -381,8 +347,8 @@ function sumNumStrings(a, b) {
 - **ドキュメントの自動テスト:**
   - `textlint`: 文章校正、表現統一
   - `power-doctest`: サンプルコードの動作検証
-- **CI/CDでの継続的なテスト:** GitHub Actions でテストを自動化し、品質を維持
-  - サンプルコードの検証、Integration Testの実装
+- **CI/CD での継続的なテスト:** GitHub Actions でテストを自動化し、品質を維持
+  - サンプルコードの検証、Integration Test の実装
 - **読みやすさ分析:** `textstat` による文章の複雑さの可視化
 
 ---
@@ -390,33 +356,33 @@ function sumNumStrings(a, b) {
 # [textlint](https://textlint.org/)
 
 - [textlint](https://textlint.org/)は、自然言語の文章を校正するためのツール
-- ESLintの自然言語向けのLinter
+- ESLint の自然言語向けの Linter
 - 技術書むけのルールをベースに、辞書や書籍独自のルールを実装している
   - <https://github.com/asciidwango/js-primer/blob/master/.textlintrc.js>
-- [Maintainer Month: なぜtextlintを作ったか | Web Scratch](https://efcl.info/2022/06/29/why-create-textlint/)
+- [Maintainer Month: なぜ textlint を作ったか | Web Scratch](https://efcl.info/2022/06/29/why-create-textlint/)
 
-^ textlintは機械学習のツールが来ても結局はプロフェッショナルルールが消えることはないという前提で書かれている。
-^ これは機械学習の結果は確率的な話なので９9%の精度だと問題があって、Lintに求められるのは確率とはことなるものがある
-^ AIを使ってても、ESLintなどを併用しているように、AIを使ってても、textlintは併用していくと思う
+^ textlint は機械学習のツールが来ても結局はプロフェッショナルルールが消えることはないという前提で書かれている。
+^ これは機械学習の結果は確率的な話なので９ 9%の精度だと問題があって、Lint に求められるのは確率とはことなるものがある
+^ AI を使ってても、ESLint などを併用しているように、AI を使ってても、textlint は併用していくと思う
 
 ---
 
-# textlintを使うことで書きやすくする
+# textlint を使うことで書きやすくする
 
-- textlintは読みやすさのためのルールが色々とある
+- textlint は読みやすさのためのルールが色々とある
 - 一方でルール決めることで書きやすさが上がる
-- 特にLLMなど、全ての単語を人間が書いてるわけじゃない
-- こういった統一性を担保するのがLinterの役割であるので、読みやすさと書きやすさをあげてくれる
+- 特に LLM など、全ての単語を人間が書いてるわけじゃない
+- こういった統一性を担保するのが Linter の役割であるので、読みやすさと書きやすさをあげてくれる
 
-^ 一般的にいうならガードレール的なもの。慣れてくるとLintにかからないように人間は描けるようになってくる
+^ 一般的にいうならガードレール的なもの。慣れてくると Lint にかからないように人間は描けるようになってくる
 
---- 
+---
 
 # 書籍独自のルール
 
-- [fix: prototypeを表すのに # を使わないようにする](https://github.com/asciidwango/js-primer/pull/1382)
-- [静的メソッドの表記統一 と textlintルールの追加 #1797](https://github.com/asciidwango/js-primer/pull/1797)
-- 表記揺れなどもtextlintのルールとして書いて吸収している
+- [fix: prototype を表すのに # を使わないようにする](https://github.com/asciidwango/js-primer/pull/1382)
+- [静的メソッドの表記統一 と textlint ルールの追加 #1797](https://github.com/asciidwango/js-primer/pull/1797)
+- 表記揺れなども textlint のルールとして書いて吸収している
 
 ---
 
@@ -427,7 +393,6 @@ function sumNumStrings(a, b) {
 - [power-doctest](https://github.com/azu/power-doctest)は、文章の中にあるコードをテストする
 
 ---
-
 
 [.column]
 
@@ -440,12 +405,11 @@ const sum = (a, b) => a + b;
 console.log(sum(1, 2)); // => 3
 ```
 
-
 [.column]
 
-## [fit] power-doctestによる変換
+## [fit] power-doctest による変換
 
-- コードを抽出して、Assertionに変換してテストとして実行する
+- コードを抽出して、Assertion に変換してテストとして実行する
 
 ```js
 const sum = (a, b) => a + b;
@@ -453,6 +417,7 @@ assert.strictEqual(sum(1, 2), 3);
 ```
 
 ---
+
 [.column]
 
 ## 元の文章
@@ -461,6 +426,7 @@ assert.strictEqual(sum(1, 2), 3);
 これは変数名と数値が区別できなくなってしまうためです。
 
 \<!-- doctest:SyntaxError -->
+
 ```js
 let 1st; // NG: 数字から始まっている
 let 123; // NG: 数字のみで構成されている
@@ -468,18 +434,18 @@ let 123; // NG: 数字のみで構成されている
 
 [.column]
 
-## [fit] power-doctestによるテスト
+## [fit] power-doctest によるテスト
 
 - コードブロックを抽出して、実行した結果の期待値をコメントから取得
 - 実行した結果が `SyntaxError` になることを確認する
 
 ---
 
-# textstatでの可視化
+# textstat での可視化
 
 - 文章を書いていくと、巨大になって流れが難しくなる
 - フローを分析するようなツールが必要
-- → textstatを書いて文章の依存関係や文字数を可視化した
+- → textstat を書いて文章の依存関係や文字数を可視化した
 - [章ごとのページ量を可視化する · Issue #554 · asciidwango/js-primer](https://github.com/asciidwango/js-primer/issues/554)
 
 ---
@@ -492,7 +458,7 @@ let 123; // NG: 数字のみで構成されている
 
 ---
 
-- [ ] textstatを使って何をしてるかのまとめ
+- [ ] textstat を使って何をしてるかのまとめ
 
 ---
 
@@ -509,15 +475,17 @@ let 123; // NG: 数字のみで構成されている
 # ES2025 の対応の流れ
 
 1. Issue を立てる
-2. どのProposalを対応するかを決める
-2. リポジトリでES2025が動くかをツールのアップデート
-  -  eslint, power-doctestなどはパーサがE2025の構文に対応してるかをチェック
+2. どの Proposal を対応するかを決める
+3. リポジトリで ES2025 が動くかをツールのアップデート
+
+- eslint, power-doctest などはパーサが E2025 の構文に対応してるかをチェック
+
 3. 改めて読み直して何を削るかを決める(ここで読み直してる)
 4. 書く
 
 ---
 
-# ES2025で対応するIssue
+# ES2025 で対応する Issue
 
 - [import attributes](https://github.com/asciidwango/js-primer/issues/1783)
 - [ES2020: Dynamic Import](https://github.com/asciidwango/js-primer/issues/1792) (読み直していて増えた)
@@ -539,7 +507,7 @@ let 123; // NG: 数字のみで構成されている
   - 最初に目的、目的ではないこと、アウトラインを決めておいてずれにくくする
 
 ^ この OUTLINE.md は実際のページを書いた後は更新しない。
-^ スナップショット的なものなので、記録して残しておく。RFC, Proposal, Design Docと言われてるものと性質は大体同じ
+^ スナップショット的なものなので、記録して残しておく。RFC, Proposal, Design Doc と言われてるものと性質は大体同じ
 
 ---
 
@@ -557,13 +525,19 @@ let 123; // NG: 数字のみで構成されている
 
 ![fit right, deep wiki](./img/deep-wiki.png)
 
-- [Deep Wikiで検索してる例](https://deepwiki.com/search/relevantcontextthis-query-was_92783dff-53f2-4acf-9e51-7c04a2aa720a)
-- [ ] Deep Wiki でなぜ、これ、こうしたかがわかる様子
-- [ ] これができるのは、議事録が全てリポジトリにあるため
+- [Deep Wiki で検索してる例](https://deepwiki.com/search/relevantcontextthis-query-was_92783dff-53f2-4acf-9e51-7c04a2aa720a)
+- 議事録が全てリポジトリにあるため
 
 ---
 
-# 6. コミュニティの力
+# 6. コミュニティ
+
+- jsprimer はオープンソースのプロジェクト
+- 今までで[100 人以上のコントリビューター](https://github.com/asciidwango/js-primer/graphs/contributors)がいる
+
+---
+
+# コミュニティの力
 
 - Contribute のハードルをどれだけ下げられるか
   - [文章の間違いに気づいたら · JavaScript Primer #jsprimer](https://jsprimer.net/intro/feedback/)
@@ -573,12 +547,12 @@ let 123; // NG: 数字のみで構成されている
 
 ---
 
-# 誰でもContributeできるようにContributeする
+# 誰でも Contribute できるように Contribute する
 
 - CONTRIBUTING.md は誰もが読むわけじゃない
-- 読まなくてもContributeできるようにする
-- 右下のボタンから、今見てるページのIssueを立てられる
-- ここからコミュニーケーションを初めて、PRを作ってもらうところまでサポートする
+- 読まなくても Contribute できるようにする
+- 右下のボタンから、今見てるページの Issue を立てられる
+- ここからコミュニケーションを初めて、PR を作ってもらうところまでサポートする
 
 ---
 
@@ -592,7 +566,7 @@ let 123; // NG: 数字のみで構成されている
 
 ---
 
-- [ ] 右下のボタンのスクショ
+![inline, corner-radius(8), バグ報告ボタン](./img//report-button.png)
 
 ---
 
@@ -607,8 +581,8 @@ let 123; // NG: 数字のみで構成されている
 
 # 7. 経済的支援モデル
 
-- 書籍: [JavaScript Primer 改訂2版 迷わないための入門書](https://www.amazon.co.jp/dp/4048931105)
-- [GitHub Sponsors @ azu](https://github.com/sponsors/azu)
+- 書籍: [JavaScript Primer 改訂 2 版 迷わないための入門書](https://www.amazon.co.jp/dp/4048931105)
+- [Sponsor @azu on GitHub Sponsors](https://github.com/sponsors/azu)
 - [Open Collective - jsprimer](https://opencollective.com/jsprimer)
 
 ---
@@ -623,7 +597,14 @@ let 123; // NG: 数字のみで構成されている
 
 # GitHub Sponsors
 
-- [github.com/azu](https://github.com/azu) でスポンサーを募集している
+![right, fit, github sponsors](./img/github-sponsors.png)
+
+- [Sponsor @azu on GitHub Sponsors](https://github.com/sponsors/azu) でスポンサーを募集している
+- 毎年収支も公開している
+  - [GitHub Sponsorsの募集を始めてから2年が経ったので振り返る | Web Scratch](https://efcl.info/2021/10/01/github-sponsors/)
+  - [GitHub Sponsorsの収入 @ 2022 | Web Scratch](https://efcl.info/2022/12/22/github-sponsors-report/)
+  - [GitHub Sponsorsの収入 @ 2023 | Web Scratch](https://efcl.info/2023/12/25/github-sponsors-report/)
+  - [オープンソース活動の振り返り/GitHub Sponsorsの収入まとめ @ 2024 | Web Scratch](https://efcl.info/2024/12/31/open-source-in-2024/)
 
 ---
 
@@ -631,16 +612,21 @@ let 123; // NG: 数字のみで構成されている
 
 ---
 
-# JavaScript Primerのコスト
+# JavaScript Primer のコスト
 
-- 1年ごとに1度改定している
-- 改定には大体 n 日 ぐらいかかっている
-- このコストは n x m で xxxx 円ぐらい
-- このコストを補う仕組みをOpen Collectiveで作る
+- 1 年ごとに 1 度メジャーアップデートしている
+- メジャーアップデートには大体 30 日分ぐらいの労力がかかる
+- このコストは 2,882 円 x 8 時間 x 30 日 = 大体 70 万円/Year [^avg]
+  - 詳細: [JavaScript Primer 改訂 2 版をリリースしました！/JavaScript Primer はなぜ更新され続けるのか？](https://efcl.info/2023/06/09/jsprimer-v2/)
+- このコストを補う仕組みを Open Collective で作る
+
+[^avg]: 2,882 円は全国のプログラマの平均時給: [出典](https://shigoto.mhlw.go.jp/Occupation/Detail?occupationId=313)
 
 ---
 
-# Open Collective
+# [Open Collective](https://opencollective.com)
+
+![right fit, open collective](./img/open-collective-top.png)
 
 - 継続的な更新を支えるための資金調達プラットフォーム
 - 個人や企業がプロジェクトを支援可能
@@ -650,30 +636,94 @@ let 123; // NG: 数字のみで構成されている
 
 # 支援の方法
 
-1. **単発寄付**: 自由な金額で支援
+1. **単発支援**: 自由な金額で支援
 2. **定期支援**: 毎月または毎年の定額支援
 3. **企業スポンサー**: ロゴ掲載や特典付きの支援プラン
 
+全部募集中！
+
 ---
 
-# 支援のメリット
+# 支援金の使い道
 
-- **透明性**: 資金の使途が公開され、信頼性が高い
-- **コミュニティ貢献**: 貢献者への還元やプロジェクトの成長を直接支援
-- **特典**: スポンサーとしての認知やプロモーション効果
+- jsprimer には[Contributing Expenses Policy](https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING_EXPENSE.md)がある
+- ContributeしてもらったタスクのPointに応じして、Open Collectiveの予算から支払っている
+- Contributing Expenses Policyには、計算プロセス、請求プロセス、支払いプロセスが書かれている
+
+---
+
+| Point | Description                                |
+| ----- | ------------------------------------------ |
+| 0     | 些細な変更                                 |
+| 1     | 2 よりは簡単                               |
+| 2     | 大体 1 日分やると終わる想定                |
+| 3     | 2 よりは難しい                             |
+| 5     | かなり難しい                               |
+| 8     | 難易度がとても高いので、できる人は限られる |
+
+---
+
+# 具体例: Contributing Expenses Policy
+
+- [JavaScript Primer - Open Collective](https://opencollective.com/jsprimer)の年間の予算は$620.00 USD(2025-05-22)
+- 年間の更新コストは30日で、Pointに直すと 60 Pointが年間必要なコスト
+- 1 Pointあたりのコストは$10.33
+- なので、2Pointのタスクは大体$20ぐらいを支払える
+
+---
+
+- Contributing Expenses Policyにこの計算ツールも入ってます
+
+```js
+const yearlyEstimatedBudget = 620; // Open Collectiveの推定年間予算($ドル)
+const yearlyWorkloadPoints = 60; // 1年間のPoints
+const onePointCost = yearlyEstimatedBudget / yearlyWorkloadPoints;
+console.log({ onePointCost }); // => $10.333333333333334
+
+const costOfPoint = 2; /// 2 Points
+const cost = onePointCost * costOfPoint;
+console.log({ cost }); // => $20.666666666666668
+```
 
 ---
 
 # 詳細情報
 
-- [Open Collectiveページ](https://opencollective.com/jsprimer)
-- [支援ガイド](https://opencollective.com/jsprimer/contribute)
+- jsprimer の Open Collective ページ
+  - <https://opencollective.com/jsprimer>
+- JavaScript Primer スポンサーの目的や特典などの紹介ページ
+  - <https://jsprimer.net/intro/sponsors/>
 
 ---
 
 # Thanks to Sponsors
 
 ![Open Collective](./img/open-collective.png)
+
+---
+
+# メトリクス分析
+
+- [JavaScript Primer スポンサー · JavaScript Primer #jsprimer](https://jsprimer.net/intro/sponsors/)でダッシュボードを公開している
+- [JavaScript Primer Dashboard › サマリー｜全体](https://lookerstudio.google.com/u/0/reporting/5079dfdf-681c-4db7-a216-77c842fdae45/page/p_ajx9imd6zc)
+
+---
+
+![fit, javascript primer dashboard](./img/jsprimer-dashboard.png)
+
+---
+
+![fit, javascript primer アウトカム分析](./img/jsprimer-outcome.png)
+
+---
+
+# アウトカム設計
+
+- "変化に対応できる人"(jsprimerの目的) という定義を分解していき、次のようなアウトカムに分解できる
+  1. 知識を得る → 読者数
+  2. 試行錯誤できる → コードを実行している人の数
+  3. コントリビュートできる → 　 Issue 報告ボタンを押した人の数
+- メトリクスを計測して、どれだけの人が変化に対応できるようになったかを計測しながら改善していく
 
 ---
 
