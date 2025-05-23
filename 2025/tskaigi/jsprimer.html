@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>技術書をソフトウェア開発する</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2025/tskaigi/jsprimer.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="技術書をソフトウェア開発する"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2025/tskaigi/jsprimer.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2025-05-23" id="datePublished">
+            2025-05-23
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2025-05-23" id="dateModified">
+            2025-05-23
+        </time></span>
+        <a href="https://azu.github.io/slide/2025/tskaigi/jsprimer.pdf" title="技術書をソフトウェア開発する">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>slidenumbers: true</p>
+<h1 id="技術書をソフトウェア開発する">技術書をソフトウェア開発する</h1>
+<h2 id="jsprimer-の-10-年から学ぶ継続的メンテナンスの技術">jsprimer の 10 年から学ぶ継続的メンテナンスの技術</h2>
+<hr>
+<h1 id="自己紹介">自己紹介</h1>
+<p><img alt="アイコン right" src="https://github.com/azu.png"></p>
+<ul>
+<li>Name : <strong>azu</strong></li>
+<li>Twitter/X : @<a href="https://x.com/azu_re">azu_re</a></li>
+<li>Website: <a href="https://efcl.info/">Web scratch</a>, <a href="https://jser.info/">JSer.info</a></li>
+<li>Open Source:<ul>
+<li>🧹<a href="https://textlint.org">textlint</a>, 🔑🛡️ <a href="https://github.com/secretlint/secretlint">secretlint</a>, 📚<a href="https://github.com/honkit/honkit">HontKit</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="javascript-primer-jsprimer-とは">JavaScript Primer (jsprimer) とは</h1>
+<p><img alt="jsprimer cover, right, fit" src="./img/cover-optimized.jpg"></p>
+<ul>
+<li>約 10 年、6 つのメジャーバージョンを経て更新され続けている JavaScript 入門書</li>
+<li>書籍版 (<a href="https://www.amazon.co.jp/dp/4048931105/">amazon.co.jp/dp/4048931105</a>) も販売中</li>
+<li>ウェブ版 (<a href="https://jsprimer.net/">jsprimer.net</a>) は無料で公開</li>
+<li>GitHub: <a href="https://github.com/asciidwango/js-primer">asciidwango/js-primer</a></li>
+<li>書籍版とウェブ版の内容に違いはなく、オープンソースで開発中</li>
+</ul>
+<hr>
+<h2 id="簡単年表">簡単年表</h2>
+<table>
+<thead>
+<tr>
+<th>ECMAScript</th>
+<th>jsprimer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2015</td>
+<td>開発開始</td>
+</tr>
+<tr>
+<td>2016</td>
+<td>ウェブで公開</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>v1 / 書籍の第 1 版リリース</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="簡単年表-1">簡単年表</h2>
+<table>
+<thead>
+<tr>
+<th>ECMAScript</th>
+<th>jsprimer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2020</td>
+<td>v2</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>v3</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>v4 / 書籍の第 2 版リリース</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>v5</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>v6</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>v7(予定)</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="本日のテーマ">本日のテーマ</h1>
+<ul>
+<li><strong>Why:</strong> なぜ jsprimer は始まり、更新され続けるのか？</li>
+<li><strong>How:</strong> どうやって更新を実現しているのか？</li>
+<li><strong>Learn:</strong> 技術書を「ソフトウェア開発」することから得られる知見</li>
+<li><strong>Future:</strong> これからの jsprimer の展望</li>
+</ul>
+<hr>
+<h1 id="fit-なぜ、tskaigi-で-javascript-の話をするのか？">[fit] なぜ、TSKaigi で JavaScript の話をするのか？</h1>
+<p><img alt="inline, corner-radius(8), TSKaigi Logo" src="img/tskaigi.png"></p>
+<hr>
+<h1 id="tskaigi-のミッション">TSKaigi のミッション</h1>
+<h2 id="学び、繋がり、型を破ろう">学び、繋がり、”型”を破ろう</h2>
+<hr>
+<h1 id="なぜ-tskaigi-で-javascript-の話をするのか？">なぜ TSKaigi で JavaScript の話をするのか？</h1>
+<h2 id="typescript-と-javascript-の関係性">TypeScript と JavaScript の関係性</h2>
+<ul>
+<li>TSKaigi のミッション: 「学び、繋がり、”型”を破ろう」</li>
+<li>TypeScript から「型」を取り除くと JavaScript になる</li>
+<li>JavaScript を学ぶことは、TypeScript の理解を深めることに繋がる</li>
+</ul>
+<hr>
+<h1 id="fit--node---experimental-strip-types">[fit] <code>$ node --experimental-strip-types</code></h1>
+<hr>
+
+
+<ul>
+<li><a href="https://bloomberg.github.io/ts-blank-space/">ts-blank-space</a>で発見された</li>
+<li>TypeScript の Design Goal として JavaScript と非互換な機能や変更を入れることはしないようになっている<ul>
+<li><a href="https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals">https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals</a></li>
+</ul>
+</li>
+<li>TypeScript の <code>erasableSyntaxOnly</code> や Node.js の <code>--experimental-strip-types</code> フラグなどもあり、TypeScript ファイルを JavaScript として直接実行できるようになってきた</li>
+</ul>
+<hr>
+<p><img alt="fit, strip-type" src="./img/strip-type.png"></p>
+<hr>
+<p><img alt="fit, strip-type at code" src="./img/strip-type-code.png"></p>
+<hr>
+<p><img alt="fit, strip-type at talk" src="./img/strip-type-talk.png"></p>
+<hr>
+<h1 id="typescript-から型を取り除けば-javascript">TypeScript から型を取り除けば JavaScript</h1>
+<hr>
+<h1 id="tskaigi-2025">TSKaigi 2025</h1>
+<h2 id="typescript-から-型の話を取り除けば-javascriptの話ができるカンファレンス">TypeScript から 型(の話)を<br>取り除けば JavaScript(の話)が<br>できるカンファレンス</h2>
+<hr>
+<h1 id="fit--tskaigi---experimental-strip-types">[fit] <code>$ tskaigi --experimental-strip-types</code></h1>
+<hr>
+<h1 id="why-なぜ-jsprimer-は書かれたのか">Why: なぜ jsprimer は書かれたのか?</h1>
+<hr>
+<h2 id="時代背景-2015-年頃">時代背景 (2015 年頃)</h2>
+<ul>
+<li>ECMAScript 2015 (ES6) の登場</li>
+<li>JavaScript の大きな転換期</li>
+<li>ES2015 ベースの現代的な入門書が不足</li>
+<li>「これ読んでおいて！」と渡せる現代的な書籍が必要</li>
+</ul>
+<hr>
+<h1 id="jsprimer-の目的">jsprimer の目的</h1>
+<p>「書き方」「作り方」「学び方」の 3 つの原則に基づく設計</p>
+<ul>
+<li><strong>書き方</strong>: 基本文法を体系的に学ぶ</li>
+<li><strong>作り方</strong>: 学んだ知識で実際にアプリを作る</li>
+<li><strong>学び方</strong>: JavaScript の変化に対応できる素養を身につける</li>
+</ul>
+<hr>
+<h1 id="why-なぜ-jsprimer-は更新され続けるのか？">Why: なぜ JSPrimer は更新され続けるのか？</h1>
+<hr>
+<h1 id="javascript-は-living-standard">JavaScript は "Living Standard"</h1>
+<ul>
+<li>JavaScript の仕様である ECMAScript は毎年更新</li>
+<li>実行環境 (ブラウザ, Node.js) も進化</li>
+</ul>
+<hr>
+<blockquote>
+<p>変化に対応できる基礎を身につけるため、書籍自体が変化に対応し続ける必要がある</p>
+<p>-- <a href="https://efcl.info/2023/06/09/jsprimer-v2/">JavaScript Primer 改訂 2 版をリリースしました！/JavaScript Primer はなぜ更新され続けるのか？ | Web Scratch</a></p>
+</blockquote>
+<hr>
+<h1 id="生きてるものの宿命">生きてるものの宿命</h1>
+<blockquote>
+<p>依存がない静的なコードは時間で変化はしにくい、依存があるアクティブなコードは、コードが変わらなくても依存関係である周りが変化します。そのため 5 年間触っていないコードが、最新の環境ではそのままは動かないのはこれが理由です。</p>
+<p>-- <a href="https://press.stripe.com/working-in-public">Working in Public</a></p>
+</blockquote>
+<hr>
+<h1 id="技術書の宿命">技術書の宿命</h1>
+<ul>
+<li>JavaScript 周りのエコシステムは変化し続ける</li>
+<li>エコシステムを扱った書籍は、ものすごい速さで古くなる</li>
+</ul>
+<hr>
+<h1 id="コードの状態と時間経過の課題">コードの状態と時間経過の課題</h1>
+<ul>
+<li>コードには「静的状態」と「アクティブ状態」がある<ul>
+<li>静的状態: 依存がなく、時間が経っても内容が変わらない</li>
+<li>アクティブ状態: 外部のライブラリや環境に依存し、周囲の変化に影響される</li>
+</ul>
+</li>
+<li>アクティブなコードは、依存先のバージョンアップなどで「ズレ」が生じ、動かなくなるリスクが高い</li>
+<li>価値を保つには、継続的なメンテナンスが不可欠</li>
+</ul>
+<hr>
+<h1 id="書籍もコードと同じ">書籍もコードと同じ</h1>
+<ul>
+<li>書籍も「静的状態」と「アクティブ状態」がある<ul>
+<li>静的状態: 依存がなく、時間が経っても内容が変わらない</li>
+<li>アクティブ状態: 外部のライブラリや環境に依存し、周囲の変化に影響される</li>
+</ul>
+</li>
+<li>書籍が何にも依存してないことはほぼない<ul>
+<li>→ アクティブ状態であるが、いかに依存を綺麗に保つがメンテナンス的に重要</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="ecmascript-のアクティブな状態と静的な状態">ECMAScript のアクティブな状態と静的な状態</h1>
+<ul>
+<li>ECMAScript ではアクティブな状態と静的な状態を使い分けている</li>
+<li>アクティブな仕様 = Living Standard<ul>
+<li><a href="https://tc39.es/ecma262">https://tc39.es/ecma262</a> 常に最新のものとして公開される</li>
+</ul>
+</li>
+<li>静的な仕様 = Snapshot<ul>
+<li><a href="https://ecma-international.org/technical-committees/tc39/">https://ecma-international.org/technical-committees/tc39/</a></li>
+<li>ECMA のサイトで1 年に一度更新される</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="静的な書籍版とアクティブなウェブ版">静的な書籍版とアクティブなウェブ版</h1>
+<ul>
+<li>ECMAScript 仕様のモデルに真似る:</li>
+<li><strong>Living Standard</strong>: ウェブ版 (<a href="https://jsprimer.net/">jsprimer.net</a>)<ul>
+<li>常に最新版を維持</li>
+</ul>
+</li>
+<li><strong>Snapshot</strong>: 書籍版<ul>
+<li>安定版として時々リリース(読みやすさ重視)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="why-なぜ静的なスナップショットを作るか">Why: なぜ静的なスナップショットを作るか</h1>
+<ul>
+<li>読みやすさ</li>
+<li>読んでいる途中で内容が変わらないようにするため</li>
+</ul>
+<hr>
+<h1 id="how-どうやって更新を実現しているのか？">How: どうやって更新を実現しているのか？</h1>
+<hr>
+<h1 id="ポイント">ポイント</h1>
+<p>[.column]</p>
+<ul>
+<li><ol>
+<li>変化を前提とした設計</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>読みやすさを優先する</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>テスト</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>変化の追従プロセス</li>
+</ol>
+</li>
+</ul>
+<p>[.column]</p>
+<ul>
+<li><ol start="5">
+<li>オープンソース開発</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>コミュニティ</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>経済的支援モデル</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="1-変化を前提とした設計">1. 変化を前提とした設計</h1>
+<ul>
+<li><strong>スコープ管理:</strong> 「目的ではないこと」を明確化し、<strong>依存</strong>を減らす。<ul>
+<li>ライブラリ解説ではなく、基礎的な言語機能にフォーカス</li>
+<li>依存関係の少ないコードを重視</li>
+<li><a href="https://github.com/asciidwango/js-primer/issues/103">本書の目的 · Issue #103 · asciidwango/js-primer</a></li>
+</ul>
+</li>
+</ul>
+<p><img alt="fit right, no-purpose" src="./img/no-purpose.png"></p>
+<hr>
+<h1 id="2-読みやすさを優先する">2. 読みやすさを優先する</h1>
+<ul>
+<li>書きやすさよりも、読みやすさを重視</li>
+<li>更新を継続的に行うには、何度も読む必要がある</li>
+<li>書くより読む回数の方が多い</li>
+<li>読むコストを下げる工夫 (構成、表現統一)</li>
+</ul>
+<p>^ 圧倒的に読む回数の方が多い
+^ 今回の ES2025 の対応でも一度全部読み直して何を削るかを考えた
+^ 何度も読むためには、読みやすさを重視する必要がある
+^ コードもこれは基本的に同じになると思う
+^ 今は、書きやすさは圧倒的に有利になってきているけど、レビューをしていくことで、どこまで削れるかが大事になる</p>
+<hr>
+<h1 id="既知の言葉で未知を説明する">既知の言葉で未知を説明する</h1>
+<ul>
+<li>既知な情報から未知な情報へと書く[^known-new contract]</li>
+</ul>
+<blockquote>
+<p>「"known-new contract"とは、読者がすでに知っていること（以前に提示された情報）を最初に提示してから新しい情報を導入することで、書き手が文章間の結束をどのように達成するかを説明するために使われる言語学的概念である。議論を構築するにしても、情景を描写するにしても、概念を分析するにしても、ある文章から次の文章へと論理的に進行することが重要である。明確な文から文への進行は、読者の集中力を維持し、推論のパターンを容易に追うことを可能にする。」</p>
+</blockquote>
+<p>[^known-new contract]: 英語だと"known-new contract"という概念が近いもの。<a href="https://note.com/logicalskill/n/n77ff3391a74d">既知から未知に書く</a>から引用</p>
+<hr>
+<h1 id="既知から未知へ">既知から未知へ</h1>
+<p>具体的な例をいくつか挙げてみます。</p>
+<ul>
+<li>jsprimer という書籍は前から後ろに順番に読んでいく構造</li>
+<li>未知の言葉がいきなり出てこないように、既知 -&gt; 未知の順となるように説明</li>
+</ul>
+<hr>
+<h1 id="既知-から-未知-へ">既知 から 未知 へ</h1>
+<p><img alt="right,fit 文字列の説明" src="img/michi-string.png"></p>
+<ul>
+<li>結論を最初に、その後に説明を書く</li>
+</ul>
+<ol>
+<li>まず紹介するコードの説明をする</li>
+<li>その後にコードを表示する</li>
+<li>その後に補足を説明する</li>
+</ol>
+<hr>
+<h1 id="3-テスト">3. テスト</h1>
+<ul>
+<li><strong>ドキュメントの自動テスト:</strong><ul>
+<li><code>textlint</code>: 文章校正、表現統一</li>
+<li><code>power-doctest</code>: サンプルコードの動作検証</li>
+</ul>
+</li>
+<li><strong>CI/CD での継続的なテスト:</strong> GitHub Actions でテストを自動化し、品質を維持<ul>
+<li>サンプルコードの検証、Integration Test の実装</li>
+</ul>
+</li>
+<li><strong>読みやすさ分析:</strong> <code>textstat</code> による文章の複雑さの可視化</li>
+</ul>
+<hr>
+<h1 id="textlint"><a href="https://textlint.org/">textlint</a></h1>
+<ul>
+<li><a href="https://textlint.org/">textlint</a>は、自然言語の文章を校正するためのツール</li>
+<li>ESLint の自然言語向けの Linter</li>
+<li>技術書むけのルールをベースに、辞書や書籍独自のルールを実装している<ul>
+<li><a href="https://github.com/asciidwango/js-primer/blob/master/.textlintrc.js">https://github.com/asciidwango/js-primer/blob/master/.textlintrc.js</a></li>
+</ul>
+</li>
+<li><a href="https://efcl.info/2022/06/29/why-create-textlint/">Maintainer Month: なぜ textlint を作ったか | Web Scratch</a></li>
+</ul>
+<p>^ textlint は機械学習のツールが来ても結局はプロフェッショナルルールが消えることはないという前提で書かれている。
+^ これは機械学習の結果は確率的な話なので９ 9%の精度だと問題があって、Lint に求められるのは確率とはことなるものがある
+^ AI を使ってても、ESLint などを併用しているように、AI を使ってても、textlint は併用していくと思う</p>
+<hr>
+<h1 id="textlint-を使うことで書きやすくする">textlint を使うことで書きやすくする</h1>
+<ul>
+<li>textlint は読みやすさのためのルールが色々とある</li>
+<li>一方でルール決めることで書きやすさが上がる</li>
+<li>特に LLM など、全ての単語を人間が書いてるわけじゃない</li>
+<li>こういった統一性を担保するのが Linter の役割であるので、読みやすさと書きやすさをあげてくれる</li>
+</ul>
+<p>^ 一般的にいうならガードレール的なもの。慣れてくると Lint にかからないように人間は描けるようになってくる</p>
+<hr>
+<h1 id="書籍独自のルール">書籍独自のルール</h1>
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer/pull/1382">fix: prototype を表すのに # を使わないようにする</a></li>
+<li><a href="https://github.com/asciidwango/js-primer/pull/1797">静的メソッドの表記統一 と textlint ルールの追加 #1797</a></li>
+<li>表記揺れなども textlint のルールとして書いて吸収している</li>
+</ul>
+<hr>
+<h1 id="power-doctest">power-doctest</h1>
+<ul>
+<li>書籍におけるサンプルコードは動くのが正解なコード、エラーになることが正解のコードがある</li>
+<li>どちらも実行してその結果が期待通りかを確認するテストが必要</li>
+<li><a href="https://github.com/azu/power-doctest">power-doctest</a>は、文章の中にあるコードをテストする</li>
+</ul>
+<hr>
+<p>[.column]</p>
+<h2 id="元の文章-⬅️">元の文章 ⬅️</h2>
+<p>次のコードは、数値の文字列を二つ受け取り、合計を返す関数を定義しています。</p>
+<pre><code class="language-js">const sum = (a, b) =&gt; a + b;
+console.log(sum(1, 2)); // =&gt; 3
+</code></pre>
+<p>[.column]</p>
+<h2 id="fit-▶️power-doctest-による変換">[fit] ▶️power-doctest による変換</h2>
+<ul>
+<li>コードを抽出して、Assertion に変換してテストとして実行する</li>
+</ul>
+<pre><code class="language-js">const sum = (a, b) =&gt; a + b;
+assert.strictEqual(sum(1, 2), 3);
+</code></pre>
+<hr>
+<p>[.column]</p>
+<h2 id="元の文章-⬅️-1">元の文章 ⬅️</h2>
+<p>変数名に数字を含めることはできますが、変数名を数字から開始することはできません。
+これは変数名と数値が区別できなくなってしまうためです。</p>
+<p>&lt;!-- doctest:SyntaxError --&gt;</p>
+<pre><code class="language-js">let 1st; // NG: 数字から始まっている
+let 123; // NG: 数字のみで構成されている
+</code></pre>
+<p>[.column]</p>
+<h2 id="fit-▶️power-doctest-によるテスト">[fit] ▶️power-doctest によるテスト</h2>
+<ul>
+<li>コードブロックを抽出して、実行した結果の期待値をコメントから取得</li>
+<li>実行した結果が <code>SyntaxError</code> になることを確認する</li>
+</ul>
+<hr>
+<h1 id="textstat-での可視化">textstat での可視化</h1>
+<ul>
+<li>文章を書いていくと、巨大になって流れが難しくなる</li>
+<li>フローを分析するようなツールが必要</li>
+<li>→ textstat を書いて文章の依存関係や文字数を可視化した</li>
+<li><a href="https://github.com/asciidwango/js-primer/issues/554">章ごとのページ量を可視化する · Issue #554 · asciidwango/js-primer</a></li>
+</ul>
+<hr>
+<p><img alt="fit, jsprimer 文字数のカウント" src="./img/jsprimer-count.png"></p>
+<hr>
+<p><img alt="fit, jsprimer 依存のSankeyダイアグラム" src="./img/jsprimer-sankey.png"></p>
+<hr>
+<h1 id="textstate-を見てやっていること">textstate を見てやっていること</h1>
+<ul>
+<li>順序が重要な書籍なので、滑らかに量を増やしていく</li>
+<li>急に増やすとそこで諦めて止まる人が出てきてしまう</li>
+<li>既知を使って未知を説明するには流れが重要</li>
+<li>リンクリストを見て、未知が先に出てこないかを確認してる</li>
+</ul>
+<hr>
+<h1 id="4-変化の追従プロセス">4. 変化の追従プロセス</h1>
+<p><img alt="es2025 issue right, fit" src="./img//es2025-issue.png"></p>
+<ul>
+<li>Issue でタスク管理し対応していく<ul>
+<li><a href="https://github.com/asciidwango/js-primer/issues/1778">ES2025 の対応 · Issue #1778 · asciidwango/js-primer</a></li>
+</ul>
+</li>
+<li>ECMAScript は毎年のリリーススケジュールが決まっているので合わせたサイクル</li>
+</ul>
+<hr>
+<h1 id="es2025-の対応の流れ">ES2025 の対応の流れ</h1>
+<ol>
+<li>Issue を立てる</li>
+<li>どの Proposal を対応するかを決める</li>
+<li>リポジトリで ES2025 が動くかをツールのアップデート</li>
+<li>改めて読み直して何を削るかを決める(ここで読み直してる)</li>
+<li>書く</li>
+</ol>
+<hr>
+<h1 id="es2025-で対応する-issue">ES2025 で対応する Issue</h1>
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer/issues/1783">import attributes</a></li>
+<li><a href="https://github.com/asciidwango/js-primer/issues/1792">ES2020: Dynamic Import</a> (読み直していて増えた)</li>
+<li><a href="https://github.com/asciidwango/js-primer/issues/1781"><code>RegExp.escape</code></a></li>
+<li><a href="https://github.com/asciidwango/js-primer/issues/1784">Set Methods for JavaScript)</a></li>
+<li><a href="https://github.com/asciidwango/js-primer/issues/1782">Iterator Helpers</a></li>
+</ul>
+<hr>
+<h1 id="大きな変更への対応">大きな変更への対応</h1>
+<p><img alt="right, fit, iterator and generator" src="./img//iterator-and-generator.png"></p>
+<ul>
+<li>ドキュメントに対する Design Doc (OUTLINE.md) を書く<ul>
+<li>例: Iterator Helpers 対応
+(<a href="https://github.com/asciidwango/js-primer/issues/1782">#1782</a>, <a href="https://github.com/asciidwango/js-primer/blob/master/source/basic/iterator-generator/OUTLINE.md">OUTLINE</a>)</li>
+</ul>
+</li>
+<li>大きな変更は与える影響範囲が広い、または書く量が多い<ul>
+<li>書いているうちに目的がずれてくる</li>
+<li>最初に目的、目的ではないこと、アウトラインを決めておいてずれにくくする</li>
+</ul>
+</li>
+</ul>
+<p>^ この OUTLINE.md は実際のページを書いた後は更新しない。
+^ スナップショット的なものなので、記録して残しておく。RFC, Proposal, Design Doc と言われてるものと性質は大体同じ</p>
+<hr>
+<h1 id="5-オープンソースとしての開発">5. オープンソースとしての開発</h1>
+<ul>
+<li>書籍として出版予定のものとして書いていた</li>
+<li>ただし、最初からオープンソースとして公開しながら開発した</li>
+<li>すべての意思決定が GitHub 上にある</li>
+<li>すべての議事録が GitHub 上にある</li>
+<li>すべての文章/コードが GitHub 上にある</li>
+</ul>
+<hr>
+<h1 id="deep-wiki">Deep Wiki</h1>
+<p><img alt="fit right, deep wiki" src="./img/deep-wiki.png"></p>
+<ul>
+<li><a href="https://deepwiki.com/search/relevantcontextthis-query-was_92783dff-53f2-4acf-9e51-7c04a2aa720a">Deep Wiki で検索してる例</a></li>
+<li>議事録が全てリポジトリにあるため</li>
+</ul>
+<hr>
+<h1 id="6-コミュニティ">6. コミュニティ</h1>
+<ul>
+<li>jsprimer はオープンソースのプロジェクト</li>
+<li>今までで<a href="https://github.com/asciidwango/js-primer/graphs/contributors">100 人以上のコントリビューター</a>がいる</li>
+</ul>
+<hr>
+<h1 id="コミュニティの力">コミュニティの力</h1>
+<ul>
+<li>Contribute のハードルをどれだけ下げられるか<ul>
+<li><a href="https://jsprimer.net/intro/feedback/">文章の間違いに気づいたら · JavaScript Primer #jsprimer</a></li>
+<li>明確な <a href="https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING.md">Contribution Guide</a></li>
+<li>初めて GitHub 使う人も多いので、ブラウザだけで修正できる方法の案内をする</li>
+<li>繰り返す</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="fit-誰でも-contribute-できるように-contribute-する">[fit] 誰でも Contribute できるように Contribute する</h1>
+<ul>
+<li>CONTRIBUTING.md は誰もが読むわけじゃない</li>
+<li>ガイドを読まなくても Contribute できるようにする</li>
+<li>右下のボタンから、今見てるページの Issue を立てられる</li>
+<li>ここからコミュニケーションを初めて、PR を作ってもらうところまでサポートする</li>
+</ul>
+<hr>
+<h1 id="fit-文章の間違いに気づいたら">[fit] 文章の間違いに気づいたら</h1>
+<p><img alt="fit, right, 間違いの報告方法" src="./img/fix-error.png"></p>
+<ul>
+<li>バグがない書籍はない</li>
+<li>バグを見つけたら、すぐに報告してもらう</li>
+<li>文章の間違いを見つけたら、右下のボタンから報告してもらう</li>
+</ul>
+<hr>
+<p><img alt="inline, corner-radius(8), バグ報告ボタン" src="./img//report-button.png"></p>
+<hr>
+<h1 id="目的-変化に対応できるようにする">目的: 変化に対応できるようにする</h1>
+<ul>
+<li>なんでこんなことをしているのか</li>
+<li>jsprimer は変化に対応できるようにするために、jsprimer を変化させ続ける</li>
+<li>現在のソフトウェアの変化の中心にはオープンソースがある</li>
+<li>そのため、オープンソースに関わってもらうことで変化に対応できるようにする</li>
+</ul>
+<hr>
+<h1 id="7-経済的支援モデル">7. 経済的支援モデル</h1>
+<ul>
+<li>書籍: <a href="https://www.amazon.co.jp/dp/4048931105">JavaScript Primer 改訂 2 版 迷わないための入門書</a></li>
+<li><a href="https://github.com/sponsors/azu">Sponsor @azu on GitHub Sponsors</a></li>
+<li><a href="https://opencollective.com/jsprimer">Open Collective - jsprimer</a></li>
+</ul>
+<hr>
+<h1 id="書籍">書籍</h1>
+<p><img alt="jsprimer cover, right, fit" src="./img/cover-optimized.jpg"></p>
+<ul>
+<li>書籍版 (<a href="https://www.amazon.co.jp/dp/4048931105/">amazon.co.jp/dp/4048931105</a>) も販売中</li>
+</ul>
+<hr>
+<h1 id="github-sponsors">GitHub Sponsors</h1>
+<p><img alt="right, fit, github sponsors" src="./img/github-sponsors.png"></p>
+<ul>
+<li><a href="https://github.com/sponsors/azu">Sponsor @azu on GitHub Sponsors</a> でスポンサーを募集している</li>
+<li>毎年収支も公開している<ul>
+<li><a href="https://efcl.info/2021/10/01/github-sponsors/">GitHub Sponsors の募集を始めてから 2 年が経ったので振り返る | Web Scratch</a></li>
+<li><a href="https://efcl.info/2022/12/22/github-sponsors-report/">GitHub Sponsors の収入 @ 2022 | Web Scratch</a></li>
+<li><a href="https://efcl.info/2023/12/25/github-sponsors-report/">GitHub Sponsors の収入 @ 2023 | Web Scratch</a></li>
+<li><a href="https://efcl.info/2024/12/31/open-source-in-2024/">オープンソース活動の振り返り/GitHub Sponsors の収入まとめ @ 2024 | Web Scratch</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="プロジェクトの経済モデル">プロジェクトの経済モデル</h1>
+<hr>
+<h1 id="javascript-primer-のコスト">JavaScript Primer のコスト</h1>
+<ul>
+<li>1 年ごとに 1 度メジャーアップデートしている</li>
+<li>メジャーアップデートには大体 30 日分ぐらいの労力がかかる</li>
+<li>このコストの試算は 2,882 円 x 8 時間 x 30 日 = 大体 70 万円/Year [^avg]<ul>
+<li>詳細: <a href="https://efcl.info/2023/06/09/jsprimer-v2/">JavaScript Primer 改訂 2 版をリリースしました！/JavaScript Primer はなぜ更新され続けるのか？</a></li>
+</ul>
+</li>
+<li>このコストを補う仕組みを Open Collective で作る</li>
+</ul>
+<p>[^avg]: 2,882 円は全国のプログラマの平均時給: <a href="https://shigoto.mhlw.go.jp/Occupation/Detail?occupationId=313">出典</a></p>
+<hr>
+<h1 id="open-collective"><a href="https://opencollective.com">Open Collective</a></h1>
+<p><img alt="right fit, open collective" src="./img/open-collective-top.png"></p>
+<ul>
+<li>継続的な更新を支えるための資金調達プラットフォーム</li>
+<li>個人や企業がプロジェクトを支援可能</li>
+<li>支援金は透明性を持って管理され、プロジェクトの維持や貢献者への還元に使用</li>
+</ul>
+<hr>
+<h1 id="支援の方法">支援の方法</h1>
+<ol>
+<li><strong>単発支援</strong>: 自由な金額で支援</li>
+<li><strong>定期支援</strong>: 毎月または毎年の定額支援</li>
+<li><strong>企業スポンサー</strong>: ロゴ掲載や特典付きの支援プラン</li>
+</ol>
+<p>全部募集中！</p>
+<hr>
+<h1 id="支援金の使い道">支援金の使い道</h1>
+<ul>
+<li>jsprimer には<a href="https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING_EXPENSE.md">Contributing Expenses Policy</a>がある</li>
+<li>Contribute してもらったタスクの Point に応じして、Open Collective の予算から支払っている</li>
+<li>Contributing Expenses Policy には、計算プロセス、請求プロセス、支払いプロセスが書かれている</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>些細な変更</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2 よりは簡単</td>
+</tr>
+<tr>
+<td>2</td>
+<td>大体 1 日分やると終わる想定</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2 よりは難しい</td>
+</tr>
+<tr>
+<td>5</td>
+<td>かなり難しい</td>
+</tr>
+<tr>
+<td>8</td>
+<td>難易度がとても高いので、できる人は限られる</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="具体例-contributing-expenses-policy">具体例: Contributing Expenses Policy</h1>
+<ul>
+<li><a href="https://opencollective.com/jsprimer">JavaScript Primer - Open Collective</a>の年間の予算は$620.00 USD(2025-05-22)</li>
+<li>年間の更新コストは 30 日で、Point に直すと 60 Point が年間必要なコスト</li>
+<li>1 Point あたりのコストは$10.33</li>
+<li>なので、2Point のタスクは大体$20 ぐらいを支払える</li>
+</ul>
+<hr>
+<ul>
+<li>Contributing Expenses Policy にこの計算ツールも入ってます</li>
+</ul>
+<pre><code class="language-js">const yearlyEstimatedBudget = 620; // Open Collectiveの推定年間予算($ドル)
+const yearlyWorkloadPoints = 60; // 1年間のPoints
+const onePointCost = yearlyEstimatedBudget / yearlyWorkloadPoints;
+console.log({ onePointCost }); // =&gt; $10.333333333333334
+
+const costOfPoint = 2; /// 2 Points
+const cost = onePointCost * costOfPoint;
+console.log({ cost }); // =&gt; $20.666666666666668
+</code></pre>
+<hr>
+<h1 id="詳細情報">詳細情報</h1>
+<ul>
+<li>jsprimer の Open Collective ページ<ul>
+<li><a href="https://opencollective.com/jsprimer">https://opencollective.com/jsprimer</a></li>
+</ul>
+</li>
+<li>JavaScript Primer スポンサーの目的や特典などの紹介ページ<ul>
+<li><a href="https://jsprimer.net/intro/sponsors/">https://jsprimer.net/intro/sponsors/</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="thanks-to-sponsors">Thanks to Sponsors</h1>
+<p><img alt="Open Collective" src="./img/open-collective.png"></p>
+<hr>
+<h1 id="メトリクス分析">メトリクス分析</h1>
+<ul>
+<li><a href="https://jsprimer.net/intro/sponsors/">JavaScript Primer スポンサー · JavaScript Primer #jsprimer</a>でダッシュボードを公開している</li>
+<li><a href="https://lookerstudio.google.com/u/0/reporting/5079dfdf-681c-4db7-a216-77c842fdae45/page/p_ajx9imd6zc">JavaScript Primer Dashboard › サマリー｜全体</a></li>
+</ul>
+<hr>
+<p><img alt="fit, javascript primer dashboard" src="./img/jsprimer-dashboard.png"></p>
+<hr>
+<p><img alt="fit, javascript primer アウトカム分析" src="./img/jsprimer-outcome.png"></p>
+<hr>
+<h1 id="アウトカム設計">アウトカム設計</h1>
+<ul>
+<li>"変化に対応できる人"(jsprimer の目的) という定義を分解していき、次のようなアウトカムに分解できる<ol>
+<li>知識を得る → 読者数</li>
+<li>試行錯誤できる → コードを実行している人の数</li>
+<li>コントリビュートできる → 　 Issue 報告ボタンを押した人の数</li>
+</ol>
+</li>
+<li>メトリクスを計測して、どれだけの人が変化に対応できるようになったかを計測しながら改善していく</li>
+</ul>
+<hr>
+<h1 id="技術書をソフトウェア開発する-1">技術書をソフトウェア開発する</h1>
+<hr>
+<h2 id="技術的なメンテナンス基盤の構築">技術的なメンテナンス基盤の構築</h2>
+<ul>
+<li>自動テスト・CI による品質担保</li>
+<li>バージョン管理による変更の追跡</li>
+<li>Issue と Pull Request による透明性の高い開発</li>
+<li>外部からの貢献を促す環境整備</li>
+</ul>
+<hr>
+<h2 id="変化に強い設計思想の採用">変化に強い設計思想の採用</h2>
+<ul>
+<li>依存関係を最小化する設計</li>
+<li>構成の見直しと再構築</li>
+<li>目的と範囲の明確化</li>
+<li>「読みやすさ」を中心とした設計</li>
+</ul>
+<hr>
+<h2 id="継続的な改善サイクルの確立">継続的な改善サイクルの確立</h2>
+<ul>
+<li>読者/ユーザーからのフィードバック収集</li>
+<li>定期的な更新スケジュール</li>
+<li>メトリクスによる改善点の可視化</li>
+<li>コミュニティベースの運営モデル</li>
+</ul>
+<hr>
+<h1 id="まとめ">まとめ</h1>
+<h2 id="真面目に技術書書くのと">真面目に技術書書くのと</h2>
+<h2 id="真面目にソフトウェア開発するのは同じ！">真面目にソフトウェア開発するのは同じ！</h2>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
