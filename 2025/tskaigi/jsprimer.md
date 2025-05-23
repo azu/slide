@@ -63,6 +63,12 @@ slidenumbers: true
 
 ---
 
+# [fit] なぜ、TSKaigi で JavaScript の話をするのか？
+
+![inline, corner-radius(8), TSKaigi Logo](img/tskaigi.png)
+
+---
+
 # TSKaigi のミッション
 
 ## 学び、繋がり、”型”を破ろう
