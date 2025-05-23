@@ -38,6 +38,13 @@ slidenumbers: true
 | 2016       | ウェブで公開               |
 | ...        | ...                        |
 | 2019       | v1 / 書籍の第 1 版リリース |
+
+---
+
+## 簡単年表
+
+| ECMAScript | jsprimer                   |
+| ---------- | -------------------------- |
 | 2020       | v2                         |
 | 2021       | v3                         |
 | 2022       | v4 / 書籍の第 2 版リリース |
@@ -56,13 +63,25 @@ slidenumbers: true
 
 ---
 
-# そもそも: TSkaigi で JavaScript の話をする理由
+# TSKaigi のミッション
+
+## 学び、繋がり、”型”を破ろう
+
+---
+
+# なぜ TSKaigi で JavaScript の話をするのか？
+
+## TypeScript と JavaScript の関係性
+
+- TSKaigi のミッション: 「学び、繋がり、”型”を破ろう」
+- TypeScript から「型」を取り除くと JavaScript になる
+- JavaScript を学ぶことは、TypeScript の理解を深めることに繋がる
 
 ---
 
 # [fit] `$ node --experimental-strip-types`
 
-^
+---
 
 <!-- erasableSyntaxOnlyについて扱ってるセッション
 
@@ -71,10 +90,10 @@ https://2025.tskaigi.org/talks/makky12
 
 -->
 
-^ [ts-blank-space](https://bloomberg.github.io/ts-blank-space/)で発見された
-^ TypeScript の Design Goal として JavaScript と非互換な機能や変更を入れることはしないようになっています
-^ [https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)
-^ TypeScript の `erasableSyntaxOnly` や Node.js の `--experimental-strip-types` フラグなどもあり、TypeScript ファイルを JavaScript として直接実行できるようになってきた
+- [ts-blank-space](https://bloomberg.github.io/ts-blank-space/)で発見された
+- TypeScript の Design Goal として JavaScript と非互換な機能や変更を入れることはしないようになっています
+  - [https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)
+- TypeScript の `erasableSyntaxOnly` や Node.js の `--experimental-strip-types` フラグなどもあり、TypeScript ファイルを JavaScript として直接実行できるようになってきた
 
 ---
 
