@@ -12,9 +12,10 @@ slidenumbers: true
 ![アイコン right](https://github.com/azu.png)
 
 - Name : **azu**
-- Twitter : @[azu_re](https://x.com/azu_re)
+- Twitter/X : @[azu_re](https://x.com/azu_re)
 - Website: [Web scratch](https://efcl.info/), [JSer.info](https://jser.info/)
-- Open Source: textlint, secretlint, HontKit
+- Open Source:
+  - 🧹[textlint](https://textlint.org), 🔑🛡️ [secretlint](https://github.com/secretlint/secretlint), 📚[HontKit](https://github.com/honkit/honkit)
 
 ---
 
@@ -50,7 +51,7 @@ slidenumbers: true
 | 2022       | v4 / 書籍の第 2 版リリース |
 | 2023       | v5                         |
 | 2024       | v6                         |
-| 2025       | v7                         |
+| 2025       | v7(予定)                   |
 
 ---
 
@@ -97,7 +98,7 @@ https://2025.tskaigi.org/talks/makky12
 -->
 
 - [ts-blank-space](https://bloomberg.github.io/ts-blank-space/)で発見された
-- TypeScript の Design Goal として JavaScript と非互換な機能や変更を入れることはしないようになっています
+- TypeScript の Design Goal として JavaScript と非互換な機能や変更を入れることはしないようになっている
   - [https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)
 - TypeScript の `erasableSyntaxOnly` や Node.js の `--experimental-strip-types` フラグなどもあり、TypeScript ファイルを JavaScript として直接実行できるようになってきた
 
@@ -190,7 +191,6 @@ https://2025.tskaigi.org/talks/makky12
   - 静的状態: 依存がなく、時間が経っても内容が変わらない
   - アクティブ状態: 外部のライブラリや環境に依存し、周囲の変化に影響される
 - アクティブなコードは、依存先のバージョンアップなどで「ズレ」が生じ、動かなくなるリスクが高い
-- 動かすには、コードや依存の更新、または当時の環境を再現する必要がある
 - 価値を保つには、継続的なメンテナンスが不可欠
 
 ---
@@ -208,13 +208,11 @@ https://2025.tskaigi.org/talks/makky12
 # ECMAScript のアクティブな状態と静的な状態
 
 - ECMAScript ではアクティブな状態と静的な状態を使い分けている
-- アクティブな仕様:
+- アクティブな仕様 = Living Standard
   - <https://tc39.es/ecma262> 常に最新のものとして公開される
-  - Living Standard
-- 静的な仕様:
+- 静的な仕様 = Snapshot
   - <https://ecma-international.org/technical-committees/tc39/>
-  - ECMA のサイトで毎年スナップショット公開される
-  - 1 年に一度更新される
+  - ECMA のサイトで1 年に一度更新される
 
 ---
 
@@ -223,10 +221,8 @@ https://2025.tskaigi.org/talks/makky12
 - ECMAScript 仕様のモデルに真似る:
 - **Living Standard**: ウェブ版 ([jsprimer.net](https://jsprimer.net/))
   - 常に最新版を維持
-  - GitHub で共同編集
 - **Snapshot**: 書籍版
-  - 安定版として時々リリース
-  - 読みやすさに特化した最適化
+  - 安定版として時々リリース(読みやすさ重視)
 
 ---
 
@@ -238,6 +234,23 @@ https://2025.tskaigi.org/talks/makky12
 ---
 
 # How: どうやって更新を実現しているのか？
+
+---
+
+# ポイント
+
+[.column]
+
+- 1. 変化を前提とした設計
+- 2. 読みやすさを優先する
+- 3. テスト
+- 4. 変化の追従プロセス
+
+[.column]
+
+- 5. オープンソース開発
+- 6. コミュニティ
+- 7. 経済的支援モデル
 
 ---
 
@@ -283,87 +296,19 @@ https://2025.tskaigi.org/talks/makky12
 
 - jsprimer という書籍は前から後ろに順番に読んでいく構造
 - 未知の言葉がいきなり出てこないように、既知 -> 未知の順となるように説明
-- コードを書いていくときに、関数の定義をしてから利用
-  - JS は hoisting があるので、実行的にはこれは回避できしまう
-  - 一方でファイルが膨れたといにメインが下にあるのが嫌という人もいるが、それはエントリーを分ければいい
-  - これが問題になるのは React コンポーネントみたいな、同じファイルに
 
-```js
-// 数字の文字列を二つ受け取り、合計を返す関数
-function sumNumStrings(a, b) {
-  const aNumber = safeParseInt(a);
-  const bNumber = safeParseInt(b);
-  return aNumber + bNumber;
-}
-
-// 数値の文字列を受け取り数値を返す関数
-
-function safeParseInt(numStr) {
-  const num = parseInt(numStr, 10);
-  if (Number.isNaN(num)) {
-    throw new Error(`${numStr} is not a number`);
-  }
-  return num;
-}
-```
-
-よりも
-
-```js
-// 数値の文字列を受け取り数値を返す関数
-function safeParseInt(numStr) {
-  const num = parseInt(numStr, 10);
-  if (Number.isNaN(num)) {
-    throw new Error(`${numStr} is not a number`);
-  }
-  return num;
-}
-
-// 数字の文字列を二つ受け取り、合計を返す関数
-function sumNumStrings(a, b) {
-  const aNumber = safeParseInt(a);
-  const bNumber = safeParseInt(b);
-  return aNumber + bNumber;
-}
-```
-
-の方が既知 → 未知となる
-
-- 人間のコンテキスト小さいので、章をまたぐとすぐに未知となってしまう言葉が出てくる。このような場合、章が変わるたびに重要なものは未知であるという前提で毎回説明する
-
-このようなパターンをそれぞれ図にしていきたいです
+---
 
 # 既知 から 未知 へ
 
-[.column]
+![right,fit 文字列の説明](img/michi-string.png)
 
-```js
-// 数値の文字列を受け取り数値を返す関数
-function safeParseInt(numStr) {
-  const num = parseInt(numStr, 10);
-  if (Number.isNaN(num)) {
-    throw new Error(`${numStr} is not a number`);
-  }
-  return num;
-}
-// 数字の文字列を二つ受け取り、合計を返す関数
-function sumNumStrings(a, b) {
-  const aNumber = safeParseInt(a);
-  const bNumber = safeParseInt(b);
-  return aNumber + bNumber;
-}
-```
+- 結論を最初に、その後に説明を書く
 
-[.column]
+1. まず紹介するコードの説明をする
+2. その後にコードを表示する
+3. その後に補足を説明する
 
-```markdown
-次のコードでは、数値の文字列を二つ受け取り、合計を返す関数を定義しています。
-
-{{コード}}
-
-この関数は、数値の文字列を受け取り、数値に変換する `safeParseInt` 関数を使用しています。
-`safeParseInt` 関数は、数値の文字列を受け取り、数値に変換します。もし変換できない場合は、エラーをスローします。
-```
 
 ---
 
@@ -421,7 +366,7 @@ function sumNumStrings(a, b) {
 
 [.column]
 
-## 元の文章
+## 元の文章 ⬅️
 
 次のコードは、数値の文字列を二つ受け取り、合計を返す関数を定義しています。
 
@@ -432,7 +377,7 @@ console.log(sum(1, 2)); // => 3
 
 [.column]
 
-## [fit] power-doctest による変換
+## [fit] ▶️power-doctest による変換
 
 - コードを抽出して、Assertion に変換してテストとして実行する
 
@@ -445,7 +390,7 @@ assert.strictEqual(sum(1, 2), 3);
 
 [.column]
 
-## 元の文章
+## 元の文章 ⬅️
 
 変数名に数字を含めることはできますが、変数名を数字から開始することはできません。
 これは変数名と数値が区別できなくなってしまうためです。
@@ -459,7 +404,7 @@ let 123; // NG: 数字のみで構成されている
 
 [.column]
 
-## [fit] power-doctest によるテスト
+## [fit] ▶️power-doctest によるテスト
 
 - コードブロックを抽出して、実行した結果の期待値をコメントから取得
 - 実行した結果が `SyntaxError` になることを確認する
@@ -483,7 +428,7 @@ let 123; // NG: 数字のみで構成されている
 
 ---
 
-# textstateを見てやっていること
+# textstate を見てやっていること
 
 - 順序が重要な書籍なので、滑らかに量を増やしていく
 - 急に増やすとそこで諦めて止まる人が出てきてしまう
@@ -507,11 +452,8 @@ let 123; // NG: 数字のみで構成されている
 1. Issue を立てる
 2. どの Proposal を対応するかを決める
 3. リポジトリで ES2025 が動くかをツールのアップデート
-
-- eslint, power-doctest などはパーサが E2025 の構文に対応してるかをチェック
-
-3. 改めて読み直して何を削るかを決める(ここで読み直してる)
-4. 書く
+4. 改めて読み直して何を削るかを決める(ここで読み直してる)
+5. 書く
 
 ---
 
@@ -580,7 +522,7 @@ let 123; // NG: 数字のみで構成されている
 # [fit] 誰でも Contribute できるように Contribute する
 
 - CONTRIBUTING.md は誰もが読むわけじゃない
-- 読まなくても Contribute できるようにする
+- ガイドを読まなくても Contribute できるようにする
 - 右下のボタンから、今見てるページの Issue を立てられる
 - ここからコミュニケーションを初めて、PR を作ってもらうところまでサポートする
 
@@ -631,10 +573,10 @@ let 123; // NG: 数字のみで構成されている
 
 - [Sponsor @azu on GitHub Sponsors](https://github.com/sponsors/azu) でスポンサーを募集している
 - 毎年収支も公開している
-  - [GitHub Sponsorsの募集を始めてから2年が経ったので振り返る | Web Scratch](https://efcl.info/2021/10/01/github-sponsors/)
-  - [GitHub Sponsorsの収入 @ 2022 | Web Scratch](https://efcl.info/2022/12/22/github-sponsors-report/)
-  - [GitHub Sponsorsの収入 @ 2023 | Web Scratch](https://efcl.info/2023/12/25/github-sponsors-report/)
-  - [オープンソース活動の振り返り/GitHub Sponsorsの収入まとめ @ 2024 | Web Scratch](https://efcl.info/2024/12/31/open-source-in-2024/)
+  - [GitHub Sponsors の募集を始めてから 2 年が経ったので振り返る | Web Scratch](https://efcl.info/2021/10/01/github-sponsors/)
+  - [GitHub Sponsors の収入 @ 2022 | Web Scratch](https://efcl.info/2022/12/22/github-sponsors-report/)
+  - [GitHub Sponsors の収入 @ 2023 | Web Scratch](https://efcl.info/2023/12/25/github-sponsors-report/)
+  - [オープンソース活動の振り返り/GitHub Sponsors の収入まとめ @ 2024 | Web Scratch](https://efcl.info/2024/12/31/open-source-in-2024/)
 
 ---
 
@@ -677,8 +619,8 @@ let 123; // NG: 数字のみで構成されている
 # 支援金の使い道
 
 - jsprimer には[Contributing Expenses Policy](https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING_EXPENSE.md)がある
-- ContributeしてもらったタスクのPointに応じして、Open Collectiveの予算から支払っている
-- Contributing Expenses Policyには、計算プロセス、請求プロセス、支払いプロセスが書かれている
+- Contribute してもらったタスクの Point に応じして、Open Collective の予算から支払っている
+- Contributing Expenses Policy には、計算プロセス、請求プロセス、支払いプロセスが書かれている
 
 ---
 
@@ -696,13 +638,13 @@ let 123; // NG: 数字のみで構成されている
 # 具体例: Contributing Expenses Policy
 
 - [JavaScript Primer - Open Collective](https://opencollective.com/jsprimer)の年間の予算は$620.00 USD(2025-05-22)
-- 年間の更新コストは30日で、Pointに直すと 60 Pointが年間必要なコスト
-- 1 Pointあたりのコストは$10.33
-- なので、2Pointのタスクは大体$20ぐらいを支払える
+- 年間の更新コストは 30 日で、Point に直すと 60 Point が年間必要なコスト
+- 1 Point あたりのコストは$10.33
+- なので、2Point のタスクは大体$20 ぐらいを支払える
 
 ---
 
-- Contributing Expenses Policyにこの計算ツールも入ってます
+- Contributing Expenses Policy にこの計算ツールも入ってます
 
 ```js
 const yearlyEstimatedBudget = 620; // Open Collectiveの推定年間予算($ドル)
@@ -749,7 +691,7 @@ console.log({ cost }); // => $20.666666666666668
 
 # アウトカム設計
 
-- "変化に対応できる人"(jsprimerの目的) という定義を分解していき、次のようなアウトカムに分解できる
+- "変化に対応できる人"(jsprimer の目的) という定義を分解していき、次のようなアウトカムに分解できる
   1. 知識を得る → 読者数
   2. 試行錯誤できる → コードを実行している人の数
   3. コントリビュートできる → 　 Issue 報告ボタンを押した人の数
