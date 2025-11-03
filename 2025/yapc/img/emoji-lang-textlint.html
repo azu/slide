@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>textlint エラー表示 - 絵文字言語</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #1e1e1e;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .terminal {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .command {
+      color: #6a9955;
+      margin-bottom: 15px;
+    }
+    .file-path {
+      color: #d4d4d4;
+      text-decoration: underline;
+      margin-bottom: 10px;
+    }
+    .error-line {
+      margin: 10px 0;
+    }
+    .line-number {
+      color: #858585;
+      margin-right: 10px;
+    }
+    .error-marker {
+      color: #f14c4c;
+      font-weight: bold;
+    }
+    .error-message {
+      color: #f14c4c;
+      margin-left: 20px;
+    }
+    .rule-name {
+      color: #858585;
+      margin-left: 20px;
+    }
+    .source-line {
+      margin: 5px 0 5px 20px;
+      color: #d4d4d4;
+    }
+    .highlight {
+      background: #f14c4c33;
+      border-bottom: 2px solid #f14c4c;
+    }
+    .summary {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #3e3e3e;
+    }
+    .error-count {
+      color: #f14c4c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="command">$ textlint example.txt</div>
+    
+    <div class="file-path">example.txt</div>
+    
+    <div class="error-line">
+      <span class="line-number">1:18</span>
+      <span class="error-marker">error</span>
+      <span class="error-message">同じセンテンス内に👍と👎を使用できません</span>
+      <span class="rule-name">emoji-lang/no-mixed-thumbs</span>
+    </div>
+    
+    <div class="source-line">
+      🤔このツールは便利<span class="highlight">👍だけど設定が👎</span>複雑です🔚
+    </div>
+    
+    <div class="summary">
+      <div class="error-count">✖ 1 problem (1 error, 0 warnings)</div>
+    </div>
+  </div>
+</body>
+</html>
