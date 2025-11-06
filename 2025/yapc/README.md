@@ -24,8 +24,10 @@ YAPC::Fukuoka 2025
 **azu**
 
 - GitHub: @azu
-- 2011年から14年間オープンソース活動を継続
-- 3つのプロジェクトを運営中
+- 2010年から15年間オープンソース開発
+- [JSer.info](https://jser.info/)
+- [textlint](https://textlint.github.io/)
+- [JavaScript Primer](https://jsprimer.net/) 
 
 ---
 
@@ -33,11 +35,11 @@ YAPC::Fukuoka 2025
 
 **技術を使って、持続可能性を実現する**
 
-14年間JSer.infoを続け
-11年間textlintを続け
-9年間jsprimerを続けてきた
+15年間オープンソース活動のうち
 
-その方法をお話しします
+- 14年間JSer.infoを続け
+- 11年間textlintを続け
+- 9年間jsprimerを続けてきた
 
 ---
 
@@ -933,6 +935,7 @@ meeting-notes/
 - 原則: 既知→未知
 - textlintで表記揺れや誤用をチェック
 - 自動テストでコード例の動作をチェック
+- [TSKaigi 2025で「技術書をソフトウェア開発する」という発表をしました | Web Scratch](https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/)
 
 ---
 
@@ -957,13 +960,13 @@ meeting-notes/
 
 [.column]
 
-**文章チェック**
-- textlint: 日本語の表記チェック
+**文章の自動テスト**
+- textlint: 文章の品質チェック
 - ESLint: JavaScriptコードの品質チェック
 
 [.column]
 
-**実行チェック**
+**コードの自動テスト**
 - Doctest: コード例の出力検証
 - Unit Tests: Mochaによるテスト実行
 - Executable Code: サンプルコードの実行確認
@@ -995,7 +998,7 @@ console.log(result); // => 2
 - textlint、ESLint、Doctestなど全テストを実行
 - プレビュー環境で実際のレンダリングを確認
 
-**結果**: 使っているから続く、続いているから使う
+使っているから続く、続いているから使う
 
 
 ---
@@ -1197,15 +1200,15 @@ console.log(result); // => 2
 
 ---
 
-# 各モデルでの心理的負荷への対応
+<!-- # 各モデルでの心理的負荷への対応 -->
 
 ![inline](img/oss-models-psychological-strategies.png)
 
-**モデルごとに異なる戦略で持続可能性を確保**
+^ モデルごとに異なる戦略で持続可能性を確保
 
 ---
 
-# 相互強化のループ
+# 技術依存ループ
 
 <!-- 3つのプロジェクトの相互強化ループ：読む→書く→伝える→読むの質向上 -->
 ![inline](img/project-dependencies-loop.png)
@@ -1335,16 +1338,6 @@ Publicの過去が、未来の価値を生む
 
 ---
 
-# Disclaimer
-
-持続することがなぜ大事?
-
-- この方法がいいというわけではない
-- 引き継ぐ難易度が結局高いという問題がまだ未解決
-- サプライチェーンの問題もあり、難易度がかえって上がっている
-
----
-
 # ありがとうございました
 
 
@@ -1354,3 +1347,14 @@ Publicの過去が、未来の価値を生む
 - GitHub: <https://github.com/azu>
 
 ---
+
+<!-- 
+---
+
+# Disclaimer
+
+持続することがなぜ大事?
+
+- この方法がいいというわけではない
+- 引き継ぐ難易度が結局高いという問題がまだ未解決
+- サプライチェーンの問題もあり、難易度がかえって上がっている -->
