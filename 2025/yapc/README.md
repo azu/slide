@@ -340,17 +340,34 @@ YAPC::Fukuoka 2025
 
 ---
 
-# 情報収集の具体的な方法
+# JSer.info の情報収集方法
 
-**RSSリーダーを基盤に約3,600フィード**：
-- GitHub（全体の30-40%）
-  - Trending、リポジトリ新着、リリース情報
-- 日次・週次ニュース
-  - JavaScript Weekly、Node Weekly
-- アグリゲーション
-  - daily.dev、Echo JS、はてなブックマーク
-- 個別ブログ・サイト
-  - Zenn、Qiita、Medium、dev.to
+## 基本はRSS（3,626フィード）
+- 技術ブログ約2,000サイト
+- Inoreaderで一元管理
+- [Irodr](https://irodr.netlify.app/)（LDR風リーダー）でキュレーション
+- [JSer.info Watch List](https://jser.info/watch-list/)で情報源を公開
+
+---
+
+# JSer.info の情報収集方法
+
+[.column]
+**GitHub**
+- 1500+リポジトリをWatchしてリリース通知
+- リリースRSSを自動生成（[watch-rss](https://github.com/azu/watch-rss)）
+- 検索結果をRSS化（[github-search-rss](https://github.com/azu/github-search-rss)）
+
+[.column]
+**メール**
+- メールニュースレターもRSS化
+
+**SNS**
+- Twitter/X、はてなブックマーク
+
+---
+
+![fit ruri-reader](img/ruri-reader.mp4)
 
 ---
 
@@ -373,7 +390,7 @@ YAPC::Fukuoka 2025
 
 ---
 
-# 目的は「紹介」ではなく「知ってもらう」
+# [fit] Why: 目的は「紹介」ではなく「知ってもらう」
 
 [.column]
 ## **紹介**
@@ -1296,12 +1313,25 @@ console.log(result); // => 2
 
 # Public Writing as Future Asset
 
-<!-- 15年間の公開執筆の循環：読む→書く→伝える→読むの質向上、そして複利効果 -->
-![inline](https://placehold.co/800x400?text=15years+Public+Writing+Cycle)
+**この発表準備プロセス自体が「読む→書く→伝える」の実証**
 
-- この資料の作り方は、読む書く伝えるの循環をAIを通して行った
-- AIがPublic情報を元に読んで、書いて、直し方をつたえて読む
-- これができるのってPublicに書いているから
+[.column]
+
+15年間publicに書き続けた:
+- GitHubのコミット・Issue・PR
+- ブログ記事・書籍
+- スライド・ドキュメント
+
+[.column]
+
+それをAIが読んで:
+- 過去の判断理由を理解
+- パターンを発見
+- 新しい視点で構造化
+
+**→ 自分が読んで新たな気づきを得る**
+
+Publicの過去が、未来の価値を生む
 
 ---
 
