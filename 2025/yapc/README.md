@@ -1,6 +1,5 @@
 footer: YAPC::Fukuoka 2025 - azu
 slidenumbers: true
-build-lists: true
 autoscale: true
 theme: Plain Jane, 1
 
