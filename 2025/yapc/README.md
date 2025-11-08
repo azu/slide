@@ -661,10 +661,10 @@ AI特有の文章構造を検出するtextlintルールセット
 
 ---
 
-# エラーメッセージの LLM as Judge
+# エラーメッセージの LLM as a Judge
 
 - 技術的に改善するにはエラーメッセージの質を数値で評価したい
-- LLM as Judgeでエラーメッセージの質を評価する仕組みを作成中[^promptfoo]
+- LLM as a Judgeでエラーメッセージの質を評価する仕組みを作成中[^promptfoo]
 - エラーメッセージの質をLLMで評価し、スコアを元に改善を繰り返す
 - 技術的改善を回しやすくする
 
@@ -672,7 +672,7 @@ AI特有の文章構造を検出するtextlintルールセット
 
 ---
 
-![fit promptfooでのLLM as Judge](img/promptfoo-textlint.png)
+![fit promptfooでのLLM as a Judge](img/promptfoo-textlint.png)
 
 ---
 
@@ -684,7 +684,7 @@ AI特有の文章構造を検出するtextlintルールセット
 
 **心理的負荷を減らした**：
 - コアとルールの分離 = 心理的負荷の分散
-- LLM as Judgeによる実装時の負荷軽減(将来)
+- LLM as a Judgeによる実装時の負荷軽減(将来)
 
 ---
 
