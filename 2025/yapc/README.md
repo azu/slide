@@ -251,23 +251,9 @@ YAPC::Fukuoka 2025
 <!-- JSer.infoの情報収集フロー：3600RSSフィード→自動収集→人間キュレーション→自動公開 -->
 ![inline](img/rss-to-github-actions-flow.png)
 
-<!-- 
-```
-[3,600+ RSSフィード]
-     ↓ 自動収集
-[Inoreader：集約]
-     ↓ 人間の判断 ← ここが重要
-[Irodr：手動キュレーション]
-     ↓
-[Postem：執筆]（JSer.info MCP補助）
-     ↓ 自動化
-[GitHub Actions：公開]
-```
- -->
-
 ---
 
-# 情報のレイヤー分類
+# ① RSS：どこから集めるか
 
 [.column]
 
@@ -281,87 +267,52 @@ YAPC::Fukuoka 2025
 - Interest層: トレンドと話題性（SNS、アグリゲーション）
 - Comparison層: 比較検討された実践的情報（書籍、メディア）
 
-> 出典: [JSer.info 10周年](https://jser.info/2021/01/16/jser-10th/)
+**3,626フィードを自動収集**
 
 ---
 
-# JSer.info の情報収集方法
+# ② 収集：自動化で集める
 
-## 基本はRSS（3,626フィード）
+[.column]
+**RSS**
 - 技術ブログ約2,000サイト
 - Inoreaderで一元管理
-- [Irodr](https://irodr.netlify.app/)（LDR風リーダー）でキュレーション
 - [JSer.info Watch List](https://jser.info/watch-list/)で情報源を公開
-
----
-
-# JSer.info の情報収集方法
 
 [.column]
 **GitHub**
-- 1500+リポジトリをWatchしてリリース通知
-- リリースRSSを自動生成（[watch-rss](https://github.com/azu/watch-rss)）
-- 検索結果をRSS化（[github-search-rss](https://github.com/azu/github-search-rss)）
-
-[.column]
-**メール**
-- メールニュースレターもRSS化
-
-**SNS**
-- Twitter/X、はてなブックマーク
+- 1500+リポジトリをWatch
+- [watch-rss](https://github.com/azu/watch-rss)でRSS化
+- [github-search-rss](https://github.com/azu/github-search-rss)で検索結果をRSS化
 
 ---
 
-![fit ruri-reader](img/ruri-reader.mp4)
+# ③ 判断：人間がキュレーション
+
+RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判断
+
+**なぜ人間が判断？**
+→ 目的は「紹介」ではなく「知ってもらう」こと
+
+**人間が判断する価値**
+- 単なるリンク集ではなく、文脈を説明、整理すること
+- 増やすのではなく、少なくすること
 
 ---
 
-# 読む上で退屈な部分だけ自動化
+# 判断基準: [JSer.info Policy](https://jser.info/policy/)
 
-[.column]
-## **自動化する部分**
-退屈な作業
-- RSSベースの自動収集
-- 特定の企業やOrganizationを監視
-- フィード数は収束する
-
-[.column]
-## **人間が判断する部分**
-情報の質
-- 曖昧なもの（トレンド）より明確なもの（日付）
-- 検索結果より構造化されたソース
-
-**JSer.infoは自動化と人間の判断を組み合わせる**
-
----
-
-# [fit] Why: 目的は「紹介」ではなく「知ってもらう」
-
-[.column]
-## **紹介**
-情報を提示して終わり
-
-[.column]
-## **知ってもらう**
-読者が元サイトにアクセス
-JavaScriptエコシステム全体を理解
-
-**JSer.infoは目的地ではなく、導線**
-
----
-
-# JSer.info Policy
-
-> **「技術的な嘘はつかない」**
+> 一例: **「技術的な嘘はつかない」**
 
 **使わない言葉**：
-"is Dead"、最強、熱い
+- "is Dead"、最強、熱い
 
 **慎重に扱う情報**：
-ベンチマーク数値（マイクロベンチマークは文脈次第で誤解を招く）
+- ベンチマーク数値（マイクロベンチマークは難しい）
 
-**使う言葉**：
-代替方法、特徴、比較
+---
+
+# [fit] ④ 公開： 紹介サイトをまとめた記事を公開
 
 
 ---
@@ -441,9 +392,7 @@ JavaScriptエコシステム全体を理解
 
 ---
 
-
-
-# 続けることで楽になる循環
+# 続けていく中で改善された
 
 **技術的依存は、継続によって育つ**
 
@@ -1301,3 +1250,17 @@ Publicの過去が、未来の価値を生む
 - この方法がいいというわけではない
 - 引き継ぐ難易度が結局高いという問題がまだ未解決
 - サプライチェーンの問題もあり、難易度がかえって上がっている -->
+
+---
+
+# RSSリーダ
+
+- [Inoreader](https://www.inoreader.com/): RSSリーダサービス
+- [irodr](https://irodr.netlify.app/): LDR風RSSリーダをフロントエンドとして自作
+- Iroreaderの値上げが不安になったきたので、バックエンドも含むRuri Readerを作っている
+
+---
+
+
+
+![fit ruri-reader](img/ruri-reader.mp4)
