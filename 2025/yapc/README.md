@@ -977,11 +977,12 @@ console.log(result); // => 2
 
 # 具体例: ES2025対応
 
-1. Issueで提案
-2. ブログで募集
-3. 方針を決める
-4. PRを作ってもらう
-5. レビューする
+1. **[Meta Issue](https://github.com/asciidwango/js-primer/issues/1778)で方針決定** → ES2025の新機能7個の対応方針を決定
+2. **[ブログ](https://efcl.info/2025/04/25/jsprimer-es2025-proposal/)で募集** → コントリビューター募集
+3. **[Discussion](https://github.com/asciidwango/js-primer/discussions/1789)で認識合わせ** → 役割分担
+4. **個別Issueで並行作業** → 1機能 = 1人 = 1Issue ([#1783](https://github.com/asciidwango/js-primer/issues/1783)、[#1788](https://github.com/asciidwango/js-primer/issues/1788) など7機能)
+5. **PRレビュー** → textlint/DocTestで自動チェック済み、人間は読みやすさに集中
+6. **結果**: [v7.0.0リリース](https://efcl.info/2025/08/18/jsprimer-v7/)
 
 ---
 
