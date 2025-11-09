@@ -22,23 +22,19 @@ YAPC::Fukuoka 2025
 
 **azu**
 
-- GitHub: @azu
+- GitHub: [@azu](https://github.com/azu)
+- X/Twitter: [@azu_re](https://x.com/azu_re)
 - 2010年から15年間オープンソース開発
-- [JSer.info](https://jser.info/)
-- [textlint](https://textlint.github.io/)
-- [JavaScript Primer](https://jsprimer.net/) 
 
 ---
 
 # 今日話したいこと
 
-**技術を使って、持続可能性を実現する**
-
 15年間オープンソース活動のうち
 
-- 14年間JSer.infoを続け
-- 11年間textlintを続け
-- 9年間jsprimerを続けてきた
+- 2011年-: [JSer.info](https://jser.info/): JavaScriptの毎週更新の情報ブログ
+- 2014年-: [textlint](https://textlint.org): 自然言語のLinter
+- 2016年-: [JavaScript Primer](https://jsprimer.net/): JavaScript入門書
 
 ---
 
@@ -49,13 +45,7 @@ YAPC::Fukuoka 2025
 
 ---
 
-# それぞれのテーマ
-
-- **JSer.info**: 読む技術（情報収集と発信）
-- **textlint**: 書く技術（品質の自動化）
-- **jsprimer**: 伝える技術（協働と設計）
-
-**問い**: なぜ15年も続けているか？
+# **問い**: なぜ15年も続けているか？
 
 ---
 
