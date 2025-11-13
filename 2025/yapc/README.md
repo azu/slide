@@ -253,9 +253,18 @@ YAPC::Fukuoka 2025
 [.column]
 
 **3つのレイヤーから情報を収集**：
+
 - Awareness層: 新規公開直後の情報（GitHub中心）
-- Interest層: トレンドと話題性（SNS、アグリゲーション）
+- Interest層: トレンドと話題性（SNS、記事）
 - Comparison層: 比較検討された実践的情報（書籍、メディア）
+
+詳細は[JSer.info 10周年記事](https://jser.info/2021/01/16/jser-10th/)を参照
+
+
+^ 情報というとざっくりしているので主に3つの層に分類しています
+^ JSer.infoの紹介記事のカテゴリもこの流れに沿っていています
+^ 上から新しい情報となることが多い、下に行くほど濃度が高い情報になります
+
 
 ---
 
@@ -303,7 +312,6 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 
 # [fit] ④ 公開： 紹介サイトをまとめた記事を公開
 
-
 ---
 
 [.hide-footer]
@@ -321,7 +329,6 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 ![fit](img/jser-automation-flow-now.png)
 
 ^ JSer.info 2025年ごろの更新フロー
-
 
 ---
 
@@ -377,7 +384,6 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 - この発見で心理的なプレッシャーが大きく軽減できて続いたと感じている
 - <https://github.com/jser/status-of-post>
 - <https://jser.info/status-of-post/>
-
 
 ---
 
@@ -457,7 +463,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 
 # 読むから書くへの移行
 
-読む技術の洞察が書く技術の改善をどう促したかを次で示します。
+> 読む → **書く**
 
 **きっかけ**：
 - JSer.infoで情報を読み続けていた
@@ -571,13 +577,24 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 
 ---
 
-# 11年続けたらAIがユーザーになった
+# コアのフォーカスとエコシステムの拡充
 
 - プラガブルの弱点は、ユーザーがプラグインを選択しないといけない点
 - 人間が選択するのは大変
   - ルールによって求める文章の質が異なるので、目的に合ったルールを選ぶのが難しい
-  - ちょうど良い使い勝手を実現するのが難しい
-- → 2023年以降、AIがユーザーになっていくことでこの難しさが変化
+- 改善するにはエコシステムの拡充が重要になっていく
+  - エディタの拡張、手軽に使えるような仕組み(Easy)
+  - コアでやると、メンテナンスが大変になるので、できるだけ外部化を維持していた
+- 改善するべきかをずっと耐えてコアにフォーカスしていたら、ユーザーが変化した
+
+---
+
+# 11年続けたらAIがユーザーになった
+
+- 2023年以降、AIがユーザーになることで難しさが変化
+- 人間にとっては選択が難しいが、AIがベースラインを上げる
+- それによってコアでやるべき方向性を変えた
+- 人間とAIを繋ぎやすくする方向へ
 
 ---
 
@@ -618,7 +635,6 @@ AI特有の文章構造を検出するtextlintルールセット
 - 絵文字の多用 - ✅ ❌ 🚀 🎯🔥
 - 過剰表現、強調の多用 - 革命的、民主化、大幅な改善
 - コロンの直後にブロック要素が続く英語的なパターン
-- 同意過剰 - あなたは正しい、その通りです
 
 ---
 
@@ -672,7 +688,8 @@ AI特有の文章構造を検出するtextlintルールセット
 
 **心理的負荷を減らした**：
 - コアとルールの分離 = 心理的負荷の分散
-- LLM as a Judgeによる実装時の負荷軽減(将来)
+- コアにフォーカスし続けて、エコシステムを外部化
+- エラーメッセージの改善とLLM as a Judgeの実装
 
 ---
 
@@ -686,7 +703,7 @@ AI特有の文章構造を検出するtextlintルールセット
 
 # 書くから伝えるへの移行
 
-書く過程で浮かび上がった『読者視点』が、伝える技術の枠組みを生みました。
+> 読む → 書く → **伝える**
 
 **転換点**：
 - 個人で書く → 相手に伝える
@@ -859,7 +876,6 @@ console.log(result); // => 2
 **特徴**:
 - ドキュメントと実装の乖離を防ぐ
 - リファクタリング時の安全性を確保
-- 非同期処理にも対応
 
 ---
 
@@ -905,9 +921,10 @@ console.log(result); // => 2
 **目的はJavaScriptの変化に対応できるようにすること**
 
 - JavaScriptは毎年更新される仕様
-- 今時オープンソースを使わない開発はほぼない
-- オープンソースにコミットすることも学びの1つ
-- 加えて、著者を増やすことで、心理的負荷を分散する
+- 今時オープンソースソフトウェアを使わない開発はほぼない
+- オープンソースへコミットすることも学びの1つ
+
+**著者を増やすことで、変化への対応と心理的負荷を分散**
 
 ---
 
@@ -922,6 +939,7 @@ console.log(result); // => 2
 [.column]
 
 **収入源**：
+
 1. 書籍売上
 2. Open Collective
 3. GitHub Sponsors
@@ -1076,7 +1094,7 @@ console.log(result); // => 2
 
 **週85,000ダウンロード、少数のメンテナー**：
 - No core rules戦略
-- コアを最小化、エコシステムへ委譲
+- コアを最小化しフォーカス、エコシステムへ委譲
 - 200以上のルールをコミュニティが作成
 
 **技術的依存は高いが、心理的負荷を下げる設計**
@@ -1221,6 +1239,10 @@ Publicの過去が、未来の価値を生む
 
 ---
 
+# 続けることでより良くできる！
+
+---
+
 # ありがとうございました
 
 
@@ -1231,16 +1253,7 @@ Publicの過去が、未来の価値を生む
 
 ---
 
-<!-- 
----
-
-# Disclaimer
-
-持続することがなぜ大事?
-
-- この方法がいいというわけではない
-- 引き継ぐ難易度が結局高いという問題がまだ未解決
-- サプライチェーンの問題もあり、難易度がかえって上がっている -->
+# Apnnedix
 
 ---
 
@@ -1253,5 +1266,261 @@ Publicの過去が、未来の価値を生む
 ---
 
 
-
 ![fit ruri-reader](img/ruri-reader.mp4)
+
+---
+
+# 読むための工夫
+
+- ベンチマークは動かす
+- DeepWikiを使いアーキテクチャを理解する
+- Issueを作って対応を見る
+
+---
+
+# GitHub Sponsorsと心理的負荷
+
+- GitHub Sponsorsには見返りをなくした
+- 見返りを用意すると心理的負荷が高くなる可能性がある
+- 短期的な関係ではなく長期的な関係を重視するため
+- <https://efcl.info/2021/10/01/github-sponsors/>
+
+---
+
+# GitHub SponsorsのTier設計
+
+**[@azu](https://github.com/azu)のTier設計**： 
+
+- ✨ Supporter：$1/月
+- ☕ Coffee：$5/月
+- 🌐 Domain：$10/月
+- 📖 Book：$30/月
+- 💚 JSer.info：$100/月
+- ❤️ Open Source：$300/月
+
+---
+
+# GitHub Sponsors
+
+- 金額が大きくなってもほぼ行動に影響がなくなると感じたら小さな見返りを設定する
+- e.g.
+  - JSer.info は長期間続けて、内向的なプロジェクトなので外的要因がほぼ影響しない
+  - jsprimer はサイクルを増せるようになって、より外部のContributorを増やすために設定
+  - 自分のためではなく、他者のためというマインドだと行動はしやすい
+  - Ref. Work Design
+
+---
+
+# 持続することがなぜ大事?
+
+- アウトカムを達成するには、まず持続することが前提にある
+- この方法がいいというわけではない
+- 引き継ぐ難易度が結局高いという問題がまだ未解決
+- サプライチェーンの問題もあり、難易度がかえって上がっている
+
+---
+
+# 参考文献・リンク集
+**YAPC::Fukuoka 2025 - 読む技術・書く技術・伝える技術**
+
+---
+
+## プロジェクト公式サイト
+
+### JSer.info
+- **公式サイト**: https://jser.info/
+- **About**: https://jser.info/about/
+- **Policy**: https://jser.info/policy/
+- **Ping (Watch List)**: https://jser.info/ping/
+- **データセット**: https://github.com/jser/dataset
+
+### textlint
+- **公式サイト**: https://textlint.github.io/
+- **GitHub**: https://github.com/textlint/textlint
+- **npm**: https://www.npmjs.com/package/textlint
+- **ルール集**: https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule
+
+### JavaScript Primer
+- **公式サイト**: https://jsprimer.net/
+- **GitHub**: https://github.com/asciidwango/js-primer
+- **Open Collective**: https://opencollective.com/jsprimer
+
+---
+
+## 関連ツール・プロジェクト
+
+### 情報収集ツール
+- **Irodr (RSSリーダー)**: https://github.com/azu/irodr
+- **Postem (公開ツール)**: https://github.com/azu/postem
+- **ECMAScript Daily**: https://ecmascript-daily.github.io/
+
+### 文章品質ツール
+- **textlint-rule-preset-ai-writing**: https://github.com/textlint-ja/textlint-rule-preset-ai-writing
+- **secretlint**: https://github.com/secretlint/secretlint
+- **power-doctest**: https://github.com/azu/power-doctest
+- **textstat**: https://github.com/textlint/textstat
+
+### 書籍・ドキュメント関連
+- **HonKit**: https://github.com/honkit/honkit
+- **JavaScript Promise本**: https://azu.github.io/promises-book/
+- **Sandpack**: https://sandpack.codesandbox.io/
+
+---
+
+## 重要な記事・発表資料
+
+### JSer.info関連
+- **JSer.info 10周年**: https://jser.info/2021/01/16/jser-10th/
+- **JSer.info 6年を振り返る**: https://jser.info/2017/01/15/jser-info-6years/
+- **JSer.info 5年 - JavaScript情報とは**: https://azu.github.io/slide/2016/jser5years/javascript-information.html
+
+### textlint関連
+- **textlint誕生の経緯**: https://efcl.info/2014/12/30/textlint/
+- **なぜtextlintを作ったのか**: https://efcl.info/2022/06/29/why-create-textlint/
+- **textlint v14.8.0 (MCP対応)**: https://efcl.info/2025/06/12/textlint-v14.8.0/
+
+### JavaScript Primer関連
+- **jsprimer v2リリース**: https://efcl.info/2023/06/09/jsprimer-v2/
+- **jsprimer v7リリース**: https://efcl.info/2025/08/18/jsprimer-v7/
+- **jsprimerを出版**: https://efcl.info/2020/04/27/jsprimer/
+- **TSKaigi 2025発表**: https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/
+- **TSKaigiスライド**: https://azu.github.io/slide/2025/tskaigi/jsprimer.html
+
+### その他の振り返り記事
+- **GitHub Sponsors振り返り**: https://efcl.info/2021/10/01/github-sponsors/
+- **2020年のOSS活動**: https://efcl.info/2020/12/31/open-source-in-2020/
+
+---
+
+## 技術仕様・プロトコル
+
+- **Model Context Protocol (MCP)**: https://modelcontextprotocol.io/
+- **CommonMark**: https://commonmark.org/
+- **TC39 (ECMAScript標準化)**: https://tc39.es/
+
+---
+
+## 個人リンク
+
+- **GitHub**: https://github.com/azu
+- **ブログ (Web Scratch)**: https://efcl.info/
+- **過去の発表資料**: https://azu.github.io/slide/
+- **npm プロフィール**: https://www.npmjs.com/~azu
+- **GitHub Sponsors**: https://github.com/sponsors/azu
+
+---
+
+## 関連書籍
+
+### 継続すること・公開すること (Austin Kleon 3部作)
+
+- **Keep Going: 10 Ways to Stay Creative in Good Times and Bad** - Austin Kleon
+  - 創作活動を継続するための10の方法
+  - https://austinkleon.com/keepgoing/
+  
+- **Steal Like an Artist: 10 Things Nobody Told You About Being Creative** - Austin Kleon
+  - クリエイティブな活動の始め方
+  - https://austinkleon.com/steal/
+  
+- **Show Your Work!: 10 Ways to Share Your Creativity and Get Discovered** - Austin Kleon
+  - 作品を公開し、オーディエンスを見つける方法
+  - https://austinkleon.com/show-your-work/
+
+### オープンソース開発・持続可能性
+
+- **Working in Public: The Making and Maintenance of Open Source Software** - Nadia Eghbal
+  - OSS開発の持続可能性と見えない労働について。現代のOSS開発の実態を深く掘り下げた必読書
+  - https://press.stripe.com/working-in-public
+  - https://www.amazon.co.jp/dp/0578675862
+
+- **Roads and Bridges: The Unseen Labor Behind Our Digital Infrastructure** - Nadia Eghbal
+  - デジタルインフラを支える見えない労働についての報告書
+  - https://www.fordfoundation.org/work/learning/research-reports/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/
+  - PDF無料公開: https://www.fordfoundation.org/media/2976/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf
+
+### 燃え尽き症候群・心理的プレッシャー
+
+- **The End of Burnout: Why Work Drains Us and How to Build Better Lives** - Jonathan Malesic
+  - バーンアウトの構造的要因と対処法。心理的プレッシャーを排除する設計に関連
+  - https://www.ucpress.edu/book/9780520393509/the-end-of-burnout
+
+### アウトカム志向・長期的視点
+
+- **寄付研究や慈善活動について研究するために色々な書籍や論文を読んだメモ書き** - azu
+  - アウトプットとアウトカムの違い、長期的視点の重要性についての研究ノート
+  - https://efcl.info/2021/02/19/donation-philanthropy-study/
+
+- **インパクト投資入門 (日経文庫)** - 須藤奈応
+  - アウトプットではなくアウトカムを重視する考え方。10-20年の長期視点の重要性
+  - https://www.nikkeibook.com/book/95650
+
+#### エーザイの熱帯病治療薬事例（アウトカムの時間軸を示す実例）
+
+- **IMPACT STARTUP SUMMIT 2025**
+  - エーザイのインパクト会計の事例が紹介された
+  - 2014-2018年: 熱帯病治療薬16億錠以上を無償配布（コスト約24億円）
+  - 2025年（約10年後）: 社会的インパクト7兆円相当と評価、PBRに反映
+  - 「評価される場面に到達するには、まず生き残る必要がある」を示す事例
+  - https://impact-startup.or.jp/summit/2025
+
+- **エーザイ サステナビリティレポート**
+  - NTD（顧みられない熱帯病）への取り組みの詳細
+  - https://www.eisai.co.jp/sustainability/
+
+#### 学術論文・研究報告（インパクトの時間軸）
+
+- **Paul Nightingale and Alister Scott (2013), Nature誌**
+  - 「Measuring the societal impact of research」
+  - 「研究と影響の間のラグが数十年である可能性がある」
+  - アポトーシス研究：発見から30年後も健康への測定可能な影響なしの例
+  - https://www.nature.com/articles/495025a
+
+- **Kriss Deiglmeier and Amanda Greco, Stanford Social Innovation Review**
+  - 「Why Proven Solutions Struggle to Scale Up」
+  - 「現実には、社会的イノベーションは洗練、牽引力の構築、成長に数十年かかる」
+  - 「資金提供者が長期的な（5-20年）コミットメントを行うことは稀である」
+  - https://ssir.org/
+
+- **So & Staskevicius (2015), ハーバード・ビジネススクール**
+  - 「Measuring the 'impact' in impact investing」
+  - アウトプット→アウトカム→インパクトの階層とインパクトリスクの概念
+  - https://www.hbs.edu/
+
+- **Acumen (2021)**
+  - 「Investing as a Means: 20 years of Patient Capital」
+  - 2001-2020年の20年間の実践データ
+  - 平均7-10年でスケールに到達、Patient Capitalの必要性を実証
+  - https://acumen.org/
+
+- **Jacqueline Novogratz (2016), Medium**
+  - 「Making the Case for Patient Capital」
+  - Acumen創設者による15年以上の投資経験から「平均して規模に到達するまでに7-10年かかる」
+  - https://medium.com/@jnovogratz/
+
+### AI時代の技術
+
+- **LLMのプロンプトエンジニアリング ―GitHub Copilotを生んだ開発者が教える生成AIアプリケーション開発** - Albert Ziegler, John Berryman (佐藤 直生, 服部 佑樹 訳)
+  - textlintのMCP対応など、AI時代への適応に関連
+  - https://www.oreilly.co.jp/books/9784814400935/
+
+### 文章・コミュニケーション
+
+- **パラグラフ・ライティング**
+  - 論理的な文章構成の基本。jsprimerの文章設計に関連
+  - https://www.amazon.co.jp/dp/4826901453
+
+- **技術広報入門 ー テックブログから始めるエンジニアカルチャーのつくり方 ー**
+  - 技術情報の発信と文化醸成
+  - https://nextpublishing.jp/book/17622.html
+
+- **開発者とアーキテクトのためのコミュニケーションガイド ―パターンで学ぶ情報伝達術**
+  - https://www.oreilly.co.jp/books/9784814400478/
+
+### JavaScript
+
+- **JavaScript Primer　迷わないための入門書** - Suguru Inatomi, azu
+  - 発表者自身による JavaScript 入門書
+  - https://jsprimer.net/
+  - https://www.amazon.co.jp/dp/4048930737
+
+---
