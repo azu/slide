@@ -224,7 +224,7 @@ YAPC::Fukuoka 2025
 # JSer.info の目的
 
 <!-- JSer.infoのウェブサイトスクリーンショット：週刊で記事を紹介している様子 -->
-![right fit: JSer.info](jserinfo.png)
+![right fit: JSer.info](img/jserinfo.png)
 
 > 整理されたデータである「情報」を伝えること
 
@@ -950,7 +950,7 @@ console.log(result); // => 2
 
 <!-- Open Collectiveのダッシュボード：透明な収支管理、プロジェクト単位の資金管理 -->
 
-![right fit Open Collectiveのjsprimer](open-collective.png)
+![right fit Open Collectiveのjsprimer](img/open-collective.png)
 
 **具体例**：<https://opencollective.com/jsprimer>
 
