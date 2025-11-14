@@ -92,6 +92,14 @@ YAPC::Fukuoka 2025
 
 [Meta-Weekly](https://azu.github.io/Meta-Weekly/): 毎週更新ブログをまとめたサイト
 
+- 2011年から収集開始、30サイトを追跡
+- **2025年時点: 30サイト中12サイト（40%）が更新停止**
+- 特にフレームワーク特化型サイトの死亡率が高い
+
+^ 調査基準: 2023年11月14日以前に更新停止したサイトを「死亡」と判定
+^ 死亡例: AngularJS関連（angular-js.in、ng-newsletter）、Ember Hot Seat、Harp Weekly、jQueryエコシステム（jquer.in）
+^ 生存例: Cooperpressグループ（JavaScript Weekly、Node Weekly）、W3C公式、日本語コミュニティ（JSer.info、Frontend Weekly Tokyo）
+^ リブランド成功例: HTML5 Weekly→Frontend Focus、Mobile Web Weekly→Mobile Dev Weekly
 
 ---
 
@@ -971,7 +979,7 @@ console.log(result); // => 2
 2. Open Collective
 3. GitHub Sponsors
 
-[^wage]: 東京のエンジニアの平均賃金から算出
+[^wage]: 東京エンジニアの平均時給(2,866円 * 8時間 * 30日 = 687,840円)から算出 [詳細](https://efcl.info/2023/06/09/jsprimer-v2/)
 
 ---
 
