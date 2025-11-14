@@ -1492,7 +1492,7 @@ Publicの過去が、未来の価値を生む
 ### オープンソース開発・持続可能性
 
 - **[Working in Public: The Making and Maintenance of Open Source Software](https://press.stripe.com/working-in-public)** - Nadia Eghbal
-  - OSS開発の持続可能性と見えない労働について。現代のOSS開発の実態を深く掘り下げた必読書
+  - OSS開発の持続可能性と見えない労働について。現代のOSS開発の実態を深く掘り下げた書籍
   - [Amazon](https://www.amazon.co.jp/dp/0578675862)
 
 - **[Roads and Bridges: The Unseen Labor Behind Our Digital Infrastructure](https://www.fordfoundation.org/work/learning/research-reports/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/)** - Nadia Eghbal
@@ -1525,9 +1525,8 @@ Publicの過去が、未来の価値を生む
   - 2014-2018年: 熱帯病治療薬16億錠以上を無償配布(コスト約24億円)
   - 2025年(約10年後): 社会的インパクト7兆円相当と評価、PBRに反映
   - 「評価される場面に到達するには、まず生き残る必要がある」を示す事例
-
-- **[エーザイ サステナビリティレポート](https://www.eisai.co.jp/sustainability/)**
-  - NTD(顧みられない熱帯病)への取り組みの詳細
+- <https://www.camri.or.jp/files/libs/1886/202302271343235637.pdf>
+  - エーザイの熱帯病治療薬の社会的インパクトの柳モデルについての解説
 
 ----
 
