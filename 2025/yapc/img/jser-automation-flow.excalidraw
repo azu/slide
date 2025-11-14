@@ -35,7 +35,7 @@
     },
     {
       "type": "text",
-      "version": 77,
+      "version": 81,
       "id": "text1",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -54,7 +54,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1762148699070,
+      "updated": 1763111313805,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -66,7 +66,7 @@
       "originalText": "1. 紹介文を書く\n   × 13回",
       "lineHeight": 1.25,
       "baseline": 38,
-      "versionNonce": 480013601,
+      "versionNonce": 910404261,
       "index": "a1",
       "isDeleted": false,
       "autoResize": true

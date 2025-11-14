@@ -85,7 +85,13 @@ YAPC::Fukuoka 2025
 - 心理的負荷の増大
 
 **なぜ燃え尽きるのか？**
-→ 期待と現実のギャップがある
+
+---
+
+# 実例: Meta-Weekly
+
+[Meta-Weekly](https://azu.github.io/Meta-Weekly/): 毎週更新ブログをまとめたサイト
+
 
 ---
 
@@ -139,6 +145,7 @@ YAPC::Fukuoka 2025
 ## [fit] 技術的依存を増やし
 ## [fit] 心理的負荷を減らす
 
+^ これを JSer.info、textlint、jsprimer の3つのプロジェクトでの話を紹介する
 
 ---
 
@@ -303,7 +310,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 > 一例: **「技術的な嘘はつかない」**
 
 **使わない言葉**：
-- "is Dead"、最強、熱い
+- "is Dead"、最強、熱い、魂が震える
 
 **慎重に扱う情報**：
 - ベンチマーク数値（マイクロベンチマークは難しい）
@@ -384,6 +391,10 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 - この発見で心理的なプレッシャーが大きく軽減できて続いたと感じている
 - <https://github.com/jser/status-of-post>
 - <https://jser.info/status-of-post/>
+
+^ その13記事っていうのは、始めてから4、5年ぐらい経って初めて、なんか13記事、毎週13記事ぐらいだなって感じになって、ちょうど安定したんですけど
+^ この一回更新を止めた時にやっぱ復旧するのはめちゃくちゃ難しいんですね。ダイエットとかもそうだけど
+^ 一回なんかやめてしまうと、そこをずっとやめてしまうんで、その、なんか、やめた後にすぐ復旧できるっていうのが13記事っていう基準だとやりやすい
 
 ---
 
@@ -599,7 +610,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 
 ---
 
-# textlintのMCP統合
+# textlintのMCP対応
 
 **2025年1月：textlint v14.8.0でMCPサーバー対応**
 
@@ -607,8 +618,27 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 npx textlint --mcp
 ```
 
-- AIアシスタントから直接呼び出し可能
-- VS Code、Cursor、Claude Code統合
+- AI Agentがtextlintを使えるように
+- AIがtextlintでチェックして修正できるようになったが、AI固有のエラーも増えた
+
+---
+
+# [fit] AI固有のエラー
+
+## [fit] ✅ ❌ 🚀 🎯 🔥 💡 ⚡ 🌟
+
+^ AIは絵文字を多用する傾向がある
+
+---
+
+# [@textlint-ja/textlint-rule-preset-ai-writing](https://github.com/textlint-ja/textlint-rule-preset-ai-writing)
+
+AI特有の文章構造を検出するtextlintルールセット
+
+- **絵文字の多用** - ✅ ❌ 🚀 🎯🔥
+- **過剰表現** - 革命的、民主化、大幅な改善、非常に重要
+- **強調構文の多用** - 太字、斜体、下線
+- **コロンの直後にブロック要素が続く英語的なパターン:**
 
 ---
 
@@ -629,16 +659,6 @@ npx textlint --mcp
 
 ---
 
-# [@textlint-ja/textlint-rule-preset-ai-writing](https://github.com/textlint-ja/textlint-rule-preset-ai-writing)
-
-AI特有の文章構造を検出するtextlintルールセット
-
-- 絵文字の多用 - ✅ ❌ 🚀 🎯🔥
-- 過剰表現、強調の多用 - 革命的、民主化、大幅な改善
-- コロンの直後にブロック要素が続く英語的なパターン
-
----
-
 # AIも人間もエラーメッセージを読めるように
 
 - Linterはエラーが発生した時にエラーメッセージをドキュメントとして提供する
@@ -652,15 +672,21 @@ AI特有の文章構造を検出するtextlintルールセット
 - 自然言語は不定な部分が多い。実装に落とすのも工夫が必要
 - それ以上に、エラーとなった場合のメッセージが難しい
 - 例えば「xxxは冗長な表現です」というルールがあった場合に、なぜ冗長なのか？どう直せば良いのか？を説明するのが難しい
+- また、人間は柔軟すぎてメッセージの質を評価しづらい
+
+---
+
+# [fit] こんちには みさなん おんげき ですか？
+# [fit] わしたは げんき です
+
+^ 人間は自然言語をパターンで認識するので、間違っていても読めてしまう
 
 ---
 
 # 人間は柔軟すぎて、文章の質を評価しづらい
 
-- 人間は自然言語をパターンで認識するので数値化が難しい
-
-## [fit] こんちには みさなん おんげき ですか？　わしたは げんき です
-
+- 人間は自然言語をパターンで認識するのでなんか読めてしまう
+- 人間は文章の質を数値として評価することが難しい
 - そのため、人間がエラーメッセージの質を上げるには量が必要
 - 量が必要だと、過剰な負担になる
 
@@ -935,7 +961,7 @@ console.log(result); // => 2
 
 **年間コスト試算**：
 - 約30日分の労力
-- 約70万円相当
+- 約70万円相当[^wage]
 
 [.column]
 
@@ -944,6 +970,8 @@ console.log(result); // => 2
 1. 書籍売上
 2. Open Collective
 3. GitHub Sponsors
+
+[^wage]: 東京のエンジニアの平均賃金から算出
 
 ---
 
@@ -1328,18 +1356,23 @@ Publicの過去が、未来の価値を生む
 
 ## プロジェクト公式サイト
 
+----
+
 ### JSer.info
 - **[公式サイト](https://jser.info/)**
 - **[About](https://jser.info/about/)**
 - **[Policy](https://jser.info/policy/)**
-- **[Ping (Watch List)](https://jser.info/ping/)**
 - **[データセット](https://github.com/jser/dataset)**
+
+----
 
 ### textlint
 - **[公式サイト](https://textlint.github.io/)**
 - **[GitHub](https://github.com/textlint/textlint)**
 - **[npm](https://www.npmjs.com/package/textlint)**
 - **[ルール集](https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule)**
+
+---
 
 ### JavaScript Primer
 - **[公式サイト](https://jsprimer.net/)**
@@ -1350,16 +1383,22 @@ Publicの過去が、未来の価値を生む
 
 ## 関連ツール・プロジェクト
 
+---
+
 ### 情報収集ツール
 - **[Irodr (RSSリーダー)](https://github.com/azu/irodr)**
 - **[Postem (公開ツール)](https://github.com/azu/postem)**
 - **[ECMAScript Daily](https://ecmascript-daily.github.io/)**
+
+----
 
 ### 文章品質ツール
 - **[textlint-rule-preset-ai-writing](https://github.com/textlint-ja/textlint-rule-preset-ai-writing)**
 - **[secretlint](https://github.com/secretlint/secretlint)**
 - **[power-doctest](https://github.com/azu/power-doctest)**
 - **[textstat](https://github.com/textlint/textstat)**
+
+----
 
 ### 書籍・ドキュメント関連
 - **[HonKit](https://github.com/honkit/honkit)**
@@ -1368,24 +1407,32 @@ Publicの過去が、未来の価値を生む
 
 ---
 
-## 重要な記事・発表資料
+## 関連する記事・発表資料
+
+----
 
 ### JSer.info関連
 - **[JSer.info 10周年](https://jser.info/2021/01/16/jser-10th/)**
 - **[JSer.info 6年を振り返る](https://jser.info/2017/01/15/jser-info-6years/)**
 - **[JSer.info 5年 - JavaScript情報とは](https://azu.github.io/slide/2016/jser5years/javascript-information.html)**
 
+----
+
 ### textlint関連
 - **[textlint誕生の経緯](https://efcl.info/2014/12/30/textlint/)**
 - **[なぜtextlintを作ったのか](https://efcl.info/2022/06/29/why-create-textlint/)**
 - **[textlint v14.8.0 (MCP対応)](https://efcl.info/2025/06/12/textlint-v14.8.0/)**
 
+----
+
 ### JavaScript Primer関連
 - **[jsprimer v2リリース](https://efcl.info/2023/06/09/jsprimer-v2/)**
 - **[jsprimer v7リリース](https://efcl.info/2025/08/18/jsprimer-v7/)**
 - **[jsprimerを出版](https://efcl.info/2020/04/27/jsprimer/)**
-- **[TSKaigi 2025発表](https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/)**
+- **[TSKaigiでの発表](https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/)**
 - **[TSKaigiスライド](https://azu.github.io/slide/2025/tskaigi/jsprimer.html)**
+
+----
 
 ### その他の振り返り記事
 - **[GitHub Sponsors振り返り](https://efcl.info/2021/10/01/github-sponsors/)**
@@ -1413,6 +1460,8 @@ Publicの過去が、未来の価値を生む
 
 ## 関連書籍
 
+---
+
 ### 継続すること・公開すること (Austin Kleon 3部作)
 
 - **[Keep Going: 10 Ways to Stay Creative in Good Times and Bad](https://austinkleon.com/keepgoing/)** - Austin Kleon
@@ -1424,6 +1473,8 @@ Publicの過去が、未来の価値を生む
 - **[Show Your Work!: 10 Ways to Share Your Creativity and Get Discovered](https://austinkleon.com/show-your-work/)** - Austin Kleon
   - 作品を公開し、オーディエンスを見つける方法
 
+----
+
 ### オープンソース開発・持続可能性
 
 - **[Working in Public: The Making and Maintenance of Open Source Software](https://press.stripe.com/working-in-public)** - Nadia Eghbal
@@ -1434,10 +1485,14 @@ Publicの過去が、未来の価値を生む
   - デジタルインフラを支える見えない労働についての報告書
   - [PDF無料公開](https://www.fordfoundation.org/media/2976/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf)
 
+---
+
 ### 燃え尽き症候群・心理的プレッシャー
 
 - **[The End of Burnout: Why Work Drains Us and How to Build Better Lives](https://www.ucpress.edu/book/9780520393509/the-end-of-burnout)** - Jonathan Malesic
   - バーンアウトの構造的要因と対処法。心理的プレッシャーを排除する設計に関連
+
+----
 
 ### アウトカム志向・長期的視点
 
@@ -1446,6 +1501,8 @@ Publicの過去が、未来の価値を生む
 
 - **[インパクト投資入門 (日経文庫)](https://www.nikkeibook.com/book/95650)** - 須藤奈応
   - アウトプットではなくアウトカムを重視する考え方。10-20年の長期視点の重要性
+
+----
 
 #### エーザイの熱帯病治療薬事例（アウトカムの時間軸を示す実例）
 
@@ -1458,35 +1515,7 @@ Publicの過去が、未来の価値を生む
 - **[エーザイ サステナビリティレポート](https://www.eisai.co.jp/sustainability/)**
   - NTD(顧みられない熱帯病)への取り組みの詳細
 
-#### 学術論文・研究報告（インパクトの時間軸）
-
-- **[Paul Nightingale and Alister Scott (2013), Nature誌](https://www.nature.com/articles/495025a)**
-  - 「Measuring the societal impact of research」
-  - 「研究と影響の間のラグが数十年である可能性がある」
-  - アポトーシス研究:発見から30年後も健康への測定可能な影響なしの例
-
-- **Kriss Deiglmeier and Amanda Greco, [Stanford Social Innovation Review](https://ssir.org/)**
-  - 「Why Proven Solutions Struggle to Scale Up」
-  - 「現実には、社会的イノベーションは洗練、牽引力の構築、成長に数十年かかる」
-  - 「資金提供者が長期的な(5-20年)コミットメントを行うことは稀である」
-
-- **So & Staskevicius (2015), [ハーバード・ビジネススクール](https://www.hbs.edu/)**
-  - 「Measuring the 'impact' in impact investing」
-  - アウトプット→アウトカム→インパクトの階層とインパクトリスクの概念
-
-- **[Acumen (2021)](https://acumen.org/)**
-  - 「Investing as a Means: 20 years of Patient Capital」
-  - 2001-2020年の20年間の実践データ
-  - 平均7-10年でスケールに到達、Patient Capitalの必要性を実証
-
-- **Jacqueline Novogratz (2016), [Medium](https://medium.com/@jnovogratz/)**
-  - 「Making the Case for Patient Capital」
-  - Acumen創設者による15年以上の投資経験から「平均して規模に到達するまでに7-10年かかる」
-
-### AI時代の技術
-
-- **[LLMのプロンプトエンジニアリング ―GitHub Copilotを生んだ開発者が教える生成AIアプリケーション開発](https://www.oreilly.co.jp/books/9784814400935/)** - Albert Ziegler, John Berryman (佐藤 直生, 服部 佑樹 訳)
-  - textlintのMCP対応など、AI時代への適応に関連
+----
 
 ### 文章・コミュニケーション
 
@@ -1497,6 +1526,8 @@ Publicの過去が、未来の価値を生む
   - 技術情報の発信と文化醸成
 
 - **[開発者とアーキテクトのためのコミュニケーションガイド ―パターンで学ぶ情報伝達術](https://www.oreilly.co.jp/books/9784814400478/)**
+
+----
 
 ### JavaScript
 
