@@ -1303,7 +1303,7 @@ Publicの過去が、未来の価値を生む
 # 読むための工夫
 
 - ベンチマークは動かす
-- DeepWikiを使いアーキテクチャを理解する
+- [DeepWiki](https://deepwiki.org/)、[Code Wiki](https://codewiki.google/)を使いアーキテクチャを理解する
 - Issueを作って対応を見る
 
 ---
