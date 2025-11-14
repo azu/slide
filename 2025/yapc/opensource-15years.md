@@ -17,7 +17,7 @@ YAPC::Fukuoka 2025
 ---
 
 # 自己紹介
-<!-- 14:00 -->
+
 
 ![left fit](https://github.com/azu.png)
 
@@ -47,7 +47,7 @@ YAPC::Fukuoka 2025
 ---
 
 # **問い**: なぜ15年も続けているか？
-<!-- 14:03 -->
+
 
 ---
 
@@ -220,7 +220,7 @@ YAPC::Fukuoka 2025
 # [fit] Part 1
 # [fit] **読む技術**
 ## JSer.info
-<!-- 14:08 -->
+
 
 ---
 
@@ -466,7 +466,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 # [fit] Part 2
 # [fit] **書く技術**
 ## textlint
-<!-- 14:17 -->
+
 
 ---
 
@@ -722,7 +722,7 @@ AI特有の文章構造を検出するtextlintルールセット
 # [fit] Part 3
 # [fit] **伝える技術**
 ## JavaScript Primer
-<!-- 14:26 -->
+
 
 ---
 
@@ -1047,7 +1047,7 @@ console.log(result); // => 2
 # [fit] Part 4
 # [fit] **循環の技術**
 ## 段階的発展と相互強化
-<!-- 14:35 -->
+
 
 ---
 
@@ -1200,7 +1200,7 @@ console.log(result); // => 2
 [.hide-footer]
 
 # [fit] まとめ
-<!-- 14:38 -->
+
 
 ---
 
@@ -1273,7 +1273,7 @@ Publicの過去が、未来の価値を生む
 ---
 
 # ありがとうございました
-<!-- 14:40 -->
+
 
 
 - JSer.info: <https://jser.info/>
