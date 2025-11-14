@@ -414,6 +414,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 1. 継続する（最初に戻る）
 ```
 
+^ [「データ無い！ 腹立つ！ 推論する！」から 「データ無い！ 腹立つ！ データを作る」へ チームでデータを作り、育てられるようにするまで / How can we create, use, and maintain data ourselves? - Speaker Deck](https://speakerdeck.com/moznion/how-can-we-create-use-and-maintain-data-ourselves)でデータがないと自動化できない。データがないとわからないという話がありましたが、それと同じ話で、データが蓄積すると自動化ができるようになります。
 
 <!-- # 複利効果の具体例
 
@@ -1328,85 +1329,85 @@ Publicの過去が、未来の価値を生む
 ## プロジェクト公式サイト
 
 ### JSer.info
-- **公式サイト**: https://jser.info/
-- **About**: https://jser.info/about/
-- **Policy**: https://jser.info/policy/
-- **Ping (Watch List)**: https://jser.info/ping/
-- **データセット**: https://github.com/jser/dataset
+- **[公式サイト](https://jser.info/)**
+- **[About](https://jser.info/about/)**
+- **[Policy](https://jser.info/policy/)**
+- **[Ping (Watch List)](https://jser.info/ping/)**
+- **[データセット](https://github.com/jser/dataset)**
 
 ### textlint
-- **公式サイト**: https://textlint.github.io/
-- **GitHub**: https://github.com/textlint/textlint
-- **npm**: https://www.npmjs.com/package/textlint
-- **ルール集**: https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule
+- **[公式サイト](https://textlint.github.io/)**
+- **[GitHub](https://github.com/textlint/textlint)**
+- **[npm](https://www.npmjs.com/package/textlint)**
+- **[ルール集](https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule)**
 
 ### JavaScript Primer
-- **公式サイト**: https://jsprimer.net/
-- **GitHub**: https://github.com/asciidwango/js-primer
-- **Open Collective**: https://opencollective.com/jsprimer
+- **[公式サイト](https://jsprimer.net/)**
+- **[GitHub](https://github.com/asciidwango/js-primer)**
+- **[Open Collective](https://opencollective.com/jsprimer)**
 
 ---
 
 ## 関連ツール・プロジェクト
 
 ### 情報収集ツール
-- **Irodr (RSSリーダー)**: https://github.com/azu/irodr
-- **Postem (公開ツール)**: https://github.com/azu/postem
-- **ECMAScript Daily**: https://ecmascript-daily.github.io/
+- **[Irodr (RSSリーダー)](https://github.com/azu/irodr)**
+- **[Postem (公開ツール)](https://github.com/azu/postem)**
+- **[ECMAScript Daily](https://ecmascript-daily.github.io/)**
 
 ### 文章品質ツール
-- **textlint-rule-preset-ai-writing**: https://github.com/textlint-ja/textlint-rule-preset-ai-writing
-- **secretlint**: https://github.com/secretlint/secretlint
-- **power-doctest**: https://github.com/azu/power-doctest
-- **textstat**: https://github.com/textlint/textstat
+- **[textlint-rule-preset-ai-writing](https://github.com/textlint-ja/textlint-rule-preset-ai-writing)**
+- **[secretlint](https://github.com/secretlint/secretlint)**
+- **[power-doctest](https://github.com/azu/power-doctest)**
+- **[textstat](https://github.com/textlint/textstat)**
 
 ### 書籍・ドキュメント関連
-- **HonKit**: https://github.com/honkit/honkit
-- **JavaScript Promise本**: https://azu.github.io/promises-book/
-- **Sandpack**: https://sandpack.codesandbox.io/
+- **[HonKit](https://github.com/honkit/honkit)**
+- **[JavaScript Promise本](https://azu.github.io/promises-book/)**
+- **[Sandpack](https://sandpack.codesandbox.io/)**
 
 ---
 
 ## 重要な記事・発表資料
 
 ### JSer.info関連
-- **JSer.info 10周年**: https://jser.info/2021/01/16/jser-10th/
-- **JSer.info 6年を振り返る**: https://jser.info/2017/01/15/jser-info-6years/
-- **JSer.info 5年 - JavaScript情報とは**: https://azu.github.io/slide/2016/jser5years/javascript-information.html
+- **[JSer.info 10周年](https://jser.info/2021/01/16/jser-10th/)**
+- **[JSer.info 6年を振り返る](https://jser.info/2017/01/15/jser-info-6years/)**
+- **[JSer.info 5年 - JavaScript情報とは](https://azu.github.io/slide/2016/jser5years/javascript-information.html)**
 
 ### textlint関連
-- **textlint誕生の経緯**: https://efcl.info/2014/12/30/textlint/
-- **なぜtextlintを作ったのか**: https://efcl.info/2022/06/29/why-create-textlint/
-- **textlint v14.8.0 (MCP対応)**: https://efcl.info/2025/06/12/textlint-v14.8.0/
+- **[textlint誕生の経緯](https://efcl.info/2014/12/30/textlint/)**
+- **[なぜtextlintを作ったのか](https://efcl.info/2022/06/29/why-create-textlint/)**
+- **[textlint v14.8.0 (MCP対応)](https://efcl.info/2025/06/12/textlint-v14.8.0/)**
 
 ### JavaScript Primer関連
-- **jsprimer v2リリース**: https://efcl.info/2023/06/09/jsprimer-v2/
-- **jsprimer v7リリース**: https://efcl.info/2025/08/18/jsprimer-v7/
-- **jsprimerを出版**: https://efcl.info/2020/04/27/jsprimer/
-- **TSKaigi 2025発表**: https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/
-- **TSKaigiスライド**: https://azu.github.io/slide/2025/tskaigi/jsprimer.html
+- **[jsprimer v2リリース](https://efcl.info/2023/06/09/jsprimer-v2/)**
+- **[jsprimer v7リリース](https://efcl.info/2025/08/18/jsprimer-v7/)**
+- **[jsprimerを出版](https://efcl.info/2020/04/27/jsprimer/)**
+- **[TSKaigi 2025発表](https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/)**
+- **[TSKaigiスライド](https://azu.github.io/slide/2025/tskaigi/jsprimer.html)**
 
 ### その他の振り返り記事
-- **GitHub Sponsors振り返り**: https://efcl.info/2021/10/01/github-sponsors/
-- **2020年のOSS活動**: https://efcl.info/2020/12/31/open-source-in-2020/
+- **[GitHub Sponsors振り返り](https://efcl.info/2021/10/01/github-sponsors/)**
+- **[2020年のOSS活動](https://efcl.info/2020/12/31/open-source-in-2020/)**
 
 ---
 
 ## 技術仕様・プロトコル
 
-- **Model Context Protocol (MCP)**: https://modelcontextprotocol.io/
-- **CommonMark**: https://commonmark.org/
-- **TC39 (ECMAScript標準化)**: https://tc39.es/
+- **[Model Context Protocol (MCP)](https://modelcontextprotocol.io/)**
+- **[CommonMark](https://commonmark.org/)**
+- **[TC39 (ECMAScript標準化)](https://tc39.es/)**
 
 ---
 
 ## 個人リンク
 
-- **GitHub**: https://github.com/azu
-- **ブログ (Web Scratch)**: https://efcl.info/
-- **過去の発表資料**: https://azu.github.io/slide/
-- **npm プロフィール**: https://www.npmjs.com/~azu
-- **GitHub Sponsors**: https://github.com/sponsors/azu
+- **[GitHub](https://github.com/azu)**
+- **[ブログ (Web Scratch)](https://efcl.info/)**
+- **[過去の発表資料](https://azu.github.io/slide/)**
+- **[npm プロフィール](https://www.npmjs.com/~azu)**
+- **[GitHub Sponsors](https://github.com/sponsors/azu)**
 
 ---
 
@@ -1414,113 +1415,93 @@ Publicの過去が、未来の価値を生む
 
 ### 継続すること・公開すること (Austin Kleon 3部作)
 
-- **Keep Going: 10 Ways to Stay Creative in Good Times and Bad** - Austin Kleon
+- **[Keep Going: 10 Ways to Stay Creative in Good Times and Bad](https://austinkleon.com/keepgoing/)** - Austin Kleon
   - 創作活動を継続するための10の方法
-  - https://austinkleon.com/keepgoing/
   
-- **Steal Like an Artist: 10 Things Nobody Told You About Being Creative** - Austin Kleon
+- **[Steal Like an Artist: 10 Things Nobody Told You About Being Creative](https://austinkleon.com/steal/)** - Austin Kleon
   - クリエイティブな活動の始め方
-  - https://austinkleon.com/steal/
   
-- **Show Your Work!: 10 Ways to Share Your Creativity and Get Discovered** - Austin Kleon
+- **[Show Your Work!: 10 Ways to Share Your Creativity and Get Discovered](https://austinkleon.com/show-your-work/)** - Austin Kleon
   - 作品を公開し、オーディエンスを見つける方法
-  - https://austinkleon.com/show-your-work/
 
 ### オープンソース開発・持続可能性
 
-- **Working in Public: The Making and Maintenance of Open Source Software** - Nadia Eghbal
+- **[Working in Public: The Making and Maintenance of Open Source Software](https://press.stripe.com/working-in-public)** - Nadia Eghbal
   - OSS開発の持続可能性と見えない労働について。現代のOSS開発の実態を深く掘り下げた必読書
-  - https://press.stripe.com/working-in-public
-  - https://www.amazon.co.jp/dp/0578675862
+  - [Amazon](https://www.amazon.co.jp/dp/0578675862)
 
-- **Roads and Bridges: The Unseen Labor Behind Our Digital Infrastructure** - Nadia Eghbal
+- **[Roads and Bridges: The Unseen Labor Behind Our Digital Infrastructure](https://www.fordfoundation.org/work/learning/research-reports/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/)** - Nadia Eghbal
   - デジタルインフラを支える見えない労働についての報告書
-  - https://www.fordfoundation.org/work/learning/research-reports/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/
-  - PDF無料公開: https://www.fordfoundation.org/media/2976/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf
+  - [PDF無料公開](https://www.fordfoundation.org/media/2976/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf)
 
 ### 燃え尽き症候群・心理的プレッシャー
 
-- **The End of Burnout: Why Work Drains Us and How to Build Better Lives** - Jonathan Malesic
+- **[The End of Burnout: Why Work Drains Us and How to Build Better Lives](https://www.ucpress.edu/book/9780520393509/the-end-of-burnout)** - Jonathan Malesic
   - バーンアウトの構造的要因と対処法。心理的プレッシャーを排除する設計に関連
-  - https://www.ucpress.edu/book/9780520393509/the-end-of-burnout
 
 ### アウトカム志向・長期的視点
 
-- **寄付研究や慈善活動について研究するために色々な書籍や論文を読んだメモ書き** - azu
+- **[寄付研究や慈善活動について研究するために色々な書籍や論文を読んだメモ書き](https://efcl.info/2021/02/19/donation-philanthropy-study/)** - azu
   - アウトプットとアウトカムの違い、長期的視点の重要性についての研究ノート
-  - https://efcl.info/2021/02/19/donation-philanthropy-study/
 
-- **インパクト投資入門 (日経文庫)** - 須藤奈応
+- **[インパクト投資入門 (日経文庫)](https://www.nikkeibook.com/book/95650)** - 須藤奈応
   - アウトプットではなくアウトカムを重視する考え方。10-20年の長期視点の重要性
-  - https://www.nikkeibook.com/book/95650
 
 #### エーザイの熱帯病治療薬事例（アウトカムの時間軸を示す実例）
 
-- **IMPACT STARTUP SUMMIT 2025**
+- **[IMPACT STARTUP SUMMIT 2025](https://impact-startup.or.jp/summit/2025)**
   - エーザイのインパクト会計の事例が紹介された
-  - 2014-2018年: 熱帯病治療薬16億錠以上を無償配布（コスト約24億円）
-  - 2025年（約10年後）: 社会的インパクト7兆円相当と評価、PBRに反映
+  - 2014-2018年: 熱帯病治療薬16億錠以上を無償配布(コスト約24億円)
+  - 2025年(約10年後): 社会的インパクト7兆円相当と評価、PBRに反映
   - 「評価される場面に到達するには、まず生き残る必要がある」を示す事例
-  - https://impact-startup.or.jp/summit/2025
 
-- **エーザイ サステナビリティレポート**
-  - NTD（顧みられない熱帯病）への取り組みの詳細
-  - https://www.eisai.co.jp/sustainability/
+- **[エーザイ サステナビリティレポート](https://www.eisai.co.jp/sustainability/)**
+  - NTD(顧みられない熱帯病)への取り組みの詳細
 
 #### 学術論文・研究報告（インパクトの時間軸）
 
-- **Paul Nightingale and Alister Scott (2013), Nature誌**
+- **[Paul Nightingale and Alister Scott (2013), Nature誌](https://www.nature.com/articles/495025a)**
   - 「Measuring the societal impact of research」
   - 「研究と影響の間のラグが数十年である可能性がある」
-  - アポトーシス研究：発見から30年後も健康への測定可能な影響なしの例
-  - https://www.nature.com/articles/495025a
+  - アポトーシス研究:発見から30年後も健康への測定可能な影響なしの例
 
-- **Kriss Deiglmeier and Amanda Greco, Stanford Social Innovation Review**
+- **Kriss Deiglmeier and Amanda Greco, [Stanford Social Innovation Review](https://ssir.org/)**
   - 「Why Proven Solutions Struggle to Scale Up」
   - 「現実には、社会的イノベーションは洗練、牽引力の構築、成長に数十年かかる」
-  - 「資金提供者が長期的な（5-20年）コミットメントを行うことは稀である」
-  - https://ssir.org/
+  - 「資金提供者が長期的な(5-20年)コミットメントを行うことは稀である」
 
-- **So & Staskevicius (2015), ハーバード・ビジネススクール**
+- **So & Staskevicius (2015), [ハーバード・ビジネススクール](https://www.hbs.edu/)**
   - 「Measuring the 'impact' in impact investing」
   - アウトプット→アウトカム→インパクトの階層とインパクトリスクの概念
-  - https://www.hbs.edu/
 
-- **Acumen (2021)**
+- **[Acumen (2021)](https://acumen.org/)**
   - 「Investing as a Means: 20 years of Patient Capital」
   - 2001-2020年の20年間の実践データ
   - 平均7-10年でスケールに到達、Patient Capitalの必要性を実証
-  - https://acumen.org/
 
-- **Jacqueline Novogratz (2016), Medium**
+- **Jacqueline Novogratz (2016), [Medium](https://medium.com/@jnovogratz/)**
   - 「Making the Case for Patient Capital」
   - Acumen創設者による15年以上の投資経験から「平均して規模に到達するまでに7-10年かかる」
-  - https://medium.com/@jnovogratz/
 
 ### AI時代の技術
 
-- **LLMのプロンプトエンジニアリング ―GitHub Copilotを生んだ開発者が教える生成AIアプリケーション開発** - Albert Ziegler, John Berryman (佐藤 直生, 服部 佑樹 訳)
+- **[LLMのプロンプトエンジニアリング ―GitHub Copilotを生んだ開発者が教える生成AIアプリケーション開発](https://www.oreilly.co.jp/books/9784814400935/)** - Albert Ziegler, John Berryman (佐藤 直生, 服部 佑樹 訳)
   - textlintのMCP対応など、AI時代への適応に関連
-  - https://www.oreilly.co.jp/books/9784814400935/
 
 ### 文章・コミュニケーション
 
-- **パラグラフ・ライティング**
+- **[パラグラフ・ライティング](https://www.amazon.co.jp/dp/4826901453)**
   - 論理的な文章構成の基本。jsprimerの文章設計に関連
-  - https://www.amazon.co.jp/dp/4826901453
 
-- **技術広報入門 ー テックブログから始めるエンジニアカルチャーのつくり方 ー**
+- **[技術広報入門 ー テックブログから始めるエンジニアカルチャーのつくり方 ー](https://nextpublishing.jp/book/17622.html)**
   - 技術情報の発信と文化醸成
-  - https://nextpublishing.jp/book/17622.html
 
-- **開発者とアーキテクトのためのコミュニケーションガイド ―パターンで学ぶ情報伝達術**
-  - https://www.oreilly.co.jp/books/9784814400478/
+- **[開発者とアーキテクトのためのコミュニケーションガイド ―パターンで学ぶ情報伝達術](https://www.oreilly.co.jp/books/9784814400478/)**
 
 ### JavaScript
 
-- **JavaScript Primer　迷わないための入門書** - Suguru Inatomi, azu
+- **[JavaScript Primer　迷わないための入門書](https://jsprimer.net/)** - Suguru Inatomi, azu
   - 発表者自身による JavaScript 入門書
-  - https://jsprimer.net/
-  - https://www.amazon.co.jp/dp/4048930737
+  - [Amazon](https://www.amazon.co.jp/dp/4048930737)
 
 ---
