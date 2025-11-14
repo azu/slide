@@ -17,6 +17,7 @@ YAPC::Fukuoka 2025
 ---
 
 # 自己紹介
+<!-- 14:00 -->
 
 ![left fit](https://github.com/azu.png)
 
@@ -46,6 +47,7 @@ YAPC::Fukuoka 2025
 ---
 
 # **問い**: なぜ15年も続けているか？
+<!-- 14:03 -->
 
 ---
 
@@ -85,21 +87,6 @@ YAPC::Fukuoka 2025
 - 心理的負荷の増大
 
 **なぜ燃え尽きるのか？**
-
----
-
-# 実例: Meta-Weekly
-
-[Meta-Weekly](https://azu.github.io/Meta-Weekly/): 毎週更新ブログをまとめたサイト
-
-- 2011年から収集開始、30サイトを追跡
-- **2025年時点: 30サイト中12サイト（40%）が更新停止**
-- 特にフレームワーク特化型サイトの更新停止率が高い
-
-^ 調査基準: 2023年11月14日以前に更新停止したサイトを「死亡」と判定
-^ 停止例: AngularJS関連（angular-js.in、ng-newsletter）、Ember Hot Seat、Harp Weekly、jQueryエコシステム（jquer.in）
-^ 生存例: Cooperpressグループ（JavaScript Weekly、Node Weekly）、W3C公式、日本語コミュニティ（JSer.info、Frontend Weekly Tokyo）
-^ リブランド成功例: HTML5 Weekly→Frontend Focus、Mobile Web Weekly→Mobile Dev Weekly
 
 ---
 
@@ -233,6 +220,7 @@ YAPC::Fukuoka 2025
 # [fit] Part 1
 # [fit] **読む技術**
 ## JSer.info
+<!-- 14:08 -->
 
 ---
 
@@ -478,6 +466,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 # [fit] Part 2
 # [fit] **書く技術**
 ## textlint
+<!-- 14:17 -->
 
 ---
 
@@ -733,6 +722,7 @@ AI特有の文章構造を検出するtextlintルールセット
 # [fit] Part 3
 # [fit] **伝える技術**
 ## JavaScript Primer
+<!-- 14:26 -->
 
 ---
 
@@ -1057,6 +1047,7 @@ console.log(result); // => 2
 # [fit] Part 4
 # [fit] **循環の技術**
 ## 段階的発展と相互強化
+<!-- 14:35 -->
 
 ---
 
@@ -1209,6 +1200,7 @@ console.log(result); // => 2
 [.hide-footer]
 
 # [fit] まとめ
+<!-- 14:38 -->
 
 ---
 
@@ -1281,6 +1273,7 @@ Publicの過去が、未来の価値を生む
 ---
 
 # ありがとうございました
+<!-- 14:40 -->
 
 
 - JSer.info: <https://jser.info/>
