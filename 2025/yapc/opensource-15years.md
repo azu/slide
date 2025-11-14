@@ -94,10 +94,10 @@ YAPC::Fukuoka 2025
 
 - 2011年から収集開始、30サイトを追跡
 - **2025年時点: 30サイト中12サイト（40%）が更新停止**
-- 特にフレームワーク特化型サイトの死亡率が高い
+- 特にフレームワーク特化型サイトの更新停止率が高い
 
 ^ 調査基準: 2023年11月14日以前に更新停止したサイトを「死亡」と判定
-^ 死亡例: AngularJS関連（angular-js.in、ng-newsletter）、Ember Hot Seat、Harp Weekly、jQueryエコシステム（jquer.in）
+^ 停止例: AngularJS関連（angular-js.in、ng-newsletter）、Ember Hot Seat、Harp Weekly、jQueryエコシステム（jquer.in）
 ^ 生存例: Cooperpressグループ（JavaScript Weekly、Node Weekly）、W3C公式、日本語コミュニティ（JSer.info、Frontend Weekly Tokyo）
 ^ リブランド成功例: HTML5 Weekly→Frontend Focus、Mobile Web Weekly→Mobile Dev Weekly
 
