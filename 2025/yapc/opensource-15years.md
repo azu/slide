@@ -1359,6 +1359,8 @@ Publicの過去が、未来の価値を生む
 ----
 
 ### JSer.info
+![right fit](img/jserinfo-logo.png)
+
 - **[公式サイト](https://jser.info/)**
 - **[About](https://jser.info/about/)**
 - **[Policy](https://jser.info/policy/)**
@@ -1367,6 +1369,8 @@ Publicの過去が、未来の価値を生む
 ----
 
 ### textlint
+![right fit](img/textlint-logo.png)
+
 - **[公式サイト](https://textlint.github.io/)**
 - **[GitHub](https://github.com/textlint/textlint)**
 - **[npm](https://www.npmjs.com/package/textlint)**
@@ -1375,6 +1379,8 @@ Publicの過去が、未来の価値を生む
 ---
 
 ### JavaScript Primer
+![right fit](img/jsprimer-logo.jpg)
+
 - **[公式サイト](https://jsprimer.net/)**
 - **[GitHub](https://github.com/asciidwango/js-primer)**
 - **[Open Collective](https://opencollective.com/jsprimer)**
