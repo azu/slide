@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>[fit] 読む技術・書く技術・伝える技術</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2025/yapc/opensource-15years.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="[fit] 読む技術・書く技術・伝える技術"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2025/yapc/opensource-15years.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2025-11-15" id="datePublished">
+            2025-11-15
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2025-11-15" id="dateModified">
+            2025-11-15
+        </time></span>
+        <a href="https://azu.github.io/slide/2025/yapc/opensource-15years.pdf" title="[fit] 読む技術・書く技術・伝える技術">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>footer: YAPC::Fukuoka 2025 - azu
+slidenumbers: true
+autoscale: true
+theme: Plain Jane, 1</p>
+<h1 id="fit-読む技術・書く技術・伝える技術">[fit] <strong>読む技術・書く技術・伝える技術</strong></h1>
+<h2 id="15年続けて分かった持続可能なオープンソース開発">15年続けて分かった持続可能なオープンソース開発</h2>
+<br>
+<br>
+<br>
+
+<p><strong>azu</strong> (@azu_re)
+YAPC::Fukuoka 2025</p>
+<hr>
+<h1 id="自己紹介">自己紹介</h1>
+<p><img alt="left fit" src="https://github.com/azu.png"></p>
+<p><strong>azu</strong></p>
+<ul>
+<li>GitHub: <a href="https://github.com/azu">@azu</a></li>
+<li>X/Twitter: <a href="https://x.com/azu_re">@azu_re</a></li>
+<li>2010年から15年間オープンソース開発</li>
+</ul>
+<hr>
+<h1 id="今日話したいこと">今日話したいこと</h1>
+<p>15年間オープンソース活動のうち</p>
+<ul>
+<li>2011年-: <a href="https://jser.info/">JSer.info</a>: JavaScriptの毎週更新の情報ブログ</li>
+<li>2014年-: <a href="https://textlint.org">textlint</a>: 自然言語のLinter</li>
+<li>2016年-: <a href="https://jsprimer.net/">JavaScript Primer</a>: JavaScript入門書</li>
+</ul>
+<hr>
+<h1 id="3つのプロジェクトのタイムライン">3つのプロジェクトのタイムライン</h1>
+
+<p><img alt="inline" src="img/timeline-2011-2025.png"></p>
+<hr>
+<h1 id="問い-なぜ15年も続けているか？"><strong>問い</strong>: なぜ15年も続けているか？</h1>
+<hr>
+<h1 id="これらのプロジェクトの特徴">これらのプロジェクトの特徴</h1>
+<p><strong>作ったもの（アウトプット）ではなく実際の影響（アウトカム）を目指している</strong></p>
+<p>[.column]</p>
+<h2 id="アウトプット"><strong>アウトプット</strong></h2>
+<p>作ったもの
+（記事、ツール、書籍）</p>
+<p>[.column]</p>
+<h2 id="アウトカム"><strong>アウトカム</strong></h2>
+<p>実際の影響・成果
+（信頼、エコシステム、教育）</p>
+<p><strong>アウトカムは評価されるまで時間がかかる</strong>
+→ だから持続可能性が必要</p>
+<hr>
+<h1 id="持続可能性のループ">持続可能性のループ</h1>
+
+<p><img alt="inline fit" src="img/sustainability-loop.png"></p>
+<hr>
+<h1 id="多くのオープンソースプロジェクトの現実">多くのオープンソースプロジェクトの現実</h1>
+
+<p><img alt="right fit" src="img/burnout-graph.png"></p>
+<ul>
+<li>数年で更新が止まる</li>
+<li>メンテナーの燃え尽き</li>
+<li>心理的負荷の増大</li>
+</ul>
+<p><strong>なぜ燃え尽きるのか？</strong></p>
+<hr>
+<h1 id="burnout-期待と現実のギャップ">Burnout: 期待と現実のギャップ</h1>
+<blockquote>
+<p>Burnout is the experience of being pulled between expectation and reality at work.</p>
+<p>— Jonathan Malesic, <a href="https://www.ucpress.edu/books/the-end-of-burnout/paper">The End of Burnout</a></p>
+</blockquote>
+<hr>
+<h1 id="期待と現実のギャップ">期待と現実のギャップ</h1>
+<p>[.column]</p>
+<h2 id="期待">期待</h2>
+<ul>
+<li>「自分がやらなければ」</li>
+<li>「全てに対応すべき」</li>
+<li>「常に最新に保つべき」</li>
+</ul>
+<p>[.column]</p>
+<h2 id="現実">現実</h2>
+<ul>
+<li>時間がない</li>
+<li>対応できない</li>
+<li>追いつけない</li>
+</ul>
+<p><strong>→ このギャップがBurnoutを引き起こす</strong></p>
+<hr>
+<h1 id="burnoutは真偽値ではない">Burnoutは真偽値ではない</h1>
+<p><strong>Burnoutは真偽値ではなく、複数の状態の組み合わせで現れる</strong></p>
+
+
+<p><img alt="inline" src="img/burnout-spectrum.png"></p>
+<p>^ バーンアウトには3つの次元がある: 疲弊（Exhaustion）、シニシズム（Cynicism/他者を問題として捉える）、無力感（Ineffectiveness/達成感の低下）
+^ 5つのプロファイル: 健全、過負荷（疲弊のみ高）、シニカル（シニシズムのみ高）、徒労感（無力感のみ高）、完全燃焼（全て高）
+^ 労働者の約50%がこのスペクトラムのどこかに位置している
+^ 心理的負荷が増えると、これらの次元のスコアが上がり、バーンアウトへと進行する</p>
+<hr>
+<h1 id="どうやって15年間、燃え尽きずに継続できたのか？">どうやって15年間、燃え尽きずに継続できたのか？</h1>
+<hr>
+<h1 id="fit-テーマ">[fit] <strong>テーマ</strong></h1>
+<h2 id="fit-技術的依存を増やし">[fit] 技術的依存を増やし</h2>
+<h2 id="fit-心理的負荷を減らす">[fit] 心理的負荷を減らす</h2>
+<p>^ これを JSer.info、textlint、jsprimer の3つのプロジェクトでの話を紹介する</p>
+<hr>
+<h1 id="技術的依存とは">技術的依存とは</h1>
+<p><strong>定義</strong>：</p>
+<ul>
+<li>自動化できる部分は自動化する</li>
+<li>ツールや(エコ)システムを育てる</li>
+<li>再現可能なプロセスを構築する</li>
+</ul>
+<p><strong>特徴</strong>：</p>
+<ul>
+<li>スケールする</li>
+<li>疲れにくい</li>
+<li>他者も利用できる</li>
+</ul>
+<hr>
+<h1 id="心理的負荷とは">心理的負荷とは</h1>
+<p><strong>定義</strong>：</p>
+<ul>
+<li>「自分がやらなければ」というプレッシャー</li>
+<li>完璧主義</li>
+<li>義務感</li>
+</ul>
+<p><strong>特徴</strong>：</p>
+<ul>
+<li>スケールしない</li>
+<li>疲れやすい</li>
+<li>燃え尽き(Burnout)につながる</li>
+<li>ゼロにはできない</li>
+</ul>
+<hr>
+<h1 id="心理的負荷と技術的依存">心理的負荷と技術的依存</h1>
+
+<p><img alt="inline" src="img/psychological-to-technical-balance-v2.png"></p>
+<hr>
+<h1 id="fit-心理的負荷を技術的依存に転換する">[fit] 心理的負荷を技術的依存に転換する</h1>
+<p><strong>前提：心理的負荷をゼロにはできない</strong>
+→ でも、技術的依存に変換できる部分は存在する</p>
+<p>[.column]</p>
+<p><strong>心理的負荷の特徴</strong></p>
+<ul>
+<li>コントロールが難しい</li>
+<li>スケールしない</li>
+<li>バーンアウトリスク</li>
+</ul>
+<p>[.column]</p>
+<p><strong>技術的依存の特徴</strong></p>
+<ul>
+<li>コントロールしやすい</li>
+<li>スケールしやすい</li>
+<li>設計次第で明確化できる</li>
+</ul>
+<hr>
+<h1 id="今日のテーマ-心理的負荷と技術的依存">今日のテーマ: 心理的負荷と技術的依存</h1>
+<ol>
+<li><p><strong>JSer.info</strong> - 読む技術
+→ データドリブン、退屈な部分の自動化</p>
+</li>
+<li><p><strong>textlint</strong> - 書く技術
+→ No core rules、エコシステム</p>
+</li>
+<li><p><strong>jsprimer</strong> - 伝える技術
+→ Living Standard、既知→未知</p>
+</li>
+</ol>
+<hr>
+<p>[.hide-footer]</p>
+<h1 id="fit-part-1">[fit] Part 1</h1>
+<h1 id="fit-読む技術">[fit] <strong>読む技術</strong></h1>
+<h2 id="jserinfo">JSer.info</h2>
+<hr>
+<h1 id="jserinfo-の目的">JSer.info の目的</h1>
+
+<p><img alt="right fit: JSer.info" src="img/jserinfo.png"></p>
+<blockquote>
+<p>整理されたデータである「情報」を伝えること</p>
+</blockquote>
+<p><strong>2011年1月16日創刊</strong></p>
+<ul>
+<li>750記事、14年継続</li>
+<li>12,429サイト紹介</li>
+<li>一度も欠かさず週刊配信</li>
+</ul>
+<hr>
+<h1 id="情報収集システムの全体像">情報収集システムの全体像</h1>
+
+<p><img alt="inline" src="img/rss-to-github-actions-flow.png"></p>
+<hr>
+<h1 id="①-情報源：どこから集めるか">① 情報源：どこから集めるか</h1>
+<p>[.column]</p>
+
+<p><img alt="inline" src="img/jser-info-info.png"></p>
+<p>[.column]</p>
+<p><strong>3つのレイヤーから情報を収集</strong>：</p>
+<ul>
+<li>Awareness層: 新規公開直後の情報（GitHub中心）</li>
+<li>Interest層: トレンドと話題性（SNS、記事）</li>
+<li>Comparison層: 比較検討された実践的情報（書籍、メディア）</li>
+</ul>
+<p>詳細は<a href="https://jser.info/2021/01/16/jser-10th/">JSer.info 10周年記事</a>を参照</p>
+<p>^ 情報というとざっくりしているので主に3つの層に分類しています
+^ JSer.infoの紹介記事のカテゴリもこの流れに沿っていています
+^ 上から新しい情報となることが多い、下に行くほど濃度が高い情報になります</p>
+<hr>
+<h1 id="②-収集：-3500rssフィードを自動収集">② 収集： 3500+RSSフィードを自動収集</h1>
+<p>[.column]
+<strong>RSS</strong></p>
+<ul>
+<li>技術ブログ約2,000サイト</li>
+<li>Inoreaderで一元管理</li>
+<li><a href="https://jser.info/watch-list/">JSer.info Watch List</a>で情報源を公開</li>
+</ul>
+<p>[.column]
+<strong>GitHub</strong></p>
+<ul>
+<li>1500+リポジトリをWatch</li>
+<li><a href="https://github.com/azu/watch-rss">watch-rss</a>でRSS化</li>
+<li><a href="https://github.com/azu/github-search-rss">github-search-rss</a>で検索結果をRSS化</li>
+</ul>
+<hr>
+<h1 id="③-判断：人間がキュレーション">③ 判断：人間がキュレーション</h1>
+<p>RSSを<a href="https://irodr.netlify.app/">Irodr</a>（LDR風リーダー）で読んで判断</p>
+<p><strong>なぜ人間が判断？</strong>
+→ 目的は「紹介」ではなく「知ってもらう」こと</p>
+<p><strong>人間が判断する価値</strong></p>
+<ul>
+<li>単なるリンク集ではなく、文脈を説明/整理/なぜ興味深いかを伝える</li>
+<li>読者はAIではなく、人間だから</li>
+<li>増やすのではなく、少なくすること</li>
+</ul>
+<hr>
+<h1 id="判断基準-jserinfo-policy">判断基準: <a href="https://jser.info/policy/">JSer.info Policy</a></h1>
+<blockquote>
+<p>一例: <strong>「技術的な嘘はつかない」</strong></p>
+</blockquote>
+<p><strong>使わない言葉</strong>：</p>
+<ul>
+<li>"is Dead"、最強、熱い</li>
+</ul>
+<p><strong>慎重に扱う情報</strong>：</p>
+<ul>
+<li>ベンチマーク数値（マイクロベンチマークは難しい）</li>
+</ul>
+<hr>
+<h1 id="fit-④-公開：-紹介サイトをまとめた記事を公開">[fit] ④ 公開： 紹介サイトをまとめた記事を公開</h1>
+<hr>
+<p>[.hide-footer]</p>
+
+<p><img alt="fit" src="img/jser-automation-flow.png"></p>
+<p>^ JSer.info 2011年ごろの更新フロー</p>
+<hr>
+<p>[.hide-footer]</p>
+
+<p><img alt="fit" src="img/jser-automation-flow-now.png"></p>
+<p>^ JSer.info 2025年ごろの更新フロー</p>
+<hr>
+<h1 id="自動化の詳細">自動化の詳細</h1>
+<p>✓ <strong>紹介文を書く</strong></p>
+<ul>
+<li>専用エディタ(Postem) (2019〜)</li>
+<li>MCP執筆補助 (2025〜)</li>
+</ul>
+<p>✓ <strong>PRを作る</strong></p>
+<ul>
+<li>GitHub Actions (2019〜)</li>
+</ul>
+<p>✓ <strong>タグ・グループ分け</strong></p>
+<ul>
+<li>タグ推論 (2023〜)</li>
+<li>グループ学習 (2020〜)</li>
+<li>ヘッドラインをAIで書く (2025〜)</li>
+</ul>
+<p><strong>段階的に自動化を進めて継続性を確保</strong></p>
+<hr>
+<h1 id="jserinfoでは人は情報の整理に集中する">JSer.infoでは人は情報の整理に集中する</h1>
+<p><img alt="right fit" src="https://jser.info/uploads/media/2021/01/jser-info-workflow.png"></p>
+<ol>
+<li>見る</li>
+<li>調べる</li>
+<li>検証する</li>
+<li>説明文を書く</li>
+</ol>
+<hr>
+<h1 id="データドリブンな公開基準">データドリブンな公開基準</h1>
+<p>[.column]</p>
+<h2 id="❌-従来">❌ <strong>従来</strong></h2>
+<p>「毎週月曜日に公開」
+→ 書けない週のプレッシャー</p>
+<p>[.column]</p>
+<h2 id="✅-jserinfo">✅ <strong>JSer.info</strong></h2>
+<p>「13記事集まったら公開」
+→ 品質でリリース判断</p>
+<p><strong>結果</strong>: 14年間の継続</p>
+<hr>
+<h1 id="エポックメイキング">エポックメイキング</h1>
+<ul>
+<li>振り返って一番大きかったのは、日付ベースではなく記事数ベースの公開基準にしたこと</li>
+<li>この13記事という基準は初めてから4-5年ぐらい経って、中央値を見るとここに安定していたことに気づいた</li>
+<li>この発見で心理的なプレッシャーが大きく軽減できて続いたと感じている</li>
+<li><a href="https://github.com/jser/status-of-post">https://github.com/jser/status-of-post</a></li>
+<li><a href="https://jser.info/status-of-post/">https://jser.info/status-of-post/</a></li>
+</ul>
+<p>^ その13記事っていうのは、始めてから4、5年ぐらい経って初めて、なんか13記事、毎週13記事ぐらいだなって感じになって、ちょうど安定したんですけど
+^ この一回更新を止めた時にやっぱ復旧するのはめちゃくちゃ難しいんですね。ダイエットとかもそうだけど
+^ 一回なんかやめてしまうと、そこをずっとやめてしまうんで、その、なんか、やめた後にすぐ復旧できるっていうのが13記事っていう基準だとやりやすい</p>
+<hr>
+<h1 id="続けていく中で改善された">続けていく中で改善された</h1>
+<p><strong>技術的依存は、継続によって育つ</strong></p>
+<p>[.column]</p>
+<pre><code>1. 継続する
+     ↓
+2. データが蓄積
+     ↓
+3. 自動化の材料が増える
+     ↓
+4. 自動化が進む
+</code></pre>
+<p>[.column]</p>
+<pre><code>     ↓
+5. 作業が楽になる
+     ↓
+6. 続けやすくなる
+     ↓
+1. 継続する（最初に戻る）
+</code></pre>
+<p>^ <a href="https://speakerdeck.com/moznion/how-can-we-create-use-and-maintain-data-ourselves">「データ無い！ 腹立つ！ 推論する！」から 「データ無い！ 腹立つ！ データを作る」へ チームでデータを作り、育てられるようにするまで / How can we create, use, and maintain data ourselves? - Speaker Deck</a>でデータがないと自動化できない。データがないとわからないという話がありましたが、それと同じ話で、データが蓄積すると自動化ができるようになります。</p>
+
+
+
+<hr>
+<h1 id="jserinfoまとめ">JSer.infoまとめ</h1>
+<p><strong>技術的依存を増やした</strong>：</p>
+<ul>
+<li>データ基準（13記事で公開判断）</li>
+<li>退屈な部分の自動化（収集、PR作成、分類）</li>
+<li>継続による技術的依存の改善（蓄積 → 自動化 → 継続）</li>
+</ul>
+<p><strong>心理的負荷を減らした</strong>：</p>
+<ul>
+<li>週次固定締切（毎週月曜のプレッシャー）を廃止</li>
+<li>JSer.info Policyを作り、基準を明確化</li>
+</ul>
+<hr>
+<p>[.hide-footer]</p>
+<h1 id="fit-part-2">[fit] Part 2</h1>
+<h1 id="fit-書く技術">[fit] <strong>書く技術</strong></h1>
+<h2 id="textlint">textlint</h2>
+<hr>
+<h1 id="読むから書くへの移行">読むから書くへの移行</h1>
+<blockquote>
+<p>読む → <strong>書く</strong></p>
+</blockquote>
+<p><strong>きっかけ</strong>：</p>
+<ul>
+<li>JSer.infoで情報を読み続けていた</li>
+<li>「読むだけでは物足りない」</li>
+<li>「自分でも書いてみよう」</li>
+</ul>
+<p><strong>2014年3月</strong>：<a href="https://azu.github.io/promises-book/">JavaScript Promise本</a>の執筆開始</p>
+<hr>
+<h1 id="書くことで気づいたこと">書くことで気づいたこと</h1>
+<blockquote>
+<p><strong>書くと、読む量が増える</strong></p>
+</blockquote>
+<p><strong>なぜ？</strong></p>
+<ul>
+<li>調べる（情報を読む）</li>
+<li>検証する（ドキュメントを読む）</li>
+<li>自分が書いたものを読み返す</li>
+</ul>
+<p>書くことは、読むことの延長</p>
+<hr>
+<h1 id="書く中で見つけた課題">書く中で見つけた課題</h1>
+<p><strong><a href="https://azu.github.io/promises-book/">JavaScript Promise本</a>執筆時の問題</strong>：</p>
+<ul>
+<li>表記揺れが気になる</li>
+<li>「JavaScript」vs「Javascript」</li>
+<li>「コールバック」vs「callback」</li>
+</ul>
+<p><strong>解決策</strong>：ツールを作ろう</p>
+<hr>
+<h1 id="textlint-1">textlint</h1>
+<ul>
+<li>自然言語(日本語や英語など)に対するLinter</li>
+<li>MarkdownやHTMLなどのマークアップ言語に対応している</li>
+<li>ビルトインのルールは0</li>
+<li>利用できるルールは200以上ある</li>
+<li>CI/CDに組み込める自然言語のチェッカー(表記揺れ、スペルチェック、誤用、読みやすさのチェックなど)</li>
+</ul>
+<hr>
+<h1 id="textlintの考え方">textlintの考え方</h1>
+<blockquote>
+<p>「自然言語には正解がないため、
+拡張の柔軟性を持つこと」</p>
+</blockquote>
+<p><strong>コア原則</strong>：</p>
+<ul>
+<li>ルールをコアで持たない</li>
+<li>プラグインで拡張できるようにする</li>
+</ul>
+<hr>
+<h1 id="no-core-rules戦略">No core rules戦略</h1>
+<p>「楽に使える」より「適切に使える」</p>
+<p>[.column]
+<strong>従来のLinter</strong>
+インストール 
+→ デフォルトルール
+→ すぐ使える</p>
+<p>[.column]
+<strong>textlint</strong>
+インストール 
+→ 何も起きない
+→ ルール選択</p>
+<hr>
+<h1 id="コアとルールの分離">コアとルールの分離</h1>
+<ul>
+<li>ESLint/RuboCop/Pylintなどはコアにルールを持っている</li>
+<li>コアにルールを持つとルールのIssueもコアに集まる = 心理的負担が集中する</li>
+<li>コアでやらないことではっきりさせることで、責任を分離できる</li>
+<li>そもそもあらゆる自然言語に対応したルールをコアに持つことは不可能</li>
+<li><a href="https://azu.github.io/slide/2022/lint-night/textlint.html">textlint - Linterの作り方</a></li>
+</ul>
+<p>^ 考え方的には、絵文字言語というような未知の言語が出てきた時にtextlintはそれに対応できるという目的を持って設計しています。
+^ 今朝yusukeさんが話していたようにコアに色々な機能があるとコアに全てのissue集まってしまってトリアージが大変になります。(登山すれ違い問題)</p>
+
+
+<hr>
+<h1 id="コアとルールの分離の結果">コアとルールの分離の結果</h1>
+<ul>
+<li>ルールは200以上</li>
+<li>エディタの拡張や言語サポートもコアから分離</li>
+<li>責務が分散するとメンテナンスも分散される</li>
+<li>コアから切り離せると、ルールの追加とかはやりやすくなる</li>
+<li>&lt;-&gt; 一方で、ルールが個人に紐づくとメンテナンスが止まる確率は高くなる</li>
+<li>→ ルールをOrganizationに集めるなど、緩いまとまりを持ったコミュニティを作ることでバランスをとっている</li>
+</ul>
+<hr>
+<h1 id="コアのフォーカスとエコシステムの拡充">コアのフォーカスとエコシステムの拡充</h1>
+<ul>
+<li>プラガブルの弱点は、ユーザーがプラグインを選択しないといけない点</li>
+<li>人間が選択するのは大変<ul>
+<li>ルールによって求める文章の質が異なるので、目的に合ったルールを選ぶのが難しい</li>
+</ul>
+</li>
+<li>改善するにはエコシステムの拡充が重要になっていく<ul>
+<li>エディタの拡張、手軽に使えるような仕組み(Easy)</li>
+<li>コアでやると、メンテナンスが大変になるので、できるだけ外部化を維持していた</li>
+</ul>
+</li>
+<li>改善するべきかをずっと耐えてコアにフォーカスしていたら、ユーザーが変化した</li>
+</ul>
+<hr>
+<h1 id="11年続けたらaiがユーザーになった">11年続けたらAIがユーザーになった</h1>
+<ul>
+<li>2023年以降、AIがユーザーになることで難しさが変化</li>
+<li>人間にとっては選択が難しいが、AIがベースラインを上げる</li>
+<li>それによってコアでやるべき方向性を変えた</li>
+<li>人間とAIを繋ぎやすくする方向へ</li>
+</ul>
+<hr>
+<h1 id="textlintのmcp対応">textlintのMCP対応</h1>
+<p><strong>2025年1月：textlint v14.8.0でMCPサーバー対応</strong></p>
+<pre><code class="language-bash">npx textlint --mcp
+</code></pre>
+<ul>
+<li>AI Agentがtextlintを使えるように</li>
+<li>AIがtextlintでチェックして修正できるようになったが、AI固有のエラーも増えた</li>
+</ul>
+<hr>
+<h1 id="fit-ai固有のエラー">[fit] AI固有のエラー</h1>
+<h2 id="fit-✅-❌-🚀-🎯-🔥-💡-⚡-🌟">[fit] ✅ ❌ 🚀 🎯 🔥 💡 ⚡ 🌟</h2>
+<p>^ AIは絵文字を多用する傾向がある</p>
+<hr>
+<h1 id="textlint-jatextlint-rule-preset-ai-writing"><a href="https://github.com/textlint-ja/textlint-rule-preset-ai-writing">@textlint-ja/textlint-rule-preset-ai-writing</a></h1>
+<p>AI特有の文章構造を検出するtextlintルールセット</p>
+<ul>
+<li><strong>絵文字の多用</strong> - ✅ ❌ 🚀 🎯🔥</li>
+<li><strong>過剰表現</strong> - 革命的、民主化、大幅な改善、非常に重要</li>
+<li><strong>強調構文の多用</strong> - 太字、斜体、下線</li>
+<li><strong>コロンの直後にブロック要素が続く英語的なパターン:</strong></li>
+</ul>
+<hr>
+<h1 id="aiベースライン時代の品質管理">AIベースライン時代の品質管理</h1>
+<p>[.column]</p>
+<h2 id="従来（〜2022年）"><strong>従来（〜2022年）</strong></h2>
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing">テクニカルライティングのルール</a>などは文章を書くのに慣れてないユーザーにとっては難しい</li>
+<li>→ 意識して書かないとエラーを避けるのは難しい</li>
+</ul>
+<p>[.column]</p>
+<h2 id="ai時代（2023年〜）"><strong>AI時代（2023年〜）</strong></h2>
+<ul>
+<li>AIはルールのエラーメッセージを理解して瞬時に修正できる
+→ 人間は書くことに集中できる</li>
+<li>一方で、新しいAI固有のエラーが増える
+→ <a href="https://github.com/textlint-ja/textlint-rule-preset-ai-writing">textlint-rule-preset-ai-writing</a>を作成</li>
+</ul>
+<hr>
+<h1 id="aiも人間もエラーメッセージを読めるように">AIも人間もエラーメッセージを読めるように</h1>
+<ul>
+<li>Linterはエラーが発生した時にエラーメッセージをドキュメントとして提供する</li>
+<li>人間もAIもエラーメッセージを読んで理解し、修正する</li>
+<li>エラーメッセージの質が重要になる</li>
+</ul>
+<hr>
+<h1 id="エラーメッセージの改善">エラーメッセージの改善</h1>
+<ul>
+<li>自然言語は不定な部分が多い。実装に落とすのも工夫が必要</li>
+<li>それ以上に、エラーとなった場合のメッセージが難しい</li>
+<li>例えば「xxxは冗長な表現です」というルールがあった場合に、なぜ冗長なのか？どう直せば良いのか？を説明するのが難しい</li>
+<li>また、人間は柔軟すぎてメッセージの質を評価しづらい</li>
+</ul>
+<hr>
+<h1 id="fit-こんちには-みさなん-おんげき-ですか？">[fit] こんちには みさなん おんげき ですか？</h1>
+<h1 id="fit-わしたは-げんき-です">[fit] わしたは げんき です</h1>
+<p>^ 人間は自然言語をパターンで認識するので、間違っていても読めてしまう</p>
+<hr>
+<h1 id="人間は柔軟すぎて、文章の質を評価しづらい">人間は柔軟すぎて、文章の質を評価しづらい</h1>
+<ul>
+<li>人間は自然言語をパターンで認識するのでなんか読めてしまう</li>
+<li>人間は文章の質を数値として評価することが難しい</li>
+<li>そのため、人間がエラーメッセージの質を上げるには量が必要</li>
+<li>量が必要だと、過剰な負担になる</li>
+</ul>
+<hr>
+<h1 id="エラーメッセージの-llm-as-a-judge">エラーメッセージの LLM as a Judge</h1>
+<ul>
+<li>技術的に改善するにはエラーメッセージの質を数値で評価したい</li>
+<li>LLM as a Judgeでエラーメッセージの質を評価する仕組みを作成中[^promptfoo]</li>
+<li>エラーメッセージの質をLLMで評価し、スコアを元に改善を繰り返す</li>
+<li>技術的改善を回しやすくする</li>
+</ul>
+<p>[^promptfoo]: <a href="https://www.promptfoo.dev/">https://www.promptfoo.dev/</a>で実装している</p>
+<hr>
+<p><img alt="fit promptfooでのLLM as a Judge" src="img/promptfoo-textlint.png"></p>
+<hr>
+<h1 id="textlintまとめ">textlintまとめ</h1>
+<p><strong>技術的依存を増やした</strong>：</p>
+<ul>
+<li>プラガブルアーキテクチャ</li>
+<li>MCP適応/AIの活用</li>
+</ul>
+<p><strong>心理的負荷を減らした</strong>：</p>
+<ul>
+<li>コアとルールの分離 = 心理的負荷の分散</li>
+<li>コアにフォーカスし続けて、エコシステムを外部化</li>
+<li>エラーメッセージの改善とLLM as a Judgeの実装</li>
+</ul>
+<hr>
+<p>[.hide-footer]</p>
+<h1 id="fit-part-3">[fit] Part 3</h1>
+<h1 id="fit-伝える技術">[fit] <strong>伝える技術</strong></h1>
+<h2 id="javascript-primer">JavaScript Primer</h2>
+<hr>
+<h1 id="書くから伝えるへの移行">書くから伝えるへの移行</h1>
+<blockquote>
+<p>読む → 書く → <strong>伝える</strong></p>
+</blockquote>
+<p><strong>転換点</strong>：</p>
+<ul>
+<li>個人で書く → 相手に伝える</li>
+<li>一人で書く → 共著で書く</li>
+<li><strong>「読者」を強く意識する瞬間</strong></li>
+</ul>
+<p><strong>2016年</strong>：<a href="https://jsprimer.net/">JavaScript Primer</a>開発開始</p>
+<hr>
+<h1 id="javascript-primer-jsprimer-とは">JavaScript Primer (jsprimer) とは</h1>
+<p><img alt="jsprimer cover, right, fit" src="./img/cover-optimized.jpg"></p>
+<ul>
+<li>2016年から執筆、6 つのメジャーバージョンを経て更新され続けている JavaScript 入門書</li>
+<li>書籍版 (<a href="https://www.amazon.co.jp/dp/4048931105/">amazon.co.jp/dp/4048931105</a>) も販売中</li>
+<li>ウェブ版 (<a href="https://jsprimer.net/">jsprimer.net</a>) は無料で公開</li>
+<li>GitHub: <a href="https://github.com/asciidwango/js-primer">asciidwango/js-primer</a></li>
+<li>書籍版とウェブ版の内容に違いはなく、オープンソースで開発中</li>
+</ul>
+<hr>
+<h1 id="jsprimerの目的">jsprimerの目的</h1>
+<p><strong>目的:新しくJavaScriptを学ぶ人が迷わないようにするための入門書</strong></p>
+<ol>
+<li><strong>書き方</strong>：基本文法などのJavaScriptの書き方</li>
+<li><strong>作り方</strong>：アプリケーションの作り方</li>
+<li><strong>学び方</strong>：JavaScriptの進化を自分で知る学び方</li>
+</ol>
+<hr>
+<h1 id="目的を達成するためにとった戦略">目的を達成するためにとった戦略</h1>
+<ul>
+<li>Living Standard戦略</li>
+<li>Design Doc（設計文書）</li>
+<li>既知→未知の原則</li>
+<li>自動テストによる品質保証</li>
+</ul>
+<hr>
+<h1 id="living-standard戦略">Living Standard戦略</h1>
+<p><strong>リリースサイクルもECMAScript仕様策定プロセスを模倣</strong></p>
+<p>[.column]
+<strong>ウェブ版</strong> (<a href="https://jsprimer.net/">jsprimer.net</a>)</p>
+<ul>
+<li>常に最新版を維持</li>
+<li>Living Standard</li>
+<li>ECMAScript仕様と同様に継続更新</li>
+</ul>
+<p>[.column]
+<strong>書籍版</strong></p>
+<ul>
+<li>安定版として時々リリース</li>
+<li>Snapshot</li>
+<li>ES2024のようなリリース</li>
+</ul>
+<p><strong>効果</strong>: 完成しないと公開できないという心理的負担を減らす</p>
+<hr>
+<h1 id="design-doc">Design Doc</h1>
+<ul>
+<li>書籍のような文章を書くにも設計が必要</li>
+<li>書籍は章ごとに分かれているので、各章ごとにDesign Docを作成</li>
+<li>これによって、章の方向性を明確化し、書きやすくなる</li>
+</ul>
+<hr>
+<h1 id="jsprimerのdesign-doc構成">jsprimerのDesign Doc構成</h1>
+<p>[.column]</p>
+<pre><code>各章/
+  ├── README.md（本文）
+  ├── OUTLINE.md（設計文書）
+meeting-notes/
+  └── YYYY-MM-DD.md（ミーティング記録）
+</code></pre>
+<p>[.column]</p>
+<p><strong>OUTLINE.mdの役割</strong>：</p>
+<ul>
+<li>なぜこの章が必要か</li>
+<li>何を学ぶか</li>
+<li>どう教えるか</li>
+</ul>
+<p><strong>すべての議論を公開</strong>：</p>
+<ul>
+<li>Issue/PRでの議論</li>
+<li>Meeting Notesも記録して公開</li>
+</ul>
+<hr>
+<h1 id="design-docの活用">Design Docの活用</h1>
+<ul>
+<li>Design Docがあることで書いてる途中でブレにくい</li>
+<li>章の目的が明確なので、書き始めるハードルが下がる</li>
+<li>それでも、章の最初の一歩は重い</li>
+<li>→ そこでAIを活用して最初の一歩を軽減</li>
+</ul>
+<hr>
+<h1 id="design-doc-→-ai生成-→-レビュー">Design Doc → AI生成 → レビュー</h1>
+<ul>
+<li>Design Docを元にAIにドラフトを生成させる</li>
+<li><a href="https://github.com/textlint-ja/textlint-rule-preset-ai-writing">textlint-rule-preset-ai-writing</a>でAIらしい表現を検出してAIが修正</li>
+<li>人間がレビューして修正</li>
+<li>大まかなイメージは作成でき、最初の一歩が格段に楽に</li>
+<li>実際に書いた章: <a href="https://jsprimer.net/basic/iterator-generator/">イテレータとジェネレータ</a></li>
+</ul>
+<hr>
+<h1 id="書籍のレビュー">書籍のレビュー</h1>
+<ul>
+<li>原則: 既知→未知</li>
+<li>textlintで表記揺れや誤用をチェック</li>
+<li>自動テストでコード例の動作をチェック</li>
+<li><a href="https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/">TSKaigi 2025で「技術書をソフトウェア開発する」という発表をしました | Web Scratch</a></li>
+</ul>
+<hr>
+<h1 id="既知の言葉で未知を説明する">既知の言葉で未知を説明する</h1>
+<p>[.column]</p>
+<h2 id="未知→既知の例">未知→既知の例</h2>
+<ol>
+<li><strong>Promise</strong>は<strong>非同期処理</strong>を扱うオブジェクトです</li>
+<li><strong>非同期処理</strong>とは、処理の完了を待たずに次へ進むものです</li>
+<li><strong>Promise</strong>は、その状態や結果を表現します</li>
+</ol>
+<p>[.column]</p>
+<h2 id="既知→未知の例">既知→未知の例</h2>
+<ol>
+<li>今まで書いていたコードは、処理が終わるまで待ってから次に進みます。これを同期処理と呼びます</li>
+<li>一方で処理の完了を待たずに次の処理に進むこともできます。これを<strong>非同期処理</strong>と呼びます</li>
+<li>この<strong>非同期処理</strong>の状態や結果を表現するのが<strong>Promise</strong>です</li>
+</ol>
+<hr>
+<h1 id="自動テストによる品質保証">自動テストによる品質保証</h1>
+<p>8種類のテストを組み合わせて品質を保証</p>
+<p>[.column]</p>
+<p><strong>文章の自動テスト</strong></p>
+<ul>
+<li>textlint: 文章の品質チェック</li>
+<li>ESLint: JavaScriptコードの品質チェック</li>
+</ul>
+<p>[.column]</p>
+<p><strong>コードの自動テスト</strong></p>
+<ul>
+<li>Doctest: コード例の出力検証</li>
+<li>Unit Tests: Mochaによるテスト実行</li>
+<li>Executable Code: サンプルコードの実行確認</li>
+</ul>
+<hr>
+<h1 id="doctestによるコード例の検証">Doctestによるコード例の検証</h1>
+<p>Markdown内のコード例を実際に実行して検証</p>
+<pre><code class="language-javascript">// コメントで期待値を記述
+const result = 1 + 1;
+console.log(result); // =&gt; 2
+</code></pre>
+<p><strong>特徴</strong>:</p>
+<ul>
+<li>ドキュメントと実装の乖離を防ぐ</li>
+<li>リファクタリング時の安全性を確保</li>
+</ul>
+<hr>
+<h1 id="cicdでの自動実行">CI/CDでの自動実行</h1>
+<p>すべてのテストはPull Requestごとに自動実行</p>
+<ul>
+<li>GitHub ActionsまたはNetlifyでビルド</li>
+<li>textlint、ESLint、Doctestなど全テストを実行</li>
+<li>プレビュー環境で実際のレンダリングを確認</li>
+</ul>
+<p>使っているから続く、続いているから使う</p>
+<hr>
+<h1 id="技術から人へ---持続可能性の課題">技術から人へ - 持続可能性の課題</h1>
+<p><strong>技術的依存で解決できたこと</strong>：</p>
+<ul>
+<li>品質保証の自動化（CI/CD）</li>
+<li>Living Standardによる継続更新</li>
+<li>Design Docによる設計の明確化</li>
+</ul>
+<hr>
+<h1 id="技術だけでは解決できない">技術だけでは解決できない</h1>
+
+<p><img alt="inline fit" src="img/technical-vs-human-sustainability.png"></p>
+
+
+<hr>
+<h1 id="なぜコントリビューターを増やすのか？">なぜコントリビューターを増やすのか？</h1>
+<p><strong>目的はJavaScriptの変化に対応できるようにすること</strong></p>
+<ul>
+<li>JavaScriptは毎年更新される仕様</li>
+<li>今時オープンソースソフトウェアを使わない開発はほぼない</li>
+<li>オープンソースへコミットすることも学びの1つ</li>
+</ul>
+<p><strong>著者を増やすことで、変化への対応と心理的負荷を分散</strong></p>
+<hr>
+<h1 id="透明な経済モデル">透明な経済モデル</h1>
+<p>[.column]</p>
+<p><strong>年間コスト試算</strong>：</p>
+<ul>
+<li>約30日分の労力</li>
+<li>約70万円相当[^wage]</li>
+</ul>
+<p>[.column]</p>
+<p><strong>収入源</strong>：</p>
+<ol>
+<li>書籍売上</li>
+<li>Open Collective</li>
+<li>GitHub Sponsors</li>
+</ol>
+<p>[^wage]: 東京エンジニアの平均時給(2,866円 * 8時間 * 30日 = 687,840円)から算出 <a href="https://efcl.info/2023/06/09/jsprimer-v2/">詳細</a></p>
+<hr>
+<h1 id="open-collective">Open Collective</h1>
+
+
+<p><img alt="right fit Open Collectiveのjsprimer" src="img/open-collective.png"></p>
+<p><strong>具体例</strong>：<a href="https://opencollective.com/jsprimer">https://opencollective.com/jsprimer</a></p>
+<p><strong>仕組み</strong>：</p>
+<ul>
+<li>プロジェクト単位の資金管理</li>
+<li>企業向けスポンサー特典</li>
+<li>透明な収支公開</li>
+</ul>
+<hr>
+<h1 id="fibonacci報酬システム"><a href="https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING_EXPENSE.md">Fibonacci報酬システム</a></h1>
+<pre><code>年間想定：60ポイント分の作業（目安：2ポイント ≒ 1日分の作業）
+タスク複雑度：1, 2, 3, 5, 8ポイント
+1ポイント = 約$7(2025年の予算$ / 60ポイント)
+</code></pre>
+<p><strong>仕組みの特徴</strong>：</p>
+<ul>
+<li>金銭的還元の仕組み化</li>
+<li>報酬を受け取る代わりに、別のオープンソースへ寄付することも可能</li>
+</ul>
+<hr>
+<h1 id="100人以上のコントリビューター">100人以上のコントリビューター</h1>
+<p><strong>どうやって？</strong></p>
+<ul>
+<li>ハードルを下げる<ul>
+<li>軽い修正もやりやすくする: <a href="https://jsprimer.net/intro/feedback/">文章の間違いに気づいたら </a></li>
+<li>ブラウザで編集可能にする</li>
+<li><a href="https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING.md">Contribution Guide</a>を整備する</li>
+</ul>
+</li>
+<li>透明性を保つ<ul>
+<li>すべての議論をGitHub上で</li>
+<li>Meeting Notesも公開</li>
+<li>判断理由の記録</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="具体例-es2025対応">具体例: ES2025対応</h1>
+<ol>
+<li><strong><a href="https://github.com/asciidwango/js-primer/issues/1778">Meta Issue</a>で方針決定</strong> → ES2025の新機能7個の対応方針を決定</li>
+<li><strong><a href="https://efcl.info/2025/04/25/jsprimer-es2025-proposal/">ブログ</a>で募集</strong> → コントリビューター募集</li>
+<li><strong><a href="https://github.com/asciidwango/js-primer/discussions/1789">Discussion</a>で認識合わせ</strong> → 役割分担</li>
+<li><strong>個別Issueで並行作業</strong> → 1機能 = 1人 = 1Issue (<a href="https://github.com/asciidwango/js-primer/issues/1783">#1783</a>、<a href="https://github.com/asciidwango/js-primer/issues/1788">#1788</a> など7機能)</li>
+<li><strong>PRレビュー</strong> → textlint/DocTestで自動チェック済み、人間は読みやすさに集中</li>
+<li><strong>結果</strong>: <a href="https://efcl.info/2025/08/18/jsprimer-v7/">v7.0.0リリース</a></li>
+</ol>
+<hr>
+<h1 id="jsprimerまとめ">jsprimerまとめ</h1>
+<p><strong>技術的依存を増やした</strong>：</p>
+<ul>
+<li>継続仕様（Living Standard、ES2025対応）</li>
+<li>自動品質（CI/CD、3層チェック）</li>
+<li>設計文書（OUTLINE.md、AI活用）</li>
+<li>経済透明化（Fibonacci報酬、Open Collective）</li>
+</ul>
+<p><strong>心理的負荷を減らした</strong>：</p>
+<ul>
+<li>一度で完成要求（継続更新前提）</li>
+<li>著者を増やす（100人以上のコントリビューター）</li>
+</ul>
+<hr>
+<p>[.hide-footer]</p>
+<h1 id="fit-part-4">[fit] Part 4</h1>
+<h1 id="fit-循環の技術">[fit] <strong>循環の技術</strong></h1>
+<h2 id="段階的発展と相互強化">段階的発展と相互強化</h2>
+<hr>
+<h1 id="各プロジェクトの重点配分">各プロジェクトの重点配分</h1>
+
+<p><img alt="inline fit" src="img/read-write-communicate-balance.png"></p>
+<hr>
+<h1 id="段階的な発展">段階的な発展</h1>
+<pre><code>2011: JSer.info
+  読むことから始まった
+     ↓
+2014: textlint
+  書くことで読む量が増える体感
+     ↓
+2015: JavaScript Primer
+  伝えることで読む・書くの質が上がる
+</code></pre>
+<hr>
+<h1 id="オープンソースではあるがやり方が違う">オープンソースではあるがやり方が違う</h1>
+<ul>
+<li>JSer.info/textlint/JavaScript Primerはどれもオープンソース</li>
+<li>しかし、それぞれのプロジェクトはやり方が異なる</li>
+</ul>
+<hr>
+<h1 id="オープンソースの4つのモデル">オープンソースの4つのモデル</h1>
+<table>
+<thead>
+<tr>
+<th>モデル</th>
+<th>ユーザー</th>
+<th>貢献者</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TOYS</td>
+<td>Low</td>
+<td>Low</td>
+<td>サイドプロジェクト</td>
+</tr>
+<tr>
+<td>STADIUMS</td>
+<td>High</td>
+<td>Low</td>
+<td>集中型メンテナンス</td>
+</tr>
+<tr>
+<td>CLUBS</td>
+<td>Low</td>
+<td>High</td>
+<td>重複コミュニティ</td>
+</tr>
+<tr>
+<td>FEDERATIONS</td>
+<td>High</td>
+<td>High</td>
+<td>複雑なガバナンス</td>
+</tr>
+</tbody></table>
+<p>出典: <a href="https://press.stripe.com/working-in-public">Working in Public</a></p>
+<hr>
+<p><img alt="fit: OSS 4 models" src="img/oss-four-models.png"></p>
+<hr>
+<p><img alt="fit: OSS 4 models dots" src="img/oss-four-models-dots.png"></p>
+<hr>
+<p><img alt="fit: Projects" src="img/project-evolution.png"></p>
+<hr>
+
+
+<h1 id="jserinfo-toysモデルを維持">JSer.info: Toysモデルを維持</h1>
+<p><strong>最適な規模を保つ設計</strong>：</p>
+<ul>
+<li>データドリブンな公開（GitHub Actionsによる自動化）</li>
+<li>趣味であるから続けるという範囲に保つ</li>
+<li>心理的プレッシャーを発生させない設計</li>
+</ul>
+<p><strong>安定した規模を維持することで、心理的負荷を排除</strong></p>
+<hr>
+<h1 id="textlint-stadiumsモデル">textlint: Stadiumsモデル</h1>
+<p><strong>週85,000ダウンロード、少数のメンテナー</strong>：</p>
+<ul>
+<li>No core rules戦略</li>
+<li>コアを最小化しフォーカス、エコシステムへ委譲</li>
+<li>200以上のルールをコミュニティが作成</li>
+</ul>
+<p><strong>技術的依存は高いが、心理的負荷を下げる設計</strong></p>
+<hr>
+<h1 id="jsprimer-clubsモデル">jsprimer: Clubsモデル</h1>
+<p><strong>100人以上のコントリビューター</strong>：</p>
+<ul>
+<li>Living Standard（常に更新）</li>
+<li>Design Docで貢献のハードルを下げる</li>
+<li>ユーザーと貢献者が重複するコミュニティ</li>
+</ul>
+<p><strong>貢献しやすい構造で心理的負荷を分散</strong></p>
+<hr>
+
+
+<p><img alt="inline" src="img/oss-models-psychological-strategies.png"></p>
+<p>^ モデルごとに異なる戦略で持続可能性を確保</p>
+<hr>
+<h1 id="技術依存ループ">技術依存ループ</h1>
+
+<p><img alt="inline" src="img/project-dependencies-loop.png"></p>
+<p>^ <strong>プロジェクト間の循環</strong>：
+^ 読む → 書く → 伝える → 読むの質向上</p>
+<hr>
+<h1 id="リスク---技術的依存の連鎖">リスク - 技術的依存の連鎖</h1>
+<p><strong>どれか一つが止まると全部止まる可能性</strong></p>
+<p>これは受け入れているリスク
+トレードオフの認識</p>
+<p><strong>ただし...</strong></p>
+<p>技術的依存は心理的負荷と異なり、代替可能性が高い
+ツールが止まっても別のツールに置き換えられる</p>
+<hr>
+<h1 id="fit-心理的負荷と技術的依存">[fit] <strong>心理的負荷と技術的依存</strong></h1>
+<p>[.column]</p>
+<h2 id="心理的負荷-✗">心理的負荷 ✗</h2>
+<ul>
+<li>スケールしない</li>
+<li>疲れる</li>
+<li>バーンアウトを生む</li>
+<li>自動化できない</li>
+<li><strong>コントロールが難しい</strong></li>
+<li><strong>持続が難しい</strong></li>
+</ul>
+<p>[.column]</p>
+<h2 id="技術的依存-✓">技術的依存 ✓</h2>
+<ul>
+<li>スケールする</li>
+<li>疲れにくい</li>
+<li>継続で改善しやすくなる</li>
+<li>自動化できる</li>
+<li><strong>交換可能・差し替え可能</strong></li>
+<li><strong>持続がし易い</strong></li>
+</ul>
+<hr>
+<p>[.hide-footer]</p>
+<h1 id="fit-まとめ">[fit] まとめ</h1>
+<hr>
+<h1 id="12の設計原則">12の設計原則</h1>
+<p>[.column]
+<strong>読む技術（JSer.info）</strong>：</p>
+<ol>
+<li>データドリブンな公開基準 [技術]</li>
+<li>退屈な部分だけ自動化 [技術]</li>
+<li>小さなイテレーション [技術]</li>
+</ol>
+<p><strong>書く技術（textlint）</strong>：
+4. デフォルトルールなし戦略 [心理]
+5. 最小コア、豊かなエコシステム [技術]
+6. 検証可能なことを自動化 [技術]
+7. 最小限の依存関係 [心理]</p>
+<p>[.column]
+<strong>伝える技術（jsprimer）</strong>：
+8. Living Standard戦略 [心理]
+9. 既知→未知の原則 [心理]
+10. 自動テストによる品質保証 [技術]
+11. 透明な経済モデル [心理]
+12. 使って改善する循環 [技術/心理/循環]</p>
+<h5 id="技術-技術的依存を育てる-123561012"><strong>[技術]</strong>: 技術的依存を育てる (1,2,3,5,6,10,12)</h5>
+<h5 id="心理-心理的負荷を減らす-47891112"><strong>[心理]</strong>: 心理的負荷を減らす (4,7,8,9,11,12)</h5>
+<hr>
+<h1 id="続けることで改善が加速する">続けることで改善が加速する</h1>
+<ul>
+<li>データセット蓄積 → 自動化促進</li>
+<li>エコシステム成長 → 対応範囲拡大</li>
+<li>AI時代への適応力 → 新技術との統合</li>
+<li>プロジェクト間の相互強化 → 学びの循環</li>
+</ul>
+<p><strong>そのための設計原則</strong>：</p>
+<ul>
+<li><strong>技術的依存を積極的に育てる</strong> → スケールする、疲れにくい、改善が加速する</li>
+<li><strong>心理的負荷を意識的に減らす</strong> → バーンアウト回避、長期継続</li>
+</ul>
+<hr>
+<h1 id="public-writing-as-future-asset">Public Writing as Future Asset</h1>
+<p><strong>この発表準備プロセス自体が「読む→書く→伝える」の実証</strong></p>
+<p>[.column]</p>
+<p>15年間publicに書き続けた:</p>
+<ul>
+<li>GitHubのコミット・Issue・PR</li>
+<li>ブログ記事・書籍</li>
+<li>スライド・ドキュメント</li>
+</ul>
+<p>[.column]</p>
+<p>それをAIが読んで:</p>
+<ul>
+<li>過去の判断理由を理解</li>
+<li>パターンを発見</li>
+<li>新しい視点で構造化</li>
+</ul>
+<p><strong>→ 自分が読んで新たな気づきを得る</strong></p>
+<p>Publicの過去が、未来の価値を生む</p>
+<hr>
+<h1 id="続けることでより良くできる！">続けることでより良くできる！</h1>
+<hr>
+<h1 id="ありがとうございました">ありがとうございました</h1>
+<ul>
+<li>JSer.info: <a href="https://jser.info/">https://jser.info/</a></li>
+<li>textlint: <a href="https://textlint.org/">https://textlint.org/</a></li>
+<li>JavaScript Primer: <a href="https://jsprimer.net/">https://jsprimer.net/</a></li>
+<li>GitHub: <a href="https://github.com/azu">https://github.com/azu</a></li>
+</ul>
+<hr>
+<h1 id="apnnedix">Apnnedix</h1>
+<hr>
+<h1 id="rssリーダ">RSSリーダ</h1>
+<ul>
+<li><a href="https://www.inoreader.com/">Inoreader</a>: RSSリーダサービス</li>
+<li><a href="https://irodr.netlify.app/">irodr</a>: LDR風RSSリーダをフロントエンドとして自作</li>
+<li>Iroreaderの値上げが不安になったきたので、バックエンドも含むRuri Readerを作っている</li>
+</ul>
+<hr>
+<p><img alt="fit ruri-reader" src="img/ruri-reader.mp4"></p>
+<hr>
+<h1 id="読むための工夫">読むための工夫</h1>
+<ul>
+<li>ベンチマークは動かす</li>
+<li><a href="https://deepwiki.org/">DeepWiki</a>、<a href="https://codewiki.google/">Code Wiki</a>を使いアーキテクチャを理解する</li>
+<li>Issueを作って対応を見る</li>
+</ul>
+<hr>
+<h1 id="github-sponsorsと心理的負荷">GitHub Sponsorsと心理的負荷</h1>
+<ul>
+<li>GitHub Sponsorsには見返りをなくした</li>
+<li>見返りを用意すると心理的負荷が高くなる可能性がある</li>
+<li>短期的な関係ではなく長期的な関係を重視するため</li>
+<li><a href="https://efcl.info/2021/10/01/github-sponsors/">https://efcl.info/2021/10/01/github-sponsors/</a></li>
+</ul>
+<hr>
+<h1 id="github-sponsorsのtier設計">GitHub SponsorsのTier設計</h1>
+<p><strong><a href="https://github.com/azu">@azu</a>のTier設計</strong>： </p>
+<ul>
+<li>✨ Supporter：$1/月</li>
+<li>☕ Coffee：$5/月</li>
+<li>🌐 Domain：$10/月</li>
+<li>📖 Book：$30/月</li>
+<li>💚 JSer.info：$100/月</li>
+<li>❤️ Open Source：$300/月</li>
+</ul>
+<hr>
+<h1 id="github-sponsors">GitHub Sponsors</h1>
+<ul>
+<li>金額が大きくなってもほぼ行動に影響がなくなると感じたら小さな見返りを設定する</li>
+<li>e.g.<ul>
+<li>JSer.info は長期間続けて、内向的なプロジェクトなので外的要因がほぼ影響しない</li>
+<li>jsprimer はサイクルを増せるようになって、より外部のContributorを増やすために設定</li>
+<li>自分のためではなく、他者のためというマインドだと行動はしやすい</li>
+<li>Ref. Work Design</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="持続することがなぜ大事">持続することがなぜ大事?</h1>
+<ul>
+<li>アウトカムを達成するには、まず持続することが前提にある</li>
+<li>この方法がいいというわけではない</li>
+<li>引き継ぐ難易度が結局高いという問題がまだ未解決</li>
+<li>サプライチェーンの問題もあり、難易度がかえって上がっている</li>
+</ul>
+<hr>
+<h1 id="参考文献・リンク集">参考文献・リンク集</h1>
+<p><strong>YAPC::Fukuoka 2025 - 読む技術・書く技術・伝える技術</strong></p>
+<hr>
+<h2 id="プロジェクト公式サイト">プロジェクト公式サイト</h2>
+<hr>
+<h3 id="jserinfo-1">JSer.info</h3>
+<p><img alt="right fit" src="img/jserinfo-logo.png"></p>
+<ul>
+<li><strong><a href="https://jser.info/">公式サイト</a></strong></li>
+<li><strong><a href="https://jser.info/about/">About</a></strong></li>
+<li><strong><a href="https://jser.info/policy/">Policy</a></strong></li>
+<li><strong><a href="https://github.com/jser/dataset">データセット</a></strong></li>
+</ul>
+<hr>
+<h3 id="textlint-2">textlint</h3>
+<p><img alt="right fit" src="img/textlint-logo.png"></p>
+<ul>
+<li><strong><a href="https://textlint.github.io/">公式サイト</a></strong></li>
+<li><strong><a href="https://github.com/textlint/textlint">GitHub</a></strong></li>
+<li><strong><a href="https://www.npmjs.com/package/textlint">npm</a></strong></li>
+<li><strong><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule">ルール集</a></strong></li>
+</ul>
+<hr>
+<h3 id="javascript-primer-1">JavaScript Primer</h3>
+<p><img alt="right fit" src="img/jsprimer-logo.jpg"></p>
+<ul>
+<li><strong><a href="https://jsprimer.net/">公式サイト</a></strong></li>
+<li><strong><a href="https://github.com/asciidwango/js-primer">GitHub</a></strong></li>
+<li><strong><a href="https://opencollective.com/jsprimer">Open Collective</a></strong></li>
+</ul>
+<hr>
+<h2 id="関連ツール・プロジェクト">関連ツール・プロジェクト</h2>
+<hr>
+<h3 id="情報収集ツール">情報収集ツール</h3>
+<ul>
+<li><strong><a href="https://github.com/azu/irodr">Irodr (RSSリーダー)</a></strong></li>
+<li><strong><a href="https://github.com/azu/postem">Postem (公開ツール)</a></strong></li>
+<li><strong><a href="https://ecmascript-daily.github.io/">ECMAScript Daily</a></strong></li>
+</ul>
+<hr>
+<h3 id="文章品質ツール">文章品質ツール</h3>
+<ul>
+<li><strong><a href="https://github.com/textlint-ja/textlint-rule-preset-ai-writing">textlint-rule-preset-ai-writing</a></strong></li>
+<li><strong><a href="https://github.com/secretlint/secretlint">secretlint</a></strong></li>
+<li><strong><a href="https://github.com/azu/power-doctest">power-doctest</a></strong></li>
+<li><strong><a href="https://github.com/textlint/textstat">textstat</a></strong></li>
+</ul>
+<hr>
+<h3 id="書籍・ドキュメント関連">書籍・ドキュメント関連</h3>
+<ul>
+<li><strong><a href="https://github.com/honkit/honkit">HonKit</a></strong></li>
+<li><strong><a href="https://azu.github.io/promises-book/">JavaScript Promise本</a></strong></li>
+<li><strong><a href="https://sandpack.codesandbox.io/">Sandpack</a></strong></li>
+</ul>
+<hr>
+<h2 id="関連する記事・発表資料">関連する記事・発表資料</h2>
+<hr>
+<h3 id="jserinfo関連">JSer.info関連</h3>
+<ul>
+<li><strong><a href="https://jser.info/2021/01/16/jser-10th/">JSer.info 10周年</a></strong></li>
+<li><strong><a href="https://jser.info/2017/01/15/jser-info-6years/">JSer.info 6年を振り返る</a></strong></li>
+<li><strong><a href="https://azu.github.io/slide/2016/jser5years/javascript-information.html">JSer.info 5年 - JavaScript情報とは</a></strong></li>
+</ul>
+<hr>
+<h3 id="textlint関連">textlint関連</h3>
+<ul>
+<li><strong><a href="https://efcl.info/2014/12/30/textlint/">textlint誕生の経緯</a></strong></li>
+<li><strong><a href="https://efcl.info/2022/06/29/why-create-textlint/">なぜtextlintを作ったのか</a></strong></li>
+<li><strong><a href="https://efcl.info/2025/06/12/textlint-v14.8.0/">textlint v14.8.0 (MCP対応)</a></strong></li>
+</ul>
+<hr>
+<h3 id="javascript-primer関連">JavaScript Primer関連</h3>
+<ul>
+<li><strong><a href="https://efcl.info/2023/06/09/jsprimer-v2/">jsprimer v2リリース</a></strong></li>
+<li><strong><a href="https://efcl.info/2025/08/18/jsprimer-v7/">jsprimer v7リリース</a></strong></li>
+<li><strong><a href="https://efcl.info/2020/04/27/jsprimer/">jsprimerを出版</a></strong></li>
+<li><strong><a href="https://efcl.info/2025/05/24/tskaigi-2025-jsprimer/">TSKaigiでの発表</a></strong></li>
+<li><strong><a href="https://azu.github.io/slide/2025/tskaigi/jsprimer.html">TSKaigiスライド</a></strong></li>
+</ul>
+<hr>
+<h3 id="その他の振り返り記事">その他の振り返り記事</h3>
+<ul>
+<li><strong><a href="https://efcl.info/2021/10/01/github-sponsors/">GitHub Sponsors振り返り</a></strong></li>
+<li><strong><a href="https://efcl.info/2020/12/31/open-source-in-2020/">2020年のOSS活動</a></strong></li>
+</ul>
+<hr>
+<h2 id="技術仕様・プロトコル">技術仕様・プロトコル</h2>
+<ul>
+<li><strong><a href="https://modelcontextprotocol.io/">Model Context Protocol (MCP)</a></strong></li>
+<li><strong><a href="https://commonmark.org/">CommonMark</a></strong></li>
+<li><strong><a href="https://tc39.es/">TC39 (ECMAScript標準化)</a></strong></li>
+</ul>
+<hr>
+<h2 id="個人リンク">個人リンク</h2>
+<ul>
+<li><strong><a href="https://github.com/azu">GitHub</a></strong></li>
+<li><strong><a href="https://efcl.info/">ブログ (Web Scratch)</a></strong></li>
+<li><strong><a href="https://azu.github.io/slide/">過去の発表資料</a></strong></li>
+<li><strong><a href="https://www.npmjs.com/~azu">npm プロフィール</a></strong></li>
+<li><strong><a href="https://github.com/sponsors/azu">GitHub Sponsors</a></strong></li>
+</ul>
+<hr>
+<h2 id="関連書籍">関連書籍</h2>
+<hr>
+<h3 id="継続すること・公開すること-austin-kleon-3部作">継続すること・公開すること (Austin Kleon 3部作)</h3>
+<ul>
+<li><p><strong><a href="https://austinkleon.com/keepgoing/">Keep Going: 10 Ways to Stay Creative in Good Times and Bad</a></strong> - Austin Kleon</p>
+<ul>
+<li>創作活動を継続するための10の方法</li>
+</ul>
+</li>
+<li><p><strong><a href="https://austinkleon.com/steal/">Steal Like an Artist: 10 Things Nobody Told You About Being Creative</a></strong> - Austin Kleon</p>
+<ul>
+<li>クリエイティブな活動の始め方</li>
+</ul>
+</li>
+<li><p><strong><a href="https://austinkleon.com/show-your-work/">Show Your Work!: 10 Ways to Share Your Creativity and Get Discovered</a></strong> - Austin Kleon</p>
+<ul>
+<li>作品を公開し、オーディエンスを見つける方法</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="オープンソース開発・持続可能性">オープンソース開発・持続可能性</h3>
+<ul>
+<li><p><strong><a href="https://press.stripe.com/working-in-public">Working in Public: The Making and Maintenance of Open Source Software</a></strong> - Nadia Eghbal</p>
+<ul>
+<li>OSS開発の持続可能性と見えない労働について。現代のOSS開発の実態を深く掘り下げた書籍</li>
+<li><a href="https://www.amazon.co.jp/dp/0578675862">Amazon</a></li>
+</ul>
+</li>
+<li><p><strong><a href="https://www.fordfoundation.org/work/learning/research-reports/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/">Roads and Bridges: The Unseen Labor Behind Our Digital Infrastructure</a></strong> - Nadia Eghbal</p>
+<ul>
+<li>デジタルインフラを支える見えない労働についての報告書</li>
+<li><a href="https://www.fordfoundation.org/media/2976/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf">PDF無料公開</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="燃え尽き症候群・心理的プレッシャー">燃え尽き症候群・心理的プレッシャー</h3>
+<ul>
+<li><strong><a href="https://www.ucpress.edu/book/9780520393509/the-end-of-burnout">The End of Burnout: Why Work Drains Us and How to Build Better Lives</a></strong> - Jonathan Malesic<ul>
+<li>バーンアウトの構造的要因と対処法。心理的プレッシャーを排除する設計に関連</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="アウトカム志向・長期的視点">アウトカム志向・長期的視点</h3>
+<ul>
+<li><p><strong><a href="https://efcl.info/2021/02/19/donation-philanthropy-study/">寄付研究や慈善活動について研究するために色々な書籍や論文を読んだメモ書き</a></strong> - azu</p>
+<ul>
+<li>アウトプットとアウトカムの違い、長期的視点の重要性についての研究ノート</li>
+</ul>
+</li>
+<li><p><strong><a href="https://www.nikkeibook.com/book/95650">インパクト投資入門 (日経文庫)</a></strong> - 須藤奈応</p>
+<ul>
+<li>アウトプットではなくアウトカムを重視する考え方。10-20年の長期視点の重要性</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="エーザイの熱帯病治療薬事例（アウトカムの時間軸を示す実例）">エーザイの熱帯病治療薬事例（アウトカムの時間軸を示す実例）</h4>
+<ul>
+<li><strong><a href="https://impact-startup.or.jp/summit/2025">IMPACT STARTUP SUMMIT 2025</a></strong><ul>
+<li>エーザイのインパクト会計の事例が紹介された</li>
+<li>2014-2018年: 熱帯病治療薬16億錠以上を無償配布(コスト約24億円)</li>
+<li>2025年(約10年後): 社会的インパクト7兆円相当と評価、PBRに反映</li>
+<li>「評価される場面に到達するには、まず生き残る必要がある」を示す事例</li>
+</ul>
+</li>
+<li><a href="https://www.camri.or.jp/files/libs/1886/202302271343235637.pdf">https://www.camri.or.jp/files/libs/1886/202302271343235637.pdf</a><ul>
+<li>エーザイの熱帯病治療薬の社会的インパクトの柳モデルについての解説</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="文章・コミュニケーション">文章・コミュニケーション</h3>
+<ul>
+<li><p><strong><a href="https://www.amazon.co.jp/dp/4826901453">パラグラフ・ライティング</a></strong></p>
+<ul>
+<li>論理的な文章構成の基本。jsprimerの文章設計に関連</li>
+</ul>
+</li>
+<li><p><strong><a href="https://nextpublishing.jp/book/17622.html">技術広報入門 ー テックブログから始めるエンジニアカルチャーのつくり方 ー</a></strong></p>
+<ul>
+<li>技術情報の発信と文化醸成</li>
+</ul>
+</li>
+<li><p><strong><a href="https://www.oreilly.co.jp/books/9784814400478/">開発者とアーキテクトのためのコミュニケーションガイド ―パターンで学ぶ情報伝達術</a></strong></p>
+</li>
+</ul>
+<hr>
+<h3 id="javascript">JavaScript</h3>
+<ul>
+<li><strong><a href="https://jsprimer.net/">JavaScript Primer　迷わないための入門書</a></strong> - Suguru Inatomi, azu<ul>
+<li>発表者自身による JavaScript 入門書</li>
+<li><a href="https://www.amazon.co.jp/dp/4048930737">Amazon</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
+</html>
