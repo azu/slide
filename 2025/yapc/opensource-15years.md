@@ -306,7 +306,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 > 一例: **「技術的な嘘はつかない」**
 
 **使わない言葉**：
-- "is Dead"、最強、熱い、魂が震える
+- "is Dead"、最強、熱い
 
 **慎重に扱う情報**：
 - ベンチマーク数値（マイクロベンチマークは難しい）
@@ -555,6 +555,7 @@ RSSを[Irodr](https://irodr.netlify.app/)（LDR風リーダー）で読んで判
 - [textlint - Linterの作り方](https://azu.github.io/slide/2022/lint-night/textlint.html)
 
 ^ 考え方的には、絵文字言語というような未知の言語が出てきた時にtextlintはそれに対応できるという目的を持って設計しています。
+^ 今朝yusukeさんが話していたようにコアに色々な機能があるとコアに全てのissue集まってしまってトリアージが大変になります。(登山すれ違い問題)
 
 <!-- 
 
