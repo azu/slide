@@ -1497,7 +1497,7 @@ Publicの過去が、未来の価値を生む
 
 ### 燃え尽き症候群・心理的プレッシャー
 
-- **[The End of Burnout: Why Work Drains Us and How to Build Better Lives](https://www.ucpress.edu/book/9780520393509/the-end-of-burnout)** - Jonathan Malesic
+- **[The End of Burnout: Why Work Drains Us and How to Build Better Lives](https://www.ucpress.edu/books/the-end-of-burnout/paper)** - Jonathan Malesic
   - バーンアウトの構造的要因と対処法。心理的プレッシャーを排除する設計に関連
 
 ----
