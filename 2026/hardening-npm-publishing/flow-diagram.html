@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+    background: #ffffff;
+    padding: 60px 50px;
+  }
+  .flow {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+  }
+  .step {
+    width: 280px;
+    border: 3px solid #2b6cb0;
+    border-radius: 16px;
+    background: #ebf4ff;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .num {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: #2b6cb0;
+    color: #fff;
+    font-size: 36px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .title { font-size: 30px; font-weight: 700; color: #1a365d; margin-bottom: 10px; }
+  .desc { font-size: 20px; color: #2d3748; line-height: 1.5; }
+  .arrow {
+    display: flex; align-items: center;
+    font-size: 56px; color: #2b6cb0;
+    padding: 0 8px;
+    font-weight: 700;
+  }
+  .gate { border-color: #c05621; background: #fffaf0; }
+  .gate .num { background: #c05621; }
+  .gate .title { color: #7b341e; }
+</style>
+</head>
+<body>
+  <div class="flow" id="flow">
+    <div class="step">
+      <div class="num">1</div>
+      <div class="title">Version Up</div>
+      <div class="desc">create-release-pr.yml<br>がPRを自動作成</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="title">Merge</div>
+      <div class="desc">Type: Release<br>ラベルで release.yml 起動</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step gate">
+      <div class="num">3</div>
+      <div class="title">Approve</div>
+      <div class="desc">Environmentの<br>reviewersがApprove</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="num">4</div>
+      <div class="title">Publish</div>
+      <div class="desc">OIDCで npm publish<br>（stagedなら再Approve）</div>
+    </div>
+  </div>
+</body>
+</html>
