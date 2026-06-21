@@ -337,7 +337,7 @@ steps:
 
 # 実装: EnvironmentでApproveとrefを制御する
 
-![inline 75%](img/github-environment.png)
+![inline](img/github-environment.png)
 
 ^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの `GITHUB_REF` からdeployできるか」を見る。npm Environmentでは `refs/pull/*/merge` だけを許可し、さらにApproveしないとjobが続行しない。
 
@@ -383,13 +383,13 @@ steps:
 
 ---
 
-# PRのmerge refだけ許可する
+# PRのmerge起因で動く
 
-- PRにはGitHubが作る `refs/pull/<n>/merge` がある
-- npm Environmentは `refs/pull/*/merge` だけ許可
-- さらにApproveしないとpublishへ進めない
+- PRにはGitHubが作る `refs/pull/<number>/merge` がある
+- `npm`のEnvironmentは `refs/pull/*/merge` だけ動作を許可
+- + ApproveしないとActionが動かない
 
-![inline 85%](img/github-environment-ref-rule.png)
+![right fit 85%](img/github-environment-ref-rule.png)
 
 参考: [GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags) / [GitHub Changelog](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
 
