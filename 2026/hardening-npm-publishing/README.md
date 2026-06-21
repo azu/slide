@@ -34,6 +34,7 @@
 | `npm-trusted-publisher` | Trusted Publisher登録フォーム | npmjs.com パッケージ設定 | キャプチャ |
 | `flow-diagram` | Release PRの流れ図（Version Up→Merge→Approve→Publish） | flow-diagram.html / flow-diagram.svg | Playwright / ImageMagick |
 | `github-release-pr` | バージョンアップPR（Type: Releaseラベル） | github.com PR | キャプチャ |
+| `github-deployment-waiting` | Release PR merge後のdeployment待ち表示 | github.com PR | キャプチャ |
 | `release-yml` | release.yml | github.com/azu/simple-oidc-example-package | Playwright |
 | `github-environment` | Environment Approve設定（Required reviewers） | github.com Settings | キャプチャ |
 | `github-review-deployments` | Review pending deploymentsのApprove | github.com Actions | キャプチャ |
@@ -41,6 +42,7 @@
 | `gh-changelog` | pull_request_target仕様変更 | github.blog changelog 2025-11-07 | Playwright |
 | `staged-publishing-flow` | staged publishingの流れ図（Submit→Inspect→Approve） | 生成画像 | ImageMagick |
 | `npm-staged-packages` | Staged PackagesのApprove | npmjs.com Staged Packages | キャプチャ |
+| `publishing-overview-flow` | 公開までの全体像（流れ・確認点・対策） | 生成画像 | ImageMagick |
 
 ## メモ
 

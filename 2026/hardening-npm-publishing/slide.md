@@ -72,7 +72,7 @@ azu (`@azu_re`)
 # 生のcredentialをローカルに置かない
 
 - 第一前提は、infostealerにローカルを抜かれても公開権限が漏れないこと
-- ローカルファイルにsecretを保存しない（昔のパスワード管理の延長）
+- ローカルファイルにsecretを保存しない
 - 強いトークンをローカルに常駐させない
 
 ^ 最近の攻撃はローカルから始まることが多い。まずローカルに強い公開権限を残さない。
@@ -116,7 +116,7 @@ azu (`@azu_re`)
 
 # npm: アクセストークンを0個にする
 
-![inline 140%](img/npm-tokens-zero.png)
+![inline 220%](img/npm-tokens-zero.png)
 
 ^ npmアクセストークンは0個。新規追加時だけ一時発行してすぐ消す。
 
@@ -153,7 +153,7 @@ azu (`@azu_re`)
 
 # npmjs.comでTrusted Publisherを登録
 
-![inline 125%](img/npm-trusted-publisher.png)
+![inline 160%](img/npm-trusted-publisher.png)
 
 ^ Organization / Repository / Workflowファイル名 / Environment名を指定する。
 
@@ -204,7 +204,7 @@ steps:
 
 # Step 1: Version Up PR
 
-![inline](img/github-release-pr.png)
+![inline 180%](img/github-release-pr.png)
 
 ^ create-release-pr.yml がバージョンを上げるPRを自動作成。Type: Release ラベルが付く。
 
@@ -223,7 +223,7 @@ steps:
 
 # Step 3: Approve Deployment
 
-![inline](img/github-review-deployments.png)
+![inline 130%](img/github-review-deployments.png)
 
 ^ マージ後、Review pending deploymentsでApproveして初めてpublishが走る。Approveしなければ止まる。
 
@@ -388,7 +388,7 @@ steps:
 
 # staged publishingのフロー
 
-![inline](img/staged-publishing-flow.png)
+![inline 115%](img/staged-publishing-flow.png)
 
 ^ stage publishでステージング領域に提出し、view/downloadで中身を確認し、approveで公開する。approveには必ずsecurity key（MFA）が入る。stage publish自体は2FA不要。
 
@@ -396,7 +396,7 @@ steps:
 
 # Staged PackagesのApprove画面
 
-![inline 125%](img/npm-staged-packages.png)
+![inline 190%](img/npm-staged-packages.png)
 
 ^ Trusted PublisherがOIDC / GitHub Actionsと表示される。ここで中身を見てからApprove。security keyを挿してApproveする。
 
@@ -410,6 +410,14 @@ steps:
 - npm / GitHubのどちらか一方はtokenlessに寄せる
 
 ^ CIからapproveできる＝トークンが流出すると突破されうる。だからnpmトークン0個に寄せる。
+
+---
+
+# 公開までの全体像
+
+![inline 95%](img/publishing-overview-flow.png)
+
+^ ここまでの話を一枚にまとめる。細部ではなく、LocalからUsersまでの経路、確認を入れる場所、この発表で扱った対策だけを見る。次のスライドで、この流れをSLSAのSource / Build / Publish / Distribution / Usageに置き直す。
 
 ---
 
