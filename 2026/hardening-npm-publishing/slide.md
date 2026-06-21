@@ -173,14 +173,9 @@ azu (`@azu_re`)
 ![inline 130%](img/npm-publishing-access.png)
 
 ^ npmのPublishing accessで「Require two-factor authentication and disallow tokens」を選ぶ。token publishは閉じるが、Trusted Publisher(OIDC)はこの設定でも動く。ただし、publish権限を持つmaintainerのinteractive publishまで禁止する設定ではない。公開経路をCIに寄せるには、npm側でpublish権限を持つ人を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。
-
----
-
-# Require 2FA and disallow tokens
-
-- 2FA必須・token publish禁止をパッケージに設定する
-- 既存パッケージはトークンでは公開できなくなる
-- 公開経路はOIDC（CI経由）だけに強制される
+^ - 2FA必須・token publish禁止をパッケージに設定する
+^ - 既存パッケージはトークンでは公開できなくなる
+^ - 公開経路はOIDC（CI経由）だけに強制される
 
 ---
 
@@ -337,7 +332,7 @@ steps:
 
 # 実装: EnvironmentでApproveとrefを制御する
 
-![inline](img/github-environment.png)
+![inline 65%](img/github-environment-cropped.png)
 
 ^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの `GITHUB_REF` からdeployできるか」を見る。npm Environmentでは `refs/pull/*/merge` だけを許可し、さらにApproveしないとjobが続行しない。
 
@@ -471,7 +466,7 @@ steps:
 # 公開フローを段階ごとに制御する
 
 1. ローカル: 強い権限を常駐させない
-1. OIDC: 長期npm tokenを使わない
+1. OIDC: npm tokenを持たない
 1. Actions: PR + Environment + Approve
 1. 権限境界: publish権限へ進む前にApprove
 1. staged publishing: registry公開前にApprove
@@ -506,5 +501,3 @@ steps:
 ---
 
 # [fit] ありがとうございました
-
-## `@azu_re`
