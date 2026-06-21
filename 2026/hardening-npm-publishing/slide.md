@@ -42,6 +42,16 @@ azu (`@azu_re`)
 
 ---
 
+# この発表の目的
+
+- 改ざんをゼロにする話ではない
+- 侵害されても、悪いpackageがregistryへ出る前に止める
+- コードの中身を保証する話は主題にしない
+
+^ SLSAのBuild L3はbuild中の改ざんに強くする話。この発表はそれとは少し違い、公開フローの途中で止める話。build中に悪性コードが混ざり、それを人が気づかずApproveしてしまう問題は残る。そこは成果物検証、monitoring、より強いbuild isolationの領域で、今回の中心ではない。
+
+---
+
 # 問い: 公開フローのどこを守るか
 
 - 攻撃者は、1箇所のインジェクトで全部抜けるなら一番弱い部分を狙う
@@ -50,6 +60,13 @@ azu (`@azu_re`)
 - どこかが破られても、別の段階で検出・制限する
 
 ^ 本質は最小権限と手順。特別に難しいことはしていない。段階ごとに確認点を置く。
+
+---
+
+![fit](img/npm-package-flow.png)
+
+
+^ 左のLocalは開発者の手元、右のLocalは利用者の手元。手元の変更がGitHubに入り、npmにpublishされ、利用者がinstallして使う。ここでの目的は「完全に混入を防ぐ」ではなく「混入や侵害が起きても publish / use へ進む前に止める」こと。
 
 ---
 
@@ -71,8 +88,9 @@ azu (`@azu_re`)
 
 # 生のcredentialをローカルに置かない
 
-- 第一前提は、infostealerにローカルを抜かれても公開権限が漏れないこと
-- ローカルファイルにsecretを保存しない
+- 第一前提は、ローカルを抜かれても公開権限が漏れないこと
+- ローカルファイルにcredentialを保存しない
+- 1Password/Bitwardenなど多要素認証をしないと取り出せないところへ保存する
 - 強いトークンをローカルに常駐させない
 
 ^ 最近の攻撃はローカルから始まることが多い。まずローカルに強い公開権限を残さない。
@@ -81,8 +99,8 @@ azu (`@azu_re`)
 
 # GitHub: classic PATを常用しない
 
-- classic PATは広い範囲にwriteできてしまい強すぎる
-- 使うとしてもローカル限定。CIではほぼ使わない
+- classic PAT(Personal Access Token)は強すぎる権限
+- 使うとしてもローカル限定。CIでは使わない
 - 常用はfine-grained PATにして、リポジトリと権限を絞る
 - fine-grainedはリソースオーナーに紐づくので多少手間だが許容する
 
@@ -97,7 +115,7 @@ azu (`@azu_re`)
 - 対象を絞る（特定リポジトリ / public のみ）
 - 漏れても影響範囲がそのトークンの用途に限定される
 
-例: pull用read-only、deploy用、uptime監視用を別々に持つ
+📝 read-onlyのトークンしか発行していない
 
 ^ 1つ漏れても全部は取られない。用途名を付けておくと棚卸ししやすい。
 
@@ -105,7 +123,7 @@ azu (`@azu_re`)
 
 # 課題: Checks APIがfine-grained未対応
 
-- Checks APIがfine-grained PATに対応しておらず、classicがfallbackになる
+- Checks APIがfine-grained PATに対応していない
 - これが直れば、常用トークンから強いclassicをほぼ消せる
 
 参考: [github.com/orgs/community/discussions/129512](https://github.com/orgs/community/discussions/129512)
@@ -122,16 +140,6 @@ azu (`@azu_re`)
 
 ---
 
-# Require 2FA and disallow tokens
-
-- 2FA必須・token publish禁止をパッケージに設定する
-- 既存パッケージはトークンでは公開できなくなる
-- 公開経路はOIDC（Actions経由）だけに強制される
-
-^ トークンが流出しても、それだけでは公開できない状態にする。
-
----
-
 # 2. トークンレス npm
 
 ## OIDC Trusted Publishing
@@ -142,12 +150,12 @@ azu (`@azu_re`)
 
 - 長期トークンをやめ、short-livedでworkflow固有の署名トークンで公開する
 - npmとGitHub ActionsがOIDCで信頼関係を結ぶ
-- 「特定リポジトリの特定workflowからの実行」を暗号的に証明する
+- 「特定リポジトリの特定workflowからの実行」をnpmが確認できる
 - npm 11.5.1以上が必要
 
 参考: [efcl.info/2025/09/07/npm-oidc/](https://efcl.info/2025/09/07/npm-oidc/)
 
-^ 共有secretなしで公開できる。トークンをCIに置かなくてよくなる。
+^ 共有credentialなしで公開できる。トークンをCIに置かなくてよくなる。
 
 ---
 
@@ -156,6 +164,23 @@ azu (`@azu_re`)
 ![inline 160%](img/npm-trusted-publisher.png)
 
 ^ Organization / Repository / Workflowファイル名 / Environment名を指定する。
+
+
+---
+
+# Require 2FA and disallow tokens
+
+![inline 130%](img/npm-publishing-access.png)
+
+^ npmのPublishing accessで「Require two-factor authentication and disallow tokens」を選ぶ。token publishは閉じるが、Trusted Publisher(OIDC)はこの設定でも動く。ただし、publish権限を持つmaintainerのinteractive publishまで禁止する設定ではない。公開経路をCIに寄せるには、npm側でpublish権限を持つ人を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。
+
+---
+
+# Require 2FA and disallow tokens
+
+- 2FA必須・token publish禁止をパッケージに設定する
+- 既存パッケージはトークンでは公開できなくなる
+- 公開経路はOIDC（CI経由）だけに強制される
 
 ---
 
@@ -184,7 +209,7 @@ steps:
 - npm provenanceはpackageとworkflowを結びつける証拠になる
 - ただしbuild中に何が起きたかまでは保証しない
 
-^ SLSA用語ではBuild L2相当。ただし本文ではL2という言い方を前に出さない。package digestとrepo/workflow/refを結びつける証拠であって、build中に攻撃者コードが動いた場合までは防げない。
+^ SLSA用語ではBuild L2相当。package digestとrepo/workflow/refを結びつける証拠であって、build中に攻撃者コードが動いた場合までは防げない。細かい補足: private repositoryでもTrusted Publishing(OIDC)は使えるが、npm provenanceは生成されない。provenance自動生成は、Trusted Publishing、public repository、public package の組み合わせが条件。
 
 ---
 
@@ -289,7 +314,7 @@ steps:
 - GitHub Actionsのcacheは権限に関係なくどのworkflowからも読み書きできる
 - 低権限やPRのworkflowがcacheを汚染し、リリースworkflowが復元して実行してしまう
 - TanStack侵害: cache汚染 → `release.yml`で復元 → OIDCトークン窃取
-- secretを扱うworkflowではcacheを消費しない
+- credentialを扱うworkflowではcacheを消費しない
 
 参考: [tanstack postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem) / [clinejection](https://adnanthekhan.com/posts/clinejection/)
 
@@ -302,30 +327,30 @@ steps:
 - provenanceで「どこから出たか」は分かる
 - でも「作る途中で何が混ざったか」は分からない
 - 悪いpackageにも正しい署名が付くことがある
-- だから公開前に中身を見る段階を置く
+- だからpublishに進む前に別のApproveを求める
 
 参考: [Mini Shai-Hulud: Where SLSA’s Boundaries Fall](https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do)
 
-^ provenanceは『改ざんされていない成果物』の保証ではない。正確には、package digestとrepo/workflow/refを結びつける証拠。build環境が汚染されていれば、その汚染されたbuildの結果にもvalid provenanceが付く。本文では「出どころは分かるが、作る途中までは見ない」と言う。ここから、publish直前に人が確認する段階を置く話へつなげる。
+^ provenanceは『改ざんされていない成果物』の保証ではない。正確には、package digestとrepo/workflow/refを結びつける証拠。build環境が汚染されていれば、その汚染されたbuildの結果にもvalid provenanceが付く。本文では「出どころは分かるが、作る途中までは見ない」と言う。ここから、provenanceとは別にpublishへ進むためのApproveを求める話へつなげる。
 
 ---
 
-# 実装: EnvironmentでApproveを必須にする
+# 実装: EnvironmentでApproveとrefを制御する
 
-![inline](img/github-environment.png)
+![inline 75%](img/github-environment.png)
 
-^ environmentにrequired reviewersを設定。Approveしないとjobが動かない。Step 3の裏側の設定。
+^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの `GITHUB_REF` からdeployできるか」を見る。npm Environmentでは `refs/pull/*/merge` だけを許可し、さらにApproveしないとjobが続行しない。
 
 ---
 
-# 実装: なぜ改変だけでは公開できないか
+# 実装: 改変だけではpublishへ進めない
 
 - npmのTrusted Publisherはworkflowファイル名とEnvironment名を確認する
-- `release.yml`を改変しても `environment: npm` が使えない
-- Environmentはrequired reviewersのApproveが必要
-- ファイル名一致だけではOIDCトークンを交換できない
+- Environmentは `refs/pull/*/merge` だけ許可する
+- Environmentはrequired reviewersのApproveも必要
+- workflowファイル名一致だけではOIDC交換まで進めない
 
-^ 最後に人のApproveが残る。これがOIDC単体との差。
+^ workflow改変そのものをEnvironmentが止めるわけではない。Trusted Publisherのworkflow file制限、Environment名、Environmentのref制限、required reviewersのApproveを組み合わせる。直接pushや任意branchからの実行では npm Environment を通れない。PRのmerge refだけを許可し、最後にApproveを要求する。
 
 ---
 
@@ -333,15 +358,17 @@ steps:
 
 ---
 
-# Bitwarden CLI侵害事例
+# Bitwarden CLI侵害: OIDCは通った
 
-- CI/CDが侵害され、メモリや環境変数からトークン・クラウド資格情報を窃取
-- .github/workflows/ に不正workflowを作り、transient branchで検出回避
-- 重要なのはEnvironmentを使っていなかったこと
+1. `publish-cli.yml` を書き換える
+1. OIDCでnpmの短期credentialを取得
+1. credentialをログへ出して持ち出す
 
-参考: [socket.dev/blog/bitwarden-cli-compromised](https://socket.dev/blog/bitwarden-cli-compromised)
+**OIDCだけではworkflow改変を止められない**
 
-^ environment未使用だと、workflow名さえ合えばpushでOIDC交換してpublishできた。
+参考: [GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
+
+^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も `_npmUser` は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。
 
 ---
 
@@ -356,16 +383,17 @@ steps:
 
 ---
 
-# PR + マージを必須にする
+# PRのmerge refだけ許可する
 
-- 直接pushや単独workflow起動ではリリースさせない
-- `release.yml` はPRをマージした文脈だけで動く
-- ブランチ保護は `refs/pull/<n>/merge` で評価
-- この辺りはGitHub側の仕様変更が続いている領域
+- PRにはGitHubが作る `refs/pull/<n>/merge` がある
+- npm Environmentは `refs/pull/*/merge` だけ許可
+- さらにApproveしないとpublishへ進めない
 
-参考: [github.blog changelog 2025-11-07](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
+![inline 85%](img/github-environment-ref-rule.png)
 
-^ 本質は「PRを作ってマージしないとリリースできない」フローにしていること。仕様変更はそれを補強しているだけ。
+参考: [GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags) / [GitHub Changelog](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
+
+^ `refs/pull/<n>/merge` は普通のbranchではなく、PRごとにGitHubが作る一時的なread-only ref。ユーザーが自由に作れるrefではない。ユーザーが同名branchを作っても `refs/heads/pull/...` であり、`refs/pull/...` にはならない。Environmentのbranch/tag ruleはworkflow runの `GITHUB_REF` を見る。`pull_request` 系では `refs/pull/<n>/merge` が評価されるので、npm Environmentには `refs/pull/*/merge` だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。
 
 ---
 
@@ -406,10 +434,10 @@ steps:
 
 - Approveが1パッケージずつしかできない
 - monorepo（40個一括）だと現実的でない
-- CIからapproveするにはnpmトークンが要る
+- CLIからapproveするにはnpmトークンが要る
 - npm / GitHubのどちらか一方はtokenlessに寄せる
 
-^ CIからapproveできる＝トークンが流出すると突破されうる。だからnpmトークン0個に寄せる。
+^ `npm stage approve` をCLIから自動化するにはnpmトークンが要る。つまり、approveを自動化するとnpm側に長期credentialが戻ってくる。トークンが流出すると突破されうるので、npmトークン0個に寄せる。
 
 ---
 
@@ -428,11 +456,11 @@ steps:
 - ソース側: PR / review
 - ビルド側: cacheなし / provenance
 - 公開前後: OIDC + Environment + staged
-- 今回の中心はpublish経路
+- 今回の中心はpublish経路で止めること
 
 参考: [SLSA Threats](https://slsa.dev/spec/v1.2/threats)
 
-^ SLSAを認証や達成レベルの話として出すのではない。ここまで話した対策を、SLSAで定義されているサプライチェーンの流れに置き直す。SourceではPRとreview、Buildではcacheを持ち込まないこととprovenance、PublishではOIDC、Environment、staged publishing。今回の中心はArtifact publication(F)に相当するpublish経路。
+^ SLSAを認証や達成レベルの話として出すのではない。ここまで話した対策を、SLSAで定義されているサプライチェーンの流れに置き直す。SourceではPRとreview、Buildではcacheを持ち込まないこととprovenance、PublishではOIDC、Environment、staged publishing。今回の中心はArtifact publication(F)に相当するpublish経路。SLSAのBuild trackはbuildやprovenanceの改ざん耐性を上げる話だが、この発表では侵害されてもDistributionへ進ませない制御を中心に話している。
 
 ---
 
@@ -448,15 +476,15 @@ steps:
 1. 権限境界: publish権限へ進む前にApprove
 1. staged publishing: registry公開前にApprove
 
-^ 単独で完結する解決策はない。SLSAの脅威モデルでいうpublish地点に、複数の緩和策を置く。provenanceだけでなく、隔離の考え方とApproveを組み合わせる。
+^ 単独で完結する解決策はない。SLSAの脅威モデルでいうpublish地点に、複数の緩和策を置く。provenanceだけでなく、隔離の考え方とApproveを組み合わせる。目的は侵害をゼロにすることではなく、侵害後に悪いpackageがregistryへ出る経路を細くすること。
 
 ---
 
 # AIエージェント時代も同じ
 
 - 全権限を1つの主体に集めない
-- 1タスク1エージェントにして権限範囲を分ける
-- AIに全部任せるほど、侵害時の影響も広がる
+- AIが全部の権限を持っているなら、攻撃者はAIを狙うだけ
+- 最小権限と権限分離はやる必要がある
 
 ^ 自動化とAIは別物。最小権限とApproveという原則は変わらない。
 
@@ -467,7 +495,7 @@ steps:
 - npm OIDC: [efcl.info/2025/09/07/npm-oidc/](https://efcl.info/2025/09/07/npm-oidc/)
 - 公開例: [github.com/azu/simple-oidc-example-package](https://github.com/azu/simple-oidc-example-package)
 - staged例: [github.com/azu/simple-npm-staged-publish-package-example](https://github.com/azu/simple-npm-staged-publish-package-example)
-- Bitwarden CLI侵害: [socket.dev/blog/bitwarden-cli-compromised](https://socket.dev/blog/bitwarden-cli-compromised)
+- Bitwarden CLI侵害: [GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
 - TanStack侵害(cache poisoning): [tanstack.com/blog/npm-supply-chain-compromise-postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem)
 - cache poisoning解説: [adnanthekhan.com/posts/clinejection/](https://adnanthekhan.com/posts/clinejection/)
 - SLSA Threats: [slsa.dev/spec/v1.2/threats](https://slsa.dev/spec/v1.2/threats)

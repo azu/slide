@@ -9,6 +9,8 @@
 - サプライチェーン攻撃を「どこで混入するか」で可視化する
 - OIDC / Environment / staged publishing が、どの攻撃経路に対応する対策なのかを説明する
 - SLSA を「達成レベルの話」ではなく「脅威を分類するモデル」として使う
+- この発表の目的は、改ざんそのものを完全に防ぐことではなく、侵害されても悪い package が registry / Distribution へ進む前に止めること
+- build中に悪性コードが混ざり、それを人が気づかずApproveしてしまう問題は残る。そこは成果物検証、monitoring、より強い build isolation の領域で、今回の中心ではない
 
 ## 1. サプライチェーン攻撃の可視化
 
@@ -72,7 +74,7 @@ SLSA の (F) は「公式ソースの意図を反映しない artifact がアッ
 | 対策 | 主な対応範囲 | 緩和するリスク |
 | --- | --- | --- |
 | npm token 0 個 | Local / Artifact publication | infostealer で npm publish token が漏れる経路を消す |
-| Require 2FA and disallow tokens | Artifact publication | 既存 token だけで publish される経路を閉じる |
+| Require 2FA and disallow tokens | Artifact publication | 既存 token だけで publish される経路を閉じ、OIDC Trusted Publisher を残す |
 | OIDC Trusted Publishing | Artifact publication | 長期 token ではなく、特定 workflow からの短命 credential にする |
 | provenance | Build / Artifact publication | どの repo / workflow から来た artifact かを後から検証できるようにする |
 | PR 必須 / Rulesets | Source | 直接 push や review 抜きの変更を減らす |
@@ -85,6 +87,7 @@ SLSA の (F) は「公式ソースの意図を反映しない artifact がアッ
 - OIDC は「token を消す」対策だが、それだけだと GitHub 側を取られたときに npm publish へ権限が広がる
 - Environment はその権限境界にApproveを置く対策
 - staged publishing は npm 側で公開前 review を追加する対策
+- `Require 2FA and disallow tokens` は token publish を閉じる設定であり、npm publish 権限を持つ maintainer の interactive publish までは閉じない。CIに公開経路を寄せたい場合は、npm側のpublish権限を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。
 - どれか 1 つで完結するのではなく、同じ (F) に対して複数の段階で緩和策を置く
 
 ## 4. 攻撃シナリオ別の見せ方
@@ -144,7 +147,7 @@ Actions では、cache poisoning だけではなく、workflow の改変、外�
 - 「実装: 外部Actionに依存しない」
 - 「なぜcacheを使わないか」
 - 「実装: release.yml（抜粋）」
-- 「実装: EnvironmentでApproveを必須にする」
+- 「実装: EnvironmentでApproveとrefを制御する」
 - TanStack 事例の説明
 
 ### OIDC 権限カスケード
@@ -161,14 +164,30 @@ flowchart LR
 
 - npm Trusted Publisher で workflow filename だけでなく Environment も縛る
 - Environment required reviewers
-- PR + merge の文脈に限定する
+- Environmentのbranch/tag ruleを `refs/pull/*/merge` にして、PRのmerge refだけに限定する
 - staged publishing を stage-only にする
+
+`refs/pull/<n>/merge` の説明:
+
+- 普通のbranchではなく、PRごとにGitHubが作る一時的なread-only ref
+- ユーザーが自由に作れるrefではない
+- ユーザーが同名branchを作っても `refs/heads/pull/...` であり、`refs/pull/...` ではない
+- Environmentのbranch/tag ruleは `GITHUB_REF` を評価する
+- `pull_request` 系では `GITHUB_REF` が `refs/pull/<n>/merge` になる
+- だからnpm Environmentで `refs/pull/*/merge` だけ許可し、required reviewersのApproveと組み合わせる
+
+Bitwarden CLI 事例の言い方:
+
+- workflow改変 → OIDCでnpm短期credential → ログへ出して持ち出し → Gitコンテキスト外からpublish
+- 悪性 2026.4.0 も npm の `_npmUser` は GitHub Actions / OIDC だが、provenance は欠落
+- 長期npm tokenを消すことと、workflow改変だけでpublishへ進めないようにすることは別の問題
+- Environment + Approve で「workflowを変えた主体」と「publishへ進める判断」を分ける
 
 スライドでの使いどころ:
 
-- 「Bitwarden CLI侵害事例」
+- 「Bitwarden CLI侵害: OIDCは通った」
 - 「権限カスケード（権限昇格）」
-- 「実装: なぜ改変だけでは公開できないか」
+- 「実装: 改変だけではpublishへ進めない」
 - 「staged publishing」
 
 ## 5. 可視化スライド案
@@ -185,7 +204,7 @@ flowchart LR
 - 上段: SLSA の Source / Build / Publish(F) / Distribution / Usage
 - 中段: この発表の npm publishing flow
 - 下段: 攻撃パスと、このスライドで紹介する対策
-- 強調: Publish(F) と `Actions -> npm publish -> Registry`
+- 強調: Publish(F) と `Actions -> publish -> use`
 
 差し込み候補:
 
@@ -227,6 +246,8 @@ flowchart LR
 | slide.md の場所 | SLSA ノートの使い方 |
 | --- | --- |
 | なぜ今、公開フローを守るのか | サプライチェーン攻撃は source だけでなく publish path も狙うと説明する |
+| この発表の目的 | 侵害されても悪い package が registry へ出る前に止める話であり、改ざん検出全般ではないと境界を置く |
+| npm packageが使われるまで | Local -> PR -> Actions -> publish -> use の背骨を先に見せる。SLSA用語に寄せすぎず、一般的な公開手順として説明する |
 | 公開までのレイヤー | ローカルから registry までの攻撃面を可視化する |
 | provenanceで来歴を残す | 本文では「packageとworkflowを結びつける証拠」と説明し、SLSA Build L2はノートで補足する |
 | なぜcacheを使わないか | SLSA の Build process(E) として説明する |
@@ -238,6 +259,8 @@ flowchart LR
 ## 9. L1 / L2 / L3 の短い理解
 
 npm provenance の説明では、L1 / L2 / L3 をそのまま本文に出すと分かりにくい。発表者側の理解として次の対応を持っておき、スライドでは「証拠」と「隔離」に言い換える。
+
+v1.2にもLevelはある。ただし、v1.2は複数trackに分かれている。Build trackは Build L0-L3、Source trackは Source L1-L4 として扱う。今回のnpm provenanceの話は主にBuild trackを見る。
 
 | Level | 見ているもの | npm publishing での理解 |
 | --- | --- | --- |
@@ -252,6 +275,7 @@ npm provenance の説明では、L1 / L2 / L3 をそのまま本文に出すと�
 - L2 は build 中に攻撃者コードが混ざる、cache が汚染される、runner 内の OIDC identity が抜かれる、といった問題までは保証しない
 - その領域は L3 の isolation が見る
 - ただし L3 でも producer が危険な workflow を書いた場合までは防がない。L3 は善意の build が意図しない外部影響を受けないための隔離
+- 細かい補足: private repository でも Trusted Publishing(OIDC) は使えるが、npm provenance は生成されない。provenance 自動生成は Trusted Publishing、public repository、public package の組み合わせが条件。
 
 短い言い方:
 
@@ -270,7 +294,7 @@ npm provenance の説明では、L1 / L2 / L3 をそのまま本文に出すと�
 
 スライドに入れるなら、`なぜcacheを使わないか` の直後が自然。TanStack / Mini Shai-Hulud の具体例を見せた直後に、provenance と isolation の違いを説明できる。
 
-ただし、`provenanceだけでは足りない` の本文では cache を再度出さない。cache は直前の専用スライドで説明済みなので、ここでは「provenance は来歴の証拠であって、公開前確認や build 中の影響確認とは別」という線にする。
+ただし、`provenanceだけでは足りない` の本文では cache を再度出さない。cache は直前の専用スライドで説明済みなので、ここでは「provenance は来歴の証拠であって、publish に進めてよいかを決める Approve や build 中の影響確認とは別」という線にする。
 
 スライド案:
 
@@ -280,13 +304,13 @@ npm provenance の説明では、L1 / L2 / L3 をそのまま本文に出すと�
 - provenanceで「どこから出たか」は分かる
 - でも「作る途中で何が混ざったか」は分からない
 - 悪いpackageにも正しい署名が付くことがある
-- だから公開前に中身を見る段階を置く
+- だからpublishに進む前に別のApproveを求める
 ```
 
 Speaker note 案:
 
 ```md
-^ SLSA Build L3を達成する話ではない。重要なのは、provenanceは証拠であって、成果物の中身を人が確認した事実ではないという点。本文ではL3/Isolatedという用語より「出どころは分かるが、作る途中までは見ない」と説明する。ここから、Environment Approveやstaged publishingでpublish直前に確認する段階を置く話へつなげる。
+^ SLSA Build L3を達成する話ではない。重要なのは、provenanceは証拠であって、成果物をpublishしてよいと判断した事実ではないという点。本文ではL3/Isolatedという用語より「出どころは分かるが、作る途中までは見ない」と説明する。ここから、provenanceとは別にpublishへ進むためのApproveを求める話へつなげる。staged publishingでは中身確認もできるが、このスライドの主語は「provenanceとは別のApprove」。
 ```
 
 短い言い方:

@@ -31,12 +31,15 @@
 | ファイル | 内容 | 出典 | 取得方法 |
 |---|---|---|---|
 | `npm-tokens-zero` | npmアクセストークン0個 | npmjs.com Access Tokens | キャプチャ |
+| `npm-publishing-access` | Publishing access（Require 2FA and disallow tokens / Trusted Publisher注記） | npmjs.com パッケージ設定 | キャプチャ |
 | `npm-trusted-publisher` | Trusted Publisher登録フォーム | npmjs.com パッケージ設定 | キャプチャ |
+| `npm-package-flow` | npm packageが使われるまでの流れ（Developer local→GitHub→npm→User local） | 生成画像 | Chrome headless |
 | `flow-diagram` | Release PRの流れ図（Version Up→Merge→Approve→Publish） | flow-diagram.html / flow-diagram.svg | Playwright / ImageMagick |
 | `github-release-pr` | バージョンアップPR（Type: Releaseラベル） | github.com PR | キャプチャ |
 | `github-deployment-waiting` | Release PR merge後のdeployment待ち表示 | github.com PR | キャプチャ |
 | `release-yml` | release.yml | github.com/azu/simple-oidc-example-package | Playwright |
-| `github-environment` | Environment Approve設定（Required reviewers） | github.com Settings | キャプチャ |
+| `github-environment` | Environment設定（Required reviewers / `refs/pull/*/merge`） | github.com Settings | キャプチャ |
+| `github-environment-ref-rule` | Environmentのdeployment branch/tag rule（`refs/pull/*/merge`） | github.com Settings | キャプチャ |
 | `github-review-deployments` | Review pending deploymentsのApprove | github.com Actions | キャプチャ |
 | `slsa-threats` | SLSA脅威図 | slsa.dev/spec/v1.2/threats | Playwright |
 | `gh-changelog` | pull_request_target仕様変更 | github.blog changelog 2025-11-07 | Playwright |

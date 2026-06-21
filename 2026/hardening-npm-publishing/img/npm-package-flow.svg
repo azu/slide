@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="560" viewBox="0 0 1600 560">
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="560" fill="#ffffff"/>
+
+  <g font-family="Arial">
+    <text x="800" y="58" text-anchor="middle" font-size="36" font-weight="700" fill="#0f172a">
+      Developer local → GitHub → npm → User local
+    </text>
+
+    <line x1="368" y1="276" x2="440" y2="276" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+    <line x1="758" y1="276" x2="816" y2="276" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+    <line x1="1148" y1="276" x2="1220" y2="276" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+
+    <g transform="translate(58 136)">
+      <rect width="310" height="250" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="5"/>
+      <text x="155" y="48" text-anchor="middle" font-size="28" font-weight="800" fill="#0f2f63">Developer local</text>
+      <rect x="42" y="92" width="226" height="92" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="3"/>
+      <text x="155" y="129" text-anchor="middle" font-size="30" font-weight="800" fill="#1d4ed8">code / token</text>
+      <text x="155" y="164" text-anchor="middle" font-size="20" font-weight="600" fill="#475569">maintainer machine</text>
+    </g>
+
+    <g transform="translate(448 136)">
+      <rect width="310" height="250" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="5"/>
+      <text x="155" y="48" text-anchor="middle" font-size="28" font-weight="800" fill="#14532d">GitHub</text>
+      <rect x="42" y="92" width="226" height="92" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="3"/>
+      <text x="155" y="129" text-anchor="middle" font-size="30" font-weight="800" fill="#15803d">PR / Actions</text>
+      <text x="155" y="164" text-anchor="middle" font-size="20" font-weight="600" fill="#475569">review / workflow</text>
+    </g>
+
+    <g transform="translate(838 136)">
+      <rect width="310" height="250" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="5"/>
+      <text x="155" y="48" text-anchor="middle" font-size="28" font-weight="800" fill="#7c2d12">npm</text>
+      <rect x="42" y="92" width="226" height="92" rx="8" fill="#ffffff" stroke="#fdba74" stroke-width="3"/>
+      <text x="155" y="129" text-anchor="middle" font-size="30" font-weight="800" fill="#c2410c">publish</text>
+      <text x="155" y="164" text-anchor="middle" font-size="20" font-weight="600" fill="#475569">registry</text>
+    </g>
+
+    <g transform="translate(1228 136)">
+      <rect width="310" height="250" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="5"/>
+      <text x="155" y="48" text-anchor="middle" font-size="28" font-weight="800" fill="#1e293b">User local</text>
+      <rect x="42" y="92" width="226" height="92" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+      <text x="155" y="129" text-anchor="middle" font-size="30" font-weight="800" fill="#334155">install / use</text>
+      <text x="155" y="164" text-anchor="middle" font-size="20" font-weight="600" fill="#475569">developer users</text>
+    </g>
+
+    <g>
+      <line x1="820" y1="112" x2="820" y2="420" stroke="#f97316" stroke-width="5" stroke-dasharray="14 12"/>
+      <rect x="660" y="418" width="320" height="56" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="3"/>
+      <text x="820" y="454" text-anchor="middle" font-size="24" font-weight="800" fill="#c2410c">boundary before publish</text>
+    </g>
+  </g>
+</svg>
