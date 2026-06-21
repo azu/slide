@@ -74,8 +74,7 @@ azu (`@azu_re`)
 
 1. ローカルのToken管理
 1. トークンレスnpm（OIDC Trusted Publishing）
-1. GitHub Actions（Rulesets / Environments / Deployment protection）
-1. OIDCと権限昇格への対策
+1. GitHub Actions（PR / Environments / Deployment protection）
 1. npm staged publishing
 
 ^ この順に、攻撃者目線で「ここを抜かれたら？」を考えながら制御点を置いていく。
@@ -173,9 +172,6 @@ azu (`@azu_re`)
 ![inline 130%](img/npm-publishing-access.png)
 
 ^ npmのPublishing accessで「Require two-factor authentication and disallow tokens」を選ぶ。token publishは閉じるが、Trusted Publisher(OIDC)はこの設定でも動く。ただし、publish権限を持つmaintainerのinteractive publishまで禁止する設定ではない。公開経路をCIに寄せるには、npm側でpublish権限を持つ人を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。
-^ - 2FA必須・token publish禁止をパッケージに設定する
-^ - 既存パッケージはトークンでは公開できなくなる
-^ - 公開経路はOIDC（CI経由）だけに強制される
 
 ---
 
@@ -260,63 +256,6 @@ steps:
 
 ---
 
-# 実装: Release PR方式
-
-- create release PRでリリース用のPRを作る
-- 「Type: Release」ラベル付きPRだけがpublish候補になる
-- リリースは必ずPR経由を通す
-
-参考: [github.com/azu/simple-oidc-example-package](https://github.com/azu/simple-oidc-example-package)
-
-^ いきなりpushでpublishされないように、PRというApprove前の確認点を必ず通す。
-
----
-
-# 実装: release.yml（抜粋）
-
-```yaml
-environment: npm
-permissions:
-  contents: write
-  id-token: write
-
-steps:
-  - uses: actions/checkout@<sha>
-    with:
-      persist-credentials: false
-  - uses: actions/setup-node@<sha>
-  - run: npm publish --provenance
-```
-
-^ environment: npm、id-token: write、SHA pin、persist-credentials: false が要点。
-
----
-
-# 実装: 外部Actionに依存しない
-
-- 使うのは公式の checkout / setup-node のみ
-- setup-nodeのcacheも使わない
-- リポジトリ操作は gh / git コマンドで行う
-- `uses:` はcommit SHAでpinする
-- checkoutは `persist-credentials: false`
-
-^ Action imageが侵害されても影響を独立させる意識。依存を最小に。
-
----
-
-# なぜcacheを使わないか（cache poisoning）
-
-- GitHub Actionsのcacheは権限に関係なくどのworkflowからも読み書きできる
-- 低権限やPRのworkflowがcacheを汚染し、リリースworkflowが復元して実行してしまう
-- TanStack侵害: cache汚染 → `release.yml`で復元 → OIDCトークン窃取
-- credentialを扱うworkflowではcacheを消費しない
-
-参考: [tanstack postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem) / [clinejection](https://adnanthekhan.com/posts/clinejection/)
-
-^ cacheは信頼境界を越える。PR側で汚染したものをリリース側が拾うと一気に抜かれる。
-
----
-
 # provenanceだけでは足りない
 
 - provenanceで「どこから出たか」は分かる
@@ -326,11 +265,24 @@ steps:
 
 参考: [Mini Shai-Hulud: Where SLSA’s Boundaries Fall](https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do)
 
-^ provenanceは『改ざんされていない成果物』の保証ではない。正確には、package digestとrepo/workflow/refを結びつける証拠。build環境が汚染されていれば、その汚染されたbuildの結果にもvalid provenanceが付く。本文では「出どころは分かるが、作る途中までは見ない」と言う。ここから、provenanceとは別にpublishへ進むためのApproveを求める話へつなげる。
+^ ここからフローの説明から「なぜこの形にするか」へ切り替える。provenanceは『改ざんされていない成果物』の保証ではない。正確には、package digestとrepo/workflow/refを結びつける証拠。build環境が汚染されていれば、その汚染されたbuildの結果にもvalid provenanceが付く。本文では「出どころは分かるが、作る途中までは見ない」と言う。ここから、provenanceとは別にpublishへ進むためのApproveを求める話へつなげる。
 
 ---
 
-# 実装: EnvironmentでApproveとrefを制御する
+# 事例: OIDCだけでは止まらない
+
+- workflow改変でOIDC credentialを取得
+- credentialをログへ出して持ち出す
+- GitHub write権限がnpm publish権限へ広がる
+- 境界にEnvironment Approveを置く
+
+参考: [GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
+
+^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も `_npmUser` は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。
+
+---
+
+# EnvironmentでApproveとrefを制御する
 
 ![inline 65%](img/github-environment-cropped.png)
 
@@ -338,7 +290,21 @@ steps:
 
 ---
 
-# 実装: 改変だけではpublishへ進めない
+# merge refだけを許可する
+
+- GitHubがPR用のmerge refを作る
+- 許可するrefは `refs/pull/*/merge` のみ
+- Approveまでrelease jobを進めない
+
+![right fit 85%](img/github-environment-ref-rule.png)
+
+参考: [GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags) / [GitHub Changelog](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
+
+^ `refs/pull/<n>/merge` は普通のbranchではなく、PRごとにGitHubが作る一時的なread-only ref。ユーザーが自由に作れるrefではない。ユーザーが同名branchを作っても `refs/heads/pull/...` であり、`refs/pull/...` にはならない。Environmentのbranch/tag ruleはworkflow runの `GITHUB_REF` を見る。`pull_request` 系では `refs/pull/<n>/merge` が評価されるので、npm Environmentには `refs/pull/*/merge` だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。
+
+---
+
+# 改変だけではpublishへ進めない
 
 - npmのTrusted Publisherはworkflowファイル名とEnvironment名を確認する
 - Environmentは `refs/pull/*/merge` だけ許可する
@@ -349,50 +315,28 @@ steps:
 
 ---
 
-# 4. OIDC と権限昇格
+# Environment名をnpm側と一致させる
+
+![inline 85%](img/environment-name-screenshots.png)
+
+^ `release.yml` の `environment: npm` はGitHub ActionsのEnvironment名。npm Trusted Publisherにも同じEnvironment nameとして `npm` を登録する。npmはOIDC tokenのclaimに含まれるrepository、workflow file、environmentを見て、登録されたTrusted Publisherと一致するとtoken exchangeする。workflowファイル名だけではなく、Environment名一致と、Environment側のApprove/ref制限まで通って初めてpublishへ進める。
 
 ---
 
-# Bitwarden CLI侵害: OIDCは通った
+# 外部Actionに依存しない
 
-1. `publish-cli.yml` を書き換える
-1. OIDCでnpmの短期credentialを取得
-1. credentialをログへ出して持ち出す
+- 使うのは公式の checkout / setup-node のみ
+- setup-nodeのcacheも使わない
+- PRや低権限workflowの生成物をrelease workflowへ持ち込まない
+- リポジトリ操作は gh / git コマンドで行う
+- `uses:` はcommit SHAでpinする
+- checkoutは `persist-credentials: false`
 
-**OIDCだけではworkflow改変を止められない**
-
-参考: [GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
-
-^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も `_npmUser` は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。
-
----
-
-# 権限カスケード（権限昇格）
-
-- workflow名一致だけでOIDC交換できる構成だと
-- GitHubを侵害するだけでnpmも侵害できてしまう
-- GitHub write権限がnpm publish権限へ広がる
-- 対策は、権限が広がる地点にApprove stepを挟むこと
-
-^ GitHub側のwrite権限がnpm publish権限へ広がる。その権限境界にApproveを置く。
+^ Action imageやcacheが侵害経路になっても影響を独立させる意識。TanStack侵害ではcache汚染から `release.yml` での復元を経てOIDCトークン窃取につながった。ここでは詳細に入らず、credentialを扱うrelease workflowでは、外部Actionやcacheなどの共有された実行結果をできるだけ消費しない、とだけ話す。
 
 ---
 
-# PRのmerge起因で動く
-
-- PRにはGitHubが作る `refs/pull/<number>/merge` がある
-- `npm`のEnvironmentは `refs/pull/*/merge` だけ動作を許可
-- + ApproveしないとActionが動かない
-
-![right fit 85%](img/github-environment-ref-rule.png)
-
-参考: [GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags) / [GitHub Changelog](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
-
-^ `refs/pull/<n>/merge` は普通のbranchではなく、PRごとにGitHubが作る一時的なread-only ref。ユーザーが自由に作れるrefではない。ユーザーが同名branchを作っても `refs/heads/pull/...` であり、`refs/pull/...` にはならない。Environmentのbranch/tag ruleはworkflow runの `GITHUB_REF` を見る。`pull_request` 系では `refs/pull/<n>/merge` が評価されるので、npm Environmentには `refs/pull/*/merge` だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。
-
----
-
-# 5. npm staged publishing
+# 4. npm staged publishing
 
 ---
 
@@ -492,7 +436,6 @@ steps:
 - staged例: [github.com/azu/simple-npm-staged-publish-package-example](https://github.com/azu/simple-npm-staged-publish-package-example)
 - Bitwarden CLI侵害: [GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
 - TanStack侵害(cache poisoning): [tanstack.com/blog/npm-supply-chain-compromise-postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem)
-- cache poisoning解説: [adnanthekhan.com/posts/clinejection/](https://adnanthekhan.com/posts/clinejection/)
 - SLSA Threats: [slsa.dev/spec/v1.2/threats](https://slsa.dev/spec/v1.2/threats)
 - Mini Shai-Hulud(SLSAの境界): [slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do](https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do)
 - npm staged publishing: [docs.npmjs.com/staged-publishing](https://docs.npmjs.com/staged-publishing)
