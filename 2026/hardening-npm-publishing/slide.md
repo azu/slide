@@ -35,7 +35,7 @@ azu (`@azu_re`)
 
 - npmは依存が深く、1つのパッケージ侵害が広い範囲に波及する
 - 攻撃の起点がメンテナのトークンやCI/CDに移ってきている
-- OIDCトークンの窃取、不正なworkflow、infostealerが実際に起きている
+- 脆弱性のあるGitHub ActionsのWorkflowなどが起点となるケースが増えている
 - 自分のパッケージが踏み台になる前提で守る
 
 ^ ライブラリ作者は攻撃者にとって価値が高い。利用者全員に配れてしまうから。
@@ -46,18 +46,18 @@ azu (`@azu_re`)
 
 - 改ざんをゼロにする話ではない
 - 侵害されても、悪いpackageがregistryへ出る前に止める
-- コードの中身を保証する話は主題にしない
+- PRとかの中身が安全かなどを保証する話は主題にしない
 
 ^ SLSAのBuild L3はbuild中の改ざんに強くする話。この発表はそれとは少し違い、公開フローの途中で止める話。build中に悪性コードが混ざり、それを人が気づかずApproveしてしまう問題は残る。そこは成果物検証、monitoring、より強いbuild isolationの領域で、今回の中心ではない。
 
 ---
 
-# 問い: 公開フローのどこを守るか
+# 問題: 公開フローのどこを守るか
 
 - 攻撃者は、1箇所のインジェクトで全部抜けるなら一番弱い部分を狙う
 - 1つの対策だけで公開フロー全体は守れない
-- ローカルから公開までの経路を段階ごとに制御する
-- どこかが破られても、別の段階で検出・制限する
+- ローカルから公開までの経路を段階ごとに守る必要がある
+- どこかが破られても、最終的な公開までには止めることが目的
 
 ^ 本質は最小権限と手順。特別に難しいことはしていない。段階ごとに確認点を置く。
 
@@ -72,10 +72,9 @@ azu (`@azu_re`)
 
 # 公開までのレイヤー
 
-1. ローカルのToken管理
-1. トークンレスnpm（OIDC Trusted Publishing）
-1. GitHub Actions（PR / Environments / Deployment protection）
-1. npm staged publishing
+1. ローカル: Token管理
+1. GitHub: Actions（PR / Environments / Deployment protection）
+1. npm: staged publishing
 
 ^ この順に、攻撃者目線で「ここを抜かれたら？」を考えながら制御点を置いていく。
 
@@ -87,14 +86,22 @@ azu (`@azu_re`)
 
 # 生のcredentialをローカルに置かない
 
-- 第一前提は、ローカルを抜かれても公開権限が漏れないこと
-- ローカルファイルにcredentialを保存しない
+- 第一前提は、ローカルの情報を抜かれても公開権限できない
+- ローカルファイルに生のcredentialを保存しない
 - 1Password/Bitwardenなど多要素認証をしないと取り出せないところへ保存する
-- 強いトークンをローカルに常駐させない
+- 使う時も、強いトークンをローカルに常駐させない
 
 ^ 最近の攻撃はローカルから始まることが多い。まずローカルに強い公開権限を残さない。
+^ 使う時も、生の情報をtmpとかに保存するのではなく、プロセスを落としたらメモリからも消えるようにするとかの仕組みが必要
 
 ---
+
+# GitHub
+
+## Personal Access Token
+
+---
+
 
 # GitHub: classic PATを常用しない
 
@@ -103,6 +110,7 @@ azu (`@azu_re`)
 - 常用はfine-grained PATにして、リポジトリと権限を絞る
 - fine-grainedはリソースオーナーに紐づくので多少手間だが許容する
 
+^ Classicは使わない、ファイングレインドトークンをつあう
 ^ CIで強い権限が要る場面は、GitHub Appやworkflow側に寄せられる。
 
 ---
@@ -114,8 +122,9 @@ azu (`@azu_re`)
 - 対象を絞る（特定リポジトリ / public のみ）
 - 漏れても影響範囲がそのトークンの用途に限定される
 
-📝 read-onlyのトークンしか発行していない
+📝 自分の場合は、read-onlyのトークンしか発行していない
 
+^ ファイングレインドトークン
 ^ 1つ漏れても全部は取られない。用途名を付けておくと棚卸ししやすい。
 
 ---
@@ -128,6 +137,12 @@ azu (`@azu_re`)
 参考: [github.com/orgs/community/discussions/129512](https://github.com/orgs/community/discussions/129512)
 
 ^ 数少ない「classicを消し切れない」理由。早く直してほしいところ。
+
+---
+
+# npm 
+
+## npmのアクセストークン管理
 
 ---
 
@@ -147,8 +162,8 @@ azu (`@azu_re`)
 
 # OIDC Trusted Publishingとは
 
-- 長期トークンをやめ、short-livedでworkflow固有の署名トークンで公開する
-- npmとGitHub ActionsがOIDCで信頼関係を結ぶ
+- 個人に紐づく長期的なトークンをやめ、short-livedでworkflow固有のトークンでパッケージを公開する仕組み
+- npmとGitHub ActionsがOIDCでToken Exchangeする
 - 「特定リポジトリの特定workflowからの実行」をnpmが確認できる
 - npm 11.5.1以上が必要
 
@@ -164,16 +179,16 @@ azu (`@azu_re`)
 
 ^ Organization / Repository / Workflowファイル名 / Environment名を指定する。
 
-
 ---
 
-# Require 2FA and disallow tokens
+# npmjs.comでTrusted Publisherの動き
 
-![inline 130%](img/npm-publishing-access.png)
+1. GitHub Actionsがnpmに対してOIDC tokenを要求する
+1. npmjs.comがOIDC tokenのclaimを確認し、設定されたTrusted Publisher登録と照合する
+1. 登録と一致すれば、tokenを発行してGitHub Actionsに返す
+1. GitHub Actionsがそのtokenを使って `npm publish` する
 
-^ npmのPublishing accessで「Require two-factor authentication and disallow tokens」を選ぶ。token publishは閉じるが、Trusted Publisher(OIDC)はこの設定でも動く。ただし、publish権限を持つmaintainerのinteractive publishまで禁止する設定ではない。公開経路をCIに寄せるには、npm側でpublish権限を持つ人を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。
-
----
+----
 
 # workflow側の最小構成
 
@@ -195,7 +210,7 @@ steps:
 
 # provenanceで来歴を残す
 
-- OIDC公開ではprovenance（来歴の署名）が自動付与される
+- OIDCでの公開ではprovenance（来歴の署名）が自動付与される
 - どのリポジトリのどのworkflowでビルドされたかを証明できる
 - npm provenanceはpackageとworkflowを結びつける証拠になる
 - ただしbuild中に何が起きたかまでは保証しない
@@ -210,7 +225,7 @@ steps:
 
 ---
 
-# Release PRの流れ
+# リリースフローの流れ
 
 ![inline](img/flow-diagram.png)
 
@@ -231,7 +246,9 @@ steps:
 - Release PRをレビューしてマージする
 - mainに入ったrelease commitだけがpublish候補になる
 - まだnpm publishは走らない
-- 次のApproveで初めてrelease jobを進める
+- Approveして初めて`release` jobが動作する
+
+![right fit 85%](./img/approve-to-run.png)
 
 ^ Step 2はマージ。ここではまだ公開しない。PRレビューとmainへの取り込みでsource側を確認し、Step 3のEnvironment Approveでpublish権限へ進める。
 
@@ -247,7 +264,7 @@ steps:
 
 # Step 4: Publish to npm
 
-- Approve後にrelease jobが続行する
+- Approve後に`release` jobが開始
 - OIDCでnpmとtoken exchangeする
 - npm publishまたはnpm stage publishを実行する
 - provenance付きでregistryへ公開される
@@ -294,7 +311,7 @@ steps:
 
 - GitHubがPR用のmerge refを作る
 - 許可するrefは `refs/pull/*/merge` のみ
-- Approveまでrelease jobを進めない
+- Approveするまで`release` jobは開始しないようにできる
 
 ![right fit 85%](img/github-environment-ref-rule.png)
 
@@ -304,7 +321,7 @@ steps:
 
 ---
 
-# 改変だけではpublishへ進めない
+# コンテンツ改変だけではpublishへ進ませない
 
 - npmのTrusted Publisherはworkflowファイル名とEnvironment名を確認する
 - Environmentは `refs/pull/*/merge` だけ許可する
@@ -320,19 +337,6 @@ steps:
 ![inline 72%](img/environment-name-screenshots.png)
 
 ^ `release.yml` の `environment: npm` はGitHub ActionsのEnvironment名。npm Trusted Publisherにも同じEnvironment nameとして `npm` を登録する。npmはOIDC tokenのclaimに含まれるrepository、workflow file、environmentを見て、登録されたTrusted Publisherと一致するとtoken exchangeする。workflowファイル名だけではなく、Environment名一致と、Environment側のApprove/ref制限まで通って初めてpublishへ進める。
-
----
-
-# 外部Actionに依存しない
-
-- 使うのは公式の checkout / setup-node のみ
-- setup-nodeのcacheも使わない
-- PRや低権限workflowの生成物をrelease workflowへ持ち込まない
-- リポジトリ操作は gh / git コマンドで行う
-- `uses:` はcommit SHAでpinする
-- checkoutは `persist-credentials: false`
-
-^ Action imageやcacheが侵害経路になっても影響を独立させる意識。TanStack侵害ではcache汚染から `release.yml` での復元を経てOIDCトークン窃取につながった。ここでは詳細に入らず、credentialを扱うrelease workflowでは、外部Actionやcacheなどの共有された実行結果をできるだけ消費しない、とだけ話す。
 
 ---
 
@@ -393,9 +397,7 @@ steps:
 # 公開フローを段階ごとに制御する
 
 1. ローカル: 強い権限を常駐させない
-1. OIDC: npm tokenを持たない
 1. Actions: PR + Environment + Approve
-1. 権限境界: publish権限へ進む前にApprove
 1. staged publishing: registry公開前にApprove
 
 ^ 単独で完結する解決策はない。publish地点に複数の緩和策を置く。provenanceだけでなく、隔離の考え方とApproveを組み合わせる。目的は侵害をゼロにすることではなく、侵害後に悪いpackageがregistryへ出る経路を細くすること。
@@ -404,7 +406,7 @@ steps:
 
 # AIエージェント時代も同じ
 
-- 全権限を1つの主体に集めない
+- 全権限を1つの主体/環境に集めない
 - AIが全部の権限を持っているなら、攻撃者はAIを狙うだけ
 - 最小権限と権限分離はやる必要がある
 
@@ -426,3 +428,32 @@ steps:
 ---
 
 # [fit] ありがとうございました
+
+---
+
+# その他
+
+---
+
+# Require 2FA and disallow tokens
+
+![inline 130%](img/npm-publishing-access.png)
+
+^ npmのPublishing accessで「Require two-factor authentication and disallow tokens」を選ぶ。token publishは閉じるが、Trusted Publisher(OIDC)はこの設定でも動く。ただし、publish権限を持つmaintainerのinteractive publishまで禁止する設定ではない。公開経路をCIに寄せるには、npm側でpublish権限を持つ人を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。
+
+---
+
+# Require 2FA and disallow tokens
+
+- npm TRusted Publisherとセットで設定する
+- これを設定すると、npmのアクセストークンでのpublishができなくなる
+- OIDCでないとpublishできない状態にする = CIからの公開に寄せられる
+
+---
+
+# Cache Poisoning
+
+- Release Workflowではキャッシュを使わない
+- Cache Poisoning攻撃を防ぐため
+
+---
