@@ -317,7 +317,7 @@ steps:
 
 # Environment名をnpm側と一致させる
 
-![inline 85%](img/environment-name-screenshots.png)
+![inline 72%](img/environment-name-screenshots.png)
 
 ^ `release.yml` の `environment: npm` はGitHub ActionsのEnvironment名。npm Trusted Publisherにも同じEnvironment nameとして `npm` を登録する。npmはOIDC tokenのclaimに含まれるrepository、workflow file、environmentを見て、登録されたTrusted Publisherと一致するとtoken exchangeする。workflowファイル名だけではなく、Environment名一致と、Environment側のApprove/ref制限まで通って初めてpublishへ進める。
 
@@ -380,26 +380,9 @@ steps:
 
 ---
 
-# 公開までの全体像
+![fit](img/publishing-overview-flow.png)
 
-![inline 95%](img/publishing-overview-flow.png)
-
-^ ここまでの話を一枚にまとめる。細部ではなく、LocalからUsersまでの経路、確認を入れる場所、この発表で扱った対策だけを見る。次のスライドで、この流れをSLSAのSource / Build / Publish / Distribution / Usageに置き直す。
-
----
-
-# SLSAの流れで振り返る
-
-![right fit](img/slsa-threats.png)
-
-- ソース側: PR / review
-- ビルド側: cacheなし / provenance
-- 公開前後: OIDC + Environment + staged
-- 今回の中心はpublish経路で止めること
-
-参考: [SLSA Threats](https://slsa.dev/spec/v1.2/threats)
-
-^ SLSAを認証や達成レベルの話として出すのではない。ここまで話した対策を、SLSAで定義されているサプライチェーンの流れに置き直す。SourceではPRとreview、Buildではcacheを持ち込まないこととprovenance、PublishではOIDC、Environment、staged publishing。今回の中心はArtifact publication(F)に相当するpublish経路。SLSAのBuild trackはbuildやprovenanceの改ざん耐性を上げる話だが、この発表では侵害されてもDistributionへ進ませない制御を中心に話している。
+^ ここまでの話を一枚にまとめる。細部ではなく、LocalからUsersまでの公開経路、確認を入れる場所、この発表で扱った対策だけを見る。この発表の中心は、侵害をゼロにすることではなく、悪いpackageがregistryへ出る前に止めること。
 
 ---
 
@@ -415,7 +398,7 @@ steps:
 1. 権限境界: publish権限へ進む前にApprove
 1. staged publishing: registry公開前にApprove
 
-^ 単独で完結する解決策はない。SLSAの脅威モデルでいうpublish地点に、複数の緩和策を置く。provenanceだけでなく、隔離の考え方とApproveを組み合わせる。目的は侵害をゼロにすることではなく、侵害後に悪いpackageがregistryへ出る経路を細くすること。
+^ 単独で完結する解決策はない。publish地点に複数の緩和策を置く。provenanceだけでなく、隔離の考え方とApproveを組み合わせる。目的は侵害をゼロにすることではなく、侵害後に悪いpackageがregistryへ出る経路を細くすること。
 
 ---
 
@@ -436,7 +419,6 @@ steps:
 - staged例: [github.com/azu/simple-npm-staged-publish-package-example](https://github.com/azu/simple-npm-staged-publish-package-example)
 - Bitwarden CLI侵害: [GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
 - TanStack侵害(cache poisoning): [tanstack.com/blog/npm-supply-chain-compromise-postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem)
-- SLSA Threats: [slsa.dev/spec/v1.2/threats](https://slsa.dev/spec/v1.2/threats)
 - Mini Shai-Hulud(SLSAの境界): [slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do](https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do)
 - npm staged publishing: [docs.npmjs.com/staged-publishing](https://docs.npmjs.com/staged-publishing)
 - GitHub changelog: [`pull_request_target` and environment branch protections](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
