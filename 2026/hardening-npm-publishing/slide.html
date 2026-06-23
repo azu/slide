@@ -1,348 +1,204 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head lang="ja">
-        <meta charset="UTF-8" />
-        <title>Hardening npm Publishing</title>
-        <noscript>
-            <style>
-                .main-content {
-                    display: none;
-                }
-            </style>
-        </noscript>
-        <link
-            rel="stylesheet"
-            href="https://azu.github.io/pdf-slide-html/index.css"
-        />
-        <link
-            rel="canonical"
-            href="https://azu.github.io/slide/2026/hardening-npm-publishing/slide.html"
-        />
-        <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
-    </head>
-    <body itemscope itemtype="http://schema.org/Article">
-        <div class="main-content">
-            <meta itemprop="name headline" content="Hardening npm Publishing" />
-            <iframe
-                id="main-slide"
-                src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2026/hardening-npm-publishing/slide.pdf"
-                scrolling="no"
-                allowtransparency="true"
-                width="100%"
-                height="100%"
-                style="border: 0"
-            >
-            </iframe>
-            <aside class="slide-controller">
-                <span class="slide-date-published"
-                    >公開日:<time
-                        itemprop="datePublished"
-                        datetime="2026-06-23"
-                        id="datePublished"
-                    >
-                        2026-06-23
-                    </time></span
-                >
-                <span class="slide-date-modified"
-                    >変更日:<time
-                        itemprop="dateModified"
-                        datetime="2026-06-23"
-                        id="dateModified"
-                    >
-                        2026-06-23
-                    </time></span
-                >
-                <a
-                    href="https://azu.github.io/slide/2026/hardening-npm-publishing/slide.pdf"
-                    title="[fit] Hardening npm Publishing"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        version="1.1"
-                        class="svg-icon"
-                        viewBox="0 0 512 512"
-                        width="24"
-                        height="24"
-                    >
-                        <path
-                            d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
-                            style="fill: #000000"
-                        ></path>
-                    </svg>
-                    Download PDF</a
-                >
-                <button class="fullscreen-button" id="js-fullscreen-button">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        version="1.1"
-                        class="svg-icon"
-                        viewBox="0 0 533 533"
-                        width="24"
-                        height="24"
-                    >
-                        <g>
-                            <path
-                                d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
-		V316.667L83.333,400l100-100L233.333,350z"
-                            ></path>
-                        </g>
-                    </svg>
-                    Full Screen
-                </button>
-            </aside>
-        </div>
-        <article class="markdown-body" itemprop="articleBody">
-            <p>
-                footer:
-                OSS開発者は今何をするべきか？ソフトウェアサプライチェーン侵害対策を考える
-                - azu slidenumbers: true autoscale: true theme: Plain Jane, 1
-            </p>
-            <h1 id="fit-hardening-npm-publishing">
-                [fit] <strong>Hardening npm Publishing</strong>
-            </h1>
-            <h2 id="サプライチェーン侵害から公開フローを守る">
-                サプライチェーン侵害から公開フローを守る
-            </h2>
-            <br />
-            <br />
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>[fit] Hardening npm Publishing</title>
+    <noscript>
+        <style>
+            .main-content {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <link rel="stylesheet" href="https://azu.github.io/pdf-slide-html/index.css"/>
+    <link rel="canonical" href="https://azu.github.io/slide/2026/hardening-npm-publishing/slide.html">
+    <link rel="author" href="https://www.hatena.ne.jp/efcl/" />
+</head>
+<body itemscope itemtype="http://schema.org/Article">
+<div class="main-content">
+    <meta itemprop="name headline" content="[fit] Hardening npm Publishing"/>
+    <iframe id="main-slide"
+            src="https://azu.github.io/slide-pdf.js/?slide=https://azu.github.io/slide/2026/hardening-npm-publishing/slide.pdf"
+            scrolling="no"
+            allowtransparency="true"
+            width="100%"
+            height="100%"
+            style="border:0;">
+    </iframe>
+    <aside class="slide-controller">
+        <span class="slide-date-published">公開日:<time itemprop="datePublished" datetime="2026-06-23" id="datePublished">
+            2026-06-23
+        </time></span>
+        <span class="slide-date-modified">変更日:<time itemprop="dateModified" datetime="2026-06-23" id="dateModified">
+            2026-06-23
+        </time></span>
+        <a href="https://azu.github.io/slide/2026/hardening-npm-publishing/slide.pdf" title="[fit] Hardening npm Publishing">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 512 512"
+                 width="24"
+                 height="24">
+                <path
+                        d="M 224 64 L 224 272 L 128 176 L 128 256 L 256 384 L 384 256 L 384 176 L 288 272 L 288 64 L 224 64 z M 64 320 L 64 448 L 448 448 L 448 320 L 416 320 L 416 416 L 96 416 L 96 320 L 64 320 Z"
+                        style="fill:#000000"></path>
+            </svg>
+            Download PDF</a>
+        <button class="fullscreen-button" id="js-fullscreen-button">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 class="svg-icon"
+                 viewBox="0 0 533 533"
+                 width="24"
+                 height="24">
+                <g>
+                    <path d="M533.333,0v216.667L450,133.333l-100,100l-50-50l100-100L316.667,0H533.333z M233.333,350l-100,100l83.333,83.333H0
+		V316.667L83.333,400l100-100L233.333,350z"></path>
+                </g>
+            </svg>
+            Full Screen
+        </button>
+    </aside>
+</div>
+<article class="markdown-body" itemprop="articleBody"><p>footer: OSS開発者は今何をするべきか？ソフトウェアサプライチェーン侵害対策を考える - azu
+slidenumbers: true
+autoscale: true
+theme: Plain Jane, 1</p>
+<h1 id="fit-hardening-npm-publishing">[fit] <strong>Hardening npm Publishing</strong></h1>
+<h2 id="サプライチェーン侵害から公開フローを守る">サプライチェーン侵害から公開フローを守る</h2>
+<br>
+<br>
 
-            <p>
-                azu (<code>@azu_re</code>) 2026-06-23 /
-                OSS開発者は今何をするべきか？
-            </p>
-            <p>
-                ^
-                flatt主催の勉強会。OSS開発者の視点でサプライチェーン侵害対策を考える回。
-            </p>
-            <hr />
-            <h1 id="自己紹介">自己紹介</h1>
-            <p><img alt="アイコン right" src="https://github.com/azu.png" /></p>
-            <ul>
-                <li>Name : azu</li>
-                <li>
-                    X/Twitter :
-                    <a href="https://x.com/azu_re"><code>@azu_re</code></a>
-                </li>
-                <li>
-                    Website : <a href="https://efcl.info/">Web scratch</a>,
-                    <a href="https://jser.info/">JSer.info</a>
-                </li>
-                <li>Open Source : textlint / secretlint / HonKit など</li>
-                <li>npmに公開しているパッケージは数百個</li>
-            </ul>
-            <p>
-                ^
-                パッケージ数が多いほど、公開フローを段階ごとに制御する意味が大きくなる。
-            </p>
-            <hr />
-            <h1 id="なぜ今、公開フローを守るのか">
-                なぜ今、公開フローを守るのか
-            </h1>
-            <ul>
-                <li>
-                    npmは依存が深く、1つのパッケージ侵害が広い範囲に波及する
-                </li>
-                <li>攻撃の起点がメンテナのトークンやCI/CDに移ってきている</li>
-                <li>
-                    脆弱性のあるGitHub
-                    ActionsのWorkflowなどが起点となるケースが増えている
-                </li>
-                <li>自分のパッケージが踏み台になる前提で守る</li>
-            </ul>
-            <p>
-                ^
-                ライブラリ作者は攻撃者にとって価値が高い。利用者全員に配れてしまうから。
-            </p>
-            <hr />
-            <h1 id="この発表の目的">この発表の目的</h1>
-            <ul>
-                <li>改ざんをゼロにする話ではない</li>
-                <li>侵害されても、悪いpackageがregistryへ出る前に止める</li>
-                <li>PRとかの中身が安全かなどを保証する話は主題にしない</li>
-            </ul>
-            <p>
-                ^ SLSAのBuild
-                L3はbuild中の改ざんに強くする話。この発表はそれとは少し違い、公開フローの途中で止める話。build中に悪性コードが混ざり、それを人が気づかずApproveしてしまう問題は残る。そこは成果物検証、monitoring、より強いbuild
-                isolationの領域で、今回の中心ではない。
-            </p>
-            <hr />
-            <h1 id="問題-公開フローのどこを守るか">
-                問題: 公開フローのどこを守るか
-            </h1>
-            <ul>
-                <li>
-                    攻撃者は、1箇所のインジェクトで全部抜けるなら一番弱い部分を狙う
-                </li>
-                <li>1つの対策だけで公開フロー全体は守れない</li>
-                <li>ローカルから公開までの経路を段階ごとに守る必要がある</li>
-                <li>
-                    どこかが破られても、最終的な公開までには止めることが目的
-                </li>
-            </ul>
-            <p>
-                ^
-                本質は最小権限と手順。特別に難しいことはしていない。段階ごとに確認点を置く。
-            </p>
-            <hr />
-            <p><img alt="fit" src="img/npm-package-flow.png" /></p>
-            <p>
-                ^
-                左のLocalは開発者の手元、右のLocalは利用者の手元。手元の変更がGitHubに入り、npmにpublishされ、利用者がinstallして使う。ここでの目的は「完全に混入を防ぐ」ではなく「混入や侵害が起きても
-                publish / use へ進む前に止める」こと。
-            </p>
-            <hr />
-            <h1 id="公開までのレイヤー">公開までのレイヤー</h1>
-            <ol>
-                <li>ローカル: Token管理</li>
-                <li>
-                    GitHub: Actions（PR / Environments / Deployment protection）
-                </li>
-                <li>npm: staged publishing</li>
-            </ol>
-            <p>
-                ^
-                この順に、攻撃者目線で「ここを抜かれたら？」を考えながら制御点を置いていく。
-            </p>
-            <hr />
-            <h1 id="1-ローカルのtoken管理">1. ローカルのToken管理</h1>
-            <hr />
-            <h1 id="生のcredentialをローカルに置かない">
-                生のcredentialをローカルに置かない
-            </h1>
-            <ul>
-                <li>第一前提は、ローカルの情報を抜かれても公開権限できない</li>
-                <li>ローカルファイルに生のcredentialを保存しない</li>
-                <li>
-                    1Password/Bitwardenなど多要素認証をしないと取り出せないところへ保存する
-                </li>
-                <li>使う時も、強いトークンをローカルに常駐させない</li>
-            </ul>
-            <p>
-                ^
-                最近の攻撃はローカルから始まることが多い。まずローカルに強い公開権限を残さない。
-                ^
-                使う時も、生の情報をtmpとかに保存するのではなく、プロセスを落としたらメモリからも消えるようにするとかの仕組みが必要
-            </p>
-            <hr />
-            <h1 id="github">GitHub</h1>
-            <h2 id="personal-access-token">Personal Access Token</h2>
-            <hr />
-            <h1 id="github-classic-patを常用しない">
-                GitHub: classic PATを常用しない
-            </h1>
-            <ul>
-                <li>classic PAT(Personal Access Token)は強すぎる権限</li>
-                <li>使うとしてもローカル限定。CIでは使わない</li>
-                <li>常用はfine-grained PATにして、リポジトリと権限を絞る</li>
-                <li>
-                    fine-grainedはリソースオーナーに紐づくので多少手間だが許容する
-                </li>
-            </ul>
-            <p>
-                ^ Classicは使わない、ファイングレインドトークンをつあう ^
-                CIで強い権限が要る場面は、GitHub Appやworkflow側に寄せられる。
-            </p>
-            <hr />
-            <h1 id="fine-grained-patは用途ごとに分ける">
-                fine-grained PATは用途ごとに分ける
-            </h1>
-            <ul>
-                <li>1つの強いトークンを使い回さず、用途ごとに発行する</li>
-                <li>
-                    アクセスレベルを最小にする（read-only / 必要な操作だけ）
-                </li>
-                <li>対象を絞る（特定リポジトリ / public のみ）</li>
-                <li>漏れても影響範囲がそのトークンの用途に限定される</li>
-            </ul>
-            <p>📝 自分の場合は、read-onlyのトークンしか発行していない</p>
-            <p>
-                ^ ファイングレインドトークン ^
-                1つ漏れても全部は取られない。用途名を付けておくと棚卸ししやすい。
-            </p>
-            <hr />
-            <h1 id="課題-checks-apiがfine-grained未対応">
-                課題: Checks APIがfine-grained未対応
-            </h1>
-            <ul>
-                <li>Checks APIがfine-grained PATに対応していない</li>
-                <li>これが直れば、常用トークンから強いclassicをほぼ消せる</li>
-            </ul>
-            <p>
-                参考:
-                <a href="https://github.com/orgs/community/discussions/129512"
-                    >github.com/orgs/community/discussions/129512</a
-                >
-            </p>
-            <p>
-                ^
-                数少ない「classicを消し切れない」理由。早く直してほしいところ。
-            </p>
-            <hr />
-            <h1 id="npm">npm</h1>
-            <h2 id="npmのアクセストークン管理">npmのアクセストークン管理</h2>
-            <hr />
-            <h1 id="npm-アクセストークンを0個にする">
-                npm: アクセストークンを0個にする
-            </h1>
-            <p><img alt="inline 220%" src="img/npm-tokens-zero.png" /></p>
-            <p>
-                ^ npmアクセストークンは0個。新規追加時だけ一時発行してすぐ消す。
-            </p>
-            <hr />
-            <h1 id="2-トークンレス-npm">2. トークンレス npm</h1>
-            <h2 id="oidc-trusted-publishing">OIDC Trusted Publishing</h2>
-            <hr />
-            <h1 id="npmoidc-trusted-publishingとは">
-                npm/OIDC Trusted Publishingとは
-            </h1>
-            <ul>
-                <li>
-                    個人に紐づく長期的なトークンをやめ、short-livedでworkflow固有のトークンでパッケージを公開する仕組み
-                </li>
-                <li>npmとGitHub ActionsがOIDCでToken Exchangeする</li>
-                <li>
-                    「特定リポジトリの特定workflowからの実行」をnpmが確認できる
-                </li>
-                <li>npm 11.5.1以上が必要</li>
-            </ul>
-            <p>
-                参考:
-                <a href="https://efcl.info/2025/09/07/npm-oidc/"
-                    >efcl.info/2025/09/07/npm-oidc/</a
-                >
-            </p>
-            <p>
-                ^
-                共有credentialなしで公開できる。トークンをCIに置かなくてよくなる。
-            </p>
-            <hr />
-            <h1 id="npmjscomでtrusted-publisherを登録">
-                npmjs.comでTrusted Publisherを登録
-            </h1>
-            <p><img alt="inline 160%" src="img/npm-trusted-publisher.png" /></p>
-            <p>
-                ^ Organization / Repository / Workflowファイル名 /
-                Environment名を指定する。
-            </p>
-            <hr />
-            <h1 id="npmjscomでtrusted-publisherの動き">
-                npmjs.comでTrusted Publisherの動き
-            </h1>
-            <ol>
-                <li>GitHub Actionsがnpmに対してOIDC tokenを要求する</li>
-                <li>
-                    npmjs.comがOIDC tokenのclaimを確認し、設定されたTrusted
-                    Publisher登録と照合する
-                </li>
-                <li>登録と一致すれば、tokenを発行してGitHub Actionsに返す</li>
-                <li>
-                    GitHub Actionsがそのtokenを使って
-                    <code>npm publish</code> する
-                </li>
-            </ol>
-            <hr />
-            <h1 id="workflow側の最小構成">workflow側の最小構成</h1>
-            <pre><code class="language-yaml">permissions:
+<p>azu (<code>@azu_re</code>)
+2026-06-23 / OSS開発者は今何をするべきか？</p>
+<p>^ flatt主催の勉強会。OSS開発者の視点でサプライチェーン侵害対策を考える回。</p>
+<hr>
+<h1 id="自己紹介">自己紹介</h1>
+<p><img alt="アイコン right" src="https://github.com/azu.png"></p>
+<ul>
+<li>Name : azu</li>
+<li>X/Twitter : <a href="https://x.com/azu_re"><code>@azu_re</code></a></li>
+<li>Website : <a href="https://efcl.info/">Web scratch</a>, <a href="https://jser.info/">JSer.info</a></li>
+<li>Open Source : textlint / secretlint / HonKit など</li>
+<li>npmに公開しているパッケージは数百個</li>
+</ul>
+<p>^ パッケージ数が多いほど、公開フローを段階ごとに制御する意味が大きくなる。</p>
+<hr>
+<h1 id="なぜ今、公開フローを守るのか">なぜ今、公開フローを守るのか</h1>
+<ul>
+<li>npmは依存が深く、1つのパッケージ侵害が広い範囲に波及する</li>
+<li>攻撃の起点がメンテナのトークンやCI/CDに移ってきている</li>
+<li>脆弱性のあるGitHub ActionsのWorkflowなどが起点となるケースが増えている</li>
+<li>自分のパッケージが踏み台になる前提で守る</li>
+</ul>
+<p>^ ライブラリ作者は攻撃者にとって価値が高い。利用者全員に配れてしまうから。</p>
+<hr>
+<h1 id="この発表の目的">この発表の目的</h1>
+<ul>
+<li>改ざんをゼロにする話ではない</li>
+<li>侵害されても、悪いpackageがregistryへ出る前に止める</li>
+<li>PRとかの中身が安全かなどを保証する話は主題にしない</li>
+</ul>
+<p>^ SLSAのBuild L3はbuild中の改ざんに強くする話。この発表はそれとは少し違い、公開フローの途中で止める話。build中に悪性コードが混ざり、それを人が気づかずApproveしてしまう問題は残る。そこは成果物検証、monitoring、より強いbuild isolationの領域で、今回の中心ではない。</p>
+<hr>
+<h1 id="問題-公開フローのどこを守るか">問題: 公開フローのどこを守るか</h1>
+<ul>
+<li>攻撃者は、1箇所のインジェクトで全部抜けるなら一番弱い部分を狙う</li>
+<li>1つの対策だけで公開フロー全体は守れない</li>
+<li>ローカルから公開までの経路を段階ごとに守る必要がある</li>
+<li>どこかが破られても、最終的な公開までには止めることが目的</li>
+</ul>
+<p>^ 本質は最小権限と手順。特別に難しいことはしていない。段階ごとに確認点を置く。</p>
+<hr>
+<p><img alt="fit" src="img/npm-package-flow.png"></p>
+<p>^ 左のLocalは開発者の手元、右のLocalは利用者の手元。手元の変更がGitHubに入り、npmにpublishされ、利用者がinstallして使う。ここでの目的は「完全に混入を防ぐ」ではなく「混入や侵害が起きても publish / use へ進む前に止める」こと。</p>
+<hr>
+<h1 id="公開までのレイヤー">公開までのレイヤー</h1>
+<ol>
+<li>ローカル: Token管理</li>
+<li>GitHub: Actions（PR / Environments / Deployment protection）</li>
+<li>npm: staged publishing</li>
+</ol>
+<p>^ この順に、攻撃者目線で「ここを抜かれたら？」を考えながら制御点を置いていく。</p>
+<hr>
+<h1 id="1-ローカルのtoken管理">1. ローカルのToken管理</h1>
+<hr>
+<h1 id="生のcredentialをローカルに置かない">生のcredentialをローカルに置かない</h1>
+<ul>
+<li>第一前提は、ローカルの情報を抜かれても公開権限できない</li>
+<li>ローカルファイルに生のcredentialを保存しない</li>
+<li>1Password/Bitwardenなど多要素認証をしないと取り出せないところへ保存する</li>
+<li>使う時も、強いトークンをローカルに常駐させない</li>
+</ul>
+<p>^ 最近の攻撃はローカルから始まることが多い。まずローカルに強い公開権限を残さない。
+^ 使う時も、生の情報をtmpとかに保存するのではなく、プロセスを落としたらメモリからも消えるようにするとかの仕組みが必要</p>
+<hr>
+<h1 id="github">GitHub</h1>
+<h2 id="personal-access-token">Personal Access Token</h2>
+<hr>
+<h1 id="github-classic-patを常用しない">GitHub: classic PATを常用しない</h1>
+<ul>
+<li>classic PAT(Personal Access Token)は強すぎる権限</li>
+<li>使うとしてもローカル限定。CIでは使わない</li>
+<li>常用はfine-grained PATにして、リポジトリと権限を絞る</li>
+<li>fine-grainedはリソースオーナーに紐づくので多少手間だが許容する</li>
+</ul>
+<p>^ Classicは使わない、ファイングレインドトークンをつあう
+^ CIで強い権限が要る場面は、GitHub Appやworkflow側に寄せられる。</p>
+<hr>
+<h1 id="fine-grained-patは用途ごとに分ける">fine-grained PATは用途ごとに分ける</h1>
+<ul>
+<li>1つの強いトークンを使い回さず、用途ごとに発行する</li>
+<li>アクセスレベルを最小にする（read-only / 必要な操作だけ）</li>
+<li>対象を絞る（特定リポジトリ / public のみ）</li>
+<li>漏れても影響範囲がそのトークンの用途に限定される</li>
+</ul>
+<p>📝 自分の場合は、read-onlyのトークンしか発行していない</p>
+<p>^ ファイングレインドトークン
+^ 1つ漏れても全部は取られない。用途名を付けておくと棚卸ししやすい。</p>
+<hr>
+<h1 id="課題-checks-apiがfine-grained未対応">課題: Checks APIがfine-grained未対応</h1>
+<ul>
+<li>Checks APIがfine-grained PATに対応していない</li>
+<li>これが直れば、常用トークンから強いclassicをほぼ消せる</li>
+</ul>
+<p>参考: <a href="https://github.com/orgs/community/discussions/129512">github.com/orgs/community/discussions/129512</a></p>
+<p>^ 数少ない「classicを消し切れない」理由。早く直してほしいところ。</p>
+<hr>
+<h1 id="npm">npm</h1>
+<h2 id="npmのアクセストークン管理">npmのアクセストークン管理</h2>
+<hr>
+<h1 id="npm-アクセストークンを0個にする">npm: アクセストークンを0個にする</h1>
+<p><img alt="inline 220%" src="img/npm-tokens-zero.png"></p>
+<p>^ npmアクセストークンは0個。新規追加時だけ一時発行してすぐ消す。</p>
+<hr>
+<h1 id="2-トークンレス-npm">2. トークンレス npm</h1>
+<h2 id="oidc-trusted-publishing">OIDC Trusted Publishing</h2>
+<hr>
+<h1 id="npmoidc-trusted-publishingとは">npm/OIDC Trusted Publishingとは</h1>
+<ul>
+<li>個人に紐づく長期的なトークンをやめ、short-livedでworkflow固有のトークンでパッケージを公開する仕組み</li>
+<li>npmとGitHub ActionsがOIDCでToken Exchangeする</li>
+<li>「特定リポジトリの特定workflowからの実行」をnpmが確認できる</li>
+<li>npm 11.5.1以上が必要</li>
+</ul>
+<p>参考: <a href="https://efcl.info/2025/09/07/npm-oidc/">efcl.info/2025/09/07/npm-oidc/</a></p>
+<p>^ 共有credentialなしで公開できる。トークンをCIに置かなくてよくなる。</p>
+<hr>
+<h1 id="npmjscomでtrusted-publisherを登録">npmjs.comでTrusted Publisherを登録</h1>
+<p><img alt="inline 160%" src="img/npm-trusted-publisher.png"></p>
+<p>^ Organization / Repository / Workflowファイル名 / Environment名を指定する。</p>
+<hr>
+<h1 id="npmjscomでtrusted-publisherの動き">npmjs.comでTrusted Publisherの動き</h1>
+<ol>
+<li>GitHub Actionsがnpmに対してOIDC tokenを要求する</li>
+<li>npmjs.comがOIDC tokenのclaimを確認し、設定されたTrusted Publisher登録と照合する</li>
+<li>登録と一致すれば、tokenを発行してGitHub Actionsに返す</li>
+<li>GitHub Actionsがそのtokenを使って <code>npm publish</code> する</li>
+</ol>
+<hr>
+<h1 id="workflow側の最小構成">workflow側の最小構成</h1>
+<pre><code class="language-yaml">permissions:
   contents: write
   id-token: write   # OIDC
 
@@ -352,453 +208,193 @@ steps:
       registry-url: 'https://registry.npmjs.org'
   - run: npm publish --access public
 </code></pre>
-            <p>
-                ^
-                OIDC公開時はprovenanceが自動で付く。idトークンの権限だけ与える。
-            </p>
-            <hr />
-            <h1 id="provenanceで来歴を残す">provenanceで来歴を残す</h1>
-            <ul>
-                <li>
-                    OIDCでの公開ではprovenance（来歴の署名）が自動付与される
-                </li>
-                <li>
-                    どのリポジトリのどのworkflowでビルドされたかを証明できる
-                </li>
-                <li>npm provenanceはpackageとworkflowを結びつける証拠になる</li>
-                <li>ただしbuild中に何が起きたかまでは保証しない</li>
-            </ul>
-            <p>
-                ^ SLSA用語ではBuild L2相当。package
-                digestとrepo/workflow/refを結びつける証拠であって、build中に攻撃者コードが動いた場合までは防げない。細かい補足:
-                private repositoryでもTrusted Publishing(OIDC)は使えるが、npm
-                provenanceは生成されない。provenance自動生成は、Trusted
-                Publishing、public repository、public package
-                の組み合わせが条件。
-            </p>
-            <hr />
-            <h1 id="3-github-actions-の構成">3. GitHub Actions の構成</h1>
-            <h2 id="rulesets--environments--deployment-protection">
-                Rulesets / Environments / Deployment protection
-            </h2>
-            <hr />
-            <h1 id="リリースフローの流れ">リリースフローの流れ</h1>
-            <p><img alt="inline" src="img/flow-diagram.png" /></p>
-            <p>
-                ^ 4ステップ。Step
-                3のApproveだけが人手で確認する箇所。次の画面で実物を見る。
-            </p>
-            <hr />
-            <h1 id="step-1-version-up-pr">Step 1: Version Up PR</h1>
-            <p><img alt="inline 180%" src="img/github-release-pr.png" /></p>
-            <p>
-                ^ create-release-pr.yml がバージョンを上げるPRを自動作成。Type:
-                Release ラベルが付く。
-            </p>
-            <hr />
-            <h1 id="step-2-merge-release-pr">Step 2: Merge Release PR</h1>
-            <ul>
-                <li>Release PRをレビューしてマージする</li>
-                <li>
-                    <code>environment: npm</code
-                    >を参照させて、jobの実行を待機させる
-                    <ul>
-                        <li>GitHub Environmentsのフロー(Step 3)</li>
-                    </ul>
-                </li>
-                <li>Approveして初めて<code>release</code> jobが動作する</li>
-            </ul>
-            <p><img alt="right fit 85%" src="./img/approve-to-run.png" /></p>
-            <p>
-                ^ Step
-                2はマージ。ここではまだ公開しない。PRレビューとmainへの取り込みでsource側を確認し、Step
-                3のEnvironment Approveでpublish権限へ進める。
-            </p>
-            <hr />
-            <h1 id="step-3-approve-deployment">Step 3: Approve Deployment</h1>
-            <p>
-                <img
-                    alt="inline 130%"
-                    src="img/github-review-deployments.png"
-                />
-            </p>
-            <p>
-                ^ マージ後、Review pending
-                deploymentsでApproveして初めてpublishが走る。Approveしなければ止まる。
-            </p>
-            <hr />
-            <h1 id="step-4-publish-to-npm">Step 4: Publish to npm</h1>
-            <ul>
-                <li>Approve後に<code>release</code> jobが開始</li>
-                <li>OIDCでnpmとtoken exchangeする</li>
-                <li>npm publishを実行してパッケージを公開</li>
-                <li>provenance付きでregistryへ公開される</li>
-            </ul>
-            <p>
-                ^ Step
-                4で初めてnpm側に公開する。Approve前はpublish権限へ進めない。staged
-                publishingを使う場合は、ここでstage
-                publishしてnpm側のApprove待ちにする。
-            </p>
-            <hr />
-            <h1 id="environmentsのdeployment-protection-rules">
-                EnvironmentsのDeployment protection rules
-            </h1>
-            <p>
-                <img
-                    alt="inline 65%"
-                    src="img/github-environment-cropped.png"
-                />
-            </p>
-            <p>
-                ^ 上はrequired reviewers、下はDeployment branches and
-                tags。Environmentは「誰がApproveするか」と「どの
-                <code>GITHUB_REF</code> からdeployできるか」を見る。npm
-                Environmentでは
-                <code>refs/pull/*/merge</code>
-                だけを許可し、さらにApproveしないとjobが続行しない。
-            </p>
-            <hr />
-            <h1 id="jobの実行をprをマージしたタイミングのみで許可">
-                Jobの実行をPRをマージしたタイミングのみで許可
-            </h1>
-            <ul>
-                <li>GitHubがPR用のmerge refを作る</li>
-                <li>
-                    許可するrefは <code>refs/pull/*/merge</code> のみ
-                    <ul>
-                        <li>
-                            → 必ずPRを経由しないとWorkflowが実行できない =
-                            目立たせる
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    Approveするまで<code>release</code>
-                    jobは開始しないようにできる
-                </li>
-            </ul>
-            <p>
-                <img
-                    alt="right fit 85%"
-                    src="img/github-environment-ref-rule.png"
-                />
-            </p>
-            <p>
-                参考:
-                <a
-                    href="https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags"
-                    >GitHub Docs</a
-                >
-                /
-                <a
-                    href="https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/"
-                    >GitHub Changelog</a
-                >
-            </p>
-            <p>
-                ^ Environmentのbranch/tag ruleはworkflow runの
-                <code>GITHUB_REF</code> を見る。<code
-                    >refs/pull/&lt;n&gt;/merge</code
-                >
-                はGitHubがPR用に作るmerge
-                refで、ユーザーが通常branchとして作るものではない。<code
-                    >pull_request</code
-                >
-                系では <code>GITHUB_REF</code> が
-                <code>refs/pull/&lt;n&gt;/merge</code> になるので、npm
-                Environmentには
-                <code>refs/pull/*/merge</code>
-                だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required
-                reviewersのApproveを組み合わせる話。
-            </p>
-            <hr />
-            <h1 id="github-environments">GitHub Environments</h1>
-            <h2 id="なぜdeployment-protection-rulesを使うか">
-                なぜDeployment protection rulesを使うか
-            </h2>
-            <hr />
-            <h1 id="provenanceだけでは足りない">provenanceだけでは足りない</h1>
-            <ul>
-                <li>provenanceで「どこから出たか」は分かる</li>
-                <li>でも「作る途中で何が混ざったか」は分からない</li>
-                <li>悪いpackageにも正しい署名が付くことがある</li>
-                <li>だからpublishに進む前に別のApproveを求める</li>
-            </ul>
-            <p>
-                参考:
-                <a
-                    href="https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do"
-                    >Mini Shai-Hulud: Where SLSA’s Boundaries Fall</a
-                >
-            </p>
-            <p>
-                ^
-                ここからフローの説明から「なぜこの形にするか」へ切り替える。provenanceは『改ざんされていない成果物』の保証ではない。正確には、package
-                digestとrepo/workflow/refを結びつける証拠。build環境が汚染されていれば、その汚染されたbuildの結果にもvalid
-                provenanceが付く。本文では「出どころは分かるが、作る途中までは見ない」と言う。ここから、provenanceとは別にpublishへ進むためのApproveを求める話へつなげる。
-            </p>
-            <hr />
-            <h1 id="workflow改変だけではpublishへ進ませない">
-                Workflow改変だけではpublishへ進ませない
-            </h1>
-            <ul>
-                <li>
-                    npmのTrusted
-                    Publisherはworkflowファイル名とEnvironment名を確認する
-                </li>
-                <li>
-                    Environmentで
-                    <code>refs/pull/*/merge</code> だけJobの実行を許可
-                </li>
-                <li>
-                    Environmentで、required reviewersのApproveがJobの実行に必要
-                </li>
-                <li>→ workflowファイル名一致だけではOIDC交換まで進めない</li>
-            </ul>
-            <p>
-                ^ workflow改変そのものをEnvironmentが止めるわけではない。Trusted
-                Publisherのworkflow
-                file制限、Environment名、Environmentのref制限、required
-                reviewersのApproveを組み合わせる。直接pushや任意branchからの実行では
-                npm Environment を通れない。PRのmerge
-                refだけを許可し、最後にApproveを要求する。
-            </p>
-            <hr />
-            <h1 id="environment名をnpm側と一致させる">
-                Environment名をnpm側と一致させる
-            </h1>
-            <p>
-                <img
-                    alt="inline 72%"
-                    src="img/environment-name-screenshots.png"
-                />
-            </p>
-            <p>
-                ^ <code>release.yml</code> の
-                <code>environment: npm</code> はGitHub
-                ActionsのEnvironment名。npm Trusted Publisherにも同じEnvironment
-                nameとして <code>npm</code> を登録する。npmはOIDC
-                tokenのclaimに含まれるrepository、workflow
-                file、environmentを見て、登録されたTrusted
-                Publisherと一致するとtoken
-                exchangeする。workflowファイル名だけではなく、Environment名一致と、Environment側のApprove/ref制限まで通って初めてpublishへ進める。
-            </p>
-            <hr />
-            <h1 id="事例-workflow改変--oidcの問題">
-                事例: Workflow改変 + OIDCの問題
-            </h1>
-            <ul>
-                <li>Bitwarden CLIのサプライチェーン攻撃の事例</li>
-                <li>workflow改変 + 直接pushでOIDC credentialを取得</li>
-                <li>credentialを持ち出して、悪意あるパッケージを公開</li>
-                <li>GitHub write権限がnpm publish権限へ広がる</li>
-                <li>境界にEnvironment Approveを置く</li>
-            </ul>
-            <p>
-                参考:
-                <a href="https://blog.flatt.tech/entry/bitwarden_compromise"
-                    >Bitwarden ソフトウェアサプライチェーン攻撃の概要と対応指針
-                    - GMO Flatt Security Blog</a
-                >
-            </p>
-            <p>
-                ^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0
-                も <code>_npmUser</code> は GitHub Actions / OIDC
-                だが、provenance attestation
-                は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC
-                tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm
-                tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired
-                reviewersを入れると、workflowを変えただけではpublishへ進めない。
-            </p>
-            <hr />
-            <h1 id="4-npm-staged-publishing">4. npm staged publishing</h1>
-            <hr />
-            <h1 id="公開前にapprove-stepを追加する">
-                公開前にApprove stepを追加する
-            </h1>
-            <ul>
-                <li>
-                    npm publish は直接公開、npm stage publish
-                    はApprove待ちにする
-                </li>
-                <li>
-                    パッケージ設定でpublishとstage publishを許可するか選べる
-                </li>
-                <li>stage publishのみ許可にすると、直接公開は拒否される</li>
-                <li>npm 11.15.0以上 / Node 22.14.0以上、OIDC時のみ利用可</li>
-            </ul>
-            <p>
-                参考:
-                <a href="https://docs.npmjs.com/staged-publishing"
-                    >docs.npmjs.com/staged-publishing</a
-                >
-            </p>
-            <p>
-                ^
-                OIDCの「リポジトリ権限を持っただけで公開できる」問題を緩和する最後のレイヤー。
-            </p>
-            <hr />
-            <h1 id="staged-publishingのフロー">staged publishingのフロー</h1>
-            <p>
-                <img alt="inline 115%" src="img/staged-publishing-flow.png" />
-            </p>
-            <p>
-                ^ stage
-                publishでステージング領域に提出し、view/downloadで中身を確認し、approveで公開する。approveには必ずsecurity
-                key（MFA）が入る。stage publish自体は2FA不要。
-            </p>
-            <hr />
-            <h1 id="staged-packagesのapprove画面">
-                Staged PackagesのApprove画面
-            </h1>
-            <p><img alt="inline 190%" src="img/npm-staged-packages.png" /></p>
-            <p>
-                ^ Trusted PublisherがOIDC / GitHub
-                Actionsと表示される。ここで中身を見てからApprove。security
-                keyを挿してApproveする。
-            </p>
-            <hr />
-            <h1 id="staged-publishingの課題">staged publishingの課題</h1>
-            <ul>
-                <li>Approveが1パッケージずつしかできない</li>
-                <li>monorepo（数十個一括）だと現実的でない</li>
-                <li>CLIからapproveするにはnpmトークンが要る</li>
-                <li>npm / GitHubのどちらか一方はtokenlessに寄せる</li>
-            </ul>
-            <p>
-                ^
-                <code>npm stage approve</code>
-                をCLIから自動化するにはnpmトークンが要る。つまり、approveを自動化するとnpm側に長期credentialが戻ってくる。トークンが流出すると突破されうるので、npmトークン0個に寄せる。
-            </p>
-            <hr />
-            <p><img alt="fit" src="img/publishing-overview-flow.png" /></p>
-            <p>
-                ^
-                ここまでの話を一枚にまとめる。細部ではなく、LocalからUsersまでの公開経路、確認を入れる場所、この発表で扱った対策だけを見る。この発表の中心は、侵害をゼロにすることではなく、悪いpackageがregistryへ出る前に止めること。
-            </p>
-            <hr />
-            <h1 id="まとめ">まとめ</h1>
-            <hr />
-            <h1 id="公開フローを段階ごとに制御する">
-                公開フローを段階ごとに制御する
-            </h1>
-            <ol>
-                <li>ローカル: 強い権限を常駐させない</li>
-                <li>Actions: PR + Environment + Approve</li>
-                <li>staged publishing: registry公開前にApprove</li>
-            </ol>
-            <p>
-                ^
-                単独で完結する解決策はない。publish地点に複数の緩和策を置く。provenanceだけでなく、隔離の考え方とApproveを組み合わせる。目的は侵害をゼロにすることではなく、侵害後に悪いpackageがregistryへ出る経路を細くすること。
-            </p>
-            <hr />
-            <h1 id="aiエージェント時代も同じ">AIエージェント時代も同じ</h1>
-            <ul>
-                <li>全権限を1つの主体/環境に集めない</li>
-                <li>AIが全部の権限を持っているなら、攻撃者はAIを狙うだけ</li>
-                <li>最小権限と権限分離はやる必要がある</li>
-            </ul>
-            <p>^ 自動化とAIは別物。最小権限とApproveという原則は変わらない。</p>
-            <hr />
-            <h1 id="fit-ありがとうございました">
-                [fit] ありがとうございました
-            </h1>
-            <hr />
-            <h1 id="参考リンク">参考リンク</h1>
-            <ul>
-                <li>
-                    npm OIDC:
-                    <a href="https://efcl.info/2025/09/07/npm-oidc/"
-                        >efcl.info/2025/09/07/npm-oidc/</a
-                    >
-                </li>
-                <li>
-                    公開例:
-                    <a href="https://github.com/azu/simple-oidc-example-package"
-                        >github.com/azu/simple-oidc-example-package</a
-                    >
-                </li>
-                <li>
-                    staged例:
-                    <a
-                        href="https://github.com/azu/simple-npm-staged-publish-package-example"
-                        >github.com/azu/simple-npm-staged-publish-package-example</a
-                    >
-                </li>
-                <li>
-                    Bitwarden CLI侵害:
-                    <a href="https://blog.flatt.tech/entry/bitwarden_compromise"
-                        >GMO Flatt Security Blog</a
-                    >
-                </li>
-                <li>
-                    TanStack侵害(cache poisoning):
-                    <a
-                        href="https://tanstack.com/blog/npm-supply-chain-compromise-postmortem"
-                        >tanstack.com/blog/npm-supply-chain-compromise-postmortem</a
-                    >
-                </li>
-                <li>
-                    Mini Shai-Hulud(SLSAの境界):
-                    <a
-                        href="https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do"
-                        >slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do</a
-                    >
-                </li>
-                <li>
-                    npm staged publishing:
-                    <a href="https://docs.npmjs.com/staged-publishing"
-                        >docs.npmjs.com/staged-publishing</a
-                    >
-                </li>
-                <li>
-                    GitHub changelog:
-                    <a
-                        href="https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/"
-                        ><code>pull_request_target</code> and environment branch
-                        protections</a
-                    >
-                </li>
-            </ul>
-            <hr />
-            <h1 id="その他">その他</h1>
-            <hr />
-            <h1 id="require-2fa-and-disallow-tokens">
-                Require 2FA and disallow tokens
-            </h1>
-            <p><img alt="inline 130%" src="img/npm-publishing-access.png" /></p>
-            <p>
-                ^ npmのPublishing accessで「Require two-factor authentication
-                and disallow tokens」を選ぶ。token publishは閉じるが、Trusted
-                Publisher(OIDC)はこの設定でも動く。ただし、publish権限を持つmaintainerのinteractive
-                publishまで禁止する設定ではない。公開経路をCIに寄せるには、npm側でpublish権限を持つ人を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。
-            </p>
-            <hr />
-            <h1 id="require-2fa-and-disallow-tokens-1">
-                Require 2FA and disallow tokens
-            </h1>
-            <ul>
-                <li>npm TRusted Publisherとセットで設定する</li>
-                <li>
-                    これを設定すると、npmのアクセストークンでのpublishができなくなる
-                </li>
-                <li>
-                    OIDCでないとpublishできない状態にする =
-                    CIからの公開に寄せられる
-                </li>
-            </ul>
-            <hr />
-            <h1 id="cache-poisoning">Cache Poisoning</h1>
-            <ul>
-                <li>Release Workflowではキャッシュを使わない</li>
-                <li>Cache Poisoning攻撃を防ぐため</li>
-            </ul>
-            <hr />
-        </article>
-        <script
-            async
-            src="https://azu.github.io/pdf-slide-html/index.js"
-        ></script>
-    </body>
+<p>^ OIDC公開時はprovenanceが自動で付く。idトークンの権限だけ与える。</p>
+<hr>
+<h1 id="provenanceで来歴を残す">provenanceで来歴を残す</h1>
+<ul>
+<li>OIDCでの公開ではprovenance（来歴の署名）が自動付与される</li>
+<li>どのリポジトリのどのworkflowでビルドされたかを証明できる</li>
+<li>npm provenanceはpackageとworkflowを結びつける証拠になる</li>
+<li>ただしbuild中に何が起きたかまでは保証しない</li>
+</ul>
+<p>^ SLSA用語ではBuild L2相当。package digestとrepo/workflow/refを結びつける証拠であって、build中に攻撃者コードが動いた場合までは防げない。細かい補足: private repositoryでもTrusted Publishing(OIDC)は使えるが、npm provenanceは生成されない。provenance自動生成は、Trusted Publishing、public repository、public package の組み合わせが条件。</p>
+<hr>
+<h1 id="3-github-actions-の構成">3. GitHub Actions の構成</h1>
+<h2 id="rulesets--environments--deployment-protection">Rulesets / Environments / Deployment protection</h2>
+<hr>
+<h1 id="リリースフローの流れ">リリースフローの流れ</h1>
+<p><img alt="inline" src="img/flow-diagram.png"></p>
+<p>^ 4ステップ。Step 3のApproveだけが人手で確認する箇所。次の画面で実物を見る。</p>
+<hr>
+<h1 id="step-1-version-up-pr">Step 1: Version Up PR</h1>
+<p><img alt="inline 180%" src="img/github-release-pr.png"></p>
+<p>^ create-release-pr.yml がバージョンを上げるPRを自動作成。Type: Release ラベルが付く。</p>
+<hr>
+<h1 id="step-2-merge-release-pr">Step 2: Merge Release PR</h1>
+<ul>
+<li>Release PRをレビューしてマージする</li>
+<li><code>environment: npm</code>を参照させて、jobの実行を待機させる<ul>
+<li>GitHub Environmentsのフロー(Step 3)</li>
+</ul>
+</li>
+<li>Approveして初めて<code>release</code> jobが動作する</li>
+</ul>
+<p><img alt="right fit 85%" src="./img/approve-to-run.png"></p>
+<p>^ Step 2はマージ。ここではまだ公開しない。PRレビューとmainへの取り込みでsource側を確認し、Step 3のEnvironment Approveでpublish権限へ進める。</p>
+<hr>
+<h1 id="step-3-approve-deployment">Step 3: Approve Deployment</h1>
+<p><img alt="inline 130%" src="img/github-review-deployments.png"></p>
+<p>^ マージ後、Review pending deploymentsでApproveして初めてpublishが走る。Approveしなければ止まる。</p>
+<hr>
+<h1 id="step-4-publish-to-npm">Step 4: Publish to npm</h1>
+<ul>
+<li>Approve後に<code>release</code> jobが開始</li>
+<li>OIDCでnpmとtoken exchangeする</li>
+<li>npm publishを実行してパッケージを公開</li>
+<li>provenance付きでregistryへ公開される</li>
+</ul>
+<p>^ Step 4で初めてnpm側に公開する。Approve前はpublish権限へ進めない。staged publishingを使う場合は、ここでstage publishしてnpm側のApprove待ちにする。</p>
+<hr>
+<h1 id="environmentsのdeployment-protection-rules">EnvironmentsのDeployment protection rules</h1>
+<p><img alt="inline 65%" src="img/github-environment-cropped.png"></p>
+<p>^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの <code>GITHUB_REF</code> からdeployできるか」を見る。npm Environmentでは <code>refs/pull/*/merge</code> だけを許可し、さらにApproveしないとjobが続行しない。</p>
+<hr>
+<h1 id="jobの実行をprをマージしたタイミングのみで許可">Jobの実行をPRをマージしたタイミングのみで許可</h1>
+<ul>
+<li>GitHubがPR用のmerge refを作る</li>
+<li>許可するrefは <code>refs/pull/*/merge</code> のみ<ul>
+<li>→ 必ずPRを経由しないとWorkflowが実行できない = 目立たせる</li>
+</ul>
+</li>
+<li>Approveするまで<code>release</code> jobは開始しないようにできる</li>
+</ul>
+<p><img alt="right fit 85%" src="img/github-environment-ref-rule.png"></p>
+<p>参考: <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags">GitHub Docs</a> / <a href="https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/">GitHub Changelog</a></p>
+<p>^ Environmentのbranch/tag ruleはworkflow runの <code>GITHUB_REF</code> を見る。<code>refs/pull/&lt;n&gt;/merge</code> はGitHubがPR用に作るmerge refで、ユーザーが通常branchとして作るものではない。<code>pull_request</code> 系では <code>GITHUB_REF</code> が <code>refs/pull/&lt;n&gt;/merge</code> になるので、npm Environmentには <code>refs/pull/*/merge</code> だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。</p>
+<hr>
+<h1 id="github-environments">GitHub Environments</h1>
+<h2 id="なぜdeployment-protection-rulesを使うか">なぜDeployment protection rulesを使うか</h2>
+<hr>
+<h1 id="provenanceだけでは足りない">provenanceだけでは足りない</h1>
+<ul>
+<li>provenanceで「どこから出たか」は分かる</li>
+<li>でも「作る途中で何が混ざったか」は分からない</li>
+<li>悪いpackageにも正しい署名が付くことがある</li>
+<li>だからpublishに進む前に別のApproveを求める</li>
+</ul>
+<p>参考: <a href="https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do">Mini Shai-Hulud: Where SLSA’s Boundaries Fall</a></p>
+<p>^ ここからフローの説明から「なぜこの形にするか」へ切り替える。provenanceは『改ざんされていない成果物』の保証ではない。正確には、package digestとrepo/workflow/refを結びつける証拠。build環境が汚染されていれば、その汚染されたbuildの結果にもvalid provenanceが付く。本文では「出どころは分かるが、作る途中までは見ない」と言う。ここから、provenanceとは別にpublishへ進むためのApproveを求める話へつなげる。</p>
+<hr>
+<h1 id="workflow改変だけではpublishへ進ませない">Workflow改変だけではpublishへ進ませない</h1>
+<ul>
+<li>npmのTrusted Publisherはworkflowファイル名とEnvironment名を確認する</li>
+<li>Environmentで <code>refs/pull/*/merge</code> だけJobの実行を許可</li>
+<li>Environmentで、required reviewersのApproveがJobの実行に必要</li>
+<li>→ workflowファイル名一致だけではOIDC交換まで進めない</li>
+</ul>
+<p>^ workflow改変そのものをEnvironmentが止めるわけではない。Trusted Publisherのworkflow file制限、Environment名、Environmentのref制限、required reviewersのApproveを組み合わせる。直接pushや任意branchからの実行では npm Environment を通れない。PRのmerge refだけを許可し、最後にApproveを要求する。</p>
+<hr>
+<h1 id="environment名をnpm側と一致させる">Environment名をnpm側と一致させる</h1>
+<p><img alt="inline 72%" src="img/environment-name-screenshots.png"></p>
+<p>^ <code>release.yml</code> の <code>environment: npm</code> はGitHub ActionsのEnvironment名。npm Trusted Publisherにも同じEnvironment nameとして <code>npm</code> を登録する。npmはOIDC tokenのclaimに含まれるrepository、workflow file、environmentを見て、登録されたTrusted Publisherと一致するとtoken exchangeする。workflowファイル名だけではなく、Environment名一致と、Environment側のApprove/ref制限まで通って初めてpublishへ進める。</p>
+<hr>
+<h1 id="事例-workflow改変--oidcの問題">事例: Workflow改変 + OIDCの問題</h1>
+<ul>
+<li>Bitwarden CLIのサプライチェーン攻撃の事例</li>
+<li>workflow改変 + 直接pushでOIDC credentialを取得</li>
+<li>credentialを持ち出して、悪意あるパッケージを公開</li>
+<li>GitHub write権限がnpm publish権限へ広がる</li>
+<li>境界にEnvironment Approveを置く</li>
+</ul>
+<p>参考: <a href="https://blog.flatt.tech/entry/bitwarden_compromise">Bitwarden ソフトウェアサプライチェーン攻撃の概要と対応指針 - GMO Flatt Security Blog</a></p>
+<p>^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も <code>_npmUser</code> は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。</p>
+<hr>
+<h1 id="4-npm-staged-publishing">4. npm staged publishing</h1>
+<hr>
+<h1 id="公開前にapprove-stepを追加する">公開前にApprove stepを追加する</h1>
+<ul>
+<li>npm publish は直接公開、npm stage publish はApprove待ちにする</li>
+<li>パッケージ設定でpublishとstage publishを許可するか選べる</li>
+<li>stage publishのみ許可にすると、直接公開は拒否される</li>
+<li>npm 11.15.0以上 / Node 22.14.0以上、OIDC時のみ利用可</li>
+</ul>
+<p>参考: <a href="https://docs.npmjs.com/staged-publishing">docs.npmjs.com/staged-publishing</a></p>
+<p>^ OIDCの「リポジトリ権限を持っただけで公開できる」問題を緩和する最後のレイヤー。</p>
+<hr>
+<h1 id="staged-publishingのフロー">staged publishingのフロー</h1>
+<p><img alt="inline 115%" src="img/staged-publishing-flow.png"></p>
+<p>^ stage publishでステージング領域に提出し、view/downloadで中身を確認し、approveで公開する。approveには必ずsecurity key（MFA）が入る。stage publish自体は2FA不要。</p>
+<hr>
+<h1 id="staged-packagesのapprove画面">Staged PackagesのApprove画面</h1>
+<p><img alt="inline 190%" src="img/npm-staged-packages.png"></p>
+<p>^ Trusted PublisherがOIDC / GitHub Actionsと表示される。ここで中身を見てからApprove。security keyを挿してApproveする。</p>
+<hr>
+<h1 id="staged-publishingの課題">staged publishingの課題</h1>
+<ul>
+<li>Approveが1パッケージずつしかできない</li>
+<li>monorepo（数十個一括）だと現実的でない</li>
+<li>CLIからapproveするにはnpmトークンが要る</li>
+<li>npm / GitHubのどちらか一方はtokenlessに寄せる</li>
+</ul>
+<p>^ <code>npm stage approve</code> をCLIから自動化するにはnpmトークンが要る。つまり、approveを自動化するとnpm側に長期credentialが戻ってくる。トークンが流出すると突破されうるので、npmトークン0個に寄せる。</p>
+<hr>
+<p><img alt="fit" src="img/publishing-overview-flow.png"></p>
+<p>^ ここまでの話を一枚にまとめる。細部ではなく、LocalからUsersまでの公開経路、確認を入れる場所、この発表で扱った対策だけを見る。この発表の中心は、侵害をゼロにすることではなく、悪いpackageがregistryへ出る前に止めること。</p>
+<hr>
+<h1 id="まとめ">まとめ</h1>
+<hr>
+<h1 id="公開フローを段階ごとに制御する">公開フローを段階ごとに制御する</h1>
+<ol>
+<li>ローカル: 強い権限を常駐させない</li>
+<li>Actions: PR + Environment + Approve</li>
+<li>staged publishing: registry公開前にApprove</li>
+</ol>
+<p>^ 単独で完結する解決策はない。publish地点に複数の緩和策を置く。provenanceだけでなく、隔離の考え方とApproveを組み合わせる。目的は侵害をゼロにすることではなく、侵害後に悪いpackageがregistryへ出る経路を細くすること。</p>
+<hr>
+<h1 id="aiエージェント時代も同じ">AIエージェント時代も同じ</h1>
+<ul>
+<li>全権限を1つの主体/環境に集めない</li>
+<li>AIが全部の権限を持っているなら、攻撃者はAIを狙うだけ</li>
+<li>最小権限と権限分離はやる必要がある</li>
+</ul>
+<p>^ 自動化とAIは別物。最小権限とApproveという原則は変わらない。</p>
+<hr>
+<h1 id="fit-ありがとうございました">[fit] ありがとうございました</h1>
+<hr>
+<h1 id="参考リンク">参考リンク</h1>
+<ul>
+<li>npm OIDC: <a href="https://efcl.info/2025/09/07/npm-oidc/">efcl.info/2025/09/07/npm-oidc/</a></li>
+<li>公開例: <a href="https://github.com/azu/simple-oidc-example-package">github.com/azu/simple-oidc-example-package</a></li>
+<li>staged例: <a href="https://github.com/azu/simple-npm-staged-publish-package-example">github.com/azu/simple-npm-staged-publish-package-example</a></li>
+<li>Bitwarden CLI侵害: <a href="https://blog.flatt.tech/entry/bitwarden_compromise">GMO Flatt Security Blog</a></li>
+<li>TanStack侵害(cache poisoning): <a href="https://tanstack.com/blog/npm-supply-chain-compromise-postmortem">tanstack.com/blog/npm-supply-chain-compromise-postmortem</a></li>
+<li>Mini Shai-Hulud(SLSAの境界): <a href="https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do">slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do</a></li>
+<li>npm staged publishing: <a href="https://docs.npmjs.com/staged-publishing">docs.npmjs.com/staged-publishing</a></li>
+<li>GitHub changelog: <a href="https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/"><code>pull_request_target</code> and environment branch protections</a></li>
+</ul>
+<hr>
+<h1 id="その他">その他</h1>
+<hr>
+<h1 id="require-2fa-and-disallow-tokens">Require 2FA and disallow tokens</h1>
+<p><img alt="inline 130%" src="img/npm-publishing-access.png"></p>
+<p>^ npmのPublishing accessで「Require two-factor authentication and disallow tokens」を選ぶ。token publishは閉じるが、Trusted Publisher(OIDC)はこの設定でも動く。ただし、publish権限を持つmaintainerのinteractive publishまで禁止する設定ではない。公開経路をCIに寄せるには、npm側でpublish権限を持つ人を最小化し、メンテナはGitHub側のPR/Approveへ寄せる。</p>
+<hr>
+<h1 id="require-2fa-and-disallow-tokens-1">Require 2FA and disallow tokens</h1>
+<ul>
+<li>npm Trusted Publisherとセットで設定する</li>
+<li>これを設定すると、npmのアクセストークンでのpublishができなくなる</li>
+<li>OIDCでないとpublishできない状態にする = CIからの公開に寄せられる</li>
+</ul>
+<hr>
+<h1 id="cache-poisoning">Cache Poisoning</h1>
+<ul>
+<li>Release Workflowではキャッシュを使わない</li>
+<li>Cache Poisoning攻撃を防ぐため</li>
+<li>リリースに関するWorkflowはactions/checkoutとactions/setup-nodeだけ</li>
+<li>他は<code>gh</code>やスクリプトを書くことで、外部依存は可能な限り減らす</li>
+</ul>
+<hr>
+</article>
+<script async src="https://azu.github.io/pdf-slide-html/index.js"></script>
+</body>
 </html>
