@@ -400,7 +400,7 @@ steps:
 
 # npm publishを難しくする
 
-- GitHub -> npm 境界 + npm publishにもMFAを求める
+- GitHub → npm 境界 + npm publishにもMFAを求める
 - 攻撃が成功するには、GitHubとnpmのアカウントを同時に侵害する必要がある
 - npmにはセキュリティのみがMFAとして登録している
 - 📝 GitHubはTOTPが削除できないバグがある
