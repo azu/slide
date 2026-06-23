@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">SLSA threat model and npm publishing hardening</title>
+  <desc id="desc">A visual explanation that connects SLSA Source, Build, Artifact publication, Distribution, and Usage threats to npm publishing hardening controls.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#344054"/>
+    </marker>
+    <marker id="attack-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/>
+    </marker>
+    <style>
+      .bg { fill: #ffffff; }
+      text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+      .title { font-size: 48px; font-weight: 700; fill: #101828; }
+      .subtitle { font-size: 25px; font-weight: 400; fill: #475467; }
+      .section-title { font-size: 28px; font-weight: 700; fill: #101828; }
+      .section-code { font-family: "SF Mono", "Menlo", monospace; font-size: 22px; font-weight: 700; fill: #667085; }
+      .box-label { font-size: 28px; font-weight: 700; fill: #101828; }
+      .box-small { font-size: 20px; font-weight: 500; fill: #475467; }
+      .lane-label { font-size: 24px; font-weight: 700; fill: #344054; }
+      .chip { font-size: 19px; font-weight: 700; }
+      .chip-small { font-size: 16px; font-weight: 500; }
+      .note { font-size: 25px; font-weight: 700; fill: #7c2d12; }
+      .source { fill: #eef4ff; stroke: #2f6fed; stroke-width: 3; }
+      .build { fill: #ecfdf3; stroke: #16a34a; stroke-width: 3; }
+      .publish { fill: #fff7ed; stroke: #ea580c; stroke-width: 5; }
+      .dist { fill: #f8f0ff; stroke: #9333ea; stroke-width: 3; }
+      .usage { fill: #f2f4f7; stroke: #667085; stroke-width: 3; }
+      .stage { fill: #ffffff; stroke: #98a2b3; stroke-width: 2; }
+      .attack-chip { fill: #fff1eb; stroke: #fb923c; stroke-width: 2; }
+      .attack-text { fill: #9a3412; }
+      .defense-chip { fill: #ecfdf3; stroke: #22c55e; stroke-width: 2; }
+      .defense-text { fill: #166534; }
+      .focus-ring { fill: none; stroke: #f97316; stroke-opacity: 0.72; stroke-width: 7; stroke-dasharray: 16 12; }
+      .arrow { stroke: #344054; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .attack-line { stroke: #c2410c; stroke-width: 4; fill: none; marker-end: url(#attack-arrow); stroke-dasharray: 10 9; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="900"/>
+
+  <text x="70" y="82" class="title">SLSA と npm publish の対応</text>
+  <text x="72" y="122" class="subtitle">焦点は「意図しない package が registry に出る」Artifact publication(F)</text>
+
+  <g transform="translate(70 175)">
+    <rect x="0" y="0" width="260" height="102" rx="18" class="source"/>
+    <text x="24" y="40" class="section-title">Source</text>
+    <text x="24" y="72" class="section-code">A / B / C</text>
+
+    <rect x="292" y="0" width="260" height="102" rx="18" class="build"/>
+    <text x="316" y="40" class="section-title">Build</text>
+    <text x="316" y="72" class="section-code">D / E</text>
+
+    <rect x="584" y="0" width="330" height="102" rx="18" class="publish"/>
+    <text x="608" y="40" class="section-title">Publish</text>
+    <text x="608" y="72" class="section-code">F Artifact publication</text>
+
+    <rect x="946" y="0" width="260" height="102" rx="18" class="dist"/>
+    <text x="970" y="40" class="section-title">Distribution</text>
+    <text x="970" y="72" class="section-code">G</text>
+
+    <rect x="1238" y="0" width="252" height="102" rx="18" class="usage"/>
+    <text x="1262" y="40" class="section-title">Usage</text>
+    <text x="1262" y="72" class="section-code">H / I</text>
+  </g>
+
+  <g transform="translate(70 335)">
+    <text x="0" y="-28" class="lane-label">npm publishing flow</text>
+
+    <rect x="0" y="0" width="205" height="94" rx="14" class="stage"/>
+    <text x="24" y="38" class="box-label">Local</text>
+    <text x="24" y="68" class="box-small">maintainer machine</text>
+
+    <line x1="214" y1="47" x2="273" y2="47" class="arrow"/>
+
+    <rect x="290" y="0" width="205" height="94" rx="14" class="stage"/>
+    <text x="314" y="38" class="box-label">Repo / PR</text>
+    <text x="314" y="68" class="box-small">review / merge</text>
+
+    <line x1="504" y1="47" x2="563" y2="47" class="arrow"/>
+
+    <rect x="580" y="0" width="205" height="94" rx="14" class="stage"/>
+    <text x="604" y="38" class="box-label">Actions</text>
+    <text x="604" y="68" class="box-small">release workflow</text>
+
+    <line x1="794" y1="47" x2="853" y2="47" class="arrow"/>
+
+    <rect x="870" y="0" width="230" height="94" rx="14" class="stage"/>
+    <text x="894" y="38" class="box-label">npm publish</text>
+    <text x="894" y="68" class="box-small">OIDC / staged</text>
+
+    <line x1="1109" y1="47" x2="1168" y2="47" class="arrow"/>
+
+    <rect x="1185" y="0" width="205" height="94" rx="14" class="stage"/>
+    <text x="1209" y="38" class="box-label">Registry</text>
+    <text x="1209" y="68" class="box-small">users install</text>
+  </g>
+
+  <ellipse cx="1110" cy="382" rx="305" ry="80" class="focus-ring"/>
+  <text x="815" y="500" class="note">今回の焦点: publish 権限につながる経路を制御する</text>
+
+  <g transform="translate(70 555)">
+    <text x="0" y="-24" class="lane-label">Attack examples</text>
+
+    <rect x="0" y="0" width="238" height="66" rx="14" class="attack-chip"/>
+    <text x="18" y="29" class="chip attack-text">Infostealer</text>
+    <text x="18" y="52" class="chip-small attack-text">local token theft</text>
+
+    <rect x="290" y="0" width="238" height="66" rx="14" class="attack-chip"/>
+    <text x="308" y="29" class="chip attack-text">Source change</text>
+    <text x="308" y="52" class="chip-small attack-text">review bypass</text>
+
+    <rect x="580" y="0" width="300" height="76" rx="14" class="attack-chip"/>
+    <text x="598" y="27" class="chip attack-text">CI/CD attack surface</text>
+    <text x="598" y="50" class="chip-small attack-text">workflow / cache / Action</text>
+    <text x="598" y="68" class="chip-small attack-text">script / token exposure</text>
+
+    <rect x="930" y="0" width="250" height="66" rx="14" class="attack-chip"/>
+    <text x="948" y="29" class="chip attack-text">OIDC misuse</text>
+    <text x="948" y="52" class="chip-small attack-text">GitHub write to npm publish</text>
+
+    <rect x="1200" y="0" width="260" height="66" rx="14" class="attack-chip"/>
+    <text x="1218" y="29" class="chip attack-text">Malicious package</text>
+    <text x="1218" y="52" class="chip-small attack-text">bad tarball reaches users</text>
+  </g>
+
+  <path d="M190 555 C220 505, 185 465, 165 432" class="attack-line"/>
+  <path d="M455 555 C470 505, 432 465, 392 432" class="attack-line"/>
+  <path d="M730 555 C730 510, 700 470, 682 432" class="attack-line"/>
+  <path d="M1055 555 C1060 510, 1048 470, 1040 432" class="attack-line"/>
+  <path d="M1340 555 C1350 510, 1320 470, 1288 432" class="attack-line"/>
+
+  <g transform="translate(70 710)">
+    <text x="0" y="-24" class="lane-label">Controls in this slide deck</text>
+
+    <rect x="0" y="0" width="238" height="66" rx="14" class="defense-chip"/>
+    <text x="18" y="29" class="chip defense-text">npm token 0</text>
+    <text x="18" y="52" class="chip-small defense-text">disallow tokens</text>
+
+    <rect x="290" y="0" width="238" height="66" rx="14" class="defense-chip"/>
+    <text x="308" y="29" class="chip defense-text">PR + Rulesets</text>
+    <text x="308" y="52" class="chip-small defense-text">source gate</text>
+
+    <rect x="580" y="0" width="300" height="66" rx="14" class="defense-chip"/>
+    <text x="598" y="29" class="chip defense-text">Actions controls</text>
+    <text x="598" y="52" class="chip-small defense-text">no cache / pin / least privilege</text>
+
+    <rect x="930" y="0" width="250" height="66" rx="14" class="defense-chip"/>
+    <text x="948" y="29" class="chip defense-text">OIDC + Environment</text>
+    <text x="948" y="52" class="chip-small defense-text">approval at boundary</text>
+
+    <rect x="1200" y="0" width="260" height="66" rx="14" class="defense-chip"/>
+    <text x="1218" y="29" class="chip defense-text">staged + provenance</text>
+    <text x="1218" y="52" class="chip-small defense-text">review and traceability</text>
+  </g>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="500" viewBox="0 0 1280 500">
+  <rect width="1280" height="500" fill="#ffffff"/>
+  <defs>
+    <style>
+      .rowLabel { font: 700 22px "Hiragino Sans", "Noto Sans CJK JP", sans-serif; fill: #4b5563; text-anchor: end; dominant-baseline: central; }
+      .nodeTitle { font: 700 29px "Hiragino Sans", "Noto Sans CJK JP", sans-serif; fill: #111827; text-anchor: middle; dominant-baseline: central; }
+      .nodeSub { font: 20px "Hiragino Sans", "Noto Sans CJK JP", sans-serif; fill: #4b5563; text-anchor: middle; dominant-baseline: central; }
+      .gateTitle { font: 700 24px "Hiragino Sans", "Noto Sans CJK JP", sans-serif; text-anchor: middle; dominant-baseline: central; }
+      .gateSub { font: 17px "Hiragino Sans", "Noto Sans CJK JP", sans-serif; text-anchor: middle; dominant-baseline: central; }
+      .gateBlue { fill: #1e3a8a; }
+      .gateOrange { fill: #7c2d12; }
+      .gatePurple { fill: #581c87; }
+      .controlTitle { font: 700 22px "Hiragino Sans", "Noto Sans CJK JP", sans-serif; fill: #166534; text-anchor: middle; dominant-baseline: middle; }
+      .controlSub { font: 16px "Hiragino Sans", "Noto Sans CJK JP", sans-serif; fill: #166534; text-anchor: middle; dominant-baseline: middle; }
+      .flowLine { stroke: #374151; stroke-width: 5; stroke-linecap: round; }
+      .flowHead { fill: #374151; }
+      .gateLine { stroke-width: 3; stroke-linecap: round; }
+      .gateLineBlue { stroke: #2b6cb0; }
+      .gateLineOrange { stroke: #fb923c; }
+      .gateLinePurple { stroke: #9333ea; }
+    </style>
+  </defs>
+
+  <text class="rowLabel" x="110" y="100">公開経路</text>
+  <text class="rowLabel" x="110" y="256">確認点</text>
+  <text class="rowLabel" x="110" y="408">対策</text>
+
+  <rect x="160" y="48" width="140" height="104" rx="15" fill="#f8fafc" stroke="#9ca3af" stroke-width="3"/>
+  <rect x="350" y="48" width="120" height="104" rx="15" fill="#eff6ff" stroke="#2b6cb0" stroke-width="3"/>
+  <rect x="520" y="48" width="140" height="104" rx="15" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+  <rect x="710" y="48" width="130" height="104" rx="15" fill="#fff7ed" stroke="#c05621" stroke-width="3"/>
+  <rect x="910" y="48" width="155" height="104" rx="15" fill="#faf5ff" stroke="#9333ea" stroke-width="3"/>
+  <rect x="1115" y="48" width="135" height="104" rx="15" fill="#f8fafc" stroke="#6b7280" stroke-width="3"/>
+
+  <line class="flowLine" x1="308" y1="100" x2="326" y2="100"/>
+  <polygon class="flowHead" points="344,100 326,90 326,110"/>
+  <line class="flowLine" x1="478" y1="100" x2="496" y2="100"/>
+  <polygon class="flowHead" points="514,100 496,90 496,110"/>
+  <line class="flowLine" x1="668" y1="100" x2="686" y2="100"/>
+  <polygon class="flowHead" points="704,100 686,90 686,110"/>
+  <line class="flowLine" x1="848" y1="100" x2="886" y2="100"/>
+  <polygon class="flowHead" points="904,100 886,90 886,110"/>
+  <line class="flowLine" x1="1073" y1="100" x2="1091" y2="100"/>
+  <polygon class="flowHead" points="1109,100 1091,90 1091,110"/>
+
+  <text class="nodeTitle" x="230" y="87">Local</text>
+  <text class="nodeSub" x="230" y="124">maintainer</text>
+  <text class="nodeTitle" x="410" y="87">PR</text>
+  <text class="nodeSub" x="410" y="124">review</text>
+  <text class="nodeTitle" x="590" y="87">Actions</text>
+  <text class="nodeSub" x="590" y="124">workflow</text>
+  <text class="nodeTitle" x="775" y="87">npm</text>
+  <text class="nodeSub" x="775" y="124">publish</text>
+  <text class="nodeTitle" x="987.5" y="87">Registry</text>
+  <text class="nodeSub" x="987.5" y="124">package</text>
+  <text class="nodeTitle" x="1182.5" y="87">Users</text>
+  <text class="nodeSub" x="1182.5" y="124">install</text>
+
+  <line class="gateLine gateLineBlue" x1="410" y1="152" x2="410" y2="204"/>
+  <line class="gateLine gateLineOrange" x1="775" y1="152" x2="775" y2="204"/>
+  <line class="gateLine gateLinePurple" x1="987.5" y1="152" x2="987.5" y2="204"/>
+
+  <rect x="320" y="204" width="180" height="88" rx="14" fill="#eff6ff" stroke="#2b6cb0" stroke-width="3"/>
+  <rect x="660" y="204" width="230" height="88" rx="14" fill="#fff7ed" stroke="#fb923c" stroke-width="3"/>
+  <rect x="895" y="204" width="185" height="88" rx="14" fill="#faf5ff" stroke="#9333ea" stroke-width="3"/>
+
+  <text class="gateTitle gateBlue" x="410" y="231">PR Review</text>
+  <text class="gateSub gateBlue" x="410" y="260">mainへ入る前</text>
+  <text class="gateTitle gateOrange" x="775" y="225">Environment</text>
+  <text class="gateTitle gateOrange" x="775" y="251">Approve</text>
+  <text class="gateSub gateOrange" x="775" y="276">publish権限へ進む前</text>
+  <text class="gateTitle gatePurple" x="987.5" y="225">staged</text>
+  <text class="gateTitle gatePurple" x="987.5" y="251">Approve</text>
+  <text class="gateSub gatePurple" x="987.5" y="276">registry公開前</text>
+
+  <rect x="150" y="368" width="190" height="76" rx="13" fill="#f0fdf4" stroke="#22c55e" stroke-width="3"/>
+  <rect x="385" y="368" width="190" height="76" rx="13" fill="#f0fdf4" stroke="#22c55e" stroke-width="3"/>
+  <rect x="620" y="368" width="200" height="76" rx="13" fill="#f0fdf4" stroke="#22c55e" stroke-width="3"/>
+  <rect x="860" y="368" width="190" height="76" rx="13" fill="#f0fdf4" stroke="#22c55e" stroke-width="3"/>
+
+  <text class="controlTitle" x="245" y="394">token 0</text>
+  <text class="controlSub" x="245" y="421">長期tokenを置かない</text>
+  <text class="controlTitle" x="480" y="394">OIDC</text>
+  <text class="controlSub" x="480" y="421">短期credential</text>
+  <text class="controlTitle" x="720" y="394">Environment</text>
+  <text class="controlSub" x="720" y="421">publish前にApprove</text>
+  <text class="controlTitle" x="955" y="394">staged</text>
+  <text class="controlSub" x="955" y="421">公開前にApprove</text>
+</svg>

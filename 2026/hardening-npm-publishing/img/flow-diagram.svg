@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="334" viewBox="0 0 1100 334">
+  <rect width="1100" height="334" fill="#ffffff"/>
+  <defs>
+    <style>
+      .step { fill: #ebf4ff; stroke: #2b6cb0; stroke-width: 3; }
+      .gate { fill: #fffaf0; stroke: #c05621; stroke-width: 3; }
+      .circle { fill: #2b6cb0; }
+      .gateCircle { fill: #c05621; }
+      .num { font: 700 36px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #ffffff; text-anchor: middle; dominant-baseline: central; }
+      .title { font: 700 30px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #1a365d; text-anchor: middle; }
+      .gateTitle { font: 700 30px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #7b341e; text-anchor: middle; }
+      .desc { font: 20px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #2d3748; text-anchor: middle; }
+      .arrowLine { stroke: #2b6cb0; stroke-width: 4; stroke-linecap: round; }
+      .arrowHead { fill: #2b6cb0; }
+    </style>
+  </defs>
+
+  <g transform="translate(0,60)">
+    <g transform="translate(0,0)">
+      <rect class="step" x="0" y="0" width="235" height="210" rx="16"/>
+      <circle class="circle" cx="117.5" cy="55" r="32"/>
+      <text class="num" x="117.5" y="55">1</text>
+      <text class="title" x="117.5" y="122">Version Up</text>
+      <text class="desc" x="117.5" y="160">create-release-pr.yml</text>
+      <text class="desc" x="117.5" y="190">がPRを自動作成</text>
+    </g>
+    <line class="arrowLine" x1="252" y1="105" x2="284" y2="105"/>
+    <polygon class="arrowHead" points="302,105 284,94 284,116"/>
+
+    <g transform="translate(308,0)">
+      <rect class="step" x="0" y="0" width="235" height="210" rx="16"/>
+      <circle class="circle" cx="117.5" cy="55" r="32"/>
+      <text class="num" x="117.5" y="55">2</text>
+      <text class="title" x="117.5" y="122">Merge</text>
+      <text class="desc" x="117.5" y="160">Type: Release</text>
+      <text class="desc" x="117.5" y="190">ラベルで起動</text>
+    </g>
+    <line class="arrowLine" x1="560" y1="105" x2="592" y2="105"/>
+    <polygon class="arrowHead" points="610,105 592,94 592,116"/>
+
+    <g transform="translate(616,0)">
+      <rect class="gate" x="0" y="0" width="235" height="210" rx="16"/>
+      <circle class="gateCircle" cx="117.5" cy="55" r="32"/>
+      <text class="num" x="117.5" y="55">3</text>
+      <text class="gateTitle" x="117.5" y="122">Approve</text>
+      <text class="desc" x="117.5" y="158">Environmentの</text>
+      <text class="desc" x="117.5" y="185">reviewersがApprove</text>
+    </g>
+    <line class="arrowLine" x1="868" y1="105" x2="900" y2="105"/>
+    <polygon class="arrowHead" points="918,105 900,94 900,116"/>
+
+    <g transform="translate(924,0)">
+      <rect class="step" x="0" y="0" width="176" height="210" rx="16"/>
+      <circle class="circle" cx="88" cy="55" r="32"/>
+      <text class="num" x="88" y="55">4</text>
+      <text class="title" x="88" y="122">Publish</text>
+      <text class="desc" x="88" y="160">OIDCで</text>
+      <text class="desc" x="88" y="190">npm publish</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="320" viewBox="0 0 1120 320">
+  <rect width="1120" height="320" fill="#ffffff"/>
+  <defs>
+    <style>
+      .step { fill: #ebf4ff; stroke: #2b6cb0; stroke-width: 4; }
+      .gate { fill: #fffaf0; stroke: #c05621; stroke-width: 4; }
+      .circle { fill: #2b6cb0; }
+      .gateCircle { fill: #c05621; }
+      .number { font: 40px "Hiragino Sans GB", "Hiragino Sans", sans-serif; fill: #ffffff; text-anchor: middle; dominant-baseline: central; }
+      .title { font: 36px "Hiragino Sans GB", "Hiragino Sans", sans-serif; fill: #1a365d; text-anchor: middle; dominant-baseline: central; }
+      .gateTitle { font: 36px "Hiragino Sans GB", "Hiragino Sans", sans-serif; fill: #7b341e; text-anchor: middle; dominant-baseline: central; }
+      .body { font: 24px "Hiragino Sans GB", "Hiragino Sans", sans-serif; fill: #2d3748; text-anchor: middle; dominant-baseline: central; }
+      .desc { font: 23px "Hiragino Sans GB", "Hiragino Sans", sans-serif; fill: #2d3748; text-anchor: middle; dominant-baseline: central; }
+      .arrow { fill: #2b6cb0; stroke: #2b6cb0; stroke-width: 4; }
+    </style>
+  </defs>
+
+  <rect class="step" x="70" y="48" width="270" height="228" rx="14"/>
+  <rect class="step" x="425" y="48" width="270" height="228" rx="14"/>
+  <rect class="gate" x="780" y="48" width="270" height="228" rx="14"/>
+
+  <circle class="circle" cx="205" cy="96" r="31"/>
+  <circle class="circle" cx="560" cy="96" r="31"/>
+  <circle class="gateCircle" cx="915" cy="96" r="31"/>
+
+  <line class="arrow" x1="365" y1="162" x2="397" y2="162"/>
+  <polygon class="arrow" points="397,162 381,151 381,173"/>
+  <line class="arrow" x1="720" y1="162" x2="752" y2="162"/>
+  <polygon class="arrow" points="752,162 736,151 736,173"/>
+
+  <text class="number" x="205" y="96">1</text>
+  <text class="number" x="560" y="96">2</text>
+  <text class="number" x="915" y="96">3</text>
+
+  <text class="title" x="205" y="156">Submit</text>
+  <text class="title" x="560" y="156">Inspect</text>
+  <text class="gateTitle" x="915" y="156">Approve</text>
+
+  <text class="body" x="205" y="208">npm stage publish</text>
+  <text class="body" x="560" y="208">view / download</text>
+  <text class="body" x="915" y="208">npm stage approve</text>
+
+  <text class="desc" x="205" y="244">stageへ提出</text>
+  <text class="desc" x="560" y="244">中身を確認</text>
+  <text class="desc" x="915" y="244">2FAで公開</text>
+</svg>
