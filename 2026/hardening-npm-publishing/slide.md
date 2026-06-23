@@ -281,7 +281,7 @@ steps:
 
 ---
 
-# Jobの実行をPRをマージしたタイミングのみで許可
+# Jobの実行をPRをマージしたタイミングのみ許可
 
 - GitHubがPR用のmerge refを作る
 - 許可するrefは `refs/pull/*/merge` のみ
@@ -340,7 +340,7 @@ steps:
 - workflow改変 + 直接pushでOIDC credentialを取得
 - credentialを持ち出して、悪意あるパッケージを公開
 - GitHub write権限がnpm publish権限へ広がる
-- 境界にEnvironment Approveを置く
+- 境界にApproveを置く
 
 参考: [Bitwarden ソフトウェアサプライチェーン攻撃の概要と対応指針 - GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
 
@@ -395,6 +395,16 @@ steps:
 ![fit](img/publishing-overview-flow.png)
 
 ^ ここまでの話を一枚にまとめる。細部ではなく、LocalからUsersまでの公開経路、確認を入れる場所、この発表で扱った対策だけを見る。この発表の中心は、侵害をゼロにすることではなく、悪いpackageがregistryへ出る前に止めること。
+
+---
+
+# npm publishを難しくする
+
+- GitHub -> npm 境界 + npm publishにもMFAを求める
+- 攻撃が成功するには、GitHubとnpmのアカウントを同時に侵害する必要がある
+- npmにはセキュリティのみがMFAとして登録している
+- 📝 GitHubはTOTPが削除できないバグがある
+- [How to remove authenticator app · community · Discussion #54699](https://github.com/orgs/community/discussions/54699)
 
 ---
 

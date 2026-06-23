@@ -259,7 +259,7 @@ steps:
 <p><img alt="inline 65%" src="img/github-environment-cropped.png"></p>
 <p>^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの <code>GITHUB_REF</code> からdeployできるか」を見る。npm Environmentでは <code>refs/pull/*/merge</code> だけを許可し、さらにApproveしないとjobが続行しない。</p>
 <hr>
-<h1 id="jobの実行をprをマージしたタイミングのみで許可">Jobの実行をPRをマージしたタイミングのみで許可</h1>
+<h1 id="jobの実行をprをマージしたタイミングのみ許可">Jobの実行をPRをマージしたタイミングのみ許可</h1>
 <ul>
 <li>GitHubがPR用のmerge refを作る</li>
 <li>許可するrefは <code>refs/pull/*/merge</code> のみ<ul>
@@ -304,7 +304,7 @@ steps:
 <li>workflow改変 + 直接pushでOIDC credentialを取得</li>
 <li>credentialを持ち出して、悪意あるパッケージを公開</li>
 <li>GitHub write権限がnpm publish権限へ広がる</li>
-<li>境界にEnvironment Approveを置く</li>
+<li>境界にApproveを置く</li>
 </ul>
 <p>参考: <a href="https://blog.flatt.tech/entry/bitwarden_compromise">Bitwarden ソフトウェアサプライチェーン攻撃の概要と対応指針 - GMO Flatt Security Blog</a></p>
 <p>^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も <code>_npmUser</code> は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。</p>
@@ -340,6 +340,15 @@ steps:
 <hr>
 <p><img alt="fit" src="img/publishing-overview-flow.png"></p>
 <p>^ ここまでの話を一枚にまとめる。細部ではなく、LocalからUsersまでの公開経路、確認を入れる場所、この発表で扱った対策だけを見る。この発表の中心は、侵害をゼロにすることではなく、悪いpackageがregistryへ出る前に止めること。</p>
+<hr>
+<h1 id="npm-publishを難しくする">npm publishを難しくする</h1>
+<ul>
+<li>GitHub -&gt; npm 境界 + npm publishにもMFAを求める</li>
+<li>攻撃が成功するには、GitHubとnpmのアカウントを同時に侵害する必要がある</li>
+<li>npmにはセキュリティのみがMFAとして登録している</li>
+<li>📝 GitHubはTOTPが削除できないバグがある</li>
+<li><a href="https://github.com/orgs/community/discussions/54699">How to remove authenticator app · community · Discussion #54699</a></li>
+</ul>
 <hr>
 <h1 id="まとめ">まとめ</h1>
 <hr>
