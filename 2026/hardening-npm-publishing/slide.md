@@ -453,7 +453,7 @@ steps:
 
 # Require 2FA and disallow tokens
 
-- npm TRusted Publisherとセットで設定する
+- npm Trusted Publisherとセットで設定する
 - これを設定すると、npmのアクセストークンでのpublishができなくなる
 - OIDCでないとpublishできない状態にする = CIからの公開に寄せられる
 
@@ -463,5 +463,7 @@ steps:
 
 - Release Workflowではキャッシュを使わない
 - Cache Poisoning攻撃を防ぐため
+- リリースに関するWorkflowはactions/checkoutとactions/setup-nodeだけ
+- 他は`gh`やスクリプトを書くことで、外部依存は可能な限り減らす
 
 ---
