@@ -175,7 +175,7 @@ theme: Plain Jane, 1</p>
 <h1 id="2-トークンレス-npm">2. トークンレス npm</h1>
 <h2 id="oidc-trusted-publishing">OIDC Trusted Publishing</h2>
 <hr>
-<h1 id="oidc-trusted-publishingとは">OIDC Trusted Publishingとは</h1>
+<h1 id="npmoidc-trusted-publishingとは">npm/OIDC Trusted Publishingとは</h1>
 <ul>
 <li>個人に紐づく長期的なトークンをやめ、short-livedでworkflow固有のトークンでパッケージを公開する仕組み</li>
 <li>npmとGitHub ActionsがOIDCでToken Exchangeする</li>
@@ -233,8 +233,10 @@ steps:
 <h1 id="step-2-merge-release-pr">Step 2: Merge Release PR</h1>
 <ul>
 <li>Release PRをレビューしてマージする</li>
-<li>mainに入ったrelease commitだけがpublish候補になる</li>
-<li>まだnpm publishは走らない</li>
+<li><code>environment: npm</code>を参照させて、jobの実行を待機させる<ul>
+<li>GitHub Environmentsのフロー(Step 3)</li>
+</ul>
+</li>
 <li>Approveして初めて<code>release</code> jobが動作する</li>
 </ul>
 <p><img alt="right fit 85%" src="./img/approve-to-run.png"></p>
@@ -248,10 +250,30 @@ steps:
 <ul>
 <li>Approve後に<code>release</code> jobが開始</li>
 <li>OIDCでnpmとtoken exchangeする</li>
-<li>npm publishまたはnpm stage publishを実行する</li>
+<li>npm publishを実行してパッケージを公開</li>
 <li>provenance付きでregistryへ公開される</li>
 </ul>
 <p>^ Step 4で初めてnpm側に公開する。Approve前はpublish権限へ進めない。staged publishingを使う場合は、ここでstage publishしてnpm側のApprove待ちにする。</p>
+<hr>
+<h1 id="environmentsのdeployment-protection-rules">EnvironmentsのDeployment protection rules</h1>
+<p><img alt="inline 65%" src="img/github-environment-cropped.png"></p>
+<p>^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの <code>GITHUB_REF</code> からdeployできるか」を見る。npm Environmentでは <code>refs/pull/*/merge</code> だけを許可し、さらにApproveしないとjobが続行しない。</p>
+<hr>
+<h1 id="jobの実行をprをマージしたタイミングのみで許可">Jobの実行をPRをマージしたタイミングのみで許可</h1>
+<ul>
+<li>GitHubがPR用のmerge refを作る</li>
+<li>許可するrefは <code>refs/pull/*/merge</code> のみ<ul>
+<li>→ 必ずPRを経由しないとWorkflowが実行できない = 目立たせる</li>
+</ul>
+</li>
+<li>Approveするまで<code>release</code> jobは開始しないようにできる</li>
+</ul>
+<p><img alt="right fit 85%" src="img/github-environment-ref-rule.png"></p>
+<p>参考: <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags">GitHub Docs</a> / <a href="https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/">GitHub Changelog</a></p>
+<p>^ Environmentのbranch/tag ruleはworkflow runの <code>GITHUB_REF</code> を見る。<code>refs/pull/&lt;n&gt;/merge</code> はGitHubがPR用に作るmerge refで、ユーザーが通常branchとして作るものではない。<code>pull_request</code> 系では <code>GITHUB_REF</code> が <code>refs/pull/&lt;n&gt;/merge</code> になるので、npm Environmentには <code>refs/pull/*/merge</code> だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。</p>
+<hr>
+<h1 id="github-environments">GitHub Environments</h1>
+<h2 id="なぜdeployment-protection-rulesを使うか">なぜDeployment protection rulesを使うか</h2>
 <hr>
 <h1 id="provenanceだけでは足りない">provenanceだけでは足りない</h1>
 <ul>
@@ -263,36 +285,12 @@ steps:
 <p>参考: <a href="https://slsa.dev/blog/2026/05/mini-shai-hulud-what-slsa-can-and-cannot-do">Mini Shai-Hulud: Where SLSA’s Boundaries Fall</a></p>
 <p>^ ここからフローの説明から「なぜこの形にするか」へ切り替える。provenanceは『改ざんされていない成果物』の保証ではない。正確には、package digestとrepo/workflow/refを結びつける証拠。build環境が汚染されていれば、その汚染されたbuildの結果にもvalid provenanceが付く。本文では「出どころは分かるが、作る途中までは見ない」と言う。ここから、provenanceとは別にpublishへ進むためのApproveを求める話へつなげる。</p>
 <hr>
-<h1 id="事例-oidcだけでは止まらない">事例: OIDCだけでは止まらない</h1>
-<ul>
-<li>workflow改変でOIDC credentialを取得</li>
-<li>credentialをログへ出して持ち出す</li>
-<li>GitHub write権限がnpm publish権限へ広がる</li>
-<li>境界にEnvironment Approveを置く</li>
-</ul>
-<p>参考: <a href="https://blog.flatt.tech/entry/bitwarden_compromise">GMO Flatt Security Blog</a></p>
-<p>^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も <code>_npmUser</code> は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。</p>
-<hr>
-<h1 id="environmentでapproveとrefを制御する">EnvironmentでApproveとrefを制御する</h1>
-<p><img alt="inline 65%" src="img/github-environment-cropped.png"></p>
-<p>^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの <code>GITHUB_REF</code> からdeployできるか」を見る。npm Environmentでは <code>refs/pull/*/merge</code> だけを許可し、さらにApproveしないとjobが続行しない。</p>
-<hr>
-<h1 id="merge-refだけを許可する">merge refだけを許可する</h1>
-<ul>
-<li>GitHubがPR用のmerge refを作る</li>
-<li>許可するrefは <code>refs/pull/*/merge</code> のみ</li>
-<li>Approveするまで<code>release</code> jobは開始しないようにできる</li>
-</ul>
-<p><img alt="right fit 85%" src="img/github-environment-ref-rule.png"></p>
-<p>参考: <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags">GitHub Docs</a> / <a href="https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/">GitHub Changelog</a></p>
-<p>^ <code>refs/pull/&lt;n&gt;/merge</code> は普通のbranchではなく、PRごとにGitHubが作る一時的なread-only ref。ユーザーが自由に作れるrefではない。ユーザーが同名branchを作っても <code>refs/heads/pull/...</code> であり、<code>refs/pull/...</code> にはならない。Environmentのbranch/tag ruleはworkflow runの <code>GITHUB_REF</code> を見る。<code>pull_request</code> 系では <code>refs/pull/&lt;n&gt;/merge</code> が評価されるので、npm Environmentには <code>refs/pull/*/merge</code> だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。</p>
-<hr>
-<h1 id="コンテンツ改変だけではpublishへ進ませない">コンテンツ改変だけではpublishへ進ませない</h1>
+<h1 id="workflow改変だけではpublishへ進ませない">Workflow改変だけではpublishへ進ませない</h1>
 <ul>
 <li>npmのTrusted Publisherはworkflowファイル名とEnvironment名を確認する</li>
-<li>Environmentは <code>refs/pull/*/merge</code> だけ許可する</li>
-<li>Environmentはrequired reviewersのApproveも必要</li>
-<li>workflowファイル名一致だけではOIDC交換まで進めない</li>
+<li>Environmentで <code>refs/pull/*/merge</code> だけJobの実行を許可</li>
+<li>Environmentで、required reviewersのApproveがJobの実行に必要</li>
+<li>→ workflowファイル名一致だけではOIDC交換まで進めない</li>
 </ul>
 <p>^ workflow改変そのものをEnvironmentが止めるわけではない。Trusted Publisherのworkflow file制限、Environment名、Environmentのref制限、required reviewersのApproveを組み合わせる。直接pushや任意branchからの実行では npm Environment を通れない。PRのmerge refだけを許可し、最後にApproveを要求する。</p>
 <hr>
@@ -300,12 +298,23 @@ steps:
 <p><img alt="inline 72%" src="img/environment-name-screenshots.png"></p>
 <p>^ <code>release.yml</code> の <code>environment: npm</code> はGitHub ActionsのEnvironment名。npm Trusted Publisherにも同じEnvironment nameとして <code>npm</code> を登録する。npmはOIDC tokenのclaimに含まれるrepository、workflow file、environmentを見て、登録されたTrusted Publisherと一致するとtoken exchangeする。workflowファイル名だけではなく、Environment名一致と、Environment側のApprove/ref制限まで通って初めてpublishへ進める。</p>
 <hr>
+<h1 id="事例-workflow改変--oidcの問題">事例: Workflow改変 + OIDCの問題</h1>
+<ul>
+<li>Bitwarden CLIのサプライチェーン攻撃の事例</li>
+<li>workflow改変 + 直接pushでOIDC credentialを取得</li>
+<li>credentialを持ち出して、悪意あるパッケージを公開</li>
+<li>GitHub write権限がnpm publish権限へ広がる</li>
+<li>境界にEnvironment Approveを置く</li>
+</ul>
+<p>参考: <a href="https://blog.flatt.tech/entry/bitwarden_compromise">Bitwarden ソフトウェアサプライチェーン攻撃の概要と対応指針 - GMO Flatt Security Blog</a></p>
+<p>^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も <code>_npmUser</code> は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。</p>
+<hr>
 <h1 id="4-npm-staged-publishing">4. npm staged publishing</h1>
 <hr>
 <h1 id="公開前にapprove-stepを追加する">公開前にApprove stepを追加する</h1>
 <ul>
 <li>npm publish は直接公開、npm stage publish はApprove待ちにする</li>
-<li>OIDC設定で publish と stage publish のどちらを許可するか選べる</li>
+<li>パッケージ設定でpublishとstage publishを許可するか選べる</li>
 <li>stage publishのみ許可にすると、直接公開は拒否される</li>
 <li>npm 11.15.0以上 / Node 22.14.0以上、OIDC時のみ利用可</li>
 </ul>
@@ -323,7 +332,7 @@ steps:
 <h1 id="staged-publishingの課題">staged publishingの課題</h1>
 <ul>
 <li>Approveが1パッケージずつしかできない</li>
-<li>monorepo（40個一括）だと現実的でない</li>
+<li>monorepo（数十個一括）だと現実的でない</li>
 <li>CLIからapproveするにはnpmトークンが要る</li>
 <li>npm / GitHubのどちらか一方はtokenlessに寄せる</li>
 </ul>
@@ -350,6 +359,8 @@ steps:
 </ul>
 <p>^ 自動化とAIは別物。最小権限とApproveという原則は変わらない。</p>
 <hr>
+<h1 id="fit-ありがとうございました">[fit] ありがとうございました</h1>
+<hr>
 <h1 id="参考リンク">参考リンク</h1>
 <ul>
 <li>npm OIDC: <a href="https://efcl.info/2025/09/07/npm-oidc/">efcl.info/2025/09/07/npm-oidc/</a></li>
@@ -361,8 +372,6 @@ steps:
 <li>npm staged publishing: <a href="https://docs.npmjs.com/staged-publishing">docs.npmjs.com/staged-publishing</a></li>
 <li>GitHub changelog: <a href="https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/"><code>pull_request_target</code> and environment branch protections</a></li>
 </ul>
-<hr>
-<h1 id="fit-ありがとうございました">[fit] ありがとうございました</h1>
 <hr>
 <h1 id="その他">その他</h1>
 <hr>
