@@ -467,3 +467,9 @@ steps:
 - 他は`gh`やスクリプトを書くことで、外部依存は可能な限り減らす
 
 ---
+
+# Workflow execution protections
+
+- [Workflow execution protections](https://docs.github.com/en/organizations/managing-organization-settings/actions-policies/workflow-execution-protections)
+- 「誰が」が「どのイベント」のWorkflowを発火できるかを制御できるポリシー
+- 特定のWorkflowだけを対象にはできないので、ちょっと大雑把
