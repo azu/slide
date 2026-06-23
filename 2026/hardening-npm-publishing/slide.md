@@ -286,20 +286,7 @@ steps:
 
 ---
 
-# 事例: OIDCだけでは止まらない
-
-- workflow改変でOIDC credentialを取得
-- credentialをログへ出して持ち出す
-- GitHub write権限がnpm publish権限へ広がる
-- 境界にEnvironment Approveを置く
-
-参考: [GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
-
-^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も `_npmUser` は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。
-
----
-
-# EnvironmentでApproveとrefを制御する
+# EnvironmentでJobの実行を制御する
 
 ![inline 65%](img/github-environment-cropped.png)
 
@@ -307,7 +294,7 @@ steps:
 
 ---
 
-# merge refだけを許可する
+# Jobの実行をPRをマージしたタイミングのみで許可
 
 - GitHubがPR用のmerge refを作る
 - 許可するrefは `refs/pull/*/merge` のみ
@@ -324,9 +311,9 @@ steps:
 # コンテンツ改変だけではpublishへ進ませない
 
 - npmのTrusted Publisherはworkflowファイル名とEnvironment名を確認する
-- Environmentは `refs/pull/*/merge` だけ許可する
-- Environmentはrequired reviewersのApproveも必要
-- workflowファイル名一致だけではOIDC交換まで進めない
+- Environmentで `refs/pull/*/merge` だけJobの実行を許可
+- Environmentで、required reviewersのApproveがJobの実行に必要
+- → workflowファイル名一致だけではOIDC交換まで進めない
 
 ^ workflow改変そのものをEnvironmentが止めるわけではない。Trusted Publisherのworkflow file制限、Environment名、Environmentのref制限、required reviewersのApproveを組み合わせる。直接pushや任意branchからの実行では npm Environment を通れない。PRのmerge refだけを許可し、最後にApproveを要求する。
 
@@ -340,6 +327,20 @@ steps:
 
 ---
 
+# 事例: OIDCだけでは別に安全にはならない
+
+- Bitwarden CLIのサプライチェーン攻撃の事例
+- workflow改変 + 直接pushでOIDC credentialを取得
+- credentialを持ち出して、悪意あるパッケージを公開
+- GitHub write権限がnpm publish権限へ広がる
+- 境界にEnvironment Approveを置く
+
+参考: [Bitwarden ソフトウェアサプライチェーン攻撃の概要と対応指針 - GMO Flatt Security Blog](https://blog.flatt.tech/entry/bitwarden_compromise)
+
+^ Bitwarden CLIはTrusted Publishingを使っていた。悪性 2026.4.0 も `_npmUser` は GitHub Actions / OIDC だが、provenance attestation は欠落していた。攻撃者はworkflow内でGitHub ActionsのOIDC tokenをnpmの短期credentialへ交換し、それをログ経由で持ち出していた。長期npm tokenを消しても、workflow変更権限がpublish権限へ広がる点は別の問題。ここが権限カスケード。Environmentのrequired reviewersを入れると、workflowを変えただけではpublishへ進めない。
+
+---
+
 # 4. npm staged publishing
 
 ---
@@ -347,7 +348,7 @@ steps:
 # 公開前にApprove stepを追加する
 
 - npm publish は直接公開、npm stage publish はApprove待ちにする
-- OIDC設定で publish と stage publish のどちらを許可するか選べる
+- パッケージ設定でpublishとstage publishを許可するか選べる
 - stage publishのみ許可にすると、直接公開は拒否される
 - npm 11.15.0以上 / Node 22.14.0以上、OIDC時のみ利用可
 
@@ -376,7 +377,7 @@ steps:
 # staged publishingの課題
 
 - Approveが1パッケージずつしかできない
-- monorepo（40個一括）だと現実的でない
+- monorepo（数十個一括）だと現実的でない
 - CLIからapproveするにはnpmトークンが要る
 - npm / GitHubのどちらか一方はtokenlessに寄せる
 
