@@ -82,8 +82,8 @@
   <text class="controlSub" x="245" y="421">長期tokenを置かない</text>
   <text class="controlTitle" x="480" y="394">OIDC</text>
   <text class="controlSub" x="480" y="421">短期credential</text>
-  <text class="controlTitle" x="720" y="394">provenance</text>
-  <text class="controlSub" x="720" y="421">出どころを残す</text>
+  <text class="controlTitle" x="720" y="394">Environment</text>
+  <text class="controlSub" x="720" y="421">publish前にApprove</text>
   <text class="controlTitle" x="955" y="394">staged</text>
   <text class="controlSub" x="955" y="421">公開前にApprove</text>
 </svg>

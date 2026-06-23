@@ -10,7 +10,8 @@
       .title { font: 700 30px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #1a365d; text-anchor: middle; }
       .gateTitle { font: 700 30px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #7b341e; text-anchor: middle; }
       .desc { font: 20px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #2d3748; text-anchor: middle; }
-      .arrow { font: 700 56px "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; fill: #2b6cb0; text-anchor: middle; dominant-baseline: central; }
+      .arrowLine { stroke: #2b6cb0; stroke-width: 4; stroke-linecap: round; }
+      .arrowHead { fill: #2b6cb0; }
     </style>
   </defs>
 
@@ -23,7 +24,8 @@
       <text class="desc" x="117.5" y="160">create-release-pr.yml</text>
       <text class="desc" x="117.5" y="190">がPRを自動作成</text>
     </g>
-    <text class="arrow" x="272" y="105">→</text>
+    <line class="arrowLine" x1="252" y1="105" x2="284" y2="105"/>
+    <polygon class="arrowHead" points="302,105 284,94 284,116"/>
 
     <g transform="translate(308,0)">
       <rect class="step" x="0" y="0" width="235" height="210" rx="16"/>
@@ -33,7 +35,8 @@
       <text class="desc" x="117.5" y="160">Type: Release</text>
       <text class="desc" x="117.5" y="190">ラベルで起動</text>
     </g>
-    <text class="arrow" x="580" y="105">→</text>
+    <line class="arrowLine" x1="560" y1="105" x2="592" y2="105"/>
+    <polygon class="arrowHead" points="610,105 592,94 592,116"/>
 
     <g transform="translate(616,0)">
       <rect class="gate" x="0" y="0" width="235" height="210" rx="16"/>
@@ -43,7 +46,8 @@
       <text class="desc" x="117.5" y="158">Environmentの</text>
       <text class="desc" x="117.5" y="185">reviewersがApprove</text>
     </g>
-    <text class="arrow" x="888" y="105">→</text>
+    <line class="arrowLine" x1="868" y1="105" x2="900" y2="105"/>
+    <polygon class="arrowHead" points="918,105 900,94 900,116"/>
 
     <g transform="translate(924,0)">
       <rect class="step" x="0" y="0" width="176" height="210" rx="16"/>

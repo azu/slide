@@ -160,7 +160,7 @@ azu (`@azu_re`)
 
 ---
 
-# OIDC Trusted Publishingとは
+# npm/OIDC Trusted Publishingとは
 
 - 個人に紐づく長期的なトークンをやめ、short-livedでworkflow固有のトークンでパッケージを公開する仕組み
 - npmとGitHub ActionsがOIDCでToken Exchangeする
@@ -244,8 +244,8 @@ steps:
 # Step 2: Merge Release PR
 
 - Release PRをレビューしてマージする
-- mainに入ったrelease commitだけがpublish候補になる
-- まだnpm publishは走らない
+- `environment: npm`を参照させて、jobの実行を待機させる
+    - GitHub Environmentsのフロー(Step 3)
 - Approveして初めて`release` jobが動作する
 
 ![right fit 85%](./img/approve-to-run.png)
@@ -266,10 +266,39 @@ steps:
 
 - Approve後に`release` jobが開始
 - OIDCでnpmとtoken exchangeする
-- npm publishまたはnpm stage publishを実行する
+- npm publishを実行してパッケージを公開
 - provenance付きでregistryへ公開される
 
 ^ Step 4で初めてnpm側に公開する。Approve前はpublish権限へ進めない。staged publishingを使う場合は、ここでstage publishしてnpm側のApprove待ちにする。
+
+---
+
+# EnvironmentsのDeployment protection rules
+
+![inline 65%](img/github-environment-cropped.png)
+
+^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの `GITHUB_REF` からdeployできるか」を見る。npm Environmentでは `refs/pull/*/merge` だけを許可し、さらにApproveしないとjobが続行しない。
+
+---
+
+# Jobの実行をPRをマージしたタイミングのみで許可
+
+- GitHubがPR用のmerge refを作る
+- 許可するrefは `refs/pull/*/merge` のみ
+  - → 必ずPRを経由しないとWorkflowが実行できない = 目立たせる
+- Approveするまで`release` jobは開始しないようにできる
+
+![right fit 85%](img/github-environment-ref-rule.png)
+
+参考: [GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags) / [GitHub Changelog](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
+
+^ Environmentのbranch/tag ruleはworkflow runの `GITHUB_REF` を見る。`refs/pull/<n>/merge` はGitHubがPR用に作るmerge refで、ユーザーが通常branchとして作るものではない。`pull_request` 系では `GITHUB_REF` が `refs/pull/<n>/merge` になるので、npm Environmentには `refs/pull/*/merge` だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。
+
+---
+
+# GitHub Environments
+
+## なぜDeployment protection rulesを使うか
 
 ---
 
@@ -286,29 +315,7 @@ steps:
 
 ---
 
-# EnvironmentでJobの実行を制御する
-
-![inline 65%](img/github-environment-cropped.png)
-
-^ 上はrequired reviewers、下はDeployment branches and tags。Environmentは「誰がApproveするか」と「どの `GITHUB_REF` からdeployできるか」を見る。npm Environmentでは `refs/pull/*/merge` だけを許可し、さらにApproveしないとjobが続行しない。
-
----
-
-# Jobの実行をPRをマージしたタイミングのみで許可
-
-- GitHubがPR用のmerge refを作る
-- 許可するrefは `refs/pull/*/merge` のみ
-- Approveするまで`release` jobは開始しないようにできる
-
-![right fit 85%](img/github-environment-ref-rule.png)
-
-参考: [GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments#deployment-branches-and-tags) / [GitHub Changelog](https://github.blog/changelog/2025-11-07-actions-pull_request_target-and-environment-branch-protections-changes/)
-
-^ `refs/pull/<n>/merge` は普通のbranchではなく、PRごとにGitHubが作る一時的なread-only ref。ユーザーが自由に作れるrefではない。ユーザーが同名branchを作っても `refs/heads/pull/...` であり、`refs/pull/...` にはならない。Environmentのbranch/tag ruleはworkflow runの `GITHUB_REF` を見る。`pull_request` 系では `refs/pull/<n>/merge` が評価されるので、npm Environmentには `refs/pull/*/merge` だけを許可する。これは単体でworkflow改変を止めるものではなく、PR/review、Environmentのref制限、required reviewersのApproveを組み合わせる話。
-
----
-
-# コンテンツ改変だけではpublishへ進ませない
+# Workflow改変だけではpublishへ進ませない
 
 - npmのTrusted Publisherはworkflowファイル名とEnvironment名を確認する
 - Environmentで `refs/pull/*/merge` だけJobの実行を許可
@@ -327,7 +334,7 @@ steps:
 
 ---
 
-# 事例: OIDCだけでは別に安全にはならない
+# 事例: Workflow改変 + OIDCの問題
 
 - Bitwarden CLIのサプライチェーン攻撃の事例
 - workflow改変 + 直接pushでOIDC credentialを取得

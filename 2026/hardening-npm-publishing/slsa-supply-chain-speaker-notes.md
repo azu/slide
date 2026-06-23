@@ -169,12 +169,22 @@ flowchart LR
 
 `refs/pull/<n>/merge` の説明:
 
-- 普通のbranchではなく、PRごとにGitHubが作る一時的なread-only ref
-- ユーザーが自由に作れるrefではない
-- ユーザーが同名branchを作っても `refs/heads/pull/...` であり、`refs/pull/...` ではない
+- GitHubがPRごとに作るPR用のmerge ref
+- ユーザーが通常のbranchとして作るものではない
+- `pull/123/merge` のようなbranch名自体は作れる
+- ただし、その完全なrefは `refs/heads/pull/123/merge` であり、PR用の `refs/pull/123/merge` とは別物
 - Environmentのbranch/tag ruleは `GITHUB_REF` を評価する
 - `pull_request` 系では `GITHUB_REF` が `refs/pull/<n>/merge` になる
 - だからnpm Environmentで `refs/pull/*/merge` だけ許可し、required reviewersのApproveと組み合わせる
+
+検証メモ:
+
+- `pull/*/merge` という文字列そのもののbranchは作れない。`*` は Git のref名に使えない
+- `git check-ref-format --branch 'pull/*/merge'` は invalid
+- `pull/20260623172630/merge` のように具体的な数字へ置き換えるとbranchとして作れる
+- 実際に `git push origin HEAD:refs/heads/pull/20260623172630/merge` は成功し、`git ls-remote --heads origin 'pull/20260623172630/merge'` では `refs/heads/pull/20260623172630/merge` と表示された
+- つまり、攻撃者が同名っぽいbranchを作っても `refs/heads/...` に入るだけで、GitHub ActionsのPR用 `refs/pull/...` にはならない
+- 参照: [git-check-ref-format](https://git-scm.com/docs/git-check-ref-format), [GitHub Actions events](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows), [GitHub Actions variables](https://docs.github.com/en/actions/reference/workflows-and-actions/variables)
 
 Bitwarden CLI 事例の言い方:
 
