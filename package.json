@@ -8,7 +8,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/*.js",
+    "test": "node --test _tools/**/*.test.mjs",
+    "pdf-slide-html": "node ./_tools/pdf-slide-html/cmd.mjs",
     "release": "npm run update-index && git add index.html && git commit -m 'update index' && npm version patch && git push --follow-tags",
     "update-index": "node ./_tools/indexing.mjs"
   },
@@ -26,6 +27,7 @@
     "handlebars": "^4.7.7",
     "q": "^1.0.1",
     "q-io": "^1.11.2",
+    "safe-marked": "^16.0.0",
     "textlint": "^12.2.3",
     "textlint-rule-preset-ja-technical-writing": "^7.0.0"
   },
